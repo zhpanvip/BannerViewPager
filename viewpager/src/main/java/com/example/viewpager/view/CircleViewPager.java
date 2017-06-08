@@ -16,7 +16,6 @@ import com.example.viewpager.adapter.CirclePagerAdapter;
 import com.example.viewpager.R;
 import com.example.viewpager.utils.ImageLoaderUtil;
 import com.example.viewpager.utils.ScreenUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,6 +47,8 @@ public class CircleViewPager extends FrameLayout {
     private int prePosition = 0;
     //  图片当前位置
     private int currentPosition = 1;
+    //  是否循环
+    private boolean isLoop;
 
     private LinearLayout mLinearLayoutDot;
     private OnPageClickListener mOnPageClickListener;
@@ -64,7 +65,6 @@ public class CircleViewPager extends FrameLayout {
         }
     };
 
-    private boolean isLoop;
 
     public CircleViewPager(Context context) {
         super(context);
@@ -88,7 +88,6 @@ public class CircleViewPager extends FrameLayout {
             initImage();
             setDotImage();
             setViewPager();
-
         }
     }
 
@@ -143,12 +142,12 @@ public class CircleViewPager extends FrameLayout {
                     case MotionEvent.ACTION_DOWN:
                     case MotionEvent.ACTION_MOVE:
                         isLoop = true;
-                        stopLoopViewPager();
+                        stopCircleViewPager();
                         break;
                     case MotionEvent.ACTION_UP:
                     case MotionEvent.ACTION_CANCEL:
                         isLoop = false;
-                        startLoopViewPager();
+                        startCircleViewPager();
                     default:
                         break;
                 }
@@ -157,14 +156,14 @@ public class CircleViewPager extends FrameLayout {
         });
     }
 
-    private void startLoopViewPager() {
+    private void startCircleViewPager() {
         if (!isLoop && mViewPager != null) {
             mHandler.postDelayed(mRunnable, interval);// 每两秒执行一次runnable.
             isLoop = true;
         }
     }
 
-    public void stopLoopViewPager() {
+    public void stopCircleViewPager() {
         if (isLoop && mViewPager != null) {
             mHandler.removeCallbacks(mRunnable);
             isLoop = false;
@@ -198,7 +197,7 @@ public class CircleViewPager extends FrameLayout {
         mViewPager.setCurrentItem(currentPosition);
 
         setPageChangeListener();
-        startLoopViewPager();
+        startCircleViewPager();
         setTouchListener();
     }
 

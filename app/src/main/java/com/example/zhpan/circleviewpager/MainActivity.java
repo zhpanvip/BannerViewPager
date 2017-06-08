@@ -42,10 +42,9 @@ public class MainActivity extends AppCompatActivity {
         mViewpager.setOnPageClickListener(new CircleViewPager.OnPageClickListener() {
             @Override
             public void pageClickListener(int position) {
-                Toast.makeText(MainActivity.this, mViewpager.getUrlList().get(position), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "点击了第"+position+"个美眉 \nURL:"+mViewpager.getUrlList().get(position), Toast.LENGTH_SHORT).show();
             }
         });
     }
-
 
 }

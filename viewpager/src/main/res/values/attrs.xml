@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="MyViewPager">
+        <!--选中时的圆点图片-->
         <attr name="lightDotRes" format="reference"/>
+        <!--未选中时的圆点图片-->
         <attr name="darkDotRes" format="reference"/>
+        <!--圆点半径-->
         <attr name="dotWidth" format="dimension"/>
+        <!--页面切换时间间隔-->
         <attr name="interval" format="integer"/>
 
     </declare-styleable>
