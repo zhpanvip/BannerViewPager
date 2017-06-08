@@ -3,15 +3,19 @@ package com.example.zhpan.circleviewpager;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Handler;
-import android.os.Message;
-import android.os.SystemClock;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.example.zhpan.circleviewpager.utils.ImageLoaderUtil;
+import com.example.zhpan.circleviewpager.utils.ScreenUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +29,8 @@ public class CircleViewPager extends FrameLayout {
     private ViewPager mViewPager;
     private List<ImageView> mImageViewList;
     private List<ImageView> mImageViewDotList;
+    //    图片连接集合
+    private List<String> mUrlList;
     private int[] images;
     private LinearLayout mLinearLayoutDot;
     private int dotPosition = 0;
@@ -32,20 +38,32 @@ public class CircleViewPager extends FrameLayout {
     private int currentPosition = 1;
     private CirclePagerAdapter adapter;
 
-    private int mLightDotRes;   //  选中时轮播圆点资源id
-    private int mDarkDotRes;    //  未选中时轮播圆点资源id
-    private float mDotWidth;   //   轮播原点宽度
-    private int interval;   //  图片切换时间间隔
+    //  选中时轮播圆点资源id
+    private int mLightDotRes;
+    //  未选中时轮播圆点资源id
+    private int mDarkDotRes;
+    //   轮播原点宽度
+    private float mDotWidth;
+    //  图片切换时间间隔
+    private int interval;
+    //图片的数量，item的数量
+    private int imgsize = 0;
 
-    Handler handler = new Handler() {
+    private Context mContext;
+
+    Handler mHandler = new Handler();
+    Runnable mRunnable = new Runnable() {
         @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            if (msg.what == 1) {
-                mViewPager.setCurrentItem(currentPosition, false);
+        public void run() {
+            if (mViewPager.getChildCount() > 1) {
+                mHandler.postDelayed(this, interval);
+                currentPosition++;
+                mViewPager.setCurrentItem(currentPosition, true);
             }
         }
     };
+
+    private boolean isLoop;
 
     public CircleViewPager(Context context) {
         super(context);
@@ -59,6 +77,7 @@ public class CircleViewPager extends FrameLayout {
 
     public CircleViewPager(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        this.mContext=context;
         initView(attrs);
     }
 
@@ -69,7 +88,7 @@ public class CircleViewPager extends FrameLayout {
             initData();
             setDot();
             setViewPager();
-            autoPlay();
+            startLoopViewPager();
         }
     }
 
@@ -79,11 +98,71 @@ public class CircleViewPager extends FrameLayout {
             mLightDotRes = typedArray.getResourceId(R.styleable.MyViewPager_lightDotRes, R.drawable.red_dot);
             mDarkDotRes = typedArray.getResourceId(R.styleable.MyViewPager_darkDotRes, R.drawable.red_dot_night);
             mDotWidth = typedArray.getDimension(R.styleable.MyViewPager_dotWidth, 20);
-            interval=typedArray.getInteger(R.styleable.MyViewPager_interval,3000);
+            interval = typedArray.getInteger(R.styleable.MyViewPager_interval, 3000);
         }
         mView = LayoutInflater.from(getContext()).inflate(R.layout.view_pager_layout, this);
         mLinearLayoutDot = (LinearLayout) mView.findViewById(R.id.ll_main_dot);
         mViewPager = (ViewPager) mView.findViewById(R.id.vp_main);
+    }
+
+    private void initAdimgs(List<String> urls) {
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+
+        int length=urls.size();
+        if(urls.size()==1){
+            length=1;
+        }else if (urls.size()>1) {
+            length = urls.size() + 2;
+        }
+        mImageViewList = new ArrayList<>(length);
+        for (int i = 0; i < length; i++) {
+            ImageView imageView = new ImageView(mContext);
+            imageView.setLayoutParams(params);
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            mImageViewList.add(i,imageView);
+            //mImageViewList[i] = imageView;
+        }
+        setImg(length, urls);
+    }
+
+    private void setImg(int length, List<String> urls) {
+        if(urls.size()==1){
+            Glide.with(mContext).load(urls.get(0)).placeholder(R.mipmap.ic_launcher)
+                    .into(mImageViewList.get(0));
+            mImageViewList.get(0).setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    /*if (onAdItemClickListener != null) {
+                        onAdItemClickListener.onItemClick(mImageViews[0], (forwardUrl!=null &&forwardUrl.size()>0)?forwardUrl.get(0):"");
+                    }*/
+                }
+            });
+        }else if (urls.size() > 1) {
+            imgsize = length;
+            for (int i = 0; i < length; i++) {
+                if (i < length - 2) {
+                    final int index = i;
+                    Glide.with(mContext).load(urls.get(i)).placeholder(R.mipmap.ic_launcher)
+                            .into(mImageViewList.get(i+1));
+                    mImageViewList.get(i+1).setOnClickListener(new View.OnClickListener() {
+
+                        @Override
+                        public void onClick(View v) {
+                           /* if (onAdItemClickListener != null) {
+                                onAdItemClickListener.onItemClick(mImageViews[index + 1], (forwardUrl!=null &&forwardUrl.size()>index)?forwardUrl.get(index):"");
+                            }*/
+                        }
+                    });
+                }
+            }
+
+            Glide.with(mContext).load(urls.get(urls.size() - 1)).placeholder(R.mipmap.ic_launcher)
+                    .into(mImageViewList.get(0));
+            Glide.with(mContext).load(urls.get(0)).placeholder(R.mipmap.ic_launcher)
+                    .into(mImageViewList.get(length-1));
+        }
     }
 
 
@@ -91,22 +170,63 @@ public class CircleViewPager extends FrameLayout {
         mImageViewList = new ArrayList<>();
         mImageViewDotList = new ArrayList<>();
         ImageView imageView;
-        if (images.length > 0) {
-            for (int i = 0; i < images.length + 2; i++) {
+        if (mUrlList.size() > 0) {
+            for (int i = 0; i < mUrlList.size() + 2; i++) {
                 if (i == 0) {   //判断当i=0为该处的ImageView设置最后一张图片作为背景
                     imageView = new ImageView(getContext());
-                    imageView.setBackgroundResource(images[images.length - 1]);
+                    //imageView.setBackgroundResource(images[images.length - 1]);
+                    ImageLoaderUtil.loadImg(imageView,mUrlList.get(mUrlList.size()-1));
                     mImageViewList.add(imageView);
-                } else if (i == images.length + 1) {   //判断当i=images.length+1时为该处的ImageView设置第一张图片作为背景
+
+                } else if (i == mUrlList.size() + 1) {   //判断当i=images.length+1时为该处的ImageView设置第一张图片作为背景
                     imageView = new ImageView(getContext());
-                    imageView.setBackgroundResource(images[0]);
+                   // imageView.setBackgroundResource(images[0]);
+                     ImageLoaderUtil.loadImg(imageView,mUrlList.get(0));
                     mImageViewList.add(imageView);
                 } else {  //其他情况则为ImageView设置images[i-1]的图片作为背景
                     imageView = new ImageView(getContext());
-                    imageView.setBackgroundResource(images[i - 1]);
+                   // imageView.setBackgroundResource(images[i - 1]);
+                     ImageLoaderUtil.loadImg(imageView,mUrlList.get(i-1));
                     mImageViewList.add(imageView);
                 }
             }
+
+
+
+            mViewPager.setOnTouchListener(new OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    int action = event.getAction();
+                    switch (action) {
+                        case MotionEvent.ACTION_DOWN:
+                        case MotionEvent.ACTION_MOVE:
+                            isLoop = true;
+                            stopLoopViewPager();
+                            break;
+                        case MotionEvent.ACTION_UP:
+                        case MotionEvent.ACTION_CANCEL:
+                            isLoop = false;
+                            startLoopViewPager();
+                        default:
+                            break;
+                    }
+                    return false;
+                }
+            });
+        }
+    }
+
+    private void startLoopViewPager() {
+        if (!isLoop && mViewPager != null) {
+            mHandler.postDelayed(mRunnable, interval);// 每两秒执行一次runnable.
+            isLoop = true;
+        }
+    }
+
+    public void stopLoopViewPager() {
+        if (isLoop && mViewPager != null) {
+            mHandler.removeCallbacks(mRunnable);
+            isLoop = false;
         }
     }
 
@@ -116,7 +236,7 @@ public class CircleViewPager extends FrameLayout {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int) mDotWidth, (int) mDotWidth);
         params.rightMargin = (int) (mDotWidth / 1.5);
         //  for循环创建images.length个ImageView（小圆点）
-        for (int i = 0; i < images.length; i++) {
+        for (int i = 0; i < mUrlList.size(); i++) {
             ImageView imageViewDot = new ImageView(getContext());
             imageViewDot.setLayoutParams(params);
             //  设置小圆点的背景为暗红图片
@@ -125,14 +245,14 @@ public class CircleViewPager extends FrameLayout {
             mImageViewDotList.add(imageViewDot);
         }
         //设置第一个小圆点图片背景为红色
-        if (images.length > 0){
+        if (mUrlList.size() > 0) {
             mImageViewDotList.get(dotPosition).setBackgroundResource(mLightDotRes);
         }
     }
 
 
     private void setViewPager() {
-        adapter = new CirclePagerAdapter(mImageViewList);
+        adapter = new CirclePagerAdapter(mImageViewList,this);
 
         mViewPager.setAdapter(adapter);
 
@@ -143,12 +263,13 @@ public class CircleViewPager extends FrameLayout {
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
             }
+
             @Override
             public void onPageSelected(int position) {
                 if (position == 0) {    //判断当切换到第0个页面时把currentPosition设置为images.length,即倒数第二个位置，小圆点位置为length-1
-                    currentPosition = images.length;
-                    dotPosition = images.length - 1;
-                } else if (position == images.length + 1) {    //当切换到最后一个页面时currentPosition设置为第一个位置，小圆点位置为0
+                    currentPosition = mUrlList.size();
+                    dotPosition = mUrlList.size() - 1;
+                } else if (position == mUrlList.size() + 1) {    //当切换到最后一个页面时currentPosition设置为第一个位置，小圆点位置为0
                     currentPosition = 1;
                     dotPosition = 0;
                 } else {
@@ -171,22 +292,9 @@ public class CircleViewPager extends FrameLayout {
         });
     }
 
-
-    //  设置自动播放
-    private void autoPlay() {
-        new Thread() {
-            @Override
-            public void run() {
-                super.run();
-                while (true) {
-                    SystemClock.sleep(interval);
-                    currentPosition++;
-                    handler.sendEmptyMessage(1);
-                }
-            }
-        }.start();
+    public void imageClick(int position){
+        Toast.makeText(mContext, "点击了"+position, Toast.LENGTH_SHORT).show();
     }
-
 
     public float getDotWidth() {
         return mDotWidth;
@@ -223,5 +331,13 @@ public class CircleViewPager extends FrameLayout {
 
     public void setInterval(int interval) {
         this.interval = interval;
+    }
+
+    public List<String> getUrlList() {
+        return mUrlList;
+    }
+
+    public void setUrlList(List<String> urlList) {
+        mUrlList = urlList;
     }
 }

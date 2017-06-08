@@ -1,4 +1,4 @@
-package com.example.zhpan.circleviewpager;
+package com.example.zhpan.circleviewpager.utils;
 
 import android.content.Context;
 import android.util.DisplayMetrics;
