@@ -37,4 +37,4 @@ private void initView() {
         });
     }
 ```
-[详情请点击此处](http://write.blog.csdn.net/mdeditor#!postId=52037929)
+[详情请点击此处](http://blog.csdn.net/qq_20521573/article/details/52037929)
