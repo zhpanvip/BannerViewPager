@@ -17,13 +17,14 @@ Activity中
 
 ```
 private void initView() {
+        mViewpager = (CircleViewPager) findViewById(R.id.viewpager);
+
         mList.add("http://pic.58pic.com/58pic/15/36/01/17C58PICR67_1024.jpg");
         mList.add("http://img.tupianzj.com/uploads/allimg/160822/9-160R2213608.jpg");
         mList.add("http://img1.ph.126.net/3NuwEWzx-efuHLUhoAg1Rw==/1459447754345023507.jpg");
         mList.add("http://pic.58pic.com/58pic/15/36/02/06Q58PICH7S_1024.jpg");
         mList.add("http://images.jfdaily.com/jiefang/life/new/201502/W020150213267781833219.jpg");
-        mViewpager = (CircleViewPager) findViewById(R.id.viewpager);
-        //mViewpager.setImages(images);
+        
         mViewpager.setDarkDotRes(R.mipmap.ic_launcher);
         mViewpager.setDotWidth(10);
         mViewpager.setInterval(5000);
@@ -36,4 +37,4 @@ private void initView() {
         });
     }
 ```
-[详情请点击](http://write.blog.csdn.net/mdeditor#!postId=52037929)
+[详情请点击此处](http://write.blog.csdn.net/mdeditor#!postId=52037929)
