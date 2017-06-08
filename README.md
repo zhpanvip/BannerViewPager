@@ -1,5 +1,7 @@
 # CircleViewPager
 无限循环轮播的ViewPager
+
+
 ![这里写图片描述](http://img.blog.csdn.net/20160726200103033)
 
 采用Gilded框架加载图片
@@ -34,3 +36,4 @@ private void initView() {
         });
     }
 ```
+[详情请点击](http://write.blog.csdn.net/mdeditor#!postId=52037929)
