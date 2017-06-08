@@ -4,7 +4,7 @@
 
 ![这里写图片描述](http://img.blog.csdn.net/20160726200103033)
 
-采用Gilded框架加载图片
+采用Gilde框架加载图片
 
 xml中添加
 ```
