@@ -1,6 +1,8 @@
 # CircleViewPager
 无限循环轮播的ViewPager
-采用Gilded框架加载图片，也可以更改为自己项目的图片加载框架，只需要修改ImageLoader工具类即可
+![这里写图片描述](http://img.blog.csdn.net/20160726200103033)
+
+采用Gilded框架加载图片
 
 xml中添加
 ```
