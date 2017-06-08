@@ -1,24 +1,25 @@
-package com.example.zhpan.circleviewpager;
+package com.example.viewpager.adapter;
 
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
+
+import com.example.viewpager.view.CircleViewPager;
 
 import java.util.List;
 
 /**
- * Created by edianzu on 2017/3/28.
+ * Created by zhpan on 2017/3/28.
  */
 
 public class CirclePagerAdapter extends PagerAdapter {
-    List<ImageView> list;
-    CircleViewPager viewPager;
+    private List<ImageView> list;
+    private CircleViewPager viewPager;
 
-    public CirclePagerAdapter(List<ImageView> list,CircleViewPager viewPager) {
+    public CirclePagerAdapter(List<ImageView> list, CircleViewPager viewPager) {
         this.list = list;
-        this.viewPager=viewPager;
+        this.viewPager = viewPager;
     }
 
     @Override
@@ -28,17 +29,17 @@ public class CirclePagerAdapter extends PagerAdapter {
 
     @Override
     public boolean isViewFromObject(View view, Object object) {
-        return view==object;
+        return view == object;
     }
 
     @Override
     public Object instantiateItem(final ViewGroup container, final int position) {
-        ImageView imageView=list.get(position);
+        ImageView imageView = list.get(position);
         container.addView(imageView);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    viewPager.imageClick(position-1);
+                viewPager.imageClick(position - 1);
             }
         });
         return list.get(position);
@@ -48,6 +49,4 @@ public class CirclePagerAdapter extends PagerAdapter {
     public void destroyItem(ViewGroup container, int position, Object object) {
         container.removeView(list.get(position));
     }
-
-
 }
