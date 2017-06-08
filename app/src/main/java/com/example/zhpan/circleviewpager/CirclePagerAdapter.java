@@ -38,8 +38,7 @@ public class CirclePagerAdapter extends PagerAdapter {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // Toast.makeText(container.getContext(), "点击了="+position, Toast.LENGTH_SHORT).show();
-                viewPager.imageClick(position);
+                    viewPager.imageClick(position-1);
             }
         });
         return list.get(position);
@@ -50,7 +49,5 @@ public class CirclePagerAdapter extends PagerAdapter {
         container.removeView(list.get(position));
     }
 
-    public interface OnPageClickListener{
-        void pageClickListener(int position);
-    }
+
 }

@@ -49,6 +49,8 @@ public class CircleViewPager extends FrameLayout {
     //图片的数量，item的数量
     private int imgsize = 0;
 
+    private OnPageClickListener mOnPageClickListener;
+
     private Context mContext;
 
     Handler mHandler = new Handler();
@@ -292,8 +294,12 @@ public class CircleViewPager extends FrameLayout {
         });
     }
 
+    public interface OnPageClickListener{
+        void pageClickListener(int position);
+    }
+
     public void imageClick(int position){
-        Toast.makeText(mContext, "点击了"+position, Toast.LENGTH_SHORT).show();
+        mOnPageClickListener.pageClickListener(position);
     }
 
     public float getDotWidth() {
@@ -327,6 +333,10 @@ public class CircleViewPager extends FrameLayout {
     public void setImages(int[] images) {
         this.images = images;
         invalidate();
+    }
+
+    public void setOnPageClickListener(OnPageClickListener onPageClickListener){
+        this.mOnPageClickListener=onPageClickListener;
     }
 
     public void setInterval(int interval) {
