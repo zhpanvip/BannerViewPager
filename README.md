@@ -1,5 +1,5 @@
 # CircleViewPager
-无限轮播的ViewPager
+无限循环轮播的ViewPager
 
 xml中添加
 ```
