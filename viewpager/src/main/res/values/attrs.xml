@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="MyViewPager">
+    <declare-styleable name="CircleViewPager">
         <!--选中时的圆点图片-->
         <attr name="lightDotRes" format="reference"/>
         <!--未选中时的圆点图片-->

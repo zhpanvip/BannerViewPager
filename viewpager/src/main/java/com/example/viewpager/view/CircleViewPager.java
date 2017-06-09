@@ -92,11 +92,12 @@ public class CircleViewPager extends FrameLayout {
 
     private void init(AttributeSet attrs) {
         if (attrs != null) {
-            TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.MyViewPager);
-            mLightDotRes = typedArray.getResourceId(R.styleable.MyViewPager_lightDotRes, R.drawable.red_dot);
-            mDarkDotRes = typedArray.getResourceId(R.styleable.MyViewPager_darkDotRes, R.drawable.red_dot_night);
-            mDotWidth = typedArray.getDimension(R.styleable.MyViewPager_dotWidth, 20);
-            interval = typedArray.getInteger(R.styleable.MyViewPager_interval, 3000);
+            TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.CircleViewPager);
+            mLightDotRes = typedArray.getResourceId(R.styleable.CircleViewPager_lightDotRes, R.drawable.red_dot);
+            mDarkDotRes = typedArray.getResourceId(R.styleable.CircleViewPager_darkDotRes, R.drawable.red_dot_night);
+            mDotWidth = typedArray.getDimension(R.styleable.CircleViewPager_dotWidth, 20);
+            interval = typedArray.getInteger(R.styleable.CircleViewPager_interval, 3000);
+            typedArray.recycle();
         }
         View mView = LayoutInflater.from(getContext()).inflate(R.layout.view_pager_layout, this);
         mLlDot = (LinearLayout) mView.findViewById(R.id.ll_main_dot);
