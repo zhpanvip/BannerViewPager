@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import com.example.viewpager.R;
 import com.example.viewpager.adapter.CirclePagerAdapter;
 import com.example.viewpager.utils.ImageLoaderUtil;
@@ -250,6 +249,7 @@ public class CircleViewPager extends FrameLayout {
 
     //  adapter中图片点击的回掉方法
     public void imageClick(int position) {
+        if(mOnPageClickListener!=null)
         mOnPageClickListener.onPageClick(position);
     }
 

@@ -10,5 +10,7 @@
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:lightDotRes="@mipmap/ic_launcher"/>
+        app:lightDotRes="@drawable/red_dot"
+        app:darkDotRes="@drawable/red_dot_night"
+        app:interval="5000"/>
 </RelativeLayout>
