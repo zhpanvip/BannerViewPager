@@ -12,7 +12,9 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private CircleViewPager mViewpager;
+    private CircleViewPager mViewPager2;
     private List<String> mList = new ArrayList<>();
+    private List<Integer> mListInt = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,14 +27,20 @@ public class MainActivity extends AppCompatActivity {
 
     private void initView() {
         mViewpager = (CircleViewPager) findViewById(R.id.viewpager);
+        mViewPager2 = (CircleViewPager) findViewById(R.id.viewpager2);
     }
 
     private void initData() {
-        mList.add("http://pic.58pic.com/58pic/15/36/01/17C58PICR67_1024.jpg");
-        mList.add("http://img.tupianzj.com/uploads/allimg/160822/9-160R2213608.jpg");
-        mList.add("http://img1.ph.126.net/3NuwEWzx-efuHLUhoAg1Rw==/1459447754345023507.jpg");
-        mList.add("http://pic.58pic.com/58pic/15/36/02/06Q58PICH7S_1024.jpg");
-        mList.add("http://images.jfdaily.com/jiefang/life/new/201502/W020150213267781833219.jpg");
+        mList.add("http://img0.imgtn.bdimg.com/it/u=3159618424,497154385&fm=214&gp=0.jpg");
+        mList.add("http://imgsrc.baidu.com/imgad/pic/item/810a19d8bc3eb1359d5a74a4ac1ea8d3fd1f4414.jpg");
+        mList.add("http://img4.imgtn.bdimg.com/it/u=928730363,1881984966&fm=214&gp=0.jpg");
+        mList.add("http://img4.imgtn.bdimg.com/it/u=3779410813,199087977&fm=214&gp=0.jpg");
+        mList.add("http://img2.niutuku.com/desk/1208/1450/ntk-1450-9891.jpg");
+
+        for (int i = 1; i <= 5; i++) {
+            int drawable = getResources().getIdentifier("a" + i, "drawable", getPackageName());
+            mListInt.add(drawable);
+        }
     }
 
     private void setViewPager() {
@@ -47,6 +55,14 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "点击了第" + position + "个美眉 \nURL:" + mViewpager.getUrlList().get(position), Toast.LENGTH_SHORT).show();
             }
         });
+
+        mViewPager2.setUrlList(mListInt);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mViewPager2.stopCircleViewPager();
+        mViewpager.stopCircleViewPager();
+    }
 }

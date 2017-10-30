@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import com.example.viewpager.R;
 import com.example.viewpager.adapter.CirclePagerAdapter;
+import com.example.viewpager.holder.HolderCreater;
 import com.example.viewpager.utils.ImageLoaderUtil;
 import com.example.viewpager.utils.ScreenUtils;
 import java.util.ArrayList;
@@ -23,14 +24,14 @@ import java.util.List;
  * Created by zhpan on 2017/3/28.
  */
 
-public class CircleViewPager extends FrameLayout {
+public class CircleViewPager <T> extends FrameLayout {
     private ViewPager mViewPager;
     //  图片对应的ImageView的集合
     private List<ImageView> mIvList;
     //  圆点对应的ImageView的集合
     private List<ImageView> mIvDotList;
     //    图片连接集合
-    private List<String> mUrlList;
+    private List<T> mUrlList;
     //  选中时轮播圆点资源id
     private int mLightDotRes;
     //  未选中时轮播圆点资源id
@@ -113,24 +114,44 @@ public class CircleViewPager extends FrameLayout {
                 if (i == 0) {   //判断当i=0为该处的ImageView设置最后一张图片作为背景
                     imageView = new ImageView(getContext());
                     imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-                    ImageLoaderUtil.loadImg(imageView, mUrlList.get(mUrlList.size() - 1));
+                    T data = mUrlList.get(mUrlList.size() - 1);
+                    if(data instanceof String)
+                    ImageLoaderUtil.loadImg(imageView, (String) data);
+                    else if(data instanceof Integer){
+                        imageView.setBackgroundResource((Integer) data);
+                    }
                     mIvList.add(imageView);
                 } else if (i == mUrlList.size() + 1) {   //判断当i=images.length+1时为该处的ImageView设置第一张图片作为背景
                     imageView = new ImageView(getContext());
                     imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-                    ImageLoaderUtil.loadImg(imageView, mUrlList.get(0));
+                    T data = mUrlList.get(0);
+                    if(data instanceof String)
+                    ImageLoaderUtil.loadImg(imageView, (String) data);
+                    else if(data instanceof Integer){
+                        imageView.setBackgroundResource((Integer) data);
+                    }
                     mIvList.add(imageView);
                 } else {  //其他情况则为ImageView设置images[i-1]的图片作为背景
                     imageView = new ImageView(getContext());
                     imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-                    ImageLoaderUtil.loadImg(imageView, mUrlList.get(i - 1));
+                    T data = mUrlList.get(i - 1);
+                    if(data instanceof String)
+                    ImageLoaderUtil.loadImg(imageView, (String) data);
+                    else if(data instanceof Integer){
+                        imageView.setBackgroundResource((Integer) data);
+                    }
                     mIvList.add(imageView);
                 }
             }
         }else if(mUrlList.size()==1) {
             imageView = new ImageView(getContext());
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-            ImageLoaderUtil.loadImg(imageView, mUrlList.get(0));
+            T data = mUrlList.get(0);
+            if(data instanceof String)
+            ImageLoaderUtil.loadImg(imageView, (String) data);
+            else if(data instanceof Integer){
+                imageView.setImageResource((Integer) data);
+            }
             mIvList.add(imageView);
         }
     }
@@ -173,6 +194,8 @@ public class CircleViewPager extends FrameLayout {
         }
     }
 
+
+
     //  设置轮播小圆点
     private void setDotImage() {
         //  设置LinearLayout的子控件的宽高，这里单位是像素。
@@ -205,6 +228,13 @@ public class CircleViewPager extends FrameLayout {
         setPageChangeListener();
         startCircleViewPager();
         setTouchListener();
+    }
+
+    public void setPages(List<T> datas, HolderCreater holderCreater){
+        if(datas==null||holderCreater==null){
+            return;
+        }
+
     }
 
     //  ViewPager页面改变监听
@@ -274,11 +304,11 @@ public class CircleViewPager extends FrameLayout {
         this.interval = interval;
     }
 
-    public List<String> getUrlList() {
+    public List<T> getUrlList() {
         return mUrlList;
     }
 
-    public void setUrlList(List<String> urlList) {
+    public void setUrlList(List<T> urlList) {
         mUrlList = urlList;
     }
 }

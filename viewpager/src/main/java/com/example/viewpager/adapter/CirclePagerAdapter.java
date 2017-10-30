@@ -44,7 +44,6 @@ public class CirclePagerAdapter extends PagerAdapter {
                 }else {
                     viewPager.imageClick(position);
                 }
-
             }
         });
         return list.get(position);
