@@ -20,8 +20,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:lightDotRes="@drawable/red_dot"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
         app:darkDotRes="@drawable/red_dot_night"
         app:interval="5000"/>
 

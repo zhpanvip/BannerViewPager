@@ -1,13 +1,21 @@
 package com.example.zhpan.circleviewpager;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.viewpager.holder.HolderCreator;
+import com.example.viewpager.holder.ViewHolder;
+import com.example.viewpager.utils.ImageLoaderUtil;
 import com.example.viewpager.view.CircleViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,16 +56,51 @@ public class MainActivity extends AppCompatActivity {
         mViewpager.setLightDotRes(R.drawable.red_dot);
         mViewpager.setDotWidth(7);
         mViewpager.setInterval(5000);
-        mViewpager.setUrlList(mList);
-        mViewpager.setOnPageClickListener(new CircleViewPager.OnPageClickListener() {
+        mViewpager.setPages(mList, new HolderCreator() {
             @Override
-            public void onPageClick(int position) {
-                Toast.makeText(MainActivity.this, "点击了第" + position + "个美眉 \nURL:" + mViewpager.getUrlList().get(position), Toast.LENGTH_SHORT).show();
+            public ViewHolder createViewHolder() {
+                return new BannerViewHolder();
             }
         });
 
-        mViewPager2.setUrlList(mListInt);
+        mViewpager.setOnPageClickListener(new CircleViewPager.OnPageClickListener() {
+            @Override
+            public void onPageClick(int position) {
+                Toast.makeText(MainActivity.this, "点击了第" + position + "个图片 \nURL:" + mViewpager.getUrlList().get(position), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        mViewPager2.setPages(mListInt, new HolderCreator() {
+            @Override
+            public ViewHolder createViewHolder() {
+
+                return new BannerViewHolder();
+            }
+        });
     }
+
+    public static class BannerViewHolder implements ViewHolder<Object> {
+        private ImageView mImageView;
+
+        @Override
+        public View createView(Context context) {
+            // 返回页面布局文件
+            View view = LayoutInflater.from(context).inflate(R.layout.banner_item, null);
+            mImageView = (ImageView) view.findViewById(R.id.banner_image);
+            return view;
+        }
+
+        @Override
+        public void onBind(Context context, int position, Object data) {
+            // 数据绑定
+            if (data instanceof Integer)
+                mImageView.setImageResource((Integer) data);
+            else if (data instanceof String) {
+                ImageLoaderUtil.loadImg(mImageView, (String) data);
+            }
+        }
+    }
+
 
     @Override
     protected void onDestroy() {

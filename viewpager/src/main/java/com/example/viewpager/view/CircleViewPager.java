@@ -12,11 +12,13 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+
 import com.example.viewpager.R;
 import com.example.viewpager.adapter.CirclePagerAdapter;
-import com.example.viewpager.holder.HolderCreater;
+import com.example.viewpager.holder.HolderCreator;
 import com.example.viewpager.utils.ImageLoaderUtil;
 import com.example.viewpager.utils.ScreenUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,14 +26,15 @@ import java.util.List;
  * Created by zhpan on 2017/3/28.
  */
 
-public class CircleViewPager <T> extends FrameLayout {
+public class CircleViewPager<T> extends FrameLayout {
     private ViewPager mViewPager;
     //  图片对应的ImageView的集合
     private List<ImageView> mIvList;
     //  圆点对应的ImageView的集合
     private List<ImageView> mIvDotList;
     //    图片连接集合
-    private List<T> mUrlList;
+    private List<T> mList;
+    private List<T> mListAdd;
     //  选中时轮播圆点资源id
     private int mLightDotRes;
     //  未选中时轮播圆点资源id
@@ -52,6 +55,7 @@ public class CircleViewPager <T> extends FrameLayout {
     private LinearLayout mLlDot;
     private OnPageClickListener mOnPageClickListener;
 
+
     Handler mHandler = new Handler();
     Runnable mRunnable = new Runnable() {
         @Override
@@ -63,6 +67,7 @@ public class CircleViewPager <T> extends FrameLayout {
             }
         }
     };
+    private HolderCreator holderCreator;
 
 
     public CircleViewPager(Context context) {
@@ -108,51 +113,24 @@ public class CircleViewPager <T> extends FrameLayout {
 
     //  根据图片URL创建对应的ImageView并添加到集合
     private void initImage() {
-        ImageView imageView;
-        if (mUrlList.size() > 1) {
-            for (int i = 0; i < mUrlList.size() + 2; i++) {
+        if (mList.size() > 1) {
+            for (int i = 0; i < mList.size() + 2; i++) {
                 if (i == 0) {   //判断当i=0为该处的ImageView设置最后一张图片作为背景
-                    imageView = new ImageView(getContext());
-                    imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-                    T data = mUrlList.get(mUrlList.size() - 1);
-                    if(data instanceof String)
-                    ImageLoaderUtil.loadImg(imageView, (String) data);
-                    else if(data instanceof Integer){
-                        imageView.setBackgroundResource((Integer) data);
-                    }
-                    mIvList.add(imageView);
-                } else if (i == mUrlList.size() + 1) {   //判断当i=images.length+1时为该处的ImageView设置第一张图片作为背景
-                    imageView = new ImageView(getContext());
-                    imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-                    T data = mUrlList.get(0);
-                    if(data instanceof String)
-                    ImageLoaderUtil.loadImg(imageView, (String) data);
-                    else if(data instanceof Integer){
-                        imageView.setBackgroundResource((Integer) data);
-                    }
-                    mIvList.add(imageView);
+                    T data = mList.get(mList.size() - 1);
+                    mListAdd.add(data);
+                    // mIvList.add(imageView);
+                } else if (i == mList.size() + 1) {   //判断当i=images.length+1时为该处的ImageView设置第一张图片作为背景
+                    T data = mList.get(0);
+                    mListAdd.add(data);
+
                 } else {  //其他情况则为ImageView设置images[i-1]的图片作为背景
-                    imageView = new ImageView(getContext());
-                    imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-                    T data = mUrlList.get(i - 1);
-                    if(data instanceof String)
-                    ImageLoaderUtil.loadImg(imageView, (String) data);
-                    else if(data instanceof Integer){
-                        imageView.setBackgroundResource((Integer) data);
-                    }
-                    mIvList.add(imageView);
+                    T data = mList.get(i - 1);
+                    mListAdd.add(data);
                 }
             }
-        }else if(mUrlList.size()==1) {
-            imageView = new ImageView(getContext());
-            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-            T data = mUrlList.get(0);
-            if(data instanceof String)
-            ImageLoaderUtil.loadImg(imageView, (String) data);
-            else if(data instanceof Integer){
-                imageView.setImageResource((Integer) data);
-            }
-            mIvList.add(imageView);
+        } else if (mList.size() == 1) {
+            T data = mList.get(0);
+            mListAdd.add(data);
         }
     }
 
@@ -195,15 +173,14 @@ public class CircleViewPager <T> extends FrameLayout {
     }
 
 
-
     //  设置轮播小圆点
     private void setDotImage() {
         //  设置LinearLayout的子控件的宽高，这里单位是像素。
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int) mDotWidth, (int) mDotWidth);
         params.rightMargin = (int) (mDotWidth / 1.5);
-        if(mUrlList.size()>1){
+        if (mList.size() > 1) {
             //  for循环创建mUrlList.size()个ImageView（小圆点）
-            for (int i = 0; i < mUrlList.size(); i++) {
+            for (int i = 0; i < mList.size(); i++) {
                 ImageView imageViewDot = new ImageView(getContext());
                 imageViewDot.setLayoutParams(params);
                 //  设置小圆点的背景为暗红图片
@@ -214,14 +191,14 @@ public class CircleViewPager <T> extends FrameLayout {
         }
 
         //设置第一个小圆点图片背景为红色
-        if (mUrlList.size() > 1) {
+        if (mList.size() > 1) {
             mIvDotList.get(dotPosition).setBackgroundResource(mLightDotRes);
         }
     }
 
 
     private void setViewPager() {
-        CirclePagerAdapter adapter = new CirclePagerAdapter(mIvList, this);
+        CirclePagerAdapter adapter = new CirclePagerAdapter(mListAdd, this, holderCreator);
         mViewPager.setAdapter(adapter);
         mViewPager.setCurrentItem(currentPosition);
 
@@ -230,11 +207,14 @@ public class CircleViewPager <T> extends FrameLayout {
         setTouchListener();
     }
 
-    public void setPages(List<T> datas, HolderCreater holderCreater){
-        if(datas==null||holderCreater==null){
+    public void setPages(List<T> list, HolderCreator holderCreator) {
+        if (list == null || holderCreator == null) {
             return;
         }
-
+        mList = new ArrayList<>();
+        mList.addAll(list);
+        mListAdd = new ArrayList<>();
+        this.holderCreator = holderCreator;
     }
 
     //  ViewPager页面改变监听
@@ -248,9 +228,9 @@ public class CircleViewPager <T> extends FrameLayout {
             @Override
             public void onPageSelected(int position) {
                 if (position == 0) {    //判断当切换到第0个页面时把currentPosition设置为images.length,即倒数第二个位置，小圆点位置为length-1
-                    currentPosition = mUrlList.size();
-                    dotPosition = mUrlList.size() - 1;
-                } else if (position == mUrlList.size() + 1) {    //当切换到最后一个页面时currentPosition设置为第一个位置，小圆点位置为0
+                    currentPosition = mList.size();
+                    dotPosition = mList.size() - 1;
+                } else if (position == mList.size() + 1) {    //当切换到最后一个页面时currentPosition设置为第一个位置，小圆点位置为0
                     currentPosition = 1;
                     dotPosition = 0;
                 } else {
@@ -279,8 +259,8 @@ public class CircleViewPager <T> extends FrameLayout {
 
     //  adapter中图片点击的回掉方法
     public void imageClick(int position) {
-        if(mOnPageClickListener!=null)
-        mOnPageClickListener.onPageClick(position);
+        if (mOnPageClickListener != null)
+            mOnPageClickListener.onPageClick(position);
     }
 
 
@@ -305,10 +285,11 @@ public class CircleViewPager <T> extends FrameLayout {
     }
 
     public List<T> getUrlList() {
-        return mUrlList;
+        return mList;
     }
 
-    public void setUrlList(List<T> urlList) {
-        mUrlList = urlList;
+    public void setList(List<T> list) {
+        mList = list;
+        mListAdd = new ArrayList<>();
     }
 }

@@ -8,9 +8,9 @@ import android.view.View;
  * Description:
  */
 
-public interface  ViewHolder<T> {
+public interface ViewHolder<T> {
     View createView(Context context);
 
-    void onBind(Context context,int position,T data);
+    void onBind(Context context, int position, T data);
 
 }
