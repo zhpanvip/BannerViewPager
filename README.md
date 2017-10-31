@@ -30,18 +30,16 @@ Activity中
 1.加载网路图片
 ```
         private void initView() {
-                mViewpager.setDarkDotRes(R.drawable.red_dot_night);
-                mViewpager.setLightDotRes(R.drawable.red_dot);
-                mViewpager.setDotWidth(7);
-                mViewpager.setInterval(5000);
-                mViewpager.setPages(mList, new HolderCreator() {
-                    @Override
-                    public ViewHolder createViewHolder() {
-                        return new MyViewHolder();
-                    }
-                });
-
-                mViewpager.setOnPageClickListener(new CircleViewPager.OnPageClickListener() {
+                //    设置为选中时候的指示器
+                mViewpager.setDarkIndicator(R.drawable.red_dot_night);
+                //    设置选中时的指示器
+                mViewpager.setLightIndicator(R.drawable.red_dot);
+                //    设置指示器的半径大小
+                mViewpager.setDotWidth(7);
+                //    设置切换图片时间间隔
+                mViewpager.setInterval(5000);
+                //    设置页面点击事件
+                mViewpager.setOnPageClickListener(new CircleViewPager.OnPageClickListener() {
                     @Override
                     public void onPageClick(int position) {
                         List list = mViewpager.getList();
@@ -49,6 +47,15 @@ Activity中
                     }
                 });
             }
+                //    设置数据和页面
+                mViewpager.setPages(mList, new HolderCreator() {
+                    @Override
+                    public ViewHolder createViewHolder() {
+                        return new MyViewHolder();
+                    }
+                });
+
+                
  ```
  2.加载本地图片
  ```
