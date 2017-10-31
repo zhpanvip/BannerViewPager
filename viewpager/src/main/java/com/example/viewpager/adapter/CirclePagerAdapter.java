@@ -14,6 +14,7 @@ import java.util.List;
 
 /**
  * Created by zhpan on 2017/3/28.
+ *
  */
 
 public class CirclePagerAdapter<T> extends PagerAdapter {
@@ -46,20 +47,19 @@ public class CirclePagerAdapter<T> extends PagerAdapter {
 
 
     //  根据图片URL创建对应的ImageView并添加到集合
-    private View getView(int position, ViewGroup container) {
-        final int realPosition = position % getRealCount();
+    private View getView(final int position, ViewGroup container) {
         ViewHolder holder = holderCreator.createViewHolder();
         if (holder == null) {
             throw new RuntimeException("can not return a null holder");
         }
         View view = holder.createView(container.getContext());
         if (list != null && list.size() > 0) {
-            holder.onBind(container.getContext(), realPosition, list.get(realPosition));
+            holder.onBind(container.getContext(), position, list.get(position));
         }
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewPager.imageClick(realPosition - 1);
+                viewPager.imageClick(position - 1);
             }
         });
         return view;

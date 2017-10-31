@@ -8,8 +8,6 @@ package com.example.viewpager.holder;
 public interface HolderCreator<VH extends ViewHolder> {
     /**
      * 创建ViewHolder
-     *
-     * @return
      */
     VH createViewHolder();
 }

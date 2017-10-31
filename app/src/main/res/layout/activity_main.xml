@@ -1,29 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_main"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <com.example.viewpager.view.CircleViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        app:lightDotRes="@drawable/red_dot"
         app:darkDotRes="@drawable/red_dot_night"
-        app:interval="5000"/>
+        app:interval="5000"
+        app:lightDotRes="@drawable/red_dot" />
 
     <com.example.viewpager.view.CircleViewPager
         android:id="@+id/viewpager2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:lightDotRes="@drawable/red_dot"
-        android:layout_marginStart="35dp"
         android:layout_marginEnd="35dp"
+        android:layout_marginStart="35dp"
         app:darkDotRes="@drawable/red_dot_night"
-        app:interval="5000"/>
+        app:interval="5000"
+        app:lightDotRes="@drawable/red_dot" />
 
 
 </LinearLayout>

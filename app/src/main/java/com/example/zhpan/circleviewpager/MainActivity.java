@@ -13,8 +13,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private CircleViewPager mViewpager;
-    private CircleViewPager mViewPager2;
+    private CircleViewPager<String> mViewpager;
+    private CircleViewPager<Integer> mViewPager2;
     private List<String> mList = new ArrayList<>();
     private List<Integer> mListInt = new ArrayList<>();
 
@@ -29,8 +29,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        mViewpager = (CircleViewPager) findViewById(R.id.viewpager);
-        mViewPager2 = (CircleViewPager) findViewById(R.id.viewpager2);
+        mViewpager = (CircleViewPager<String>) findViewById(R.id.viewpager);
+        mViewPager2 = (CircleViewPager<Integer>) findViewById(R.id.viewpager2);
     }
 
     private void initData() {
@@ -50,8 +50,8 @@ public class MainActivity extends AppCompatActivity {
         mViewpager.setDarkIndicator(R.drawable.red_dot_night);
         mViewpager.setLightIndicator(R.drawable.red_dot);
         mViewpager.setDotWidth(7);
-        mViewpager.setInterval(5000);
-        mViewpager.setPages(mList, new HolderCreator() {
+        mViewpager.setInterval(3000);
+        mViewpager.setPages(mList, new HolderCreator<ViewHolder>() {
             @Override
             public ViewHolder createViewHolder() {
                 return new MyViewHolder();
@@ -61,16 +61,15 @@ public class MainActivity extends AppCompatActivity {
         mViewpager.setOnPageClickListener(new CircleViewPager.OnPageClickListener() {
             @Override
             public void onPageClick(int position) {
-                List list = mViewpager.getList();
-                Toast.makeText(MainActivity.this, "点击了第" + position + "个图片 \nURL:" +list.get(position), Toast.LENGTH_SHORT).show();
+                List<String> list = mViewpager.getList();
+                Toast.makeText(MainActivity.this, "点击了第" + (position+1) + "个图片 " +list.get(position), Toast.LENGTH_SHORT).show();
             }
         });
 
         mViewPager2.isShowIndicator(false);
-        mViewPager2.setPages(mListInt, new HolderCreator() {
+        mViewPager2.setPages(mListInt, new HolderCreator<ViewHolder>() {
             @Override
             public ViewHolder createViewHolder() {
-
                 return new MyViewHolder();
             }
         });
