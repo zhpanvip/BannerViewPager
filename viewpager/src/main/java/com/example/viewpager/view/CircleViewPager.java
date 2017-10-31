@@ -16,7 +16,6 @@ import android.widget.LinearLayout;
 import com.example.viewpager.R;
 import com.example.viewpager.adapter.CirclePagerAdapter;
 import com.example.viewpager.holder.HolderCreator;
-import com.example.viewpager.utils.ImageLoaderUtil;
 import com.example.viewpager.utils.ScreenUtils;
 
 import java.util.ArrayList;
@@ -28,10 +27,6 @@ import java.util.List;
 
 public class CircleViewPager<T> extends FrameLayout {
     private ViewPager mViewPager;
-    //  图片对应的ImageView的集合
-    private List<ImageView> mIvList;
-    //  圆点对应的ImageView的集合
-    private List<ImageView> mIvDotList;
     //    图片连接集合
     private List<T> mList;
     private List<T> mListAdd;
@@ -52,6 +47,8 @@ public class CircleViewPager<T> extends FrameLayout {
     //  是否循环
     private boolean isLoop;
 
+    boolean showIndicator = true;
+
     private LinearLayout mLlDot;
     private OnPageClickListener mOnPageClickListener;
 
@@ -68,6 +65,7 @@ public class CircleViewPager<T> extends FrameLayout {
         }
     };
     private HolderCreator holderCreator;
+    private List<ImageView> mIvDotList;
 
 
     public CircleViewPager(Context context) {
@@ -107,7 +105,8 @@ public class CircleViewPager<T> extends FrameLayout {
         View mView = LayoutInflater.from(getContext()).inflate(R.layout.view_pager_layout, this);
         mLlDot = (LinearLayout) mView.findViewById(R.id.ll_main_dot);
         mViewPager = (ViewPager) mView.findViewById(R.id.vp_main);
-        mIvList = new ArrayList<>();
+        mList = new ArrayList<>();
+        mListAdd = new ArrayList<>();
         mIvDotList = new ArrayList<>();
     }
 
@@ -172,6 +171,10 @@ public class CircleViewPager<T> extends FrameLayout {
         }
     }
 
+    public void isShowIndicator(boolean showIndicator) {
+        this.showIndicator = showIndicator;
+    }
+
 
     //  设置轮播小圆点
     private void setDotImage() {
@@ -205,15 +208,18 @@ public class CircleViewPager<T> extends FrameLayout {
         setPageChangeListener();
         startCircleViewPager();
         setTouchListener();
+        if (showIndicator) {
+            mLlDot.setVisibility(VISIBLE);
+        } else {
+            mLlDot.setVisibility(GONE);
+        }
     }
 
     public void setPages(List<T> list, HolderCreator holderCreator) {
         if (list == null || holderCreator == null) {
             return;
         }
-        mList = new ArrayList<>();
         mList.addAll(list);
-        mListAdd = new ArrayList<>();
         this.holderCreator = holderCreator;
     }
 
@@ -268,11 +274,11 @@ public class CircleViewPager<T> extends FrameLayout {
         mDotWidth = ScreenUtils.dp2px(getContext(), dotWidth);
     }
 
-    public void setLightDotRes(@DrawableRes int lightDotRes) {
+    public void setLightIndicator(@DrawableRes int lightDotRes) {
         mLightDotRes = lightDotRes;
     }
 
-    public void setDarkDotRes(@DrawableRes int darkDotRes) {
+    public void setDarkIndicator(@DrawableRes int darkDotRes) {
         mDarkDotRes = darkDotRes;
     }
 
@@ -284,7 +290,7 @@ public class CircleViewPager<T> extends FrameLayout {
         this.interval = interval;
     }
 
-    public List<T> getUrlList() {
+    public List<T> getList() {
         return mList;
     }
 

@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initView();
         initData();
+
         setViewPager();
     }
 
@@ -46,8 +47,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setViewPager() {
-        mViewpager.setDarkDotRes(R.drawable.red_dot_night);
-        mViewpager.setLightDotRes(R.drawable.red_dot);
+        mViewpager.setDarkIndicator(R.drawable.red_dot_night);
+        mViewpager.setLightIndicator(R.drawable.red_dot);
         mViewpager.setDotWidth(7);
         mViewpager.setInterval(5000);
         mViewpager.setPages(mList, new HolderCreator() {
@@ -60,10 +61,12 @@ public class MainActivity extends AppCompatActivity {
         mViewpager.setOnPageClickListener(new CircleViewPager.OnPageClickListener() {
             @Override
             public void onPageClick(int position) {
-                Toast.makeText(MainActivity.this, "点击了第" + position + "个图片 \nURL:" + mViewpager.getUrlList().get(position), Toast.LENGTH_SHORT).show();
+                List list = mViewpager.getList();
+                Toast.makeText(MainActivity.this, "点击了第" + position + "个图片 \nURL:" +list.get(position), Toast.LENGTH_SHORT).show();
             }
         });
 
+        mViewPager2.isShowIndicator(false);
         mViewPager2.setPages(mListInt, new HolderCreator() {
             @Override
             public ViewHolder createViewHolder() {
