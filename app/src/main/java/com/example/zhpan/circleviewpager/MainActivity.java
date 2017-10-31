@@ -66,7 +66,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mViewPager2.isShowIndicator(false);
+        mViewPager2.isShowIndicator(true);
+        mViewPager2.setIndicatorGravity(CircleViewPager.IndicatorGravity.END);
         mViewPager2.setPages(mListInt, new HolderCreator<ViewHolder>() {
             @Override
             public ViewHolder createViewHolder() {

@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.support.annotation.DrawableRes;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -56,6 +57,12 @@ public class CircleViewPager<T> extends FrameLayout {
     private LinearLayout mLlDot;
     private HolderCreator holderCreator;
     private OnPageClickListener mOnPageClickListener;
+    private IndicatorGravity gravity=IndicatorGravity.CENTER;
+    public enum IndicatorGravity {
+        START,//做对齐
+        CENTER,//居中对齐
+        END //右对齐
+    }
 
 
     Handler mHandler = new Handler();
@@ -92,6 +99,7 @@ public class CircleViewPager<T> extends FrameLayout {
             initData();
             setDotImage();
             setViewPager();
+            setIndicatorLocation();
         }
     }
 
@@ -110,6 +118,20 @@ public class CircleViewPager<T> extends FrameLayout {
         mList = new ArrayList<>();
         mListAdd = new ArrayList<>();
         mIvDotList = new ArrayList<>();
+    }
+
+    private void setIndicatorLocation() {
+        switch (gravity){
+            case START:
+                mLlDot.setGravity(Gravity.START);
+                break;
+            case END:
+                mLlDot.setGravity(Gravity.END);
+                break;
+            case CENTER:
+                mLlDot.setGravity(Gravity.CENTER);
+                break;
+        }
     }
 
     //  根据mList数据集构造mListAdd
@@ -212,6 +234,10 @@ public class CircleViewPager<T> extends FrameLayout {
     //  是否显示轮播指示器
     public void isShowIndicator(boolean showIndicator) {
         this.showIndicator = showIndicator;
+    }
+
+    public void setIndicatorGravity(IndicatorGravity gravity){
+        this.gravity=gravity;
     }
 
     public void setPages(List<T> list, HolderCreator<ViewHolder> holderCreator) {
