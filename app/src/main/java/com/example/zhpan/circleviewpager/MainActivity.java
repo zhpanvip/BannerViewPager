@@ -13,8 +13,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private CircleViewPager<String> mViewpager;
-    private CircleViewPager<Integer> mViewPager2;
+    private CircleViewPager mViewpager;
+    private CircleViewPager mViewPager2;
     private List<String> mList = new ArrayList<>();
     private List<Integer> mListInt = new ArrayList<>();
 
@@ -24,13 +24,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initView();
         initData();
-
         setViewPager();
     }
 
     private void initView() {
-        mViewpager = (CircleViewPager<String>) findViewById(R.id.viewpager);
-        mViewPager2 = (CircleViewPager<Integer>) findViewById(R.id.viewpager2);
+        mViewpager = (CircleViewPager) findViewById(R.id.viewpager);
+        mViewPager2 = (CircleViewPager) findViewById(R.id.viewpager2);
     }
 
     private void initData() {
@@ -47,10 +46,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setViewPager() {
-        mViewpager.setDarkIndicator(R.drawable.red_dot_night);
-        mViewpager.setLightIndicator(R.drawable.red_dot);
-        mViewpager.setDotWidth(7);
+        //  设置指示器资源图片
+        mViewpager.setIndicator(R.drawable.red_dot,R.drawable.red_dot_night);
+        //  设置指示器半径大小（dp）
+        mViewpager.setDotWidth(8);
+        //  设置指示器位置
+        mViewpager.setIndicatorGravity(CircleViewPager.IndicatorGravity.END);
+        //  是否显示指示器
+        mViewpager.isShowIndicator(true);
+        //  设置图片切换时间间隔
         mViewpager.setInterval(3000);
+        //  设置页面点击事件
+        mViewpager.setOnPageClickListener(new CircleViewPager.OnPageClickListener() {
+            @Override
+            public void onPageClick(int position) {
+                List<String> list = mViewpager.getList();
+                Toast.makeText(MainActivity.this, "点击了第" + (position+1) + "个图片\n URL: " +list.get(position), Toast.LENGTH_SHORT).show();
+            }
+        });
+
         mViewpager.setPages(mList, new HolderCreator<ViewHolder>() {
             @Override
             public ViewHolder createViewHolder() {
@@ -58,16 +72,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mViewpager.setOnPageClickListener(new CircleViewPager.OnPageClickListener() {
-            @Override
-            public void onPageClick(int position) {
-                List<String> list = mViewpager.getList();
-                Toast.makeText(MainActivity.this, "点击了第" + (position+1) + "个图片 " +list.get(position), Toast.LENGTH_SHORT).show();
-            }
-        });
 
-        mViewPager2.isShowIndicator(true);
-        mViewPager2.setIndicatorGravity(CircleViewPager.IndicatorGravity.END);
         mViewPager2.setPages(mListInt, new HolderCreator<ViewHolder>() {
             @Override
             public ViewHolder createViewHolder() {
@@ -79,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mViewPager2.stopCircleViewPager();
-        mViewpager.stopCircleViewPager();
+        mViewPager2.stopLoop();
+        mViewpager.stopLoop();
     }
 }

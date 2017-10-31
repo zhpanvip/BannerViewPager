@@ -30,7 +30,7 @@ public class MyViewHolder implements ViewHolder<Object> {
         if (data instanceof Integer)
             mImageView.setImageResource((Integer) data);
         else if (data instanceof String) {
-            ImageLoaderUtil.loadImg(mImageView, (String) data);
+            ImageLoaderUtil.loadImg(mImageView, (String) data,R.drawable.placeholder);
         }
     }
 }

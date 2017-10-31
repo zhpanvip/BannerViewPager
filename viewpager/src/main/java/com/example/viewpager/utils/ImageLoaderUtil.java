@@ -31,6 +31,15 @@ public class ImageLoaderUtil {
                 .into(v);
     }
 
+    public static void loadImg(ImageView v, String url,@DrawableRes int placeholder) {
+        Glide.with(v.getContext())
+                .load(url)
+                .fitCenter()
+                .placeholder(placeholder)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(v);
+    }
+
     public static void loadGifImg(ImageView v, String url) {
         Glide.with(v.getContext())
                 .load(url)

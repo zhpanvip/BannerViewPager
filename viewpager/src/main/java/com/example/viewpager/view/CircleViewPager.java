@@ -53,11 +53,13 @@ public class CircleViewPager<T> extends FrameLayout {
     private boolean isLoop;
     //  是否显示指示器圆点
     boolean showIndicator = true;
+    private View mView;
 
     private LinearLayout mLlDot;
     private HolderCreator holderCreator;
     private OnPageClickListener mOnPageClickListener;
-    private IndicatorGravity gravity=IndicatorGravity.CENTER;
+    private IndicatorGravity gravity = IndicatorGravity.CENTER;
+
     public enum IndicatorGravity {
         START,//做对齐
         CENTER,//居中对齐
@@ -97,7 +99,7 @@ public class CircleViewPager<T> extends FrameLayout {
         super.onLayout(changed, left, top, right, bottom);
         if (changed) {
             initData();
-            setDotImage();
+            setIndicatorImage();
             setViewPager();
             setIndicatorLocation();
         }
@@ -112,7 +114,7 @@ public class CircleViewPager<T> extends FrameLayout {
             interval = typedArray.getInteger(R.styleable.CircleViewPager_interval, 3000);
             typedArray.recycle();
         }
-        View mView = LayoutInflater.from(getContext()).inflate(R.layout.view_pager_layout, this);
+         mView = LayoutInflater.from(getContext()).inflate(R.layout.view_pager_layout, this);
         mLlDot = (LinearLayout) mView.findViewById(R.id.ll_main_dot);
         mViewPager = (ViewPager) mView.findViewById(R.id.vp_main);
         mList = new ArrayList<>();
@@ -121,7 +123,7 @@ public class CircleViewPager<T> extends FrameLayout {
     }
 
     private void setIndicatorLocation() {
-        switch (gravity){
+        switch (gravity) {
             case START:
                 mLlDot.setGravity(Gravity.START);
                 break;
@@ -136,7 +138,11 @@ public class CircleViewPager<T> extends FrameLayout {
 
     //  根据mList数据集构造mListAdd
     private void initData() {
-        if (mList.size() > 1) {
+        if (mList.size() == 0) {
+            mView.setVisibility(GONE);
+        } else if (mList.size() == 1) {
+            mListAdd.add(mList.get(0));
+        } else if (mList.size() > 1) {
             for (int i = 0; i < mList.size() + 2; i++) {
                 if (i == 0) {   //  判断当i=0为该处的mList的最后一个数据作为mListAdd的第一个数据
                     mListAdd.add(mList.get(mList.size() - 1));
@@ -146,8 +152,6 @@ public class CircleViewPager<T> extends FrameLayout {
                     mListAdd.add(mList.get(i - 1));
                 }
             }
-        } else if (mList.size() == 1) {
-            mListAdd.add(mList.get(0));
         }
     }
 
@@ -161,12 +165,12 @@ public class CircleViewPager<T> extends FrameLayout {
                     case MotionEvent.ACTION_DOWN:
                     case MotionEvent.ACTION_MOVE:
                         isLoop = true;
-                        stopCircleViewPager();
+                        stopLoop();
                         break;
                     case MotionEvent.ACTION_UP:
                     case MotionEvent.ACTION_CANCEL:
                         isLoop = false;
-                        startCircleViewPager();
+                        startLoop();
                     default:
                         break;
                 }
@@ -175,14 +179,14 @@ public class CircleViewPager<T> extends FrameLayout {
         });
     }
 
-    private void startCircleViewPager() {
+    private void startLoop() {
         if (!isLoop && mViewPager != null) {
             mHandler.postDelayed(mRunnable, interval);// 每interval秒执行一次runnable.
             isLoop = true;
         }
     }
 
-    public void stopCircleViewPager() {
+    public void stopLoop() {
         if (isLoop && mViewPager != null) {
             mHandler.removeCallbacks(mRunnable);
             isLoop = false;
@@ -190,7 +194,7 @@ public class CircleViewPager<T> extends FrameLayout {
     }
 
     //  设置轮播小圆点
-    private void setDotImage() {
+    private void setIndicatorImage() {
         //  设置LinearLayout的子控件的宽高，这里单位是像素。
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int) mDotWidth, (int) mDotWidth);
         params.rightMargin = (int) (mDotWidth / 1.5);
@@ -205,7 +209,6 @@ public class CircleViewPager<T> extends FrameLayout {
                 mIvDotList.add(imageViewDot);
             }
         }
-
         //设置第一个小圆点图片背景为红色
         if (mList.size() > 1) {
             mIvDotList.get(dotPosition).setBackgroundResource(mLightIndicator);
@@ -218,7 +221,7 @@ public class CircleViewPager<T> extends FrameLayout {
         mViewPager.setCurrentItem(currentPosition);
 
         setPageChangeListener();
-        startCircleViewPager();
+        startLoop();
         setTouchListener();
         if (showIndicator) {
             mLlDot.setVisibility(VISIBLE);
@@ -236,8 +239,8 @@ public class CircleViewPager<T> extends FrameLayout {
         this.showIndicator = showIndicator;
     }
 
-    public void setIndicatorGravity(IndicatorGravity gravity){
-        this.gravity=gravity;
+    public void setIndicatorGravity(IndicatorGravity gravity) {
+        this.gravity = gravity;
     }
 
     public void setPages(List<T> list, HolderCreator<ViewHolder> holderCreator) {
@@ -272,7 +275,7 @@ public class CircleViewPager<T> extends FrameLayout {
     }
 
     private void pageSelected(int position) {
-        if (position == 0) {    //判断当切换到第0个页面时把currentPosition设置为images.length,即倒数第二个位置，小圆点位置为length-1
+        if (position == 0) {    //判断当切换到第0个页面时把currentPosition设置为list.size(),即倒数第二个位置，小圆点位置为length-1
             currentPosition = mList.size();
             dotPosition = mList.size() - 1;
         } else if (position == mList.size() + 1) {    //当切换到最后一个页面时currentPosition设置为第一个位置，小圆点位置为0
@@ -302,12 +305,13 @@ public class CircleViewPager<T> extends FrameLayout {
         mDotWidth = ScreenUtils.dp2px(getContext(), dotWidth);
     }
 
-    public void setLightIndicator(@DrawableRes int lightDotRes) {
-        mLightIndicator = lightDotRes;
-    }
-
-    public void setDarkIndicator(@DrawableRes int darkDotRes) {
+    /**
+     * @param lightDotRes 选中时指示器图片
+     * @param darkDotRes  未选中时指示器图片
+     */
+    public void setIndicator(@DrawableRes int lightDotRes, @DrawableRes int darkDotRes) {
         mDarkIndicator = darkDotRes;
+        mLightIndicator = lightDotRes;
     }
 
     public void setOnPageClickListener(OnPageClickListener onPageClickListener) {

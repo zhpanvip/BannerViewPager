@@ -65,16 +65,6 @@ public class CirclePagerAdapter<T> extends PagerAdapter {
         return view;
     }
 
-    /**
-     * 获取真实的Count
-     *
-     * @return
-     */
-    private int getRealCount() {
-        return list == null ? 0 : list.size();
-    }
-
-
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         container.removeView((View) object);
