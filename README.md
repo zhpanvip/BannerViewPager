@@ -98,4 +98,15 @@ Activity中
             }
         }
 ```
+5.为防止内存泄露在onDestory()中停止图片轮播
+```
+@Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mViewPager2.stopCircleViewPager();
+        mViewpager.stopCircleViewPager();
+    }
+```
+
+
 [详情请点击此处](http://blog.csdn.net/qq_20521573/article/details/52037929)
