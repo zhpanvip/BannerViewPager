@@ -54,7 +54,7 @@ public class CirclePagerAdapter<T> extends PagerAdapter {
         }
         View view = holder.createView(container.getContext());
         if (list != null && list.size() > 0) {
-            holder.onBind(container.getContext(), position, list.get(position));
+            holder.onBind(container.getContext(),list.get(position));
         }
         view.setOnClickListener(new View.OnClickListener() {
             @Override

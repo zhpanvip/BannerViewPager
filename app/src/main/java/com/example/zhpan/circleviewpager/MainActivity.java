@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
 
     private CircleViewPager mViewpager;
     private CircleViewPager mViewPager2;
-    private List<String> mList = new ArrayList<>();
+    private List<DataBean> mList = new ArrayList<>();
     private List<Integer> mListInt = new ArrayList<>();
 
     @Override
@@ -33,11 +33,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initData() {
-        mList.add("http://img0.imgtn.bdimg.com/it/u=3159618424,497154385&fm=214&gp=0.jpg");
-        mList.add("http://imgsrc.baidu.com/imgad/pic/item/810a19d8bc3eb1359d5a74a4ac1ea8d3fd1f4414.jpg");
-        mList.add("http://img4.imgtn.bdimg.com/it/u=928730363,1881984966&fm=214&gp=0.jpg");
-        mList.add("http://img4.imgtn.bdimg.com/it/u=3779410813,199087977&fm=214&gp=0.jpg");
-        mList.add("http://img2.niutuku.com/desk/1208/1450/ntk-1450-9891.jpg");
+        DataBean dataBean=new DataBean("http://img0.imgtn.bdimg.com/it/u=3159618424,497154385&fm=214&gp=0.jpg","图片一");
+        DataBean dataBean1=new DataBean("http://img0.imgtn.bdimg.com/it/u=3159618424,497154385&fm=214&gp=0.jpg","图片二");
+        DataBean dataBean2=new DataBean("http://img4.imgtn.bdimg.com/it/u=928730363,1881984966&fm=214&gp=0.jpg","图片三");
+        DataBean dataBean3=new DataBean("http://img4.imgtn.bdimg.com/it/u=3779410813,199087977&fm=214&gp=0.jpg","图片四");
+        DataBean dataBean4=new DataBean("http://img2.niutuku.com/desk/1208/1450/ntk-1450-9891.jpg","图片五");
+        mList.add(dataBean);
+        mList.add(dataBean1);
+        mList.add(dataBean2);
+        mList.add(dataBean3);
+        mList.add(dataBean4);
+
 
         for (int i = 1; i <= 5; i++) {
             int drawable = getResources().getIdentifier("a" + i, "drawable", getPackageName());
@@ -60,8 +66,8 @@ public class MainActivity extends AppCompatActivity {
         mViewpager.setOnPageClickListener(new CircleViewPager.OnPageClickListener() {
             @Override
             public void onPageClick(int position) {
-                List<String> list = mViewpager.getList();
-                Toast.makeText(MainActivity.this, "点击了第" + (position+1) + "个图片\n URL: " +list.get(position), Toast.LENGTH_SHORT).show();
+                List<DataBean> list = mViewpager.getList();
+                Toast.makeText(MainActivity.this, "点击了" +list.get(position).getDescribe(), Toast.LENGTH_SHORT).show();
             }
         });
 
