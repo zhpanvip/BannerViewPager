@@ -3,7 +3,7 @@
 
 1.gradle中添加依赖
 ```
-compile 'com.zhpan.library:viewpager:1.0.0'
+compile 'com.zhpan.library:viewpager:1.0.3'
 ```
 
 2.在xml文件中添加如下代码：
@@ -25,25 +25,28 @@ compile 'com.zhpan.library:viewpager:1.0.0'
 3.加载网路图片
 
 ```
-        //  设置指示器资源图片
-        mViewpager.setIndicator(R.drawable.red_dot,R.drawable.red_dot_night);
-        //  设置指示器半径大小（单位dp）
-        mViewpager.setDotWidth(8);
         //  设置指示器位置
         mViewpager.setIndicatorGravity(CircleViewPager.IndicatorGravity.END);
         //  是否显示指示器
         mViewpager.isShowIndicator(true);
         //  设置图片切换时间间隔
         mViewpager.setInterval(3000);
+        //  设置是否无限循环
+        mViewpager.setCanLoop(true);
+        //  设置是否自动轮播
+        mViewpager.setAutoPlay(true);
+        //  设置指示器圆点半径
+        mViewpager.setIndicatorRadius(6);
+	
         //  设置页面点击事件
         mViewpager.setOnPageClickListener(new CircleViewPager.OnPageClickListener() {
             @Override
             public void onPageClick(int position) {
-                List<String> list = mViewpager.getList();
-                Toast.makeText(MainActivity.this, "点击了第" + (position+1) + "个图片\n URL: " +list.get(position), Toast.LENGTH_SHORT).show();
+                List<DataBean> list = mViewpager.getList();
+                Toast.makeText(MainActivity.this, "点击了" + list.get(position).getDescribe(), Toast.LENGTH_SHORT).show();
             }
         });
-
+        //  设置数据
         mViewpager.setPages(mList, new HolderCreator<ViewHolder>() {
             @Override
             public ViewHolder createViewHolder() {
