@@ -59,7 +59,7 @@ public class CirclePagerAdapter<T> extends PagerAdapter {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewPager.imageClick(position - 1);
+                viewPager.imageClick(position);
             }
         });
         return view;

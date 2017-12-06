@@ -1,5 +1,6 @@
 package com.example.zhpan.circleviewpager;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
@@ -33,11 +34,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initData() {
-        DataBean dataBean=new DataBean("http://img0.imgtn.bdimg.com/it/u=3159618424,497154385&fm=214&gp=0.jpg","图片一");
-        DataBean dataBean1=new DataBean("http://img0.imgtn.bdimg.com/it/u=3159618424,497154385&fm=214&gp=0.jpg","图片二");
-        DataBean dataBean2=new DataBean("http://img4.imgtn.bdimg.com/it/u=928730363,1881984966&fm=214&gp=0.jpg","图片三");
-        DataBean dataBean3=new DataBean("http://img4.imgtn.bdimg.com/it/u=3779410813,199087977&fm=214&gp=0.jpg","图片四");
-        DataBean dataBean4=new DataBean("http://img2.niutuku.com/desk/1208/1450/ntk-1450-9891.jpg","图片五");
+        DataBean dataBean = new DataBean("http://img0.imgtn.bdimg.com/it/u=3159618424,497154385&fm=214&gp=0.jpg", "图片一");
+        DataBean dataBean1 = new DataBean("http://img0.imgtn.bdimg.com/it/u=3159618424,497154385&fm=214&gp=0.jpg", "图片二");
+        DataBean dataBean2 = new DataBean("http://img4.imgtn.bdimg.com/it/u=928730363,1881984966&fm=214&gp=0.jpg", "图片三");
+        DataBean dataBean3 = new DataBean("http://img4.imgtn.bdimg.com/it/u=3779410813,199087977&fm=214&gp=0.jpg", "图片四");
+        DataBean dataBean4 = new DataBean("http://img2.niutuku.com/desk/1208/1450/ntk-1450-9891.jpg", "图片五");
         mList.add(dataBean);
         mList.add(dataBean1);
         mList.add(dataBean2);
@@ -52,22 +53,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setViewPager() {
-        //  设置指示器资源图片
-        mViewpager.setIndicator(R.drawable.red_dot,R.drawable.red_dot_night);
+
         //  设置指示器半径大小（dp）
         mViewpager.setDotWidth(8);
         //  设置指示器位置
         mViewpager.setIndicatorGravity(CircleViewPager.IndicatorGravity.END);
+        mViewpager.setAutoPlay(true);
         //  是否显示指示器
         mViewpager.isShowIndicator(true);
         //  设置图片切换时间间隔
         mViewpager.setInterval(3000);
+        mViewpager.setCanLoop(true);
         //  设置页面点击事件
         mViewpager.setOnPageClickListener(new CircleViewPager.OnPageClickListener() {
             @Override
             public void onPageClick(int position) {
                 List<DataBean> list = mViewpager.getList();
-                Toast.makeText(MainActivity.this, "点击了" +list.get(position).getDescribe(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "点击了" + list.get(position).getDescribe(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -83,6 +85,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public ViewHolder createViewHolder() {
                 return new MyViewHolder();
+            }
+        });
+        //  设置指示器资源图片
+        mViewPager2.setIndicatorColor(Color.parseColor("#6C6D72"),
+                Color.parseColor("#18171C"));
+        mViewPager2.setOnPageClickListener(new CircleViewPager.OnPageClickListener() {
+            @Override
+            public void onPageClick(int position) {
+                Toast.makeText(MainActivity.this, "图片"+(position+1), Toast.LENGTH_SHORT).show();
             }
         });
     }
