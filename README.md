@@ -22,7 +22,7 @@ compile 'com.zhpan.library:viewpager:1.0.3'
         android:layout_marginStart="35dp"
         app:interval="5000" />
 ```
-3.加载网路图片
+3.CircleViewPager属性
 
 ```
         //  设置指示器位置
@@ -53,23 +53,6 @@ compile 'com.zhpan.library:viewpager:1.0.3'
                 return new MyViewHolder();
             }
         });
-```
-
- .加载本地图片
-
-```
-		 //  初始化本地图片集合
-         for (int i = 1; i <= 5; i++) {
-                    int drawable = getResources().getIdentifier("a" + i, "drawable", getPackageName());
-                    mListInt.add(drawable);
-                }
-         
-         mViewPager2.setPages(mListInt, new HolderCreator() {
-             @Override
-             public ViewHolder createViewHolder() {
-                 return new MyViewHolder();
-             }
-         });
 ```
 
  4.自定义ViewHolder 
