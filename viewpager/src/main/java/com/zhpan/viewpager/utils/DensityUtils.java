@@ -1,4 +1,4 @@
-package com.example.viewpager.utils;
+package com.zhpan.viewpager.utils;
 
 import android.content.Context;
 import android.util.DisplayMetrics;

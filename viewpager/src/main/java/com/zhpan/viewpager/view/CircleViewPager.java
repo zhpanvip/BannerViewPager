@@ -1,6 +1,5 @@
-package com.example.viewpager.view;
+package com.zhpan.viewpager.view;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
@@ -16,10 +15,10 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.example.viewpager.R;
-import com.example.viewpager.adapter.CirclePagerAdapter;
-import com.example.viewpager.holder.HolderCreator;
-import com.example.viewpager.holder.ViewHolder;
-import com.example.viewpager.utils.DensityUtils;
+import com.zhpan.viewpager.adapter.CirclePagerAdapter;
+import com.zhpan.viewpager.holder.HolderCreator;
+import com.zhpan.viewpager.holder.ViewHolder;
+import com.zhpan.viewpager.utils.DensityUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,14 +49,14 @@ public class CircleViewPager<T> extends FrameLayout {
     private boolean isCanLoop;
 
 
+
     //  是否显示指示器圆点
     private boolean showIndicator = true;
     private boolean isAutoPlay = false;
     private View mView;
-
-
     private int indicatorNormalColor;
     private int indicatorCheckedColor;
+    private float indicatorRadius;
 
     private LinearLayout mLlDot;
     private HolderCreator holderCreator;
@@ -118,6 +117,7 @@ public class CircleViewPager<T> extends FrameLayout {
             indicatorNormalColor = typedArray.getColor(R.styleable.CircleViewPager_indicator_normal_color, Color.parseColor("#935656"));
             typedArray.recycle();
         }
+        indicatorRadius=DensityUtils.dp2px(getContext(),4);
         mView = LayoutInflater.from(getContext()).inflate(R.layout.view_pager_layout, this);
         mLlDot = (LinearLayout) mView.findViewById(R.id.ll_main_dot);
         mViewPager = (ViewPager) mView.findViewById(R.id.vp_main);
@@ -215,7 +215,7 @@ public class CircleViewPager<T> extends FrameLayout {
         // mDotList.clear();
         mLlDot.removeAllViews();
         //  设置LinearLayout的子控件的宽高，这里单位是像素。
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int) mDotWidth, (int) mDotWidth);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int) indicatorRadius*2, (int) indicatorRadius*2);
         params.rightMargin = (int) (mDotWidth / 1.5);
         if (mList.size() > 1) {
             //  for循环创建mUrlList.size()个ImageView（小圆点）
@@ -237,6 +237,7 @@ public class CircleViewPager<T> extends FrameLayout {
 
     private void setViewPager() {
         CirclePagerAdapter<T> adapter = new CirclePagerAdapter<>(mListAdd, this, holderCreator);
+        adapter.setCanLoop(isCanLoop);
         mViewPager.setAdapter(adapter);
         mViewPager.setCurrentItem(currentPosition);
 
@@ -380,5 +381,13 @@ public class CircleViewPager<T> extends FrameLayout {
     public void setList(List<T> list) {
         mList = list;
         mListAdd = new ArrayList<>();
+    }
+
+    public float getIndicatorRadius() {
+        return indicatorRadius;
+    }
+
+    public void setIndicatorRadius(float indicatorRadius) {
+        this.indicatorRadius = DensityUtils.dp2px(getContext(),indicatorRadius);
     }
 }

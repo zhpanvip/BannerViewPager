@@ -1,4 +1,4 @@
-package com.example.viewpager.holder;
+package com.zhpan.viewpager.holder;
 
 /**
  * Created by zhpan on 2017/10/30.

@@ -1,4 +1,4 @@
-package com.example.viewpager.view;
+package com.zhpan.viewpager.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -16,7 +16,6 @@ public class DotView extends View {
     private int checkedColor;
     private Paint mPaint;
     private boolean isChecked;
-
 
 
     public DotView(Context context) {
@@ -41,7 +40,8 @@ public class DotView extends View {
         super.onDraw(canvas);
         int width = getWidth();
         int height = getHeight();
-        canvas.drawCircle(width / 2, height / 2, Math.min(width, height) / 2, mPaint);
+        float radius = Math.min(width, height) / 2;
+        canvas.drawCircle(width / 2, height / 2, radius, mPaint);
     }
 
     public boolean isChecked() {

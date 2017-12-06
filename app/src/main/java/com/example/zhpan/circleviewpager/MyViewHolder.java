@@ -5,8 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.example.viewpager.holder.ViewHolder;
+import com.zhpan.viewpager.holder.ViewHolder;
 import com.example.zhpan.circleviewpager.utils.ImageLoaderUtil;
 
 /**
@@ -19,23 +20,38 @@ public class MyViewHolder implements ViewHolder<Object> {
     private TextView mTvDescribe;
 
     @Override
-    public View createView(Context context) {
+    public View createView(Context context, int position) {
         // 返回页面布局文件
         View view = LayoutInflater.from(context).inflate(R.layout.item_view, null);
-        mImageView = (ImageView) view.findViewById(R.id.banner_image);
-        mTvDescribe= (TextView) view.findViewById(R.id.tv_describe);
+        mImageView = view.findViewById(R.id.banner_image);
+        mTvDescribe = view.findViewById(R.id.tv_describe);
         return view;
     }
 
     @Override
-    public void onBind(Context context, Object data) {
+    public void onBind(final Context context, Object data, final int position, final int size) {
         // 数据绑定
-        if (data instanceof Integer)
+        if (data instanceof Integer) {
             mImageView.setImageResource((Integer) data);
-        else if (data instanceof DataBean) {
-            DataBean dataBean= (DataBean) data;
-            ImageLoaderUtil.loadImg(mImageView, dataBean.getUrl(),R.drawable.placeholder);
+            mImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(context, position + "点击了"+"页面数："+size, Toast.LENGTH_SHORT).show();
+
+                }
+            });
+        } else if (data instanceof DataBean) {
+
+            final DataBean dataBean = (DataBean) data;
+            ImageLoaderUtil.loadImg(mImageView, dataBean.getUrl(), R.drawable.placeholder);
             mTvDescribe.setText(dataBean.getDescribe());
+            mImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(context, position + "点击了" + dataBean.getDescribe()+"  页面数"+size, Toast.LENGTH_SHORT).show();
+
+                }
+            });
         }
     }
 }

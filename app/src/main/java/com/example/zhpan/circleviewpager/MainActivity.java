@@ -5,9 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
-import com.example.viewpager.holder.HolderCreator;
-import com.example.viewpager.holder.ViewHolder;
-import com.example.viewpager.view.CircleViewPager;
+import com.zhpan.viewpager.holder.HolderCreator;
+import com.zhpan.viewpager.holder.ViewHolder;
+import com.zhpan.viewpager.view.CircleViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         //  设置图片切换时间间隔
         mViewpager.setInterval(3000);
         mViewpager.setCanLoop(true);
+        mViewpager.setIndicatorRadius(6);
         //  设置页面点击事件
         mViewpager.setOnPageClickListener(new CircleViewPager.OnPageClickListener() {
             @Override
