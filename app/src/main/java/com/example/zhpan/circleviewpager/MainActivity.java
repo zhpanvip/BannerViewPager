@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
         mList.add(dataBean3);
         mList.add(dataBean4);
 
-
         for (int i = 1; i <= 5; i++) {
             int drawable = getResources().getIdentifier("a" + i, "drawable", getPackageName());
             mListInt.add(drawable);

@@ -3,18 +3,15 @@ package com.example.viewpager.adapter;
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.example.viewpager.holder.HolderCreator;
 import com.example.viewpager.holder.ViewHolder;
-import com.example.viewpager.utils.ImageLoaderUtil;
 import com.example.viewpager.view.CircleViewPager;
 
 import java.util.List;
 
 /**
  * Created by zhpan on 2017/3/28.
- *
  */
 
 public class CirclePagerAdapter<T> extends PagerAdapter {
@@ -54,7 +51,7 @@ public class CirclePagerAdapter<T> extends PagerAdapter {
         }
         View view = holder.createView(container.getContext());
         if (list != null && list.size() > 0) {
-            holder.onBind(container.getContext(),list.get(position));
+            holder.onBind(container.getContext(), list.get(position));
         }
         view.setOnClickListener(new View.OnClickListener() {
             @Override

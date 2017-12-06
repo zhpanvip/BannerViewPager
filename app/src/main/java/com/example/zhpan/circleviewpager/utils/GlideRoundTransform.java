@@ -1,4 +1,4 @@
-package com.example.viewpager.utils;
+package com.example.zhpan.circleviewpager.utils;
 
 import android.content.Context;
 import android.content.res.Resources;

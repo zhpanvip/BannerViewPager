@@ -1,4 +1,4 @@
-package com.example.viewpager.utils;
+package com.example.zhpan.circleviewpager.utils;
 
 import android.graphics.Bitmap;
 import android.os.Environment;
@@ -31,7 +31,7 @@ public class ImageLoaderUtil {
                 .into(v);
     }
 
-    public static void loadImg(ImageView v, String url,@DrawableRes int placeholder) {
+    public static void loadImg(ImageView v, String url, @DrawableRes int placeholder) {
         Glide.with(v.getContext())
                 .load(url)
                 .fitCenter()
@@ -51,7 +51,7 @@ public class ImageLoaderUtil {
     }
 
 
-    public static void loadCircleImg(ImageView v, String url,@DrawableRes int placeholder) {
+    public static void loadCircleImg(ImageView v, String url, @DrawableRes int placeholder) {
         Glide.with(v.getContext())
                 .load(url)
                 .placeholder(placeholder)
@@ -59,11 +59,11 @@ public class ImageLoaderUtil {
                 .into(v);
     }
 
-    public static void loadRoundImg(ImageView v, String url,@DrawableRes int placeholder) {
+    public static void loadRoundImg(ImageView v, String url, @DrawableRes int placeholder) {
         Glide.with(v.getContext())
                 .load(url)
                 .transform(new GlideRoundTransform(v.getContext()))
-               .placeholder(placeholder)
+                .placeholder(placeholder)
                 .into(v);
     }
 

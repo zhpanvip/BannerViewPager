@@ -7,7 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.viewpager.holder.ViewHolder;
-import com.example.viewpager.utils.ImageLoaderUtil;
+import com.example.zhpan.circleviewpager.utils.ImageLoaderUtil;
 
 /**
  * Created by zhpan on 2017/10/30.
