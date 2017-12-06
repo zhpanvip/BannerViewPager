@@ -1,28 +1,28 @@
 # CircleViewPager
 无限循环轮播的ViewPager
 
-
-1.在xml文件中添加如下代码：
+1.gradle中添加依赖
 ```
-<com.example.viewpager.view.CircleViewPager
+compile 'com.zhpan.library:viewpager:1.0.0'
+```
+
+2.在xml文件中添加如下代码：
+```
+<com.zhpan.viewpager.view.CircleViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        app:lightDotRes="@drawable/red_dot"
-        app:darkDotRes="@drawable/red_dot_night"
-        app:interval="5000"/>
+        app:interval="5000" />
 
-    <com.example.viewpager.view.CircleViewPager
+    <com.zhpan.viewpager.view.CircleViewPager
         android:id="@+id/viewpager2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:lightDotRes="@drawable/red_dot"
-        android:layout_marginStart="35dp"
         android:layout_marginEnd="35dp"
-        app:darkDotRes="@drawable/red_dot_night"
-        app:interval="5000"/>
+        android:layout_marginStart="35dp"
+        app:interval="5000" />
 ```
-2.加载网路图片
+3.加载网路图片
 
 ```
         //  设置指示器资源图片
@@ -52,7 +52,7 @@
         });
 ```
 
- 3.加载本地图片
+ .加载本地图片
 
 ```
 		 //  初始化本地图片集合
