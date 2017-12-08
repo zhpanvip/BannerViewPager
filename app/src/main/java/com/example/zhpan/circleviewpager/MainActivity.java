@@ -52,18 +52,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setViewPager() {
-
-        //  设置指示器半径大小（dp）
-        mViewpager.setDotWidth(8);
         //  设置指示器位置
-        mViewpager.setIndicatorGravity(CircleViewPager.IndicatorGravity.END);
-        mViewpager.setAutoPlay(true);
+       // mViewpager.setIndicatorGravity(CircleViewPager.END);
         //  是否显示指示器
         mViewpager.isShowIndicator(true);
         //  设置图片切换时间间隔
         mViewpager.setInterval(3000);
-        mViewpager.setCanLoop(true);
-        mViewpager.setIndicatorRadius(6);
+        //  设置指示器圆点半径
+       // mViewpager.setIndicatorRadius(6);
+
         //  设置页面点击事件
         mViewpager.setOnPageClickListener(new CircleViewPager.OnPageClickListener() {
             @Override
@@ -72,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "点击了" + list.get(position).getDescribe(), Toast.LENGTH_SHORT).show();
             }
         });
-
+        //  设置数据
         mViewpager.setPages(mList, new HolderCreator<ViewHolder>() {
             @Override
             public ViewHolder createViewHolder() {
@@ -81,6 +78,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        mViewPager2.setAutoPlay(false);
+        mViewPager2.setCanLoop(false);
         mViewPager2.setPages(mListInt, new HolderCreator<ViewHolder>() {
             @Override
             public ViewHolder createViewHolder() {

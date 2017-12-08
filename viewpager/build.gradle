@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 // 这个version是区分library版本的，因此当我们需要更新library时记得修改这个version
-version = "1.0.3"
+version = "1.0.4"
 android {
     compileSdkVersion 26
     buildToolsVersion "26.0.2"
@@ -101,3 +101,5 @@ bintray {
         publish = true
     }
 }
+
+//提交命令：gradlew bintrayUpload

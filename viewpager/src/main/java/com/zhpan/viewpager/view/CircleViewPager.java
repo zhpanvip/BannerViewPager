@@ -34,8 +34,6 @@ public class CircleViewPager<T> extends FrameLayout {
     private List<T> mListAdd;
     //  指示器图片集合
     private List<DotView> mDotList;
-    //   轮播原点宽度
-    private float mDotWidth;
     //  图片切换时间间隔
     private int interval;
     //  圆点位置
@@ -47,13 +45,14 @@ public class CircleViewPager<T> extends FrameLayout {
     //  是否正在循环
     private boolean isLooping;
     private boolean isCanLoop;
-
+    public static final int START = 1;
+    public static final int END = 2;
+    public static final int CENTER = 0;
 
 
     //  是否显示指示器圆点
     private boolean showIndicator = true;
     private boolean isAutoPlay = false;
-    private View mView;
     private int indicatorNormalColor;
     private int indicatorCheckedColor;
     private float indicatorRadius;
@@ -61,14 +60,7 @@ public class CircleViewPager<T> extends FrameLayout {
     private LinearLayout mLlDot;
     private HolderCreator holderCreator;
     private OnPageClickListener mOnPageClickListener;
-    private IndicatorGravity gravity = IndicatorGravity.CENTER;
-
-    public enum IndicatorGravity {
-        START,//做对齐
-        CENTER,//居中对齐
-        END //右对齐
-    }
-
+    private int gravity = 0;
 
     Handler mHandler = new Handler();
     Runnable mRunnable = new Runnable() {
@@ -84,17 +76,17 @@ public class CircleViewPager<T> extends FrameLayout {
 
     public CircleViewPager(Context context) {
         super(context);
-        init(null);
+        init(null, context);
     }
 
     public CircleViewPager(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
-        init(attrs);
+        init(attrs, context);
     }
 
     public CircleViewPager(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(attrs);
+        init(attrs, context);
     }
 
     @Override
@@ -108,19 +100,21 @@ public class CircleViewPager<T> extends FrameLayout {
         }
     }
 
-    private void init(AttributeSet attrs) {
+    private void init(AttributeSet attrs, Context context) {
         if (attrs != null) {
             TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.CircleViewPager);
-            mDotWidth = typedArray.getDimension(R.styleable.CircleViewPager_dotWidth, 20);
             interval = typedArray.getInteger(R.styleable.CircleViewPager_interval, 3000);
             indicatorCheckedColor = typedArray.getColor(R.styleable.CircleViewPager_indicator_checked_color, Color.parseColor("#FF4C39"));
             indicatorNormalColor = typedArray.getColor(R.styleable.CircleViewPager_indicator_normal_color, Color.parseColor("#935656"));
+            indicatorRadius = typedArray.getDimension(R.styleable.CircleViewPager_indicator_radius, DensityUtils.dp2px(context,4));
+            isAutoPlay = typedArray.getBoolean(R.styleable.CircleViewPager_isAutoPlay, true);
+            isCanLoop = typedArray.getBoolean(R.styleable.CircleViewPager_isCanLoop, true);
+            gravity = typedArray.getInt(R.styleable.CircleViewPager_indicator_gravity, 0);
             typedArray.recycle();
         }
-        indicatorRadius=DensityUtils.dp2px(getContext(),4);
-        mView = LayoutInflater.from(getContext()).inflate(R.layout.view_pager_layout, this);
-        mLlDot = (LinearLayout) mView.findViewById(R.id.ll_main_dot);
-        mViewPager = (ViewPager) mView.findViewById(R.id.vp_main);
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.view_pager_layout, this);
+        mLlDot = view.findViewById(R.id.ll_main_dot);
+        mViewPager = view.findViewById(R.id.vp_main);
         mList = new ArrayList<>();
         mListAdd = new ArrayList<>();
         mDotList = new ArrayList<>();
@@ -128,14 +122,14 @@ public class CircleViewPager<T> extends FrameLayout {
 
     private void setIndicatorLocation() {
         switch (gravity) {
+            case CENTER:
+                mLlDot.setGravity(Gravity.CENTER);
+                break;
             case START:
                 mLlDot.setGravity(Gravity.START);
                 break;
             case END:
                 mLlDot.setGravity(Gravity.END);
-                break;
-            case CENTER:
-                mLlDot.setGravity(Gravity.CENTER);
                 break;
         }
     }
@@ -154,8 +148,8 @@ public class CircleViewPager<T> extends FrameLayout {
     }
 
     private void createData() {
+        mListAdd.clear();
         if (isCanLoop) {
-            mListAdd.clear();
             currentPosition = 1;
             for (int i = 0; i < mList.size() + 2; i++) {
                 if (i == 0) {   //  判断当i=0为该处的mList的最后一个数据作为mListAdd的第一个数据
@@ -167,7 +161,7 @@ public class CircleViewPager<T> extends FrameLayout {
                 }
             }
         } else {
-            mListAdd = mList;
+            mListAdd.addAll(mList);
         }
     }
 
@@ -215,8 +209,8 @@ public class CircleViewPager<T> extends FrameLayout {
         // mDotList.clear();
         mLlDot.removeAllViews();
         //  设置LinearLayout的子控件的宽高，这里单位是像素。
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int) indicatorRadius*2, (int) indicatorRadius*2);
-        params.rightMargin = (int) (mDotWidth / 1.5);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int) indicatorRadius * 2, (int) indicatorRadius * 2);
+        params.rightMargin = (int) (indicatorRadius * 2 / 1.5);
         if (mList.size() > 1) {
             //  for循环创建mUrlList.size()个ImageView（小圆点）
             for (int i = 0; i < mList.size(); i++) {
@@ -260,7 +254,7 @@ public class CircleViewPager<T> extends FrameLayout {
         this.showIndicator = showIndicator;
     }
 
-    public void setIndicatorGravity(IndicatorGravity gravity) {
+    public void setIndicatorGravity(int gravity) {
         this.gravity = gravity;
     }
 
@@ -337,10 +331,6 @@ public class CircleViewPager<T> extends FrameLayout {
         }
     }
 
-    public void setDotWidth(float dotWidth) {
-        mDotWidth = DensityUtils.dp2px(getContext(), dotWidth);
-    }
-
     /**
      * @param checkedColor 选中时指示器颜色
      * @param normalColor  未选中时指示器颜色
@@ -388,6 +378,6 @@ public class CircleViewPager<T> extends FrameLayout {
     }
 
     public void setIndicatorRadius(float indicatorRadius) {
-        this.indicatorRadius = DensityUtils.dp2px(getContext(),indicatorRadius);
+        this.indicatorRadius = DensityUtils.dp2px(getContext(), indicatorRadius);
     }
 }
