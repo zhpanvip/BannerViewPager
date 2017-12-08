@@ -29,8 +29,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        mViewpager = (CircleViewPager) findViewById(R.id.viewpager);
-        mViewPager2 = (CircleViewPager) findViewById(R.id.viewpager2);
+        mViewpager = findViewById(R.id.viewpager);
+        mViewPager2 = findViewById(R.id.viewpager2);
     }
 
     private void initData() {
@@ -45,21 +45,21 @@ public class MainActivity extends AppCompatActivity {
         mList.add(dataBean3);
         mList.add(dataBean4);
 
-        for (int i = 1; i <= 5; i++) {
-            int drawable = getResources().getIdentifier("a" + i, "drawable", getPackageName());
+        for (int i = 0; i <= 3; i++) {
+            int drawable = getResources().getIdentifier("b" + i, "drawable", getPackageName());
             mListInt.add(drawable);
         }
     }
 
     private void setViewPager() {
         //  设置指示器位置
-       // mViewpager.setIndicatorGravity(CircleViewPager.END);
+        // mViewpager.setIndicatorGravity(CircleViewPager.END);
         //  是否显示指示器
         mViewpager.isShowIndicator(true);
         //  设置图片切换时间间隔
         mViewpager.setInterval(3000);
         //  设置指示器圆点半径
-       // mViewpager.setIndicatorRadius(6);
+        // mViewpager.setIndicatorRadius(6);
 
         //  设置页面点击事件
         mViewpager.setOnPageClickListener(new CircleViewPager.OnPageClickListener() {
@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         mViewPager2.setOnPageClickListener(new CircleViewPager.OnPageClickListener() {
             @Override
             public void onPageClick(int position) {
-                Toast.makeText(MainActivity.this, "图片"+(position+1), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "图片" + (position + 1), Toast.LENGTH_SHORT).show();
             }
         });
     }

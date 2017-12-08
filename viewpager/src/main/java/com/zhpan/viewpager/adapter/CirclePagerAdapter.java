@@ -20,10 +20,6 @@ public class CirclePagerAdapter<T> extends PagerAdapter {
     private HolderCreator holderCreator;
     private boolean isCanLoop;
 
-    public boolean isCanLoop() {
-        return isCanLoop;
-    }
-
     public void setCanLoop(boolean canLoop) {
         isCanLoop = canLoop;
     }
@@ -79,8 +75,6 @@ public class CirclePagerAdapter<T> extends PagerAdapter {
                 view = holder.createView(container.getContext(), position);
                 holder.onBind(container.getContext(), list.get(position), position, list.size());
             }
-
-
         }
 
         if (view != null)

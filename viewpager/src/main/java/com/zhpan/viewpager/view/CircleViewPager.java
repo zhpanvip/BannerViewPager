@@ -44,23 +44,28 @@ public class CircleViewPager<T> extends FrameLayout {
     private int currentPosition;
     //  是否正在循环
     private boolean isLooping;
+    //  是否开启循环
     private boolean isCanLoop;
+    //  是否开启自动播放
+    private boolean isAutoPlay = false;
+    //  是否显示指示器圆点
+    private boolean showIndicator = true;
+    // 圆点指示器显示位置
     public static final int START = 1;
     public static final int END = 2;
     public static final int CENTER = 0;
-
-
-    //  是否显示指示器圆点
-    private boolean showIndicator = true;
-    private boolean isAutoPlay = false;
+    private int gravity;
+    //  未选中时圆点颜色
     private int indicatorNormalColor;
+    //  选中时选点颜色
     private int indicatorCheckedColor;
+    //  指示器圆点半径
     private float indicatorRadius;
-
-    private LinearLayout mLlDot;
-    private HolderCreator holderCreator;
+    //  页面点击事件监听
     private OnPageClickListener mOnPageClickListener;
-    private int gravity = 0;
+    //  圆点指示器的Layout
+    private LinearLayout mLlIndicator;
+    private HolderCreator holderCreator;
 
     Handler mHandler = new Handler();
     Runnable mRunnable = new Runnable() {
@@ -94,9 +99,8 @@ public class CircleViewPager<T> extends FrameLayout {
         super.onLayout(changed, left, top, right, bottom);
         if (changed) {
             initData();
-            setIndicatorImage();
+            setIndicator();
             setViewPager();
-            setIndicatorLocation();
         }
     }
 
@@ -113,23 +117,23 @@ public class CircleViewPager<T> extends FrameLayout {
             typedArray.recycle();
         }
         View view = LayoutInflater.from(getContext()).inflate(R.layout.view_pager_layout, this);
-        mLlDot = view.findViewById(R.id.ll_main_dot);
+        mLlIndicator = view.findViewById(R.id.ll_main_dot);
         mViewPager = view.findViewById(R.id.vp_main);
         mList = new ArrayList<>();
         mListAdd = new ArrayList<>();
         mDotList = new ArrayList<>();
     }
 
-    private void setIndicatorLocation() {
+    private void setIndicatorGravity() {
         switch (gravity) {
             case CENTER:
-                mLlDot.setGravity(Gravity.CENTER);
+                mLlIndicator.setGravity(Gravity.CENTER);
                 break;
             case START:
-                mLlDot.setGravity(Gravity.START);
+                mLlIndicator.setGravity(Gravity.START);
                 break;
             case END:
-                mLlDot.setGravity(Gravity.END);
+                mLlIndicator.setGravity(Gravity.END);
                 break;
         }
     }
@@ -205,9 +209,9 @@ public class CircleViewPager<T> extends FrameLayout {
     }
 
     //  设置轮播小圆点
-    private void setIndicatorImage() {
+    private void setIndicator() {
         // mDotList.clear();
-        mLlDot.removeAllViews();
+        mLlIndicator.removeAllViews();
         //  设置LinearLayout的子控件的宽高，这里单位是像素。
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int) indicatorRadius * 2, (int) indicatorRadius * 2);
         params.rightMargin = (int) (indicatorRadius * 2 / 1.5);
@@ -219,7 +223,7 @@ public class CircleViewPager<T> extends FrameLayout {
                 dotView.setNormalColor(indicatorNormalColor);
                 dotView.setCheckedColor(indicatorCheckedColor);
                 dotView.setChecked(false);
-                mLlDot.addView(dotView);
+                mLlIndicator.addView(dotView);
                 mDotList.add(dotView);
             }
         }
@@ -227,6 +231,7 @@ public class CircleViewPager<T> extends FrameLayout {
         if (mList.size() > 1) {
             mDotList.get(dotPosition).setChecked(true);
         }
+        setIndicatorGravity();
     }
 
     private void setViewPager() {
@@ -239,9 +244,9 @@ public class CircleViewPager<T> extends FrameLayout {
         startLoop();
         setTouchListener();
         if (showIndicator) {
-            mLlDot.setVisibility(VISIBLE);
+            mLlIndicator.setVisibility(VISIBLE);
         } else {
-            mLlDot.setVisibility(GONE);
+            mLlIndicator.setVisibility(GONE);
         }
     }
 
@@ -262,8 +267,7 @@ public class CircleViewPager<T> extends FrameLayout {
         if (list == null || holderCreator == null) {
             return;
         }
-        mList = list;
-        //mList.addAll(list);
+        mList .addAll(list);
         this.holderCreator = holderCreator;
     }
 

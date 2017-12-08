@@ -17,7 +17,6 @@
     <com.zhpan.viewpager.view.CircleViewPager
         android:id="@+id/viewpager2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginEnd="35dp"
-        android:layout_marginStart="35dp"/>
+        android:layout_height="170dp"
+        android:layout_marginTop="15dp"/>
 </LinearLayout>
