@@ -35,12 +35,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void initData() {
         DataBean dataBean = new DataBean("http://img0.imgtn.bdimg.com/it/u=3159618424,497154385&fm=214&gp=0.jpg", "图片一");
-        DataBean dataBean1 = new DataBean("http://img0.imgtn.bdimg.com/it/u=3159618424,497154385&fm=214&gp=0.jpg", "图片二");
-        DataBean dataBean2 = new DataBean("http://img4.imgtn.bdimg.com/it/u=928730363,1881984966&fm=214&gp=0.jpg", "图片三");
-        DataBean dataBean3 = new DataBean("http://img4.imgtn.bdimg.com/it/u=3779410813,199087977&fm=214&gp=0.jpg", "图片四");
-        DataBean dataBean4 = new DataBean("http://img2.niutuku.com/desk/1208/1450/ntk-1450-9891.jpg", "图片五");
+        DataBean dataBean2 = new DataBean("http://img4.imgtn.bdimg.com/it/u=928730363,1881984966&fm=214&gp=0.jpg", "图片二");
+        DataBean dataBean3 = new DataBean("http://img4.imgtn.bdimg.com/it/u=3779410813,199087977&fm=214&gp=0.jpg", "图片三");
+        DataBean dataBean4 = new DataBean("http://img2.niutuku.com/desk/1208/1450/ntk-1450-9891.jpg", "图片四");
         mList.add(dataBean);
-        mList.add(dataBean1);
         mList.add(dataBean2);
         mList.add(dataBean3);
         mList.add(dataBean4);
