@@ -1,9 +1,11 @@
 # CircleViewPager
 无限循环轮播的ViewPager
 
+![这里写图片描述](https://github.com/zhpanvip/CircleViewPager/blob/master/app/src/main/res/ezgif-3-b826de74b0.gif)
+
 1.gradle中添加依赖
 ```
-compile 'com.zhpan.library:viewpager:1.0.3'
+compile 'com.zhpan.library:viewpager:1.0.4'
 ```
 
 2.在xml文件中添加如下代码：
