@@ -5,7 +5,7 @@
 
 1.gradle中添加依赖
 ```
-compile 'com.zhpan.library:viewpager:1.0.4'
+compile 'com.zhpan.library:viewpager:1.0.5'
 ```
 
 2.在xml文件中添加如下代码：
