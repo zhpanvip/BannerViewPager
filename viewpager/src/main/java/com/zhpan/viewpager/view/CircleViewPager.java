@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * Created by zhpan on 2017/3/28.
  */
-public class CircleViewPager<T> extends FrameLayout {
+public class CircleViewPager<T, M extends ViewHolder> extends FrameLayout {
     private ViewPager mViewPager;
     //  轮播数据集合
     private List<T> mList;
@@ -110,7 +110,7 @@ public class CircleViewPager<T> extends FrameLayout {
             interval = typedArray.getInteger(R.styleable.CircleViewPager_interval, 3000);
             indicatorCheckedColor = typedArray.getColor(R.styleable.CircleViewPager_indicator_checked_color, Color.parseColor("#FF4C39"));
             indicatorNormalColor = typedArray.getColor(R.styleable.CircleViewPager_indicator_normal_color, Color.parseColor("#935656"));
-            indicatorRadius = typedArray.getDimension(R.styleable.CircleViewPager_indicator_radius, DensityUtils.dp2px(context,4));
+            indicatorRadius = typedArray.getDimension(R.styleable.CircleViewPager_indicator_radius, DensityUtils.dp2px(context, 4));
             isAutoPlay = typedArray.getBoolean(R.styleable.CircleViewPager_isAutoPlay, true);
             isCanLoop = typedArray.getBoolean(R.styleable.CircleViewPager_isCanLoop, true);
             gravity = typedArray.getInt(R.styleable.CircleViewPager_indicator_gravity, 0);
@@ -263,11 +263,11 @@ public class CircleViewPager<T> extends FrameLayout {
         this.gravity = gravity;
     }
 
-    public void setPages(List<T> list, HolderCreator<ViewHolder> holderCreator) {
+    public void setPages(List<T> list, HolderCreator<M> holderCreator) {
         if (list == null || holderCreator == null) {
             return;
         }
-        mList .addAll(list);
+        mList.addAll(list);
         this.holderCreator = holderCreator;
     }
 
@@ -368,6 +368,10 @@ public class CircleViewPager<T> extends FrameLayout {
         this.interval = interval;
     }
 
+    public void setCurrentItem(int position) {
+        mViewPager.setCurrentItem(position);
+    }
+
     public List<T> getList() {
         return mList;
     }
@@ -377,6 +381,9 @@ public class CircleViewPager<T> extends FrameLayout {
         mListAdd = new ArrayList<>();
     }
 
+
+
+
     public float getIndicatorRadius() {
         return indicatorRadius;
     }
@@ -384,4 +391,6 @@ public class CircleViewPager<T> extends FrameLayout {
     public void setIndicatorRadius(float indicatorRadius) {
         this.indicatorRadius = DensityUtils.dp2px(getContext(), indicatorRadius);
     }
+
+
 }

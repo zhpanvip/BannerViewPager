@@ -2,11 +2,11 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+    buildToolsVersion '28.0.3'
     defaultConfig {
         applicationId "com.example.zhpan.circleviewpager"
         minSdkVersion 17
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -33,15 +33,16 @@ repositories {
 
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:26.1.0'
-    testCompile 'junit:junit:4.12'
-    compile project(':viewpager')
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    testImplementation 'junit:junit:4.12'
+    implementation project(':viewpager')
     // compile 'com.zhpan.library:viewpager:1.0.0'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-   // implementation files('libs/viewpager-1.0.0.jar')
-   // compile(name: 'viewpager-1.0.0', ext: 'aar')
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+    implementation 'com.github.chrisbanes:PhotoView:2.1.0'
+    // implementation files('libs/viewpager-1.0.0.jar')
+    // compile(name: 'viewpager-1.0.0', ext: 'aar')
 }

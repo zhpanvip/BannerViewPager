@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v4.view.ViewPager
+    <com.zhpan.viewpager.view.MViewPager
         android:id="@+id/vp_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

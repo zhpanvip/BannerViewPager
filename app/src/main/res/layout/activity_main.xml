@@ -11,12 +11,12 @@
         android:layout_width="match_parent"
         android:layout_height="150dp"
         app:indicator_radius="6dp"
+        android:visibility="gone"
         app:indicator_gravity="end"
         app:interval="5000" />
 
     <com.zhpan.viewpager.view.CircleViewPager
         android:id="@+id/viewpager2"
         android:layout_width="match_parent"
-        android:layout_height="170dp"
-        android:layout_marginTop="15dp"/>
+        android:layout_height="wrap_content"/>
 </LinearLayout>

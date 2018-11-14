@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.zhpan.viewpager.holder.HolderCreator;
-import com.zhpan.viewpager.holder.ViewHolder;
 import com.zhpan.viewpager.view.CircleViewPager;
 
 import java.util.ArrayList;
@@ -14,10 +13,14 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private CircleViewPager mViewpager;
-    private CircleViewPager mViewPager2;
-    private List<DataBean> mList = new ArrayList<>();
-    private List<Integer> mListInt = new ArrayList<>();
+    private CircleViewPager<DataBean, DataViewHolder> mViewpager;
+    private CircleViewPager<Integer, PhotoViewHolder> mViewPager2;
+    private List<DataBean> mDataList = new ArrayList<>();
+    private List<Integer> mPicResList = new ArrayList<>();
+    private String[] picUrls = {"http://img0.imgtn.bdimg.com/it/u=3159618424,497154385&fm=214&gp=0.jpg",
+            "http://img4.imgtn.bdimg.com/it/u=928730363,1881984966&fm=214&gp=0.jpg",
+            "http://img4.imgtn.bdimg.com/it/u=3779410813,199087977&fm=214&gp=0.jpg",
+            "http://img2.niutuku.com/desk/1208/1450/ntk-1450-9891.jpg"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,18 +37,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initData() {
-        DataBean dataBean = new DataBean("http://img0.imgtn.bdimg.com/it/u=3159618424,497154385&fm=214&gp=0.jpg", "图片一");
-        DataBean dataBean2 = new DataBean("http://img4.imgtn.bdimg.com/it/u=928730363,1881984966&fm=214&gp=0.jpg", "图片二");
-        DataBean dataBean3 = new DataBean("http://img4.imgtn.bdimg.com/it/u=3779410813,199087977&fm=214&gp=0.jpg", "图片三");
-        DataBean dataBean4 = new DataBean("http://img2.niutuku.com/desk/1208/1450/ntk-1450-9891.jpg", "图片四");
-        mList.add(dataBean);
-        mList.add(dataBean2);
-        mList.add(dataBean3);
-        mList.add(dataBean4);
+        for (int i = 0; i < picUrls.length; i++) {
+            DataBean dataBean = new DataBean(picUrls[i], "图片" + (i + 1));
+            mDataList.add(dataBean);
+        }
 
-        for (int i = 0; i <= 3; i++) {
-            int drawable = getResources().getIdentifier("b" + i, "drawable", getPackageName());
-            mListInt.add(drawable);
+        for (int i = 1; i <= 4; i++) {
+            int drawable = getResources().getIdentifier("a" + i, "drawable", getPackageName());
+            mPicResList.add(drawable);
         }
     }
 
@@ -64,24 +63,24 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onPageClick(int position) {
                 List<DataBean> list = mViewpager.getList();
+                String describe = list.get(position).getDescribe();
                 Toast.makeText(MainActivity.this, "点击了" + list.get(position).getDescribe(), Toast.LENGTH_SHORT).show();
             }
         });
         //  设置数据
-        mViewpager.setPages(mList, new HolderCreator<ViewHolder>() {
+        mViewpager.setPages(mDataList, new HolderCreator<DataViewHolder>() {
             @Override
-            public ViewHolder createViewHolder() {
-                return new MyViewHolder();
+            public DataViewHolder createViewHolder() {
+                return new DataViewHolder();
             }
         });
 
-
         mViewPager2.setAutoPlay(false);
         mViewPager2.setCanLoop(false);
-        mViewPager2.setPages(mListInt, new HolderCreator<ViewHolder>() {
+        mViewPager2.setPages(mPicResList, new HolderCreator<PhotoViewHolder>() {
             @Override
-            public ViewHolder createViewHolder() {
-                return new MyViewHolder();
+            public PhotoViewHolder createViewHolder() {
+                return new PhotoViewHolder();
             }
         });
         //  设置指示器资源图片
