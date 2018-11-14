@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "图片" + (position + 1), Toast.LENGTH_SHORT).show();
             }
         });
+        mViewPager2.setCurrentItem(2);
     }
 
     @Override

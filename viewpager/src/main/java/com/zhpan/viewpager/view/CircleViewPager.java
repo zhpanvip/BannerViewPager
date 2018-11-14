@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.ColorInt;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
@@ -238,7 +239,7 @@ public class CircleViewPager<T, M extends ViewHolder> extends FrameLayout {
         CirclePagerAdapter<T> adapter = new CirclePagerAdapter<>(mListAdd, this, holderCreator);
         adapter.setCanLoop(isCanLoop);
         mViewPager.setAdapter(adapter);
-        mViewPager.setCurrentItem(currentPosition);
+//        mViewPager.setCurrentItem(currentPosition);
 
         setPageChangeListener();
         startLoop();
@@ -368,8 +369,24 @@ public class CircleViewPager<T, M extends ViewHolder> extends FrameLayout {
         this.interval = interval;
     }
 
-    public void setCurrentItem(int position) {
-        mViewPager.setCurrentItem(position);
+    public void setCurrentItem(final int position) {
+        currentPosition=position;
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mViewPager.setCurrentItem(currentPosition);
+            }
+        },30);
+    }
+
+    public void setCurrentItem(final int position, final boolean smoothScroll) {
+        currentPosition=position;
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mViewPager.setCurrentItem(position,smoothScroll);
+            }
+        },30);
     }
 
     public List<T> getList() {
@@ -380,8 +397,6 @@ public class CircleViewPager<T, M extends ViewHolder> extends FrameLayout {
         mList = list;
         mListAdd = new ArrayList<>();
     }
-
-
 
 
     public float getIndicatorRadius() {
