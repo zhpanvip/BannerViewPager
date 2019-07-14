@@ -288,18 +288,14 @@ public class BannerViewPager<T, M extends ViewHolder> extends FrameLayout {
                 currentPosition = position;
                 dotPosition = position - 1;
             }
-            //  把之前的小圆点设置背景为暗红，当前小圆点设置为红色
-            mDotList.get(prePosition).setChecked(false);
-            mDotList.get(dotPosition).setChecked(true);
-            prePosition = dotPosition;
         } else {
             currentPosition = position;
-            //  把之前的小圆点设置背景为暗红，当前小圆点设置为红色
-            mDotList.get(prePosition).setChecked(false);
-            mDotList.get(currentPosition).setChecked(true);
-            prePosition = currentPosition;
+            dotPosition = currentPosition;
         }
-
+        //  把之前的小圆点设置未选中状态，当前小圆点设置为选中状态
+        mDotList.get(prePosition).setChecked(false);
+        mDotList.get(dotPosition).setChecked(true);
+        prePosition = dotPosition;
     }
 
     public interface OnPageClickListener {

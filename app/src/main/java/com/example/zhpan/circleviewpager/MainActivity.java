@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         });
         //  设置指示器资源图片
         mViewPager2.setIndicatorColor(Color.parseColor("#6C6D72"),
-                Color.parseColor("#18171C"));
+                Color.parseColor("#FFFFFF"));
         mViewPager2.setOnPageClickListener(new BannerViewPager.OnPageClickListener() {
             @Override
             public void onPageClick(int position) {
