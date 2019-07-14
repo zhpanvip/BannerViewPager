@@ -32,7 +32,12 @@ public class BannerPagerAdapter<T> extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return list.size();
+        if (isCanLoop && list.size() > 1) {
+            return list.size() + 2;
+        } else {
+            return list.size();
+        }
+
     }
 
     @Override
@@ -56,20 +61,17 @@ public class BannerPagerAdapter<T> extends PagerAdapter {
         }
         View view = null;
         if (list != null && list.size() > 0) {
-            if (isCanLoop) {
+            if (isCanLoop&&list.size()>1) {
                 int size = list.size();
-                if (list.size() > 1) {
-                    size = list.size() - 2;
-                }
                 if (position == 0) {
                     view = holder.createView(container.getContext(), list.size() - 1);
-                    holder.onBind(container.getContext(), list.get(0), list.size() - 1, size);
-                } else if (position == list.size() - 1) {
+                    holder.onBind(container.getContext(), list.get(list.size() - 1), list.size() - 1, size);
+                } else if (position == list.size() + 1) {
                     view = holder.createView(container.getContext(), 0);
-                    holder.onBind(container.getContext(), list.get(list.size() - 1), 0, size);
+                    holder.onBind(container.getContext(), list.get(0), 0, size);
                 } else {
                     view = holder.createView(container.getContext(), position - 1);
-                    holder.onBind(container.getContext(), list.get(position), position - 1, size);
+                    holder.onBind(container.getContext(), list.get(position - 1), position - 1, size);
                 }
             } else {
                 view = holder.createView(container.getContext(), position);

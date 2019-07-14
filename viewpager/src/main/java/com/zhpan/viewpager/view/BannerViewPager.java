@@ -30,8 +30,6 @@ public class BannerViewPager<T, M extends ViewHolder> extends FrameLayout {
     private ViewPager mViewPager;
     //  轮播数据集合
     private List<T> mList;
-    //  重新构造后的轮播数据集合
-    private List<T> mListAdd;
     //  指示器图片集合
     private List<DotView> mDotList;
     //  图片切换时间间隔
@@ -125,7 +123,6 @@ public class BannerViewPager<T, M extends ViewHolder> extends FrameLayout {
         mLlIndicator = view.findViewById(R.id.ll_main_dot);
         mViewPager = view.findViewById(R.id.vp_main);
         mList = new ArrayList<>();
-        mListAdd = new ArrayList<>();
         mDotList = new ArrayList<>();
     }
 
@@ -147,30 +144,10 @@ public class BannerViewPager<T, M extends ViewHolder> extends FrameLayout {
     private void initData() {
         if (mList.size() == 0) {
             setVisibility(GONE);
-        } else if (mList.size() == 1) {
-            mListAdd.add(mList.get(0));
-            setVisibility(VISIBLE);
         } else {
-            createData();
-            setVisibility(VISIBLE);
-        }
-    }
-
-    private void createData() {
-        mListAdd.clear();
-        if (isCanLoop) {
-            currentPosition = 1;
-            for (int i = 0; i <= mList.size() + 1; i++) {
-                if (i == 0) {   //  判断当i=0为该处的mList的最后一个数据作为mListAdd的第一个数据
-                    mListAdd.add(mList.get(mList.size() - 1));
-                } else if (i == mList.size() + 1) {   //  判断当i=mList.size()+1时将mList的第一个数据作为mListAdd的最后一个数据
-                    mListAdd.add(mList.get(0));
-                } else {  //  其他情况
-                    mListAdd.add(mList.get(i - 1));
-                }
+            if (isCanLoop) {
+                currentPosition = 1;
             }
-        } else {
-            mListAdd.addAll(mList);
         }
     }
 
@@ -240,10 +217,10 @@ public class BannerViewPager<T, M extends ViewHolder> extends FrameLayout {
     }
 
     private void setViewPager() {
-        BannerPagerAdapter<T> adapter = new BannerPagerAdapter<>(mListAdd, this, holderCreator);
+        BannerPagerAdapter<T> adapter = new BannerPagerAdapter<>(mList, this, holderCreator);
         adapter.setCanLoop(isCanLoop);
         mViewPager.setAdapter(adapter);
-//        mViewPager.setCurrentItem(currentPosition);
+        mViewPager.setCurrentItem(currentPosition);
 
         setPageChangeListener();
         startLoop();
@@ -410,7 +387,6 @@ public class BannerViewPager<T, M extends ViewHolder> extends FrameLayout {
 
     public void setList(List<T> list) {
         mList = list;
-        mListAdd = new ArrayList<>();
     }
 
 
@@ -421,6 +397,4 @@ public class BannerViewPager<T, M extends ViewHolder> extends FrameLayout {
     public void setIndicatorRadius(float indicatorRadius) {
         this.indicatorRadius = DensityUtils.dp2px(getContext(), indicatorRadius);
     }
-
-
 }
