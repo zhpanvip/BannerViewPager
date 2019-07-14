@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.zhpan.viewpager.view.CircleViewPager
+    <com.zhpan.viewpager.view.BannerViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="150dp"
@@ -14,12 +14,12 @@
         app:indicator_radius="6dp"
         app:interval="5000" />
 
-    <com.zhpan.viewpager.view.CircleViewPager
+    <com.zhpan.viewpager.view.BannerViewPager
         android:id="@+id/viewpager2"
         android:layout_width="match_parent"
         android:layout_height="150dp" />
 
-    <com.zhpan.viewpager.view.CircleViewPager
+    <com.zhpan.viewpager.view.BannerViewPager
         android:id="@+id/viewpager3"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

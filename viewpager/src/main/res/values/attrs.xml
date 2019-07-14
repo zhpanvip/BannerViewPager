@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="CircleViewPager">
+    <declare-styleable name="BannerViewPager">
         <!--页面切换时间间隔-->
         <attr name="interval" format="integer"/>
         <attr name="isCanLoop" format="boolean"/>

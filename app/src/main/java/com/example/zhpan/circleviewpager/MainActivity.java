@@ -9,16 +9,16 @@ import com.example.zhpan.circleviewpager.viewholder.DataViewHolder;
 import com.example.zhpan.circleviewpager.viewholder.LocalImageViewHolder;
 import com.example.zhpan.circleviewpager.viewholder.PhotoViewHolder;
 import com.zhpan.viewpager.holder.HolderCreator;
-import com.zhpan.viewpager.view.CircleViewPager;
+import com.zhpan.viewpager.view.BannerViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private CircleViewPager<DataBean, DataViewHolder> mViewpager;
-    private CircleViewPager<Integer, LocalImageViewHolder> mViewPager2;
-    private CircleViewPager<Integer, PhotoViewHolder> mViewPager3;
+    private BannerViewPager<DataBean, DataViewHolder> mViewpager;
+    private BannerViewPager<Integer, LocalImageViewHolder> mViewPager2;
+    private BannerViewPager<Integer, PhotoViewHolder> mViewPager3;
     private List<DataBean> mDataList = new ArrayList<>();
     private List<Integer> mPicResList = new ArrayList<>();
     private List<Integer> mDrawableList = new ArrayList<>();
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         // mViewpager.setIndicatorRadius(6);
 
         //  设置页面点击事件
-        mViewpager.setOnPageClickListener(new CircleViewPager.OnPageClickListener() {
+        mViewpager.setOnPageClickListener(new BannerViewPager.OnPageClickListener() {
             @Override
             public void onPageClick(int position) {
                 List<DataBean> list = mViewpager.getList();
@@ -78,13 +78,13 @@ public class MainActivity extends AppCompatActivity {
         //  设置指示器资源图片
         mViewPager2.setIndicatorColor(Color.parseColor("#6C6D72"),
                 Color.parseColor("#18171C"));
-        mViewPager2.setOnPageClickListener(new CircleViewPager.OnPageClickListener() {
+        mViewPager2.setOnPageClickListener(new BannerViewPager.OnPageClickListener() {
             @Override
             public void onPageClick(int position) {
                 Toast.makeText(MainActivity.this, "图片" + (position + 1), Toast.LENGTH_SHORT).show();
             }
         });
-        mViewPager2.setCurrentItem(2);
+        mViewPager2.setCurrentItem(2,true);
     }
 
     private void initViewPager3() {
@@ -99,13 +99,13 @@ public class MainActivity extends AppCompatActivity {
         //  设置指示器资源图片
         mViewPager3.setIndicatorColor(Color.parseColor("#6C6D72"),
                 Color.parseColor("#18171C"));
-        mViewPager3.setOnPageClickListener(new CircleViewPager.OnPageClickListener() {
+        mViewPager3.setOnPageClickListener(new BannerViewPager.OnPageClickListener() {
             @Override
             public void onPageClick(int position) {
                 Toast.makeText(MainActivity.this, "图片" + (position + 1), Toast.LENGTH_SHORT).show();
             }
         });
-        mViewPager3.setCurrentItem(2);
+        mViewPager3.setCurrentItem(3,true);
     }
 
     private void initView() {

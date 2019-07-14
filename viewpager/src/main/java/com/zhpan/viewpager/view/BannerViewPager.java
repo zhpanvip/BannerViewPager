@@ -15,7 +15,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.example.viewpager.R;
-import com.zhpan.viewpager.adapter.CirclePagerAdapter;
+import com.zhpan.viewpager.adapter.BannerPagerAdapter;
 import com.zhpan.viewpager.holder.HolderCreator;
 import com.zhpan.viewpager.holder.ViewHolder;
 import com.zhpan.viewpager.utils.DensityUtils;
@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * Created by zhpan on 2017/3/28.
  */
-public class CircleViewPager<T, M extends ViewHolder> extends FrameLayout {
+public class BannerViewPager<T, M extends ViewHolder> extends FrameLayout {
     private ViewPager mViewPager;
     //  轮播数据集合
     private List<T> mList;
@@ -71,25 +71,30 @@ public class CircleViewPager<T, M extends ViewHolder> extends FrameLayout {
     Runnable mRunnable = new Runnable() {
         @Override
         public void run() {
-            if (mViewPager.getChildCount() > 1) {
-                mHandler.postDelayed(this, interval);
-                currentPosition++;
-                mViewPager.setCurrentItem(currentPosition, true);
+            if (mList.size() > 1) {
+                currentPosition = currentPosition % (mList.size() + 1) + 1;
+                if (currentPosition == 1) {
+                    mViewPager.setCurrentItem(currentPosition, false);
+                    mHandler.post(mRunnable);
+                } else {
+                    mViewPager.setCurrentItem(currentPosition, true);
+                    mHandler.postDelayed(mRunnable, interval);
+                }
             }
         }
     };
 
-    public CircleViewPager(Context context) {
+    public BannerViewPager(Context context) {
         super(context);
         init(null, context);
     }
 
-    public CircleViewPager(Context context, AttributeSet attrs) {
+    public BannerViewPager(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
         init(attrs, context);
     }
 
-    public CircleViewPager(Context context, AttributeSet attrs, int defStyleAttr) {
+    public BannerViewPager(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(attrs, context);
     }
@@ -106,14 +111,14 @@ public class CircleViewPager<T, M extends ViewHolder> extends FrameLayout {
 
     private void init(AttributeSet attrs, Context context) {
         if (attrs != null) {
-            TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.CircleViewPager);
-            interval = typedArray.getInteger(R.styleable.CircleViewPager_interval, 3000);
-            indicatorCheckedColor = typedArray.getColor(R.styleable.CircleViewPager_indicator_checked_color, Color.parseColor("#FF4C39"));
-            indicatorNormalColor = typedArray.getColor(R.styleable.CircleViewPager_indicator_normal_color, Color.parseColor("#935656"));
-            indicatorRadius = typedArray.getDimension(R.styleable.CircleViewPager_indicator_radius, DensityUtils.dp2px(context, 4));
-            isAutoPlay = typedArray.getBoolean(R.styleable.CircleViewPager_isAutoPlay, true);
-            isCanLoop = typedArray.getBoolean(R.styleable.CircleViewPager_isCanLoop, true);
-            gravity = typedArray.getInt(R.styleable.CircleViewPager_indicator_gravity, 0);
+            TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.BannerViewPager);
+            interval = typedArray.getInteger(R.styleable.BannerViewPager_interval, 3000);
+            indicatorCheckedColor = typedArray.getColor(R.styleable.BannerViewPager_indicator_checked_color, Color.parseColor("#FF4C39"));
+            indicatorNormalColor = typedArray.getColor(R.styleable.BannerViewPager_indicator_normal_color, Color.parseColor("#935656"));
+            indicatorRadius = typedArray.getDimension(R.styleable.BannerViewPager_indicator_radius, DensityUtils.dp2px(context, 4));
+            isAutoPlay = typedArray.getBoolean(R.styleable.BannerViewPager_isAutoPlay, true);
+            isCanLoop = typedArray.getBoolean(R.styleable.BannerViewPager_isCanLoop, true);
+            gravity = typedArray.getInt(R.styleable.BannerViewPager_indicator_gravity, 0);
             typedArray.recycle();
         }
         View view = LayoutInflater.from(getContext()).inflate(R.layout.view_pager_layout, this);
@@ -235,7 +240,7 @@ public class CircleViewPager<T, M extends ViewHolder> extends FrameLayout {
     }
 
     private void setViewPager() {
-        CirclePagerAdapter<T> adapter = new CirclePagerAdapter<>(mListAdd, this, holderCreator);
+        BannerPagerAdapter<T> adapter = new BannerPagerAdapter<>(mListAdd, this, holderCreator);
         adapter.setCanLoop(isCanLoop);
         mViewPager.setAdapter(adapter);
 //        mViewPager.setCurrentItem(currentPosition);
@@ -369,23 +374,34 @@ public class CircleViewPager<T, M extends ViewHolder> extends FrameLayout {
     }
 
     public void setCurrentItem(final int position) {
-        currentPosition = position;
-        mHandler.postDelayed(new Runnable() {
+        mViewPager.post(new Runnable() {
             @Override
             public void run() {
-                mViewPager.setCurrentItem(currentPosition);
+                if (isCanLoop) {
+                    if (position < mList.size()) {
+                        currentPosition = ++currentPosition;
+                    } else {
+                        currentPosition = mList.size() + 1;
+                    }
+                } else {
+                    currentPosition = position;
+                }
+                mViewPager.setCurrentItem(getRealPosition(position));
             }
-        }, 30);
+        });
     }
 
     public void setCurrentItem(final int position, final boolean smoothScroll) {
-        currentPosition = position;
-        mHandler.postDelayed(new Runnable() {
+        mViewPager.post(new Runnable() {
             @Override
             public void run() {
-                mViewPager.setCurrentItem(position, smoothScroll);
+                mViewPager.setCurrentItem(getRealPosition(position), smoothScroll);
             }
-        }, 30);
+        });
+    }
+
+    private int getRealPosition(int position) {
+        return isCanLoop ? (position < mList.size()) ? (++position) : mList.size() : position;
     }
 
     public List<T> getList() {

@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 
 import com.zhpan.viewpager.holder.HolderCreator;
 import com.zhpan.viewpager.holder.ViewHolder;
-import com.zhpan.viewpager.view.CircleViewPager;
+import com.zhpan.viewpager.view.BannerViewPager;
 
 import java.util.List;
 
@@ -14,9 +14,9 @@ import java.util.List;
  * Created by zhpan on 2017/3/28.
  */
 
-public class CirclePagerAdapter<T> extends PagerAdapter {
+public class BannerPagerAdapter<T> extends PagerAdapter {
     private List<T> list;
-    private CircleViewPager viewPager;
+    private BannerViewPager viewPager;
     private HolderCreator holderCreator;
     private boolean isCanLoop;
 
@@ -24,7 +24,7 @@ public class CirclePagerAdapter<T> extends PagerAdapter {
         isCanLoop = canLoop;
     }
 
-    public CirclePagerAdapter(List<T> list, CircleViewPager viewPager, HolderCreator holderCreator) {
+    public BannerPagerAdapter(List<T> list, BannerViewPager viewPager, HolderCreator holderCreator) {
         this.list = list;
         this.viewPager = viewPager;
         this.holderCreator = holderCreator;
@@ -50,7 +50,7 @@ public class CirclePagerAdapter<T> extends PagerAdapter {
 
     //  根据图片URL创建对应的ImageView并添加到集合
     private View getView(final int position, ViewGroup container) {
-        ViewHolder holder = holderCreator.createViewHolder();
+        ViewHolder<T> holder = holderCreator.createViewHolder();
         if (holder == null) {
             throw new RuntimeException("can not return a null holder");
         }
