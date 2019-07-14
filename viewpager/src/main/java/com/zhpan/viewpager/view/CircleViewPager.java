@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.ColorInt;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
@@ -146,7 +145,7 @@ public class CircleViewPager<T, M extends ViewHolder> extends FrameLayout {
         } else if (mList.size() == 1) {
             mListAdd.add(mList.get(0));
             setVisibility(VISIBLE);
-        } else if (mList.size() > 1) {
+        } else {
             createData();
             setVisibility(VISIBLE);
         }
@@ -156,7 +155,7 @@ public class CircleViewPager<T, M extends ViewHolder> extends FrameLayout {
         mListAdd.clear();
         if (isCanLoop) {
             currentPosition = 1;
-            for (int i = 0; i < mList.size() + 2; i++) {
+            for (int i = 0; i <= mList.size() + 1; i++) {
                 if (i == 0) {   //  判断当i=0为该处的mList的最后一个数据作为mListAdd的第一个数据
                     mListAdd.add(mList.get(mList.size() - 1));
                 } else if (i == mList.size() + 1) {   //  判断当i=mList.size()+1时将mList的第一个数据作为mListAdd的最后一个数据
@@ -370,23 +369,23 @@ public class CircleViewPager<T, M extends ViewHolder> extends FrameLayout {
     }
 
     public void setCurrentItem(final int position) {
-        currentPosition=position;
+        currentPosition = position;
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 mViewPager.setCurrentItem(currentPosition);
             }
-        },30);
+        }, 30);
     }
 
     public void setCurrentItem(final int position, final boolean smoothScroll) {
-        currentPosition=position;
+        currentPosition = position;
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                mViewPager.setCurrentItem(position,smoothScroll);
+                mViewPager.setCurrentItem(position, smoothScroll);
             }
-        },30);
+        }, 30);
     }
 
     public List<T> getList() {

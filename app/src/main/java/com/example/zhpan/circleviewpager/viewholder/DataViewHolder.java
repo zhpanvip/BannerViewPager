@@ -1,4 +1,4 @@
-package com.example.zhpan.circleviewpager;
+package com.example.zhpan.circleviewpager.viewholder;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,6 +7,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.zhpan.circleviewpager.DataBean;
+import com.example.zhpan.circleviewpager.R;
 import com.zhpan.viewpager.holder.ViewHolder;
 import com.example.zhpan.circleviewpager.utils.ImageLoaderUtil;
 
@@ -30,15 +32,13 @@ public class DataViewHolder implements ViewHolder<DataBean> {
 
     @Override
     public void onBind(final Context context, DataBean data, final int position, final int size) {
-
-        final DataBean dataBean = (DataBean) data;
+        final DataBean dataBean = data;
         ImageLoaderUtil.loadImg(mImageView, dataBean.getUrl(), R.drawable.placeholder);
         mTvDescribe.setText(dataBean.getDescribe());
         mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(context, position + "点击了" + dataBean.getDescribe() + "  页面数" + size, Toast.LENGTH_SHORT).show();
-
             }
         });
     }

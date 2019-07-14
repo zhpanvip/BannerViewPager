@@ -12,7 +12,7 @@ import android.view.MotionEvent;
  */
 public class MViewPager extends ViewPager {
     public MViewPager(Context context) {
-        super(context);
+        this(context,null);
     }
 
     public MViewPager(Context context, AttributeSet attrs) {

@@ -1,13 +1,11 @@
-package com.example.zhpan.circleviewpager;
+package com.example.zhpan.circleviewpager.viewholder;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.zhpan.circleviewpager.utils.ImageLoaderUtil;
+import com.example.zhpan.circleviewpager.R;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.zhpan.viewpager.holder.ViewHolder;
 
