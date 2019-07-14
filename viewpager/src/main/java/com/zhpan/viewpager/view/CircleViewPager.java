@@ -238,7 +238,7 @@ public class CircleViewPager<T, M extends ViewHolder> extends FrameLayout {
         CirclePagerAdapter<T> adapter = new CirclePagerAdapter<>(mListAdd, this, holderCreator);
         adapter.setCanLoop(isCanLoop);
         mViewPager.setAdapter(adapter);
-//        mViewPager.setCurrentItem(currentPosition);
+        mViewPager.setCurrentItem(currentPosition);
 
         setPageChangeListener();
         startLoop();
