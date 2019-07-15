@@ -89,7 +89,8 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout {
         }
     };
     private BannerScroller mScroller;
-    private int mScrollTime = 1000;
+
+    public static final int DEFAULT_SCROLL_DURATION = 1000;
 
     public BannerViewPager(Context context) {
         this(context, null);
@@ -141,7 +142,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout {
             Field mField = ViewPager.class.getDeclaredField("mScroller");
             mField.setAccessible(true);
             mScroller = new BannerScroller(mViewPager.getContext());
-            mScroller.setDuration(mScrollTime);
+            mScroller.setDuration(DEFAULT_SCROLL_DURATION);
             mField.set(mViewPager, mScroller);
         } catch (Exception e) {
             Log.e(tag, e.getMessage());
@@ -415,8 +416,8 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout {
         this.indicatorRadius = dp2px(getContext(), indicatorRadius);
     }
 
-    public void setScrollTime(int scrollTime) {
-        mScrollTime = scrollTime;
+    public void setScrollDuration(int scrollDuration) {
+        mScroller.setDuration(scrollDuration);
     }
 
     public static int dp2px(Context context, float dpValue) {

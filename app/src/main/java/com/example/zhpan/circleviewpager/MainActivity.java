@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         mViewpager.setRoundCorner(R.dimen.banner_corner);
+        mViewpager.setScrollDuration(2000);
     }
 
     private void initViewPager2() {
