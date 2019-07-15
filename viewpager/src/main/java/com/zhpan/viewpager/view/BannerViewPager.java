@@ -3,10 +3,14 @@ package com.zhpan.viewpager.view;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.ColorInt;
+import android.support.annotation.DimenRes;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -18,15 +22,18 @@ import com.example.viewpager.R;
 import com.zhpan.viewpager.adapter.BannerPagerAdapter;
 import com.zhpan.viewpager.holder.HolderCreator;
 import com.zhpan.viewpager.holder.ViewHolder;
-import com.zhpan.viewpager.utils.DensityUtils;
+import com.zhpan.viewpager.provider.BannerScroller;
+import com.zhpan.viewpager.provider.ViewStyleSetter;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by zhpan on 2017/3/28.
  */
-public class BannerViewPager<T, M extends ViewHolder> extends FrameLayout {
+public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout {
+    public String tag = "BannerViewPager";
     private ViewPager mViewPager;
     //  轮播数据集合
     private List<T> mList;
@@ -81,9 +88,11 @@ public class BannerViewPager<T, M extends ViewHolder> extends FrameLayout {
             }
         }
     };
+    private BannerScroller mScroller;
+    private int mScrollTime = 1000;
 
     public BannerViewPager(Context context) {
-        super(context);
+        this(context, null);
         init(null, context);
     }
 
@@ -113,7 +122,7 @@ public class BannerViewPager<T, M extends ViewHolder> extends FrameLayout {
             interval = typedArray.getInteger(R.styleable.BannerViewPager_interval, 3000);
             indicatorCheckedColor = typedArray.getColor(R.styleable.BannerViewPager_indicator_checked_color, Color.parseColor("#FF4C39"));
             indicatorNormalColor = typedArray.getColor(R.styleable.BannerViewPager_indicator_normal_color, Color.parseColor("#935656"));
-            indicatorRadius = typedArray.getDimension(R.styleable.BannerViewPager_indicator_radius, DensityUtils.dp2px(context, 4));
+            indicatorRadius = typedArray.getDimension(R.styleable.BannerViewPager_indicator_radius, dp2px(context, 4));
             isAutoPlay = typedArray.getBoolean(R.styleable.BannerViewPager_isAutoPlay, true);
             isCanLoop = typedArray.getBoolean(R.styleable.BannerViewPager_isCanLoop, true);
             gravity = typedArray.getInt(R.styleable.BannerViewPager_indicator_gravity, 0);
@@ -124,6 +133,19 @@ public class BannerViewPager<T, M extends ViewHolder> extends FrameLayout {
         mViewPager = view.findViewById(R.id.vp_main);
         mList = new ArrayList<>();
         mDotList = new ArrayList<>();
+        initScroller();
+    }
+
+    private void initScroller() {
+        try {
+            Field mField = ViewPager.class.getDeclaredField("mScroller");
+            mField.setAccessible(true);
+            mScroller = new BannerScroller(mViewPager.getContext());
+            mScroller.setDuration(mScrollTime);
+            mField.set(mViewPager, mScroller);
+        } catch (Exception e) {
+            Log.e(tag, e.getMessage());
+        }
     }
 
     private void setIndicatorGravity() {
@@ -190,6 +212,18 @@ public class BannerViewPager<T, M extends ViewHolder> extends FrameLayout {
         }
     }
 
+    public void setRoundCorner(@DimenRes int radius) {
+        setRoundCorner(getResources().getDimension(radius));
+    }
+
+    public void setRoundCorner(float radius) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            ViewStyleSetter viewStyleSetter = new ViewStyleSetter(this);
+            viewStyleSetter.setRoundCorner(radius);
+        }
+    }
+
+
     //  设置轮播小圆点
     private void setIndicator() {
         // mDotList.clear();
@@ -217,7 +251,7 @@ public class BannerViewPager<T, M extends ViewHolder> extends FrameLayout {
     }
 
     private void setViewPager() {
-        BannerPagerAdapter<T> adapter = new BannerPagerAdapter<>(mList, this, holderCreator);
+        BannerPagerAdapter<T, VH> adapter = new BannerPagerAdapter<>(mList, this, holderCreator);
         adapter.setCanLoop(isCanLoop);
         mViewPager.setAdapter(adapter);
         mViewPager.setCurrentItem(currentPosition);
@@ -245,7 +279,7 @@ public class BannerViewPager<T, M extends ViewHolder> extends FrameLayout {
         this.gravity = gravity;
     }
 
-    public void setPages(List<T> list, HolderCreator<M> holderCreator) {
+    public void setPages(List<T> list, HolderCreator<VH> holderCreator) {
         if (list == null || holderCreator == null) {
             return;
         }
@@ -304,12 +338,8 @@ public class BannerViewPager<T, M extends ViewHolder> extends FrameLayout {
 
     //  adapter中图片点击的回掉方法
     public void imageClick(int position) {
-        if (isCanLoop) {
-            if (mOnPageClickListener != null)
-                mOnPageClickListener.onPageClick(position - 1);
-        } else {
-            if (mOnPageClickListener != null)
-                mOnPageClickListener.onPageClick(position);
+        if (mOnPageClickListener != null) {
+            mOnPageClickListener.onPageClick(isCanLoop ? position - 1 : position);
         }
     }
 
@@ -350,15 +380,6 @@ public class BannerViewPager<T, M extends ViewHolder> extends FrameLayout {
         mViewPager.post(new Runnable() {
             @Override
             public void run() {
-                if (isCanLoop) {
-                    if (position < mList.size()) {
-                        currentPosition = ++currentPosition;
-                    } else {
-                        currentPosition = mList.size() + 1;
-                    }
-                } else {
-                    currentPosition = position;
-                }
                 mViewPager.setCurrentItem(getRealPosition(position));
             }
         });
@@ -391,6 +412,16 @@ public class BannerViewPager<T, M extends ViewHolder> extends FrameLayout {
     }
 
     public void setIndicatorRadius(float indicatorRadius) {
-        this.indicatorRadius = DensityUtils.dp2px(getContext(), indicatorRadius);
+        this.indicatorRadius = dp2px(getContext(), indicatorRadius);
+    }
+
+    public void setScrollTime(int scrollTime) {
+        mScrollTime = scrollTime;
+    }
+
+    public static int dp2px(Context context, float dpValue) {
+        DisplayMetrics metric = context.getResources().getDisplayMetrics();
+        float screenDensity = metric.density;
+        return (int) (dpValue * screenDensity + 0.5f);
     }
 }

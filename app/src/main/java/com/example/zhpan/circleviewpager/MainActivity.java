@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
                 return new DataViewHolder();
             }
         });
+        mViewpager.setRoundCorner(R.dimen.banner_corner);
     }
 
     private void initViewPager2() {
@@ -84,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "图片" + (position + 1), Toast.LENGTH_SHORT).show();
             }
         });
-        mViewPager2.setCurrentItem(2,true);
+        mViewPager2.setCurrentItem(2, false);
     }
 
     private void initViewPager3() {
@@ -105,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "图片" + (position + 1), Toast.LENGTH_SHORT).show();
             }
         });
-        mViewPager3.setCurrentItem(3,true);
+        mViewPager3.setCurrentItem(3, false);
     }
 
     private void initView() {

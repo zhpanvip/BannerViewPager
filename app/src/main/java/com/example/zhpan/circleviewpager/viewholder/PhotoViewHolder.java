@@ -33,7 +33,6 @@ public class PhotoViewHolder implements ViewHolder<Integer> {
             @Override
             public void onClick(View v) {
                 Toast.makeText(context, position + "  页面数" + size, Toast.LENGTH_SHORT).show();
-
             }
         });
     }

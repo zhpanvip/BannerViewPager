@@ -14,7 +14,7 @@ import java.util.List;
  * Created by zhpan on 2017/3/28.
  */
 
-public class BannerPagerAdapter<T> extends PagerAdapter {
+public class BannerPagerAdapter<T,VH extends ViewHolder> extends PagerAdapter {
     private List<T> list;
     private BannerViewPager viewPager;
     private HolderCreator holderCreator;
@@ -24,7 +24,7 @@ public class BannerPagerAdapter<T> extends PagerAdapter {
         isCanLoop = canLoop;
     }
 
-    public BannerPagerAdapter(List<T> list, BannerViewPager viewPager, HolderCreator holderCreator) {
+    public BannerPagerAdapter(List<T> list, BannerViewPager viewPager, HolderCreator<VH> holderCreator) {
         this.list = list;
         this.viewPager = viewPager;
         this.holderCreator = holderCreator;
