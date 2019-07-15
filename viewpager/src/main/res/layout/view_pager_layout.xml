@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.zhpan.viewpager.view.MViewPager
+    <com.zhpan.viewpager.view.CustomBViewPager
         android:id="@+id/vp_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

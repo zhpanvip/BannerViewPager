@@ -1,5 +1,6 @@
 package com.zhpan.viewpager.view;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
@@ -38,7 +39,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout {
     //  轮播数据集合
     private List<T> mList;
     //  指示器图片集合
-    private List<DotView> mDotList;
+    private List<IndicatorView> mDotList;
     //  图片切换时间间隔
     private int interval;
     //  圆点位置
@@ -70,7 +71,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout {
     private OnPageClickListener mOnPageClickListener;
     //  圆点指示器的Layout
     private LinearLayout mLlIndicator;
-    private HolderCreator holderCreator;
+    private HolderCreator<VH> holderCreator;
 
     Handler mHandler = new Handler();
     Runnable mRunnable = new Runnable() {
@@ -90,7 +91,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout {
     };
     private BannerScroller mScroller;
 
-    public static final int DEFAULT_SCROLL_DURATION = 1000;
+    public static final int DEFAULT_SCROLL_DURATION = 800;
 
     public BannerViewPager(Context context) {
         this(context, null);
@@ -175,6 +176,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout {
     }
 
     //  设置触摸事件，当滑动或者触摸时停止自动轮播
+    @SuppressLint("ClickableViewAccessibility")
     private void setTouchListener() {
         mViewPager.setOnTouchListener(new OnTouchListener() {
             @Override
@@ -235,7 +237,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout {
         if (mList.size() > 1) {
             //  for循环创建mUrlList.size()个ImageView（小圆点）
             for (int i = 0; i < mList.size(); i++) {
-                DotView dotView = new DotView(getContext());
+                IndicatorView dotView = new IndicatorView(getContext());
                 dotView.setLayoutParams(params);
                 dotView.setNormalColor(indicatorNormalColor);
                 dotView.setCheckedColor(indicatorCheckedColor);
@@ -256,7 +258,6 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout {
         adapter.setCanLoop(isCanLoop);
         mViewPager.setAdapter(adapter);
         mViewPager.setCurrentItem(currentPosition);
-
         setPageChangeListener();
         startLoop();
         setTouchListener();

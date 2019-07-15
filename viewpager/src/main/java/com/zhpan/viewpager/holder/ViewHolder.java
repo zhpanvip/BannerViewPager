@@ -2,6 +2,7 @@ package com.zhpan.viewpager.holder;
 
 import android.content.Context;
 import android.view.View;
+import android.view.ViewGroup;
 
 /**
  * Created by zhpan on 2017/10/30.
@@ -9,7 +10,7 @@ import android.view.View;
  */
 
 public interface ViewHolder<T> {
-    View createView(Context context,int position);
+    View createView(ViewGroup viewGroup,Context context, int position);
    // void onBind(Context context, int position, T data);
     /**
      * @param context context

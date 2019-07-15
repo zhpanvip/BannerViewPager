@@ -11,22 +11,22 @@ import android.view.View;
  * Created by zhpan on 2017/12/6.
  */
 
-public class DotView extends View {
+public class IndicatorView extends View {
     private int normalColor;
     private int checkedColor;
     private Paint mPaint;
     private boolean isChecked;
 
 
-    public DotView(Context context) {
+    public IndicatorView(Context context) {
         this(context, null);
     }
 
-    public DotView(Context context, AttributeSet attrs) {
+    public IndicatorView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public DotView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public IndicatorView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         normalColor = Color.parseColor("#000000");
         checkedColor = Color.parseColor("#ffffff");
@@ -40,8 +40,8 @@ public class DotView extends View {
         super.onDraw(canvas);
         int width = getWidth();
         int height = getHeight();
-        float radius = Math.min(width, height) / 2;
-        canvas.drawCircle(width / 2, height / 2, radius, mPaint);
+        float radius = Math.min(width, height) / 2f;
+        canvas.drawCircle(width / 2f, height / 2f, radius, mPaint);
     }
 
     public boolean isChecked() {

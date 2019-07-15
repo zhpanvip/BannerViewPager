@@ -1,5 +1,6 @@
 package com.zhpan.viewpager.adapter;
 
+import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +15,7 @@ import java.util.List;
  * Created by zhpan on 2017/3/28.
  */
 
-public class BannerPagerAdapter<T,VH extends ViewHolder> extends PagerAdapter {
+public class BannerPagerAdapter<T, VH extends ViewHolder> extends PagerAdapter {
     private List<T> list;
     private BannerViewPager viewPager;
     private HolderCreator holderCreator;
@@ -41,12 +42,12 @@ public class BannerPagerAdapter<T,VH extends ViewHolder> extends PagerAdapter {
     }
 
     @Override
-    public boolean isViewFromObject(View view, Object object) {
+    public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
         return view == object;
     }
 
     @Override
-    public Object instantiateItem(final ViewGroup container, final int position) {
+    public Object instantiateItem(@NonNull final ViewGroup container, final int position) {
         View view = getView(position, container);
         container.addView(view);
         return view;
@@ -61,20 +62,20 @@ public class BannerPagerAdapter<T,VH extends ViewHolder> extends PagerAdapter {
         }
         View view = null;
         if (list != null && list.size() > 0) {
-            if (isCanLoop&&list.size()>1) {
+            if (isCanLoop && list.size() > 1) {
                 int size = list.size();
                 if (position == 0) {
-                    view = holder.createView(container.getContext(), list.size() - 1);
+                    view = holder.createView(container, container.getContext(), list.size() - 1);
                     holder.onBind(container.getContext(), list.get(list.size() - 1), list.size() - 1, size);
                 } else if (position == list.size() + 1) {
-                    view = holder.createView(container.getContext(), 0);
+                    view = holder.createView(container, container.getContext(), 0);
                     holder.onBind(container.getContext(), list.get(0), 0, size);
                 } else {
-                    view = holder.createView(container.getContext(), position - 1);
+                    view = holder.createView(container, container.getContext(), position - 1);
                     holder.onBind(container.getContext(), list.get(position - 1), position - 1, size);
                 }
             } else {
-                view = holder.createView(container.getContext(), position);
+                view = holder.createView(container, container.getContext(), position);
                 holder.onBind(container.getContext(), list.get(position), position, list.size());
             }
         }
@@ -95,7 +96,7 @@ public class BannerPagerAdapter<T,VH extends ViewHolder> extends PagerAdapter {
     }
 
     @Override
-    public void finishUpdate(ViewGroup container) {
+    public void finishUpdate(@NonNull ViewGroup container) {
         super.finishUpdate(container);
 
     }
