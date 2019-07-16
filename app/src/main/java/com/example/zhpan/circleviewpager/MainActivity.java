@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         //  设置数据
-        mViewpager.setPages(mDataList, new HolderCreator<DataViewHolder>() {
+        mViewpager.setData(mDataList, new HolderCreator<DataViewHolder>() {
             @Override
             public DataViewHolder createViewHolder() {
                 return new DataViewHolder();
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
     private void initViewPager2() {
         mViewPager2.setAutoPlay(false);
         mViewPager2.setCanLoop(true);
-        mViewPager2.setPages(mPicResList, new HolderCreator<LocalImageViewHolder>() {
+        mViewPager2.setData(mPicResList, new HolderCreator<LocalImageViewHolder>() {
             @Override
             public LocalImageViewHolder createViewHolder() {
                 return new LocalImageViewHolder();
@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
     private void initViewPager3() {
         mViewPager3.setAutoPlay(false);
         mViewPager3.setCanLoop(false);
-        mViewPager3.setPages(mDrawableList, new HolderCreator<PhotoViewHolder>() {
+        mViewPager3.setData(mDrawableList, new HolderCreator<PhotoViewHolder>() {
             @Override
             public PhotoViewHolder createViewHolder() {
                 return new PhotoViewHolder();
