@@ -5,10 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.example.zhpan.circleviewpager.R;
-import com.zhpan.viewpager.holder.ViewHolder;
+import com.zhpan.bannerview.holder.ViewHolder;
 
 public class LocalImageViewHolder implements ViewHolder<Integer> {
     private ImageView mImageView;

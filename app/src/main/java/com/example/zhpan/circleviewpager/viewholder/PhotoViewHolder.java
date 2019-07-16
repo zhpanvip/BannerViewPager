@@ -8,7 +8,7 @@ import android.widget.Toast;
 
 import com.example.zhpan.circleviewpager.R;
 import com.github.chrisbanes.photoview.PhotoView;
-import com.zhpan.viewpager.holder.ViewHolder;
+import com.zhpan.bannerview.holder.ViewHolder;
 
 /**
  * Created by zhpan on 2017/10/30.

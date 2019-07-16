@@ -5,7 +5,7 @@ android {
     buildToolsVersion '28.0.3'
     defaultConfig {
         applicationId "com.example.zhpan.circleviewpager"
-        minSdkVersion 17
+        minSdkVersion 19
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -31,7 +31,6 @@ repositories {
     }
 }
 
-
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -39,10 +38,11 @@ dependencies {
     })
     implementation 'com.android.support:appcompat-v7:26.1.0'
     testImplementation 'junit:junit:4.12'
-    implementation project(':viewpager')
+//    implementation project(':viewpager')
     // compile 'com.zhpan.library:viewpager:1.0.0'
     implementation 'com.github.bumptech.glide:glide:3.7.0'
     implementation 'com.github.chrisbanes:PhotoView:2.1.0'
+    implementation project(path: ':bannerview')
     // implementation files('libs/viewpager-1.0.0.jar')
     // compile(name: 'viewpager-1.0.0', ext: 'aar')
 }

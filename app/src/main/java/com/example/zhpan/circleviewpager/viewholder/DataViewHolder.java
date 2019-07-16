@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import com.example.zhpan.circleviewpager.DataBean;
 import com.example.zhpan.circleviewpager.R;
-import com.zhpan.viewpager.holder.ViewHolder;
+import com.zhpan.bannerview.holder.ViewHolder;
 import com.example.zhpan.circleviewpager.utils.ImageLoaderUtil;
 
 /**

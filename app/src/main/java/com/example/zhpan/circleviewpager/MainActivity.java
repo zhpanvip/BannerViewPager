@@ -8,8 +8,8 @@ import android.widget.Toast;
 import com.example.zhpan.circleviewpager.viewholder.DataViewHolder;
 import com.example.zhpan.circleviewpager.viewholder.LocalImageViewHolder;
 import com.example.zhpan.circleviewpager.viewholder.PhotoViewHolder;
-import com.zhpan.viewpager.holder.HolderCreator;
-import com.zhpan.viewpager.view.BannerViewPager;
+import com.zhpan.bannerview.holder.HolderCreator;
+import com.zhpan.bannerview.view.BannerViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,33 +71,29 @@ public class MainActivity extends AppCompatActivity {
     private void initViewPager2() {
         mViewPager2.setAutoPlay(false);
         mViewPager2.setCanLoop(true);
-        mViewPager2.setData(mPicResList, new HolderCreator<LocalImageViewHolder>() {
-            @Override
-            public LocalImageViewHolder createViewHolder() {
-                return new LocalImageViewHolder();
-            }
-        });
         //  设置指示器资源图片
         mViewPager2.setIndicatorColor(Color.parseColor("#6C6D72"),
                 Color.parseColor("#FFFFFF"));
+
+        mViewPager2.setCurrentItem(2, false);
         mViewPager2.setOnPageClickListener(new BannerViewPager.OnPageClickListener() {
             @Override
             public void onPageClick(int position) {
                 Toast.makeText(MainActivity.this, "图片" + (position + 1), Toast.LENGTH_SHORT).show();
             }
         });
-        mViewPager2.setCurrentItem(2, false);
+        mViewPager2.setData(mPicResList, new HolderCreator<LocalImageViewHolder>() {
+            @Override
+            public LocalImageViewHolder createViewHolder() {
+                return new LocalImageViewHolder();
+            }
+        });
+
     }
 
     private void initViewPager3() {
         mViewPager3.setAutoPlay(false);
         mViewPager3.setCanLoop(false);
-        mViewPager3.setData(mDrawableList, new HolderCreator<PhotoViewHolder>() {
-            @Override
-            public PhotoViewHolder createViewHolder() {
-                return new PhotoViewHolder();
-            }
-        });
         //  设置指示器资源图片
         mViewPager3.setIndicatorColor(Color.parseColor("#6C6D72"),
                 Color.parseColor("#18171C"));
@@ -108,6 +104,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         mViewPager3.setCurrentItem(3, false);
+        mViewPager3.setData(mDrawableList, new HolderCreator<PhotoViewHolder>() {
+            @Override
+            public PhotoViewHolder createViewHolder() {
+                return new PhotoViewHolder();
+            }
+        });
     }
 
     private void initView() {
