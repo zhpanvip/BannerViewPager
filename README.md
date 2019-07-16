@@ -1,4 +1,4 @@
-# 全新2.0.0版本发布，正式改名为BannerView.
+# 全新2.0.0版本发布，正式改名为BannerViewPager.
 
 
 ![这里写图片描述](https://github.com/zhpanvip/BannerViewPager/blob/v_2.0.0/image/ezgif-4-f4cd74cd939d.gif)
