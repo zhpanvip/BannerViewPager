@@ -4,7 +4,6 @@ apply plugin: 'com.jfrog.bintray'
 android {
     compileSdkVersion 26
 
-
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 26
@@ -33,9 +32,9 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:26.1.0'
 }
 
-
-def siteUrl = 'https://github.com/zhpanvip/CircleViewPager'      // 项目的主页
-def gitUrl = 'https://github.com/zhpanvip/CircleViewPager.git'   // Git仓库的url
+version = "2.0.0"
+def siteUrl = 'https://github.com/zhpanvip/BannerViewPager'      // 项目的主页
+def gitUrl = 'https://github.com/zhpanvip/BannerViewPager.git'   // Git仓库的url
 group = "com.zhpan.library" // Maven Group ID for the artifact，一般填你唯一的包名
 install {
     repositories.mavenInstaller {
@@ -44,8 +43,8 @@ install {
             project {
                 packaging 'aar'
                 // Add your description here
-                description 'my utils for test'
-                name 'Android Commonly used utils'  //项目描述
+                description 'Banner ViewPager for Android'
+                name 'Banner ViewPager for Android'  //项目描述
                 url siteUrl
                 // Set your license
                 licenses {
@@ -94,8 +93,8 @@ bintray {
     key = properties.getProperty("bintray.apikey")
     configurations = ['archives']
     pkg {
-        repo = "CircleViewPager"  //发布到Bintray的那个仓库里，默认账户有四个库，我们这里上传到maven库
-        name = "circleviewpager"  //发布到Bintray上的项目名字
+        repo = "BannerViewPager"  //发布到Bintray的那个仓库里，默认账户有四个库，我们这里上传到maven库
+        name = "bannerview"  //发布到Bintray上的项目名字
         websiteUrl = siteUrl
         vcsUrl = gitUrl
         licenses = ["Apache-2.0"]
