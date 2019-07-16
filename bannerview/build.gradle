@@ -93,7 +93,7 @@ bintray {
     key = properties.getProperty("bintray.apikey")
     configurations = ['archives']
     pkg {
-        repo = "BannerViewPager"  //发布到Bintray的那个仓库里，默认账户有四个库，我们这里上传到maven库
+        repo = "CircleViewPager"  //发布到Bintray的那个仓库里，默认账户有四个库，我们这里上传到maven库
         name = "bannerview"  //发布到Bintray上的项目名字
         websiteUrl = siteUrl
         vcsUrl = gitUrl
