@@ -1,7 +1,7 @@
-# CircleViewPager
-无限循环轮播的ViewPager
+# 全新2.0.0版本发布，正式改名为BannerView.
 
-![这里写图片描述](https://github.com/zhpanvip/CircleViewPager/blob/master/app/src/main/res/ezgif-3-b826de74b0.gif)
+
+![这里写图片描述](https://github.com/zhpanvip/BannerViewPager/blob/v_2.0.0/image/ezgif-4-f4cd74cd939d.gif)
 
 1.gradle中添加依赖
 ```
@@ -10,35 +10,52 @@ compile 'com.zhpan.library:viewpager:1.0.5'
 
 2.在xml文件中添加如下代码：
 ```
-<com.zhpan.viewpager.view.CircleViewPager
+    <com.zhpan.bannerview.view.BannerViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="150dp"
+        android:layout_margin="10dp"
+        app:indicator_gravity="end"
+        app:indicator_radius="6dp"
         app:interval="5000" />
 
-    <com.zhpan.viewpager.view.CircleViewPager
+    <com.zhpan.bannerview.view.BannerViewPager
         android:id="@+id/viewpager2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginEnd="35dp"
-        android:layout_marginStart="35dp"
-        app:interval="5000" />
+        android:layout_height="150dp"
+        android:layout_margin="10dp" />
 ```
-3.CircleViewPager属性
-
+3.BannerViewPager属性
+Banner支持圆角s
 ```
+	
+	2.0.0新增Api
+	// Banner支持圆角
+	mViewPager.setRoundCorner(R.dimen.banner_corner)
+	// 新增页面滑动时间
+	mViewPager.setScrollDuration(1000)
+	
+	
+	
+	
+	//  是否显示指示器
+        mViewpager.isShowIndicator(true);
         //  设置指示器位置
         mViewpager.setIndicatorGravity(CircleViewPager.IndicatorGravity.END);
-        //  是否显示指示器
-        mViewpager.isShowIndicator(true);
+	 //  设置指示器圆点半径
+        mViewpager.setIndicatorRadius(6);
+	// 设置指示器颜色
+	mViewPager.setIndicatorColor(Color.parseColor("#6C6D72"),
+                Color.parseColor("#FFFFFF"));
+	
+        
         //  设置图片切换时间间隔
         mViewpager.setInterval(3000);
         //  设置是否无限循环
         mViewpager.setCanLoop(true);
         //  设置是否自动轮播
         mViewpager.setAutoPlay(true);
-        //  设置指示器圆点半径
-        mViewpager.setIndicatorRadius(6);
+       
 	
         //  设置页面点击事件
         mViewpager.setOnPageClickListener(new CircleViewPager.OnPageClickListener() {
@@ -49,7 +66,7 @@ compile 'com.zhpan.library:viewpager:1.0.5'
             }
         });
         //  设置数据
-        mViewpager.setPages(mList, new HolderCreator<ViewHolder>() {
+        mViewpager.setData(mList, new HolderCreator<ViewHolder>() {
             @Override
             public ViewHolder createViewHolder() {
                 return new MyViewHolder();
