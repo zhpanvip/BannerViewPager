@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="BannerViewPager">
+        <!--页面切换时间间隔-->
+        <attr name="interval" format="integer"/>
+        <attr name="isCanLoop" format="boolean"/>
+        <attr name="isAutoPlay" format="boolean"/>
+        <!--<attr name="indicator_gravity" format="integer"/>-->
+        <attr name="indicator_checked_color" format="color"/>
+        <attr name="indicator_normal_color" format="color"/>
+        <attr name="indicator_radius" format="dimension"/>
+        <attr name="indicator_gravity" format="enum">
+            <enum name="center" value="0"/>
+            <enum name="start" value="1"/>
+            <enum name="end" value="2"/>
+        </attr>
+
+    </declare-styleable>
+
+</resources>

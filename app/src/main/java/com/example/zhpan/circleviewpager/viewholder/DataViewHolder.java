@@ -3,13 +3,14 @@ package com.example.zhpan.circleviewpager.viewholder;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.zhpan.circleviewpager.DataBean;
 import com.example.zhpan.circleviewpager.R;
-import com.zhpan.viewpager.holder.ViewHolder;
+import com.zhpan.bannerview.holder.ViewHolder;
 import com.example.zhpan.circleviewpager.utils.ImageLoaderUtil;
 
 /**
@@ -22,9 +23,9 @@ public class DataViewHolder implements ViewHolder<DataBean> {
     private TextView mTvDescribe;
 
     @Override
-    public View createView(Context context, int position) {
+    public View createView(ViewGroup viewGroup, Context context, int position) {
         // 返回页面布局文件
-        View view = LayoutInflater.from(context).inflate(R.layout.item_view, null);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_view, viewGroup, false);
         mImageView = view.findViewById(R.id.banner_image);
         mTvDescribe = view.findViewById(R.id.tv_describe);
         return view;
