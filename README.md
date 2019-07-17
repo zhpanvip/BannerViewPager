@@ -3,7 +3,7 @@
 ## 全新2.0.0版本发布，正式改名为BannerViewPager.
 
 
-[外链图片转存失败(img-svwgo7K8-1563331094669)(https://github.com/zhpanvip/BannerViewPager/blob/v_2.0.0/image/ezgif-4-f4cd74cd939d.gif)]
+![这里写图片描述](https://github.com/zhpanvip/BannerViewPager/blob/v_2.0.0/image/ezgif-4-f4cd74cd939d.gif)
 
  - **1.gradle中添加依赖**
 
