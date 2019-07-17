@@ -33,6 +33,7 @@ implementation 'com.zhpan.library:bannerview:2.0.0'
  - **3.BannerViewPager开放API**
 
 开放接口
+
 | 方法名 | 方法描述 | 默认值 |
 |--|--|--|
 | startLoop() |开启自动轮播  |  |
