@@ -122,7 +122,8 @@ public class DataViewHolder implements ViewHolder<DataBean> {
 ```
 
 
-- **35.TODO 接下来的版本计划**
+- **5.TODO 接下来的版本计划**
+
 （1）目前版本循环滑动时会出现偶尔划不动的情况，会在后续版本中修复
 （2）优化及重构IndicatorView，增加IndicatorView的滑动样式。
 （3）增加页面滑动动画。
