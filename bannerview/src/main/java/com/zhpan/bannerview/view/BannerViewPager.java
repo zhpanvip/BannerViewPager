@@ -199,6 +199,9 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
 
 
     private void setViewPager() {
+        if (holderCreator == null) {
+            throw new RuntimeException("You must set HolderCreator first!");
+        }
         BannerPagerAdapter<T, VH> bannerPagerAdapter =
                 new BannerPagerAdapter<>(mList, this, holderCreator);
         bannerPagerAdapter.setCanLoop(isCanLoop);
@@ -281,38 +284,16 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
         }
     }
 
-    public BannerViewPager setData(List<T> list, HolderCreator<VH> holderCreator) {
-        if (list != null && holderCreator != null) {
+    public BannerViewPager<T, VH> setData(List<T> list) {
+        if (list != null) {
             mList.clear();
             mList.addAll(list);
-            this.holderCreator = holderCreator;
-            initData();
         }
         return this;
     }
 
-    // /**
-    // * 设置Banner数据
-    // *
-    // * @param list Banner数据
-    // */
-    // public BannerViewPager setList(List<T> list) {
-    // mList.clear();
-    // mList.addAll(list);
-    // return this;
-    // }
-
-    public BannerViewPager create() {
-        initData();
-        return this;
-    }
-
-    public BannerViewPager setHolderCreator(HolderCreator<VH> holderCreator) {
-        if (holderCreator != null) {
-
-            this.holderCreator = holderCreator;
-            initData();
-        }
+    public BannerViewPager<T, VH> setHolderCreator(HolderCreator<VH> holderCreator) {
+        this.holderCreator = holderCreator;
         return this;
     }
 
@@ -321,7 +302,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
      *
      * @param radius @DimenRes 圆角大小
      */
-    public BannerViewPager setRoundCorner(@DimenRes int radius) {
+    public BannerViewPager<T, VH> setRoundCorner(@DimenRes int radius) {
         setRoundCorner(getResources().getDimension(radius));
         return this;
     }
@@ -331,7 +312,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
      *
      * @param radius 圆角大小
      */
-    public BannerViewPager setRoundCorner(float radius) {
+    public BannerViewPager<T, VH> setRoundCorner(float radius) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             ViewStyleSetter viewStyleSetter = new ViewStyleSetter(this);
             viewStyleSetter.setRoundCorner(radius);
@@ -344,8 +325,8 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
      * @param checkedColor 选中时指示器颜色
      * @param normalColor  未选中时指示器颜色
      */
-    public BannerViewPager setIndicatorColor(@ColorInt int normalColor,
-                                             @ColorInt int checkedColor) {
+    public BannerViewPager<T, VH> setIndicatorColor(@ColorInt int normalColor,
+                                                    @ColorInt int checkedColor) {
         indicatorCheckedColor = checkedColor;
         indicatorNormalColor = normalColor;
         return this;
@@ -356,7 +337,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
      *
      * @param autoPlay 是否自动轮播
      */
-    public BannerViewPager setAutoPlay(boolean autoPlay) {
+    public BannerViewPager<T, VH> setAutoPlay(boolean autoPlay) {
         isAutoPlay = autoPlay;
         return this;
     }
@@ -366,7 +347,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
      *
      * @param canLoop 是否可以循环
      */
-    public BannerViewPager setCanLoop(boolean canLoop) {
+    public BannerViewPager<T, VH> setCanLoop(boolean canLoop) {
         isCanLoop = canLoop;
         return this;
     }
@@ -376,7 +357,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
      *
      * @param interval 自动轮播时间间隔
      */
-    public BannerViewPager setInterval(int interval) {
+    public BannerViewPager<T, VH> setInterval(int interval) {
         this.interval = interval;
         return this;
     }
@@ -391,7 +372,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
      *
      * @param indicatorRadius 指示器圆点半径
      */
-    public BannerViewPager setIndicatorRadius(float indicatorRadius) {
+    public BannerViewPager<T, VH> setIndicatorRadius(float indicatorRadius) {
         this.indicatorRadius = dp2px(getContext(), indicatorRadius);
         return this;
     }
@@ -401,7 +382,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
      *
      * @param scrollDuration page滚动时间
      */
-    public BannerViewPager setScrollDuration(int scrollDuration) {
+    public BannerViewPager<T, VH> setScrollDuration(int scrollDuration) {
         mScroller.setDuration(scrollDuration);
         return this;
     }
@@ -409,7 +390,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     /**
      * @param showIndicator 是否显示轮播指示器
      */
-    public BannerViewPager isShowIndicator(boolean showIndicator) {
+    public BannerViewPager<T, VH> showIndicator(boolean showIndicator) {
         this.showIndicator = showIndicator;
         return this;
     }
@@ -419,7 +400,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
      *
      * @param gravity 指示器位置
      */
-    public BannerViewPager setIndicatorGravity(int gravity) {
+    public BannerViewPager<T, VH> setIndicatorGravity(int gravity) {
         this.gravity = gravity;
         return this;
     }
@@ -470,13 +451,18 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
      *
      * @param onPageClickListener 页面点击监听
      */
-    public void setOnPageClickListener(OnPageClickListener onPageClickListener) {
+    public BannerViewPager<T, VH> setOnPageClickListener(OnPageClickListener onPageClickListener) {
         this.mOnPageClickListener = onPageClickListener;
+        return this;
     }
 
     public static int dp2px(Context context, float dpValue) {
         DisplayMetrics metric = context.getResources().getDisplayMetrics();
         float screenDensity = metric.density;
         return (int) (dpValue * screenDensity + 0.5f);
+    }
+
+    public void create() {
+        initData();
     }
 }
