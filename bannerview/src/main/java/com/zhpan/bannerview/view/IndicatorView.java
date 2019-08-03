@@ -10,13 +10,15 @@ import android.view.View;
 /**
  * Created by zhpan on 2017/12/6.
  */
-
 public class IndicatorView extends View {
+
     private int normalColor;
     private int checkedColor;
     private Paint mPaint;
-    private boolean isChecked;
-
+    private int mPageSize;
+    private float mRadius;
+    private int height;
+    private int selectPage;
 
     public IndicatorView(Context context) {
         this(context, null);
@@ -36,43 +38,60 @@ public class IndicatorView extends View {
     }
 
     @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        height = getHeight();
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        setMeasuredDimension((int) (3 * mRadius * (mPageSize + 1)), (int) (2 * mRadius));
+        /*if (widthMeasureSpecMode == MeasureSpec.AT_MOST&&heightMeasureSpec == MeasureSpec.AT_MOST) {
+            setMeasuredDimension(100, 100);
+        } else if (widthMeasureSpecMode == MeasureSpec.AT_MOST) {
+            setMeasuredDimension((int) (mPageSize * 2 * mRadius + (mPageSize - 1) * mRadius), heightMeasureSpecSize);
+        } else if (heightMeasureSpec == MeasureSpec.AT_MOST) {
+            setMeasuredDimension(widthMeasureSpecSize, (int) (2 * mRadius));
+        }*/
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+    }
+
+    @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        int width = getWidth();
-        int height = getHeight();
-        float radius = Math.min(width, height) / 2f;
-        canvas.drawCircle(width / 2f, height / 2f, radius, mPaint);
-    }
-
-    public boolean isChecked() {
-        return isChecked;
-    }
-
-    public void setChecked(boolean checked) {
-        if (checked) {
-            mPaint.setColor(checkedColor);
-        } else {
-            mPaint.setColor(normalColor);
+        for (int i = 0; i < mPageSize; i++) {
+            mPaint.setColor(selectPage == i ? checkedColor : normalColor);
+            canvas.drawCircle(3 * mRadius * (i + 1), height / 2f, mRadius, mPaint);
         }
-        isChecked = checked;
+    }
+
+    public void pageSelect(int selectPage) {
+        this.selectPage = selectPage;
         invalidate();
     }
 
-    public int getNormalColor() {
-        return normalColor;
-    }
-
-    public void setNormalColor(int normalColor) {
+    public IndicatorView setNormalColor(int normalColor) {
         this.normalColor = normalColor;
+        return this;
     }
 
-    public int getCheckedColor() {
-        return checkedColor;
-    }
-
-    public void setCheckedColor(int checkedColor) {
+    public IndicatorView setCheckedColor(int checkedColor) {
         this.checkedColor = checkedColor;
+        return this;
     }
 
+    public IndicatorView setPageSize(int pageSize) {
+        this.mPageSize = pageSize;
+        return this;
+    }
 
+    public IndicatorView setIndicatorRadius(float radius) {
+        this.mRadius = radius;
+        return this;
+    }
 }
