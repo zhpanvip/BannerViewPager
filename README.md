@@ -1,12 +1,10 @@
 
 
-## 全新2.0.0版本发布，正式改名为BannerViewPager.
+## 效果预览
 
 ![这里写图片描述](https://github.com/zhpanvip/BannerViewPager/blob/v_2.0.0/image/ezgif-4-f4cd74cd939d.gif)
 
-- **3.BannerViewPager开放API**
-
-开放接口
+## 开放API
 
 | 方法名 | 方法描述 | 说明 |
 |--|--|--|
@@ -25,13 +23,15 @@
 | setHolderCreator(HolderCreator<VH> holderCreator) |设置HolderCreator  |必须设置HolderCreator，否则会抛出RuntimeException  |
 | create() |初始化并构造BannerViewPager  |必须调用，否则前面设置的参数无效  |
 
- - **1.gradle中添加依赖**
+## 如何使用
+
+   **gradle中添加依赖**
 
 ```
 implementation 'com.zhpan.library:bannerview:2.0.0'
 ```
 
- - **2.在xml文件中添加如下代码：**
+  **在xml文件中添加如下代码：**
 
 ```
     <com.zhpan.bannerview.view.BannerViewPager
@@ -41,7 +41,7 @@ implementation 'com.zhpan.library:bannerview:2.0.0'
             android:layout_margin="10dp" />
 ```
 
- - **4.BannerViewPager参数配置**
+ **BannerViewPager参数配置**
 
 ```
 	private void initViewPager() {
@@ -66,7 +66,7 @@ implementation 'com.zhpan.library:bannerview:2.0.0'
         }
 ```
 
-**5.自定义ViewHolder** 
+**自定义ViewHolder** 
   
 ```
 public class DataViewHolder implements ViewHolder<DataBean> {
@@ -86,7 +86,7 @@ public class DataViewHolder implements ViewHolder<DataBean> {
     }
 }
 ```
-**6.为防止内存泄露在onDestroy()中停止图片轮播**
+**为防止内存泄露在onDestroy()中停止图片轮播**
 ```
 	@Override
     protected void onDestroy() {
@@ -96,7 +96,7 @@ public class DataViewHolder implements ViewHolder<DataBean> {
 ```
 
 
-- **5.TODO 接下来的版本计划**
+## TODO 接下来的版本计划
 
 （1）目前版本循环滑动时会出现偶尔划不动的情况，会在后续版本中修复
 
