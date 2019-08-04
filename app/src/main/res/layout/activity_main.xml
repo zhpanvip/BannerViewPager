@@ -24,6 +24,7 @@
     <com.zhpan.bannerview.view.BannerViewPager
         android:id="@+id/viewpager3"
         android:layout_width="match_parent"
+        app:indicator_gravity="start"
         android:layout_height="match_parent"
         android:layout_margin="10dp" />
 </LinearLayout>

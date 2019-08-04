@@ -12,12 +12,11 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.zhpan.bannerview.R;
 import com.zhpan.bannerview.adapter.BannerPagerAdapter;
@@ -39,14 +38,8 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     private ViewPager mViewPager;
     // 轮播数据集合
     private List<T> mList;
-    // 指示器图片集合
-    private List<IndicatorView> mDotList;
     // 图片切换时间间隔
     private int interval;
-    // 圆点位置
-    private int dotPosition = 0;
-    // 图片上一个位置
-    private int prePosition = 0;
     // 图片当前位置
     private int currentPosition;
     // 是否正在循环
@@ -71,7 +64,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     // 页面点击事件监听
     private OnPageClickListener mOnPageClickListener;
     // 圆点指示器的Layout
-    private LinearLayout mLlIndicator;
+    private IndicatorView mIndicatorView;
     private HolderCreator<VH> holderCreator;
     Handler mHandler = new Handler();
     Runnable mRunnable = new Runnable() {
@@ -127,10 +120,9 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
             typedArray.recycle();
         }
         View view = LayoutInflater.from(getContext()).inflate(R.layout.view_pager_layout, this);
-        mLlIndicator = view.findViewById(R.id.ll_main_dot);
+        mIndicatorView = view.findViewById(R.id.indicator_view);
         mViewPager = view.findViewById(R.id.vp_main);
         mList = new ArrayList<>();
-        mDotList = new ArrayList<>();
         initScroller();
     }
 
@@ -146,30 +138,16 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
         }
     }
 
-    private void setIndicatorGravity() {
-        switch (gravity) {
-            case CENTER:
-                mLlIndicator.setGravity(Gravity.CENTER);
-                break;
-            case START:
-                mLlIndicator.setGravity(Gravity.START);
-                break;
-            case END:
-                mLlIndicator.setGravity(Gravity.END);
-                break;
-        }
-    }
-
     // 根据mList数据集构造mListAdd
     private void initData() {
         if (mList.size() == 0) {
             setVisibility(GONE);
         } else {
+            initIndicator();
             if (isCanLoop) {
                 currentPosition = 1;
             }
         }
-        setIndicator();
         setViewPager();
     }
 
@@ -198,33 +176,27 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
         });
     }
 
-
     // 设置轮播小圆点
-    private void setIndicator() {
-        // mDotList.clear();
-        mLlIndicator.removeAllViews();
-        // 设置LinearLayout的子控件的宽高，这里单位是像素。
-        LinearLayout.LayoutParams params =
-                new LinearLayout.LayoutParams((int) indicatorRadius * 2, (int) indicatorRadius * 2);
-        params.rightMargin = (int) (indicatorRadius * 2 / 1.5);
-        if (mList.size() > 1) {
-            // for循环创建mUrlList.size()个ImageView（小圆点）
-            for (int i = 0; i < mList.size(); i++) {
-                IndicatorView dotView = new IndicatorView(getContext());
-                dotView.setLayoutParams(params);
-                dotView.setNormalColor(indicatorNormalColor);
-                dotView.setCheckedColor(indicatorCheckedColor);
-                dotView.setChecked(false);
-                mLlIndicator.addView(dotView);
-                mDotList.add(dotView);
-            }
+    private void initIndicator() {
+        mIndicatorView.setPageSize(mList.size())
+                .setIndicatorRadius(indicatorRadius)
+                .setCheckedColor(indicatorCheckedColor)
+                .setNormalColor(indicatorNormalColor)
+                .invalidate();
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mIndicatorView.getLayoutParams();
+        switch (gravity) {
+            case CENTER:
+                layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
+                break;
+            case START:
+                layoutParams.addRule(RelativeLayout.ALIGN_PARENT_START);
+                break;
+            case END:
+                layoutParams.addRule(RelativeLayout.ALIGN_PARENT_END);
+                break;
         }
-        // 设置第一个小圆点图片背景为红色
-        if (mList.size() > 1) {
-            mDotList.get(dotPosition).setChecked(true);
-        }
-        setIndicatorGravity();
     }
+
 
     private void setViewPager() {
         BannerPagerAdapter<T, VH> bannerPagerAdapter =
@@ -235,11 +207,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
         mViewPager.addOnPageChangeListener(this);
         startLoop();
         setTouchListener();
-        if (showIndicator) {
-            mLlIndicator.setVisibility(VISIBLE);
-        } else {
-            mLlIndicator.setVisibility(GONE);
-        }
+        mIndicatorView.setVisibility(showIndicator ? VISIBLE : GONE);
     }
 
     @Override
@@ -247,22 +215,15 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
         if (isCanLoop) {
             if (position == 0) { // 判断当切换到第0个页面时把currentPosition设置为list.size(),即倒数第二个位置，小圆点位置为length-1
                 currentPosition = mList.size();
-                dotPosition = mList.size() - 1;
             } else if (position == mList.size() + 1) { // 当切换到最后一个页面时currentPosition设置为第一个位置，小圆点位置为0
                 currentPosition = 1;
-                dotPosition = 0;
             } else {
                 currentPosition = position;
-                dotPosition = position - 1;
             }
         } else {
             currentPosition = position;
-            dotPosition = currentPosition;
         }
-        // 把之前的小圆点设置未选中状态，当前小圆点设置为选中状态
-        mDotList.get(prePosition).setChecked(false);
-        mDotList.get(dotPosition).setChecked(true);
-        prePosition = dotPosition;
+        mIndicatorView.pageSelect(getRealPosition(position));
     }
 
     @Override
@@ -279,6 +240,20 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     }
 
     private int getRealPosition(int position) {
+        if (isCanLoop) {
+            if (position == 0) {
+                return mList.size() - 1;
+            } else if (position == mList.size() + 1) {
+                return 0;
+            } else {
+                return --position;
+            }
+        } else {
+            return position;
+        }
+    }
+
+    private int getUnrealPosition(int position) {
         return isCanLoop ? (position < mList.size()) ? (++position) : mList.size() : position;
     }
 
@@ -458,7 +433,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
         mViewPager.post(new Runnable() {
             @Override
             public void run() {
-                mViewPager.setCurrentItem(getRealPosition(position));
+                mViewPager.setCurrentItem(getUnrealPosition(position));
             }
         });
     }
@@ -473,7 +448,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
         mViewPager.post(new Runnable() {
             @Override
             public void run() {
-                mViewPager.setCurrentItem(getRealPosition(position), smoothScroll);
+                mViewPager.setCurrentItem(getUnrealPosition(position), smoothScroll);
             }
         });
     }
