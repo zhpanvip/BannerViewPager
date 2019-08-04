@@ -2,7 +2,7 @@
 
 ## 效果预览
 
-![这里写图片描述](https://github.com/zhpanvip/BannerViewPager/blob/v_2.0.0/image/ezgif-4-f4cd74cd939d.gif)
+![这里写图片描述](https://github.com/zhpanvip/BannerViewPager/blob/v_2.1.0/image/ezgif-4-f4cd74cd939d.gif)
 
 ## 开放API
 
