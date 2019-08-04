@@ -28,7 +28,7 @@
    **gradle中添加依赖**
 
 ```
-implementation 'com.zhpan.library:bannerview:2.0.0'
+implementation 'com.zhpan.library:bannerview:2.1.0'
 ```
 
   **在xml文件中添加如下代码：**
