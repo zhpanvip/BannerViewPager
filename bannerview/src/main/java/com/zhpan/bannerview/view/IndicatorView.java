@@ -90,8 +90,8 @@ public class IndicatorView extends View {
         return this;
     }
 
-    public IndicatorView setIndicatorRadius(float radius) {
-        this.mRadius = radius;
+    public IndicatorView setIndicatorRadius(float radiusDp) {
+        this.mRadius = radiusDp;
         return this;
     }
 }
