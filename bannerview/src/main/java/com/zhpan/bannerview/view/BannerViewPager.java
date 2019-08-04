@@ -303,19 +303,22 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
      * @param radius @DimenRes 圆角大小
      */
     public BannerViewPager<T, VH> setRoundCorner(@DimenRes int radius) {
-        setRoundCorner(getResources().getDimension(radius));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            ViewStyleSetter viewStyleSetter = new ViewStyleSetter(this);
+            viewStyleSetter.setRoundCorner(getResources().getDimension(radius));
+        }
         return this;
     }
 
     /**
      * 设置圆角ViewPager
      *
-     * @param radius 圆角大小
+     * @param radiusDp 圆角大小
      */
-    public BannerViewPager<T, VH> setRoundCorner(float radius) {
+    public BannerViewPager<T, VH> setRoundCorner(float radiusDp) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             ViewStyleSetter viewStyleSetter = new ViewStyleSetter(this);
-            viewStyleSetter.setRoundCorner(radius);
+            viewStyleSetter.setRoundCorner(dp2px(getContext(), radiusDp));
         }
         return this;
     }
