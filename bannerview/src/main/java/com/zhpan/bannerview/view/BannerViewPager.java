@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DimenRes;
+import android.support.annotation.IntDef;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
@@ -403,7 +404,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
      *
      * @param gravity 指示器位置
      */
-    public BannerViewPager<T, VH> setIndicatorGravity(int gravity) {
+    public BannerViewPager<T, VH> setIndicatorGravity(@IndicatorGravity int gravity) {
         this.gravity = gravity;
         return this;
     }
@@ -467,5 +468,9 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
 
     public void create() {
         initData();
+    }
+
+    @IntDef({CENTER, START, END})
+    public @interface IndicatorGravity {
     }
 }
