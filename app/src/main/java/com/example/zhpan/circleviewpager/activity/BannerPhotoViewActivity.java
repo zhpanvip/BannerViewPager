@@ -37,18 +37,11 @@ public class BannerPhotoViewActivity extends AppCompatActivity {
                 .setCanLoop(false)
                 .setIndicatorColor(Color.parseColor("#6C6D72"), Color.parseColor("#18171C"))
                 .setData(mDrawableList)
-                .setHolderCreator(new HolderCreator<PhotoViewHolder>() {
-                    @Override
-                    public PhotoViewHolder createViewHolder() {
-                        return new PhotoViewHolder();
-                    }
-                })
-                .setOnPageClickListener(new BannerViewPager.OnPageClickListener() {
-                    @Override
-                    public void onPageClick(int position) {
-                        Toast.makeText(BannerPhotoViewActivity.this, "图片" + (position + 1), Toast.LENGTH_SHORT).show();
-                    }
-                }).create();
+                .setHolderCreator(PhotoViewHolder::new)
+                .setOnPageClickListener(position ->
+                        Toast.makeText(BannerPhotoViewActivity.this,
+                                "图片" + (position + 1), Toast.LENGTH_SHORT).show())
+                .create();
     }
 
     private void initData() {
