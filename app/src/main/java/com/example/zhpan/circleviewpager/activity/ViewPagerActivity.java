@@ -37,18 +37,10 @@ public class ViewPagerActivity extends AppCompatActivity {
                 .setRoundCorner(R.dimen.banner_corner)
                 .setScrollDuration(1000)
                 .setData(mDataList)
-                .setHolderCreator(new HolderCreator<DataViewHolder>() {
-                    @Override
-                    public DataViewHolder createViewHolder() {
-                        return new DataViewHolder();
-                    }
-                })
-                .setOnPageClickListener(new BannerViewPager.OnPageClickListener() {
-                    @Override
-                    public void onPageClick(int position) {
-                        Toast.makeText(ViewPagerActivity.this, "点击了图片" + position, Toast.LENGTH_SHORT).show();
-                    }
-                }).create();
+                .setHolderCreator(DataViewHolder::new)
+                .setOnPageClickListener(position -> Toast.makeText(ViewPagerActivity.this,
+                        "点击了图片" + position, Toast.LENGTH_SHORT).show())
+                .create();
     }
 
     private void initData() {

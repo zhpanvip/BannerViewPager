@@ -30,11 +30,6 @@ public class PhotoViewHolder implements ViewHolder<Integer> {
     public void onBind(final Context context, Integer data, final int position, final int size) {
         // 数据绑定
         mImageView.setImageResource(data);
-        mImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context, position + "  页面数" + size, Toast.LENGTH_SHORT).show();
-            }
-        });
+        mImageView.setOnClickListener(v -> Toast.makeText(context, position + "  页面数" + size, Toast.LENGTH_SHORT).show());
     }
 }

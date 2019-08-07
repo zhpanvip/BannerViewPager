@@ -42,18 +42,9 @@ public class CustomerBannerActivity extends AppCompatActivity {
                 .setIndicatorGravity(BannerViewPager.END)
                 .setIndicatorColor(Color.parseColor("#6C6D72"),
                         Color.parseColor("#FFFFFF"))
-                .setOnPageClickListener(new BannerViewPager.OnPageClickListener() {
-                    @Override
-                    public void onPageClick(int position) {
-                        Toast.makeText(CustomerBannerActivity.this, "图片" + (position + 1), Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .setHolderCreator(new HolderCreator<CustomPageViewHolder>() {
-                    @Override
-                    public CustomPageViewHolder createViewHolder() {
-                        return new CustomPageViewHolder();
-                    }
-                }).create();
+                .setOnPageClickListener(position -> Toast.makeText(CustomerBannerActivity.this,
+                        "图片" + (position + 1), Toast.LENGTH_SHORT).show())
+                .setHolderCreator(CustomPageViewHolder::new).create();
     }
 
     private void initData() {

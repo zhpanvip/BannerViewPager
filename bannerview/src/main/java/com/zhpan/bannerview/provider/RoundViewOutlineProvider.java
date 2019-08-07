@@ -27,9 +27,7 @@ public class RoundViewOutlineProvider extends ViewOutlineProvider {
 
     @Override
     public void getOutline(View view, Outline outline) {
-        Rect rect = new Rect();
-        view.getGlobalVisibleRect(rect);//将view的区域保存在rect中
-        Rect selfRect = new Rect(0, 0, rect.right - rect.left, rect.bottom - rect.top);//绘制区域
+        Rect selfRect = new Rect(0, 0, view.getWidth(), view.getHeight());// 绘制区域
         outline.setRoundRect(selfRect, mRadius);
     }
 }
