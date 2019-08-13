@@ -44,11 +44,8 @@ dependencies {
     })
     implementation 'com.android.support:appcompat-v7:26.1.0'
     testImplementation 'junit:junit:4.12'
-//    implementation project(':viewpager')
-    // compile 'com.zhpan.library:viewpager:1.0.0'
     implementation 'com.github.bumptech.glide:glide:3.7.0'
     implementation 'com.github.chrisbanes:PhotoView:2.1.0'
-    implementation project(path: ':bannerview')
-    // implementation files('libs/viewpager-1.0.0.jar')
-    // compile(name: 'viewpager-1.0.0', ext: 'aar')
+    implementation 'com.zhpan.library:bannerview:2.1.0'
+//    implementation project(path: ':bannerview')
 }
