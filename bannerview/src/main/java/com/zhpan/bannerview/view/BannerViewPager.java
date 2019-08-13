@@ -216,25 +216,42 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
 
     @Override
     public void onPageSelected(int position) {
-        if (isCanLoop) {
-            if (position == 0) { // 判断当切换到第0个页面时把currentPosition设置为list.size(),即倒数第二个位置，小圆点位置为length-1
-                currentPosition = mList.size();
-            } else if (position == mList.size() + 1) { // 当切换到最后一个页面时currentPosition设置为第一个位置，小圆点位置为0
-                currentPosition = 1;
-            } else {
-                currentPosition = position;
-            }
-        } else {
-            currentPosition = position;
-        }
+        currentPosition = position;
+//        if (isCanLoop) {
+////            if (position == 0) { // 判断当切换到第0个页面时把currentPosition设置为list.size(),即倒数第二个位置，小圆点位置为length-1
+////                currentPosition = mList.size();
+////            } else if (position == mList.size() + 1) { // 当切换到最后一个页面时currentPosition设置为第一个位置，小圆点位置为0
+////                currentPosition = 1;
+////            } else {
+////                currentPosition = position;
+////            }
+////        } else {
+////            currentPosition = position;
+////        }
         mIndicatorView.pageSelect(getRealPosition(position));
     }
 
     @Override
     public void onPageScrollStateChanged(int state) {
-        // 当state为SCROLL_STATE_IDLE即没有滑动的状态时切换页面
-        if (state == ViewPager.SCROLL_STATE_IDLE) {
-            mViewPager.setCurrentItem(currentPosition, false);
+        if(isCanLoop){
+            switch (state) {
+                case ViewPager.SCROLL_STATE_IDLE:
+                    if (currentPosition == 0) {
+                        mViewPager.setCurrentItem(mList.size(), false);
+                    } else if (currentPosition == mList.size() + 1) {
+                        mViewPager.setCurrentItem(1, false);
+                    }
+                    break;
+                case ViewPager.SCROLL_STATE_DRAGGING:
+                    if (currentPosition == mList.size() + 1) {
+                        mViewPager.setCurrentItem(1, false);
+                    } else if (currentPosition == 0) {
+                        mViewPager.setCurrentItem(mList.size(), false);
+                    }
+                    break;
+            }
+        }else {
+            mViewPager.setCurrentItem(currentPosition);
         }
     }
 
