@@ -24,11 +24,12 @@
 | create() |初始化并构造BannerViewPager  |必须调用，否则前面设置的参数无效  |
 
 ## 如何使用
+ [ ![Download](https://api.bintray.com/packages/zhpanvip/CircleViewPager/bannerview/images/download.svg) ](https://bintray.com/zhpanvip/CircleViewPager/bannerview/_latestVersion)
 
    **gradle中添加依赖**
 
 ```
-implementation 'com.zhpan.library:bannerview:2.1.0'
+implementation 'com.zhpan.library:bannerview:latestVersion'
 ```
 
   **在xml文件中添加如下代码：**
@@ -98,7 +99,7 @@ public class DataViewHolder implements ViewHolder<DataBean> {
 
 ## TODO 接下来的版本计划
 
-（1）目前版本循环滑动时会出现偶尔划不动的情况，会在后续版本中修复
+~~（1）目前版本循环滑动时会出现偶尔划不动的情况，会在后续版本中修复~~ （2.1.0.1 已修复）
 
 （2）优化及重构IndicatorView，增加IndicatorView的滑动样式。
 
