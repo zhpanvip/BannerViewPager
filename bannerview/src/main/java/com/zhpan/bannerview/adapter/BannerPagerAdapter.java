@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 import com.zhpan.bannerview.holder.HolderCreator;
 import com.zhpan.bannerview.holder.ViewHolder;
-import com.zhpan.bannerview.view.BannerViewPager;
+import com.zhpan.bannerview.BannerViewPager;
 
 import java.util.List;
 

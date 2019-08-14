@@ -6,7 +6,7 @@
     android:orientation="vertical"
     tools:context=".activity.NetworkBannerActivity">
 
-    <com.zhpan.bannerview.view.BannerViewPager
+    <com.zhpan.bannerview.BannerViewPager
         android:id="@+id/banner_view"
         android:layout_width="match_parent"
         android:layout_height="200dp" />

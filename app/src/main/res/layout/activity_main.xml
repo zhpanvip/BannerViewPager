@@ -36,6 +36,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:onClick="onClick"
-        android:text="获取远程数据显示Banner" />
+        android:text="获取服务器数据显示Banner" />
 
 </LinearLayout>

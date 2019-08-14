@@ -8,7 +8,7 @@ import com.example.zhpan.circleviewpager.net.BannerData;
 import com.example.zhpan.circleviewpager.net.RetrofitGnerator;
 import com.example.zhpan.circleviewpager.viewholder.NetViewHolder;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
-import com.zhpan.bannerview.view.BannerViewPager;
+import com.zhpan.bannerview.BannerViewPager;
 import com.zhpan.idea.net.common.DefaultObserver;
 import com.zhpan.idea.utils.RxUtil;
 
@@ -22,6 +22,7 @@ public class NetworkBannerActivity extends RxAppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_network_banner);
+        setTitle(R.string.load_data);
         mBannerViewPager = findViewById(R.id.banner_view);
         mBannerViewPager.showIndicator(true)
                 .setInterval(3000)

@@ -1,4 +1,4 @@
-package com.zhpan.bannerview.view;
+package com.zhpan.bannerview;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -18,13 +18,13 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
-import com.zhpan.bannerview.R;
 import com.zhpan.bannerview.Utils.DpUtils;
 import com.zhpan.bannerview.adapter.BannerPagerAdapter;
 import com.zhpan.bannerview.holder.HolderCreator;
 import com.zhpan.bannerview.holder.ViewHolder;
 import com.zhpan.bannerview.provider.BannerScroller;
 import com.zhpan.bannerview.provider.ViewStyleSetter;
+import com.zhpan.bannerview.view.IndicatorView;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -89,12 +89,10 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
 
     public BannerViewPager(Context context) {
         this(context, null);
-        init(null, context);
     }
 
     public BannerViewPager(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
-        init(attrs, context);
     }
 
     public BannerViewPager(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -154,46 +152,45 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     // 设置触摸事件，当滑动或者触摸时停止自动轮播
     @SuppressLint("ClickableViewAccessibility")
     private void setTouchListener() {
-        mViewPager.setOnTouchListener(new OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                int action = event.getAction();
-                switch (action) {
-                    case MotionEvent.ACTION_DOWN:
-                    case MotionEvent.ACTION_MOVE:
-                        isLooping = true;
-                        stopLoop();
-                        break;
-                    case MotionEvent.ACTION_UP:
-                    case MotionEvent.ACTION_CANCEL:
-                        isLooping = false;
-                        startLoop();
-                    default:
-                        break;
-                }
-                return false;
+        mViewPager.setOnTouchListener((v, event) -> {
+            int action = event.getAction();
+            switch (action) {
+                case MotionEvent.ACTION_DOWN:
+                case MotionEvent.ACTION_MOVE:
+                    isLooping = true;
+                    stopLoop();
+                    break;
+                case MotionEvent.ACTION_UP:
+                case MotionEvent.ACTION_CANCEL:
+                    isLooping = false;
+                    startLoop();
+                default:
+                    break;
             }
+            return false;
         });
     }
 
     // 设置轮播小圆点
     private void initIndicator() {
-        mIndicatorView.setPageSize(mList.size())
-                .setIndicatorRadius(indicatorRadius)
-                .setCheckedColor(indicatorCheckedColor)
-                .setNormalColor(indicatorNormalColor)
-                .invalidate();
-        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mIndicatorView.getLayoutParams();
-        switch (gravity) {
-            case CENTER:
-                layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
-                break;
-            case START:
-                layoutParams.addRule(RelativeLayout.ALIGN_PARENT_START);
-                break;
-            case END:
-                layoutParams.addRule(RelativeLayout.ALIGN_PARENT_END);
-                break;
+        if (mList.size() > 1) {
+            mIndicatorView.setPageSize(mList.size())
+                    .setIndicatorRadius(indicatorRadius)
+                    .setCheckedColor(indicatorCheckedColor)
+                    .setNormalColor(indicatorNormalColor)
+                    .invalidate();
+            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mIndicatorView.getLayoutParams();
+            switch (gravity) {
+                case CENTER:
+                    layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
+                    break;
+                case START:
+                    layoutParams.addRule(RelativeLayout.ALIGN_PARENT_START);
+                    break;
+                case END:
+                    layoutParams.addRule(RelativeLayout.ALIGN_PARENT_END);
+                    break;
+            }
         }
     }
 
@@ -215,17 +212,6 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     @Override
     public void onPageSelected(int position) {
         currentPosition = position;
-//        if (isCanLoop) {
-////            if (position == 0) { // 判断当切换到第0个页面时把currentPosition设置为list.size(),即倒数第二个位置，小圆点位置为length-1
-////                currentPosition = mList.size();
-////            } else if (position == mList.size() + 1) { // 当切换到最后一个页面时currentPosition设置为第一个位置，小圆点位置为0
-////                currentPosition = 1;
-////            } else {
-////                currentPosition = position;
-////            }
-////        } else {
-////            currentPosition = position;
-////        }
         mIndicatorView.pageSelect(getRealPosition(position));
     }
 
@@ -442,12 +428,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
      * @param position Item index to select
      */
     public void setCurrentItem(final int position) {
-        mViewPager.post(new Runnable() {
-            @Override
-            public void run() {
-                mViewPager.setCurrentItem(getUnrealPosition(position));
-            }
-        });
+        mViewPager.post(() -> mViewPager.setCurrentItem(getUnrealPosition(position)));
     }
 
     /**
@@ -457,12 +438,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
      * @param smoothScroll True to smoothly scroll to the new item, false to transition immediately
      */
     public void setCurrentItem(final int position, final boolean smoothScroll) {
-        mViewPager.post(new Runnable() {
-            @Override
-            public void run() {
-                mViewPager.setCurrentItem(getUnrealPosition(position), smoothScroll);
-            }
-        });
+        mViewPager.post(() -> mViewPager.setCurrentItem(getUnrealPosition(position), smoothScroll));
     }
 
 
