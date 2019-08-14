@@ -11,7 +11,6 @@ import android.support.annotation.DimenRes;
 import android.support.annotation.IntDef;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -20,6 +19,7 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import com.zhpan.bannerview.R;
+import com.zhpan.bannerview.Utils.DpUtils;
 import com.zhpan.bannerview.adapter.BannerPagerAdapter;
 import com.zhpan.bannerview.holder.HolderCreator;
 import com.zhpan.bannerview.holder.ViewHolder;
@@ -114,7 +114,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
                     typedArray.getColor(R.styleable.BannerViewPager_indicator_normal_color,
                             Color.parseColor("#935656"));
             indicatorRadius = typedArray.getDimension(R.styleable.BannerViewPager_indicator_radius,
-                    dp2px(context, 4));
+                    DpUtils.dp2px(context, 4));
             isAutoPlay = typedArray.getBoolean(R.styleable.BannerViewPager_isAutoPlay, true);
             isCanLoop = typedArray.getBoolean(R.styleable.BannerViewPager_isCanLoop, true);
             gravity = typedArray.getInt(R.styleable.BannerViewPager_indicator_gravity, 0);
@@ -141,16 +141,15 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
 
     // 根据mList数据集构造mListAdd
     private void initData() {
-        if (mList.size() == 0) {
-            setVisibility(GONE);
-        } else {
+        if (mList.size() > 0) {
             initIndicator();
             if (isCanLoop) {
                 currentPosition = 1;
             }
+            setViewPager();
         }
-        setViewPager();
     }
+
 
     // 设置触摸事件，当滑动或者触摸时停止自动轮播
     @SuppressLint("ClickableViewAccessibility")
@@ -200,18 +199,17 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
 
 
     private void setViewPager() {
-        if (holderCreator == null) {
-            throw new RuntimeException("You must set HolderCreator first!");
+        if (holderCreator != null) {
+            BannerPagerAdapter<T, VH> bannerPagerAdapter =
+                    new BannerPagerAdapter<>(mList, this, holderCreator);
+            bannerPagerAdapter.setCanLoop(isCanLoop);
+            mViewPager.setAdapter(bannerPagerAdapter);
+            mViewPager.setCurrentItem(currentPosition);
+            mViewPager.addOnPageChangeListener(this);
+            startLoop();
+            setTouchListener();
+            mIndicatorView.setVisibility(showIndicator ? VISIBLE : GONE);
         }
-        BannerPagerAdapter<T, VH> bannerPagerAdapter =
-                new BannerPagerAdapter<>(mList, this, holderCreator);
-        bannerPagerAdapter.setCanLoop(isCanLoop);
-        mViewPager.setAdapter(bannerPagerAdapter);
-        mViewPager.setCurrentItem(currentPosition);
-        mViewPager.addOnPageChangeListener(this);
-        startLoop();
-        setTouchListener();
-        mIndicatorView.setVisibility(showIndicator ? VISIBLE : GONE);
     }
 
     @Override
@@ -233,7 +231,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
 
     @Override
     public void onPageScrollStateChanged(int state) {
-        if(isCanLoop){
+        if (isCanLoop) {
             switch (state) {
                 case ViewPager.SCROLL_STATE_IDLE:
                     if (currentPosition == 0) {
@@ -250,7 +248,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
                     }
                     break;
             }
-        }else {
+        } else {
             mViewPager.setCurrentItem(currentPosition);
         }
     }
@@ -306,6 +304,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
         if (list != null) {
             mList.clear();
             mList.addAll(list);
+            initData();
         }
         return this;
     }
@@ -336,7 +335,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     public BannerViewPager<T, VH> setRoundCorner(float radiusDp) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             ViewStyleSetter viewStyleSetter = new ViewStyleSetter(this);
-            viewStyleSetter.setRoundCorner(dp2px(getContext(), radiusDp));
+            viewStyleSetter.setRoundCorner(DpUtils.dp2px(getContext(), radiusDp));
         }
         return this;
     }
@@ -394,7 +393,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
      * @param indicatorRadius 指示器圆点半径
      */
     public BannerViewPager<T, VH> setIndicatorRadius(float indicatorRadius) {
-        this.indicatorRadius = dp2px(getContext(), indicatorRadius);
+        this.indicatorRadius = DpUtils.dp2px(getContext(), indicatorRadius);
         return this;
     }
 
@@ -475,12 +474,6 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     public BannerViewPager<T, VH> setOnPageClickListener(OnPageClickListener onPageClickListener) {
         this.mOnPageClickListener = onPageClickListener;
         return this;
-    }
-
-    public static int dp2px(Context context, float dpValue) {
-        DisplayMetrics metric = context.getResources().getDisplayMetrics();
-        float screenDensity = metric.density;
-        return (int) (dpValue * screenDensity + 0.5f);
     }
 
     public void create() {

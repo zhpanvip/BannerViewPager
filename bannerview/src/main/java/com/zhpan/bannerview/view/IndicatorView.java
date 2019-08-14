@@ -5,7 +5,10 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.view.View;
+
+import com.zhpan.bannerview.Utils.DpUtils;
 
 /**
  * Created by zhpan on 2017/12/6.
@@ -35,6 +38,7 @@ public class IndicatorView extends View {
         mPaint = new Paint();
         mPaint.setColor(normalColor);
         mPaint.setAntiAlias(true);
+        mRadius = DpUtils.dp2px(context, 4);
     }
 
     @Override

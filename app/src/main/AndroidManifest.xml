@@ -3,17 +3,18 @@
     package="com.example.zhpan.circleviewpager">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".activity.NetworkBannerActivity"></activity>
         <activity android:name=".activity.CustomerBannerActivity" />
-        <activity
-            android:name=".activity.BannerPhotoViewActivity" />
+        <activity android:name=".activity.BannerPhotoViewActivity" />
         <activity android:name=".activity.ViewPagerActivity" />
         <activity android:name=".activity.MainActivity">
             <intent-filter>

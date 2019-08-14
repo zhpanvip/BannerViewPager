@@ -30,4 +30,12 @@
         android:onClick="onClick"
         android:text="嵌套PhotoView示例" />
 
+    <Button
+        android:id="@+id/btn_view_pager4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:onClick="onClick"
+        android:text="获取远程数据显示Banner" />
+
 </LinearLayout>
