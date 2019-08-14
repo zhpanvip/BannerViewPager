@@ -1,0 +1,31 @@
+<resources>
+
+
+    <style name="ProgressDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+    </style>
+    <!--Progress 主题-->
+    <style name="ProgressDialogStyle" parent="@style/ProgressDialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <!--自定义dialog背景全透明无边框theme -->
+    <style name="SrcbDialog" parent="android:style/Theme.Dialog">
+    <!--背景颜色及和透明程度-->
+    <item name="android:windowBackground">@android:color/transparent</item>
+    <!--是否去除标题 -->
+    <item name="android:windowNoTitle">true</item>
+    <!--是否去除边框-->
+    <item name="android:windowFrame">@null</item>
+    <!--是否浮现在activity之上-->
+    <item name="android:windowIsFloating">true</item>
+    <!--是否模糊-->
+    <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
+</resources>
