@@ -108,3 +108,5 @@ bintray {
 }
 
 //提交命令：gradlew bintrayUpload
+
+// mac ./gradlew bintrayUpload  没有权限使用申请 chmod +x gradlew
