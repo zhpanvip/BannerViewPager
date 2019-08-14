@@ -41,4 +41,10 @@ public class NetworkBannerActivity extends RxAppCompatActivity {
             }
         });
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mBannerViewPager.stopLoop();
+    }
 }
