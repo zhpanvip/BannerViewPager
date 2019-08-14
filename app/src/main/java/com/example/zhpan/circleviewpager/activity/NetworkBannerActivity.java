@@ -28,7 +28,6 @@ public class NetworkBannerActivity extends RxAppCompatActivity {
                 .setIndicatorGravity(BannerViewPager.END)
                 .setScrollDuration(1000).setHolderCreator(NetViewHolder::new)
                 .setOnPageClickListener(position -> {
-
                     BannerData bannerData = mBannerViewPager.getList().get(position);
                     Toast.makeText(NetworkBannerActivity.this,
                             "点击了图片" + position + " " + bannerData.getDesc(), Toast.LENGTH_SHORT).show();

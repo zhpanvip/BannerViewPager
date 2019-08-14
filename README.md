@@ -16,7 +16,9 @@
 | setRoundCorner(float radiusDp) | 设置圆角 | 单位dp,默认无圆角 需要SDK_INT>=LOLLIPOP(21)|
 | showIndicator(boolean showIndicator) |  是否显示指示器|默认值true  |
 | setIndicatorGravity(int gravity) | 指示器位置（0 Center、1 Start、2 End） |默认值0 Center |
-| setIndicatorRadius(float indicatorRadius) | 指示器圆点半径 | 单位dp 默认值4dp|
+| setIndicatorColor(int normalColor,int checkedColor) | 指示器圆点颜色 |normalColor：未选中时颜色默认"#000000"， checkedColor：选中时颜色 默认"#FFFFFF" |
+| setIndicatorRadius(float radiusDp) | 指示器圆点半径 | 单位dp 默认值4dp|
+| setIndicatorRadius(@DimenRes int radiusRes) | 指示器圆点半径| DimenRes资源 默认值4dp|
 |setCurrentItem(final int position)  |  切换到第position个页面|  |
 | setCurrentItem(final int position, final boolean smoothScroll) | 平滑切换到第position个页面 |  |
 | setData(List<T> list) |设置Banner数据  |  |

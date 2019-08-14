@@ -390,12 +390,23 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     /**
      * 设置指示器半径大小
      *
-     * @param indicatorRadius 指示器圆点半径
+     * @param radiusDp 指示器圆点半径
      */
-    public BannerViewPager<T, VH> setIndicatorRadius(float indicatorRadius) {
-        this.indicatorRadius = DpUtils.dp2px(getContext(), indicatorRadius);
+    public BannerViewPager<T, VH> setIndicatorRadius(float radiusDp) {
+        this.indicatorRadius = DpUtils.dp2px(getContext(), radiusDp);
         return this;
     }
+
+    /**
+     * 设置指示器半径大小
+     *
+     * @param radiusRes 指示器圆点半径
+     */
+    public BannerViewPager<T, VH> setIndicatorRadius(@DimenRes int radiusRes) {
+        this.indicatorRadius = getContext().getResources().getDimension(radiusRes);
+        return this;
+    }
+
 
     /**
      * 设置page滚动时间
