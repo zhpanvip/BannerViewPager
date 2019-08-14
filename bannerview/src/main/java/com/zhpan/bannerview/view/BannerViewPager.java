@@ -462,7 +462,10 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     // adapter中图片点击的回掉方法
     public void imageClick(int position) {
         if (mOnPageClickListener != null) {
-            mOnPageClickListener.onPageClick(isCanLoop ? position - 1 : position);
+            int realPosition = isCanLoop ? position - 1 : position;
+            if (realPosition < mList.size() && realPosition >= 0) {
+                mOnPageClickListener.onPageClick(realPosition);
+            }
         }
     }
 

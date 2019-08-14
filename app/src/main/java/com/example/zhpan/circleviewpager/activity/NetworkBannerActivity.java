@@ -23,12 +23,17 @@ public class NetworkBannerActivity extends RxAppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_network_banner);
         mBannerViewPager = findViewById(R.id.banner_view);
-        mBannerViewPager.showIndicator(false)
+        mBannerViewPager.showIndicator(true)
                 .setInterval(3000)
                 .setIndicatorGravity(BannerViewPager.END)
                 .setScrollDuration(1000).setHolderCreator(NetViewHolder::new)
-                .setOnPageClickListener(position -> Toast.makeText(NetworkBannerActivity.this,
-                        "点击了图片" + position, Toast.LENGTH_SHORT).show()).create();
+                .setOnPageClickListener(position -> {
+
+                    BannerData bannerData = mBannerViewPager.getList().get(position);
+                    Toast.makeText(NetworkBannerActivity.this,
+                            "点击了图片" + position + " " + bannerData.getDesc(), Toast.LENGTH_SHORT).show();
+
+                }).create();
         RetrofitGnerator.getApiSerVice().getBannerData().compose(RxUtil.rxSchedulerHelper(this)).subscribe(new DefaultObserver<List<BannerData>>() {
             @Override
             public void onSuccess(List<BannerData> response) {

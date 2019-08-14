@@ -91,6 +91,7 @@ public class IndicatorView extends View {
 
     public IndicatorView setPageSize(int pageSize) {
         this.mPageSize = pageSize;
+        requestLayout();
         return this;
     }
 
