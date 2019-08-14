@@ -8,8 +8,7 @@ import android.widget.Toast;
 import com.example.zhpan.circleviewpager.R;
 import com.example.zhpan.circleviewpager.bean.CustomBean;
 import com.example.zhpan.circleviewpager.viewholder.CustomPageViewHolder;
-import com.zhpan.bannerview.holder.HolderCreator;
-import com.zhpan.bannerview.view.BannerViewPager;
+import com.zhpan.bannerview.BannerViewPager;
 
 import java.util.ArrayList;
 import java.util.List;

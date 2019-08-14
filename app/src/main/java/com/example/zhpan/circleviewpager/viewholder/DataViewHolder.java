@@ -5,13 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.zhpan.circleviewpager.bean.DataBean;
 import com.example.zhpan.circleviewpager.R;
+import com.example.zhpan.circleviewpager.imageloader.ImageLoaderManager;
+import com.example.zhpan.circleviewpager.imageloader.ImageLoaderOptions;
 import com.zhpan.bannerview.holder.ViewHolder;
-import com.example.zhpan.circleviewpager.utils.ImageLoaderUtil;
 
 /**
  * Created by zhpan on 2017/10/30.
@@ -31,6 +30,7 @@ public class DataViewHolder implements ViewHolder<DataBean> {
 
     @Override
     public void onBind(final Context context, DataBean data, final int position, final int size) {
-        ImageLoaderUtil.loadImg(mImageView, data.getUrl(), R.drawable.placeholder);
+        ImageLoaderOptions options = new ImageLoaderOptions.Builder().into(mImageView).load(data.getUrl()).placeHolder(R.drawable.placeholder).build();
+        ImageLoaderManager.getInstance().loadImage(options);
     }
 }

@@ -1,0 +1,45 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion '28.0.3'
+    defaultConfig {
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode rootProject.releaseVersionCode
+        versionName rootProject.releaseVersionName
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "com.android.support:appcompat-v7:${rootProject.supportLibVersion}"
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+
+    api "io.reactivex.rxjava2:rxjava:$rootProject.ext.rxjava2Version"
+    api "com.squareup.retrofit2:retrofit:$rootProject.ext.retrofit2Version"
+    api "com.squareup.retrofit2:converter-scalars:$rootProject.ext.retrofit2Version"
+    api "com.squareup.retrofit2:converter-gson:$rootProject.ext.retrofit2Version"
+    api "com.squareup.retrofit2:adapter-rxjava2:$rootProject.ext.retrofit2Version"
+    api "com.trello.rxlifecycle2:rxlifecycle:$rootProject.ext.rxlifecycle"
+    //compile "com.trello.rxlifecycle2:rxlifecycle-android:$rootProject.ext.rxlifecycle"
+    api "com.trello.rxlifecycle2:rxlifecycle-components:$rootProject.ext.rxlifecycle"
+    api 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
+    api 'io.reactivex.rxjava2:rxandroid:2.1.0'
+    api 'com.squareup.okhttp3:logging-interceptor:3.10.0'
+
+}

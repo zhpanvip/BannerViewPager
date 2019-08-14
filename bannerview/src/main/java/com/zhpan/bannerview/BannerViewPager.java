@@ -1,4 +1,4 @@
-package com.zhpan.bannerview.view;
+package com.zhpan.bannerview;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -11,7 +11,6 @@ import android.support.annotation.DimenRes;
 import android.support.annotation.IntDef;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -19,13 +18,18 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
-import com.zhpan.bannerview.R;
+import com.zhpan.bannerview.Utils.DpUtils;
 import com.zhpan.bannerview.adapter.BannerPagerAdapter;
 import com.zhpan.bannerview.holder.HolderCreator;
 import com.zhpan.bannerview.holder.ViewHolder;
 import com.zhpan.bannerview.provider.BannerScroller;
 import com.zhpan.bannerview.provider.ViewStyleSetter;
+import com.zhpan.bannerview.view.IndicatorView;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -89,12 +93,10 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
 
     public BannerViewPager(Context context) {
         this(context, null);
-        init(null, context);
     }
 
     public BannerViewPager(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
-        init(attrs, context);
     }
 
     public BannerViewPager(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -114,7 +116,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
                     typedArray.getColor(R.styleable.BannerViewPager_indicator_normal_color,
                             Color.parseColor("#935656"));
             indicatorRadius = typedArray.getDimension(R.styleable.BannerViewPager_indicator_radius,
-                    dp2px(context, 4));
+                    DpUtils.dp2px(context, 4));
             isAutoPlay = typedArray.getBoolean(R.styleable.BannerViewPager_isAutoPlay, true);
             isCanLoop = typedArray.getBoolean(R.styleable.BannerViewPager_isCanLoop, true);
             gravity = typedArray.getInt(R.styleable.BannerViewPager_indicator_gravity, 0);
@@ -141,99 +143,85 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
 
     // 根据mList数据集构造mListAdd
     private void initData() {
-        if (mList.size() == 0) {
-            setVisibility(GONE);
-        } else {
+        if (mList.size() > 0) {
             initIndicator();
             if (isCanLoop) {
                 currentPosition = 1;
             }
+            setViewPager();
         }
-        setViewPager();
     }
+
 
     // 设置触摸事件，当滑动或者触摸时停止自动轮播
     @SuppressLint("ClickableViewAccessibility")
     private void setTouchListener() {
-        mViewPager.setOnTouchListener(new OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                int action = event.getAction();
-                switch (action) {
-                    case MotionEvent.ACTION_DOWN:
-                    case MotionEvent.ACTION_MOVE:
-                        isLooping = true;
-                        stopLoop();
-                        break;
-                    case MotionEvent.ACTION_UP:
-                    case MotionEvent.ACTION_CANCEL:
-                        isLooping = false;
-                        startLoop();
-                    default:
-                        break;
-                }
-                return false;
+        mViewPager.setOnTouchListener((v, event) -> {
+            int action = event.getAction();
+            switch (action) {
+                case MotionEvent.ACTION_DOWN:
+                case MotionEvent.ACTION_MOVE:
+                    isLooping = true;
+                    stopLoop();
+                    break;
+                case MotionEvent.ACTION_UP:
+                case MotionEvent.ACTION_CANCEL:
+                    isLooping = false;
+                    startLoop();
+                default:
+                    break;
             }
+            return false;
         });
     }
 
     // 设置轮播小圆点
     private void initIndicator() {
-        mIndicatorView.setPageSize(mList.size())
-                .setIndicatorRadius(indicatorRadius)
-                .setCheckedColor(indicatorCheckedColor)
-                .setNormalColor(indicatorNormalColor)
-                .invalidate();
-        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mIndicatorView.getLayoutParams();
-        switch (gravity) {
-            case CENTER:
-                layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
-                break;
-            case START:
-                layoutParams.addRule(RelativeLayout.ALIGN_PARENT_START);
-                break;
-            case END:
-                layoutParams.addRule(RelativeLayout.ALIGN_PARENT_END);
-                break;
+        if (mList.size() > 1) {
+            mIndicatorView.setPageSize(mList.size())
+                    .setIndicatorRadius(indicatorRadius)
+                    .setCheckedColor(indicatorCheckedColor)
+                    .setNormalColor(indicatorNormalColor)
+                    .invalidate();
+            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mIndicatorView.getLayoutParams();
+            switch (gravity) {
+                case CENTER:
+                    layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
+                    break;
+                case START:
+                    layoutParams.addRule(RelativeLayout.ALIGN_PARENT_START);
+                    break;
+                case END:
+                    layoutParams.addRule(RelativeLayout.ALIGN_PARENT_END);
+                    break;
+            }
         }
     }
 
 
     private void setViewPager() {
-        if (holderCreator == null) {
-            throw new RuntimeException("You must set HolderCreator first!");
+        if (holderCreator != null) {
+            BannerPagerAdapter<T, VH> bannerPagerAdapter =
+                    new BannerPagerAdapter<>(mList, this, holderCreator);
+            bannerPagerAdapter.setCanLoop(isCanLoop);
+            mViewPager.setAdapter(bannerPagerAdapter);
+            mViewPager.setCurrentItem(currentPosition);
+            mViewPager.addOnPageChangeListener(this);
+            startLoop();
+            setTouchListener();
+            mIndicatorView.setVisibility(showIndicator ? VISIBLE : GONE);
         }
-        BannerPagerAdapter<T, VH> bannerPagerAdapter =
-                new BannerPagerAdapter<>(mList, this, holderCreator);
-        bannerPagerAdapter.setCanLoop(isCanLoop);
-        mViewPager.setAdapter(bannerPagerAdapter);
-        mViewPager.setCurrentItem(currentPosition);
-        mViewPager.addOnPageChangeListener(this);
-        startLoop();
-        setTouchListener();
-        mIndicatorView.setVisibility(showIndicator ? VISIBLE : GONE);
     }
 
     @Override
     public void onPageSelected(int position) {
         currentPosition = position;
-//        if (isCanLoop) {
-////            if (position == 0) { // 判断当切换到第0个页面时把currentPosition设置为list.size(),即倒数第二个位置，小圆点位置为length-1
-////                currentPosition = mList.size();
-////            } else if (position == mList.size() + 1) { // 当切换到最后一个页面时currentPosition设置为第一个位置，小圆点位置为0
-////                currentPosition = 1;
-////            } else {
-////                currentPosition = position;
-////            }
-////        } else {
-////            currentPosition = position;
-////        }
         mIndicatorView.pageSelect(getRealPosition(position));
     }
 
     @Override
     public void onPageScrollStateChanged(int state) {
-        if(isCanLoop){
+        if (isCanLoop) {
             switch (state) {
                 case ViewPager.SCROLL_STATE_IDLE:
                     if (currentPosition == 0) {
@@ -250,7 +238,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
                     }
                     break;
             }
-        }else {
+        } else {
             mViewPager.setCurrentItem(currentPosition);
         }
     }
@@ -306,6 +294,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
         if (list != null) {
             mList.clear();
             mList.addAll(list);
+            initData();
         }
         return this;
     }
@@ -336,7 +325,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     public BannerViewPager<T, VH> setRoundCorner(float radiusDp) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             ViewStyleSetter viewStyleSetter = new ViewStyleSetter(this);
-            viewStyleSetter.setRoundCorner(dp2px(getContext(), radiusDp));
+            viewStyleSetter.setRoundCorner(DpUtils.dp2px(getContext(), radiusDp));
         }
         return this;
     }
@@ -391,12 +380,23 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     /**
      * 设置指示器半径大小
      *
-     * @param indicatorRadius 指示器圆点半径
+     * @param radiusDp 指示器圆点半径
      */
-    public BannerViewPager<T, VH> setIndicatorRadius(float indicatorRadius) {
-        this.indicatorRadius = dp2px(getContext(), indicatorRadius);
+    public BannerViewPager<T, VH> setIndicatorRadius(float radiusDp) {
+        this.indicatorRadius = DpUtils.dp2px(getContext(), radiusDp);
         return this;
     }
+
+    /**
+     * 设置指示器半径大小
+     *
+     * @param radiusRes 指示器圆点半径
+     */
+    public BannerViewPager<T, VH> setIndicatorRadius(@DimenRes int radiusRes) {
+        this.indicatorRadius = getContext().getResources().getDimension(radiusRes);
+        return this;
+    }
+
 
     /**
      * 设置page滚动时间
@@ -432,12 +432,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
      * @param position Item index to select
      */
     public void setCurrentItem(final int position) {
-        mViewPager.post(new Runnable() {
-            @Override
-            public void run() {
-                mViewPager.setCurrentItem(getUnrealPosition(position));
-            }
-        });
+        mViewPager.post(() -> mViewPager.setCurrentItem(getUnrealPosition(position)));
     }
 
     /**
@@ -447,12 +442,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
      * @param smoothScroll True to smoothly scroll to the new item, false to transition immediately
      */
     public void setCurrentItem(final int position, final boolean smoothScroll) {
-        mViewPager.post(new Runnable() {
-            @Override
-            public void run() {
-                mViewPager.setCurrentItem(getUnrealPosition(position), smoothScroll);
-            }
-        });
+        mViewPager.post(() -> mViewPager.setCurrentItem(getUnrealPosition(position), smoothScroll));
     }
 
 
@@ -463,7 +453,10 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     // adapter中图片点击的回掉方法
     public void imageClick(int position) {
         if (mOnPageClickListener != null) {
-            mOnPageClickListener.onPageClick(isCanLoop ? position - 1 : position);
+            int realPosition = isCanLoop ? position - 1 : position;
+            if (realPosition < mList.size() && realPosition >= 0) {
+                mOnPageClickListener.onPageClick(realPosition);
+            }
         }
     }
 
@@ -477,17 +470,13 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
         return this;
     }
 
-    public static int dp2px(Context context, float dpValue) {
-        DisplayMetrics metric = context.getResources().getDisplayMetrics();
-        float screenDensity = metric.density;
-        return (int) (dpValue * screenDensity + 0.5f);
-    }
-
     public void create() {
         initData();
     }
 
     @IntDef({CENTER, START, END})
+    @Retention(RetentionPolicy.SOURCE)
+    @Target(ElementType.PARAMETER)
     public @interface IndicatorGravity {
     }
 }
