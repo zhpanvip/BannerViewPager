@@ -1,36 +1,82 @@
 package com.example.zhpan.circleviewpager.activity;
 
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.zhpan.circleviewpager.R;
-import com.example.zhpan.circleviewpager.bean.DataBean;
-import com.example.zhpan.circleviewpager.viewholder.DataViewHolder;
+import com.example.zhpan.circleviewpager.viewholder.TransformerViewHolder;
 import com.zhpan.bannerview.BannerViewPager;
-import com.zhpan.bannerview.transform.BookFlipPageFadePageTransformer;
+import com.zhpan.bannerview.transform.AccordionTransformer;
+import com.zhpan.bannerview.transform.BackgroundToForegroundTransformer;
+import com.zhpan.bannerview.transform.CubeOutTransformer;
 import com.zhpan.bannerview.transform.DepthPageTransformer;
-import com.zhpan.bannerview.transform.ZoomOutPageTransformer;
+import com.zhpan.bannerview.transform.FlipHorizontalTransformer;
+import com.zhpan.bannerview.transform.RotateDownTransformer;
+import com.zhpan.bannerview.transform.RotateUpTransformer;
+import com.zhpan.bannerview.transform.ZoomOutSlideTransformer;
+import com.zhpan.bannerview.transform.ZoomOutTranformer;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class PageTransformerActivity extends AppCompatActivity {
 
-    private BannerViewPager<DataBean, DataViewHolder> mViewpager;
-    private List<DataBean> mDataList = new ArrayList<>();
-    private String[] picUrls = {"http://pic31.nipic.com/20130801/11604791_100539834000_2.jpg",
-            "http://pic37.nipic.com/20140115/7430301_100825571157_2.jpg",
-            "http://pic29.nipic.com/20130507/8952533_183922555000_2.jpg",
-            "http://b-ssl.duitang.com/uploads/item/201706/10/20170610095055_G5LM8.jpeg"};
+    private BannerViewPager<Integer, TransformerViewHolder> mViewpager;
+    private ArrayList<Integer> mList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_page_transformer);
-        setTitle(R.string.title_view_pager);
+        setTitle(R.string.title_transformer);
         initData();
         initViewPager();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.transformer_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        ViewPager.PageTransformer pageTransformer = null;
+        switch (item.getItemId()) {
+            case R.id.menu0:
+                pageTransformer = new AccordionTransformer();
+                break;
+            case R.id.menu1:
+                pageTransformer = new RotateDownTransformer();
+                break;
+            case R.id.menu2:
+                pageTransformer = new RotateUpTransformer();
+                break;
+            case R.id.menu3:
+                pageTransformer = new DepthPageTransformer();
+                break;
+            case R.id.menu4:
+                pageTransformer = new ZoomOutSlideTransformer();
+                break;
+            case R.id.menu5:
+                pageTransformer = new ZoomOutTranformer();
+                break;
+            case R.id.menu6:
+                pageTransformer = new BackgroundToForegroundTransformer();
+                break;
+            case R.id.menu7:
+                pageTransformer = new CubeOutTransformer();
+                break;
+            case R.id.menu8:
+                pageTransformer = new FlipHorizontalTransformer();
+                break;
+        }
+        if (pageTransformer != null)
+            mViewpager.setPageTransformer(pageTransformer);
+        return super.onOptionsItemSelected(item);
     }
 
     private void initViewPager() {
@@ -39,24 +85,25 @@ public class PageTransformerActivity extends AppCompatActivity {
                 .setCanLoop(false)
                 .setAutoPlay(false)
                 .setScrollDuration(1000)
-                .setData(mDataList)
-                .setPageTransformer(new BookFlipPageFadePageTransformer())
-                .setHolderCreator(DataViewHolder::new)
+                .setData(mList)
+                .setHolderCreator(TransformerViewHolder::new)
                 .setOnPageClickListener(position -> Toast.makeText(PageTransformerActivity.this,
-                        "点击了图片" + position, Toast.LENGTH_SHORT).show())
+                        "立即体验", Toast.LENGTH_SHORT).show())
                 .create();
     }
 
-    private void initData() {
-        for (int i = 0; i < picUrls.length; i++) {
-            DataBean dataBean = new DataBean(picUrls[i]);
-            mDataList.add(dataBean);
-        }
-    }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         mViewpager.stopLoop();
+    }
+
+    private void initData() {
+        mList = new ArrayList<>();
+        for (int i = 0; i <= 2; i++) {
+            int drawable = getResources().getIdentifier("guide" + i, "drawable", getPackageName());
+            mList.add(drawable);
+        }
     }
 }

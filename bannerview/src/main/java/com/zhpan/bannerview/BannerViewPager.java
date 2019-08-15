@@ -14,6 +14,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
@@ -23,6 +24,8 @@ import com.zhpan.bannerview.holder.HolderCreator;
 import com.zhpan.bannerview.holder.ViewHolder;
 import com.zhpan.bannerview.provider.BannerScroller;
 import com.zhpan.bannerview.provider.ViewStyleSetter;
+import com.zhpan.bannerview.transform.PageTransformerFactory;
+import com.zhpan.bannerview.transform.TransformerStyle;
 import com.zhpan.bannerview.view.IndicatorView;
 
 import java.lang.annotation.ElementType;
@@ -69,6 +72,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     private OnPageClickListener mOnPageClickListener;
     // 圆点指示器的Layout
     private IndicatorView mIndicatorView;
+    RelativeLayout mRelativeLayout;
     private HolderCreator<VH> holderCreator;
     Handler mHandler = new Handler();
     Runnable mRunnable = new Runnable() {
@@ -124,6 +128,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
         View view = LayoutInflater.from(getContext()).inflate(R.layout.view_pager_layout, this);
         mIndicatorView = view.findViewById(R.id.indicator_view);
         mViewPager = view.findViewById(R.id.vp_main);
+        mRelativeLayout = view.findViewById(R.id.rl_banner);
         mList = new ArrayList<>();
         initScroller();
     }
@@ -432,6 +437,11 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
         return this;
     }
 
+    public BannerViewPager<T, VH> setPageTransformerStyle(TransformerStyle style) {
+        setPageTransformer(new PageTransformerFactory().createPageTransformer(style));
+        return this;
+    }
+
     /**
      * @param reverseDrawingOrder true if the supplied PageTransformer requires page views
      *                            to be drawn from last to first instead of first to last.
@@ -493,6 +503,6 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     @IntDef({CENTER, START, END})
     @Retention(RetentionPolicy.SOURCE)
     @Target(ElementType.PARAMETER)
-    public @interface IndicatorGravity {
+    @interface IndicatorGravity {
     }
 }
