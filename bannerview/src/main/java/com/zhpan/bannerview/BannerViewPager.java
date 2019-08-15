@@ -11,7 +11,6 @@ import android.support.annotation.DimenRes;
 import android.support.annotation.IntDef;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -137,7 +136,6 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
             mScroller.setDuration(DEFAULT_SCROLL_DURATION);
             mField.set(mViewPager, mScroller);
         } catch (Exception e) {
-            Log.e(tag, e.getMessage());
         }
     }
 
@@ -423,6 +421,24 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
      */
     public BannerViewPager<T, VH> setIndicatorGravity(@IndicatorGravity int gravity) {
         this.gravity = gravity;
+        return this;
+    }
+
+    /**
+     * @param transformer PageTransformer that will modify each page's animation properties
+     */
+    public BannerViewPager<T, VH> setPageTransformer(ViewPager.PageTransformer transformer) {
+        mViewPager.setPageTransformer(true, transformer);
+        return this;
+    }
+
+    /**
+     * @param reverseDrawingOrder true if the supplied PageTransformer requires page views
+     *                            to be drawn from last to first instead of first to last.
+     * @param transformer         PageTransformer that will modify each page's animation properties
+     */
+    public BannerViewPager<T, VH> setPageTransformer(boolean reverseDrawingOrder, ViewPager.PageTransformer transformer) {
+        mViewPager.setPageTransformer(true, transformer);
         return this;
     }
 
