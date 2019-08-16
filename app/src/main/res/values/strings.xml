@@ -4,4 +4,5 @@
     <string name="title_custom_page">自定义页面样式</string>
     <string name="title_view_pager">圆角自动轮播</string>
     <string name="load_data">加载网络数据</string>
+    <string name="title_transformer">Page Transformer</string>
 </resources>

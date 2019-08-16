@@ -10,12 +10,12 @@ import android.view.MotionEvent;
  * @Time:2018/11/14 15:24
  * @Description:
  */
-public class CustomBViewPager extends ViewPager {
-    public CustomBViewPager(Context context) {
+public class CustomViewPager extends ViewPager {
+    public CustomViewPager(Context context) {
         this(context,null);
     }
 
-    public CustomBViewPager(Context context, AttributeSet attrs) {
+    public CustomViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
