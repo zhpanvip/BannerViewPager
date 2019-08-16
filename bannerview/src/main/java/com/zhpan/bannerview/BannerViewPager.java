@@ -90,6 +90,8 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
 
     public static final int DEFAULT_SCROLL_DURATION = 800;
 
+    private float indicatorMargin = 0;
+
     public BannerViewPager(Context context) {
         this(context, null);
     }
@@ -176,12 +178,11 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     // 设置轮播小圆点
     private void initIndicator() {
         if (mList.size() > 1) {
-            mIndicatorView.setPageSize(mList.size())
-                    .setIndicatorRadius(indicatorRadius)
-                    .setCheckedColor(indicatorCheckedColor)
-                    .setNormalColor(indicatorNormalColor)
-                    .invalidate();
-            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mIndicatorView.getLayoutParams();
+            mIndicatorView.setPageSize(mList.size()).setIndicatorRadius(indicatorRadius)
+                    .setIndicatorMargin(indicatorMargin).setCheckedColor(indicatorCheckedColor)
+                    .setNormalColor(indicatorNormalColor).invalidate();
+            RelativeLayout.LayoutParams layoutParams =
+                    (RelativeLayout.LayoutParams) mIndicatorView.getLayoutParams();
             switch (gravity) {
                 case CENTER:
                     layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
@@ -271,7 +272,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     /**
      * 开启轮播
      */
-    private void startLoop() {
+    public void startLoop() {
         if (!isLooping && isAutoPlay && mViewPager != null) {
             mHandler.postDelayed(mRunnable, interval);// 每interval秒执行一次runnable.
             isLooping = true;
@@ -425,24 +426,6 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     }
 
     /**
-     * @param transformer PageTransformer that will modify each page's animation properties
-     */
-    public BannerViewPager<T, VH> setPageTransformer(ViewPager.PageTransformer transformer) {
-        mViewPager.setPageTransformer(true, transformer);
-        return this;
-    }
-
-    /**
-     * @param reverseDrawingOrder true if the supplied PageTransformer requires page views
-     *                            to be drawn from last to first instead of first to last.
-     * @param transformer         PageTransformer that will modify each page's animation properties
-     */
-    public BannerViewPager<T, VH> setPageTransformer(boolean reverseDrawingOrder, ViewPager.PageTransformer transformer) {
-        mViewPager.setPageTransformer(true, transformer);
-        return this;
-    }
-
-    /**
      * Set the currently selected page.
      *
      * @param position Item index to select
@@ -483,6 +466,16 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
      */
     public BannerViewPager<T, VH> setOnPageClickListener(OnPageClickListener onPageClickListener) {
         this.mOnPageClickListener = onPageClickListener;
+        return this;
+    }
+
+    public BannerViewPager<T, VH> setIndicatorMargin(float indicatorMarginDp) {
+        this.indicatorMargin = indicatorMarginDp;
+        return this;
+    }
+
+    public BannerViewPager<T, VH> setIndicatorMargin(@DimenRes int marginRes) {
+        this.indicatorMargin = getContext().getResources().getDimension(marginRes);
         return this;
     }
 

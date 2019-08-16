@@ -8,9 +8,6 @@ import com.example.zhpan.circleviewpager.R;
 import com.example.zhpan.circleviewpager.bean.DataBean;
 import com.example.zhpan.circleviewpager.viewholder.DataViewHolder;
 import com.zhpan.bannerview.BannerViewPager;
-import com.zhpan.bannerview.transform.BookFlipPageFadePageTransformer;
-import com.zhpan.bannerview.transform.DepthPageTransformer;
-import com.zhpan.bannerview.transform.ZoomOutPageTransformer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +37,6 @@ public class PageTransformerActivity extends AppCompatActivity {
                 .setAutoPlay(false)
                 .setScrollDuration(1000)
                 .setData(mDataList)
-                .setPageTransformer(new BookFlipPageFadePageTransformer())
                 .setHolderCreator(DataViewHolder::new)
                 .setOnPageClickListener(position -> Toast.makeText(PageTransformerActivity.this,
                         "点击了图片" + position, Toast.LENGTH_SHORT).show())
