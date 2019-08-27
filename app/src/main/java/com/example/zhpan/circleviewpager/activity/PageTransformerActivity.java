@@ -10,15 +10,7 @@ import android.widget.Toast;
 import com.example.zhpan.circleviewpager.R;
 import com.example.zhpan.circleviewpager.viewholder.TransformerViewHolder;
 import com.zhpan.bannerview.BannerViewPager;
-import com.zhpan.bannerview.transform.AccordionTransformer;
-import com.zhpan.bannerview.transform.BackgroundToForegroundTransformer;
-import com.zhpan.bannerview.transform.CubeOutTransformer;
-import com.zhpan.bannerview.transform.DepthPageTransformer;
-import com.zhpan.bannerview.transform.FlipHorizontalTransformer;
-import com.zhpan.bannerview.transform.RotateDownTransformer;
-import com.zhpan.bannerview.transform.RotateUpTransformer;
-import com.zhpan.bannerview.transform.ZoomOutSlideTransformer;
-import com.zhpan.bannerview.transform.ZoomOutTranformer;
+import com.zhpan.bannerview.transform.TransformerStyle;
 
 import java.util.ArrayList;
 
@@ -47,31 +39,16 @@ public class PageTransformerActivity extends AppCompatActivity {
         ViewPager.PageTransformer pageTransformer = null;
         switch (item.getItemId()) {
             case R.id.menu0:
-                pageTransformer = new AccordionTransformer();
+                mViewpager.setPageTransformerStyle(TransformerStyle.STACK);
                 break;
             case R.id.menu1:
-                pageTransformer = new RotateDownTransformer();
+                mViewpager.setPageTransformerStyle(TransformerStyle.ROTATE_DOWN);
                 break;
             case R.id.menu2:
-                pageTransformer = new RotateUpTransformer();
+                mViewpager.setPageTransformerStyle(TransformerStyle.DEPTH);
                 break;
             case R.id.menu3:
-                pageTransformer = new DepthPageTransformer();
-                break;
-            case R.id.menu4:
-                pageTransformer = new ZoomOutSlideTransformer();
-                break;
-            case R.id.menu5:
-                pageTransformer = new ZoomOutTranformer();
-                break;
-            case R.id.menu6:
-                pageTransformer = new BackgroundToForegroundTransformer();
-                break;
-            case R.id.menu7:
-                pageTransformer = new CubeOutTransformer();
-                break;
-            case R.id.menu8:
-                pageTransformer = new FlipHorizontalTransformer();
+                mViewpager.setPageTransformerStyle(TransformerStyle.ACCORDION);
                 break;
         }
         if (pageTransformer != null)

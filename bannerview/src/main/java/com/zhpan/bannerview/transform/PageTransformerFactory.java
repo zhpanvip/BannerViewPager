@@ -7,23 +7,17 @@ public class PageTransformerFactory {
     public ViewPager.PageTransformer createPageTransformer(TransformerStyle transformerStyle) {
         ViewPager.PageTransformer transformer = null;
         switch (transformerStyle) {
-            case CUBES:
-//                transformer = new CubeInTransformer();
-                break;
-            case ZOOMIN:
-                transformer = new ZoomOutSlideTransformer();
-                break;
-            case CARD_STACK:
-                transformer = new CubeOutTransformer();
-                break;
-            case DEPTH_CARD:
+            case DEPTH:
                 transformer = new DepthPageTransformer();
                 break;
-            case BOOK_FLIE_FADE:
-                transformer = new BackgroundToForegroundTransformer();
+            case ROTATE_DOWN:
+                transformer=new RotateUpTransformer();
                 break;
-            case CASCADE_ZOOM:
-                transformer = new RotateDownTransformer();
+            case STACK:
+                transformer=new StackTransformer();
+                break;
+            case ACCORDION:
+                transformer=new AccordionTransformer();
                 break;
         }
         return transformer;
