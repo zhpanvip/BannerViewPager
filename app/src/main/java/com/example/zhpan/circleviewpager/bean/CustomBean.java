@@ -8,6 +8,16 @@ public class CustomBean {
 
     private String imageDescription;
 
+    private String imgUrl;
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
     public int getImageRes() {
         return imageRes;
     }

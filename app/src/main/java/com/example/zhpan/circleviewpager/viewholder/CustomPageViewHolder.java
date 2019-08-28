@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import com.example.zhpan.circleviewpager.R;
 import com.example.zhpan.circleviewpager.bean.CustomBean;
+import com.example.zhpan.circleviewpager.imageloader.ImageLoaderManager;
+import com.example.zhpan.circleviewpager.imageloader.ImageLoaderOptions;
 import com.zhpan.bannerview.holder.ViewHolder;
 
 public class CustomPageViewHolder implements ViewHolder<CustomBean> {
@@ -25,7 +27,8 @@ public class CustomPageViewHolder implements ViewHolder<CustomBean> {
 
     @Override
     public void onBind(Context context, CustomBean data, int position, int size) {
-        mImageView.setImageResource(data.getImageRes());
+        ImageLoaderOptions options = new ImageLoaderOptions.Builder().into(mImageView).load(data.getImgUrl()).placeHolder(R.drawable.placeholder).build();
+        ImageLoaderManager.getInstance().loadImage(options);
         mTextView.setText(data.getImageDescription());
     }
 }

@@ -14,7 +14,6 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
@@ -127,7 +126,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
             gravity = typedArray.getInt(R.styleable.BannerViewPager_indicator_gravity, 0);
             typedArray.recycle();
         }
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.view_pager_layout, this);
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.layout_banner_view_pager, this);
         mIndicatorView = view.findViewById(R.id.indicator_view);
         mViewPager = view.findViewById(R.id.vp_main);
         mRelativeLayout = view.findViewById(R.id.rl_banner);
@@ -137,12 +136,15 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
 
     private void initScroller() {
         try {
-            Field mField = ViewPager.class.getDeclaredField("mScroller");
-            mField.setAccessible(true);
             mScroller = new BannerScroller(mViewPager.getContext());
             mScroller.setDuration(DEFAULT_SCROLL_DURATION);
-            mField.set(mViewPager, mScroller);
+            Field mField = ViewPager.class.getDeclaredField("mScroller");
+            if (null != mField) {
+                mField.setAccessible(true);
+                mField.set(mViewPager, mScroller);
+            }
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

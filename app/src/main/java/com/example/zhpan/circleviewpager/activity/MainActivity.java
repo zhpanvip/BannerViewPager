@@ -23,9 +23,6 @@ public class MainActivity extends AppCompatActivity {
     public void onClick(View view) {
         Intent intent;
         switch (view.getId()) {
-            case R.id.btn_view_pager1:
-                intent = new Intent(this, ViewPagerActivity.class);
-                break;
             case R.id.btn_view_pager2:
                 intent = new Intent(this, CustomerBannerActivity.class);
                 break;
@@ -39,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
                 intent = new Intent(this, PageTransformerActivity.class);
                 break;
             default:
-                intent = new Intent(this, ViewPagerActivity.class);
+                intent = new Intent(this, CustomerBannerActivity.class);
                 break;
         }
         startActivity(intent);

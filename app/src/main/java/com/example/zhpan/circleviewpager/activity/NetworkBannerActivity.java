@@ -15,6 +15,8 @@ import com.example.zhpan.circleviewpager.net.BannerData;
 import com.example.zhpan.circleviewpager.net.RetrofitGnerator;
 import com.example.zhpan.circleviewpager.recyclerview.ui.CustomRecyclerView;
 import com.example.zhpan.circleviewpager.viewholder.NetViewHolder;
+import com.scwang.smartrefresh.header.MaterialHeader;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.zhpan.bannerview.BannerViewPager;
 import com.zhpan.idea.net.common.DefaultObserver;
@@ -31,28 +33,44 @@ public class NetworkBannerActivity extends RxAppCompatActivity {
     private BannerViewPager<BannerData, NetViewHolder> mBannerViewPager;
     private CustomRecyclerView recyclerView;
     private ArticleAdapter articleAdapter;
+    private SmartRefreshLayout mSmartRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_network_banner);
         setTitle(R.string.load_data);
+        initRefreshLayout();
         initBanner();
-        fetchData();
+        fetchData(true);
     }
 
-    private void fetchData() {
+    private void initRefreshLayout() {
+        mSmartRefreshLayout = findViewById(R.id.refresh_layout);
+        mSmartRefreshLayout.setRefreshHeader(new MaterialHeader(this));
+        mSmartRefreshLayout.setOnRefreshListener(refreshLayout -> fetchData(false));
+    }
+
+    private void fetchData(boolean showLoading) {
         Observable.zip(getBannerObserver(), getArticleObserver(), (bannerData, articles) -> {
             DataWrapper dataWrapper = new DataWrapper();
             dataWrapper.setArticleList(articles.getDatas());
             dataWrapper.setDataBeanList(bannerData);
             return dataWrapper;
-        }).compose(RxUtil.rxSchedulerHelper(this))
+        }).compose(RxUtil.rxSchedulerHelper(this, showLoading))
                 .subscribe(new DefaultObserver<DataWrapper>() {
                     @Override
                     public void onSuccess(DataWrapper response) {
+                        recyclerView.addItemDecoration(new DividerItemDecoration(NetworkBannerActivity.this,
+                                DividerItemDecoration.VERTICAL));
                         mBannerViewPager.setData(response.getDataBeanList());
-                        articleAdapter.addData(response.getArticleList());
+                        articleAdapter.setData(response.getArticleList());
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        mSmartRefreshLayout.finishRefresh();
                     }
                 });
     }
@@ -69,7 +87,6 @@ public class NetworkBannerActivity extends RxAppCompatActivity {
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addHeadView(getHeaderView());
-        recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
         articleAdapter = new ArticleAdapter(this, new ArrayList<>());
         recyclerView.setAdapter(articleAdapter);
         mBannerViewPager.showIndicator(true)
