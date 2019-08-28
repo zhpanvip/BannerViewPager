@@ -61,8 +61,6 @@ public class NetworkBannerActivity extends RxAppCompatActivity {
                 .subscribe(new DefaultObserver<DataWrapper>() {
                     @Override
                     public void onSuccess(DataWrapper response) {
-                        recyclerView.addItemDecoration(new DividerItemDecoration(NetworkBannerActivity.this,
-                                DividerItemDecoration.VERTICAL));
                         mBannerViewPager.setData(response.getDataBeanList());
                         articleAdapter.setData(response.getArticleList());
                     }
@@ -87,6 +85,8 @@ public class NetworkBannerActivity extends RxAppCompatActivity {
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addHeadView(getHeaderView());
+        recyclerView.addItemDecoration(new DividerItemDecoration(NetworkBannerActivity.this,
+                DividerItemDecoration.VERTICAL));
         articleAdapter = new ArticleAdapter(this, new ArrayList<>());
         recyclerView.setAdapter(articleAdapter);
         mBannerViewPager.showIndicator(true)
