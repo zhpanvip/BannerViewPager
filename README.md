@@ -28,6 +28,7 @@
 | create() |初始化并构造BannerViewPager  |必须调用，否则前面设置的参数无效  |
 
 Transform内置样式
+
 | 参数 | 预览 |
 |--|--|
 | STACK | ![STACK](https://github.com/zhpanvip/BannerViewPager/blob/master/image/stack.gif) |
