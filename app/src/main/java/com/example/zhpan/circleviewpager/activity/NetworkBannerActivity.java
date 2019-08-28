@@ -91,6 +91,7 @@ public class NetworkBannerActivity extends RxAppCompatActivity {
         recyclerView.setAdapter(articleAdapter);
         mBannerViewPager.showIndicator(true)
                 .setInterval(3000)
+                .setData(new ArrayList<>())
                 .setIndicatorGravity(BannerViewPager.END)
                 .setScrollDuration(1000).setHolderCreator(NetViewHolder::new)
                 .setOnPageClickListener(position -> {

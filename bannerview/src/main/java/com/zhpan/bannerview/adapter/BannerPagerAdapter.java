@@ -16,29 +16,27 @@ import java.util.List;
  */
 
 public class BannerPagerAdapter<T, VH extends ViewHolder> extends PagerAdapter {
+
     private List<T> list;
-    private BannerViewPager viewPager;
+
     private HolderCreator holderCreator;
+
     private boolean isCanLoop;
+
+    private PageClickListener mPageClickListener;
 
     public void setCanLoop(boolean canLoop) {
         isCanLoop = canLoop;
     }
 
-    public BannerPagerAdapter(List<T> list, BannerViewPager viewPager, HolderCreator<VH> holderCreator) {
+    public BannerPagerAdapter(List<T> list, HolderCreator<VH> holderCreator) {
         this.list = list;
-        this.viewPager = viewPager;
         this.holderCreator = holderCreator;
     }
 
     @Override
     public int getCount() {
-        if (isCanLoop && list.size() > 1) {
-            return list.size() + 2;
-        } else {
-            return list.size();
-        }
-
+        return (isCanLoop && list.size() > 1) ? list.size() + 2 : list.size();
     }
 
     @Override
@@ -47,19 +45,23 @@ public class BannerPagerAdapter<T, VH extends ViewHolder> extends PagerAdapter {
     }
 
     @Override
-    public Object instantiateItem(@NonNull final ViewGroup container, final int position) {
+    public @NonNull
+    Object instantiateItem(@NonNull final ViewGroup container, final int position) {
         View view = getView(position, container);
         container.addView(view);
         return view;
     }
 
-
-    //  根据图片URL创建对应的ImageView并添加到集合
+    @SuppressWarnings("unchecked")
     private View getView(final int position, ViewGroup container) {
         ViewHolder<T> holder = holderCreator.createViewHolder();
         if (holder == null) {
             throw new RuntimeException("can not return a null holder");
         }
+        return createView(holder, position, container);
+    }
+
+    private View createView(ViewHolder<T> holder, int position, ViewGroup container) {
         View view = null;
         if (list != null && list.size() > 0) {
             if (isCanLoop && list.size() > 1) {
@@ -78,20 +80,21 @@ public class BannerPagerAdapter<T, VH extends ViewHolder> extends PagerAdapter {
                 view = holder.createView(container, container.getContext(), position);
                 holder.onBind(container.getContext(), list.get(position), position, list.size());
             }
+            setViewListener(view, position);
         }
-
-        if (view != null)
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    viewPager.imageClick(position);
-                }
-            });
         return view;
     }
 
+    private void setViewListener(View view, int position) {
+        if (view != null)
+            view.setOnClickListener(v -> {
+                if (null != mPageClickListener)
+                    mPageClickListener.onPageClick(position);
+            });
+    }
+
     @Override
-    public void destroyItem(ViewGroup container, int position, Object object) {
+    public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
         container.removeView((View) object);
     }
 
@@ -99,5 +102,13 @@ public class BannerPagerAdapter<T, VH extends ViewHolder> extends PagerAdapter {
     public void finishUpdate(@NonNull ViewGroup container) {
         super.finishUpdate(container);
 
+    }
+
+    public void setPageClickListener(PageClickListener pageClickListener) {
+        mPageClickListener = pageClickListener;
+    }
+
+    public interface PageClickListener {
+        void onPageClick(int position);
     }
 }

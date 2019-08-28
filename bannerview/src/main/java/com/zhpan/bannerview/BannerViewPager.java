@@ -208,7 +208,15 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     private void setViewPager() {
         if (holderCreator != null) {
             BannerPagerAdapter<T, VH> bannerPagerAdapter =
-                    new BannerPagerAdapter<>(mList, this, holderCreator);
+                    new BannerPagerAdapter<>(mList, holderCreator);
+            bannerPagerAdapter.setPageClickListener(position -> {
+                if (mOnPageClickListener != null) {
+                    int realPosition = isCanLoop ? position - 1 : position;
+                    if (realPosition < mList.size() && realPosition >= 0) {
+                        mOnPageClickListener.onPageClick(realPosition);
+                    }
+                }
+            });
             bannerPagerAdapter.setCanLoop(isCanLoop);
             mViewPager.setAdapter(bannerPagerAdapter);
             mViewPager.setCurrentItem(currentPosition);
@@ -479,15 +487,6 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
         void onPageClick(int position);
     }
 
-    // adapter中图片点击的回掉方法
-    public void imageClick(int position) {
-        if (mOnPageClickListener != null) {
-            int realPosition = isCanLoop ? position - 1 : position;
-            if (realPosition < mList.size() && realPosition >= 0) {
-                mOnPageClickListener.onPageClick(realPosition);
-            }
-        }
-    }
 
     /**
      * BannerViewPager页面点击事件
