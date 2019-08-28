@@ -6,8 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.example.zhpan.circleviewpager.bean.DataBean;
 import com.example.zhpan.circleviewpager.R;
+import com.example.zhpan.circleviewpager.bean.DataBean;
 import com.example.zhpan.circleviewpager.imageloader.ImageLoaderManager;
 import com.example.zhpan.circleviewpager.imageloader.ImageLoaderOptions;
 import com.zhpan.bannerview.holder.ViewHolder;
@@ -17,7 +17,7 @@ import com.zhpan.bannerview.holder.ViewHolder;
  * Description:
  */
 
-public class DataViewHolder implements ViewHolder<DataBean> {
+public class TransformerViewHolder implements ViewHolder<Integer> {
     private ImageView mImageView;
 
     @Override
@@ -29,8 +29,7 @@ public class DataViewHolder implements ViewHolder<DataBean> {
     }
 
     @Override
-    public void onBind(final Context context, DataBean data, final int position, final int size) {
-        ImageLoaderOptions options = new ImageLoaderOptions.Builder().into(mImageView).load(data.getUrl()).placeHolder(R.drawable.placeholder).build();
-        ImageLoaderManager.getInstance().loadImage(options);
+    public void onBind(final Context context, Integer data, final int position, final int size) {
+        mImageView.setImageResource(data);
     }
 }

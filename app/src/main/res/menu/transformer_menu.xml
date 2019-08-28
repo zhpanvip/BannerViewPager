@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu0"
+        android:orderInCategory="100"
+        android:title="STACK"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu1"
+        android:orderInCategory="100"
+        android:title="ROTATE_DOWN"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu2"
+        android:orderInCategory="100"
+        android:title="DEPTH"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu3"
+        android:orderInCategory="100"
+        android:title="ACCORDION"
+        app:showAsAction="never" />
+
+</menu>

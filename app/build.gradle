@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 27
     buildToolsVersion '28.0.3'
     defaultConfig {
         applicationId "com.example.zhpan.circleviewpager"
@@ -42,24 +42,15 @@ dependencies {
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation "com.android.support:appcompat-v7:${rootProject.supportLibVersion}"
+    implementation "com.android.support:recyclerview-v7:${rootProject.supportLibVersion}"
     testImplementation 'junit:junit:4.12'
     implementation 'com.github.bumptech.glide:glide:4.0.0'
     implementation 'com.github.chrisbanes:PhotoView:2.1.0'
-//    implementation 'com.zhpan.library:bannerview:2.1.0.1'
+//    implementation 'com.zhpan.library:bannerview:2.1.1'
     implementation project(path: ':bannerview')
-
-    api "io.reactivex.rxjava2:rxjava:$rootProject.ext.rxjava2Version"
-    api "com.squareup.retrofit2:retrofit:$rootProject.ext.retrofit2Version"
-    api "com.squareup.retrofit2:converter-scalars:$rootProject.ext.retrofit2Version"
-    api "com.squareup.retrofit2:converter-gson:$rootProject.ext.retrofit2Version"
-    api "com.squareup.retrofit2:adapter-rxjava2:$rootProject.ext.retrofit2Version"
-    api "com.trello.rxlifecycle2:rxlifecycle:$rootProject.ext.rxlifecycle"
-    //compile "com.trello.rxlifecycle2:rxlifecycle-android:$rootProject.ext.rxlifecycle"
-    api "com.trello.rxlifecycle2:rxlifecycle-components:$rootProject.ext.rxlifecycle"
-    api 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
-    api 'io.reactivex.rxjava2:rxandroid:2.1.0'
-    api 'com.squareup.okhttp3:logging-interceptor:3.10.0'
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0'
+    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0'
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0-beta-2'
     implementation project(path: ':ideahttp')
 }

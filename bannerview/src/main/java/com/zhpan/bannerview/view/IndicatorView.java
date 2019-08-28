@@ -5,7 +5,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
 import android.view.View;
 
 import com.zhpan.bannerview.Utils.DpUtils;
@@ -22,6 +21,7 @@ public class IndicatorView extends View {
     private float mRadius;
     private int height;
     private int selectPage;
+    private float mMargin;
 
     public IndicatorView(Context context) {
         this(context, null);
@@ -39,6 +39,7 @@ public class IndicatorView extends View {
         mPaint.setColor(normalColor);
         mPaint.setAntiAlias(true);
         mRadius = DpUtils.dp2px(context, 4);
+        mMargin = mRadius * 2;
     }
 
     @Override
@@ -50,7 +51,9 @@ public class IndicatorView extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        setMeasuredDimension((int) (3 * mRadius * (mPageSize + 1)), (int) (2 * mRadius));
+        setMeasuredDimension((int) ((mPageSize - 1) * mMargin + 2 * mRadius * mPageSize + mRadius * 3),
+                (int) (2 * mRadius));
+//        setMeasuredDimension((int) (3 * mRadius * (mPageSize + 1)), (int) (2 * mRadius));
         /*if (widthMeasureSpecMode == MeasureSpec.AT_MOST&&heightMeasureSpec == MeasureSpec.AT_MOST) {
             setMeasuredDimension(100, 100);
         } else if (widthMeasureSpecMode == MeasureSpec.AT_MOST) {
@@ -70,7 +73,7 @@ public class IndicatorView extends View {
         super.onDraw(canvas);
         for (int i = 0; i < mPageSize; i++) {
             mPaint.setColor(selectPage == i ? checkedColor : normalColor);
-            canvas.drawCircle(3 * mRadius * (i + 1), height / 2f, mRadius, mPaint);
+            canvas.drawCircle(mRadius + (2 * mRadius + mMargin) * i, height / 2f, mRadius, mPaint);
         }
     }
 
@@ -97,6 +100,13 @@ public class IndicatorView extends View {
 
     public IndicatorView setIndicatorRadius(float radiusDp) {
         this.mRadius = radiusDp;
+        return this;
+    }
+
+    public IndicatorView setIndicatorMargin(float margin) {
+        if (margin > 0) {
+            this.mMargin = margin;
+        }
         return this;
     }
 }

@@ -20,14 +20,18 @@ public class RxUtil {
      * @param <T>
      * @return
      */
-    public static <T> ObservableTransformer<T, T> rxSchedulerHelper(final RxAppCompatActivity activity) {    //compose简化线程
+    public static <T> ObservableTransformer<T, T> rxSchedulerHelper(final RxAppCompatActivity activity, final boolean showLoading) {    //compose简化线程
         return new ObservableTransformer<T, T>() {
             @Override
             public ObservableSource<T> apply(Observable<T> observable) {
-                return observable.subscribeOn(Schedulers.io())
+                Observable<T> compose = observable.subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .compose(ProgressUtils.<T>applyProgressBar(activity))
                         .compose(activity.<T>bindUntilEvent(ActivityEvent.DESTROY));
+                if (showLoading) {
+                    return compose.compose(ProgressUtils.<T>applyProgressBar(activity));
+                } else {
+                    return compose;
+                }
             }
         };
     }
@@ -49,7 +53,6 @@ public class RxUtil {
             }
         };
     }
-
 
 
     /**

@@ -16,7 +16,10 @@ import java.util.List;
 public class CustomerBannerActivity extends AppCompatActivity {
     private List<CustomBean> mList = new ArrayList<>();
     private BannerViewPager<CustomBean, CustomPageViewHolder> mViewPager;
-
+    private String[] picUrls = {"http://pic31.nipic.com/20130801/11604791_100539834000_2.jpg",
+            "http://pic37.nipic.com/20140115/7430301_100825571157_2.jpg",
+            "http://pic29.nipic.com/20130507/8952533_183922555000_2.jpg",
+            "http://b-ssl.duitang.com/uploads/item/201706/10/20170610095055_G5LM8.jpeg"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,10 +50,10 @@ public class CustomerBannerActivity extends AppCompatActivity {
     }
 
     private void initData() {
-        for (int i = 0; i <= 3; i++) {
-            int drawable = getResources().getIdentifier("b" + i, "drawable", getPackageName());
+
+        for (int i = 0; i < picUrls.length; i++) {
             CustomBean customBean = new CustomBean();
-            customBean.setImageRes(drawable);
+            customBean.setImgUrl(picUrls[i]);
             customBean.setImageDescription("这是第" + (i + 1) + "张图片的描述");
             mList.add(customBean);
         }

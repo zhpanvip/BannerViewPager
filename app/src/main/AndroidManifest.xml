@@ -12,10 +12,10 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.NetworkBannerActivity"></activity>
+        <activity android:name=".activity.PageTransformerActivity"/>
+        <activity android:name=".activity.NetworkBannerActivity" />
         <activity android:name=".activity.CustomerBannerActivity" />
         <activity android:name=".activity.BannerPhotoViewActivity" />
-        <activity android:name=".activity.ViewPagerActivity" />
         <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

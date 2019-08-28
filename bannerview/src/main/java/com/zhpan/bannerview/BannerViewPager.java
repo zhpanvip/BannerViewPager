@@ -11,7 +11,6 @@ import android.support.annotation.DimenRes;
 import android.support.annotation.IntDef;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -24,6 +23,8 @@ import com.zhpan.bannerview.holder.HolderCreator;
 import com.zhpan.bannerview.holder.ViewHolder;
 import com.zhpan.bannerview.provider.BannerScroller;
 import com.zhpan.bannerview.provider.ViewStyleSetter;
+import com.zhpan.bannerview.transform.PageTransformerFactory;
+import com.zhpan.bannerview.transform.TransformerStyle;
 import com.zhpan.bannerview.view.IndicatorView;
 
 import java.lang.annotation.ElementType;
@@ -70,6 +71,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     private OnPageClickListener mOnPageClickListener;
     // 圆点指示器的Layout
     private IndicatorView mIndicatorView;
+    RelativeLayout mRelativeLayout;
     private HolderCreator<VH> holderCreator;
     Handler mHandler = new Handler();
     Runnable mRunnable = new Runnable() {
@@ -90,6 +92,8 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     private BannerScroller mScroller;
 
     public static final int DEFAULT_SCROLL_DURATION = 800;
+
+    private float indicatorMargin = 0;
 
     public BannerViewPager(Context context) {
         this(context, null);
@@ -122,22 +126,25 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
             gravity = typedArray.getInt(R.styleable.BannerViewPager_indicator_gravity, 0);
             typedArray.recycle();
         }
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.view_pager_layout, this);
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.layout_banner_view_pager, this);
         mIndicatorView = view.findViewById(R.id.indicator_view);
         mViewPager = view.findViewById(R.id.vp_main);
+        mRelativeLayout = view.findViewById(R.id.rl_banner);
         mList = new ArrayList<>();
         initScroller();
     }
 
     private void initScroller() {
         try {
-            Field mField = ViewPager.class.getDeclaredField("mScroller");
-            mField.setAccessible(true);
             mScroller = new BannerScroller(mViewPager.getContext());
             mScroller.setDuration(DEFAULT_SCROLL_DURATION);
-            mField.set(mViewPager, mScroller);
+            Field mField = ViewPager.class.getDeclaredField("mScroller");
+            if (null != mField) {
+                mField.setAccessible(true);
+                mField.set(mViewPager, mScroller);
+            }
         } catch (Exception e) {
-            Log.e(tag, e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -178,12 +185,11 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     // 设置轮播小圆点
     private void initIndicator() {
         if (mList.size() > 1) {
-            mIndicatorView.setPageSize(mList.size())
-                    .setIndicatorRadius(indicatorRadius)
-                    .setCheckedColor(indicatorCheckedColor)
-                    .setNormalColor(indicatorNormalColor)
-                    .invalidate();
-            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mIndicatorView.getLayoutParams();
+            mIndicatorView.setPageSize(mList.size()).setIndicatorRadius(indicatorRadius)
+                    .setIndicatorMargin(indicatorMargin).setCheckedColor(indicatorCheckedColor)
+                    .setNormalColor(indicatorNormalColor).invalidate();
+            RelativeLayout.LayoutParams layoutParams =
+                    (RelativeLayout.LayoutParams) mIndicatorView.getLayoutParams();
             switch (gravity) {
                 case CENTER:
                     layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
@@ -202,7 +208,15 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     private void setViewPager() {
         if (holderCreator != null) {
             BannerPagerAdapter<T, VH> bannerPagerAdapter =
-                    new BannerPagerAdapter<>(mList, this, holderCreator);
+                    new BannerPagerAdapter<>(mList, holderCreator);
+            bannerPagerAdapter.setPageClickListener(position -> {
+                if (mOnPageClickListener != null) {
+                    int realPosition = isCanLoop ? position - 1 : position;
+                    if (realPosition < mList.size() && realPosition >= 0) {
+                        mOnPageClickListener.onPageClick(realPosition);
+                    }
+                }
+            });
             bannerPagerAdapter.setCanLoop(isCanLoop);
             mViewPager.setAdapter(bannerPagerAdapter);
             mViewPager.setCurrentItem(currentPosition);
@@ -273,7 +287,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     /**
      * 开启轮播
      */
-    private void startLoop() {
+    public void startLoop() {
         if (!isLooping && isAutoPlay && mViewPager != null) {
             mHandler.postDelayed(mRunnable, interval);// 每interval秒执行一次runnable.
             isLooping = true;
@@ -427,6 +441,29 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     }
 
     /**
+     * @param transformer PageTransformer that will modify each page's animation properties
+     */
+    public BannerViewPager<T, VH> setPageTransformer(ViewPager.PageTransformer transformer) {
+        mViewPager.setPageTransformer(true, transformer);
+        return this;
+    }
+
+    public BannerViewPager<T, VH> setPageTransformerStyle(TransformerStyle style) {
+        setPageTransformer(new PageTransformerFactory().createPageTransformer(style));
+        return this;
+    }
+
+    /**
+     * @param reverseDrawingOrder true if the supplied PageTransformer requires page views
+     *                            to be drawn from last to first instead of first to last.
+     * @param transformer         PageTransformer that will modify each page's animation properties
+     */
+    public BannerViewPager<T, VH> setPageTransformer(boolean reverseDrawingOrder, ViewPager.PageTransformer transformer) {
+        mViewPager.setPageTransformer(true, transformer);
+        return this;
+    }
+
+    /**
      * Set the currently selected page.
      *
      * @param position Item index to select
@@ -450,15 +487,6 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
         void onPageClick(int position);
     }
 
-    // adapter中图片点击的回掉方法
-    public void imageClick(int position) {
-        if (mOnPageClickListener != null) {
-            int realPosition = isCanLoop ? position - 1 : position;
-            if (realPosition < mList.size() && realPosition >= 0) {
-                mOnPageClickListener.onPageClick(realPosition);
-            }
-        }
-    }
 
     /**
      * BannerViewPager页面点击事件
@@ -470,6 +498,16 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
         return this;
     }
 
+    public BannerViewPager<T, VH> setIndicatorMargin(float indicatorMarginDp) {
+        this.indicatorMargin = indicatorMarginDp;
+        return this;
+    }
+
+    public BannerViewPager<T, VH> setIndicatorMargin(@DimenRes int marginRes) {
+        this.indicatorMargin = getContext().getResources().getDimension(marginRes);
+        return this;
+    }
+
     public void create() {
         initData();
     }
@@ -477,6 +515,6 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     @IntDef({CENTER, START, END})
     @Retention(RetentionPolicy.SOURCE)
     @Target(ElementType.PARAMETER)
-    public @interface IndicatorGravity {
+    @interface IndicatorGravity {
     }
 }

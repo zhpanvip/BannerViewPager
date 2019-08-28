@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 android {
-    compileSdkVersion 26
+    compileSdkVersion 27
 
     defaultConfig {
         minSdkVersion 19
@@ -34,10 +34,10 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
 }
 
-version = "2.1.1"
+version = "2.1.2"
 def siteUrl = 'https://github.com/zhpanvip/BannerViewPager'      // 项目的主页
 def gitUrl = 'https://github.com/zhpanvip/BannerViewPager.git'   // Git仓库的url
 group = "com.zhpan.library" // Maven Group ID for the artifact，一般填你唯一的包名
