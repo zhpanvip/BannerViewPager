@@ -7,8 +7,8 @@ import android.view.ViewGroup;
 
 import com.zhpan.bannerview.holder.HolderCreator;
 import com.zhpan.bannerview.holder.ViewHolder;
-import com.zhpan.bannerview.BannerViewPager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,6 +24,8 @@ public class BannerPagerAdapter<T, VH extends ViewHolder> extends PagerAdapter {
     private boolean isCanLoop;
 
     private PageClickListener mPageClickListener;
+
+    private List<View> mViewList = new ArrayList<>();
 
     public void setCanLoop(boolean canLoop) {
         isCanLoop = canLoop;
@@ -47,8 +49,20 @@ public class BannerPagerAdapter<T, VH extends ViewHolder> extends PagerAdapter {
     @Override
     public @NonNull
     Object instantiateItem(@NonNull final ViewGroup container, final int position) {
+        View itemView = findViewByPosition(container, position);
+        container.addView(itemView);
+        return itemView;
+    }
+
+    private View findViewByPosition(ViewGroup container, int position) {
+        for (View view : mViewList) {
+            if (((int) view.getTag()) == position && view.getParent() == null) {
+                return view;
+            }
+        }
         View view = getView(position, container);
-        container.addView(view);
+        view.setTag(position);
+        mViewList.add(view);
         return view;
     }
 
