@@ -1,8 +1,8 @@
 package com.example.zhpan.circleviewpager.imageloader.transformer;
 
 import android.graphics.Bitmap;
-import android.support.annotation.IntRange;
-import android.support.annotation.NonNull;
+import androidx.annotation.IntRange;
+import androidx.annotation.NonNull;
 
 import com.bumptech.glide.load.Key;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;

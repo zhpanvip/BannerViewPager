@@ -1,14 +1,8 @@
 package com.zhpan.idea.utils;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.support.annotation.NonNull;
-import android.view.KeyEvent;
 
-import java.lang.ref.WeakReference;
-
-import io.reactivex.Observable;
+import androidx.annotation.NonNull;
 
 /**
  * <pre>

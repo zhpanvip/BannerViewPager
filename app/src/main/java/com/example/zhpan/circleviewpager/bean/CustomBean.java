@@ -1,6 +1,6 @@
 package com.example.zhpan.circleviewpager.bean;
 
-import android.support.annotation.DrawableRes;
+import androidx.annotation.DrawableRes;
 
 public class CustomBean {
 

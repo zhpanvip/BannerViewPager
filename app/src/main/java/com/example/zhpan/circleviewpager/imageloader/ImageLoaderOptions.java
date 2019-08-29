@@ -1,8 +1,8 @@
 package com.example.zhpan.circleviewpager.imageloader;
 
 import android.content.Context;
-import android.support.annotation.DimenRes;
-import android.support.annotation.DrawableRes;
+import androidx.annotation.DimenRes;
+import androidx.annotation.DrawableRes;
 import android.widget.ImageView;
 
 import com.zhpan.idea.utils.DensityUtils;
