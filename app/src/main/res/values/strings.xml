@@ -5,4 +5,6 @@
     <string name="title_view_pager">圆角自动轮播</string>
     <string name="load_data">嵌套RecyclerView</string>
     <string name="title_transformer">Page Transformer</string>
+    <string name="start_now">立即体验</string>
+    <string name="guide">guide</string>
 </resources>

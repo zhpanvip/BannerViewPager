@@ -1,8 +1,8 @@
 package com.example.zhpan.circleviewpager.activity;
 
-import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -16,6 +16,7 @@ import java.util.ArrayList;
 
 public class PageTransformerActivity extends AppCompatActivity {
 
+    private static final String TAG = "PageTransformerActivity";
     private BannerViewPager<Integer, TransformerViewHolder> mViewpager;
     private ArrayList<Integer> mList = new ArrayList<>();
 
@@ -36,7 +37,6 @@ public class PageTransformerActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        ViewPager.PageTransformer pageTransformer = null;
         switch (item.getItemId()) {
             case R.id.menu0:
                 mViewpager.setPageTransformerStyle(TransformerStyle.STACK);
@@ -51,8 +51,6 @@ public class PageTransformerActivity extends AppCompatActivity {
                 mViewpager.setPageTransformerStyle(TransformerStyle.ACCORDION);
                 break;
         }
-        if (pageTransformer != null)
-            mViewpager.setPageTransformer(pageTransformer);
         return super.onOptionsItemSelected(item);
     }
 
@@ -63,10 +61,28 @@ public class PageTransformerActivity extends AppCompatActivity {
                 .setAutoPlay(false)
                 .setScrollDuration(1000)
                 .setData(mList)
-                .setHolderCreator(TransformerViewHolder::new)
-                .setOnPageClickListener(position -> Toast.makeText(PageTransformerActivity.this,
-                        "立即体验", Toast.LENGTH_SHORT).show())
-                .create();
+                .setHolderCreator(() -> {
+                    TransformerViewHolder transformerViewHolder = new TransformerViewHolder();
+                    transformerViewHolder.setSubViewClickListener(view -> Toast.makeText(PageTransformerActivity.this,
+                            "立即体验", Toast.LENGTH_SHORT).show());
+                    return transformerViewHolder;
+                }).create();
+//        mViewpager.setOnPageChangedListener(new BannerViewPager.OnPageChangedListener() {
+//            @Override
+//            public void onPageSelected(int position) {
+//                Log.e(TAG,"onPageSelected------------------------------->"+position);
+//            }
+//
+//            @Override
+//            public void onPageScrollStateChanged(int state) {
+//                Log.e(TAG,"onPageScrollStateChanged--------->"+state);
+//            }
+//
+//            @Override
+//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+//                Log.e(TAG,"onPageScrolled------------------>"+position);
+//            }
+//        });
     }
 
 
