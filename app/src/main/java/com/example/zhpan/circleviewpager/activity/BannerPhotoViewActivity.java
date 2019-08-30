@@ -1,6 +1,5 @@
 package com.example.zhpan.circleviewpager.activity;
 
-import android.graphics.Color;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -34,13 +33,11 @@ public class BannerPhotoViewActivity extends AppCompatActivity {
         BannerViewPager<Integer, PhotoViewHolder> bannerViewPager = findViewById(R.id.viewpager);
         bannerViewPager.setAutoPlay(false)
                 .setCanLoop(false)
-                .setIndicatorColor(Color.parseColor("#6C6D72"), Color.parseColor("#18171C"))
-                .setData(mDrawableList)
                 .setHolderCreator(PhotoViewHolder::new)
                 .setOnPageClickListener(position ->
                         Toast.makeText(BannerPhotoViewActivity.this,
                                 "图片" + (position + 1), Toast.LENGTH_SHORT).show())
-                .create();
+                .create(mDrawableList);
     }
 
     private void initData() {

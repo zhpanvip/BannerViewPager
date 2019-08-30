@@ -1,10 +1,10 @@
 package com.example.zhpan.circleviewpager.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.example.zhpan.circleviewpager.R;
 import com.example.zhpan.circleviewpager.viewholder.TransformerViewHolder;
@@ -59,29 +59,8 @@ public class PageTransformerActivity extends AppCompatActivity {
                 .setCanLoop(false)
                 .setAutoPlay(false)
                 .setScrollDuration(1000)
-                .setData(mList)
-                .setHolderCreator(() -> {
-                    TransformerViewHolder transformerViewHolder = new TransformerViewHolder();
-                    transformerViewHolder.setSubViewClickListener(view -> Toast.makeText(PageTransformerActivity.this,
-                            "立即体验", Toast.LENGTH_SHORT).show());
-                    return transformerViewHolder;
-                }).create();
-//        mViewpager.setOnPageChangedListener(new BannerViewPager.OnPageChangedListener() {
-//            @Override
-//            public void onPageSelected(int position) {
-//                Log.e(TAG,"onPageSelected------------------------------->"+position);
-//            }
-//
-//            @Override
-//            public void onPageScrollStateChanged(int state) {
-//                Log.e(TAG,"onPageScrollStateChanged--------->"+state);
-//            }
-//
-//            @Override
-//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-//                Log.e(TAG,"onPageScrolled------------------>"+position);
-//            }
-//        });
+                .setHolderCreator(TransformerViewHolder::new)
+                .create(mList);
     }
 
 

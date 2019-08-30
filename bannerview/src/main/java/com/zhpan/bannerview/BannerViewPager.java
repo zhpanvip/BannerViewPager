@@ -119,10 +119,10 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
             interval = typedArray.getInteger(R.styleable.BannerViewPager_interval, 3000);
             indicatorCheckedColor =
                     typedArray.getColor(R.styleable.BannerViewPager_indicator_checked_color,
-                            Color.parseColor("#FF4C39"));
+                            Color.parseColor("#18171C"));
             indicatorNormalColor =
                     typedArray.getColor(R.styleable.BannerViewPager_indicator_normal_color,
-                            Color.parseColor("#935656"));
+                            Color.parseColor("#6C6D72"));
             indicatorRadius = typedArray.getDimension(R.styleable.BannerViewPager_indicator_radius,
                     DpUtils.dp2px(context, 4));
             isAutoPlay = typedArray.getBoolean(R.styleable.BannerViewPager_isAutoPlay, true);
@@ -314,14 +314,14 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
         }
     }
 
-    public BannerViewPager<T, VH> setData(List<T> list) {
-        if (list != null) {
-            mList.clear();
-            mList.addAll(list);
-            initData();
-        }
-        return this;
-    }
+//    public BannerViewPager<T, VH> setData(List<T> list) {
+//        if (list != null) {
+//            mList.clear();
+//            mList.addAll(list);
+//            initData();
+//        }
+//        return this;
+//    }
 
     public BannerViewPager<T, VH> setHolderCreator(HolderCreator<VH> holderCreator) {
         this.holderCreator = holderCreator;
@@ -518,8 +518,12 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
         return this;
     }
 
-    public void create() {
-        initData();
+    public void create(List<T> list) {
+        if (list != null) {
+            mList.clear();
+            mList.addAll(list);
+            initData();
+        }
     }
 
     @IntDef({CENTER, START, END})

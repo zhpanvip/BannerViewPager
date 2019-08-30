@@ -1,5 +1,6 @@
 package com.example.zhpan.circleviewpager.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -63,9 +64,10 @@ public class NetworkBannerActivity extends RxAppCompatActivity {
                 .subscribe(new DefaultObserver<DataWrapper>() {
                     @Override
                     public void onSuccess(DataWrapper response) {
-                        mBannerViewPager.setData(response.getDataBeanList());
+                        mBannerViewPager.create(response.getDataBeanList());
                         articleAdapter.setData(response.getArticleList());
                     }
+
                     @Override
                     public void onFinish() {
                         super.onFinish();
@@ -93,7 +95,7 @@ public class NetworkBannerActivity extends RxAppCompatActivity {
         mBannerViewPager.showIndicator(true)
                 .setInterval(3000)
                 .setRoundCorner(7f)
-                .setData(new ArrayList<>())
+                .setIndicatorColor(Color.parseColor("#935656"), Color.parseColor("#FF4C39"))
                 .setIndicatorGravity(BannerViewPager.END)
                 .setScrollDuration(1000).setHolderCreator(NetViewHolder::new)
                 .setOnPageClickListener(position -> {
@@ -101,7 +103,7 @@ public class NetworkBannerActivity extends RxAppCompatActivity {
                     Toast.makeText(NetworkBannerActivity.this,
                             "点击了图片" + position + " " + bannerData.getDesc(), Toast.LENGTH_SHORT).show();
 
-                }).create();
+                });
     }
 
     private View getHeaderView() {

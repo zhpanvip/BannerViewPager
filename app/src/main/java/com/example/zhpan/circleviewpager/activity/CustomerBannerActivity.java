@@ -42,11 +42,15 @@ public class CustomerBannerActivity extends AppCompatActivity {
         mViewPager = findViewById(R.id.viewpager);
         mViewPager.setAutoPlay(false)
                 .setCanLoop(false)
-                .setData(mList)
                 .showIndicator(false)
                 .setOnPageClickListener(position -> Toast.makeText(CustomerBannerActivity.this,
-                        "立即体验" + (position + 1), Toast.LENGTH_SHORT).show())
-                .setHolderCreator(CustomPageViewHolder::new).create();
+                        "点击页面" + (position + 1), Toast.LENGTH_SHORT).show())
+                .setHolderCreator(() -> {
+                    CustomPageViewHolder customPageViewHolder = new CustomPageViewHolder();
+                    customPageViewHolder.setOnSubViewClickListener((view, position) -> Toast.makeText(CustomerBannerActivity.this,
+                            "立即体验" + (position + 1), Toast.LENGTH_SHORT).show());
+                    return customPageViewHolder;
+                }).create(mList);
     }
 
     private void initData() {

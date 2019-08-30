@@ -16,7 +16,6 @@ import com.zhpan.bannerview.holder.ViewHolder;
  */
 public class TransformerViewHolder implements ViewHolder<Integer> {
     private ImageView mImageView;
-    private SubViewClickListener mSubViewClickListener;
     private TextView mTextView;
 
     @Override
@@ -25,11 +24,7 @@ public class TransformerViewHolder implements ViewHolder<Integer> {
         View view = LayoutInflater.from(context).inflate(R.layout.item_view, viewGroup, false);
         mImageView = view.findViewById(R.id.banner_image);
         mTextView = view.findViewById(R.id.btn_start);
-        mTextView.setOnClickListener(v -> {
-            if (mSubViewClickListener != null) {
-                mSubViewClickListener.onViewClick(v);
-            }
-        });
+
         return view;
     }
 
@@ -38,13 +33,4 @@ public class TransformerViewHolder implements ViewHolder<Integer> {
         mImageView.setImageResource(data);
         mTextView.setVisibility(View.VISIBLE);
     }
-
-    public void setSubViewClickListener(SubViewClickListener subViewClickListener) {
-        mSubViewClickListener = subViewClickListener;
-    }
-
-    public interface SubViewClickListener {
-        void onViewClick(View view);
-    }
-
 }

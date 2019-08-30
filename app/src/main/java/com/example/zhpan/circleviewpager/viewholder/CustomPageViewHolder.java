@@ -12,14 +12,13 @@ import android.widget.TextView;
 
 import com.example.zhpan.circleviewpager.R;
 import com.example.zhpan.circleviewpager.bean.CustomBean;
-import com.example.zhpan.circleviewpager.imageloader.ImageLoaderManager;
-import com.example.zhpan.circleviewpager.imageloader.ImageLoaderOptions;
 import com.zhpan.bannerview.holder.ViewHolder;
 
 public class CustomPageViewHolder implements ViewHolder<CustomBean> {
     private ImageView mImageView;
     private TextView mTextView;
     private TextView mTvStart;
+    private OnSubViewClickListener mOnSubViewClickListener;
 
     @Override
     public View createView(ViewGroup viewGroup, Context context, int position) {
@@ -34,7 +33,9 @@ public class CustomPageViewHolder implements ViewHolder<CustomBean> {
     public void onBind(Context context, CustomBean data, int position, int size) {
         mImageView.setImageResource(data.getImageRes());
         mTextView.setText(data.getImageDescription());
-
+        mTvStart.setOnClickListener(view -> {
+            if (null != mOnSubViewClickListener) mOnSubViewClickListener.onViewClick(view,position);
+        });
         ObjectAnimator alphaAnimator = ObjectAnimator.ofFloat(mTvStart, "alpha", 0, 1);
         alphaAnimator.setDuration(1500);
 
@@ -49,5 +50,13 @@ public class CustomPageViewHolder implements ViewHolder<CustomBean> {
         animatorSet.playTogether(alphaAnimator, translationAnim, alphaAnimator1);
         animatorSet.start();
 
+    }
+
+    public void setOnSubViewClickListener(OnSubViewClickListener subViewClickListener) {
+        mOnSubViewClickListener = subViewClickListener;
+    }
+
+    public interface OnSubViewClickListener {
+        void onViewClick(View view,int position);
     }
 }
