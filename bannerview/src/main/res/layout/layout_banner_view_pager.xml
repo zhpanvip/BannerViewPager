@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.zhpan.bannerview.view.CustomViewPager
+    <com.zhpan.bannerview.view.CatchViewPager
         android:id="@+id/vp_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

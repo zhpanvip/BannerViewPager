@@ -2,8 +2,9 @@
 
 ## 效果预览
 
-![这里写图片描述](https://github.com/zhpanvip/BannerViewPager/blob/master/image/demo.gif)
-
+| 嵌套RecyclerView | 自定义页面 | 嵌套PhotoView   |
+|--|--|--|
+| ![嵌套RecyclerView](https://github.com/zhpanvip/BannerViewPager/blob/master/image/preview1.gif) | ![自定义页面](https://github.com/zhpanvip/BannerViewPager/blob/master/image/preview2.gif) | ![嵌套PhotoView](https://github.com/zhpanvip/BannerViewPager/blob/master/image/preview3.gif)   |
 ## 开放API
 
 | 方法名 | 方法描述 | 说明 |
@@ -28,6 +29,7 @@
 | create() |初始化并构造BannerViewPager  |必须调用，否则前面设置的参数无效  |
 
 Transform内置样式
+
 | 参数 | 预览 |
 |--|--|
 | STACK | ![STACK](https://github.com/zhpanvip/BannerViewPager/blob/master/image/stack.gif) |
@@ -47,58 +49,58 @@ implementation 'com.zhpan.library:bannerview:latestVersion'
 
 ```
     <com.zhpan.bannerview.BannerViewPager
-            android:id="@+id/viewpager"
+            android:id="@+id/banner_view"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_margin="10dp" />
+            android:layout_margin="10dp"
+            android:layout_height="160dp" />
 ```
 
  **BannerViewPager参数配置**
 
 ```
+    private BannerViewPager<BannerData, NetViewHolder> mBannerViewPager;
+    ...
 	private void initViewPager() {
-            mViewpager = findViewById(R.id.viewpager);
-            mViewpager.showIndicator(true)
-                    .setInterval(3000)
-                    .setRoundCorner(R.dimen.banner_corner)
-                    .setScrollDuration(1000)
-                    .setData(mDataList)
-                    .setHolderCreator(new HolderCreator<DataViewHolder>() {
-                        @Override
-                        public DataViewHolder createViewHolder() {
-                            return new DataViewHolder();
-                        }
-                    })
-                    .setOnPageClickListener(new BannerViewPager.OnPageClickListener() {
-                        @Override
-                        public void onPageClick(int position) {
-                            Toast.makeText(ViewPagerActivity.this, "点击了图片" + position, Toast.LENGTH_SHORT).show();
-                        }
-                    }).create();
+             mBannerViewPager = findViewById(R.id.banner_view);
+             mBannerViewPager.showIndicator(true)
+                            .setInterval(3000)
+                            .setRoundCorner(7f)
+                            .setIndicatorColor(Color.parseColor("#935656"), Color.parseColor("#FF4C39"))
+                            .setIndicatorGravity(BannerViewPager.END)
+                            .setScrollDuration(1000).setHolderCreator(NetViewHolder::new)
+                            .setOnPageClickListener(position -> {
+                                BannerData bannerData = mBannerViewPager.getList().get(position);
+                                Toast.makeText(NetworkBannerActivity.this,
+                                        "点击了图片" + position + " " + bannerData.getDesc(), Toast.LENGTH_SHORT).show();
+
+                            }).create(mList);
         }
 ```
 
 **自定义ViewHolder** 
   
 ```
-public class DataViewHolder implements ViewHolder<DataBean> {
+public class NetViewHolder implements ViewHolder<BannerData> {
     private ImageView mImageView;
+    private TextView mTextView;
 
     @Override
     public View createView(ViewGroup viewGroup, Context context, int position) {
-        // 返回页面布局文件
-        View view = LayoutInflater.from(context).inflate(R.layout.item_view, viewGroup, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_net, viewGroup, false);
         mImageView = view.findViewById(R.id.banner_image);
+        mTextView = view.findViewById(R.id.tv_describe);
         return view;
     }
 
     @Override
-    public void onBind(final Context context, DataBean data, final int position, final int size) {
-        ImageLoaderUtil.loadImg(mImageView, data.getUrl(), R.drawable.placeholder);
+    public void onBind(Context context, BannerData data, int position, int size) {
+        ImageLoaderOptions options = new ImageLoaderOptions.Builder().into(mImageView).load(data.getImagePath()).placeHolder(R.drawable.placeholder).build();
+        ImageLoaderManager.getInstance().loadImage(options);
+        mTextView.setText(data.getTitle());
     }
 }
 ```
-**为防止内存泄露在onDestroy()中停止图片轮播**
+**如果开启自动轮播，请在onDestroy()中停止图片轮播，以免内存泄漏**
 ```
 	@Override
     protected void onDestroy() {
@@ -107,14 +109,13 @@ public class DataViewHolder implements ViewHolder<DataBean> {
     }
 ```
 
-
 ## TODO 接下来的版本计划
 
 ~~（1）目前版本循环滑动时会出现偶尔划不动的情况，会在后续版本中修复~~ （2.1.0.1 已修复）
 
 ~~（2）增加页面滑动动画。~~（2.1.2 已添加）
 
-（3）迁移AndroidX
+~~（3）迁移AndroidX~~（2.2.0 已迁移）
 
 （4）优化及重构IndicatorView，增加IndicatorView的滑动样式。
 
