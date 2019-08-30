@@ -20,12 +20,12 @@ import com.zhpan.bannerview.holder.ViewHolder;
  * </pre>
  */
 public class NetViewHolder implements ViewHolder<BannerData> {
-    ImageView mImageView;
-    TextView mTextView;
+    private ImageView mImageView;
+    private TextView mTextView;
 
     @Override
     public View createView(ViewGroup viewGroup, Context context, int position) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_custom_view, viewGroup, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_net, viewGroup, false);
         mImageView = view.findViewById(R.id.banner_image);
         mTextView = view.findViewById(R.id.tv_describe);
         return view;

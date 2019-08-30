@@ -1,8 +1,10 @@
 package com.example.zhpan.circleviewpager.activity;
 
 import android.os.Bundle;
+
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
@@ -64,7 +66,6 @@ public class NetworkBannerActivity extends RxAppCompatActivity {
                         mBannerViewPager.setData(response.getDataBeanList());
                         articleAdapter.setData(response.getArticleList());
                     }
-
                     @Override
                     public void onFinish() {
                         super.onFinish();
@@ -91,6 +92,7 @@ public class NetworkBannerActivity extends RxAppCompatActivity {
         recyclerView.setAdapter(articleAdapter);
         mBannerViewPager.showIndicator(true)
                 .setInterval(3000)
+                .setRoundCorner(7f)
                 .setData(new ArrayList<>())
                 .setIndicatorGravity(BannerViewPager.END)
                 .setScrollDuration(1000).setHolderCreator(NetViewHolder::new)

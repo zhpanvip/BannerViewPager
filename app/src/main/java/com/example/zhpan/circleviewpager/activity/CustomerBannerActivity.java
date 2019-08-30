@@ -1,7 +1,8 @@
 package com.example.zhpan.circleviewpager.activity;
 
-import android.graphics.Color;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -14,17 +15,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerBannerActivity extends AppCompatActivity {
+    //    private String[] picUrls = {"http://pic31.nipic.com/20130801/11604791_100539834000_2.jpg",
+//            "http://pic37.nipic.com/20140115/7430301_100825571157_2.jpg",
+//            "http://pic29.nipic.com/20130507/8952533_183922555000_2.jpg",
+//            "http://b-ssl.duitang.com/uploads/item/201706/10/20170610095055_G5LM8.jpeg"};
     private List<CustomBean> mList = new ArrayList<>();
     private BannerViewPager<CustomBean, CustomPageViewHolder> mViewPager;
-    private String[] picUrls = {"http://pic31.nipic.com/20130801/11604791_100539834000_2.jpg",
-            "http://pic37.nipic.com/20140115/7430301_100825571157_2.jpg",
-            "http://pic29.nipic.com/20130507/8952533_183922555000_2.jpg",
-            "http://b-ssl.duitang.com/uploads/item/201706/10/20170610095055_G5LM8.jpeg"};
+    private int[] imgRes = {R.drawable.guide0, R.drawable.guide1, R.drawable.guide2};
+    private String[] des = {"在这里\n你可以听到周围人的心声", "在这里\nTA会在下一秒遇见你", "在这里\n不再错过可以改变你一生的人"};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_banner);
-        setTitle(R.string.title_custom_page);
         initData();
         initViewPager();
     }
@@ -37,24 +40,20 @@ public class CustomerBannerActivity extends AppCompatActivity {
 
     private void initViewPager() {
         mViewPager = findViewById(R.id.viewpager);
-        mViewPager.setAutoPlay(true)
-                .setCanLoop(true)
+        mViewPager.setAutoPlay(false)
+                .setCanLoop(false)
                 .setData(mList)
-                .setRoundCorner(R.dimen.banner_corner)
-                .setIndicatorGravity(BannerViewPager.END)
-                .setIndicatorColor(Color.parseColor("#6C6D72"),
-                        Color.parseColor("#FFFFFF"))
+                .showIndicator(false)
                 .setOnPageClickListener(position -> Toast.makeText(CustomerBannerActivity.this,
-                        "图片" + (position + 1), Toast.LENGTH_SHORT).show())
+                        "立即体验" + (position + 1), Toast.LENGTH_SHORT).show())
                 .setHolderCreator(CustomPageViewHolder::new).create();
     }
 
     private void initData() {
-
-        for (int i = 0; i < picUrls.length; i++) {
+        for (int i = 0; i < imgRes.length; i++) {
             CustomBean customBean = new CustomBean();
-            customBean.setImgUrl(picUrls[i]);
-            customBean.setImageDescription("这是第" + (i + 1) + "张图片的描述");
+            customBean.setImageRes(imgRes[i]);
+            customBean.setImageDescription(des[i]);
             mList.add(customBean);
         }
     }

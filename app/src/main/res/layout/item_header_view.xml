@@ -6,6 +6,7 @@
     <com.zhpan.bannerview.BannerViewPager
         android:id="@+id/banner_view"
         android:layout_width="match_parent"
-        android:layout_height="200dp" />
+        android:layout_margin="10dp"
+        android:layout_height="160dp" />
 
 </LinearLayout>
