@@ -31,19 +31,25 @@
 
 Transform内置样式
 
-| 参数 | 预览 |
-|--|--|
-| STACK | ![STACK](https://github.com/zhpanvip/BannerViewPager/blob/master/image/stack.gif) |
-| ROTATE_DOWN | ![ROTATE_DOWN](https://github.com/zhpanvip/BannerViewPager/blob/master/image/rotate_down.gif) |
-| DEPTH | ![DEPTH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/depth.gif) |
-| ACCORDION | ![ACCORDION](https://github.com/zhpanvip/BannerViewPager/blob/master/image/accordion.gif) |
+| 参数 | STACK | ROTATE_DOWN | DEPTH | ACCORDION |
+|--|--|--|--|--|
+| 预览 | ![STACK](https://github.com/zhpanvip/BannerViewPager/blob/master/image/stack.gif) | ![ROTATE_DOWN](https://github.com/zhpanvip/BannerViewPager/blob/master/image/rotate_down.gif) | ![DEPTH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/depth.gif)  |![ACCORDION](https://github.com/zhpanvip/BannerViewPager/blob/master/image/accordion.gif)  |
+
+
 ## 如何使用
 
    **gradle中添加依赖**
+   
 latestVersion is: [ ![latestVersion](https://api.bintray.com/packages/zhpanvip/CircleViewPager/bannerview/images/download.svg) ](https://bintray.com/zhpanvip/CircleViewPager/bannerview/_latestVersion)
 
+如果您已迁移到AndroidX请使用2.2.0及以上版本
 ```
 implementation 'com.zhpan.library:bannerview:latestVersion'
+
+```
+如果未迁移到AndroidX请使用：
+```
+implementation 'com.zhpan.library:bannerview:2.1.3'
 ```
 
   **在xml文件中添加如下代码：**
@@ -112,17 +118,19 @@ public class NetViewHolder implements ViewHolder<BannerData> {
 
 ## TODO 接下来的版本计划
 
-~~（1）目前版本循环滑动时会出现偶尔划不动的情况，会在后续版本中修复~~ （2.1.0.1 已修复）
+~~（1）优化及重构IndicatorView~~（2.0.0）
 
-~~（2）增加页面滑动动画。~~（2.1.2 已添加）
+~~（2）目前版本循环滑动时会出现偶尔划不动的情况，会在后续版本中修复~~ （2.1.0.1）
 
-~~（3）迁移AndroidX~~（2.2.0 已迁移）
+~~（3）增加页面滑动动画。~~（2.1.2）
 
-（4）优化及重构IndicatorView，增加IndicatorView的滑动样式。
+~~(4)  迁移AndroidX~~（2.2.0）
 
-（5）ViewPager更换为ViewPager2
+（5）增加IndicatorView的滑动样式。
 
-（6）如有问题欢迎提issue，该库会持续更新优化。
+（6）ViewPager更换为ViewPager2
+
+（7）如有问题欢迎提issue，该库会持续更新优化。
 
 
 [详情请点击此处](http://blog.csdn.net/qq_20521573/article/details/52037929)
