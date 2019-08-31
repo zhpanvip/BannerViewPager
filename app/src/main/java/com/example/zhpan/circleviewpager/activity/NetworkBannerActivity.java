@@ -94,6 +94,8 @@ public class NetworkBannerActivity extends RxAppCompatActivity {
         recyclerView.setAdapter(articleAdapter);
         mBannerViewPager.showIndicator(true)
                 .setInterval(3000)
+                .setCanLoop(false)
+                .setAutoPlay(true)
                 .setRoundCorner(7f)
                 .setIndicatorColor(Color.parseColor("#935656"), Color.parseColor("#FF4C39"))
                 .setIndicatorGravity(BannerViewPager.END)

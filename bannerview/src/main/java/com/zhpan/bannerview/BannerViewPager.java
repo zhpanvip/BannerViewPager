@@ -379,6 +379,9 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
      */
     public BannerViewPager<T, VH> setAutoPlay(boolean autoPlay) {
         isAutoPlay = autoPlay;
+        if (isAutoPlay) {
+            isCanLoop = true;
+        }
         return this;
     }
 
@@ -389,6 +392,9 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
      */
     public BannerViewPager<T, VH> setCanLoop(boolean canLoop) {
         isCanLoop = canLoop;
+        if (!canLoop) {
+            isAutoPlay = false;
+        }
         return this;
     }
 
