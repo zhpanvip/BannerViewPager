@@ -95,6 +95,8 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
 
     private float indicatorMargin = 0;
 
+//    private OnPageChangedListener mOnPageChangedListener;
+
     public BannerViewPager(Context context) {
         this(context, null);
     }
@@ -115,10 +117,10 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
             interval = typedArray.getInteger(R.styleable.BannerViewPager_interval, 3000);
             indicatorCheckedColor =
                     typedArray.getColor(R.styleable.BannerViewPager_indicator_checked_color,
-                            Color.parseColor("#FF4C39"));
+                            Color.parseColor("#18171C"));
             indicatorNormalColor =
                     typedArray.getColor(R.styleable.BannerViewPager_indicator_normal_color,
-                            Color.parseColor("#935656"));
+                            Color.parseColor("#6C6D72"));
             indicatorRadius = typedArray.getDimension(R.styleable.BannerViewPager_indicator_radius,
                     DpUtils.dp2px(context, 4));
             isAutoPlay = typedArray.getBoolean(R.styleable.BannerViewPager_isAutoPlay, true);
@@ -134,33 +136,38 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
         initScroller();
     }
 
+    /**
+     * 替换ViewPager默认的Scroller
+     */
     private void initScroller() {
         try {
             mScroller = new BannerScroller(mViewPager.getContext());
             mScroller.setDuration(DEFAULT_SCROLL_DURATION);
             Field mField = ViewPager.class.getDeclaredField("mScroller");
-            if (null != mField) {
-                mField.setAccessible(true);
-                mField.set(mViewPager, mScroller);
-            }
+            mField.setAccessible(true);
+            mField.set(mViewPager, mScroller);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    // 根据mList数据集构造mListAdd
+    /**
+     * 初始化书记及ViewPager
+     */
     private void initData() {
         if (mList.size() > 0) {
             initIndicator();
             if (isCanLoop) {
                 currentPosition = 1;
             }
-            setViewPager();
+            setupViewPager();
         }
     }
 
 
-    // 设置触摸事件，当滑动或者触摸时停止自动轮播
+    /**
+     * 设置触摸事件，当滑动或者触摸时停止自动轮播
+     */
     @SuppressLint("ClickableViewAccessibility")
     private void setTouchListener() {
         mViewPager.setOnTouchListener((v, event) -> {
@@ -182,9 +189,11 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
         });
     }
 
-    // 设置轮播小圆点
+    /**
+     * 构造指示器
+     */
     private void initIndicator() {
-        if (mList.size() > 1) {
+        if (mList.size() > 1 && showIndicator) {
             mIndicatorView.setPageSize(mList.size()).setIndicatorRadius(indicatorRadius)
                     .setIndicatorMargin(indicatorMargin).setCheckedColor(indicatorCheckedColor)
                     .setNormalColor(indicatorNormalColor).invalidate();
@@ -205,7 +214,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     }
 
 
-    private void setViewPager() {
+    private void setupViewPager() {
         if (holderCreator != null) {
             BannerPagerAdapter<T, VH> bannerPagerAdapter =
                     new BannerPagerAdapter<>(mList, holderCreator);
@@ -223,18 +232,25 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
             mViewPager.addOnPageChangeListener(this);
             startLoop();
             setTouchListener();
-            mIndicatorView.setVisibility(showIndicator ? VISIBLE : GONE);
         }
     }
 
     @Override
     public void onPageSelected(int position) {
+//        if (null != mOnPageChangedListener) {
+//            mOnPageChangedListener.onPageSelected(getRealPosition(position));
+//        }
         currentPosition = position;
-        mIndicatorView.pageSelect(getRealPosition(position));
+        if (showIndicator) {
+            mIndicatorView.pageSelect(getRealPosition(position));
+        }
     }
 
     @Override
     public void onPageScrollStateChanged(int state) {
+//        if (null != mOnPageChangedListener) {
+//            mOnPageChangedListener.onPageScrollStateChanged(state);
+//        }
         if (isCanLoop) {
             switch (state) {
                 case ViewPager.SCROLL_STATE_IDLE:
@@ -259,7 +275,9 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+//        if (null != mOnPageChangedListener) {
+//            mOnPageChangedListener.onPageScrolled(position, positionOffset, positionOffsetPixels);
+//        }
     }
 
     private int getRealPosition(int position) {
@@ -280,16 +298,12 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
         return isCanLoop ? (position < mList.size()) ? (++position) : mList.size() : position;
     }
 
-    public ViewPager getViewPager() {
-        return mViewPager;
-    }
-
     /**
      * 开启轮播
      */
     public void startLoop() {
-        if (!isLooping && isAutoPlay && mViewPager != null) {
-            mHandler.postDelayed(mRunnable, interval);// 每interval秒执行一次runnable.
+        if (!isLooping && isAutoPlay && mList.size() > 1) {
+            mHandler.postDelayed(mRunnable, interval);
             isLooping = true;
         }
     }
@@ -298,20 +312,20 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
      * 停止轮播
      */
     public void stopLoop() {
-        if (isLooping && mViewPager != null) {
+        if (isLooping) {
             mHandler.removeCallbacks(mRunnable);
             isLooping = false;
         }
     }
 
-    public BannerViewPager<T, VH> setData(List<T> list) {
-        if (list != null) {
-            mList.clear();
-            mList.addAll(list);
-            initData();
-        }
-        return this;
-    }
+//    public BannerViewPager<T, VH> setData(List<T> list) {
+//        if (list != null) {
+//            mList.clear();
+//            mList.addAll(list);
+//            initData();
+//        }
+//        return this;
+//    }
 
     public BannerViewPager<T, VH> setHolderCreator(HolderCreator<VH> holderCreator) {
         this.holderCreator = holderCreator;
@@ -508,8 +522,12 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
         return this;
     }
 
-    public void create() {
-        initData();
+    public void create(List<T> list) {
+        if (list != null) {
+            mList.clear();
+            mList.addAll(list);
+            initData();
+        }
     }
 
     @IntDef({CENTER, START, END})
@@ -517,4 +535,17 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     @Target(ElementType.PARAMETER)
     @interface IndicatorGravity {
     }
+
+//    public void setOnPageChangedListener(OnPageChangedListener mOnPageChangedListener) {
+//        this.mOnPageChangedListener = mOnPageChangedListener;
+//    }
+//
+//    public interface OnPageChangedListener {
+//        void onPageSelected(int position);
+//
+//        void onPageScrollStateChanged(int state);
+//
+//        void onPageScrolled(int position, float positionOffset, int positionOffsetPixels);
+//
+//    }
 }

@@ -36,7 +36,6 @@ public class PageTransformerActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        ViewPager.PageTransformer pageTransformer = null;
         switch (item.getItemId()) {
             case R.id.menu0:
                 mViewpager.setPageTransformerStyle(TransformerStyle.STACK);
@@ -51,8 +50,6 @@ public class PageTransformerActivity extends AppCompatActivity {
                 mViewpager.setPageTransformerStyle(TransformerStyle.ACCORDION);
                 break;
         }
-        if (pageTransformer != null)
-            mViewpager.setPageTransformer(pageTransformer);
         return super.onOptionsItemSelected(item);
     }
 
@@ -62,11 +59,10 @@ public class PageTransformerActivity extends AppCompatActivity {
                 .setCanLoop(false)
                 .setAutoPlay(false)
                 .setScrollDuration(1000)
-                .setData(mList)
                 .setHolderCreator(TransformerViewHolder::new)
                 .setOnPageClickListener(position -> Toast.makeText(PageTransformerActivity.this,
                         "立即体验", Toast.LENGTH_SHORT).show())
-                .create();
+                .create(mList);
     }
 
 

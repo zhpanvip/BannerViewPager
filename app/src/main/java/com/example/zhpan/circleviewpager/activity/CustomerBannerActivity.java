@@ -39,14 +39,13 @@ public class CustomerBannerActivity extends AppCompatActivity {
         mViewPager = findViewById(R.id.viewpager);
         mViewPager.setAutoPlay(true)
                 .setCanLoop(true)
-                .setData(mList)
                 .setRoundCorner(R.dimen.banner_corner)
                 .setIndicatorGravity(BannerViewPager.END)
                 .setIndicatorColor(Color.parseColor("#6C6D72"),
                         Color.parseColor("#FFFFFF"))
                 .setOnPageClickListener(position -> Toast.makeText(CustomerBannerActivity.this,
                         "图片" + (position + 1), Toast.LENGTH_SHORT).show())
-                .setHolderCreator(CustomPageViewHolder::new).create();
+                .setHolderCreator(CustomPageViewHolder::new).create(mList);
     }
 
     private void initData() {

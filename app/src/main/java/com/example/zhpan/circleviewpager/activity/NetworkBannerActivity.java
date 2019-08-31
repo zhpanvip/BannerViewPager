@@ -61,7 +61,7 @@ public class NetworkBannerActivity extends RxAppCompatActivity {
                 .subscribe(new DefaultObserver<DataWrapper>() {
                     @Override
                     public void onSuccess(DataWrapper response) {
-                        mBannerViewPager.setData(response.getDataBeanList());
+                        mBannerViewPager.create(response.getDataBeanList());
                         articleAdapter.setData(response.getArticleList());
                     }
 
@@ -91,7 +91,6 @@ public class NetworkBannerActivity extends RxAppCompatActivity {
         recyclerView.setAdapter(articleAdapter);
         mBannerViewPager.showIndicator(true)
                 .setInterval(3000)
-                .setData(new ArrayList<>())
                 .setIndicatorGravity(BannerViewPager.END)
                 .setScrollDuration(1000).setHolderCreator(NetViewHolder::new)
                 .setOnPageClickListener(position -> {
@@ -99,7 +98,7 @@ public class NetworkBannerActivity extends RxAppCompatActivity {
                     Toast.makeText(NetworkBannerActivity.this,
                             "点击了图片" + position + " " + bannerData.getDesc(), Toast.LENGTH_SHORT).show();
 
-                }).create();
+                });
     }
 
     private View getHeaderView() {
