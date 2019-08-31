@@ -138,6 +138,9 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
         initScroller();
     }
 
+    /**
+     * 替换ViewPager默认的Scroller
+     */
     private void initScroller() {
         try {
             mScroller = new BannerScroller(mViewPager.getContext());
@@ -150,19 +153,23 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
         }
     }
 
-    // 根据mList数据集构造mListAdd
+    /**
+     * 初始化书记及ViewPager
+     */
     private void initData() {
         if (mList.size() > 0) {
             initIndicator();
             if (isCanLoop) {
                 currentPosition = 1;
             }
-            setViewPager();
+            setupViewPager();
         }
     }
 
 
-    // 设置触摸事件，当滑动或者触摸时停止自动轮播
+    /**
+     * 设置触摸事件，当滑动或者触摸时停止自动轮播
+     */
     @SuppressLint("ClickableViewAccessibility")
     private void setTouchListener() {
         mViewPager.setOnTouchListener((v, event) -> {
@@ -184,9 +191,11 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
         });
     }
 
-    // 设置轮播小圆点
+    /**
+     * 构造指示器
+     */
     private void initIndicator() {
-        if (mList.size() > 1) {
+        if (mList.size() > 1 && showIndicator) {
             mIndicatorView.setPageSize(mList.size()).setIndicatorRadius(indicatorRadius)
                     .setIndicatorMargin(indicatorMargin).setCheckedColor(indicatorCheckedColor)
                     .setNormalColor(indicatorNormalColor).invalidate();
@@ -207,7 +216,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     }
 
 
-    private void setViewPager() {
+    private void setupViewPager() {
         if (holderCreator != null) {
             BannerPagerAdapter<T, VH> bannerPagerAdapter =
                     new BannerPagerAdapter<>(mList, holderCreator);
@@ -225,7 +234,6 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
             mViewPager.addOnPageChangeListener(this);
             startLoop();
             setTouchListener();
-            mIndicatorView.setVisibility(showIndicator ? VISIBLE : GONE);
         }
     }
 
@@ -235,7 +243,9 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
 //            mOnPageChangedListener.onPageSelected(getRealPosition(position));
 //        }
         currentPosition = position;
-        mIndicatorView.pageSelect(getRealPosition(position));
+        if (showIndicator) {
+            mIndicatorView.pageSelect(getRealPosition(position));
+        }
     }
 
     @Override
@@ -290,16 +300,12 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
         return isCanLoop ? (position < mList.size()) ? (++position) : mList.size() : position;
     }
 
-    public ViewPager getViewPager() {
-        return mViewPager;
-    }
-
     /**
      * 开启轮播
      */
     public void startLoop() {
-        if (!isLooping && isAutoPlay && mViewPager != null) {
-            mHandler.postDelayed(mRunnable, interval);// 每interval秒执行一次runnable.
+        if (!isLooping && isAutoPlay && mList.size() > 1) {
+            mHandler.postDelayed(mRunnable, interval);
             isLooping = true;
         }
     }
@@ -308,7 +314,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
      * 停止轮播
      */
     public void stopLoop() {
-        if (isLooping && mViewPager != null) {
+        if (isLooping) {
             mHandler.removeCallbacks(mRunnable);
             isLooping = false;
         }

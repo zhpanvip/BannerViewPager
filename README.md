@@ -9,24 +9,25 @@
 
 | 方法名 | 方法描述 | 说明 |
 |--|--|--|
-| startLoop() |开启自动轮播  |  |
-| stopLoop() | 停止自动轮播 |  |
-| setInterval(int interval) | 自动轮播事件间隔 |单位毫秒，默认值3000  |
-| setCanLoop(boolean canLoop) | 是否可以循环 |  默认值true|
-| setRoundCorner(@DimenRes int radius) | 设置圆角 |默认无圆角 需要SDK_INT>=LOLLIPOP(21)  |
-| setRoundCorner(float radiusDp) | 设置圆角 | 单位dp,默认无圆角 需要SDK_INT>=LOLLIPOP(21)|
-| showIndicator(boolean showIndicator) |  是否显示指示器|默认值true  |
-| setIndicatorGravity(int gravity) | 指示器位置（0 Center、1 Start、2 End） |默认值0 Center |
-| setIndicatorColor(int normalColor,int checkedColor) | 指示器圆点颜色 |normalColor：未选中时颜色默认"#000000"， checkedColor：选中时颜色 默认"#FFFFFF" |
-| setIndicatorRadius(float radiusDp) | 指示器圆点半径 | 单位dp 默认值4dp|
-| setIndicatorRadius(@DimenRes int radiusRes) | 指示器圆点半径| DimenRes资源 默认值4dp|
-| setCurrentItem(final int position)  |  切换到第position个页面|  |
-| setCurrentItem(final int position, final boolean smoothScroll) | 平滑切换到第position个页面 |  |
-| setData(List<T> list) |设置Banner数据  |  |
-| setHolderCreator(HolderCreator<VH> holderCreator) |设置HolderCreator  |必须设置HolderCreator，否则会抛出RuntimeException  |
+| BannerViewPager<T, VH> setInterval(int interval) | 自动轮播事件间隔 |单位毫秒，默认值3000  |
+| BannerViewPager<T, VH> setCanLoop(boolean canLoop) | 是否可以循环 |  默认值true|
+| BannerViewPager<T, VH> setRoundCorner(@DimenRes int radius) | 设置圆角 |默认无圆角 需要SDK_INT>=LOLLIPOP(21)  |
+| BannerViewPager<T, VH> setRoundCorner(float radiusDp) | 设置圆角 | 单位dp,默认无圆角 需要SDK_INT>=LOLLIPOP(21)|
+| BannerViewPager<T, VH> showIndicator(boolean showIndicator) |  是否显示指示器|默认值true  |
+| BannerViewPager<T, VH> setIndicatorGravity(int gravity) | 指示器位置 |可选值(Center、Start、End)默认值Center |
+| BannerViewPager<T, VH> setIndicatorColor(int normalColor,int checkedColor) | 指示器圆点颜色 |normalColor：未选中时颜色默认"#000000"， checkedColor：选中时颜色 默认"#FFFFFF" |
+| BannerViewPager<T, VH> setIndicatorRadius(float radiusDp) | 指示器圆点半径 | 单位dp 默认值4dp|
+| BannerViewPager<T, VH> setIndicatorRadius(@DimenRes int radiusRes) | 指示器圆点半径| DimenRes资源 默认值4dp|
+| BannerViewPager<T, VH> setIndicatorMargin(float indicatorMarginDp) | 指示器圆点间距| 单位dp  默认值圆点直径|
+| BannerViewPager<T, VH> setIndicatorMargin(@DimenRes int marginRes) | 指示器圆点间距| DimenRes 默认值圆点直径|
+| BannerViewPager<T, VH> setCurrentItem(final int position)  |  切换到第position个页面|  |
+| BannerViewPager<T, VH> setCurrentItem(final int position, final boolean smoothScroll) | 平滑切换到第position个页面 |  |
+| BannerViewPager<T, VH> setHolderCreator(HolderCreator<VH> holderCreator) |设置HolderCreator  |必须设置HolderCreator，否则会抛出RuntimeException  |
 | BannerViewPager<T, VH> setPageTransformer(ViewPager.PageTransformer transformer) |设置transformer  |2.1.2新增  |
 | BannerViewPager<T, VH> setPageTransformerStyle(TransformerStyle style) |内置transformer样式  |2.1.2新增 可选参数（DEPTH, ROTATE_DOWN, STACK, ACCORDION）  |
-| create() |初始化并构造BannerViewPager  |必须调用，否则前面设置的参数无效  |
+| void startLoop() |开启自动轮播  |  |
+| void stopLoop() | 停止自动轮播 |  |
+| void create(List<T> list) |初始化并构造BannerViewPager  |必须调用，否则前面设置的参数无效  |
 
 Transform内置样式
 
@@ -37,9 +38,9 @@ Transform内置样式
 | DEPTH | ![DEPTH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/depth.gif) |
 | ACCORDION | ![ACCORDION](https://github.com/zhpanvip/BannerViewPager/blob/master/image/accordion.gif) |
 ## 如何使用
- [ ![Download](https://api.bintray.com/packages/zhpanvip/CircleViewPager/bannerview/images/download.svg) ](https://bintray.com/zhpanvip/CircleViewPager/bannerview/_latestVersion)
 
    **gradle中添加依赖**
+latestVersion is: [ ![latestVersion](https://api.bintray.com/packages/zhpanvip/CircleViewPager/bannerview/images/download.svg) ](https://bintray.com/zhpanvip/CircleViewPager/bannerview/_latestVersion)
 
 ```
 implementation 'com.zhpan.library:bannerview:latestVersion'

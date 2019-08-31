@@ -37,7 +37,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.0.2'
 }
 
-version = "2.1.2"
+version = "2.2.0"
 def siteUrl = 'https://github.com/zhpanvip/BannerViewPager'      // 项目的主页
 def gitUrl = 'https://github.com/zhpanvip/BannerViewPager.git'   // Git仓库的url
 group = "com.zhpan.library" // Maven Group ID for the artifact，一般填你唯一的包名
@@ -99,7 +99,7 @@ bintray {
     configurations = ['archives']
     pkg {
         repo = "CircleViewPager"  //发布到Bintray的那个仓库里，默认账户有四个库，我们这里上传到maven库
-        name = "bannerviewX"  //发布到Bintray上的项目名字
+        name = "bannerview"  //发布到Bintray上的项目名字
         websiteUrl = siteUrl
         vcsUrl = gitUrl
         licenses = ["Apache-2.0"]
