@@ -118,17 +118,19 @@ public class NetViewHolder implements ViewHolder<BannerData> {
 
 ## TODO 接下来的版本计划
 
-~~（1）目前版本循环滑动时会出现偶尔划不动的情况，会在后续版本中修复~~ （2.1.0.1 已修复）
+~~（1）优化及重构IndicatorView~~（2.0.0）
 
-~~（2）增加页面滑动动画。~~（2.1.2 已添加）
+~~（2）目前版本循环滑动时会出现偶尔划不动的情况，会在后续版本中修复~~ （2.1.0.1）
 
-~~（3）迁移AndroidX~~（2.2.0 已迁移）
+~~（3）增加页面滑动动画。~~（2.1.2）
 
-（4）优化及重构IndicatorView，增加IndicatorView的滑动样式。
+~~(4)  迁移AndroidX~~（2.2.0）
 
-（5）ViewPager更换为ViewPager2
+（5）增加IndicatorView的滑动样式。
 
-（6）如有问题欢迎提issue，该库会持续更新优化。
+（6）ViewPager更换为ViewPager2
+
+（7）如有问题欢迎提issue，该库会持续更新优化。
 
 
 [详情请点击此处](http://blog.csdn.net/qq_20521573/article/details/52037929)
