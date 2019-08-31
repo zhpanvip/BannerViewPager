@@ -31,19 +31,25 @@
 
 Transform内置样式
 
-| 参数 | 预览 |
-|--|--|
-| STACK | ![STACK](https://github.com/zhpanvip/BannerViewPager/blob/master/image/stack.gif) |
-| ROTATE_DOWN | ![ROTATE_DOWN](https://github.com/zhpanvip/BannerViewPager/blob/master/image/rotate_down.gif) |
-| DEPTH | ![DEPTH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/depth.gif) |
-| ACCORDION | ![ACCORDION](https://github.com/zhpanvip/BannerViewPager/blob/master/image/accordion.gif) |
+| 参数 | STACK | ROTATE_DOWN | DEPTH | ACCORDION |
+|--|--|--|--|--|
+| 预览 | ![STACK](https://github.com/zhpanvip/BannerViewPager/blob/master/image/stack.gif) | ![ROTATE_DOWN](https://github.com/zhpanvip/BannerViewPager/blob/master/image/rotate_down.gif) | ![DEPTH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/depth.gif)  |![ACCORDION](https://github.com/zhpanvip/BannerViewPager/blob/master/image/accordion.gif)  |
+
+
 ## 如何使用
 
    **gradle中添加依赖**
+   
 latestVersion is: [ ![latestVersion](https://api.bintray.com/packages/zhpanvip/CircleViewPager/bannerview/images/download.svg) ](https://bintray.com/zhpanvip/CircleViewPager/bannerview/_latestVersion)
 
+如果您已迁移到AndroidX请使用2.2.0及以上版本
 ```
 implementation 'com.zhpan.library:bannerview:latestVersion'
+
+```
+如果未迁移到AndroidX请使用：
+```
+implementation 'com.zhpan.library:bannerview:2.1.3'
 ```
 
   **在xml文件中添加如下代码：**
