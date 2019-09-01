@@ -41,7 +41,7 @@ public class PageTransformerActivity extends AppCompatActivity {
                 mViewpager.setPageTransformerStyle(TransformerStyle.STACK);
                 break;
             case R.id.menu1:
-                mViewpager.setPageTransformerStyle(TransformerStyle.ROTATE_DOWN);
+                mViewpager.setPageTransformerStyle(TransformerStyle.ROTATE);
                 break;
             case R.id.menu2:
                 mViewpager.setPageTransformerStyle(TransformerStyle.DEPTH);

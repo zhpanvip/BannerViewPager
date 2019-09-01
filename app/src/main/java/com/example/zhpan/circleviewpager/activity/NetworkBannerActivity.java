@@ -115,6 +115,20 @@ public class NetworkBannerActivity extends RxAppCompatActivity {
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        if (mBannerViewPager != null)
+            mBannerViewPager.stopLoop();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mBannerViewPager != null)
+            mBannerViewPager.startLoop();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         mBannerViewPager.stopLoop();

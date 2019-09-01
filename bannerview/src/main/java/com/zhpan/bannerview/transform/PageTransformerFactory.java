@@ -12,7 +12,7 @@ public class PageTransformerFactory {
             case DEPTH:
                 transformer = new DepthPageTransformer();
                 break;
-            case ROTATE_DOWN:
+            case ROTATE:
                 transformer=new RotateUpTransformer();
                 break;
             case STACK:
