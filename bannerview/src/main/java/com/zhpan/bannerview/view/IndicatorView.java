@@ -15,8 +15,8 @@ import com.zhpan.bannerview.Utils.DpUtils;
 /**
  * Created by zhpan on 2017/12/6.
  */
-public class IndicatorView extends View implements ViewPager.OnPageChangeListener {
-
+public class IndicatorView extends View {
+    private static final String tag = "IndicatorView";
     private int normalColor;
     private int checkedColor;
     private Paint mPaint;
@@ -27,8 +27,8 @@ public class IndicatorView extends View implements ViewPager.OnPageChangeListene
     private int height;
     private int currentPosition;
     private float mMargin;
-    private static final String tag = "IndicatorView";
     private IndicatorSlideMode mSlideStyle = IndicatorSlideMode.SMOOTH;
+    private float slideProgress;
 
     public IndicatorView(Context context) {
         this(context, null);
@@ -86,12 +86,14 @@ public class IndicatorView extends View implements ViewPager.OnPageChangeListene
                 canvas.drawCircle(maxRadius + (2 * mNormalRadius + mMargin) * currentPosition, height / 2f, mCheckedRadius, mPaint);
             case SMOOTH:
                 mPaint.setColor(checkedColor);
-                canvas.drawCircle(maxRadius + (2 * mNormalRadius + mMargin) * currentPosition + (2 * mNormalRadius + mMargin) * slideProgress, height / 2f, mCheckedRadius, mPaint);
+                if (currentPosition == mPageSize-1) {
+                    canvas.drawCircle(maxRadius + (2 * mNormalRadius + mMargin) * currentPosition, height / 2f, mCheckedRadius, mPaint);
+                } else
+                    canvas.drawCircle(maxRadius + (2 * mNormalRadius + mMargin) * currentPosition + (2 * mNormalRadius + mMargin) * slideProgress, height / 2f, mCheckedRadius, mPaint);
                 break;
         }
     }
 
-    @Override
     public void onPageSelected(int position) {
         if (mSlideStyle == IndicatorSlideMode.NORMAL) {
             this.currentPosition = position;
@@ -99,20 +101,12 @@ public class IndicatorView extends View implements ViewPager.OnPageChangeListene
         }
     }
 
-    private float slideProgress;
-
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+    public void onPageScrolled(int position, float positionOffset) {
         if (mSlideStyle == IndicatorSlideMode.SMOOTH) {
             slideProgress = positionOffset;
             currentPosition = position;
             invalidate();
         }
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-
     }
 
     public IndicatorView setNormalColor(int normalColor) {
@@ -128,12 +122,6 @@ public class IndicatorView extends View implements ViewPager.OnPageChangeListene
     public IndicatorView setPageSize(int pageSize) {
         this.mPageSize = pageSize;
         requestLayout();
-        return this;
-    }
-
-    public IndicatorView setIndicatorRadius(float radiusDp) {
-        this.mNormalRadius = radiusDp;
-        this.mCheckedRadius = radiusDp;
         return this;
     }
 

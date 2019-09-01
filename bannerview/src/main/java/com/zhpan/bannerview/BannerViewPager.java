@@ -259,7 +259,6 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
 
     @Override
     public void onPageScrollStateChanged(int state) {
-        mIndicatorView.onPageScrollStateChanged(state);
         if (isCanLoop) {
             switch (state) {
                 case ViewPager.SCROLL_STATE_IDLE:
@@ -284,7 +283,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        mIndicatorView.onPageScrolled(getRealPosition(position), positionOffset, positionOffsetPixels);
+        mIndicatorView.onPageScrolled(getRealPosition(position), positionOffset);
     }
 
     private int getRealPosition(int position) {
@@ -434,9 +433,15 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
      */
     public BannerViewPager<T, VH> setIndicatorRadius(@DimenRes int radiusRes) {
         this.normalIndicatorRadius = getContext().getResources().getDimension(radiusRes);
+        this.checkedIndicatorRadius = normalIndicatorRadius;
         return this;
     }
 
+    public BannerViewPager<T, VH> setIndicatorRadius(@DimenRes int normalRadius, @DimenRes int checkRadius) {
+        this.normalIndicatorRadius = getContext().getResources().getDimension(normalRadius);
+        this.checkedIndicatorRadius = getContext().getResources().getDimension(checkRadius);
+        return this;
+    }
 
     /**
      * 设置page滚动时间

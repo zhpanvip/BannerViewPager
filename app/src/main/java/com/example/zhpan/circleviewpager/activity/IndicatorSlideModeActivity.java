@@ -30,7 +30,7 @@ public class IndicatorSlideModeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_indicator_slide_mode);
         mViewPager = findViewById(R.id.banner_view);
         mList = Arrays.asList(picUrls);
-        mViewPager.setAutoPlay(false).setCanLoop(false)
+        mViewPager.setAutoPlay(false).setCanLoop(true)
                 .setRoundCorner(5f)
                 .setIndicatorRadius(3f,3.5f)
                 .setHolderCreator(SlideModeViewHolder::new)
