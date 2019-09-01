@@ -8,20 +8,25 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.zhpan.bannerview.Utils.DpUtils;
+import com.zhpan.bannerview.enums.IndicatorSlideMode;
 
 /**
  * Created by zhpan on 2017/12/6.
  */
 public class IndicatorView extends View {
-
+    private static final String tag = "IndicatorView";
     private int normalColor;
     private int checkedColor;
     private Paint mPaint;
     private int mPageSize;
-    private float mRadius;
+    private float mNormalRadius;
+    private float mCheckedRadius;
+    private float maxRadius;
     private int height;
-    private int selectPage;
+    private int currentPosition;
     private float mMargin;
+    private IndicatorSlideMode mSlideStyle = IndicatorSlideMode.SMOOTH;
+    private float slideProgress;
 
     public IndicatorView(Context context) {
         this(context, null);
@@ -38,8 +43,9 @@ public class IndicatorView extends View {
         mPaint = new Paint();
         mPaint.setColor(normalColor);
         mPaint.setAntiAlias(true);
-        mRadius = DpUtils.dp2px(context, 4);
-        mMargin = mRadius * 2;
+        mNormalRadius = DpUtils.dp2px(context, 4);
+        mCheckedRadius = mNormalRadius;
+        mMargin = mNormalRadius * 2;
     }
 
     @Override
@@ -51,16 +57,9 @@ public class IndicatorView extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        setMeasuredDimension((int) ((mPageSize - 1) * mMargin + 2 * mRadius * mPageSize + mRadius * 3),
-                (int) (2 * mRadius));
-//        setMeasuredDimension((int) (3 * mRadius * (mPageSize + 1)), (int) (2 * mRadius));
-        /*if (widthMeasureSpecMode == MeasureSpec.AT_MOST&&heightMeasureSpec == MeasureSpec.AT_MOST) {
-            setMeasuredDimension(100, 100);
-        } else if (widthMeasureSpecMode == MeasureSpec.AT_MOST) {
-            setMeasuredDimension((int) (mPageSize * 2 * mRadius + (mPageSize - 1) * mRadius), heightMeasureSpecSize);
-        } else if (heightMeasureSpec == MeasureSpec.AT_MOST) {
-            setMeasuredDimension(widthMeasureSpecSize, (int) (2 * mRadius));
-        }*/
+        maxRadius = Math.max(mCheckedRadius, mNormalRadius);
+        setMeasuredDimension((int) ((mPageSize - 1) * mMargin + 2 * maxRadius * mPageSize),
+                (int) (2 * maxRadius));
     }
 
     @Override
@@ -72,14 +71,38 @@ public class IndicatorView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         for (int i = 0; i < mPageSize; i++) {
-            mPaint.setColor(selectPage == i ? checkedColor : normalColor);
-            canvas.drawCircle(mRadius + (2 * mRadius + mMargin) * i, height / 2f, mRadius, mPaint);
+            mPaint.setColor(normalColor);
+            canvas.drawCircle(maxRadius + (2 * mNormalRadius + mMargin) * i, height / 2f, mNormalRadius, mPaint);
+        }
+        drawSlideStyle(canvas);
+    }
+
+    private void drawSlideStyle(Canvas canvas) {
+        switch (mSlideStyle) {
+            case NORMAL:
+                slideProgress=0;
+            case SMOOTH:
+                slideProgress = (currentPosition == mPageSize - 1) ? 0 : slideProgress;
+                break;
+        }
+        mPaint.setColor(checkedColor);
+        canvas.drawCircle(maxRadius + (2 * mNormalRadius + mMargin) * currentPosition + (2 * mNormalRadius + mMargin) * slideProgress,
+                height / 2f, mCheckedRadius, mPaint);
+    }
+
+    public void onPageSelected(int position) {
+        if (mSlideStyle == IndicatorSlideMode.NORMAL) {
+            this.currentPosition = position;
+            invalidate();
         }
     }
 
-    public void pageSelect(int selectPage) {
-        this.selectPage = selectPage;
-        invalidate();
+    public void onPageScrolled(int position, float positionOffset) {
+        if (mSlideStyle == IndicatorSlideMode.SMOOTH) {
+            slideProgress = positionOffset;
+            currentPosition = position;
+            invalidate();
+        }
     }
 
     public IndicatorView setNormalColor(int normalColor) {
@@ -98,8 +121,9 @@ public class IndicatorView extends View {
         return this;
     }
 
-    public IndicatorView setIndicatorRadius(float radiusDp) {
-        this.mRadius = radiusDp;
+    public IndicatorView setIndicatorRadius(float radiusDp, float checkedRadius) {
+        this.mNormalRadius = radiusDp;
+        this.mCheckedRadius = checkedRadius;
         return this;
     }
 
@@ -107,6 +131,11 @@ public class IndicatorView extends View {
         if (margin > 0) {
             this.mMargin = margin;
         }
+        return this;
+    }
+
+    public IndicatorView setSlideStyle(IndicatorSlideMode slideStyle) {
+        mSlideStyle = slideStyle;
         return this;
     }
 }

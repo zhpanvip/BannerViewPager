@@ -1,6 +1,5 @@
 package com.example.zhpan.circleviewpager.activity;
 
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,7 +9,7 @@ import android.widget.Toast;
 import com.example.zhpan.circleviewpager.R;
 import com.example.zhpan.circleviewpager.viewholder.TransformerViewHolder;
 import com.zhpan.bannerview.BannerViewPager;
-import com.zhpan.bannerview.transform.TransformerStyle;
+import com.zhpan.bannerview.enums.TransformerStyle;
 
 import java.util.ArrayList;
 
@@ -41,7 +40,7 @@ public class PageTransformerActivity extends AppCompatActivity {
                 mViewpager.setPageTransformerStyle(TransformerStyle.STACK);
                 break;
             case R.id.menu1:
-                mViewpager.setPageTransformerStyle(TransformerStyle.ROTATE_DOWN);
+                mViewpager.setPageTransformerStyle(TransformerStyle.ROTATE);
                 break;
             case R.id.menu2:
                 mViewpager.setPageTransformerStyle(TransformerStyle.DEPTH);
