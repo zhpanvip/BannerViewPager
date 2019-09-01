@@ -9,6 +9,7 @@ import android.view.View;
 
 import androidx.viewpager.widget.ViewPager;
 
+import com.zhpan.bannerview.enums.IndicatorSlideMode;
 import com.zhpan.bannerview.Utils.DpUtils;
 
 /**
@@ -20,11 +21,14 @@ public class IndicatorView extends View implements ViewPager.OnPageChangeListene
     private int checkedColor;
     private Paint mPaint;
     private int mPageSize;
-    private float mRadius;
+    private float mNormalRadius;
+    private float mCheckedRadius;
+    private float maxRadius;
     private int height;
     private int currentPosition;
     private float mMargin;
     private static final String tag = "IndicatorView";
+    private IndicatorSlideMode mSlideStyle = IndicatorSlideMode.SMOOTH;
 
     public IndicatorView(Context context) {
         this(context, null);
@@ -41,8 +45,9 @@ public class IndicatorView extends View implements ViewPager.OnPageChangeListene
         mPaint = new Paint();
         mPaint.setColor(normalColor);
         mPaint.setAntiAlias(true);
-        mRadius = DpUtils.dp2px(context, 4);
-        mMargin = mRadius * 2;
+        mNormalRadius = DpUtils.dp2px(context, 4);
+        mCheckedRadius = mNormalRadius;
+        mMargin = mNormalRadius * 2;
     }
 
     @Override
@@ -54,8 +59,9 @@ public class IndicatorView extends View implements ViewPager.OnPageChangeListene
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        setMeasuredDimension((int) ((mPageSize - 1) * mMargin + 2 * mRadius * mPageSize),
-                (int) (2 * mRadius));
+        maxRadius = Math.max(mCheckedRadius, mNormalRadius);
+        setMeasuredDimension((int) ((mPageSize - 1) * mMargin + 2 * maxRadius * mPageSize),
+                (int) (2 * maxRadius));
     }
 
     @Override
@@ -68,24 +74,40 @@ public class IndicatorView extends View implements ViewPager.OnPageChangeListene
         super.onDraw(canvas);
         for (int i = 0; i < mPageSize; i++) {
             mPaint.setColor(normalColor);
-            canvas.drawCircle(mRadius + (2 * mRadius + mMargin) * i, height / 2f, mRadius, mPaint);
+            canvas.drawCircle(maxRadius + (2 * mNormalRadius + mMargin) * i, height / 2f, mNormalRadius, mPaint);
         }
-        mPaint.setColor(checkedColor);
-        canvas.drawCircle(mRadius + (2 * mRadius + mMargin) * currentPosition + (2 * mRadius + mMargin) * slideProgress, height / 2f, mRadius, mPaint);
+        drawSlideStyle(canvas);
+    }
+
+    private void drawSlideStyle(Canvas canvas) {
+        switch (mSlideStyle) {
+            case NORMAL:
+                mPaint.setColor(checkedColor);
+                canvas.drawCircle(maxRadius + (2 * mNormalRadius + mMargin) * currentPosition, height / 2f, mCheckedRadius, mPaint);
+            case SMOOTH:
+                mPaint.setColor(checkedColor);
+                canvas.drawCircle(maxRadius + (2 * mNormalRadius + mMargin) * currentPosition + (2 * mNormalRadius + mMargin) * slideProgress, height / 2f, mCheckedRadius, mPaint);
+                break;
+        }
     }
 
     @Override
     public void onPageSelected(int position) {
-
+        if (mSlideStyle == IndicatorSlideMode.NORMAL) {
+            this.currentPosition = position;
+            invalidate();
+        }
     }
 
     private float slideProgress;
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        slideProgress = positionOffset;
-        currentPosition = position;
-        invalidate();
+        if (mSlideStyle == IndicatorSlideMode.SMOOTH) {
+            slideProgress = positionOffset;
+            currentPosition = position;
+            invalidate();
+        }
     }
 
     @Override
@@ -110,7 +132,14 @@ public class IndicatorView extends View implements ViewPager.OnPageChangeListene
     }
 
     public IndicatorView setIndicatorRadius(float radiusDp) {
-        this.mRadius = radiusDp;
+        this.mNormalRadius = radiusDp;
+        this.mCheckedRadius = radiusDp;
+        return this;
+    }
+
+    public IndicatorView setIndicatorRadius(float radiusDp, float checkedRadius) {
+        this.mNormalRadius = radiusDp;
+        this.mCheckedRadius = checkedRadius;
         return this;
     }
 
@@ -118,6 +147,11 @@ public class IndicatorView extends View implements ViewPager.OnPageChangeListene
         if (margin > 0) {
             this.mMargin = margin;
         }
+        return this;
+    }
+
+    public IndicatorView setSlideStyle(IndicatorSlideMode slideStyle) {
+        mSlideStyle = slideStyle;
         return this;
     }
 }

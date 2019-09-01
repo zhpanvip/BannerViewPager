@@ -15,10 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerBannerActivity extends AppCompatActivity {
-    //    private String[] picUrls = {"http://pic31.nipic.com/20130801/11604791_100539834000_2.jpg",
-//            "http://pic37.nipic.com/20140115/7430301_100825571157_2.jpg",
-//            "http://pic29.nipic.com/20130507/8952533_183922555000_2.jpg",
-//            "http://b-ssl.duitang.com/uploads/item/201706/10/20170610095055_G5LM8.jpeg"};
     private List<CustomBean> mList = new ArrayList<>();
     private BannerViewPager<CustomBean, CustomPageViewHolder> mViewPager;
     private int[] imgRes = {R.drawable.guide0, R.drawable.guide1, R.drawable.guide2};

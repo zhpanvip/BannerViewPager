@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,10 +7,19 @@
     android:padding="15dp">
 
     <Button
+        android:id="@+id/btn_slide_mode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:layout_marginTop="15dp"
+        android:text="@string/indicator_slide_mode" />
+
+    <Button
         android:id="@+id/btn_view_pager4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onClick"
+        android:layout_marginTop="15dp"
         android:text="@string/load_data" />
 
     <Button

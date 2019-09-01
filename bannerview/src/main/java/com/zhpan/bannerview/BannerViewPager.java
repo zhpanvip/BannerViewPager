@@ -13,7 +13,6 @@ import androidx.annotation.IntDef;
 import androidx.viewpager.widget.ViewPager;
 
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -22,12 +21,14 @@ import android.widget.RelativeLayout;
 
 import com.zhpan.bannerview.Utils.DpUtils;
 import com.zhpan.bannerview.adapter.BannerPagerAdapter;
+import com.zhpan.bannerview.enums.IndicatorSlideMode;
+import com.zhpan.bannerview.enums.IndicatorStyle;
 import com.zhpan.bannerview.holder.HolderCreator;
 import com.zhpan.bannerview.holder.ViewHolder;
 import com.zhpan.bannerview.provider.BannerScroller;
 import com.zhpan.bannerview.provider.ViewStyleSetter;
 import com.zhpan.bannerview.transform.PageTransformerFactory;
-import com.zhpan.bannerview.transform.TransformerStyle;
+import com.zhpan.bannerview.enums.TransformerStyle;
 import com.zhpan.bannerview.view.IndicatorView;
 
 import java.lang.annotation.ElementType;
@@ -69,11 +70,17 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     // 选中时选点颜色
     private int indicatorCheckedColor;
     // 指示器圆点半径
-    private float indicatorRadius;
+    private float normalIndicatorRadius;
+    // 选中时指示器圆点半径
+    private float checkedIndicatorRadius;
+
     // 页面点击事件监听
     private OnPageClickListener mOnPageClickListener;
     // 圆点指示器的Layout
     private IndicatorView mIndicatorView;
+
+    private IndicatorSlideMode mIndicatorSlideMode = IndicatorSlideMode.SMOOTH;
+
     RelativeLayout mRelativeLayout;
     private HolderCreator<VH> holderCreator;
     Handler mHandler = new Handler();
@@ -97,6 +104,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     public static final int DEFAULT_SCROLL_DURATION = 800;
 
     private float indicatorMargin = 0;
+
 
 //    private OnPageChangedListener mOnPageChangedListener;
 
@@ -124,8 +132,9 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
             indicatorNormalColor =
                     typedArray.getColor(R.styleable.BannerViewPager_indicator_normal_color,
                             Color.parseColor("#6C6D72"));
-            indicatorRadius = typedArray.getDimension(R.styleable.BannerViewPager_indicator_radius,
+            normalIndicatorRadius = typedArray.getDimension(R.styleable.BannerViewPager_indicator_radius,
                     DpUtils.dp2px(context, 4));
+            checkedIndicatorRadius = normalIndicatorRadius;
             isAutoPlay = typedArray.getBoolean(R.styleable.BannerViewPager_isAutoPlay, true);
             isCanLoop = typedArray.getBoolean(R.styleable.BannerViewPager_isCanLoop, true);
             gravity = typedArray.getInt(R.styleable.BannerViewPager_indicator_gravity, 0);
@@ -197,9 +206,9 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
      */
     private void initIndicator() {
         if (mList.size() > 1 && showIndicator) {
-            mIndicatorView.setPageSize(mList.size()).setIndicatorRadius(indicatorRadius)
+            mIndicatorView.setPageSize(mList.size()).setIndicatorRadius(normalIndicatorRadius, checkedIndicatorRadius)
                     .setIndicatorMargin(indicatorMargin).setCheckedColor(indicatorCheckedColor)
-                    .setNormalColor(indicatorNormalColor).invalidate();
+                    .setNormalColor(indicatorNormalColor).setSlideStyle(mIndicatorSlideMode).invalidate();
             RelativeLayout.LayoutParams layoutParams =
                     (RelativeLayout.LayoutParams) mIndicatorView.getLayoutParams();
             switch (gravity) {
@@ -235,6 +244,8 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
             mViewPager.addOnPageChangeListener(this);
             startLoop();
             setTouchListener();
+        } else {
+            throw new NullPointerException("You must set HolderCreator for BannerViewPager");
         }
     }
 
@@ -405,7 +416,14 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
      * @param radiusDp 指示器圆点半径
      */
     public BannerViewPager<T, VH> setIndicatorRadius(float radiusDp) {
-        this.indicatorRadius = DpUtils.dp2px(getContext(), radiusDp);
+        this.normalIndicatorRadius = DpUtils.dp2px(getContext(), radiusDp);
+        this.checkedIndicatorRadius = normalIndicatorRadius;
+        return this;
+    }
+
+    public BannerViewPager<T, VH> setIndicatorRadius(float normalRadius, float checkRadius) {
+        this.normalIndicatorRadius = DpUtils.dp2px(getContext(), normalRadius);
+        this.checkedIndicatorRadius = DpUtils.dp2px(getContext(), checkRadius);
         return this;
     }
 
@@ -415,7 +433,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
      * @param radiusRes 指示器圆点半径
      */
     public BannerViewPager<T, VH> setIndicatorRadius(@DimenRes int radiusRes) {
-        this.indicatorRadius = getContext().getResources().getDimension(radiusRes);
+        this.normalIndicatorRadius = getContext().getResources().getDimension(radiusRes);
         return this;
     }
 
@@ -445,6 +463,11 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
      */
     public BannerViewPager<T, VH> setIndicatorGravity(@IndicatorGravity int gravity) {
         this.gravity = gravity;
+        return this;
+    }
+
+    public BannerViewPager<T, VH> setIndicatorSlideMode(IndicatorSlideMode slideStyle) {
+        mIndicatorSlideMode = slideStyle;
         return this;
     }
 

@@ -2,6 +2,8 @@ package com.zhpan.bannerview.transform;
 
 import androidx.viewpager.widget.ViewPager;
 
+import com.zhpan.bannerview.enums.TransformerStyle;
+
 public class PageTransformerFactory {
 
     public ViewPager.PageTransformer createPageTransformer(TransformerStyle transformerStyle) {

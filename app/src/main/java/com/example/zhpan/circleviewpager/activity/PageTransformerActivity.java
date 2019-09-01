@@ -9,7 +9,7 @@ import android.view.MenuItem;
 import com.example.zhpan.circleviewpager.R;
 import com.example.zhpan.circleviewpager.viewholder.TransformerViewHolder;
 import com.zhpan.bannerview.BannerViewPager;
-import com.zhpan.bannerview.transform.TransformerStyle;
+import com.zhpan.bannerview.enums.TransformerStyle;
 
 import java.util.ArrayList;
 
