@@ -37,7 +37,7 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:27.1.1'
 }
 
-version = "2.1.3"
+version = "2.1.4"
 def siteUrl = 'https://github.com/zhpanvip/BannerViewPager'      // 项目的主页
 def gitUrl = 'https://github.com/zhpanvip/BannerViewPager.git'   // Git仓库的url
 group = "com.zhpan.library" // Maven Group ID for the artifact，一般填你唯一的包名
