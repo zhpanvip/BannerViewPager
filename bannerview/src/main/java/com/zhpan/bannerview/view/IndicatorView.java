@@ -82,16 +82,14 @@ public class IndicatorView extends View {
     private void drawSlideStyle(Canvas canvas) {
         switch (mSlideStyle) {
             case NORMAL:
-                mPaint.setColor(checkedColor);
-                canvas.drawCircle(maxRadius + (2 * mNormalRadius + mMargin) * currentPosition, height / 2f, mCheckedRadius, mPaint);
+                slideProgress=0;
             case SMOOTH:
-                mPaint.setColor(checkedColor);
-                if (currentPosition == mPageSize-1) {
-                    canvas.drawCircle(maxRadius + (2 * mNormalRadius + mMargin) * currentPosition, height / 2f, mCheckedRadius, mPaint);
-                } else
-                    canvas.drawCircle(maxRadius + (2 * mNormalRadius + mMargin) * currentPosition + (2 * mNormalRadius + mMargin) * slideProgress, height / 2f, mCheckedRadius, mPaint);
+                slideProgress = (currentPosition == mPageSize - 1) ? 0 : slideProgress;
                 break;
         }
+        mPaint.setColor(checkedColor);
+        canvas.drawCircle(maxRadius + (2 * mNormalRadius + mMargin) * currentPosition + (2 * mNormalRadius + mMargin) * slideProgress,
+                height / 2f, mCheckedRadius, mPaint);
     }
 
     public void onPageSelected(int position) {
