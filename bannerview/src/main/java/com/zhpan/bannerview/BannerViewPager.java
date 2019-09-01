@@ -13,6 +13,7 @@ import androidx.annotation.IntDef;
 import androidx.viewpager.widget.ViewPager;
 
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -239,20 +240,15 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
 
     @Override
     public void onPageSelected(int position) {
-//        if (null != mOnPageChangedListener) {
-//            mOnPageChangedListener.onPageSelected(getRealPosition(position));
-//        }
         currentPosition = position;
         if (showIndicator) {
-            mIndicatorView.pageSelect(getRealPosition(position));
+            mIndicatorView.onPageSelected(getRealPosition(position));
         }
     }
 
     @Override
     public void onPageScrollStateChanged(int state) {
-//        if (null != mOnPageChangedListener) {
-//            mOnPageChangedListener.onPageScrollStateChanged(state);
-//        }
+        mIndicatorView.onPageScrollStateChanged(state);
         if (isCanLoop) {
             switch (state) {
                 case ViewPager.SCROLL_STATE_IDLE:
@@ -277,9 +273,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-//        if (null != mOnPageChangedListener) {
-//            mOnPageChangedListener.onPageScrolled(position, positionOffset, positionOffsetPixels);
-//        }
+        mIndicatorView.onPageScrolled(getRealPosition(position), positionOffset, positionOffsetPixels);
     }
 
     private int getRealPosition(int position) {
@@ -320,14 +314,6 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
         }
     }
 
-//    public BannerViewPager<T, VH> setData(List<T> list) {
-//        if (list != null) {
-//            mList.clear();
-//            mList.addAll(list);
-//            initData();
-//        }
-//        return this;
-//    }
 
     public BannerViewPager<T, VH> setHolderCreator(HolderCreator<VH> holderCreator) {
         this.holderCreator = holderCreator;
@@ -543,17 +529,4 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     @Target(ElementType.PARAMETER)
     @interface IndicatorGravity {
     }
-
-//    public void setOnPageChangedListener(OnPageChangedListener mOnPageChangedListener) {
-//        this.mOnPageChangedListener = mOnPageChangedListener;
-//    }
-//
-//    public interface OnPageChangedListener {
-//        void onPageSelected(int position);
-//
-//        void onPageScrollStateChanged(int state);
-//
-//        void onPageScrolled(int position, float positionOffset, int positionOffsetPixels);
-//
-//    }
 }
