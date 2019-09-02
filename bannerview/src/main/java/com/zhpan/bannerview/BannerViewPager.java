@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
+import com.zhpan.bannerview.indicator.IIndicator;
 import com.zhpan.bannerview.utils.DpUtils;
 import com.zhpan.bannerview.adapter.BannerPagerAdapter;
 import com.zhpan.bannerview.enums.IndicatorSlideMode;
@@ -76,7 +77,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     // 页面点击事件监听
     private OnPageClickListener mOnPageClickListener;
     // 圆点指示器的Layout
-    private IndicatorView mIndicatorView;
+    private IIndicator mIndicatorView;
 
     private IndicatorSlideMode mIndicatorSlideMode = IndicatorSlideMode.SMOOTH;
 
@@ -171,12 +172,22 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
      */
     private void initData() {
         if (mList.size() > 0) {
-            initIndicator();
+            if (mList.size() > 1 && showIndicator) {
+                initIndicator(getIndicatorView());
+            }
             if (isCanLoop) {
                 currentPosition = 1;
             }
             setupViewPager();
         }
+    }
+
+    private View getIndicatorView() {
+        IndicatorView indicatorView = new IndicatorView(getContext());
+        indicatorView.setPageSize(mList.size()).setIndicatorRadius(normalIndicatorRadius, checkedIndicatorRadius)
+                .setIndicatorMargin(indicatorMargin).setCheckedColor(indicatorCheckedColor)
+                .setNormalColor(indicatorNormalColor).setSlideStyle(mIndicatorSlideMode).invalidate();
+        return indicatorView;
     }
 
 
@@ -207,28 +218,23 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     /**
      * 构造指示器
      */
-    private void initIndicator() {
-        if (mList.size() > 1 && showIndicator) {
-            mIndicatorView = new IndicatorView(getContext());
-            mRelativeLayout.removeAllViews();
-            mRelativeLayout.addView(mIndicatorView);
-            mIndicatorView.setPageSize(mList.size()).setIndicatorRadius(normalIndicatorRadius, checkedIndicatorRadius)
-                    .setIndicatorMargin(indicatorMargin).setCheckedColor(indicatorCheckedColor)
-                    .setNormalColor(indicatorNormalColor).setSlideStyle(mIndicatorSlideMode).invalidate();
-            RelativeLayout.LayoutParams layoutParams =
-                    (RelativeLayout.LayoutParams) mIndicatorView.getLayoutParams();
-            layoutParams.addRule(RelativeLayout.CENTER_VERTICAL);
-            switch (gravity) {
-                case CENTER:
-                    layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
-                    break;
-                case START:
-                    layoutParams.addRule(RelativeLayout.ALIGN_PARENT_START);
-                    break;
-                case END:
-                    layoutParams.addRule(RelativeLayout.ALIGN_PARENT_END);
-                    break;
-            }
+    private void initIndicator(View indicatorView) {
+        mRelativeLayout.removeAllViews();
+        mRelativeLayout.addView(indicatorView);
+        mIndicatorView = (IIndicator) indicatorView;
+        RelativeLayout.LayoutParams layoutParams =
+                (RelativeLayout.LayoutParams) indicatorView.getLayoutParams();
+        layoutParams.addRule(RelativeLayout.CENTER_VERTICAL);
+        switch (gravity) {
+            case CENTER:
+                layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
+                break;
+            case START:
+                layoutParams.addRule(RelativeLayout.ALIGN_PARENT_START);
+                break;
+            case END:
+                layoutParams.addRule(RelativeLayout.ALIGN_PARENT_END);
+                break;
         }
     }
 
@@ -435,6 +441,13 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     public BannerViewPager<T, VH> setIndicatorRadius(float normalRadius, float checkRadius) {
         this.normalIndicatorRadius = DpUtils.dp2px(getContext(), normalRadius);
         this.checkedIndicatorRadius = DpUtils.dp2px(getContext(), checkRadius);
+        return this;
+    }
+
+    public BannerViewPager<T, VH> setIndicatorView(IIndicator indicatorView) {
+        if (indicatorView instanceof View) {
+            initIndicator((View) indicatorView);
+        }
         return this;
     }
 
