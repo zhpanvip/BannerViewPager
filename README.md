@@ -48,12 +48,10 @@
 |BannerViewPager<T, VH> setIndicatorRadius(@DimenRes int normalRadius, @DimenRes int checkRadius)  |设置指示器圆点半径  |  normalRadius:未选中时半径  checkedRadius:选中时的半径 |
 | BannerViewPager<T, VH> setIndicatorMargin(float indicatorMarginDp) | 指示器圆点间距| 单位dp  默认值圆点直径|
 | BannerViewPager<T, VH> setIndicatorMargin(@DimenRes int marginRes) | 指示器圆点间距| DimenRes 默认值圆点直径|
-| BannerViewPager<T, VH> setIndicatorView(IIndicator indicatorView) | 设置自定义指示器| 设置自定义指示器后以上关于IndicatorView的参数均会失效|
+| BannerViewPager<T, VH> setIndicatorView(IIndicator indicatorView) | 设置自定义指示器| 2.2.3新增 设置自定义指示器后以上关于IndicatorView的参数均会失效|
 | BannerViewPager<T, VH> setCurrentItem(final int position)  |  切换到第position个页面|  |
 | BannerViewPager<T, VH> setCurrentItem(final int position, final boolean smoothScroll) | 平滑切换到第position个页面 |  |
 | BannerViewPager<T, VH> setHolderCreator(HolderCreator<VH> holderCreator) |设置HolderCreator  |必须设置HolderCreator，否则会抛出NullPointerException|
-| BannerViewPager<T, VH> setPageTransformer(ViewPager.PageTransformer transformer) |设置transformer  |V2.1.2新增  |
-| BannerViewPager<T, VH> setPageTransformerStyle(TransformerStyle style) |内置transformer样式  |V2.1.2新增 可选参数（DEPTH, ROTATE_DOWN, STACK, ACCORDION）  |
 | void startLoop() |开启自动轮播 | 初始化BannerViewPager时不必调用该方法,设置setAutoPlay后会调用startLoop() |
 | void stopLoop() | 停止自动轮播 |  |
 | void create(List<T> list) |初始化并构造BannerViewPager  |必须调用，否则前面设置的参数无效  |
@@ -264,7 +262,7 @@ RectangleIndicatorView indicatorView = new RectangleIndicatorView(this);
  （8）目前Indicator部分代码比较乱，还有很大很大的优化空间，后续版本将持续优化
 
 
-[更多详情请点击此处](http://blog.csdn.net/qq_20521573/article/details/52037929)
+[更多详情请点击此处](https://juejin.im/post/5d6bce24f265da03db0790d1)
 
 ## 感谢
 
