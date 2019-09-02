@@ -1,4 +1,4 @@
-package com.zhpan.bannerview.Utils;
+package com.zhpan.bannerview.utils;
 
 import android.content.Context;
 import android.util.DisplayMetrics;

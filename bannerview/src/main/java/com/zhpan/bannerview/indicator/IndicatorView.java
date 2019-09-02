@@ -1,4 +1,4 @@
-package com.zhpan.bannerview.view;
+package com.zhpan.bannerview.indicator;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -7,15 +7,13 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
 
-import androidx.viewpager.widget.ViewPager;
-
 import com.zhpan.bannerview.enums.IndicatorSlideMode;
-import com.zhpan.bannerview.Utils.DpUtils;
+import com.zhpan.bannerview.utils.DpUtils;
 
 /**
  * Created by zhpan on 2017/12/6.
  */
-public class IndicatorView extends View {
+public class IndicatorView extends View implements IIndicator {
     private static final String tag = "IndicatorView";
     private int normalColor;
     private int checkedColor;
@@ -40,8 +38,8 @@ public class IndicatorView extends View {
 
     public IndicatorView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        normalColor = Color.parseColor("#000000");
-        checkedColor = Color.parseColor("#ffffff");
+        normalColor = Color.parseColor("#8C18171C");
+        checkedColor = Color.parseColor("#8C6C6D72");
         mPaint = new Paint();
         mPaint.setColor(normalColor);
         mPaint.setAntiAlias(true);
@@ -79,10 +77,32 @@ public class IndicatorView extends View {
         drawSlideStyle(canvas);
     }
 
+    @Override
+    public void onPageSelected(int position) {
+        if (mSlideStyle == IndicatorSlideMode.NORMAL) {
+            this.currentPosition = position;
+            invalidate();
+        }
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        if (mSlideStyle == IndicatorSlideMode.SMOOTH) {
+            slideProgress = positionOffset;
+            currentPosition = position;
+            invalidate();
+        }
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
+    }
+
     private void drawSlideStyle(Canvas canvas) {
         switch (mSlideStyle) {
             case NORMAL:
-                slideProgress=0;
+                slideProgress = 0;
             case SMOOTH:
                 slideProgress = (currentPosition == mPageSize - 1) ? 0 : slideProgress;
                 break;
@@ -92,20 +112,6 @@ public class IndicatorView extends View {
                 height / 2f, mCheckedRadius, mPaint);
     }
 
-    public void onPageSelected(int position) {
-        if (mSlideStyle == IndicatorSlideMode.NORMAL) {
-            this.currentPosition = position;
-            invalidate();
-        }
-    }
-
-    public void onPageScrolled(int position, float positionOffset) {
-        if (mSlideStyle == IndicatorSlideMode.SMOOTH) {
-            slideProgress = positionOffset;
-            currentPosition = position;
-            invalidate();
-        }
-    }
 
     public IndicatorView setNormalColor(int normalColor) {
         this.normalColor = normalColor;
