@@ -21,6 +21,9 @@ public class MainActivity extends AppCompatActivity {
     public void onClick(View view) {
         Intent intent;
         switch (view.getId()) {
+            case R.id.btn_custom_indicator:
+                intent = new Intent(this, CustomIndicatorActivity.class);
+                break;
             case R.id.btn_view_pager3:
                 intent = new Intent(this, BannerPhotoViewActivity.class);
                 break;

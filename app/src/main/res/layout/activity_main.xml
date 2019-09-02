@@ -15,6 +15,14 @@
         android:text="@string/indicator_slide_mode" />
 
     <Button
+        android:id="@+id/btn_custom_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:layout_marginTop="15dp"
+        android:text="@string/custom_indicator_view" />
+
+    <Button
         android:id="@+id/btn_view_pager4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

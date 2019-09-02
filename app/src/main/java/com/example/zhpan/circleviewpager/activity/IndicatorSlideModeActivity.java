@@ -6,12 +6,13 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 
 import com.example.zhpan.circleviewpager.R;
 import com.example.zhpan.circleviewpager.viewholder.SlideModeViewHolder;
 import com.zhpan.bannerview.BannerViewPager;
 import com.zhpan.bannerview.enums.IndicatorSlideMode;
-import com.zhpan.bannerview.enums.IndicatorStyle;
+import com.zhpan.bannerview.indicator.CircleIndicatorView;
 
 import java.util.Arrays;
 import java.util.List;

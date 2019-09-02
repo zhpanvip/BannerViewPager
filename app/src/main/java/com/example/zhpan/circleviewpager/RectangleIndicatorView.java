@@ -1,4 +1,4 @@
-package com.zhpan.bannerview.indicator;
+package com.example.zhpan.circleviewpager;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -8,58 +8,54 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.zhpan.bannerview.enums.IndicatorSlideMode;
+import com.zhpan.bannerview.indicator.IIndicator;
 import com.zhpan.bannerview.utils.DpUtils;
 
 /**
  * Created by zhpan on 2017/12/6.
  */
-public class IndicatorView extends View implements IIndicator {
-    private static final String tag = "IndicatorView";
+public class RectangleIndicatorView extends View implements IIndicator {
     private int normalColor;
     private int checkedColor;
     private Paint mPaint;
     private int mPageSize;
-    private float mNormalRadius;
-    private float mCheckedRadius;
-    private float maxRadius;
-    private int height;
+    private float sliderWidth;
+    private float sliderHeight;
     private int currentPosition;
     private float mMargin;
     private IndicatorSlideMode mSlideStyle = IndicatorSlideMode.SMOOTH;
     private float slideProgress;
 
-    public IndicatorView(Context context) {
+    public RectangleIndicatorView(Context context) {
         this(context, null);
     }
 
-    public IndicatorView(Context context, AttributeSet attrs) {
+    public RectangleIndicatorView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public IndicatorView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public RectangleIndicatorView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         normalColor = Color.parseColor("#8C18171C");
         checkedColor = Color.parseColor("#8C6C6D72");
         mPaint = new Paint();
         mPaint.setColor(normalColor);
         mPaint.setAntiAlias(true);
-        mNormalRadius = DpUtils.dp2px(context, 4);
-        mCheckedRadius = mNormalRadius;
-        mMargin = mNormalRadius * 2;
+        sliderWidth = DpUtils.dp2px(context, 5);
+        sliderHeight = sliderWidth / 2;
+        mMargin = sliderWidth;
     }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        height = getHeight();
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        maxRadius = Math.max(mCheckedRadius, mNormalRadius);
-        setMeasuredDimension((int) ((mPageSize - 1) * mMargin + 2 * maxRadius * mPageSize),
-                (int) (2 * maxRadius));
+        setMeasuredDimension((int) ((mPageSize - 1) * mMargin + sliderWidth * mPageSize),
+                (int) (sliderHeight));
     }
 
     @Override
@@ -70,11 +66,12 @@ public class IndicatorView extends View implements IIndicator {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        mPaint.setColor(normalColor);
         for (int i = 0; i < mPageSize; i++) {
             mPaint.setColor(normalColor);
-            canvas.drawCircle(maxRadius + (2 * mNormalRadius + mMargin) * i, height / 2f, mNormalRadius, mPaint);
+            canvas.drawRect(i * (sliderWidth) + i * +mMargin, 0, i * (sliderWidth) + i * +mMargin + sliderWidth, sliderHeight, mPaint);
         }
-        drawSlideStyle(canvas);
+        drawSliderStyle(canvas);
     }
 
     @Override
@@ -99,7 +96,7 @@ public class IndicatorView extends View implements IIndicator {
 
     }
 
-    private void drawSlideStyle(Canvas canvas) {
+    private void drawSliderStyle(Canvas canvas) {
         switch (mSlideStyle) {
             case NORMAL:
                 slideProgress = 0;
@@ -108,41 +105,44 @@ public class IndicatorView extends View implements IIndicator {
                 break;
         }
         mPaint.setColor(checkedColor);
-        canvas.drawCircle(maxRadius + (2 * mNormalRadius + mMargin) * currentPosition + (2 * mNormalRadius + mMargin) * slideProgress,
-                height / 2f, mCheckedRadius, mPaint);
+        canvas.drawRect(currentPosition * (sliderWidth) + currentPosition * +mMargin + (sliderWidth + mMargin) * slideProgress, 0, currentPosition * (sliderWidth) + currentPosition * +mMargin + (sliderWidth + mMargin) * slideProgress + sliderWidth, sliderHeight, mPaint);
     }
 
 
-    public IndicatorView setNormalColor(int normalColor) {
+    public RectangleIndicatorView setNormalColor(int normalColor) {
         this.normalColor = normalColor;
         return this;
     }
 
-    public IndicatorView setCheckedColor(int checkedColor) {
+    public RectangleIndicatorView setCheckedColor(int checkedColor) {
         this.checkedColor = checkedColor;
         return this;
     }
 
-    public IndicatorView setPageSize(int pageSize) {
+    public RectangleIndicatorView setPageSize(int pageSize) {
         this.mPageSize = pageSize;
         requestLayout();
         return this;
     }
 
-    public IndicatorView setIndicatorRadius(float radiusDp, float checkedRadius) {
-        this.mNormalRadius = radiusDp;
-        this.mCheckedRadius = checkedRadius;
-        return this;
-    }
-
-    public IndicatorView setIndicatorMargin(float margin) {
+    public RectangleIndicatorView setIndicatorMargin(float margin) {
         if (margin > 0) {
-            this.mMargin = margin;
+            this.mMargin = DpUtils.dp2px(getContext(), margin);
         }
         return this;
     }
 
-    public IndicatorView setSlideStyle(IndicatorSlideMode slideStyle) {
+    public RectangleIndicatorView setSliderWidth(float sliderWidth) {
+        this.sliderWidth = DpUtils.dp2px(getContext(), sliderWidth);
+        return this;
+    }
+
+    public RectangleIndicatorView setSliderHeight(float sliderHeight) {
+        this.sliderHeight = DpUtils.dp2px(getContext(), sliderHeight);
+        return this;
+    }
+
+    public RectangleIndicatorView setSlideStyle(IndicatorSlideMode slideStyle) {
         mSlideStyle = slideStyle;
         return this;
     }

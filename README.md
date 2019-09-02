@@ -1,20 +1,27 @@
 
 
-## 效果预览
+# 效果预览
 
-**1.基础功能**
+## 1.基础功能
 
 | 嵌套RecyclerView | 自定义页面 | 嵌套PhotoView   |
 |--|--|--|
 | ![嵌套RecyclerView](https://github.com/zhpanvip/BannerViewPager/blob/master/image/preview1.gif) | ![自定义页面](https://github.com/zhpanvip/BannerViewPager/blob/master/image/preview2.gif) | ![嵌套PhotoView](https://github.com/zhpanvip/BannerViewPager/blob/master/image/preview3.gif)   |
 
-**2.自定义Indicator滑动样式**
+## 2.自定义Indicator样式
 
 | NORMAL | SMOOTH |
 |--|--|
 | ![NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/slide_normal.gif) |  ![SMOOTH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/slide_smooth.gif) |
 
-**3.内置Transform样式**
+## 3.自定义IndicatorView
+如果以上样式不能满足你的需求，BannerViewPager还提供了完全自定义IndicatorView的功能。只要实现IIndicator接口，你就可以为所欲为的打造属于你自己的Indicator了,效果如下：
+
+| Custom Indicator |
+|--|
+| ![NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/custom_indicator.gif) |
+
+## 4.内置Transform样式
 
 | 参数 | STACK | ROTATE | DEPTH | ACCORDION |
 |--|--|--|--|--|
@@ -22,7 +29,7 @@
 
 
 
-## 开放API
+# 开放API
 
 | 方法名 | 方法描述 | 说明 |
 |--|--|--|
@@ -41,6 +48,7 @@
 |BannerViewPager<T, VH> setIndicatorRadius(@DimenRes int normalRadius, @DimenRes int checkRadius)  |设置指示器圆点半径  |  normalRadius:未选中时半径  checkedRadius:选中时的半径 |
 | BannerViewPager<T, VH> setIndicatorMargin(float indicatorMarginDp) | 指示器圆点间距| 单位dp  默认值圆点直径|
 | BannerViewPager<T, VH> setIndicatorMargin(@DimenRes int marginRes) | 指示器圆点间距| DimenRes 默认值圆点直径|
+| BannerViewPager<T, VH> setIndicatorView(IIndicator indicatorView) | 设置自定义指示器| 设置自定义指示器后以上关于IndicatorView的参数均会失效|
 | BannerViewPager<T, VH> setCurrentItem(final int position)  |  切换到第position个页面|  |
 | BannerViewPager<T, VH> setCurrentItem(final int position, final boolean smoothScroll) | 平滑切换到第position个页面 |  |
 | BannerViewPager<T, VH> setHolderCreator(HolderCreator<VH> holderCreator) |设置HolderCreator  |必须设置HolderCreator，否则会抛出NullPointerException|
@@ -50,10 +58,9 @@
 | void stopLoop() | 停止自动轮播 |  |
 | void create(List<T> list) |初始化并构造BannerViewPager  |必须调用，否则前面设置的参数无效  |
 
+# 如何使用
 
-## 如何使用
-
-  **1.gradle中添加依赖**
+## 1.gradle中添加依赖
    
 latestVersion is: [ ![latestVersion](https://api.bintray.com/packages/zhpanvip/CircleViewPager/bannerview/images/download.svg) ](https://bintray.com/zhpanvip/CircleViewPager/bannerview/_latestVersion)
 
@@ -67,7 +74,7 @@ implementation 'com.zhpan.library:bannerview:latestVersion'
 implementation 'com.zhpan.library:bannerview:2.1.4'
 ```
 
-  **2.在xml文件中添加如下代码：**
+## 2.在xml文件中添加如下代码：
 
 ```
     <com.zhpan.bannerview.BannerViewPager
@@ -77,7 +84,7 @@ implementation 'com.zhpan.library:bannerview:2.1.4'
             android:layout_height="160dp" />
 ```
 
-**3.自定义ViewHolder**
+## 3.自定义ViewHolder
 
 ```
 public class NetViewHolder implements ViewHolder<BannerData> {
@@ -101,7 +108,7 @@ public class NetViewHolder implements ViewHolder<BannerData> {
 }
 ```
 
- **4.BannerViewPager参数配置**
+## 4.BannerViewPager参数配置
 
 ```
     private BannerViewPager<BannerData, NetViewHolder> mBannerViewPager;
@@ -123,7 +130,7 @@ public class NetViewHolder implements ViewHolder<BannerData> {
         }
 ```
 
-**5.开启与停止轮播**
+## 5.开启与停止轮播
 
 如果开启了自动轮播功能，请务必在onDestroy中停止轮播，以免出现内存泄漏。
 
@@ -152,8 +159,93 @@ public class NetViewHolder implements ViewHolder<BannerData> {
             mBannerViewPager.startLoop();
     }
 ```
+## 6.高级功能---自定义IndicatorView
 
-## TODO 版本计划
+**(1)自定义View并实现IIndicator接口**
+
+```
+public class RectangleIndicatorView extends View implements IIndicator {
+    ...
+
+    public RectangleIndicatorView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        normalColor = Color.parseColor("#8C18171C");
+        checkedColor = Color.parseColor("#8C6C6D72");
+        mPaint = new Paint();
+        mPaint.setColor(normalColor);
+        mPaint.setAntiAlias(true);
+        sliderWidth = DpUtils.dp2px(context, 5);
+        sliderHeight = sliderWidth / 2;
+        mMargin = sliderWidth;
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        setMeasuredDimension((int) ((mPageSize - 1) * mMargin + sliderWidth * mPageSize),
+                (int) (sliderHeight));
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+        mPaint.setColor(normalColor);
+        for (int i = 0; i < mPageSize; i++) {
+            mPaint.setColor(normalColor);
+            canvas.drawRect(i * (sliderWidth) + i * +mMargin, 0, i * (sliderWidth) + i * +mMargin + sliderWidth, sliderHeight, mPaint);
+        }
+        drawSliderStyle(canvas);
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        if (mSlideStyle == IndicatorSlideMode.NORMAL) {
+            this.currentPosition = position;
+            invalidate();
+        }
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        if (mSlideStyle == IndicatorSlideMode.SMOOTH) {
+            slideProgress = positionOffset;
+            currentPosition = position;
+            invalidate();
+        }
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
+    }
+
+    private void drawSliderStyle(Canvas canvas) {
+        switch (mSlideStyle) {
+            case NORMAL:
+                slideProgress = 0;
+            case SMOOTH:
+                slideProgress = (currentPosition == mPageSize - 1) ? 0 : slideProgress;
+                break;
+        }
+        mPaint.setColor(checkedColor);
+        canvas.drawRect(currentPosition * (sliderWidth) + currentPosition * +mMargin + (sliderWidth + mMargin) * slideProgress, 0, currentPosition * (sliderWidth) + currentPosition * +mMargin + (sliderWidth + mMargin) * slideProgress + sliderWidth, sliderHeight, mPaint);
+    }
+    ...
+ }
+```
+**(2)BannerViewPager设置自定义Indicator**
+
+```
+RectangleIndicatorView indicatorView = new RectangleIndicatorView(this);
+        indicatorView.setPageSize(list.size()).setSliderWidth(8f).setSliderHeight(3.5f)
+                .setIndicatorMargin(5f).setCheckedColor(getResources().getColor(R.color.colorAccent))
+                .setNormalColor(getResources().getColor(R.color.colorPrimary));
+        viewPager.setIndicatorView(indicatorView)
+                .setHolderCreator(SlideModeViewHolder::new).create(list);
+
+```
+
+# TODO 版本计划
 
 ~~（1）优化及重构IndicatorView~~（2.0.1）
 
@@ -166,10 +258,11 @@ public class NetViewHolder implements ViewHolder<BannerData> {
 ~~（5）增加IndicatorView的滑动样式~~（2.2.2）
 
  （6）增添更多Indicator滑动模式（2.3.+）
-
+ 
  （7）ViewPager更换为ViewPager2 （3.0.0）
+ 
+ （8）目前Indicator部分代码比较乱，还有很大很大的优化空间，后续版本将持续优化
 
- （8）如有问题欢迎提issue，该库会持续更新优化。
 
 [更多详情请点击此处](http://blog.csdn.net/qq_20521573/article/details/52037929)
 
