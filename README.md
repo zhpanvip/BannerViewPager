@@ -175,8 +175,11 @@ public class NetViewHolder implements ViewHolder<BannerData> {
 ## 感谢
 
 [banner](https://github.com/youth5201314/banner)
+
 [Android-ConvenientBanner](https://github.com/saiwu-bigkoo/Android-ConvenientBanner)
+
 [ViewPagerTransforms](https://github.com/ToxicBakery/ViewPagerTransforms)
+
 
 
 [更多详情请点击此处](http://blog.csdn.net/qq_20521573/article/details/52037929)
