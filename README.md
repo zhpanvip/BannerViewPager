@@ -171,6 +171,7 @@ public class NetViewHolder implements ViewHolder<BannerData> {
 
  （8）如有问题欢迎提issue，该库会持续更新优化。
 
+[更多详情请点击此处](http://blog.csdn.net/qq_20521573/article/details/52037929)
 
 ## 感谢
 
@@ -182,7 +183,7 @@ public class NetViewHolder implements ViewHolder<BannerData> {
 
 
 
-[更多详情请点击此处](http://blog.csdn.net/qq_20521573/article/details/52037929)
+
 
 
 
