@@ -94,22 +94,28 @@ public class CircleIndicatorView extends View implements IIndicator {
                 slideProgress = 0;
                 invalidate();
             }
-
         }
     }
 
     //  TODO 如何判断是左滑还是右滑,现在右滑没问题...
-    boolean slideToRight = true;
+    boolean slideToRight;
+    private int prePosition;
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        slideToRight = (position + positionOffset - prePosition) > 0;
+        if ((prePosition == 0 && position == mPageSize - 1)) {
+            slideToRight = false;
+        }
+        if (positionOffset == 0) {
+            prePosition = position;
+        }
         if (mSlideStyle == IndicatorSlideMode.SMOOTH) {
-//            if (!(position == mPageSize - 1 || position == 0)) {
-//                slideProgress = (currentPosition == mPageSize - 1) ? 0 : positionOffset;
-//                currentPosition = position;
-//                invalidate();
-//            }
-            if (!(position == mPageSize - 1 )) {
+            if(position==mPageSize-1&&slideToRight){
+                Log.e(tag, "slideToRight?" + 11111);
+            }/*else if(position==0&&!slideToRight){
+                Log.e(tag, "slideToRight?" + 2222);
+            }*/else {
                 slideProgress = (currentPosition == mPageSize - 1) ? 0 : positionOffset;
                 currentPosition = position;
                 invalidate();
