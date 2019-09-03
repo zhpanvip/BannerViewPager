@@ -140,12 +140,12 @@ public class NetViewHolder implements ViewHolder<BannerData> {
     		mViewpager.stopLoop();
     }
 ```
-为了节省性能也可以在onPause中停止轮播，在onResume中开启轮播：
+为了节省性能也可以在onStop中停止轮播，在onResume中开启轮播：
 
 ```
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onStop() {
+        super.onStop();
         if (mBannerViewPager != null)
             mBannerViewPager.stopLoop();
     }

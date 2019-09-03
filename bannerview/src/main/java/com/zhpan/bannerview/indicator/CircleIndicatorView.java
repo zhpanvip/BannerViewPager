@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import com.zhpan.bannerview.enums.IndicatorSlideMode;
@@ -80,17 +81,39 @@ public class CircleIndicatorView extends View implements IIndicator {
     @Override
     public void onPageSelected(int position) {
         if (mSlideStyle == IndicatorSlideMode.NORMAL) {
-            this.currentPosition = position;
+            currentPosition = position;
+            slideProgress = 0;
             invalidate();
+        } else if (mSlideStyle == IndicatorSlideMode.SMOOTH) {
+            if (position == 0 && slideToRight) {
+                currentPosition = 0;
+                slideProgress = 0;
+                invalidate();
+            } else if (position == mPageSize - 1 && !slideToRight) {
+                currentPosition = mPageSize - 1;
+                slideProgress = 0;
+                invalidate();
+            }
+
         }
     }
+
+    //  TODO 如何判断是左滑还是右滑,现在右滑没问题...
+    boolean slideToRight = true;
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
         if (mSlideStyle == IndicatorSlideMode.SMOOTH) {
-            slideProgress = positionOffset;
-            currentPosition = position;
-            invalidate();
+//            if (!(position == mPageSize - 1 || position == 0)) {
+//                slideProgress = (currentPosition == mPageSize - 1) ? 0 : positionOffset;
+//                currentPosition = position;
+//                invalidate();
+//            }
+            if (!(position == mPageSize - 1 )) {
+                slideProgress = (currentPosition == mPageSize - 1) ? 0 : positionOffset;
+                currentPosition = position;
+                invalidate();
+            }
         }
     }
 
@@ -100,13 +123,6 @@ public class CircleIndicatorView extends View implements IIndicator {
     }
 
     private void drawSlideStyle(Canvas canvas) {
-        switch (mSlideStyle) {
-            case NORMAL:
-                slideProgress = 0;
-            case SMOOTH:
-                slideProgress = (currentPosition == mPageSize - 1) ? 0 : slideProgress;
-                break;
-        }
         mPaint.setColor(checkedColor);
         canvas.drawCircle(maxRadius + (2 * mNormalRadius + mMargin) * currentPosition + (2 * mNormalRadius + mMargin) * slideProgress,
                 height / 2f, mCheckedRadius, mPaint);

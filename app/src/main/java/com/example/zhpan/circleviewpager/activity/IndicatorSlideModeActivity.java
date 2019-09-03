@@ -33,7 +33,7 @@ public class IndicatorSlideModeActivity extends AppCompatActivity {
         mList = Arrays.asList(picUrls);
         mViewPager.setAutoPlay(false).setCanLoop(true)
                 .setRoundCorner(5f)
-                .setIndicatorRadius(3f,3.5f)
+                .setIndicatorRadius(13f,15f)
                 .setHolderCreator(SlideModeViewHolder::new)
                 .setIndicatorColor(Color.parseColor("#935656"), Color.parseColor("#FF4C39")).create(mList);
     }
