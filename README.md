@@ -69,7 +69,7 @@ implementation 'com.zhpan.library:bannerview:latestVersion'
 ```
 如果未迁移到AndroidX请使用：
 ```
-implementation 'com.zhpan.library:bannerview:2.1.4'
+implementation 'com.zhpan.library:bannerview:2.1.5'
 ```
 
 ## 2.在xml文件中添加如下代码：
