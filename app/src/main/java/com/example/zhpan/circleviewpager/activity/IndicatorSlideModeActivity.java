@@ -31,11 +31,13 @@ public class IndicatorSlideModeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_indicator_slide_mode);
         mViewPager = findViewById(R.id.banner_view);
         mList = Arrays.asList(picUrls);
-        mViewPager.setAutoPlay(false).setCanLoop(true)
+        mViewPager.setAutoPlay(true).setCanLoop(true)
                 .setRoundCorner(5f)
-                .setIndicatorRadius(13f,15f)
+                .setIndicatorMargin(50f)
+                .setScrollDuration(1000)
+                .setIndicatorRadius(13f,18f)
                 .setHolderCreator(SlideModeViewHolder::new)
-                .setIndicatorColor(Color.parseColor("#935656"), Color.parseColor("#FF4C39")).create(mList);
+                .setIndicatorColor(Color.parseColor("#935656"), Color.parseColor("#CCFF4C39")).create(mList);
     }
 
     @Override

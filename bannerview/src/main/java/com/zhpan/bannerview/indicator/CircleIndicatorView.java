@@ -97,26 +97,24 @@ public class CircleIndicatorView extends View implements IIndicator {
         }
     }
 
-    //  TODO 如何判断是左滑还是右滑,现在右滑没问题...
-    boolean slideToRight;
+    private boolean slideToRight;
     private int prePosition;
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        slideToRight = (position + positionOffset - prePosition) > 0;
-        if ((prePosition == 0 && position == mPageSize - 1)) {
-            slideToRight = false;
-        }
-        if (positionOffset == 0) {
-            prePosition = position;
-        }
         if (mSlideStyle == IndicatorSlideMode.SMOOTH) {
-            if(position==mPageSize-1&&slideToRight){
-                Log.e(tag, "slideToRight?" + 11111);
-            }/*else if(position==0&&!slideToRight){
-                Log.e(tag, "slideToRight?" + 2222);
-            }*/else {
-                slideProgress = (currentPosition == mPageSize - 1) ? 0 : positionOffset;
+            slideToRight = (position + positionOffset - prePosition) > 0;
+            if ((prePosition == 0 && position == mPageSize - 1)) {
+                slideToRight = false;
+            } else if (prePosition == mPageSize - 1 && position == 0) {
+                slideToRight = true;
+            }
+            //  TODO 解决滑动过快时positionOffset不会等0的情况
+            if (positionOffset == 0) {
+                prePosition = position;
+            }
+            if (!(position == mPageSize - 1 && slideToRight || (position == mPageSize - 1 && !slideToRight))) {
+                slideProgress = (currentPosition == mPageSize - 1) && slideToRight ? 0 : positionOffset;
                 currentPosition = position;
                 invalidate();
             }
