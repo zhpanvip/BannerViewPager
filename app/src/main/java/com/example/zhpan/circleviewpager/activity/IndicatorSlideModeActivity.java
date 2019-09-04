@@ -6,13 +6,11 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 
 import com.example.zhpan.circleviewpager.R;
 import com.example.zhpan.circleviewpager.viewholder.SlideModeViewHolder;
 import com.zhpan.bannerview.BannerViewPager;
 import com.zhpan.bannerview.enums.IndicatorSlideMode;
-import com.zhpan.bannerview.indicator.CircleIndicatorView;
 
 import java.util.Arrays;
 import java.util.List;
@@ -33,7 +31,7 @@ public class IndicatorSlideModeActivity extends AppCompatActivity {
         mList = Arrays.asList(picUrls);
         mViewPager.setAutoPlay(true).setCanLoop(true)
                 .setRoundCorner(5f)
-                .setIndicatorMargin(50f)
+                .setIndicatorGap(50f)
                 .setScrollDuration(1000)
                 .setIndicatorRadius(6f, 8f)
                 .setHolderCreator(SlideModeViewHolder::new)
