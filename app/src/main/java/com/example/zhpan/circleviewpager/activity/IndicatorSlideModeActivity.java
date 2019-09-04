@@ -35,7 +35,7 @@ public class IndicatorSlideModeActivity extends AppCompatActivity {
                 .setRoundCorner(5f)
                 .setIndicatorMargin(50f)
                 .setScrollDuration(1000)
-                .setIndicatorRadius(13f,18f)
+                .setIndicatorRadius(6f, 8f)
                 .setHolderCreator(SlideModeViewHolder::new)
                 .setIndicatorColor(Color.parseColor("#935656"), Color.parseColor("#CCFF4C39")).create(mList);
     }
@@ -57,5 +57,11 @@ public class IndicatorSlideModeActivity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mViewPager.stopLoop();
     }
 }

@@ -103,11 +103,12 @@ public class CircleIndicatorView extends View implements IIndicator {
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
         if (mSlideStyle == IndicatorSlideMode.SMOOTH) {
-            slideToRight = (position + positionOffset - prePosition) > 0;
             if ((prePosition == 0 && position == mPageSize - 1)) {
                 slideToRight = false;
             } else if (prePosition == mPageSize - 1 && position == 0) {
                 slideToRight = true;
+            } else {
+                slideToRight = (position + positionOffset - prePosition) > 0;
             }
             //  TODO 解决滑动过快时positionOffset不会等0的情况
             if (positionOffset == 0) {
