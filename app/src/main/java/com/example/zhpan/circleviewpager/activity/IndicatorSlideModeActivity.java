@@ -11,6 +11,7 @@ import com.example.zhpan.circleviewpager.R;
 import com.example.zhpan.circleviewpager.viewholder.SlideModeViewHolder;
 import com.zhpan.bannerview.BannerViewPager;
 import com.zhpan.bannerview.enums.IndicatorSlideMode;
+import com.zhpan.bannerview.enums.IndicatorStyle;
 
 import java.util.Arrays;
 import java.util.List;
@@ -31,9 +32,11 @@ public class IndicatorSlideModeActivity extends AppCompatActivity {
         mList = Arrays.asList(picUrls);
         mViewPager.setAutoPlay(true).setCanLoop(true)
                 .setRoundCorner(5f)
-                .setIndicatorGap(50f)
+                .setIndicatorGap(7f)
                 .setScrollDuration(1000)
-                .setIndicatorRadius(6f, 8f)
+                .setIndicatorStyle(IndicatorStyle.CIRCLE)
+//                .setIndicatorStyle(IndicatorStyle.DASH)
+                .setIndicatorWidth(12f)
                 .setHolderCreator(SlideModeViewHolder::new)
                 .setIndicatorColor(Color.parseColor("#935656"), Color.parseColor("#CCFF4C39")).create(mList);
     }

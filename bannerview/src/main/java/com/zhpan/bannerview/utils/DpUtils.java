@@ -1,6 +1,7 @@
 package com.zhpan.bannerview.utils;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.util.DisplayMetrics;
 
 /**
@@ -10,9 +11,26 @@ import android.util.DisplayMetrics;
  * </pre>
  */
 public class DpUtils {
-    public static int dp2px(Context context, float dpValue) {
-        DisplayMetrics metric = context.getResources().getDisplayMetrics();
-        float screenDensity = metric.density;
-        return (int) (dpValue * screenDensity + 0.5f);
+
+    public float density;
+
+    public DpUtils() {
+        this.density = Resources.getSystem().getDisplayMetrics().density;
+    }
+
+    public static int dp2px(float dpValue) {
+        return (int)(0.5F + dpValue * Resources.getSystem().getDisplayMetrics().density);
+    }
+
+    public static float px2dp(float pxValue) {
+        return pxValue / Resources.getSystem().getDisplayMetrics().density;
+    }
+
+    public int dip2px(float dpValue) {
+        return (int)(0.5F + dpValue * this.density);
+    }
+
+    public float px2dip(int pxValue) {
+        return (float)pxValue / this.density;
     }
 }

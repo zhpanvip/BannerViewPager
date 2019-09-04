@@ -2,32 +2,23 @@ package com.zhpan.bannerview.indicator;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.View;
 
-import com.zhpan.bannerview.enums.IndicatorSlideMode;
+import androidx.annotation.DimenRes;
+
 import com.zhpan.bannerview.utils.DpUtils;
 
 /**
  * Created by zhpan on 2017/12/6.
  */
-public class CircleIndicatorView extends View implements IIndicator {
+public class CircleIndicatorView extends BaseIndicatorView {
     private static final String tag = "IndicatorView";
-    private int normalColor;
-    private int checkedColor;
     private Paint mPaint;
-    private int mPageSize;
     private float mNormalRadius;
     private float mCheckedRadius;
     private float maxRadius;
     private int height;
-    private int currentPosition;
-    private float mMargin;
-    private IndicatorSlideMode mSlideStyle = IndicatorSlideMode.SMOOTH;
-    private float slideProgress;
 
     public CircleIndicatorView(Context context) {
         this(context, null);
@@ -39,14 +30,12 @@ public class CircleIndicatorView extends View implements IIndicator {
 
     public CircleIndicatorView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        normalColor = Color.parseColor("#8C18171C");
-        checkedColor = Color.parseColor("#8C6C6D72");
         mPaint = new Paint();
         mPaint.setColor(normalColor);
         mPaint.setAntiAlias(true);
-        mNormalRadius = DpUtils.dp2px(context, 4);
-        mCheckedRadius = mNormalRadius;
-        mMargin = mNormalRadius * 2;
+        mNormalRadius = normalIndicatorWidth / 2;
+        mCheckedRadius = checkedIndicatorWidth / 2;
+        mIndicatorGap = mNormalRadius * 2;
     }
 
     @Override
@@ -58,14 +47,11 @@ public class CircleIndicatorView extends View implements IIndicator {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        mNormalRadius = normalIndicatorWidth / 2;
+        mCheckedRadius = checkedIndicatorWidth / 2;
         maxRadius = Math.max(mCheckedRadius, mNormalRadius);
-        setMeasuredDimension((int) ((mPageSize - 1) * mMargin + 2 * maxRadius * mPageSize),
+        setMeasuredDimension((int) ((mPageSize - 1) * mIndicatorGap + 2 * maxRadius * mPageSize),
                 (int) (2 * maxRadius));
-    }
-
-    @Override
-    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-        super.onLayout(changed, left, top, right, bottom);
     }
 
     @Override
@@ -73,98 +59,47 @@ public class CircleIndicatorView extends View implements IIndicator {
         super.onDraw(canvas);
         for (int i = 0; i < mPageSize; i++) {
             mPaint.setColor(normalColor);
-            canvas.drawCircle(maxRadius + (2 * mNormalRadius + mMargin) * i, height / 2f, mNormalRadius, mPaint);
+            canvas.drawCircle(maxRadius + (2 * mNormalRadius + mIndicatorGap) * i, height / 2f, mNormalRadius, mPaint);
         }
-        drawSlideStyle(canvas);
+        drawSliderStyle(canvas);
     }
 
     @Override
     public void onPageSelected(int position) {
-        if (mSlideStyle == IndicatorSlideMode.NORMAL) {
-            currentPosition = position;
-            slideProgress = 0;
-            invalidate();
-        } else if (mSlideStyle == IndicatorSlideMode.SMOOTH) {
-            if (position == 0 && slideToRight) {
-                currentPosition = 0;
-                slideProgress = 0;
-                invalidate();
-            } else if (position == mPageSize - 1 && !slideToRight) {
-                currentPosition = mPageSize - 1;
-                slideProgress = 0;
-                invalidate();
-            }
-        }
+        super.onPageSelected(position);
     }
-
-    private boolean slideToRight;
-    private int prePosition;
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        if (mSlideStyle == IndicatorSlideMode.SMOOTH) {
-            if ((prePosition == 0 && position == mPageSize - 1)) {
-                slideToRight = false;
-            } else if (prePosition == mPageSize - 1 && position == 0) {
-                slideToRight = true;
-            } else {
-                slideToRight = (position + positionOffset - prePosition) > 0;
-            }
-            //  TODO 解决滑动过快时positionOffset不会等0的情况
-            if (positionOffset == 0) {
-                prePosition = position;
-            }
-            if (!(position == mPageSize - 1 && slideToRight || (position == mPageSize - 1 && !slideToRight))) {
-                slideProgress = (currentPosition == mPageSize - 1) && slideToRight ? 0 : positionOffset;
-                currentPosition = position;
-                invalidate();
-            }
-        }
+        super.onPageScrolled(position, positionOffset, positionOffsetPixels);
     }
 
     @Override
     public void onPageScrollStateChanged(int state) {
-
+        super.onPageScrollStateChanged(state);
     }
 
-    private void drawSlideStyle(Canvas canvas) {
+    private void drawSliderStyle(Canvas canvas) {
         mPaint.setColor(checkedColor);
-        canvas.drawCircle(maxRadius + (2 * mNormalRadius + mMargin) * currentPosition + (2 * mNormalRadius + mMargin) * slideProgress,
+        canvas.drawCircle(maxRadius + (2 * mNormalRadius + mIndicatorGap) * currentPosition + (2 * mNormalRadius + mIndicatorGap) * slideProgress,
                 height / 2f, mCheckedRadius, mPaint);
     }
 
-
-    public CircleIndicatorView setNormalColor(int normalColor) {
-        this.normalColor = normalColor;
-        return this;
+    /**
+     * @param normalRadius  未选中时Indicator半径,单位dp
+     * @param checkedRadius 选中时Indicator半径，单位dp
+     */
+    public void setIndicatorRadius(float normalRadius, float checkedRadius) {
+        this.mNormalRadius = DpUtils.dp2px(normalRadius);
+        this.mCheckedRadius = DpUtils.dp2px(checkedRadius);
     }
 
-    public CircleIndicatorView setCheckedColor(int checkedColor) {
-        this.checkedColor = checkedColor;
-        return this;
-    }
-
-    public CircleIndicatorView setPageSize(int pageSize) {
-        this.mPageSize = pageSize;
-        requestLayout();
-        return this;
-    }
-
-    public CircleIndicatorView setIndicatorRadius(float radiusDp, float checkedRadius) {
-        this.mNormalRadius = radiusDp;
-        this.mCheckedRadius = checkedRadius;
-        return this;
-    }
-
-    public CircleIndicatorView setIndicatorMargin(float margin) {
-        if (margin > 0) {
-            this.mMargin = margin;
-        }
-        return this;
-    }
-
-    public CircleIndicatorView setSlideStyle(IndicatorSlideMode slideStyle) {
-        mSlideStyle = slideStyle;
-        return this;
+    /**
+     * @param normalRadius  未选中时Indicator半径
+     * @param checkedRadius 选中时Indicator半径
+     */
+    public void setIndicatorRadius(@DimenRes int normalRadius, @DimenRes int checkedRadius) {
+        this.mNormalRadius = getContext().getResources().getDimension(normalRadius);
+        this.mCheckedRadius = getContext().getResources().getDimension(checkedRadius);
     }
 }

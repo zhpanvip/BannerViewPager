@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.zhpan.circleviewpager.R;
-import com.example.zhpan.circleviewpager.RectangleIndicatorView;
+import com.zhpan.bannerview.indicator.DashIndicatorView;
 import com.example.zhpan.circleviewpager.viewholder.SlideModeViewHolder;
 import com.zhpan.bannerview.BannerViewPager;
 
@@ -25,13 +25,16 @@ public class CustomIndicatorActivity extends AppCompatActivity {
         setTitle(getString(R.string.custom_indicator_view));
         BannerViewPager<String, SlideModeViewHolder> viewPager = findViewById(R.id.banner_view);
         List<String> list = Arrays.asList(picUrls);
-        RectangleIndicatorView indicatorView = new RectangleIndicatorView(this);
-        indicatorView.setPageSize(list.size()).setSliderWidth(8f).setSliderHeight(3.5f)
-                .setIndicatorMargin(5f).setCheckedColor(getResources().getColor(R.color.colorAccent))
-                .setNormalColor(getResources().getColor(R.color.colorPrimary));
+        DashIndicatorView indicatorView = new DashIndicatorView(this);
+        indicatorView.setPageSize(list.size());
+        indicatorView.setIndicatorWidth(8f,8f);
+        indicatorView.setSliderHeight(3.5f);
+        indicatorView.setIndicatorGap(5f);
+        indicatorView.setCheckedColor(getResources().getColor(R.color.colorAccent));
+        indicatorView.setNormalColor(getResources().getColor(R.color.colorPrimary));
         viewPager.setAutoPlay(false).setCanLoop(true)
                 .setRoundCorner(15f)
-                .setIndicatorView(indicatorView)
+                .setCustomIndicatorView(indicatorView)
                 .setHolderCreator(SlideModeViewHolder::new).create(list);
     }
 }
