@@ -62,7 +62,7 @@
    
 latestVersion is: [ ![latestVersion](https://api.bintray.com/packages/zhpanvip/CircleViewPager/bannerview/images/download.svg) ](https://bintray.com/zhpanvip/CircleViewPager/bannerview/_latestVersion)
 
-如果您已迁移到AndroidX请使用2.2.0以上版本
+如果您已迁移到AndroidX请使用2.2.4以上版本
 ```
 implementation 'com.zhpan.library:bannerview:latestVersion'
 
