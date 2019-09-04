@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/rl_banner"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.zhpan.bannerview.view.CustomViewPager
+
+    <com.zhpan.bannerview.view.CatchViewPager
         android:id="@+id/vp_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true" />
 
-    <com.zhpan.bannerview.view.IndicatorView
-        android:id="@+id/indicator_view"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:id="@+id/rl_indicator"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp"
-        android:orientation="horizontal" />
+        android:padding="10dp" />
 </RelativeLayout>

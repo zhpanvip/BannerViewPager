@@ -1,4 +1,4 @@
-package com.zhpan.bannerview.view;
+package com.zhpan.bannerview.indicator;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -13,7 +13,7 @@ import com.zhpan.bannerview.enums.IndicatorSlideMode;
 /**
  * Created by zhpan on 2017/12/6.
  */
-public class IndicatorView extends View {
+public class CircleIndicatorView extends View implements IIndicator {
     private static final String tag = "IndicatorView";
     private int normalColor;
     private int checkedColor;
@@ -28,18 +28,18 @@ public class IndicatorView extends View {
     private IndicatorSlideMode mSlideStyle = IndicatorSlideMode.SMOOTH;
     private float slideProgress;
 
-    public IndicatorView(Context context) {
+    public CircleIndicatorView(Context context) {
         this(context, null);
     }
 
-    public IndicatorView(Context context, AttributeSet attrs) {
+    public CircleIndicatorView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public IndicatorView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public CircleIndicatorView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        normalColor = Color.parseColor("#000000");
-        checkedColor = Color.parseColor("#ffffff");
+        normalColor = Color.parseColor("#8C18171C");
+        checkedColor = Color.parseColor("#8C6C6D72");
         mPaint = new Paint();
         mPaint.setColor(normalColor);
         mPaint.setAntiAlias(true);
@@ -77,64 +77,92 @@ public class IndicatorView extends View {
         drawSlideStyle(canvas);
     }
 
-    private void drawSlideStyle(Canvas canvas) {
-        switch (mSlideStyle) {
-            case NORMAL:
-                slideProgress=0;
-            case SMOOTH:
-                slideProgress = (currentPosition == mPageSize - 1) ? 0 : slideProgress;
-                break;
+    @Override
+    public void onPageSelected(int position) {
+        if (mSlideStyle == IndicatorSlideMode.NORMAL) {
+            currentPosition = position;
+            slideProgress = 0;
+            invalidate();
+        } else if (mSlideStyle == IndicatorSlideMode.SMOOTH) {
+            if (position == 0 && slideToRight) {
+                currentPosition = 0;
+                slideProgress = 0;
+                invalidate();
+            } else if (position == mPageSize - 1 && !slideToRight) {
+                currentPosition = mPageSize - 1;
+                slideProgress = 0;
+                invalidate();
+            }
         }
+    }
+
+    private boolean slideToRight;
+    private int prePosition;
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        if (mSlideStyle == IndicatorSlideMode.SMOOTH) {
+            if ((prePosition == 0 && position == mPageSize - 1)) {
+                slideToRight = false;
+            } else if (prePosition == mPageSize - 1 && position == 0) {
+                slideToRight = true;
+            } else {
+                slideToRight = (position + positionOffset - prePosition) > 0;
+            }
+            //  TODO 解决滑动过快时positionOffset不会等0的情况
+            if (positionOffset == 0) {
+                prePosition = position;
+            }
+            if (!(position == mPageSize - 1 && slideToRight || (position == mPageSize - 1 && !slideToRight))) {
+                slideProgress = (currentPosition == mPageSize - 1) && slideToRight ? 0 : positionOffset;
+                currentPosition = position;
+                invalidate();
+            }
+        }
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
+    }
+
+    private void drawSlideStyle(Canvas canvas) {
         mPaint.setColor(checkedColor);
         canvas.drawCircle(maxRadius + (2 * mNormalRadius + mMargin) * currentPosition + (2 * mNormalRadius + mMargin) * slideProgress,
                 height / 2f, mCheckedRadius, mPaint);
     }
 
-    public void onPageSelected(int position) {
-        if (mSlideStyle == IndicatorSlideMode.NORMAL) {
-            this.currentPosition = position;
-            invalidate();
-        }
-    }
 
-    public void onPageScrolled(int position, float positionOffset) {
-        if (mSlideStyle == IndicatorSlideMode.SMOOTH) {
-            slideProgress = positionOffset;
-            currentPosition = position;
-            invalidate();
-        }
-    }
-
-    public IndicatorView setNormalColor(int normalColor) {
+    public CircleIndicatorView setNormalColor(int normalColor) {
         this.normalColor = normalColor;
         return this;
     }
 
-    public IndicatorView setCheckedColor(int checkedColor) {
+    public CircleIndicatorView setCheckedColor(int checkedColor) {
         this.checkedColor = checkedColor;
         return this;
     }
 
-    public IndicatorView setPageSize(int pageSize) {
+    public CircleIndicatorView setPageSize(int pageSize) {
         this.mPageSize = pageSize;
         requestLayout();
         return this;
     }
 
-    public IndicatorView setIndicatorRadius(float radiusDp, float checkedRadius) {
+    public CircleIndicatorView setIndicatorRadius(float radiusDp, float checkedRadius) {
         this.mNormalRadius = radiusDp;
         this.mCheckedRadius = checkedRadius;
         return this;
     }
 
-    public IndicatorView setIndicatorMargin(float margin) {
+    public CircleIndicatorView setIndicatorMargin(float margin) {
         if (margin > 0) {
             this.mMargin = margin;
         }
         return this;
     }
 
-    public IndicatorView setSlideStyle(IndicatorSlideMode slideStyle) {
+    public CircleIndicatorView setSlideStyle(IndicatorSlideMode slideStyle) {
         mSlideStyle = slideStyle;
         return this;
     }

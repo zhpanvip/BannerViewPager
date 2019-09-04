@@ -10,12 +10,12 @@ import android.view.MotionEvent;
  * @Time:2018/11/14 15:24
  * @Description:
  */
-public class CustomViewPager extends ViewPager {
-    public CustomViewPager(Context context) {
+public class CatchViewPager extends ViewPager {
+    public CatchViewPager(Context context) {
         this(context,null);
     }
 
-    public CustomViewPager(Context context, AttributeSet attrs) {
+    public CatchViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 

@@ -22,11 +22,12 @@ import com.zhpan.bannerview.adapter.BannerPagerAdapter;
 import com.zhpan.bannerview.enums.IndicatorSlideMode;
 import com.zhpan.bannerview.holder.HolderCreator;
 import com.zhpan.bannerview.holder.ViewHolder;
+import com.zhpan.bannerview.indicator.IIndicator;
 import com.zhpan.bannerview.provider.BannerScroller;
 import com.zhpan.bannerview.provider.ViewStyleSetter;
 import com.zhpan.bannerview.transform.PageTransformerFactory;
 import com.zhpan.bannerview.enums.TransformerStyle;
-import com.zhpan.bannerview.view.IndicatorView;
+import com.zhpan.bannerview.indicator.CircleIndicatorView;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -74,7 +75,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     // 页面点击事件监听
     private OnPageClickListener mOnPageClickListener;
     // 圆点指示器的Layout
-    private IndicatorView mIndicatorView;
+    private IIndicator mIndicatorView;
 
     private IndicatorSlideMode mIndicatorSlideMode = IndicatorSlideMode.SMOOTH;
 
@@ -102,9 +103,6 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
 
     private float indicatorMargin = 0;
 
-
-//    private OnPageChangedListener mOnPageChangedListener;
-
     public BannerViewPager(Context context) {
         this(context, null);
     }
@@ -119,16 +117,29 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     }
 
     private void init(AttributeSet attrs, Context context) {
+        initValues(attrs, context);
+        initView();
+        initScroller();
+    }
+
+    private void initView() {
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.layout_banner_view_pager, this);
+        mViewPager = view.findViewById(R.id.vp_main);
+        mRelativeLayout = view.findViewById(R.id.rl_indicator);
+        mList = new ArrayList<>();
+    }
+
+    private void initValues(AttributeSet attrs, Context context) {
         if (attrs != null) {
             TypedArray typedArray =
                     getContext().obtainStyledAttributes(attrs, R.styleable.BannerViewPager);
             interval = typedArray.getInteger(R.styleable.BannerViewPager_interval, 3000);
             indicatorCheckedColor =
                     typedArray.getColor(R.styleable.BannerViewPager_indicator_checked_color,
-                            Color.parseColor("#18171C"));
+                            Color.parseColor("#8C18171C"));
             indicatorNormalColor =
                     typedArray.getColor(R.styleable.BannerViewPager_indicator_normal_color,
-                            Color.parseColor("#6C6D72"));
+                            Color.parseColor("#8C6C6D72"));
             normalIndicatorRadius = typedArray.getDimension(R.styleable.BannerViewPager_indicator_radius,
                     DpUtils.dp2px(context, 4));
             checkedIndicatorRadius = normalIndicatorRadius;
@@ -137,12 +148,6 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
             gravity = typedArray.getInt(R.styleable.BannerViewPager_indicator_gravity, 0);
             typedArray.recycle();
         }
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.layout_banner_view_pager, this);
-        mIndicatorView = view.findViewById(R.id.indicator_view);
-        mViewPager = view.findViewById(R.id.vp_main);
-        mRelativeLayout = view.findViewById(R.id.rl_banner);
-        mList = new ArrayList<>();
-        initScroller();
     }
 
     /**
@@ -165,12 +170,22 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
      */
     private void initData() {
         if (mList.size() > 0) {
-            initIndicator();
+            if (mIndicatorView == null && mList.size() > 1 && showIndicator) {
+                initIndicator(getIndicatorView());
+            }
             if (isCanLoop) {
                 currentPosition = 1;
             }
             setupViewPager();
         }
+    }
+
+    private View getIndicatorView() {
+        CircleIndicatorView indicatorView = new CircleIndicatorView(getContext());
+        indicatorView.setPageSize(mList.size()).setIndicatorRadius(normalIndicatorRadius, checkedIndicatorRadius)
+                .setIndicatorMargin(indicatorMargin).setCheckedColor(indicatorCheckedColor)
+                .setNormalColor(indicatorNormalColor).setSlideStyle(mIndicatorSlideMode).invalidate();
+        return indicatorView;
     }
 
 
@@ -201,24 +216,23 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     /**
      * 构造指示器
      */
-    private void initIndicator() {
-        if (mList.size() > 1 && showIndicator) {
-            mIndicatorView.setPageSize(mList.size()).setIndicatorRadius(normalIndicatorRadius, checkedIndicatorRadius)
-                    .setIndicatorMargin(indicatorMargin).setCheckedColor(indicatorCheckedColor)
-                    .setNormalColor(indicatorNormalColor).setSlideStyle(mIndicatorSlideMode).invalidate();
-            RelativeLayout.LayoutParams layoutParams =
-                    (RelativeLayout.LayoutParams) mIndicatorView.getLayoutParams();
-            switch (gravity) {
-                case CENTER:
-                    layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
-                    break;
-                case START:
-                    layoutParams.addRule(RelativeLayout.ALIGN_PARENT_START);
-                    break;
-                case END:
-                    layoutParams.addRule(RelativeLayout.ALIGN_PARENT_END);
-                    break;
-            }
+    private void initIndicator(View indicatorView) {
+        mRelativeLayout.removeAllViews();
+        mRelativeLayout.addView(indicatorView);
+        mIndicatorView = (IIndicator) indicatorView;
+        RelativeLayout.LayoutParams layoutParams =
+                (RelativeLayout.LayoutParams) indicatorView.getLayoutParams();
+        layoutParams.addRule(RelativeLayout.CENTER_VERTICAL);
+        switch (gravity) {
+            case CENTER:
+                layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
+                break;
+            case START:
+                layoutParams.addRule(RelativeLayout.ALIGN_PARENT_START);
+                break;
+            case END:
+                layoutParams.addRule(RelativeLayout.ALIGN_PARENT_END);
+                break;
         }
     }
 
@@ -249,13 +263,16 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     @Override
     public void onPageSelected(int position) {
         currentPosition = position;
-        if (showIndicator) {
+        if (showIndicator && mIndicatorView != null) {
             mIndicatorView.onPageSelected(getRealPosition(position));
         }
     }
 
     @Override
     public void onPageScrollStateChanged(int state) {
+        if (mIndicatorView != null)
+            mIndicatorView.onPageScrollStateChanged(state);
+
         if (isCanLoop) {
             switch (state) {
                 case ViewPager.SCROLL_STATE_IDLE:
@@ -280,7 +297,9 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        mIndicatorView.onPageScrolled(getRealPosition(position), positionOffset);
+        if (mIndicatorView != null) {
+            mIndicatorView.onPageScrolled(getRealPosition(position), positionOffset, positionOffsetPixels);
+        }
     }
 
     private int getRealPosition(int position) {
@@ -297,7 +316,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
         }
     }
 
-    private int getUnrealPosition(int position) {
+    private int toUnrealPosition(int position) {
         return isCanLoop ? (position < mList.size()) ? (++position) : mList.size() : position;
     }
 
@@ -423,6 +442,13 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
         return this;
     }
 
+    public BannerViewPager<T, VH> setIndicatorView(IIndicator indicatorView) {
+        if (indicatorView instanceof View) {
+            initIndicator((View) indicatorView);
+        }
+        return this;
+    }
+
     /**
      * 设置指示器半径大小
      *
@@ -481,38 +507,8 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
         return this;
     }
 
-    public BannerViewPager<T, VH> setPageTransformerStyle(TransformerStyle style) {
+    public void setPageTransformerStyle(TransformerStyle style) {
         setPageTransformer(new PageTransformerFactory().createPageTransformer(style));
-        return this;
-    }
-
-    /**
-     * @param reverseDrawingOrder true if the supplied PageTransformer requires page views
-     *                            to be drawn from last to first instead of first to last.
-     * @param transformer         PageTransformer that will modify each page's animation properties
-     */
-    public BannerViewPager<T, VH> setPageTransformer(boolean reverseDrawingOrder, ViewPager.PageTransformer transformer) {
-        mViewPager.setPageTransformer(true, transformer);
-        return this;
-    }
-
-    /**
-     * Set the currently selected page.
-     *
-     * @param position Item index to select
-     */
-    public void setCurrentItem(final int position) {
-        mViewPager.post(() -> mViewPager.setCurrentItem(getUnrealPosition(position)));
-    }
-
-    /**
-     * Set the currently selected page.
-     *
-     * @param position     Item index to select
-     * @param smoothScroll True to smoothly scroll to the new item, false to transition immediately
-     */
-    public void setCurrentItem(final int position, final boolean smoothScroll) {
-        mViewPager.post(() -> mViewPager.setCurrentItem(getUnrealPosition(position), smoothScroll));
     }
 
 
@@ -547,6 +543,10 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
             mList.addAll(list);
             initData();
         }
+    }
+
+    public ViewPager getViewPager() {
+        return mViewPager;
     }
 
     @IntDef({CENTER, START, END})
