@@ -470,13 +470,12 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     /**
      * 设置指示器半径大小，选中与未选中半径大小相等
      *
-     * @param radiusRes 指示器圆点半径
-     * @param radiusRes
+     * @param radius 指示器圆点半径
      * @return
      */
-    public BannerViewPager<T, VH> setIndicatorRadius(int radiusRes) {
-        this.normalIndicatorWidth = radiusRes * 2;
-        this.checkedIndicatorWidth = radiusRes * 2;
+    public BannerViewPager<T, VH> setIndicatorRadius(int radius) {
+        this.normalIndicatorWidth = radius * 2;
+        this.checkedIndicatorWidth = radius * 2;
         return this;
     }
 

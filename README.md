@@ -6,26 +6,26 @@
 
 | 嵌套RecyclerView | 自定义页面 | 嵌套PhotoView   |
 |--|--|--|
-| [外链图片转存失败(img-JhqS7t00-1567686170213)(https://github.com/zhpanvip/BannerViewPager/blob/master/image/preview1.gif)] | [外链图片转存失败(img-S6PbBhqg-1567686170216)(https://github.com/zhpanvip/BannerViewPager/blob/master/image/preview2.gif)] | [外链图片转存失败(img-dZC2uU6Z-1567686170217)(https://github.com/zhpanvip/BannerViewPager/blob/master/image/preview3.gif)]   |
+| ![嵌套RecyclerView](https://github.com/zhpanvip/BannerViewPager/blob/master/image/preview1.gif) | ![自定义页面](https://github.com/zhpanvip/BannerViewPager/blob/master/image/preview2.gif) | ![嵌套PhotoView](https://github.com/zhpanvip/BannerViewPager/blob/master/image/preview3.gif)   |
 
 ## 2.自定义Indicator样式
 
 | NORMAL | SMOOTH |
 |--|--|
-| [外链图片转存失败(img-sV9Ykmiy-1567686170218)(https://github.com/zhpanvip/BannerViewPager/blob/master/image/slide_normal.gif)] |  [外链图片转存失败(img-IkCrrWpD-1567686170220)(https://github.com/zhpanvip/BannerViewPager/blob/master/image/slide_smooth.gif)] |
+| ![NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/slide_normal.gif) |  ![SMOOTH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/slide_smooth.gif) |
 
 ## 3.自定义IndicatorView
 如果以上样式不能满足你的需求，BannerViewPager还提供了完全自定义IndicatorView的功能。只要实现IIndicator接口，你就可以为所欲为的打造属于你自己的Indicator了,效果如下：
 
 | Custom Indicator |
 |--|
-| [外链图片转存失败(img-XaUue18N-1567686170227)(https://github.com/zhpanvip/BannerViewPager/blob/master/image/custom_indicator.gif)] |
+| ![NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/custom_indicator.gif) |
 
 ## 4.内置Transform样式
 
 | 参数 | STACK | ROTATE | DEPTH | ACCORDION |
 |--|--|--|--|--|
-| 预览 | [外链图片转存失败(img-XSdc9Rhu-1567686170233)(https://github.com/zhpanvip/BannerViewPager/blob/master/image/transform_stack.gif)] | [外链图片转存失败(img-Xf9qAQjn-1567686170234)(https://github.com/zhpanvip/BannerViewPager/blob/master/image/transform_rotate.gif)] | [外链图片转存失败(img-tHaHnDvp-1567686170236)(https://github.com/zhpanvip/BannerViewPager/blob/master/image/transform_depth.gif)]  |[外链图片转存失败(img-heywPwXq-1567686170238)(https://github.com/zhpanvip/BannerViewPager/blob/master/image/transform_accordion.gif)]  |
+| 预览 | ![STACK](https://github.com/zhpanvip/BannerViewPager/blob/master/image/transform_stack.gif) | ![ROTATE_DOWN](https://github.com/zhpanvip/BannerViewPager/blob/master/image/transform_rotate.gif) | ![DEPTH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/transform_depth.gif)  |![ACCORDION](https://github.com/zhpanvip/BannerViewPager/blob/master/image/transform_accordion.gif)  |
 
 
 
@@ -47,11 +47,11 @@
 | BannerViewPager<T, VH> setIndicatorGravity(int gravity) | 指示器位置 |可选值(CENTER、START、END)默认值CENTER |
 | BannerViewPager<T, VH> setIndicatorColor(int normalColor,int checkedColor) | 指示器圆点颜色 |normalColor：未选中时颜色默认"#8C6C6D72"， checkedColor：选中时颜色 默认"#8C18171C" |
 | BannerViewPager<T, VH> setIndicatorSlideMode(IndicatorSlideMode slideMode)  | 设置Indicator滑动模式 | 可选（NORMAL、SMOOTH），默认值SMOOTH  |
-| BannerViewPager<T, VH> setIndicatorRadius(int radiusDp) | 设置指示器圆点半径 | 默认值4dp|
+| BannerViewPager<T, VH> setIndicatorRadius(int radius) | 设置指示器圆点半径 | 默认值4dp|
 | BannerViewPager<T, VH> setIndicatorRadius(int normalRadius,int checkRadius)  |设置指示器圆点半径  |  normalRadius:未选中时半径  checkedRadius:选中时的半径,默认值4dp |
 | BannerViewPager<T, VH> setIndicatorWidth(int indicatorWidth) | 设置指示器宽度，如果是圆形指示器，则为直径 |  默认值8dp|
 | BannerViewPager<T, VH> setIndicatorWidth(int normalWidth, int checkWidth) | 设置指示器宽度，如果是圆形指示器，则为直径 | 默认值8dp |
-| BannerViewPager<T, VH> setIndicatorGap(int indicatorMarginDp) | 指示器圆点间距| 默认值为指示器宽度（或者是圆的直径）|
+| BannerViewPager<T, VH> setIndicatorGap(int indicatorMargin) | 指示器圆点间距| 默认值为指示器宽度（或者是圆的直径）|
 | BannerViewPager<T, VH> setIndicatorView(IIndicator indicatorView) | 设置自定义指示器| 设置自定义指示器后以上关于IndicatorView的参数会部分失效|
 | BannerViewPager<T, VH> setPageTransformerStyle(TransformerStyle style) | 设置页面Transformer内置样式 |  |
 | BannerViewPager<T, VH> setIndicatorStyle(IndicatorStyle indicatorStyle) | 设置指示器样式 | 可选枚举(CIRCLE, DASH) 默认CIRCLE  |
