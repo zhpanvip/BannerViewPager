@@ -204,7 +204,7 @@ public class NetViewHolder implements ViewHolder<BannerData> {
 **(1)自定义View并继承BaseIndicatorView**
 
 ```
-public class DashIndicatorView extends BaseIndicatorView implements IIndicator {
+public class DashIndicatorView extends BaseIndicatorView {
     private Paint mPaint;
     private float sliderHeight;
 

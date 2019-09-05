@@ -8,7 +8,7 @@ import android.util.AttributeSet;
 /**
  * Created by zhpan on 2017/12/6.
  */
-public class DashIndicatorView extends BaseIndicatorView implements IIndicator {
+public class DashIndicatorView extends BaseIndicatorView {
     private Paint mPaint;
     private float sliderHeight;
 

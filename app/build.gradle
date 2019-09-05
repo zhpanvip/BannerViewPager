@@ -45,10 +45,10 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     testImplementation 'junit:junit:4.12'
-    implementation 'com.github.bumptech.glide:glide:4.0.0'
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
     implementation 'com.github.chrisbanes:PhotoView:2.1.0'
-//    implementation 'com.zhpan.library:bannerview:2.1.1'
-    implementation project(path: ':bannerview')
+    implementation 'com.zhpan.library:bannerview:2.3.0'
+//    implementation project(path: ':bannerview')
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0'
     implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0'
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0-beta-2'
