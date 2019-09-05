@@ -64,7 +64,7 @@
 
 ## 1.gradle中添加依赖
    
-latestVersion is: [ [外链图片转存失败(img-ea1UXLGv-1567686170240)(https://api.bintray.com/packages/zhpanvip/CircleViewPager/bannerview/images/download.svg)] ](https://bintray.com/zhpanvip/CircleViewPager/bannerview/_latestVersion)
+latestVersion is: [ ![latestVersion](https://api.bintray.com/packages/zhpanvip/CircleViewPager/bannerview/images/download.svg) ](https://bintray.com/zhpanvip/CircleViewPager/bannerview/_latestVersion)
 
 如果您已迁移到AndroidX请使用latestVersion(>=2.3.0)
 ```
