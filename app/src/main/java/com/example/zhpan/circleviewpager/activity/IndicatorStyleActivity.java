@@ -83,25 +83,6 @@ public class IndicatorStyleActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.indicator_slide_style_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu0:
-                mViewPagerSmoothSlide.setIndicatorSlideMode(IndicatorSlideMode.NORMAL).create(mList);
-                break;
-            case R.id.menu1:
-                mViewPagerSmoothSlide.setIndicatorSlideMode(IndicatorSlideMode.SMOOTH).create(mList);
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     protected void onDestroy() {
         super.onDestroy();
         mViewPagerSmoothSlide.stopLoop();

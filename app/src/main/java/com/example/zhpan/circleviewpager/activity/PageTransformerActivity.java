@@ -17,14 +17,12 @@ public class PageTransformerActivity extends AppCompatActivity {
 
     private static final String TAG = "PageTransformerActivity";
     private BannerViewPager<Integer, TransformerViewHolder> mViewpager;
-    private ArrayList<Integer> mList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_page_transformer);
         setTitle(R.string.title_transformer);
-        initData();
         initViewPager();
     }
 
@@ -60,21 +58,15 @@ public class PageTransformerActivity extends AppCompatActivity {
                 .setAutoPlay(false)
                 .setScrollDuration(1000)
                 .setHolderCreator(TransformerViewHolder::new)
-                .create(mList);
+                .create(getData());
     }
 
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mViewpager.stopLoop();
-    }
-
-    private void initData() {
-        mList = new ArrayList<>();
+    private ArrayList<Integer> getData() {
+        ArrayList<Integer> list = new ArrayList<>();
         for (int i = 0; i <= 2; i++) {
             int drawable = getResources().getIdentifier("guide" + i, "drawable", getPackageName());
-            mList.add(drawable);
+            list.add(drawable);
         }
+        return list;
     }
 }

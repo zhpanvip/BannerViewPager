@@ -14,8 +14,7 @@ import com.zhpan.bannerview.BannerViewPager;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomerBannerActivity extends AppCompatActivity {
-    private List<CustomBean> mList = new ArrayList<>();
+public class CustomerBannerItemActivity extends AppCompatActivity {
     private BannerViewPager<CustomBean, CustomPageViewHolder> mViewPager;
     private int[] imgRes = {R.drawable.guide0, R.drawable.guide1, R.drawable.guide2};
     private String[] des = {"在这里\n你可以听到周围人的心声", "在这里\nTA会在下一秒遇见你", "在这里\n不再错过可以改变你一生的人"};
@@ -24,8 +23,8 @@ public class CustomerBannerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_banner);
-        initData();
-        initViewPager();
+        getData();
+        setupViewPager();
     }
 
     @Override
@@ -34,27 +33,29 @@ public class CustomerBannerActivity extends AppCompatActivity {
         mViewPager.stopLoop();
     }
 
-    private void initViewPager() {
+    private void setupViewPager() {
         mViewPager = findViewById(R.id.viewpager);
         mViewPager.setAutoPlay(false)
                 .setCanLoop(false)
                 .showIndicator(false)
-                .setOnPageClickListener(position -> Toast.makeText(CustomerBannerActivity.this,
+                .setOnPageClickListener(position -> Toast.makeText(CustomerBannerItemActivity.this,
                         "点击页面" + (position + 1), Toast.LENGTH_SHORT).show())
                 .setHolderCreator(() -> {
                     CustomPageViewHolder customPageViewHolder = new CustomPageViewHolder();
-                    customPageViewHolder.setOnSubViewClickListener((view, position) -> Toast.makeText(CustomerBannerActivity.this,
+                    customPageViewHolder.setOnSubViewClickListener((view, position) -> Toast.makeText(CustomerBannerItemActivity.this,
                             "立即体验" + (position + 1), Toast.LENGTH_SHORT).show());
                     return customPageViewHolder;
-                }).create(mList);
+                }).create(getData());
     }
 
-    private void initData() {
+    private List<CustomBean> getData() {
+        List<CustomBean> list = new ArrayList<>();
         for (int i = 0; i < imgRes.length; i++) {
             CustomBean customBean = new CustomBean();
             customBean.setImageRes(imgRes[i]);
             customBean.setImageDescription(des[i]);
-            mList.add(customBean);
+            list.add(customBean);
         }
+        return list;
     }
 }

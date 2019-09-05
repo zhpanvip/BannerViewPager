@@ -18,24 +18,45 @@ public class CustomIndicatorActivity extends AppCompatActivity {
             "http://pic37.nipic.com/20140115/7430301_100825571157_2.jpg",
             "http://pic29.nipic.com/20130507/8952533_183922555000_2.jpg",
             "http://b-ssl.duitang.com/uploads/item/201706/10/20170610095055_G5LM8.jpeg"};
+    BannerViewPager<String, SlideModeViewHolder> viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_indicator_slide_mode);
         setTitle(getString(R.string.custom_indicator_view));
-        BannerViewPager<String, SlideModeViewHolder> viewPager = findViewById(R.id.banner_view);
+        setUpViewPager();
+    }
+
+    private void setUpViewPager() {
+        viewPager = findViewById(R.id.banner_view);
         List<String> list = Arrays.asList(picUrls);
+        viewPager.setAutoPlay(false).setCanLoop(true)
+                .setRoundCorner(DpUtils.dp2px(5))
+                .setIndicatorView(setupIndicatorView(list.size()))
+                .setHolderCreator(SlideModeViewHolder::new).create(list);
+    }
+
+    private DashIndicatorView setupIndicatorView(int pageSize) {
         DashIndicatorView indicatorView = new DashIndicatorView(this);
-        indicatorView.setPageSize(list.size());
+        indicatorView.setPageSize(pageSize);
         indicatorView.setIndicatorWidth(DpUtils.dp2px(8), DpUtils.dp2px(8));
         indicatorView.setSliderHeight(DpUtils.dp2px(4));
         indicatorView.setIndicatorGap(DpUtils.dp2px(5));
         indicatorView.setCheckedColor(getResources().getColor(R.color.colorAccent));
         indicatorView.setNormalColor(getResources().getColor(R.color.colorPrimary));
-        viewPager.setAutoPlay(false).setCanLoop(true)
-                .setRoundCorner(DpUtils.dp2px(5))
-                .setIndicatorView(indicatorView)
-                .setHolderCreator(SlideModeViewHolder::new).create(list);
+        return indicatorView;
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        viewPager.stopLoop();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        viewPager.startLoop();
     }
 }

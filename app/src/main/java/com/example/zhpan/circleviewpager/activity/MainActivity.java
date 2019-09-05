@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
                 intent = new Intent(this, IndicatorStyleActivity.class);
                 break;
             default:
-                intent = new Intent(this, CustomerBannerActivity.class);
+                intent = new Intent(this, CustomerBannerItemActivity.class);
                 break;
         }
         startActivity(intent);

@@ -120,8 +120,8 @@ public class NetworkBannerActivity extends RxAppCompatActivity {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onStop() {
+        super.onStop();
         if (mBannerViewPager != null)
             mBannerViewPager.stopLoop();
     }
@@ -131,11 +131,5 @@ public class NetworkBannerActivity extends RxAppCompatActivity {
         super.onResume();
         if (mBannerViewPager != null)
             mBannerViewPager.startLoop();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mBannerViewPager.stopLoop();
     }
 }

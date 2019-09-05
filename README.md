@@ -36,10 +36,10 @@
 | void startLoop() |开启自动轮播 | 初始化BannerViewPager时不必调用该方法,设置setAutoPlay后会调用startLoop() |
 | void stopLoop() | 停止自动轮播 | 如果开启自动轮播，为避免内存泄漏需要在onStop()或onDestory中调用此方法 |
 | List\<T> getList() | 获取Banner中的集合数据 |  |
-| BannerViewPager<T, VH> setCanLoop(boolean canLoop) | 是否可以循环 | 默认值true|
+| BannerViewPager<T, VH> setCanLoop(boolean canLoop) | 是否开启循环 | 默认值true|
 | BannerViewPager<T, VH> setAutoPlay(boolean autoPlay) | 是否开启自动轮播 | 默认值true|
-| BannerViewPager<T, VH> setInterval(int interval) | 自动轮播事件间隔 |单位毫秒，默认值3000  |
-| BannerViewPager<T, VH> setScrollDuration(int scrollDuration) | 设置页面滚动时间 |  |
+| BannerViewPager<T, VH> setInterval(int interval) | 自动轮播时间间隔 |单位毫秒，默认值3000  |
+| BannerViewPager<T, VH> setScrollDuration(int scrollDuration) | 设置页面滚动时间 | 设置页面滚动时间 |单位毫秒，默认值800  |
 | BannerViewPager<T, VH> setRoundCorner(int radius) | 设置圆角 |默认无圆角 需要SDK_INT>=LOLLIPOP(API 21)  |
 | BannerViewPager<T, VH> setOnPageClickListener(OnPageClickListener onPageClickListener) | 设置页面点击事件 |  |
 | BannerViewPager<T, VH> setHolderCreator(HolderCreator\<VH> holderCreator) |设置HolderCreator  |必须设置HolderCreator，否则会抛出NullPointerException|
@@ -199,7 +199,7 @@ public class NetViewHolder implements ViewHolder<BannerData> {
             mBannerViewPager.startLoop();
     }
 ```
-## 6.高级功能---自定义IndicatorView
+## 7.高级功能---自定义IndicatorView
 
 **(1)自定义View并继承BaseIndicatorView**
 
@@ -208,13 +208,7 @@ public class DashIndicatorView extends BaseIndicatorView implements IIndicator {
     private Paint mPaint;
     private float sliderHeight;
 
-    public DashIndicatorView(Context context) {
-        this(context, null);
-    }
-
-    public DashIndicatorView(Context context, AttributeSet attrs) {
-        this(context, attrs, 0);
-    }
+   ...内部省略部分代码
 
     public DashIndicatorView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
@@ -225,20 +219,10 @@ public class DashIndicatorView extends BaseIndicatorView implements IIndicator {
     }
 
     @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        super.onSizeChanged(w, h, oldw, oldh);
-    }
-
-    @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         setMeasuredDimension((int) ((mPageSize - 1) *mIndicatorGap  + normalIndicatorWidth * mPageSize),
                 (int) (sliderHeight));
-    }
-
-    @Override
-    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-        super.onLayout(changed, left, top, right, bottom);
     }
 
     @Override
@@ -273,26 +257,30 @@ public class DashIndicatorView extends BaseIndicatorView implements IIndicator {
         canvas.drawRect(left, 0, left + checkedIndicatorWidth, sliderHeight, mPaint);
     }
 
-    public DashIndicatorView setSliderHeight(int sliderHeight) {
-        this.sliderHeight = sliderHeight;
-        return this;
-    }
 }
 ```
 **(2)BannerViewPager设置自定义Indicator**
 
 ```
- DashIndicatorView indicatorView = new DashIndicatorView(this);
-        indicatorView.setPageSize(list.size());
+ private void setUpViewPager() {
+        viewPager = findViewById(R.id.banner_view);
+        List<String> list = Arrays.asList(picUrls);
+        viewPager.setAutoPlay(false).setCanLoop(true)
+                .setRoundCorner(DpUtils.dp2px(5))
+                .setIndicatorView(setupIndicatorView(list.size()))
+                .setHolderCreator(SlideModeViewHolder::new).create(list);
+    }
+
+    private DashIndicatorView setupIndicatorView(int pageSize) {
+        DashIndicatorView indicatorView = new DashIndicatorView(this);
+        indicatorView.setPageSize(pageSize);
         indicatorView.setIndicatorWidth(DpUtils.dp2px(8), DpUtils.dp2px(8));
         indicatorView.setSliderHeight(DpUtils.dp2px(4));
         indicatorView.setIndicatorGap(DpUtils.dp2px(5));
         indicatorView.setCheckedColor(getResources().getColor(R.color.colorAccent));
         indicatorView.setNormalColor(getResources().getColor(R.color.colorPrimary));
-        viewPager.setAutoPlay(false).setCanLoop(true)
-                .setRoundCorner(DpUtils.dp2px(5))
-                .setIndicatorView(indicatorView)
-                .setHolderCreator(SlideModeViewHolder::new).create(list);
+        return indicatorView;
+    }
 ```
 
 # TODO 版本计划
