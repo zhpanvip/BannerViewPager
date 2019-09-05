@@ -32,7 +32,6 @@ import com.zhpan.bannerview.provider.BannerScroller;
 import com.zhpan.bannerview.provider.ViewStyleSetter;
 import com.zhpan.bannerview.transform.PageTransformerFactory;
 import com.zhpan.bannerview.enums.TransformerStyle;
-import com.zhpan.bannerview.indicator.CircleIndicatorView;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -203,7 +202,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
         indicatorView.setIndicatorGap(DpUtils.px2dp(indicatorGap));
         indicatorView.setCheckedColor(indicatorCheckedColor);
         indicatorView.setNormalColor(indicatorNormalColor);
-        indicatorView.setSlideStyle(mIndicatorSlideMode);
+        indicatorView.setSlideMode(mIndicatorSlideMode);
         indicatorView.invalidate();
         return indicatorView;
     }

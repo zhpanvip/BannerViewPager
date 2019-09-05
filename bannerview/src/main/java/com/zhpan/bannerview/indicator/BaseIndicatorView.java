@@ -56,7 +56,7 @@ public class BaseIndicatorView extends View implements IIndicator {
      * @see IndicatorSlideMode#NORMAL
      * @see IndicatorSlideMode#SMOOTH
      */
-    protected IndicatorSlideMode mSlideStyle = IndicatorSlideMode.SMOOTH;
+    protected IndicatorSlideMode mSlideMode = IndicatorSlideMode.SMOOTH;
 
     protected float normalIndicatorWidth;
     protected float checkedIndicatorWidth;
@@ -73,18 +73,18 @@ public class BaseIndicatorView extends View implements IIndicator {
         super(context, attrs, defStyleAttr);
         normalIndicatorWidth = DpUtils.dp2px(8);
         checkedIndicatorWidth = normalIndicatorWidth;
-        mIndicatorGap=normalIndicatorWidth;
+        mIndicatorGap = normalIndicatorWidth;
         normalColor = Color.parseColor("#8C18171C");
         checkedColor = Color.parseColor("#8C6C6D72");
     }
 
     @Override
     public void onPageSelected(int position) {
-        if (mSlideStyle == IndicatorSlideMode.NORMAL) {
+        if (mSlideMode == IndicatorSlideMode.NORMAL) {
             currentPosition = position;
             slideProgress = 0;
             invalidate();
-        } else if (mSlideStyle == IndicatorSlideMode.SMOOTH) {
+        } else if (mSlideMode == IndicatorSlideMode.SMOOTH) {
             if (position == 0 && slideToRight) {
                 currentPosition = 0;
                 slideProgress = 0;
@@ -99,7 +99,7 @@ public class BaseIndicatorView extends View implements IIndicator {
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        if (mSlideStyle == IndicatorSlideMode.SMOOTH) {
+        if (mSlideMode == IndicatorSlideMode.SMOOTH) {
             if ((prePosition == 0 && position == mPageSize - 1)) {
                 slideToRight = false;
             } else if (prePosition == mPageSize - 1 && position == 0) {
@@ -135,6 +135,9 @@ public class BaseIndicatorView extends View implements IIndicator {
         this.checkedColor = checkedColor;
     }
 
+    /**
+     * @param gap Indicator间距，单位dp
+     */
     @Override
     public void setIndicatorGap(float gap) {
         if (gap >= 0) {
@@ -142,6 +145,9 @@ public class BaseIndicatorView extends View implements IIndicator {
         }
     }
 
+    /**
+     * @param gapRes Indicator间距
+     */
     public void setIndicatorGap(@DimenRes int gapRes) {
         float indicatorGap = getContext().getResources().getDimension(gapRes);
         if (indicatorGap >= 0) {
@@ -149,13 +155,23 @@ public class BaseIndicatorView extends View implements IIndicator {
         }
     }
 
+    /**
+     * @param slideMode Indicator滑动样式
+     * @see IndicatorSlideMode#NORMAL
+     * @see IndicatorSlideMode#SMOOTH
+     */
     @Override
-    public void setSlideStyle(IndicatorSlideMode slideStyle) {
-        mSlideStyle = slideStyle;
+    public void setSlideMode(IndicatorSlideMode slideMode) {
+        mSlideMode = slideMode;
     }
 
+    /**
+     * Indicator Slider width or the diameter of circle.
+     * @param normalIndicatorWidth 未选中Slider width
+     * @param checkedIndicatorWidth 选中Slider width
+     */
     @Override
-    public void setIndicatorWidth(float normalIndicatorWidth,float checkedIndicatorWidth) {
+    public void setIndicatorWidth(float normalIndicatorWidth, float checkedIndicatorWidth) {
         this.normalIndicatorWidth = DpUtils.dp2px(normalIndicatorWidth);
         this.checkedIndicatorWidth = DpUtils.dp2px(checkedIndicatorWidth);
     }

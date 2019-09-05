@@ -23,7 +23,7 @@ public interface IIndicator {
 
     void setIndicatorGap(float gap);
 
-    void setSlideStyle(IndicatorSlideMode slideStyle);
+    void setSlideMode(IndicatorSlideMode slideStyle);
 
     void setIndicatorWidth(float normalIndicatorWidth,float checkedIndicatorWidth);
 }
