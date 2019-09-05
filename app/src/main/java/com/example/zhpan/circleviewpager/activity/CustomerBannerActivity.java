@@ -40,6 +40,7 @@ public class CustomerBannerActivity extends AppCompatActivity {
         mViewPager.setAutoPlay(true)
                 .setCanLoop(true)
                 .setRoundCorner(R.dimen.banner_corner)
+                .setIndicatorRadius(10)
                 .setIndicatorGravity(BannerViewPager.END)
                 .setIndicatorColor(Color.parseColor("#6C6D72"),
                         Color.parseColor("#FFFFFF"))

@@ -20,9 +20,12 @@ import android.widget.RelativeLayout;
 import com.zhpan.bannerview.Utils.DpUtils;
 import com.zhpan.bannerview.adapter.BannerPagerAdapter;
 import com.zhpan.bannerview.enums.IndicatorSlideMode;
+import com.zhpan.bannerview.enums.IndicatorStyle;
 import com.zhpan.bannerview.holder.HolderCreator;
 import com.zhpan.bannerview.holder.ViewHolder;
+import com.zhpan.bannerview.indicator.BaseIndicatorView;
 import com.zhpan.bannerview.indicator.IIndicator;
+import com.zhpan.bannerview.indicator.IndicatorFactory;
 import com.zhpan.bannerview.provider.BannerScroller;
 import com.zhpan.bannerview.provider.ViewStyleSetter;
 import com.zhpan.bannerview.transform.PageTransformerFactory;
@@ -42,7 +45,6 @@ import java.util.List;
  */
 public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout implements
         ViewPager.OnPageChangeListener {
-    public String tag = "BannerViewPager";
     private ViewPager mViewPager;
     // 轮播数据集合
     private List<T> mList;
@@ -68,20 +70,32 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     // 选中时选点颜色
     private int indicatorCheckedColor;
     // 指示器圆点半径
-    private float normalIndicatorRadius;
+    private int normalIndicatorWidth;
     // 选中时指示器圆点半径
-    private float checkedIndicatorRadius;
+    private int checkedIndicatorWidth;
 
     // 页面点击事件监听
     private OnPageClickListener mOnPageClickListener;
     // 圆点指示器的Layout
     private IIndicator mIndicatorView;
+    //  存放IndicatorView的容器
+    RelativeLayout mRelativeLayout;
+    /**
+     * 指示器Style样式
+     *
+     * @see IndicatorStyle#CIRCLE 圆形指示器
+     * @see IndicatorStyle#DASH  虚线指示器
+     */
+    private IndicatorStyle mIndicatorStyle = IndicatorStyle.CIRCLE;
 
+
+    private HolderCreator<VH> holderCreator;
+    // IndicatorView的滑动模式
     private IndicatorSlideMode mIndicatorSlideMode = IndicatorSlideMode.SMOOTH;
 
-    RelativeLayout mRelativeLayout;
-    private HolderCreator<VH> holderCreator;
+
     Handler mHandler = new Handler();
+
     Runnable mRunnable = new Runnable() {
         @Override
         public void run() {
@@ -101,7 +115,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
 
     public static final int DEFAULT_SCROLL_DURATION = 800;
 
-    private float indicatorMargin = 0;
+    private int indicatorGap = 0;
 
     public BannerViewPager(Context context) {
         this(context, null);
@@ -140,9 +154,10 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
             indicatorNormalColor =
                     typedArray.getColor(R.styleable.BannerViewPager_indicator_normal_color,
                             Color.parseColor("#8C6C6D72"));
-            normalIndicatorRadius = typedArray.getDimension(R.styleable.BannerViewPager_indicator_radius,
-                    DpUtils.dp2px(context, 4));
-            checkedIndicatorRadius = normalIndicatorRadius;
+            normalIndicatorWidth = (int) typedArray.getDimension(R.styleable.BannerViewPager_indicator_radius,
+                    DpUtils.dp2px(8));
+            indicatorGap = normalIndicatorWidth;
+            checkedIndicatorWidth = normalIndicatorWidth;
             isAutoPlay = typedArray.getBoolean(R.styleable.BannerViewPager_isAutoPlay, true);
             isCanLoop = typedArray.getBoolean(R.styleable.BannerViewPager_isCanLoop, true);
             gravity = typedArray.getInt(R.styleable.BannerViewPager_indicator_gravity, 0);
@@ -150,9 +165,6 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
         }
     }
 
-    /**
-     * 替换ViewPager默认的Scroller
-     */
     private void initScroller() {
         try {
             mScroller = new BannerScroller(mViewPager.getContext());
@@ -166,7 +178,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     }
 
     /**
-     * 初始化书记及ViewPager
+     * 初始化IndicatorView及ViewPager
      */
     private void initData() {
         if (mList.size() > 0) {
@@ -180,11 +192,16 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
         }
     }
 
-    private View getIndicatorView() {
-        CircleIndicatorView indicatorView = new CircleIndicatorView(getContext());
-        indicatorView.setPageSize(mList.size()).setIndicatorRadius(normalIndicatorRadius, checkedIndicatorRadius)
-                .setIndicatorMargin(indicatorMargin).setCheckedColor(indicatorCheckedColor)
-                .setNormalColor(indicatorNormalColor).setSlideStyle(mIndicatorSlideMode).invalidate();
+    private BaseIndicatorView getIndicatorView() {
+        BaseIndicatorView indicatorView = IndicatorFactory.createIndicatorView(getContext(), mIndicatorStyle);
+        indicatorView.setPageSize(mList.size());
+
+        indicatorView.setIndicatorWidth(normalIndicatorWidth, normalIndicatorWidth);
+        indicatorView.setIndicatorGap(indicatorGap);
+        indicatorView.setCheckedColor(indicatorCheckedColor);
+        indicatorView.setNormalColor(indicatorNormalColor);
+        indicatorView.setSlideMode(mIndicatorSlideMode);
+        indicatorView.invalidate();
         return indicatorView;
     }
 
@@ -236,7 +253,6 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
         }
     }
 
-
     private void setupViewPager() {
         if (holderCreator != null) {
             BannerPagerAdapter<T, VH> bannerPagerAdapter =
@@ -270,9 +286,9 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
 
     @Override
     public void onPageScrollStateChanged(int state) {
-        if (mIndicatorView != null)
+        if (showIndicator && mIndicatorView != null) {
             mIndicatorView.onPageScrollStateChanged(state);
-
+        }
         if (isCanLoop) {
             switch (state) {
                 case ViewPager.SCROLL_STATE_IDLE:
@@ -297,7 +313,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        if (mIndicatorView != null) {
+        if (showIndicator && mIndicatorView != null) {
             mIndicatorView.onPageScrolled(getRealPosition(position), positionOffset, positionOffsetPixels);
         }
     }
@@ -320,6 +336,14 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
         return isCanLoop ? (position < mList.size()) ? (++position) : mList.size() : position;
     }
 
+
+    /**
+     * @return BannerViewPager数据集合
+     */
+    public List<T> getList() {
+        return mList;
+    }
+
     /**
      * 开启轮播
      */
@@ -340,49 +364,31 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
         }
     }
 
-
+    /**
+     * 必须为BannerViewPager设置HolderCreator,HolderCreator中创建ViewHolder，
+     * 在ViewHolder中管理BannerViewPager的ItemView.
+     *
+     * @param holderCreator HolderCreator
+     */
     public BannerViewPager<T, VH> setHolderCreator(HolderCreator<VH> holderCreator) {
         this.holderCreator = holderCreator;
         return this;
     }
 
-    /**
-     * 设置圆角ViewPager
-     *
-     * @param radius @DimenRes 圆角大小
-     */
-    public BannerViewPager<T, VH> setRoundCorner(@DimenRes int radius) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            ViewStyleSetter viewStyleSetter = new ViewStyleSetter(this);
-            viewStyleSetter.setRoundCorner(getResources().getDimension(radius));
-        }
-        return this;
-    }
 
     /**
      * 设置圆角ViewPager
      *
-     * @param radiusDp 圆角大小
+     * @param radius 圆角大小
      */
-    public BannerViewPager<T, VH> setRoundCorner(float radiusDp) {
+    public BannerViewPager<T, VH> setRoundCorner(int radius) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             ViewStyleSetter viewStyleSetter = new ViewStyleSetter(this);
-            viewStyleSetter.setRoundCorner(DpUtils.dp2px(getContext(), radiusDp));
+            viewStyleSetter.setRoundCorner(radius);
         }
         return this;
     }
 
-
-    /**
-     * @param checkedColor 选中时指示器颜色
-     * @param normalColor  未选中时指示器颜色
-     */
-    public BannerViewPager<T, VH> setIndicatorColor(@ColorInt int normalColor,
-                                                    @ColorInt int checkedColor) {
-        indicatorCheckedColor = checkedColor;
-        indicatorNormalColor = normalColor;
-        return this;
-    }
 
     /**
      * 设置是否自动轮播
@@ -420,49 +426,22 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
         return this;
     }
 
-
-    public List<T> getList() {
-        return mList;
+    /**
+     * 设置页面Transformer内置样式
+     */
+    public BannerViewPager<T, VH> setPageTransformerStyle(TransformerStyle style) {
+        mViewPager.setPageTransformer(true, new PageTransformerFactory().createPageTransformer(style));
+        return this;
     }
+
 
     /**
-     * 设置指示器半径大小
+     * 设置页面点击事件
      *
-     * @param radiusDp 指示器圆点半径
+     * @param onPageClickListener 页面点击监听
      */
-    public BannerViewPager<T, VH> setIndicatorRadius(float radiusDp) {
-        this.normalIndicatorRadius = DpUtils.dp2px(getContext(), radiusDp);
-        this.checkedIndicatorRadius = normalIndicatorRadius;
-        return this;
-    }
-
-    public BannerViewPager<T, VH> setIndicatorRadius(float normalRadius, float checkRadius) {
-        this.normalIndicatorRadius = DpUtils.dp2px(getContext(), normalRadius);
-        this.checkedIndicatorRadius = DpUtils.dp2px(getContext(), checkRadius);
-        return this;
-    }
-
-    public BannerViewPager<T, VH> setIndicatorView(IIndicator indicatorView) {
-        if (indicatorView instanceof View) {
-            initIndicator((View) indicatorView);
-        }
-        return this;
-    }
-
-    /**
-     * 设置指示器半径大小
-     *
-     * @param radiusRes 指示器圆点半径
-     */
-    public BannerViewPager<T, VH> setIndicatorRadius(@DimenRes int radiusRes) {
-        this.normalIndicatorRadius = getContext().getResources().getDimension(radiusRes);
-        this.checkedIndicatorRadius = normalIndicatorRadius;
-        return this;
-    }
-
-    public BannerViewPager<T, VH> setIndicatorRadius(@DimenRes int normalRadius, @DimenRes int checkRadius) {
-        this.normalIndicatorRadius = getContext().getResources().getDimension(normalRadius);
-        this.checkedIndicatorRadius = getContext().getResources().getDimension(checkRadius);
+    public BannerViewPager<T, VH> setOnPageClickListener(OnPageClickListener onPageClickListener) {
+        this.mOnPageClickListener = onPageClickListener;
         return this;
     }
 
@@ -477,6 +456,79 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     }
 
     /**
+     * @param checkedColor 选中时指示器颜色
+     * @param normalColor  未选中时指示器颜色
+     */
+    public BannerViewPager<T, VH> setIndicatorColor(@ColorInt int normalColor,
+                                                    @ColorInt int checkedColor) {
+        indicatorCheckedColor = checkedColor;
+        indicatorNormalColor = normalColor;
+        return this;
+    }
+
+    /**
+     * 设置指示器半径大小，选中与未选中半径大小相等
+     *
+     * @param radiusRes 指示器圆点半径
+     * @param radiusRes
+     * @return
+     */
+    public BannerViewPager<T, VH> setIndicatorRadius(int radiusRes) {
+        this.normalIndicatorWidth = radiusRes * 2;
+        this.checkedIndicatorWidth = radiusRes * 2;
+        return this;
+    }
+
+    /**
+     * 设置Indicator半径
+     *
+     * @param normalRadius 未选中时半径
+     * @param checkRadius  选中时半径
+     */
+    public BannerViewPager<T, VH> setIndicatorRadius(int normalRadius, int checkRadius) {
+        this.normalIndicatorWidth = normalRadius * 2;
+        this.checkedIndicatorWidth = checkRadius * 2;
+        return this;
+    }
+
+
+    /**
+     * 设置单个Indicator宽度，如果是圆则为圆的直径
+     *
+     * @param indicatorWidth 单个Indicator宽度/直径
+     */
+    public BannerViewPager<T, VH> setIndicatorWidth(int indicatorWidth) {
+        this.normalIndicatorWidth = indicatorWidth;
+        this.checkedIndicatorWidth = indicatorWidth;
+        return this;
+    }
+
+
+    /**
+     * 设置单个Indicator宽度，如果是圆则为圆的直径
+     *
+     * @param normalWidth 未选中时宽度/直径
+     * @param checkWidth  选中时宽度/直径
+     */
+    public BannerViewPager<T, VH> setIndicatorWidth(int normalWidth, int checkWidth) {
+        this.normalIndicatorWidth = normalWidth;
+        this.checkedIndicatorWidth = checkWidth;
+        return this;
+    }
+
+    /**
+     * 设置指示器间隔
+     *
+     * @param indicatorGap 指示器间隔
+     * @return BannerViewPager
+     */
+    public BannerViewPager<T, VH> setIndicatorGap(int indicatorGap) {
+        this.indicatorGap = indicatorGap;
+        return this;
+    }
+
+
+    /**
      * @param showIndicator 是否显示轮播指示器
      */
     public BannerViewPager<T, VH> showIndicator(boolean showIndicator) {
@@ -488,55 +540,58 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
      * 设置指示器位置
      *
      * @param gravity 指示器位置
+     *                {@link BannerViewPager#CENTER}
+     *                {@link BannerViewPager#START}
+     *                {@link BannerViewPager#END}
      */
     public BannerViewPager<T, VH> setIndicatorGravity(@IndicatorGravity int gravity) {
         this.gravity = gravity;
         return this;
     }
 
-    public BannerViewPager<T, VH> setIndicatorSlideMode(IndicatorSlideMode slideStyle) {
-        mIndicatorSlideMode = slideStyle;
-        return this;
-    }
-
     /**
-     * @param transformer PageTransformer that will modify each page's animation properties
-     */
-    public BannerViewPager<T, VH> setPageTransformer(ViewPager.PageTransformer transformer) {
-        mViewPager.setPageTransformer(true, transformer);
-        return this;
-    }
-
-    public void setPageTransformerStyle(TransformerStyle style) {
-        setPageTransformer(new PageTransformerFactory().createPageTransformer(style));
-    }
-
-
-    public interface OnPageClickListener {
-        void onPageClick(int position);
-    }
-
-
-    /**
-     * BannerViewPager页面点击事件
+     * 设置IndicatorView滑动模式，默认值{@link IndicatorSlideMode#SMOOTH}
      *
-     * @param onPageClickListener 页面点击监听
+     * @param slideMode Indicator滑动模式
+     * @see com.zhpan.bannerview.enums.IndicatorSlideMode#NORMAL
+     * @see com.zhpan.bannerview.enums.IndicatorSlideMode#SMOOTH
      */
-    public BannerViewPager<T, VH> setOnPageClickListener(OnPageClickListener onPageClickListener) {
-        this.mOnPageClickListener = onPageClickListener;
+    public BannerViewPager<T, VH> setIndicatorSlideMode(IndicatorSlideMode slideMode) {
+        mIndicatorSlideMode = slideMode;
         return this;
     }
 
-    public BannerViewPager<T, VH> setIndicatorMargin(float indicatorMarginDp) {
-        this.indicatorMargin = indicatorMarginDp;
+
+    /**
+     * 设置自定义View指示器,自定义View需要需要继承BaseIndicator或者实现IIndicator接口自行绘制指示器。
+     * 注意，一旦设置了自定义IndicatorView,通过BannerViewPager设置的部分IndicatorView参数将失效。
+     *
+     * @param customIndicator 自定义指示器
+     */
+    public BannerViewPager<T, VH> setIndicatorView(IIndicator customIndicator) {
+        if (customIndicator instanceof View) {
+            initIndicator((View) customIndicator);
+        }
         return this;
     }
 
-    public BannerViewPager<T, VH> setIndicatorMargin(@DimenRes int marginRes) {
-        this.indicatorMargin = getContext().getResources().getDimension(marginRes);
+    /**
+     * 设置Indicator样式
+     *
+     * @param indicatorStyle indicator样式，目前有圆和断线两种样式
+     *                       {@link IndicatorStyle#CIRCLE}
+     *                       {@link IndicatorStyle#DASH}
+     */
+    public BannerViewPager<T, VH> setIndicatorStyle(IndicatorStyle indicatorStyle) {
+        mIndicatorStyle = indicatorStyle;
         return this;
     }
 
+    /**
+     * 构造ViewPager
+     *
+     * @param list ViewPager数据
+     */
     public void create(List<T> list) {
         if (list != null) {
             mList.clear();
@@ -545,6 +600,12 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
         }
     }
 
+    /**
+     * 获取BannerViewPager中封装的ViewPager，用于设置BannerViewPager未暴露出来的接口，
+     * 比如setCurrentItem等。
+     *
+     * @return BannerViewPager中封装的ViewPager
+     */
     public ViewPager getViewPager() {
         return mViewPager;
     }
@@ -553,5 +614,12 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     @Retention(RetentionPolicy.SOURCE)
     @Target(ElementType.PARAMETER)
     @interface IndicatorGravity {
+    }
+
+    /**
+     * 页面点击事件接口
+     */
+    public interface OnPageClickListener {
+        void onPageClick(int position);
     }
 }
