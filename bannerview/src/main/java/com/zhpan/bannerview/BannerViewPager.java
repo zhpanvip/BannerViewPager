@@ -8,7 +8,6 @@ import android.os.Build;
 import android.os.Handler;
 
 import androidx.annotation.ColorInt;
-import androidx.annotation.DimenRes;
 import androidx.annotation.IntDef;
 import androidx.viewpager.widget.ViewPager;
 
@@ -381,12 +380,12 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     /**
      * 设置圆角ViewPager
      *
-     * @param radiusDp 圆角大小
+     * @param radius 圆角大小
      */
-    public BannerViewPager<T, VH> setRoundCorner(int radiusDp) {
+    public BannerViewPager<T, VH> setRoundCorner(int radius) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             ViewStyleSetter viewStyleSetter = new ViewStyleSetter(this);
-            viewStyleSetter.setRoundCorner(radiusDp);
+            viewStyleSetter.setRoundCorner(radius);
         }
         return this;
     }
@@ -431,8 +430,9 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     /**
      * 设置页面Transformer内置样式
      */
-    public void setPageTransformerStyle(TransformerStyle style) {
+    public BannerViewPager<T, VH> setPageTransformerStyle(TransformerStyle style) {
         mViewPager.setPageTransformer(true, new PageTransformerFactory().createPageTransformer(style));
+        return this;
     }
 
 
