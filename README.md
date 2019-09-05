@@ -66,14 +66,14 @@
    
 latestVersion is: [ [外链图片转存失败(img-ea1UXLGv-1567686170240)(https://api.bintray.com/packages/zhpanvip/CircleViewPager/bannerview/images/download.svg)] ](https://bintray.com/zhpanvip/CircleViewPager/bannerview/_latestVersion)
 
-如果您已迁移到AndroidX请使用2.2.4以上版本
+如果您已迁移到AndroidX请使用latestVersion(>=2.3.0)
 ```
 implementation 'com.zhpan.library:bannerview:latestVersion'
 
 ```
 如果未迁移到AndroidX请使用：
 ```
-implementation 'com.zhpan.library:bannerview:2.1.5'
+implementation 'com.zhpan.library:bannerview:2.2.6'
 ```
 
 ## 2.在xml文件中添加如下代码：

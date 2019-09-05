@@ -5,10 +5,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 
-import androidx.annotation.DimenRes;
-
-import com.zhpan.bannerview.utils.DpUtils;
-
 /**
  * Created by zhpan on 2017/12/6.
  */
@@ -83,23 +79,5 @@ public class CircleIndicatorView extends BaseIndicatorView {
         mPaint.setColor(checkedColor);
         canvas.drawCircle(maxRadius + (2 * mNormalRadius + mIndicatorGap) * currentPosition + (2 * mNormalRadius + mIndicatorGap) * slideProgress,
                 height / 2f, mCheckedRadius, mPaint);
-    }
-
-    /**
-     * @param normalRadius  未选中时Indicator半径,单位dp
-     * @param checkedRadius 选中时Indicator半径，单位dp
-     */
-    public void setIndicatorRadius(float normalRadius, float checkedRadius) {
-        this.mNormalRadius = DpUtils.dp2px(normalRadius);
-        this.mCheckedRadius = DpUtils.dp2px(checkedRadius);
-    }
-
-    /**
-     * @param normalRadius  未选中时Indicator半径
-     * @param checkedRadius 选中时Indicator半径
-     */
-    public void setIndicatorRadius(@DimenRes int normalRadius, @DimenRes int checkedRadius) {
-        this.mNormalRadius = getContext().getResources().getDimension(normalRadius);
-        this.mCheckedRadius = getContext().getResources().getDimension(checkedRadius);
     }
 }
