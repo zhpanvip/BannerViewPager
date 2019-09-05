@@ -22,6 +22,7 @@ import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.zhpan.bannerview.BannerViewPager;
+import com.zhpan.bannerview.utils.DpUtils;
 import com.zhpan.idea.net.common.DefaultObserver;
 import com.zhpan.idea.utils.RxUtil;
 
@@ -44,8 +45,19 @@ public class NetworkBannerActivity extends RxAppCompatActivity {
         setContentView(R.layout.activity_network_banner);
         setTitle(R.string.load_data);
         initRefreshLayout();
+        initRecyclerView();
         initBanner();
         fetchData(true);
+    }
+
+    private void initRecyclerView() {
+        recyclerView = findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.addHeadView(getHeaderView());
+        recyclerView.addItemDecoration(new DividerItemDecoration(NetworkBannerActivity.this,
+                DividerItemDecoration.VERTICAL));
+        articleAdapter = new ArticleAdapter(this, new ArrayList<>());
+        recyclerView.setAdapter(articleAdapter);
     }
 
     private void initRefreshLayout() {
@@ -85,18 +97,11 @@ public class NetworkBannerActivity extends RxAppCompatActivity {
     }
 
     private void initBanner() {
-        recyclerView = findViewById(R.id.recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.addHeadView(getHeaderView());
-        recyclerView.addItemDecoration(new DividerItemDecoration(NetworkBannerActivity.this,
-                DividerItemDecoration.VERTICAL));
-        articleAdapter = new ArticleAdapter(this, new ArrayList<>());
-        recyclerView.setAdapter(articleAdapter);
         mBannerViewPager.showIndicator(true)
                 .setInterval(3000)
                 .setCanLoop(false)
                 .setAutoPlay(true)
-                .setRoundCorner(7f)
+                .setRoundCorner(DpUtils.dp2px(7))
                 .setIndicatorColor(Color.parseColor("#935656"), Color.parseColor("#FF4C39"))
                 .setIndicatorGravity(BannerViewPager.END)
                 .setScrollDuration(1000).setHolderCreator(NetViewHolder::new)

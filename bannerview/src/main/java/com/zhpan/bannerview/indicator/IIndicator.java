@@ -21,9 +21,9 @@ public interface IIndicator {
 
     void setCheckedColor(int checkedColor);
 
-    void setIndicatorGap(float gap);
-
     void setSlideMode(IndicatorSlideMode slideStyle);
 
-    void setIndicatorWidth(float normalIndicatorWidth,float checkedIndicatorWidth);
+    void setIndicatorGap(int gap);
+
+    void setIndicatorWidth(int normalIndicatorWidth,int checkedIndicatorWidth);
 }

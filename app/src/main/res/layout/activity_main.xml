@@ -7,12 +7,12 @@
     android:padding="15dp">
 
     <Button
-        android:id="@+id/btn_slide_mode"
+        android:id="@+id/btn_indicator_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onClick"
         android:layout_marginTop="15dp"
-        android:text="@string/indicator_slide_mode" />
+        android:text="@string/indicator_style" />
 
     <Button
         android:id="@+id/btn_custom_indicator"

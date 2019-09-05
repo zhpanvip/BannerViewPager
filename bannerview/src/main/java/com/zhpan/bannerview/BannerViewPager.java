@@ -72,9 +72,9 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     // 选中时选点颜色
     private int indicatorCheckedColor;
     // 指示器圆点半径
-    private float normalIndicatorWidth;
+    private int normalIndicatorWidth;
     // 选中时指示器圆点半径
-    private float checkedIndicatorWidth;
+    private int checkedIndicatorWidth;
 
     // 页面点击事件监听
     private OnPageClickListener mOnPageClickListener;
@@ -117,7 +117,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
 
     public static final int DEFAULT_SCROLL_DURATION = 800;
 
-    private float indicatorGap = 0;
+    private int indicatorGap = 0;
 
     public BannerViewPager(Context context) {
         this(context, null);
@@ -156,7 +156,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
             indicatorNormalColor =
                     typedArray.getColor(R.styleable.BannerViewPager_indicator_normal_color,
                             Color.parseColor("#8C6C6D72"));
-            normalIndicatorWidth = typedArray.getDimension(R.styleable.BannerViewPager_indicator_radius,
+            normalIndicatorWidth = (int) typedArray.getDimension(R.styleable.BannerViewPager_indicator_radius,
                     DpUtils.dp2px(8));
             indicatorGap = normalIndicatorWidth;
             checkedIndicatorWidth = normalIndicatorWidth;
@@ -198,8 +198,8 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
         BaseIndicatorView indicatorView = IndicatorFactory.createIndicatorView(getContext(), mIndicatorStyle);
         indicatorView.setPageSize(mList.size());
 
-        indicatorView.setIndicatorWidth(DpUtils.px2dp(normalIndicatorWidth), DpUtils.px2dp(checkedIndicatorWidth));
-        indicatorView.setIndicatorGap(DpUtils.px2dp(indicatorGap));
+        indicatorView.setIndicatorWidth(normalIndicatorWidth, normalIndicatorWidth);
+        indicatorView.setIndicatorGap(indicatorGap);
         indicatorView.setCheckedColor(indicatorCheckedColor);
         indicatorView.setNormalColor(indicatorNormalColor);
         indicatorView.setSlideMode(mIndicatorSlideMode);
@@ -377,43 +377,20 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
         return this;
     }
 
-    /**
-     * 设置圆角ViewPager
-     *
-     * @param radius @DimenRes 圆角大小
-     */
-    public BannerViewPager<T, VH> setRoundCorner(@DimenRes int radius) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            ViewStyleSetter viewStyleSetter = new ViewStyleSetter(this);
-            viewStyleSetter.setRoundCorner(getResources().getDimension(radius));
-        }
-        return this;
-    }
 
     /**
      * 设置圆角ViewPager
      *
      * @param radiusDp 圆角大小
      */
-    public BannerViewPager<T, VH> setRoundCorner(float radiusDp) {
+    public BannerViewPager<T, VH> setRoundCorner(int radiusDp) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             ViewStyleSetter viewStyleSetter = new ViewStyleSetter(this);
-            viewStyleSetter.setRoundCorner(DpUtils.dp2px(radiusDp));
+            viewStyleSetter.setRoundCorner(radiusDp);
         }
         return this;
     }
 
-
-    /**
-     * @param checkedColor 选中时指示器颜色
-     * @param normalColor  未选中时指示器颜色
-     */
-    public BannerViewPager<T, VH> setIndicatorColor(@ColorInt int normalColor,
-                                                    @ColorInt int checkedColor) {
-        indicatorCheckedColor = checkedColor;
-        indicatorNormalColor = normalColor;
-        return this;
-    }
 
     /**
      * 设置是否自动轮播
@@ -470,55 +447,23 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     }
 
     /**
-     * 设置指示器半径
-     * 你可以在{@link BannerViewPager#mIndicatorStyle}=={@link IndicatorStyle#CIRCLE}
-     * 时使用此方法设置圆的半径
+     * 设置page滚动时间
      *
-     * @param indicatorRadius 指示器圆点半径
+     * @param scrollDuration page滚动时间
      */
-    public BannerViewPager<T, VH> setIndicatorRadius(float indicatorRadius) {
-        this.normalIndicatorWidth = 2 * DpUtils.dp2px(indicatorRadius);
-        this.checkedIndicatorWidth = normalIndicatorWidth;
+    public BannerViewPager<T, VH> setScrollDuration(int scrollDuration) {
+        mScroller.setDuration(scrollDuration);
         return this;
     }
 
     /**
-     * 设置指示器半径
-     * 你可以在{@link BannerViewPager#mIndicatorStyle}=={@link IndicatorStyle#CIRCLE}
-     * 时使用此方法设置圆的半径
-     *
-     * @param indicatorWidth 指示器圆点半径，单位dp
+     * @param checkedColor 选中时指示器颜色
+     * @param normalColor  未选中时指示器颜色
      */
-    public BannerViewPager<T, VH> setIndicatorWidth(float indicatorWidth) {
-        this.normalIndicatorWidth = DpUtils.dp2px(indicatorWidth);
-        this.checkedIndicatorWidth = normalIndicatorWidth;
-        return this;
-    }
-
-    /**
-     * 设置指示器半径大小，单位dp
-     * 你可以在{@link BannerViewPager#mIndicatorStyle}=={@link IndicatorStyle#CIRCLE}时使用此方法设置圆的半径
-     *
-     * @param normalRadius  未选中是半径大小
-     * @param checkedRadius 选中时半径大小
-     */
-    public BannerViewPager<T, VH> setIndicatorRadius(float normalRadius, float checkedRadius) {
-        this.normalIndicatorWidth = 2 * DpUtils.dp2px(normalRadius);
-        this.checkedIndicatorWidth = 2 * DpUtils.dp2px(checkedRadius);
-        return this;
-    }
-
-    /**
-     * 设置指示器宽度，单位dp
-     * 如果{@link BannerViewPager#mIndicatorStyle}=={@link IndicatorStyle#CIRCLE}则为圆的直径
-     * 如果{@link BannerViewPager#mIndicatorStyle}=={@link IndicatorStyle#DASH}则为Indicator的直径
-     *
-     * @param normalIndicatorWidth  未选中时宽度/直径大小
-     * @param checkedIndicatorWidth 选中时宽度/直径大小
-     */
-    public BannerViewPager<T, VH> setIndicatorWidth(float normalIndicatorWidth, float checkedIndicatorWidth) {
-        this.normalIndicatorWidth = DpUtils.dp2px(normalIndicatorWidth);
-        this.checkedIndicatorWidth = DpUtils.dp2px(checkedIndicatorWidth);
+    public BannerViewPager<T, VH> setIndicatorColor(@ColorInt int normalColor,
+                                                    @ColorInt int checkedColor) {
+        indicatorCheckedColor = checkedColor;
+        indicatorNormalColor = normalColor;
         return this;
     }
 
@@ -529,20 +474,9 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
      * @param radiusRes
      * @return
      */
-    public BannerViewPager<T, VH> setIndicatorRadius(@DimenRes int radiusRes) {
-        this.normalIndicatorWidth = getContext().getResources().getDimension(radiusRes);
-        this.checkedIndicatorWidth = normalIndicatorWidth;
-        return this;
-    }
-
-    /**
-     * 设置单个Indicator宽度，如果是圆则为圆的直径
-     *
-     * @param indicatorWidth 单个Indicator宽度/直径
-     */
-    public BannerViewPager<T, VH> setIndicatorWidth(@DimenRes int indicatorWidth) {
-        this.normalIndicatorWidth = DpUtils.px2dp(getContext().getResources().getDimension(indicatorWidth));
-        this.checkedIndicatorWidth = normalIndicatorWidth;
+    public BannerViewPager<T, VH> setIndicatorRadius(int radiusRes) {
+        this.normalIndicatorWidth = radiusRes * 2;
+        this.checkedIndicatorWidth = radiusRes * 2;
         return this;
     }
 
@@ -552,33 +486,48 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
      * @param normalRadius 未选中时半径
      * @param checkRadius  选中时半径
      */
-    public BannerViewPager<T, VH> setIndicatorRadius(@DimenRes int normalRadius, @DimenRes int checkRadius) {
-        this.normalIndicatorWidth = 2 * getContext().getResources().getDimension(normalRadius);
-        this.checkedIndicatorWidth = 2 * getContext().getResources().getDimension(checkRadius);
+    public BannerViewPager<T, VH> setIndicatorRadius(int normalRadius, int checkRadius) {
+        this.normalIndicatorWidth = normalRadius * 2;
+        this.checkedIndicatorWidth = checkRadius * 2;
         return this;
     }
+
 
     /**
      * 设置单个Indicator宽度，如果是圆则为圆的直径
      *
-     * @param normalRadius 未选中时宽度/直径
-     * @param checkRadius  选中时宽度/直径
+     * @param indicatorWidth 单个Indicator宽度/直径
      */
-    public BannerViewPager<T, VH> setIndicatorWidth(@DimenRes int normalRadius, @DimenRes int checkRadius) {
-        this.normalIndicatorWidth = DpUtils.px2dp(getContext().getResources().getDimension(normalRadius));
-        this.checkedIndicatorWidth = DpUtils.px2dp(getContext().getResources().getDimension(checkRadius));
+    public BannerViewPager<T, VH> setIndicatorWidth(int indicatorWidth) {
+        this.normalIndicatorWidth = indicatorWidth;
+        this.checkedIndicatorWidth = indicatorWidth;
+        return this;
+    }
+
+
+    /**
+     * 设置单个Indicator宽度，如果是圆则为圆的直径
+     *
+     * @param normalWidth 未选中时宽度/直径
+     * @param checkWidth  选中时宽度/直径
+     */
+    public BannerViewPager<T, VH> setIndicatorWidth(int normalWidth, int checkWidth) {
+        this.normalIndicatorWidth = normalWidth;
+        this.checkedIndicatorWidth = checkWidth;
         return this;
     }
 
     /**
-     * 设置page滚动时间
+     * 设置指示器间隔
      *
-     * @param scrollDuration page滚动时间
+     * @param indicatorGap 指示器间隔
+     * @return BannerViewPager
      */
-    public BannerViewPager<T, VH> setScrollDuration(int scrollDuration) {
-        mScroller.setDuration(scrollDuration);
+    public BannerViewPager<T, VH> setIndicatorGap(int indicatorGap) {
+        this.indicatorGap = indicatorGap;
         return this;
     }
+
 
     /**
      * @param showIndicator 是否显示轮播指示器
@@ -592,6 +541,9 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
      * 设置指示器位置
      *
      * @param gravity 指示器位置
+     *                {@link BannerViewPager#CENTER}
+     *                {@link BannerViewPager#START}
+     *                {@link BannerViewPager#END}
      */
     public BannerViewPager<T, VH> setIndicatorGravity(@IndicatorGravity int gravity) {
         this.gravity = gravity;
@@ -610,27 +562,6 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
         return this;
     }
 
-    /**
-     * 设置指示器间隔,单位dp
-     *
-     * @param indicatorGap 指示器间隔
-     * @return BannerViewPager
-     */
-    public BannerViewPager<T, VH> setIndicatorGap(float indicatorGap) {
-        this.indicatorGap = DpUtils.dp2px(indicatorGap);
-        return this;
-    }
-
-    /**
-     * 设置指示器间隔
-     *
-     * @param marginRes 指示器间隔 dimens
-     * @return BannerViewPager
-     */
-    public BannerViewPager<T, VH> setIndicatorGap(@DimenRes int marginRes) {
-        this.indicatorGap = DpUtils.px2dp(getContext().getResources().getDimension(marginRes));
-        return this;
-    }
 
     /**
      * 设置自定义View指示器,自定义View需要需要继承BaseIndicator或者实现IIndicator接口自行绘制指示器。
@@ -638,13 +569,20 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
      *
      * @param customIndicator 自定义指示器
      */
-    public BannerViewPager<T, VH> setCustomIndicatorView(IIndicator customIndicator) {
+    public BannerViewPager<T, VH> setIndicatorView(IIndicator customIndicator) {
         if (customIndicator instanceof View) {
             initIndicator((View) customIndicator);
         }
         return this;
     }
 
+    /**
+     * 设置Indicator样式
+     *
+     * @param indicatorStyle indicator样式，目前有圆和断线两种样式
+     *                       {@link IndicatorStyle#CIRCLE}
+     *                       {@link IndicatorStyle#DASH}
+     */
     public BannerViewPager<T, VH> setIndicatorStyle(IndicatorStyle indicatorStyle) {
         mIndicatorStyle = indicatorStyle;
         return this;

@@ -8,6 +8,7 @@ import com.example.zhpan.circleviewpager.R;
 import com.zhpan.bannerview.indicator.DashIndicatorView;
 import com.example.zhpan.circleviewpager.viewholder.SlideModeViewHolder;
 import com.zhpan.bannerview.BannerViewPager;
+import com.zhpan.bannerview.utils.DpUtils;
 
 import java.util.Arrays;
 import java.util.List;
@@ -27,14 +28,14 @@ public class CustomIndicatorActivity extends AppCompatActivity {
         List<String> list = Arrays.asList(picUrls);
         DashIndicatorView indicatorView = new DashIndicatorView(this);
         indicatorView.setPageSize(list.size());
-        indicatorView.setIndicatorWidth(8f,8f);
-        indicatorView.setSliderHeight(3.5f);
-        indicatorView.setIndicatorGap(5f);
+        indicatorView.setIndicatorWidth(DpUtils.dp2px(8), DpUtils.dp2px(8));
+        indicatorView.setSliderHeight(DpUtils.dp2px(4));
+        indicatorView.setIndicatorGap(DpUtils.dp2px(5));
         indicatorView.setCheckedColor(getResources().getColor(R.color.colorAccent));
         indicatorView.setNormalColor(getResources().getColor(R.color.colorPrimary));
         viewPager.setAutoPlay(false).setCanLoop(true)
-                .setRoundCorner(15f)
-                .setCustomIndicatorView(indicatorView)
+                .setRoundCorner(DpUtils.dp2px(5))
+                .setIndicatorView(indicatorView)
                 .setHolderCreator(SlideModeViewHolder::new).create(list);
     }
 }

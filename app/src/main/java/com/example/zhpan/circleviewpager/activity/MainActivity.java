@@ -33,8 +33,8 @@ public class MainActivity extends AppCompatActivity {
             case R.id.btn_view_pager5:
                 intent = new Intent(this, PageTransformerActivity.class);
                 break;
-            case R.id.btn_slide_mode:
-                intent = new Intent(this, IndicatorSlideModeActivity.class);
+            case R.id.btn_indicator_style:
+                intent = new Intent(this, IndicatorStyleActivity.class);
                 break;
             default:
                 intent = new Intent(this, CustomerBannerActivity.class);

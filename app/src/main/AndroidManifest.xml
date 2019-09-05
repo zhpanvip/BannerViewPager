@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activity.CustomIndicatorActivity"></activity>
-        <activity android:name=".activity.IndicatorSlideModeActivity" />
+        <activity android:name=".activity.IndicatorStyleActivity" />
         <activity android:name=".activity.PageTransformerActivity" />
         <activity android:name=".activity.NetworkBannerActivity" />
         <activity

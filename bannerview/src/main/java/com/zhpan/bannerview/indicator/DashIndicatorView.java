@@ -79,8 +79,8 @@ public class DashIndicatorView extends BaseIndicatorView implements IIndicator {
         canvas.drawRect(left, 0, left + checkedIndicatorWidth, sliderHeight, mPaint);
     }
 
-    public DashIndicatorView setSliderHeight(float sliderHeight) {
-        this.sliderHeight = DpUtils.dp2px(sliderHeight);
+    public DashIndicatorView setSliderHeight(int sliderHeight) {
+        this.sliderHeight = sliderHeight;
         return this;
     }
 }

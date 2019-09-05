@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.View;
 
-import androidx.annotation.DimenRes;
 import androidx.annotation.Nullable;
 
 import com.zhpan.bannerview.enums.IndicatorSlideMode;
@@ -135,23 +134,13 @@ public class BaseIndicatorView extends View implements IIndicator {
         this.checkedColor = checkedColor;
     }
 
-    /**
-     * @param gap Indicator间距，单位dp
-     */
-    @Override
-    public void setIndicatorGap(float gap) {
-        if (gap >= 0) {
-            this.mIndicatorGap = DpUtils.dp2px(gap);
-        }
-    }
 
     /**
      * @param gapRes Indicator间距
      */
-    public void setIndicatorGap(@DimenRes int gapRes) {
-        float indicatorGap = getContext().getResources().getDimension(gapRes);
-        if (indicatorGap >= 0) {
-            this.mIndicatorGap = indicatorGap;
+    public void setIndicatorGap(int gapRes) {
+        if (gapRes >= 0) {
+            this.mIndicatorGap = gapRes;
         }
     }
 
@@ -167,13 +156,14 @@ public class BaseIndicatorView extends View implements IIndicator {
 
     /**
      * Indicator Slider width or the diameter of circle.
-     * @param normalIndicatorWidth 未选中Slider width
+     *
+     * @param normalIndicatorWidth  未选中Slider width
      * @param checkedIndicatorWidth 选中Slider width
      */
     @Override
-    public void setIndicatorWidth(float normalIndicatorWidth, float checkedIndicatorWidth) {
-        this.normalIndicatorWidth = DpUtils.dp2px(normalIndicatorWidth);
-        this.checkedIndicatorWidth = DpUtils.dp2px(checkedIndicatorWidth);
+    public void setIndicatorWidth(int normalIndicatorWidth, int checkedIndicatorWidth) {
+        this.normalIndicatorWidth = normalIndicatorWidth;
+        this.checkedIndicatorWidth = checkedIndicatorWidth;
     }
 
     @Override
