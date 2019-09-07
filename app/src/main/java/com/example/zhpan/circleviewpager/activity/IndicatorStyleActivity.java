@@ -4,8 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import com.example.zhpan.circleviewpager.R;
 import com.example.zhpan.circleviewpager.viewholder.SlideModeViewHolder;
@@ -37,21 +35,21 @@ public class IndicatorStyleActivity extends AppCompatActivity {
         mList = Arrays.asList(picUrls);
         initCircleNormalSlide();
         initCircleSmoothSlide();
-        initDashSmoothSlide();
+        initDashIndicator();
     }
 
-    private void initDashSmoothSlide() {
+    private void initDashIndicator() {
         mViewPagerDash = findViewById(R.id.banner_view_dash);
         mViewPagerDash.setAutoPlay(true).setCanLoop(true)
                 .setRoundCorner(DpUtils.dp2px(5))
-                .setIndicatorGap(DpUtils.dp2px(7))
+                .setIndicatorGap(DpUtils.dp2px(5))
                 .setScrollDuration(1000)
+                .setIndicatorHeight(DpUtils.dp2px(2.5f))
                 .setIndicatorStyle(IndicatorStyle.DASH)
-                .setIndicatorWidth(DpUtils.dp2px(13))
-                .setIndicatorGap(DpUtils.dp2px(10))
+                .setIndicatorWidth(DpUtils.dp2px(10),DpUtils.dp2px(5))
                 .setHolderCreator(SlideModeViewHolder::new)
-                .setIndicatorColor(Color.parseColor("#935656"),
-                        Color.parseColor("#CCFF4C39")).create(mList);
+                .setIndicatorColor(Color.parseColor("#888888"),
+                        Color.parseColor("#118EEA")).create(mList);
     }
 
     private void initCircleSmoothSlide() {
@@ -78,8 +76,8 @@ public class IndicatorStyleActivity extends AppCompatActivity {
                 .setIndicatorWidth(DpUtils.dp2px(8))
                 .setIndicatorSlideMode(IndicatorSlideMode.NORMAL)
                 .setHolderCreator(SlideModeViewHolder::new)
-                .setIndicatorColor(Color.parseColor("#935656"),
-                        Color.parseColor("#CCFF4C39")).create(mList);
+                .setIndicatorColor(Color.parseColor("#888888"),
+                        Color.parseColor("#118EEA")).create(mList);
     }
 
     @Override

@@ -31,7 +31,7 @@ public class CircleIndicatorView extends BaseIndicatorView {
         mPaint.setAntiAlias(true);
         mNormalRadius = normalIndicatorWidth / 2;
         mCheckedRadius = checkedIndicatorWidth / 2;
-        mIndicatorGap = mNormalRadius * 2;
+        indicatorGap = mNormalRadius * 2;
     }
 
     @Override
@@ -46,16 +46,16 @@ public class CircleIndicatorView extends BaseIndicatorView {
         mNormalRadius = normalIndicatorWidth / 2;
         mCheckedRadius = checkedIndicatorWidth / 2;
         maxRadius = Math.max(mCheckedRadius, mNormalRadius);
-        setMeasuredDimension((int) ((mPageSize - 1) * mIndicatorGap + 2 * maxRadius * mPageSize),
+        setMeasuredDimension((int) ((pageSize - 1) * indicatorGap + 2 * maxRadius * pageSize),
                 (int) (2 * maxRadius));
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        for (int i = 0; i < mPageSize; i++) {
+        for (int i = 0; i < pageSize; i++) {
             mPaint.setColor(normalColor);
-            canvas.drawCircle(maxRadius + (2 * mNormalRadius + mIndicatorGap) * i, height / 2f, mNormalRadius, mPaint);
+            canvas.drawCircle(maxRadius + (2 * mNormalRadius + indicatorGap) * i, height / 2f, mNormalRadius, mPaint);
         }
         drawSliderStyle(canvas);
     }
@@ -77,7 +77,7 @@ public class CircleIndicatorView extends BaseIndicatorView {
 
     private void drawSliderStyle(Canvas canvas) {
         mPaint.setColor(checkedColor);
-        canvas.drawCircle(maxRadius + (2 * mNormalRadius + mIndicatorGap) * currentPosition + (2 * mNormalRadius + mIndicatorGap) * slideProgress,
+        canvas.drawCircle(maxRadius + (2 * mNormalRadius + indicatorGap) * currentPosition + (2 * mNormalRadius + indicatorGap) * slideProgress,
                 height / 2f, mCheckedRadius, mPaint);
     }
 }

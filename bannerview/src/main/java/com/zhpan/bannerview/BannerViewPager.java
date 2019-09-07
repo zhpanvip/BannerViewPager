@@ -20,6 +20,7 @@ import android.widget.RelativeLayout;
 
 import com.zhpan.bannerview.enums.IndicatorStyle;
 import com.zhpan.bannerview.indicator.BaseIndicatorView;
+import com.zhpan.bannerview.indicator.DashIndicatorView;
 import com.zhpan.bannerview.indicator.IIndicator;
 import com.zhpan.bannerview.indicator.IndicatorFactory;
 import com.zhpan.bannerview.utils.DpUtils;
@@ -87,12 +88,12 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
      * @see IndicatorStyle#CIRCLE 圆形指示器
      * @see IndicatorStyle#DASH  虚线指示器
      */
-    private IndicatorStyle mIndicatorStyle = IndicatorStyle.CIRCLE;
+    private IndicatorStyle mIndicatorStyle;
 
 
     private HolderCreator<VH> holderCreator;
     // IndicatorView的滑动模式
-    private IndicatorSlideMode mIndicatorSlideMode = IndicatorSlideMode.SMOOTH;
+    private IndicatorSlideMode mIndicatorSlideMode;
 
 
     Handler mHandler = new Handler();
@@ -116,7 +117,8 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
 
     public static final int DEFAULT_SCROLL_DURATION = 800;
 
-    private int indicatorGap = 0;
+    private int indicatorGap;
+    private int indicatorHeight;
 
     public BannerViewPager(Context context) {
         this(context, null);
@@ -158,7 +160,10 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
             normalIndicatorWidth = (int) typedArray.getDimension(R.styleable.BannerViewPager_indicator_radius,
                     DpUtils.dp2px(8));
             indicatorGap = normalIndicatorWidth;
+            indicatorHeight = normalIndicatorWidth / 2;
             checkedIndicatorWidth = normalIndicatorWidth;
+            mIndicatorStyle = IndicatorStyle.CIRCLE;
+            mIndicatorSlideMode = IndicatorSlideMode.NORMAL;
             isAutoPlay = typedArray.getBoolean(R.styleable.BannerViewPager_isAutoPlay, true);
             isCanLoop = typedArray.getBoolean(R.styleable.BannerViewPager_isCanLoop, true);
             gravity = typedArray.getInt(R.styleable.BannerViewPager_indicator_gravity, 0);
@@ -196,12 +201,14 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     private BaseIndicatorView getIndicatorView() {
         BaseIndicatorView indicatorView = IndicatorFactory.createIndicatorView(getContext(), mIndicatorStyle);
         indicatorView.setPageSize(mList.size());
-
-        indicatorView.setIndicatorWidth(normalIndicatorWidth, normalIndicatorWidth);
+        indicatorView.setIndicatorWidth(normalIndicatorWidth, checkedIndicatorWidth);
         indicatorView.setIndicatorGap(indicatorGap);
         indicatorView.setCheckedColor(indicatorCheckedColor);
         indicatorView.setNormalColor(indicatorNormalColor);
         indicatorView.setSlideMode(mIndicatorSlideMode);
+        if (indicatorView instanceof DashIndicatorView) {
+            ((DashIndicatorView) indicatorView).setSliderHeight(indicatorHeight);
+        }
         indicatorView.invalidate();
         return indicatorView;
     }
@@ -513,6 +520,11 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     public BannerViewPager<T, VH> setIndicatorWidth(int normalWidth, int checkWidth) {
         this.normalIndicatorWidth = normalWidth;
         this.checkedIndicatorWidth = checkWidth;
+        return this;
+    }
+
+    public BannerViewPager<T, VH> setIndicatorHeight(int indicatorHeight) {
+        this.indicatorHeight = indicatorHeight;
         return this;
     }
 

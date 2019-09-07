@@ -7,6 +7,12 @@
     tools:context=".activity.IndicatorStyleActivity">
 
     <com.zhpan.bannerview.BannerViewPager
+        android:id="@+id/banner_view_dash"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"/>
+
+    <com.zhpan.bannerview.BannerViewPager
         android:id="@+id/banner_view_normal_slide"
         android:layout_margin="10dp"
         android:layout_width="match_parent"
@@ -14,12 +20,6 @@
 
     <com.zhpan.bannerview.BannerViewPager
         android:id="@+id/banner_view"
-        android:layout_margin="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"/>
-
-    <com.zhpan.bannerview.BannerViewPager
-        android:id="@+id/banner_view_dash"
         android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="150dp"/>

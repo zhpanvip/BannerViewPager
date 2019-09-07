@@ -29,7 +29,7 @@ public class CustomIndicatorActivity extends AppCompatActivity {
     }
 
     private void setUpViewPager() {
-        viewPager = findViewById(R.id.banner_view);
+        viewPager = findViewById(R.id.banner_view_dash);
         List<String> list = Arrays.asList(picUrls);
         viewPager.setAutoPlay(false).setCanLoop(true)
                 .setRoundCorner(DpUtils.dp2px(5))
@@ -37,6 +37,9 @@ public class CustomIndicatorActivity extends AppCompatActivity {
                 .setHolderCreator(SlideModeViewHolder::new).create(list);
     }
 
+    /**
+     * 这里可以是自定义的Indicator，需要继承BaseIndicatorView或者实现IIndicator接口;
+     */
     private DashIndicatorView setupIndicatorView(int pageSize) {
         DashIndicatorView indicatorView = new DashIndicatorView(this);
         indicatorView.setPageSize(pageSize);
