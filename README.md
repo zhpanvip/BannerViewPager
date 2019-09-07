@@ -15,11 +15,11 @@
 | ![NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/slide_normal.gif) |  ![SMOOTH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/slide_smooth.gif) |
 
 ## 3.自定义IndicatorView
-如果以上样式不能满足你的需求，BannerViewPager还提供了完全自定义IndicatorView的功能。只要实现IIndicator接口，你就可以为所欲为的打造属于你自己的Indicator了,效果如下：
+如果以上样式不能满足你的需求，BannerViewPager还提供了完全自定义IndicatorView的功能。只要继承BaseIndicatorView或者实现IIndicator接口，并重写相应方法，就可以为所欲为的打造任意的Indicator了。下图是一个自定义仿支付宝的Indicator：
 
 | Custom Indicator |
 |--|
-| ![NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/custom_indicator.gif) |
+| ![NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/v_2.3.1/image/custom_indicator.gif) |
 
 ## 4.内置Transform样式
 
@@ -49,6 +49,7 @@
 | BannerViewPager<T, VH> setIndicatorRadius(int normalRadius,int checkRadius)  |设置指示器圆点半径  |  normalRadius:未选中时半径  checkedRadius:选中时的半径,默认值4dp |
 | BannerViewPager<T, VH> setIndicatorWidth(int indicatorWidth) | 设置指示器宽度，如果是圆形指示器，则为直径 |  默认值8dp|
 | BannerViewPager<T, VH> setIndicatorWidth(int normalWidth, int checkWidth) | 设置指示器宽度，如果是圆形指示器，则为直径 | 默认值8dp |
+| BannerViewPager<T, VH> setIndicatorHeight(int indicatorHeight) | 设置指示器高度，仅在Indicator样式为DASH时有效 | 默认值normalIndicatorWidth/2 |
 | BannerViewPager<T, VH> setIndicatorGap(int indicatorMargin) | 指示器圆点间距| 默认值为指示器宽度（或者是圆的直径）|
 | BannerViewPager<T, VH> setIndicatorView(IIndicator indicatorView) | 设置自定义指示器| 设置自定义指示器后以上关于IndicatorView的参数会部分失效|
 | BannerViewPager<T, VH> setPageTransformerStyle(TransformerStyle style) | 设置页面Transformer内置样式 |  |
@@ -285,21 +286,19 @@ public class DashIndicatorView extends BaseIndicatorView {
 
 # TODO 版本计划
 
-~~（1）优化及重构IndicatorView~~（2.0.1）
+ - [x] 优化及重构IndicatorView（2.0.1）
 
-~~（2）修复2.1.0以前版本循环滑动时第一张切换卡顿问题~~ （2.1.0.1）
+ - [x] 修复2.1.0以前版本循环滑动时第一张切换卡顿问题（2.1.0.1）
 
-~~（3）增加页面滑动动画~~（2.1.2）
+ - [x] 增加页面滑动动画（2.1.2）
 
-~~（4）迁移AndroidX~~（2.2.0）
+ - [x] 迁移AndroidX（2.2.0）
 
-~~（5）增加IndicatorView的滑动样式~~（2.2.2）
+ - [x] 增加IndicatorView的滑动样式（2.2.2）
 
- （6）增添更多Indicator滑动模式（2.3.+）
- 
- （7）ViewPager更换为ViewPager2 （3.0.0）
- 
- （8）目前Indicator部分代码比较乱，还有很大很大的优化空间，后续版本将持续优化
+ - [x] 增添更多Indicator样式（2.3.+）
+ - [ ]  ViewPager更换为ViewPager2 （3.0.0）
+ - [ ] 目前Indicator部分代码比较乱，还有很大很大的优化空间，后续版本将持续优化
  
 
 
