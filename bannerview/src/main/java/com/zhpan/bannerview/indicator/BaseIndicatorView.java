@@ -6,7 +6,6 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import androidx.annotation.Nullable;
-import androidx.viewpager.widget.ViewPager;
 
 import com.zhpan.bannerview.enums.IndicatorSlideMode;
 import com.zhpan.bannerview.utils.DpUtils;

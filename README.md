@@ -19,7 +19,7 @@
 
 | Custom Indicator |
 |--|
-| ![NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/v_2.3.1/image/custom_indicator.gif) |
+| ![NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/custom_indicator.gif) |
 
 ## 4.内置Transform样式
 
@@ -74,7 +74,7 @@ implementation 'com.zhpan.library:bannerview:latestVersion'
 ```
 如果未迁移到AndroidX请使用：
 ```
-implementation 'com.zhpan.library:bannerview:2.2.6'
+implementation 'com.zhpan.library:bannerview:2.2.7'
 ```
 
 ## 2.在xml文件中添加如下代码：
