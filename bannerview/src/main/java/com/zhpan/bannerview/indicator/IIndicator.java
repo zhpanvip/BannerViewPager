@@ -22,4 +22,6 @@ public interface IIndicator extends ViewPager.OnPageChangeListener {
     void setIndicatorGap(int gap);
 
     void setIndicatorWidth(int normalIndicatorWidth, int checkedIndicatorWidth);
+
+    void notifyDataChanged();
 }

@@ -3,7 +3,6 @@ package com.zhpan.bannerview.indicator;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -61,7 +60,6 @@ public class BaseIndicatorView extends View implements IIndicator {
 
     protected float normalIndicatorWidth;
     protected float checkedIndicatorWidth;
-    private int mScrollState;
 
     public BaseIndicatorView(Context context) {
         super(context);
@@ -83,26 +81,23 @@ public class BaseIndicatorView extends View implements IIndicator {
 
     @Override
     public void onPageSelected(int position) {
-        if (mScrollState == ViewPager.SCROLL_STATE_SETTLING) {
-            if (slideMode == IndicatorSlideMode.NORMAL) {
-                currentPosition = position;
+        if (slideMode == IndicatorSlideMode.NORMAL) {
+            currentPosition = position;
+            slideProgress = 0;
+            invalidate();
+        } else if (slideMode == IndicatorSlideMode.SMOOTH) {
+            if (position == 0 && slideToRight) {
+//                    Log.e(tag, "slideToRight position-----》" + position);
+                currentPosition = 0;
                 slideProgress = 0;
                 invalidate();
-            } else if (slideMode == IndicatorSlideMode.SMOOTH) {
-                if (position == 0 && slideToRight) {
-                    Log.e(tag, "slideToRight position-----》" + position);
-                    currentPosition = 0;
-                    slideProgress = 0;
-                    invalidate();
 
-                } else if (position == pageSize - 1 && !slideToRight) {
-                    currentPosition = pageSize - 1;
-                    slideProgress = 0;
-                    invalidate();
-                }
+            } else if (position == pageSize - 1 && !slideToRight) {
+                currentPosition = pageSize - 1;
+                slideProgress = 0;
+                invalidate();
             }
         }
-
     }
 
     private static final String tag = "BaseIndicatorView";
@@ -113,8 +108,8 @@ public class BaseIndicatorView extends View implements IIndicator {
             if ((prePosition == 0 && position == pageSize - 1)) {
                 slideToRight = false;
             } else if (prePosition == pageSize - 1 && position == 0) {
-                Log.e(tag, "prePosition-----》" + prePosition);
-                Log.e(tag, "position-----》" + position);
+//                Log.e(tag, "prePosition-----》" + prePosition);
+//                Log.e(tag, "position-----》" + position);
                 slideToRight = true;
             } else {
                 slideToRight = (position + positionOffset - prePosition) > 0;
@@ -180,7 +175,11 @@ public class BaseIndicatorView extends View implements IIndicator {
     }
 
     @Override
+    public void notifyDataChanged() {
+        invalidate();
+    }
+
+    @Override
     public void onPageScrollStateChanged(int state) {
-        mScrollState = state;
     }
 }

@@ -9,6 +9,7 @@ import com.zhpan.bannerview.indicator.DashIndicatorView;
 import com.example.zhpan.circleviewpager.viewholder.SlideModeViewHolder;
 import com.zhpan.bannerview.BannerViewPager;
 import com.zhpan.bannerview.utils.DpUtils;
+import com.zhpan.idea.utils.ToastUtils;
 
 import java.util.Arrays;
 import java.util.List;
@@ -34,6 +35,7 @@ public class CustomIndicatorActivity extends AppCompatActivity {
         viewPager.setAutoPlay(false).setCanLoop(true)
                 .setRoundCorner(DpUtils.dp2px(5))
                 .setIndicatorView(setupIndicatorView(list.size()))
+                .setOnPageClickListener(position -> ToastUtils.show(position+""))
                 .setHolderCreator(SlideModeViewHolder::new).create(list);
     }
 

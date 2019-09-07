@@ -95,7 +95,6 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     // IndicatorView的滑动模式
     private IndicatorSlideMode mIndicatorSlideMode;
 
-
     Handler mHandler = new Handler();
 
     Runnable mRunnable = new Runnable() {
@@ -119,6 +118,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
 
     private int indicatorGap;
     private int indicatorHeight;
+    private boolean isCustomIndicator;
 
     public BannerViewPager(Context context) {
         this(context, null);
@@ -188,8 +188,12 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
      */
     private void initData() {
         if (mList.size() > 0) {
-            if (mIndicatorView == null && mList.size() > 1 && showIndicator) {
-                initIndicator(getIndicatorView());
+            if (mList.size() > 1 && showIndicator) {
+                if (isCustomIndicator && null != mIndicatorView) {
+                    initIndicator(mIndicatorView);
+                } else {
+                    initIndicator(getIndicatorView());
+                }
             }
             if (isCanLoop) {
                 currentPosition = 1;
@@ -241,13 +245,12 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     /**
      * 构造指示器
      */
-    private void initIndicator(View indicatorView) {
+    private void initIndicator(IIndicator indicatorView) {
         mRelativeLayout.removeAllViews();
-        mRelativeLayout.addView(indicatorView);
-        mIndicatorView = (IIndicator) indicatorView;
+        mRelativeLayout.addView((View) indicatorView);
+        mIndicatorView = indicatorView;
         RelativeLayout.LayoutParams layoutParams =
-                (RelativeLayout.LayoutParams) indicatorView.getLayoutParams();
-        layoutParams.addRule(RelativeLayout.CENTER_VERTICAL);
+                (RelativeLayout.LayoutParams) ((View) indicatorView).getLayoutParams();
         switch (gravity) {
             case CENTER:
                 layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
@@ -582,7 +585,9 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
      */
     public BannerViewPager<T, VH> setIndicatorView(IIndicator customIndicator) {
         if (customIndicator instanceof View) {
-            initIndicator((View) customIndicator);
+            isCustomIndicator = true;
+            mIndicatorView = customIndicator;
+//            initIndicator((View) customIndicator);
         }
         return this;
     }
@@ -609,6 +614,10 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
             mList.clear();
             mList.addAll(list);
             initData();
+            if (showIndicator && null != mIndicatorView) {
+                mIndicatorView.setPageSize(mList.size());
+                mIndicatorView.notifyDataChanged();
+            }
         }
     }
 
