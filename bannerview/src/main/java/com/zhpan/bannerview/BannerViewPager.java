@@ -24,6 +24,7 @@ import com.zhpan.bannerview.enums.IndicatorStyle;
 import com.zhpan.bannerview.holder.HolderCreator;
 import com.zhpan.bannerview.holder.ViewHolder;
 import com.zhpan.bannerview.indicator.BaseIndicatorView;
+import com.zhpan.bannerview.indicator.DashIndicatorView;
 import com.zhpan.bannerview.indicator.IIndicator;
 import com.zhpan.bannerview.indicator.IndicatorFactory;
 import com.zhpan.bannerview.provider.BannerScroller;
@@ -48,9 +49,9 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     private ViewPager mViewPager;
     // 轮播数据集合
     private List<T> mList;
-    // 图片切换时间间隔
+    // 页面切换时间间隔
     private int interval;
-    // 图片当前位置
+    // 当前页面位置
     private int currentPosition;
     // 是否正在循环
     private boolean isLooping;
@@ -58,25 +59,25 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     private boolean isCanLoop;
     // 是否开启自动播放
     private boolean isAutoPlay = false;
-    // 是否显示指示器圆点
+    // 是否显示指示器
     private boolean showIndicator = true;
-    // 圆点指示器显示位置
+    // 指示器显示位置
     public static final int START = 1;
     public static final int END = 2;
     public static final int CENTER = 0;
     private int gravity;
-    // 未选中时圆点颜色
+    // 未选中时指示器颜色
     private int indicatorNormalColor;
-    // 选中时选点颜色
+    // 选中时的指示器颜色
     private int indicatorCheckedColor;
-    // 指示器圆点半径
+    // 指示器宽度/直径
     private int normalIndicatorWidth;
-    // 选中时指示器圆点半径
+    // 选中时指示宽度/直径
     private int checkedIndicatorWidth;
 
     // 页面点击事件监听
     private OnPageClickListener mOnPageClickListener;
-    // 圆点指示器的Layout
+    // 轮播指示器
     private IIndicator mIndicatorView;
     //  存放IndicatorView的容器
     RelativeLayout mRelativeLayout;
@@ -86,13 +87,12 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
      * @see IndicatorStyle#CIRCLE 圆形指示器
      * @see IndicatorStyle#DASH  虚线指示器
      */
-    private IndicatorStyle mIndicatorStyle = IndicatorStyle.CIRCLE;
+    private IndicatorStyle mIndicatorStyle;
 
 
     private HolderCreator<VH> holderCreator;
     // IndicatorView的滑动模式
-    private IndicatorSlideMode mIndicatorSlideMode = IndicatorSlideMode.SMOOTH;
-
+    private IndicatorSlideMode mIndicatorSlideMode;
 
     Handler mHandler = new Handler();
 
@@ -115,7 +115,9 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
 
     public static final int DEFAULT_SCROLL_DURATION = 800;
 
-    private int indicatorGap = 0;
+    private int indicatorGap;
+    private int indicatorHeight;
+    private boolean isCustomIndicator;
 
     public BannerViewPager(Context context) {
         this(context, null);
@@ -157,7 +159,10 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
             normalIndicatorWidth = (int) typedArray.getDimension(R.styleable.BannerViewPager_indicator_radius,
                     DpUtils.dp2px(8));
             indicatorGap = normalIndicatorWidth;
+            indicatorHeight = normalIndicatorWidth / 2;
             checkedIndicatorWidth = normalIndicatorWidth;
+            mIndicatorStyle = IndicatorStyle.CIRCLE;
+            mIndicatorSlideMode = IndicatorSlideMode.NORMAL;
             isAutoPlay = typedArray.getBoolean(R.styleable.BannerViewPager_isAutoPlay, true);
             isCanLoop = typedArray.getBoolean(R.styleable.BannerViewPager_isCanLoop, true);
             gravity = typedArray.getInt(R.styleable.BannerViewPager_indicator_gravity, 0);
@@ -182,8 +187,12 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
      */
     private void initData() {
         if (mList.size() > 0) {
-            if (mIndicatorView == null && mList.size() > 1 && showIndicator) {
-                initIndicator(getIndicatorView());
+            if (mList.size() > 1 && showIndicator) {
+                if (isCustomIndicator && null != mIndicatorView) {
+                    initIndicator(mIndicatorView);
+                } else {
+                    initIndicator(getIndicatorView());
+                }
             }
             if (isCanLoop) {
                 currentPosition = 1;
@@ -195,12 +204,14 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     private BaseIndicatorView getIndicatorView() {
         BaseIndicatorView indicatorView = IndicatorFactory.createIndicatorView(getContext(), mIndicatorStyle);
         indicatorView.setPageSize(mList.size());
-
-        indicatorView.setIndicatorWidth(normalIndicatorWidth, normalIndicatorWidth);
+        indicatorView.setIndicatorWidth(normalIndicatorWidth, checkedIndicatorWidth);
         indicatorView.setIndicatorGap(indicatorGap);
         indicatorView.setCheckedColor(indicatorCheckedColor);
         indicatorView.setNormalColor(indicatorNormalColor);
         indicatorView.setSlideMode(mIndicatorSlideMode);
+        if (indicatorView instanceof DashIndicatorView) {
+            ((DashIndicatorView) indicatorView).setSliderHeight(indicatorHeight);
+        }
         indicatorView.invalidate();
         return indicatorView;
     }
@@ -233,13 +244,12 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     /**
      * 构造指示器
      */
-    private void initIndicator(View indicatorView) {
+    private void initIndicator(IIndicator indicatorView) {
         mRelativeLayout.removeAllViews();
-        mRelativeLayout.addView(indicatorView);
-        mIndicatorView = (IIndicator) indicatorView;
+        mRelativeLayout.addView((View) indicatorView);
+        mIndicatorView = indicatorView;
         RelativeLayout.LayoutParams layoutParams =
-                (RelativeLayout.LayoutParams) indicatorView.getLayoutParams();
-        layoutParams.addRule(RelativeLayout.CENTER_VERTICAL);
+                (RelativeLayout.LayoutParams) ((View) indicatorView).getLayoutParams();
         switch (gravity) {
             case CENTER:
                 layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
@@ -469,13 +479,12 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     /**
      * 设置指示器半径大小，选中与未选中半径大小相等
      *
-     * @param radiusRes 指示器圆点半径
-     * @param radiusRes
+     * @param radius 指示器圆点半径
      * @return
      */
-    public BannerViewPager<T, VH> setIndicatorRadius(int radiusRes) {
-        this.normalIndicatorWidth = radiusRes * 2;
-        this.checkedIndicatorWidth = radiusRes * 2;
+    public BannerViewPager<T, VH> setIndicatorRadius(int radius) {
+        this.normalIndicatorWidth = radius * 2;
+        this.checkedIndicatorWidth = radius * 2;
         return this;
     }
 
@@ -513,6 +522,11 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     public BannerViewPager<T, VH> setIndicatorWidth(int normalWidth, int checkWidth) {
         this.normalIndicatorWidth = normalWidth;
         this.checkedIndicatorWidth = checkWidth;
+        return this;
+    }
+
+    public BannerViewPager<T, VH> setIndicatorHeight(int indicatorHeight) {
+        this.indicatorHeight = indicatorHeight;
         return this;
     }
 
@@ -570,7 +584,9 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
      */
     public BannerViewPager<T, VH> setIndicatorView(IIndicator customIndicator) {
         if (customIndicator instanceof View) {
-            initIndicator((View) customIndicator);
+            isCustomIndicator = true;
+            mIndicatorView = customIndicator;
+//            initIndicator((View) customIndicator);
         }
         return this;
     }
@@ -597,6 +613,10 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
             mList.clear();
             mList.addAll(list);
             initData();
+            if (showIndicator && null != mIndicatorView) {
+                mIndicatorView.setPageSize(mList.size());
+                mIndicatorView.notifyDataChanged();
+            }
         }
     }
 

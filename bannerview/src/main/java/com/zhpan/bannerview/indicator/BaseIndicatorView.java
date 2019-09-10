@@ -19,7 +19,7 @@ public class BaseIndicatorView extends View implements IIndicator {
     /**
      * 页面size
      */
-    protected int mPageSize;
+    protected int pageSize;
     /**
      * 未选中时Indicator颜色
      */
@@ -31,7 +31,7 @@ public class BaseIndicatorView extends View implements IIndicator {
     /**
      * Indicator间距
      */
-    protected float mIndicatorGap;
+    protected float indicatorGap;
     /**
      * 从一个点滑动到另一个点的进度
      */
@@ -54,7 +54,7 @@ public class BaseIndicatorView extends View implements IIndicator {
      * @see IndicatorSlideMode#NORMAL
      * @see IndicatorSlideMode#SMOOTH
      */
-    protected IndicatorSlideMode mSlideMode = IndicatorSlideMode.SMOOTH;
+    protected IndicatorSlideMode slideMode;
 
     protected float normalIndicatorWidth;
     protected float checkedIndicatorWidth;
@@ -71,36 +71,43 @@ public class BaseIndicatorView extends View implements IIndicator {
         super(context, attrs, defStyleAttr);
         normalIndicatorWidth = DpUtils.dp2px(8);
         checkedIndicatorWidth = normalIndicatorWidth;
-        mIndicatorGap = normalIndicatorWidth;
+        indicatorGap = normalIndicatorWidth;
         normalColor = Color.parseColor("#8C18171C");
         checkedColor = Color.parseColor("#8C6C6D72");
+        slideMode = IndicatorSlideMode.NORMAL;
     }
 
     @Override
     public void onPageSelected(int position) {
-        if (mSlideMode == IndicatorSlideMode.NORMAL) {
+        if (slideMode == IndicatorSlideMode.NORMAL) {
             currentPosition = position;
             slideProgress = 0;
             invalidate();
-        } else if (mSlideMode == IndicatorSlideMode.SMOOTH) {
+        } else if (slideMode == IndicatorSlideMode.SMOOTH) {
             if (position == 0 && slideToRight) {
+//                    Log.e(tag, "slideToRight position-----》" + position);
                 currentPosition = 0;
                 slideProgress = 0;
                 invalidate();
-            } else if (position == mPageSize - 1 && !slideToRight) {
-                currentPosition = mPageSize - 1;
+
+            } else if (position == pageSize - 1 && !slideToRight) {
+                currentPosition = pageSize - 1;
                 slideProgress = 0;
                 invalidate();
             }
         }
     }
 
+    private static final String tag = "BaseIndicatorView";
+
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        if (mSlideMode == IndicatorSlideMode.SMOOTH) {
-            if ((prePosition == 0 && position == mPageSize - 1)) {
+        if (slideMode == IndicatorSlideMode.SMOOTH) {
+            if ((prePosition == 0 && position == pageSize - 1)) {
                 slideToRight = false;
-            } else if (prePosition == mPageSize - 1 && position == 0) {
+            } else if (prePosition == pageSize - 1 && position == 0) {
+//                Log.e(tag, "prePosition-----》" + prePosition);
+//                Log.e(tag, "position-----》" + position);
                 slideToRight = true;
             } else {
                 slideToRight = (position + positionOffset - prePosition) > 0;
@@ -109,8 +116,8 @@ public class BaseIndicatorView extends View implements IIndicator {
             if (positionOffset == 0) {
                 prePosition = position;
             }
-            if (!(position == mPageSize - 1 && slideToRight || (position == mPageSize - 1 && !slideToRight))) {
-                slideProgress = (currentPosition == mPageSize - 1) && slideToRight ? 0 : positionOffset;
+            if (!(position == pageSize - 1 && slideToRight || (position == pageSize - 1 && !slideToRight))) {
+                slideProgress = (currentPosition == pageSize - 1) && slideToRight ? 0 : positionOffset;
                 currentPosition = position;
                 invalidate();
             }
@@ -119,7 +126,7 @@ public class BaseIndicatorView extends View implements IIndicator {
 
     @Override
     public void setPageSize(int pageSize) {
-        this.mPageSize = pageSize;
+        this.pageSize = pageSize;
         requestLayout();
     }
 
@@ -139,7 +146,7 @@ public class BaseIndicatorView extends View implements IIndicator {
      */
     public void setIndicatorGap(int gapRes) {
         if (gapRes >= 0) {
-            this.mIndicatorGap = gapRes;
+            this.indicatorGap = gapRes;
         }
     }
 
@@ -150,7 +157,7 @@ public class BaseIndicatorView extends View implements IIndicator {
      */
     @Override
     public void setSlideMode(IndicatorSlideMode slideMode) {
-        mSlideMode = slideMode;
+        this.slideMode = slideMode;
     }
 
     /**
@@ -166,7 +173,11 @@ public class BaseIndicatorView extends View implements IIndicator {
     }
 
     @Override
-    public void onPageScrollStateChanged(int state) {
+    public void notifyDataChanged() {
+        invalidate();
+    }
 
+    @Override
+    public void onPageScrollStateChanged(int state) {
     }
 }

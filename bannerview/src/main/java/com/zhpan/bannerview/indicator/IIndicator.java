@@ -1,5 +1,7 @@
 package com.zhpan.bannerview.indicator;
 
+import android.support.v4.view.ViewPager;
+
 import com.zhpan.bannerview.enums.IndicatorSlideMode;
 
 /**
@@ -8,14 +10,7 @@ import com.zhpan.bannerview.enums.IndicatorSlideMode;
  *   Description:
  * </pre>
  */
-public interface IIndicator {
-
-    void onPageSelected(int position);
-
-    void onPageScrolled(int position, float positionOffset, int positionOffsetPixels);
-
-    void onPageScrollStateChanged(int state);
-
+public interface IIndicator extends ViewPager.OnPageChangeListener {
     void setPageSize(int pageSize);
 
     void setNormalColor(int normalColor);
@@ -26,5 +21,7 @@ public interface IIndicator {
 
     void setIndicatorGap(int gap);
 
-    void setIndicatorWidth(int normalIndicatorWidth,int checkedIndicatorWidth);
+    void setIndicatorWidth(int normalIndicatorWidth, int checkedIndicatorWidth);
+
+    void notifyDataChanged();
 }
