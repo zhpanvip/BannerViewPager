@@ -50,9 +50,9 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     private ViewPager mViewPager;
     // 轮播数据集合
     private List<T> mList;
-    // 图片切换时间间隔
+    // 页面切换时间间隔
     private int interval;
-    // 图片当前位置
+    // 当前页面位置
     private int currentPosition;
     // 是否正在循环
     private boolean isLooping;
@@ -60,25 +60,25 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     private boolean isCanLoop;
     // 是否开启自动播放
     private boolean isAutoPlay = false;
-    // 是否显示指示器圆点
+    // 是否显示指示器
     private boolean showIndicator = true;
-    // 圆点指示器显示位置
+    // 指示器显示位置
     public static final int START = 1;
     public static final int END = 2;
     public static final int CENTER = 0;
     private int gravity;
-    // 未选中时圆点颜色
+    // 未选中时指示器颜色
     private int indicatorNormalColor;
-    // 选中时选点颜色
+    // 选中时的指示器颜色
     private int indicatorCheckedColor;
-    // 指示器圆点半径
+    // 指示器宽度/直径
     private int normalIndicatorWidth;
-    // 选中时指示器圆点半径
+    // 选中时指示宽度/直径
     private int checkedIndicatorWidth;
 
     // 页面点击事件监听
     private OnPageClickListener mOnPageClickListener;
-    // 圆点指示器的Layout
+    // 轮播指示器
     private IIndicator mIndicatorView;
     //  存放IndicatorView的容器
     RelativeLayout mRelativeLayout;
