@@ -77,16 +77,20 @@ allprojects {
 	
 ```
 Add the dependency
-latestVersion:[![latestVersion](https://jitpack.io/v/zhpanvip/BannerViewPager.svg)](https://jitpack.io/#zhpanvip/BannerViewPager)
+
 ```
 implementation 'com.github.zhpanvip:BannerViewPager:latestVersion'
 
 ```
 
+Androidx latestVersion:[![latestVersion](https://jitpack.io/v/zhpanvip/BannerViewPager.svg)](https://jitpack.io/#zhpanvip/BannerViewPager)
+
 如果未迁移到AndroidX请使用（非Androidx的包在JCenter上）：
 ```
-implementation 'com.zhpan.library:bannerview:2.2.7'
+implementation 'com.zhpan.library:bannerview:latestVersion'
 ```
+
+非Androidx latestVersion: [ ![latestVersion](https://api.bintray.com/packages/zhpanvip/CircleViewPager/bannerview/images/download.svg) ](https://bintray.com/zhpanvip/CircleViewPager/bannerview/_latestVersion)
 
 ## 2.在xml文件中添加如下代码：
 
