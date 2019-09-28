@@ -65,14 +65,24 @@
 
 ## 1.gradle中添加依赖
    
-latestVersion is: [ ![latestVersion](https://api.bintray.com/packages/zhpanvip/CircleViewPager/bannerview/images/download.svg) ](https://bintray.com/zhpanvip/CircleViewPager/bannerview/_latestVersion)
 
-如果您已迁移到AndroidX请使用latestVersion(>=2.3.0)
+如果您已迁移到AndroidX，请在项目的root build.gradle中添加如下配置：
 ```
-implementation 'com.zhpan.library:bannerview:latestVersion'
+allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+	
+```
+Add the dependency
+```
+implementation 'com.github.zhpanvip:BannerViewPager:2.3.0'
 
 ```
-如果未迁移到AndroidX请使用：
+
+如果未迁移到AndroidX请使用（非Androidx的包在JCenter上）：
 ```
 implementation 'com.zhpan.library:bannerview:2.2.7'
 ```
