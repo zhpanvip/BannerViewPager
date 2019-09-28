@@ -77,8 +77,9 @@ allprojects {
 	
 ```
 Add the dependency
+latestVersion:[![latestVersion](https://jitpack.io/v/zhpanvip/BannerViewPager.svg)](https://jitpack.io/#zhpanvip/BannerViewPager)
 ```
-implementation 'com.github.zhpanvip:BannerViewPager:2.3.0'
+implementation 'com.github.zhpanvip:BannerViewPager:latestVersion'
 
 ```
 
