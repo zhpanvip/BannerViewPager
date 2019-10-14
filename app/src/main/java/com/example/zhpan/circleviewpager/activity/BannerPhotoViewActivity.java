@@ -3,8 +3,6 @@ package com.example.zhpan.circleviewpager.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.widget.Toast;
-
 import com.example.zhpan.circleviewpager.R;
 import com.example.zhpan.circleviewpager.viewholder.PhotoViewHolder;
 import com.zhpan.bannerview.BannerViewPager;
@@ -37,10 +35,8 @@ public class BannerPhotoViewActivity extends AppCompatActivity {
                 .setCanLoop(false)
                 .setHolderCreator(PhotoViewHolder::new)
                 .setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
-                .setOnPageClickListener(position ->
-                        Toast.makeText(BannerPhotoViewActivity.this,
-                                "图片" + (position + 1), Toast.LENGTH_SHORT).show())
                 .create(mDrawableList);
+        bannerViewPager.setCurrentItem(1);
     }
 
     private void initData() {

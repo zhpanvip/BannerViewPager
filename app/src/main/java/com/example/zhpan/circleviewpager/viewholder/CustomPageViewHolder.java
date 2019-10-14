@@ -34,7 +34,8 @@ public class CustomPageViewHolder implements ViewHolder<CustomBean> {
         mImageView.setImageResource(data.getImageRes());
         mTextView.setText(data.getImageDescription());
         mTvStart.setOnClickListener(view -> {
-            if (null != mOnSubViewClickListener) mOnSubViewClickListener.onViewClick(view,position);
+            if (null != mOnSubViewClickListener)
+                mOnSubViewClickListener.onViewClick(view, position);
         });
         ObjectAnimator alphaAnimator = ObjectAnimator.ofFloat(mTvStart, "alpha", 0, 1);
         alphaAnimator.setDuration(1500);
@@ -57,6 +58,6 @@ public class CustomPageViewHolder implements ViewHolder<CustomBean> {
     }
 
     public interface OnSubViewClickListener {
-        void onViewClick(View view,int position);
+        void onViewClick(View view, int position);
     }
 }
