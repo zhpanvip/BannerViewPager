@@ -11,6 +11,7 @@ import com.example.zhpan.circleviewpager.R;
 import com.example.zhpan.circleviewpager.viewholder.TransformerViewHolder;
 import com.zhpan.bannerview.BannerViewPager;
 import com.zhpan.bannerview.enums.TransformerStyle;
+import com.zhpan.bannerview.transform.StackTransformer;
 
 import java.util.ArrayList;
 
@@ -62,7 +63,7 @@ public class PageTransformerActivity extends AppCompatActivity {
                 .setOnPageClickListener(position -> Toast.makeText(PageTransformerActivity.this,
                         "this is item" + mViewpager.getCurrentItem(), Toast.LENGTH_SHORT).show())
                 .create(getData());
-
+        mViewpager.setPageTransformer(new StackTransformer());
     }
 
     private ArrayList<Integer> getData() {
