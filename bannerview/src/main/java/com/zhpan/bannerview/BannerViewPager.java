@@ -7,8 +7,8 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.ColorInt;
-import android.support.annotation.DimenRes;
 import android.support.annotation.IntDef;
+import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -31,7 +31,6 @@ import com.zhpan.bannerview.provider.BannerScroller;
 import com.zhpan.bannerview.provider.ViewStyleSetter;
 import com.zhpan.bannerview.transform.PageTransformerFactory;
 import com.zhpan.bannerview.enums.TransformerStyle;
-import com.zhpan.bannerview.indicator.CircleIndicatorView;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -49,9 +48,9 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     private ViewPager mViewPager;
     // 轮播数据集合
     private List<T> mList;
-    // 页面切换时间间隔
+    // 图片切换时间间隔
     private int interval;
-    // 当前页面位置
+    // 图片当前位置
     private int currentPosition;
     // 是否正在循环
     private boolean isLooping;
@@ -59,25 +58,25 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     private boolean isCanLoop;
     // 是否开启自动播放
     private boolean isAutoPlay = false;
-    // 是否显示指示器
+    // 是否显示指示器圆点
     private boolean showIndicator = true;
-    // 指示器显示位置
+    // 圆点指示器显示位置
     public static final int START = 1;
     public static final int END = 2;
     public static final int CENTER = 0;
     private int gravity;
-    // 未选中时指示器颜色
+    // 未选中时圆点颜色
     private int indicatorNormalColor;
-    // 选中时的指示器颜色
+    // 选中时选点颜色
     private int indicatorCheckedColor;
-    // 指示器宽度/直径
+    // 指示器圆点半径
     private int normalIndicatorWidth;
-    // 选中时指示宽度/直径
+    // 选中时指示器圆点半径
     private int checkedIndicatorWidth;
 
     // 页面点击事件监听
     private OnPageClickListener mOnPageClickListener;
-    // 轮播指示器
+    // 圆点指示器的Layout
     private IIndicator mIndicatorView;
     //  存放IndicatorView的容器
     RelativeLayout mRelativeLayout;
@@ -118,6 +117,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     private int indicatorGap;
     private int indicatorHeight;
     private boolean isCustomIndicator;
+//    private OnPageSelectedListener mOnPageSelectedListener;
 
     public BannerViewPager(Context context) {
         this(context, null);
@@ -292,6 +292,8 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
         if (showIndicator && mIndicatorView != null) {
             mIndicatorView.onPageSelected(getRealPosition(position));
         }
+//        if (mOnPageSelectedListener != null)
+//            mOnPageSelectedListener.onPageSelected(getRealPosition(position));
     }
 
     @Override
@@ -444,6 +446,12 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
         return this;
     }
 
+    /**
+     * @param transformer PageTransformer that will modify each page's animation properties
+     */
+    public void setPageTransformer(@Nullable ViewPager.PageTransformer transformer) {
+        mViewPager.setPageTransformer(true, transformer);
+    }
 
     /**
      * 设置页面点击事件
@@ -621,6 +629,39 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     }
 
     /**
+     * @return 获取当前真实position
+     */
+    public int getCurrentItem() {
+        return getRealPosition(currentPosition);
+    }
+
+    /**
+     * Set the currently selected page. If the ViewPager has already been through its first
+     * layout with its current adapter there will be a smooth animated transition between
+     * the current item and the specified item.
+     *
+     * @param item Item index to select
+     */
+    public void setCurrentItem(int item) {
+        mViewPager.setCurrentItem(toUnrealPosition(item));
+    }
+
+    /**
+     * Set the currently selected page.
+     *
+     * @param item         Item index to select
+     * @param smoothScroll True to smoothly scroll to the new item, false to transition immediately
+     */
+    public void setCurrentItem(int item, boolean smoothScroll) {
+        mViewPager.setCurrentItem(toUnrealPosition(item), smoothScroll);
+    }
+
+//    public BannerViewPager<T, VH> setOnPageSelectedListener(OnPageSelectedListener onPageSelectedListener) {
+//        mOnPageSelectedListener = onPageSelectedListener;
+//        return this;
+//    }
+
+    /**
      * 获取BannerViewPager中封装的ViewPager，用于设置BannerViewPager未暴露出来的接口，
      * 比如setCurrentItem等。
      *
@@ -642,4 +683,8 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     public interface OnPageClickListener {
         void onPageClick(int position);
     }
+
+//    public interface OnPageSelectedListener {
+//        void onPageSelected(int position);
+//    }
 }
