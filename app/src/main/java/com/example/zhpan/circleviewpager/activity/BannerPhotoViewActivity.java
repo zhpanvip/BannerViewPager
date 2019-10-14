@@ -3,8 +3,6 @@ package com.example.zhpan.circleviewpager.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.widget.Toast;
-
 import com.example.zhpan.circleviewpager.R;
 import com.example.zhpan.circleviewpager.viewholder.PhotoViewHolder;
 import com.zhpan.bannerview.BannerViewPager;
