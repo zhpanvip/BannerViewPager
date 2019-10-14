@@ -39,7 +39,7 @@ public class CustomerBannerItemActivity extends AppCompatActivity {
                 .setCanLoop(false)
                 .showIndicator(false)
                 .setOnPageClickListener(position -> Toast.makeText(CustomerBannerItemActivity.this,
-                        "点击页面" + (position + 1), Toast.LENGTH_SHORT).show())
+                        "点击页面" + mViewPager.getCurrentItem(), Toast.LENGTH_SHORT).show())
                 .setHolderCreator(() -> {
                     CustomPageViewHolder customPageViewHolder = new CustomPageViewHolder();
                     customPageViewHolder.setOnSubViewClickListener((view, position) -> Toast.makeText(CustomerBannerItemActivity.this,

@@ -9,6 +9,7 @@ import android.os.Handler;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.IntDef;
+import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
 
 import android.util.AttributeSet;
@@ -119,6 +120,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     private int indicatorGap;
     private int indicatorHeight;
     private boolean isCustomIndicator;
+//    private OnPageSelectedListener mOnPageSelectedListener;
 
     public BannerViewPager(Context context) {
         this(context, null);
@@ -293,6 +295,8 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
         if (showIndicator && mIndicatorView != null) {
             mIndicatorView.onPageSelected(getRealPosition(position));
         }
+//        if (mOnPageSelectedListener != null)
+//            mOnPageSelectedListener.onPageSelected(getRealPosition(position));
     }
 
     @Override
@@ -443,6 +447,13 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     public BannerViewPager<T, VH> setPageTransformerStyle(TransformerStyle style) {
         mViewPager.setPageTransformer(true, new PageTransformerFactory().createPageTransformer(style));
         return this;
+    }
+
+    /**
+     * @param transformer PageTransformer that will modify each page's animation properties
+     */
+    public void setPageTransformer(@Nullable ViewPager.PageTransformer transformer) {
+        mViewPager.setPageTransformer(true, transformer);
     }
 
 
@@ -622,6 +633,39 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     }
 
     /**
+     * @return 获取当前真实position
+     */
+    public int getCurrentItem() {
+        return getRealPosition(currentPosition);
+    }
+
+    /**
+     * Set the currently selected page. If the ViewPager has already been through its first
+     * layout with its current adapter there will be a smooth animated transition between
+     * the current item and the specified item.
+     *
+     * @param item Item index to select
+     */
+    public void setCurrentItem(int item) {
+        mViewPager.setCurrentItem(toUnrealPosition(item));
+    }
+
+    /**
+     * Set the currently selected page.
+     *
+     * @param item         Item index to select
+     * @param smoothScroll True to smoothly scroll to the new item, false to transition immediately
+     */
+    public void setCurrentItem(int item, boolean smoothScroll) {
+        mViewPager.setCurrentItem(toUnrealPosition(item), smoothScroll);
+    }
+
+//    public BannerViewPager<T, VH> setOnPageSelectedListener(OnPageSelectedListener onPageSelectedListener) {
+//        mOnPageSelectedListener = onPageSelectedListener;
+//        return this;
+//    }
+
+    /**
      * 获取BannerViewPager中封装的ViewPager，用于设置BannerViewPager未暴露出来的接口，
      * 比如setCurrentItem等。
      *
@@ -643,4 +687,8 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     public interface OnPageClickListener {
         void onPageClick(int position);
     }
+
+//    public interface OnPageSelectedListener {
+//        void onPageSelected(int position);
+//    }
 }
