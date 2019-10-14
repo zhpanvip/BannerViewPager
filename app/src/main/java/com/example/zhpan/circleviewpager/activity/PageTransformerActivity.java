@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.zhpan.circleviewpager.R;
 import com.example.zhpan.circleviewpager.viewholder.TransformerViewHolder;
@@ -58,7 +59,10 @@ public class PageTransformerActivity extends AppCompatActivity {
                 .setAutoPlay(false)
                 .setScrollDuration(1000)
                 .setHolderCreator(TransformerViewHolder::new)
+                .setOnPageClickListener(position -> Toast.makeText(PageTransformerActivity.this,
+                        "this is item" + mViewpager.getCurrentItem(), Toast.LENGTH_SHORT).show())
                 .create(getData());
+
     }
 
     private ArrayList<Integer> getData() {

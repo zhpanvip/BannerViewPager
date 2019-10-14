@@ -37,10 +37,8 @@ public class BannerPhotoViewActivity extends AppCompatActivity {
                 .setCanLoop(false)
                 .setHolderCreator(PhotoViewHolder::new)
                 .setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
-                .setOnPageClickListener(position ->
-                        Toast.makeText(BannerPhotoViewActivity.this,
-                                "图片" + (position + 1), Toast.LENGTH_SHORT).show())
                 .create(mDrawableList);
+        bannerViewPager.setCurrentItem(1);
     }
 
     private void initData() {
