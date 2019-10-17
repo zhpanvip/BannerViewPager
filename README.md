@@ -312,7 +312,7 @@ public class DashIndicatorView extends BaseIndicatorView {
  - [x] 增加IndicatorView的滑动样式（2.2.2）
 
  - [x] 增添更多Indicator样式（2.3.+）
- - [ ]  支持一屏显示多页 （3.3.6）
+ - [ ]  支持一屏显示多页 （2.3.6）
  - [ ]  ViewPager更换为ViewPager2 （3.0.0）
  - [ ] 目前Indicator部分代码比较乱，还有很大很大的优化空间，后续版本将持续优化
  
