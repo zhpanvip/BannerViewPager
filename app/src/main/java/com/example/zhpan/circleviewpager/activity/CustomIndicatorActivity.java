@@ -1,25 +1,17 @@
 package com.example.zhpan.circleviewpager.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 
 import com.example.zhpan.circleviewpager.R;
 import com.zhpan.bannerview.indicator.DashIndicatorView;
-import com.example.zhpan.circleviewpager.viewholder.SlideModeViewHolder;
+import com.example.zhpan.circleviewpager.viewholder.ImageResourceViewHolder;
 import com.zhpan.bannerview.BannerViewPager;
 import com.zhpan.bannerview.utils.DpUtils;
 import com.zhpan.idea.utils.ToastUtils;
 
-import java.util.Arrays;
-import java.util.List;
+public class CustomIndicatorActivity extends BaseDataActivity {
 
-public class CustomIndicatorActivity extends AppCompatActivity {
-    private String[] picUrls = {"http://pic31.nipic.com/20130801/11604791_100539834000_2.jpg",
-            "http://pic37.nipic.com/20140115/7430301_100825571157_2.jpg",
-            "http://pic29.nipic.com/20130507/8952533_183922555000_2.jpg",
-            "http://b-ssl.duitang.com/uploads/item/201706/10/20170610095055_G5LM8.jpeg"};
-    BannerViewPager<String, SlideModeViewHolder> viewPager;
+    private BannerViewPager<Integer, ImageResourceViewHolder> mBannerViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,13 +22,12 @@ public class CustomIndicatorActivity extends AppCompatActivity {
     }
 
     private void setUpViewPager() {
-        viewPager = findViewById(R.id.banner_view_dash);
-        List<String> list = Arrays.asList(picUrls);
-        viewPager.setAutoPlay(false).setCanLoop(true)
+        mBannerViewPager = findViewById(R.id.banner_view_dash);
+        mBannerViewPager.setAutoPlay(false).setCanLoop(true)
                 .setRoundCorner(DpUtils.dp2px(5))
-                .setIndicatorView(setupIndicatorView(list.size()))
-                .setOnPageClickListener(position -> ToastUtils.show(position+""))
-                .setHolderCreator(SlideModeViewHolder::new).create(list);
+                .setIndicatorView(setupIndicatorView(mDrawableList.size()))
+                .setOnPageClickListener(position -> ToastUtils.show(position + ""))
+                .setHolderCreator(ImageResourceViewHolder::new).create(mDrawableList);
     }
 
     /**
@@ -56,12 +47,12 @@ public class CustomIndicatorActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        viewPager.stopLoop();
+        mBannerViewPager.stopLoop();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        viewPager.startLoop();
+        mBannerViewPager.startLoop();
     }
 }

@@ -13,17 +13,17 @@ import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
 
 import android.util.AttributeSet;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import com.zhpan.bannerview.enums.IndicatorStyle;
+import com.zhpan.bannerview.enums.PageStyle;
 import com.zhpan.bannerview.indicator.BaseIndicatorView;
 import com.zhpan.bannerview.indicator.DashIndicatorView;
 import com.zhpan.bannerview.indicator.IIndicator;
 import com.zhpan.bannerview.indicator.IndicatorFactory;
+import com.zhpan.bannerview.transform.ScaleInTransformer;
 import com.zhpan.bannerview.utils.DpUtils;
 import com.zhpan.bannerview.adapter.BannerPagerAdapter;
 import com.zhpan.bannerview.enums.IndicatorSlideMode;
@@ -45,7 +45,7 @@ import java.util.List;
 /**
  * Created by zhpan on 2017/3/28.
  */
-public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout implements
+public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout implements
         ViewPager.OnPageChangeListener {
 
     private ViewPager mViewPager;
@@ -82,7 +82,17 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
     // 轮播指示器
     private IIndicator mIndicatorView;
     //  存放IndicatorView的容器
-    RelativeLayout mRelativeLayout;
+    private RelativeLayout mRelativeLayout;
+
+    /**
+     * 一屏多页page的间距
+     */
+    private int mPageMargin;
+    /**
+     * 一屏多页，显露其它page的width
+     */
+    private int mRevealWidth;
+
     /**
      * 指示器Style样式
      *
@@ -90,7 +100,6 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
      * @see IndicatorStyle#DASH  虚线指示器
      */
     private IndicatorStyle mIndicatorStyle;
-
 
     private HolderCreator<VH> holderCreator;
     // IndicatorView的滑动模式
@@ -132,43 +141,45 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
 
     public BannerViewPager(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(attrs, context);
+        init(attrs);
     }
 
-    private void init(AttributeSet attrs, Context context) {
-        initValues(attrs, context);
+    private void init(AttributeSet attrs) {
+        initValues(attrs);
         initView();
         initScroller();
     }
 
     private void initView() {
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.layout_banner_view_pager, this);
-        mViewPager = view.findViewById(R.id.vp_main);
-        mRelativeLayout = view.findViewById(R.id.rl_indicator);
+        inflate(getContext(), R.layout.layout_banner_view_pager, this);
+        mViewPager = findViewById(R.id.vp_main);
+        mRelativeLayout = findViewById(R.id.rl_indicator);
         mList = new ArrayList<>();
     }
 
-    private void initValues(AttributeSet attrs, Context context) {
+    private void initValues(AttributeSet attrs) {
         if (attrs != null) {
             TypedArray typedArray =
                     getContext().obtainStyledAttributes(attrs, R.styleable.BannerViewPager);
-            interval = typedArray.getInteger(R.styleable.BannerViewPager_interval, 3000);
+            interval = typedArray.getInteger(R.styleable.BannerViewPager_bvp_interval, 3000);
             indicatorCheckedColor =
-                    typedArray.getColor(R.styleable.BannerViewPager_indicator_checked_color,
+                    typedArray.getColor(R.styleable.BannerViewPager_bvp_indicator_checked_color,
                             Color.parseColor("#8C18171C"));
             indicatorNormalColor =
-                    typedArray.getColor(R.styleable.BannerViewPager_indicator_normal_color,
+                    typedArray.getColor(R.styleable.BannerViewPager_bvp_indicator_normal_color,
                             Color.parseColor("#8C6C6D72"));
-            normalIndicatorWidth = (int) typedArray.getDimension(R.styleable.BannerViewPager_indicator_radius,
+            normalIndicatorWidth = (int) typedArray.getDimension(R.styleable.BannerViewPager_bvp_indicator_radius,
                     DpUtils.dp2px(8));
             indicatorGap = normalIndicatorWidth;
             indicatorHeight = normalIndicatorWidth / 2;
             checkedIndicatorWidth = normalIndicatorWidth;
             mIndicatorStyle = IndicatorStyle.CIRCLE;
             mIndicatorSlideMode = IndicatorSlideMode.NORMAL;
-            isAutoPlay = typedArray.getBoolean(R.styleable.BannerViewPager_isAutoPlay, true);
-            isCanLoop = typedArray.getBoolean(R.styleable.BannerViewPager_isCanLoop, true);
-            gravity = typedArray.getInt(R.styleable.BannerViewPager_indicator_gravity, 0);
+            isAutoPlay = typedArray.getBoolean(R.styleable.BannerViewPager_bvp_auto_play, true);
+            isCanLoop = typedArray.getBoolean(R.styleable.BannerViewPager_bvp_can_loop, true);
+            gravity = typedArray.getInt(R.styleable.BannerViewPager_bvp_indicator_gravity, 0);
+            mPageMargin = (int) typedArray.getDimension(R.styleable.BannerViewPager_bvp_page_margin, 0);
+            mRevealWidth = (int) typedArray.getDimension(R.styleable.BannerViewPager_bvp_reveal_width, 0);
             typedArray.recycle();
         }
     }
@@ -660,7 +671,48 @@ public class BannerViewPager<T, VH extends ViewHolder> extends FrameLayout imple
         mViewPager.setCurrentItem(toUnrealPosition(item), smoothScroll);
     }
 
-//    public BannerViewPager<T, VH> setOnPageSelectedListener(OnPageSelectedListener onPageSelectedListener) {
+    /**
+     * 设置Banner页面样式
+     *
+     * @return
+     */
+    public BannerViewPager<T, VH> setPageStyle(PageStyle pageStyle) {
+        switch (pageStyle) {
+            case MULTI_PAGE:
+                setMultiPageStyle();
+                break;
+        }
+        return this;
+    }
+
+    private void setMultiPageStyle() {
+        setClipChildren(false);
+        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mViewPager.getLayoutParams();
+        params.leftMargin = mPageMargin + mRevealWidth;
+        params.rightMargin = mPageMargin + mRevealWidth;
+        mViewPager.setPageMargin(mPageMargin);
+        mViewPager.setOffscreenPageLimit(2);
+        setPageTransformer(new ScaleInTransformer());
+    }
+
+    /**
+     * 设置item间距
+     *
+     * @param pageMargin item间距
+     * @return BannerViewPager
+     */
+    public BannerViewPager<T, VH> setPageMargin(int pageMargin) {
+        mPageMargin = pageMargin;
+        mViewPager.setPageMargin(pageMargin);
+        return this;
+    }
+
+    public BannerViewPager<T, VH> setRevealWidth(int revealWidth) {
+        mRevealWidth = revealWidth;
+        return this;
+    }
+
+    //    public BannerViewPager<T, VH> setOnPageSelectedListener(OnPageSelectedListener onPageSelectedListener) {
 //        mOnPageSelectedListener = onPageSelectedListener;
 //        return this;
 //    }

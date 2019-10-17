@@ -19,7 +19,7 @@ import com.zhpan.bannerview.holder.ViewHolder;
  *   Description:
  * </pre>
  */
-public class SlideModeViewHolder implements ViewHolder<String> {
+public class ImageResourceViewHolder implements ViewHolder<Integer> {
     private ImageView mImageView;
 
     @Override
@@ -30,8 +30,7 @@ public class SlideModeViewHolder implements ViewHolder<String> {
     }
 
     @Override
-    public void onBind(Context context, String data, int position, int size) {
-        ImageLoaderOptions options = new ImageLoaderOptions.Builder().into(mImageView).load(data).placeHolder(R.drawable.placeholder).build();
-        ImageLoaderManager.getInstance().loadImage(options);
+    public void onBind(Context context, Integer data, int position, int size) {
+        mImageView.setImageResource(data);
     }
 }
