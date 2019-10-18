@@ -10,7 +10,7 @@ import android.widget.Toast;
 import com.example.zhpan.circleviewpager.R;
 import com.example.zhpan.circleviewpager.viewholder.TransformerViewHolder;
 import com.zhpan.bannerview.BannerViewPager;
-import com.zhpan.bannerview.enums.TransformerStyle;
+import com.zhpan.bannerview.constants.TransformerStyle;
 import com.zhpan.bannerview.transform.StackTransformer;
 
 import java.util.ArrayList;

@@ -5,7 +5,8 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 
-import com.zhpan.bannerview.enums.IndicatorSlideMode;
+import com.zhpan.bannerview.constants.IndicatorSlideMode;
+
 
 /**
  * Created by zhpan on 2017/12/6.

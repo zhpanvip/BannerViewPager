@@ -8,7 +8,6 @@ import android.os.Build;
 import android.os.Handler;
 
 import androidx.annotation.ColorInt;
-import androidx.annotation.IntDef;
 import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
 
@@ -17,30 +16,34 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-import com.zhpan.bannerview.enums.IndicatorStyle;
-import com.zhpan.bannerview.enums.PageStyle;
+import com.zhpan.bannerview.annotation.AIndicatorGravity;
+import com.zhpan.bannerview.annotation.AIndicatorSlideMode;
+import com.zhpan.bannerview.annotation.AIndicatorStyle;
+import com.zhpan.bannerview.annotation.APageStyle;
+import com.zhpan.bannerview.annotation.ATransformerStyle;
+import com.zhpan.bannerview.constants.IndicatorSlideMode;
+import com.zhpan.bannerview.constants.IndicatorStyle;
 import com.zhpan.bannerview.indicator.BaseIndicatorView;
 import com.zhpan.bannerview.indicator.DashIndicatorView;
 import com.zhpan.bannerview.indicator.IIndicator;
 import com.zhpan.bannerview.indicator.IndicatorFactory;
-import com.zhpan.bannerview.transform.ScaleInTransformer;
+import com.zhpan.bannerview.transform.pagestyle.ScaleInTransformer;
 import com.zhpan.bannerview.utils.DpUtils;
 import com.zhpan.bannerview.adapter.BannerPagerAdapter;
-import com.zhpan.bannerview.enums.IndicatorSlideMode;
 import com.zhpan.bannerview.holder.HolderCreator;
 import com.zhpan.bannerview.holder.ViewHolder;
 import com.zhpan.bannerview.provider.BannerScroller;
 import com.zhpan.bannerview.provider.ViewStyleSetter;
 import com.zhpan.bannerview.transform.PageTransformerFactory;
-import com.zhpan.bannerview.enums.TransformerStyle;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.zhpan.bannerview.constants.IndicatorGravity.CENTER;
+import static com.zhpan.bannerview.constants.IndicatorGravity.END;
+import static com.zhpan.bannerview.constants.IndicatorGravity.START;
+import static com.zhpan.bannerview.constants.PageStyle.MULTI_PAGE;
 
 /**
  * Created by zhpan on 2017/3/28.
@@ -63,10 +66,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     private boolean isAutoPlay = false;
     // 是否显示指示器
     private boolean showIndicator = true;
-    // 指示器显示位置
-    public static final int START = 1;
-    public static final int END = 2;
-    public static final int CENTER = 0;
+
     private int gravity;
     // 未选中时指示器颜色
     private int indicatorNormalColor;
@@ -99,11 +99,11 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
      * @see IndicatorStyle#CIRCLE 圆形指示器
      * @see IndicatorStyle#DASH  虚线指示器
      */
-    private IndicatorStyle mIndicatorStyle;
+    private int mIndicatorStyle;
 
     private HolderCreator<VH> holderCreator;
     // IndicatorView的滑动模式
-    private IndicatorSlideMode mIndicatorSlideMode;
+    private int mIndicatorSlideMode;
 
     Handler mHandler = new Handler();
 
@@ -455,7 +455,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     /**
      * 设置页面Transformer内置样式
      */
-    public BannerViewPager<T, VH> setPageTransformerStyle(TransformerStyle style) {
+    public BannerViewPager<T, VH> setPageTransformerStyle(@ATransformerStyle int style) {
         mViewPager.setPageTransformer(true, new PageTransformerFactory().createPageTransformer(style));
         return this;
     }
@@ -577,11 +577,11 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
      * 设置指示器位置
      *
      * @param gravity 指示器位置
-     *                {@link BannerViewPager#CENTER}
-     *                {@link BannerViewPager#START}
-     *                {@link BannerViewPager#END}
+     *                {@link com.zhpan.bannerview.constants.IndicatorGravity#CENTER}
+     *                {@link com.zhpan.bannerview.constants.IndicatorGravity#START}
+     *                {@link com.zhpan.bannerview.constants.IndicatorGravity#END}
      */
-    public BannerViewPager<T, VH> setIndicatorGravity(@IndicatorGravity int gravity) {
+    public BannerViewPager<T, VH> setIndicatorGravity(@AIndicatorGravity int gravity) {
         this.gravity = gravity;
         return this;
     }
@@ -590,10 +590,10 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
      * 设置IndicatorView滑动模式，默认值{@link IndicatorSlideMode#SMOOTH}
      *
      * @param slideMode Indicator滑动模式
-     * @see com.zhpan.bannerview.enums.IndicatorSlideMode#NORMAL
-     * @see com.zhpan.bannerview.enums.IndicatorSlideMode#SMOOTH
+     * @see com.zhpan.bannerview.constants.IndicatorSlideMode#NORMAL
+     * @see com.zhpan.bannerview.constants.IndicatorSlideMode#SMOOTH
      */
-    public BannerViewPager<T, VH> setIndicatorSlideMode(IndicatorSlideMode slideMode) {
+    public BannerViewPager<T, VH> setIndicatorSlideMode(@AIndicatorSlideMode int slideMode) {
         mIndicatorSlideMode = slideMode;
         return this;
     }
@@ -621,7 +621,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
      *                       {@link IndicatorStyle#CIRCLE}
      *                       {@link IndicatorStyle#DASH}
      */
-    public BannerViewPager<T, VH> setIndicatorStyle(IndicatorStyle indicatorStyle) {
+    public BannerViewPager<T, VH> setIndicatorStyle(@AIndicatorStyle int indicatorStyle) {
         mIndicatorStyle = indicatorStyle;
         return this;
     }
@@ -676,7 +676,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
      *
      * @return
      */
-    public BannerViewPager<T, VH> setPageStyle(PageStyle pageStyle) {
+    public BannerViewPager<T, VH> setPageStyle(@APageStyle int pageStyle) {
         switch (pageStyle) {
             case MULTI_PAGE:
                 setMultiPageStyle();
@@ -725,12 +725,6 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
      */
     public ViewPager getViewPager() {
         return mViewPager;
-    }
-
-    @IntDef({CENTER, START, END})
-    @Retention(RetentionPolicy.SOURCE)
-    @Target(ElementType.PARAMETER)
-    @interface IndicatorGravity {
     }
 
     /**

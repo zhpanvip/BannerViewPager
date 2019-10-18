@@ -7,7 +7,7 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 
-import com.zhpan.bannerview.enums.IndicatorSlideMode;
+import com.zhpan.bannerview.constants.IndicatorSlideMode;
 import com.zhpan.bannerview.utils.DpUtils;
 
 /**
@@ -55,7 +55,7 @@ public class BaseIndicatorView extends View implements IIndicator {
      * @see IndicatorSlideMode#NORMAL
      * @see IndicatorSlideMode#SMOOTH
      */
-    protected IndicatorSlideMode slideMode;
+    protected int slideMode;
 
     protected float normalIndicatorWidth;
     protected float checkedIndicatorWidth;
@@ -153,11 +153,11 @@ public class BaseIndicatorView extends View implements IIndicator {
 
     /**
      * @param slideMode Indicator滑动样式
-     * @see IndicatorSlideMode#NORMAL
-     * @see IndicatorSlideMode#SMOOTH
+     * @see com.zhpan.bannerview.constants.IndicatorSlideMode#NORMAL
+     * @see com.zhpan.bannerview.constants.IndicatorSlideMode#SMOOTH
      */
     @Override
-    public void setSlideMode(IndicatorSlideMode slideMode) {
+    public void setSlideMode(int slideMode) {
         this.slideMode = slideMode;
     }
 

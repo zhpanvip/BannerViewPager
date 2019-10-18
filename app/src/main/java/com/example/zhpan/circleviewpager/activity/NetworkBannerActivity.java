@@ -22,6 +22,7 @@ import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.zhpan.bannerview.BannerViewPager;
+import com.zhpan.bannerview.constants.IndicatorGravity;
 import com.zhpan.bannerview.utils.DpUtils;
 import com.zhpan.idea.net.common.DefaultObserver;
 import com.zhpan.idea.utils.RxUtil;
@@ -103,7 +104,7 @@ public class NetworkBannerActivity extends RxAppCompatActivity {
                 .setAutoPlay(true)
                 .setRoundCorner(DpUtils.dp2px(7))
                 .setIndicatorColor(Color.parseColor("#935656"), Color.parseColor("#FF4C39"))
-                .setIndicatorGravity(BannerViewPager.END)
+                .setIndicatorGravity(IndicatorGravity.END)
                 .setScrollDuration(1000).setHolderCreator(NetViewHolder::new)
                 .setOnPageClickListener(position -> {
                     BannerData bannerData = mBannerViewPager.getList().get(position);

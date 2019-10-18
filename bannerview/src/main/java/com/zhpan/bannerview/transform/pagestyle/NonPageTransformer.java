@@ -1,4 +1,4 @@
-package com.zhpan.bannerview.transform;
+package com.zhpan.bannerview.transform.pagestyle;
 
 import android.view.View;
 

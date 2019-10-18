@@ -7,8 +7,8 @@ import android.os.Bundle;
 import com.example.zhpan.circleviewpager.R;
 import com.example.zhpan.circleviewpager.viewholder.ImageResourceViewHolder;
 import com.zhpan.bannerview.BannerViewPager;
-import com.zhpan.bannerview.enums.IndicatorSlideMode;
-import com.zhpan.bannerview.enums.IndicatorStyle;
+import com.zhpan.bannerview.constants.IndicatorSlideMode;
+import com.zhpan.bannerview.constants.IndicatorStyle;
 import com.zhpan.bannerview.utils.DpUtils;
 
 public class IndicatorStyleActivity extends BaseDataActivity {
