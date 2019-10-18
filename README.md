@@ -8,18 +8,20 @@
 |--|--|--|
 | ![嵌套RecyclerView](https://github.com/zhpanvip/BannerViewPager/blob/master/image/preview1.gif) | ![自定义页面](https://github.com/zhpanvip/BannerViewPager/blob/master/image/preview2.gif) | ![嵌套PhotoView](https://github.com/zhpanvip/BannerViewPager/blob/master/image/preview3.gif)   |
 
-## 2.自定义Indicator样式
+
+## 2.设置IndicatorViewStyle
+如果以上样式不能满足你的需求，BannerViewPager还提供了完全自定义IndicatorView的功能。只要继承BaseIndicatorView或者实现IIndicator接口，并重写相应方法，就可以为所欲为的打造任意的Indicator了。下图是一个自定义仿支付宝的Indicator：
+
+| CIRCLE | DASH | 自定义 |
+|--|--|--|
+| ![CIRCLE](https://github.com/zhpanvip/BannerViewPager/blob/v_2.4.0/image/style_circle.gif) | ![DASH](https://github.com/zhpanvip/BannerViewPager/blob/v_2.4.0/image/style_dash.gif) | ![NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/v_2.4.0/image/style_custum.gif) |
+
+## 3.设置IndicatorSlideMode
 
 | NORMAL | SMOOTH |
 |--|--|
 | ![NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/slide_normal.gif) |  ![SMOOTH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/slide_smooth.gif) |
 
-## 3.自定义IndicatorView
-如果以上样式不能满足你的需求，BannerViewPager还提供了完全自定义IndicatorView的功能。只要继承BaseIndicatorView或者实现IIndicator接口，并重写相应方法，就可以为所欲为的打造任意的Indicator了。下图是一个自定义仿支付宝的Indicator：
-
-| Custom Indicator |
-|--|
-| ![NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/custom_indicator.gif) |
 
 ## 4.内置Transform样式
 
@@ -224,83 +226,66 @@ public class NetViewHolder implements ViewHolder<BannerData> {
 **(1)自定义View并继承BaseIndicatorView**
 
 ```
-public class DashIndicatorView extends BaseIndicatorView {
-    private Paint mPaint;
-    private float sliderHeight;
+public class FigureIndicatorView extends BaseIndicatorView {
 
-   ...内部省略部分代码
+    private int radius = DpUtils.dp2px(20);
 
-    public DashIndicatorView(Context context, AttributeSet attrs, int defStyleAttr) {
+    private int backgroundColor = Color.parseColor("#88FF5252");
+
+    private int textColor = Color.WHITE;
+
+    private int textSize=DpUtils.dp2px(13);
+
+    public FigureIndicatorView(Context context) {
+        this(context, null);
+    }
+
+    public FigureIndicatorView(Context context, @Nullable AttributeSet attrs) {
+        this(context, attrs, 0);
+    }
+
+    public FigureIndicatorView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         mPaint = new Paint();
-        mPaint.setColor(normalColor);
-        mPaint.setAntiAlias(true);
-        sliderHeight = normalIndicatorWidth / 2;
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        setMeasuredDimension((int) ((mPageSize - 1) *mIndicatorGap  + normalIndicatorWidth * mPageSize),
-                (int) (sliderHeight));
+        setMeasuredDimension(2 * radius, 2 * radius);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        mPaint.setColor(normalColor);
-        for (int i = 0; i < mPageSize; i++) {
-            mPaint.setColor(normalColor);
-            canvas.drawRect(i * (normalIndicatorWidth) + i * +mIndicatorGap, 0, i * (normalIndicatorWidth) + i * +mIndicatorGap + normalIndicatorWidth, sliderHeight, mPaint);
-        }
-        drawSliderStyle(canvas);
+        mPaint.setColor(backgroundColor);
+        canvas.drawCircle(getWidth() / 2, getHeight() / 2, radius, mPaint);
+        mPaint.setColor(textColor);
+        mPaint.setTextSize(textSize);
+        String text = currentPosition + 1 + "/" + pageSize;
+        int textWidth = (int) mPaint.measureText(text);
+        Paint.FontMetricsInt fontMetricsInt = mPaint.getFontMetricsInt();
+        int baseline = (getMeasuredHeight() - fontMetricsInt.bottom + fontMetricsInt.top) / 2 - fontMetricsInt.top;
+        canvas.drawText(text, (getWidth() - textWidth) / 2, baseline, mPaint);
+    }
+
+    public void setRadius(int radius) {
+        this.radius = radius;
     }
 
     @Override
-    public void onPageSelected(int position) {
-        super.onPageSelected(position);
+    public void setBackgroundColor(@ColorInt int backgroundColor) {
+        this.backgroundColor = backgroundColor;
     }
 
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        super.onPageScrolled(position, positionOffset, positionOffsetPixels);
+    public void setTextSize(int textSize) {
+        this.textSize = textSize;
     }
 
-    @Override
-    public void onPageScrollStateChanged(int state) {
-        super.onPageScrollStateChanged(state);
+    public void setTextColor(int textColor) {
+        this.textColor = textColor;
     }
-
-    private void drawSliderStyle(Canvas canvas) {
-        mPaint.setColor(checkedColor);
-        float left = currentPosition * (checkedIndicatorWidth) + currentPosition * +mIndicatorGap + (checkedIndicatorWidth + mIndicatorGap) * slideProgress;
-        canvas.drawRect(left, 0, left + checkedIndicatorWidth, sliderHeight, mPaint);
-    }
-
 }
-```
-**(2)BannerViewPager设置自定义Indicator**
-
-```
- private void setUpViewPager() {
-        viewPager = findViewById(R.id.banner_view);
-        List<String> list = Arrays.asList(picUrls);
-        viewPager.setAutoPlay(false).setCanLoop(true)
-                .setRoundCorner(DpUtils.dp2px(5))
-                .setIndicatorView(setupIndicatorView(list.size()))
-                .setHolderCreator(SlideModeViewHolder::new).create(list);
-    }
-
-    private DashIndicatorView setupIndicatorView(int pageSize) {
-        DashIndicatorView indicatorView = new DashIndicatorView(this);
-        indicatorView.setPageSize(pageSize);
-        indicatorView.setIndicatorWidth(DpUtils.dp2px(8), DpUtils.dp2px(8));
-        indicatorView.setSliderHeight(DpUtils.dp2px(4));
-        indicatorView.setIndicatorGap(DpUtils.dp2px(5));
-        indicatorView.setCheckedColor(getResources().getColor(R.color.colorAccent));
-        indicatorView.setNormalColor(getResources().getColor(R.color.colorPrimary));
-        return indicatorView;
-    }
 ```
 
 # TODO 版本计划
