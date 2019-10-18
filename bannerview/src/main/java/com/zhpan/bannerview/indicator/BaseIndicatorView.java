@@ -2,6 +2,7 @@ package com.zhpan.bannerview.indicator;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -49,6 +50,7 @@ public class BaseIndicatorView extends View implements IIndicator {
      * 是否是向右滑动，true向右，false向左
      */
     protected boolean slideToRight;
+
     /**
      * Indicator滑动模式，目前仅支持两种
      *
@@ -59,6 +61,8 @@ public class BaseIndicatorView extends View implements IIndicator {
 
     protected float normalIndicatorWidth;
     protected float checkedIndicatorWidth;
+
+    protected Paint mPaint;
 
     public BaseIndicatorView(Context context) {
         super(context);
@@ -76,6 +80,8 @@ public class BaseIndicatorView extends View implements IIndicator {
         normalColor = Color.parseColor("#8C18171C");
         checkedColor = Color.parseColor("#8C6C6D72");
         slideMode = IndicatorSlideMode.NORMAL;
+        mPaint = new Paint();
+        mPaint.setAntiAlias(true);
     }
 
     @Override

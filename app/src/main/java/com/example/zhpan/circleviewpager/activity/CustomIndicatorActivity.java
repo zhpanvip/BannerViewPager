@@ -1,11 +1,13 @@
 package com.example.zhpan.circleviewpager.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import com.example.zhpan.circleviewpager.R;
-import com.zhpan.bannerview.indicator.DashIndicatorView;
 import com.example.zhpan.circleviewpager.viewholder.ImageResourceViewHolder;
 import com.zhpan.bannerview.BannerViewPager;
+import com.example.zhpan.circleviewpager.view.FigureIndicatorView;
+import com.zhpan.bannerview.constants.IndicatorGravity;
 import com.zhpan.bannerview.utils.DpUtils;
 import com.zhpan.idea.utils.ToastUtils;
 
@@ -24,7 +26,8 @@ public class CustomIndicatorActivity extends BaseDataActivity {
     private void setUpViewPager() {
         mBannerViewPager = findViewById(R.id.banner_view_dash);
         mBannerViewPager.setAutoPlay(false).setCanLoop(true)
-                .setRoundCorner(DpUtils.dp2px(5))
+                .setPageMargin(DpUtils.dp2px(20))
+                .setIndicatorGravity(IndicatorGravity.END)
                 .setIndicatorView(setupIndicatorView(mDrawableList.size()))
                 .setOnPageClickListener(position -> ToastUtils.show(position + ""))
                 .setHolderCreator(ImageResourceViewHolder::new).create(mDrawableList);
@@ -33,14 +36,12 @@ public class CustomIndicatorActivity extends BaseDataActivity {
     /**
      * 这里可以是自定义的Indicator，需要继承BaseIndicatorView或者实现IIndicator接口;
      */
-    private DashIndicatorView setupIndicatorView(int pageSize) {
-        DashIndicatorView indicatorView = new DashIndicatorView(this);
+    private FigureIndicatorView setupIndicatorView(int pageSize) {
+        FigureIndicatorView indicatorView = new FigureIndicatorView(this);
         indicatorView.setPageSize(pageSize);
-        indicatorView.setIndicatorWidth(DpUtils.dp2px(8), DpUtils.dp2px(8));
-        indicatorView.setSliderHeight(DpUtils.dp2px(4));
-        indicatorView.setIndicatorGap(DpUtils.dp2px(5));
-        indicatorView.setCheckedColor(getResources().getColor(R.color.colorAccent));
-        indicatorView.setNormalColor(getResources().getColor(R.color.colorPrimary));
+        indicatorView.setRadius(DpUtils.dp2px(18));
+        indicatorView.setTextSize(DpUtils.dp2px(13));
+        indicatorView.setBackgroundColor(Color.parseColor("#88FF5252"));
         return indicatorView;
     }
 

@@ -10,7 +10,6 @@ import android.util.AttributeSet;
  */
 public class CircleIndicatorView extends BaseIndicatorView {
     private static final String tag = "IndicatorView";
-    private Paint mPaint;
     private float mNormalRadius;
     private float mCheckedRadius;
     private float maxRadius;
@@ -26,9 +25,7 @@ public class CircleIndicatorView extends BaseIndicatorView {
 
     public CircleIndicatorView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        mPaint = new Paint();
         mPaint.setColor(normalColor);
-        mPaint.setAntiAlias(true);
         mNormalRadius = normalIndicatorWidth / 2;
         mCheckedRadius = checkedIndicatorWidth / 2;
         indicatorGap = mNormalRadius * 2;

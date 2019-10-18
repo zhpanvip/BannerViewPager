@@ -7,12 +7,10 @@ import android.util.AttributeSet;
 
 import com.zhpan.bannerview.constants.IndicatorSlideMode;
 
-
 /**
  * Created by zhpan on 2017/12/6.
  */
 public class DashIndicatorView extends BaseIndicatorView {
-    private Paint mPaint;
     private float sliderHeight;
     private float maxWidth;
     private float minWidth;
@@ -27,9 +25,7 @@ public class DashIndicatorView extends BaseIndicatorView {
 
     public DashIndicatorView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        mPaint = new Paint();
         mPaint.setColor(normalColor);
-        mPaint.setAntiAlias(true);
         sliderHeight = normalIndicatorWidth / 2;
     }
 
