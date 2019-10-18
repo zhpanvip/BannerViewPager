@@ -24,9 +24,6 @@ public class MainActivity extends AppCompatActivity {
             case R.id.tv_page_style:
                 intent = new Intent(this, PageStyleActivity.class);
                 break;
-            case R.id.btn_custom_indicator:
-                intent = new Intent(this, CustomIndicatorActivity.class);
-                break;
             case R.id.btn_view_pager3:
                 intent = new Intent(this, PhotoViewActivity.class);
                 break;

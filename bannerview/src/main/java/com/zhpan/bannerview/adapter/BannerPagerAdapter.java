@@ -115,7 +115,6 @@ public class BannerPagerAdapter<T, VH extends ViewHolder> extends PagerAdapter {
     @Override
     public void finishUpdate(@NonNull ViewGroup container) {
         super.finishUpdate(container);
-
     }
 
     public void setPageClickListener(PageClickListener pageClickListener) {

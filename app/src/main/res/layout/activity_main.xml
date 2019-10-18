@@ -30,19 +30,6 @@
         android:background="#dddddd" />
 
     <TextView
-        android:id="@+id/btn_custom_indicator"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:gravity="center"
-        android:onClick="onClick"
-        android:text="@string/custom_indicator_view" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#dddddd" />
-
-    <TextView
         android:id="@+id/btn_view_pager4"
         android:layout_width="match_parent"
         android:layout_height="50dp"

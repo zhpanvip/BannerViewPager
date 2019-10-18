@@ -12,9 +12,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.BaseDataActivity"></activity>
         <activity android:name=".activity.PageStyleActivity" />
-        <activity android:name=".activity.CustomIndicatorActivity" />
         <activity android:name=".activity.IndicatorStyleActivity" />
         <activity android:name=".activity.PageTransformerActivity" />
         <activity android:name=".activity.NetworkBannerActivity" />
