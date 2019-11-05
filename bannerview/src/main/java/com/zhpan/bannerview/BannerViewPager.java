@@ -284,10 +284,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
             bannerPagerAdapter.setPageStyle(mPageStyle);
             bannerPagerAdapter.setPageClickListener(position -> {
                 if (mOnPageClickListener != null) {
-                    int realPosition = isCanLoop ? position - 1 : position;
-                    if (realPosition < mList.size() && realPosition >= 0) {
-                        mOnPageClickListener.onPageClick(realPosition);
-                    }
+                    mOnPageClickListener.onPageClick(getRealPosition(position));
                 }
             });
             bannerPagerAdapter.setCanLoop(isCanLoop);

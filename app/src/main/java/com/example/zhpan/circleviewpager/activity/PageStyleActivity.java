@@ -7,6 +7,7 @@ import com.example.zhpan.circleviewpager.viewholder.ImageResourceViewHolder;
 import com.zhpan.bannerview.BannerViewPager;
 import com.zhpan.bannerview.enums.PageStyle;
 import com.zhpan.bannerview.utils.DpUtils;
+import com.zhpan.idea.utils.ToastUtils;
 
 public class PageStyleActivity extends BaseDataActivity {
     private BannerViewPager<Integer, ImageResourceViewHolder> mBannerViewPager;
@@ -25,6 +26,12 @@ public class PageStyleActivity extends BaseDataActivity {
                 .setRevealWidth(DpUtils.dp2px(20))
                 .setHolderCreator(ImageResourceViewHolder::new)
                 .setPageStyle(PageStyle.MULTI_PAGE)
+                .setOnPageClickListener(new BannerViewPager.OnPageClickListener() {
+                    @Override
+                    public void onPageClick(int position) {
+                        ToastUtils.show("点击了第"+position+"张图片");
+                    }
+                })
                 .create(mDrawableList);
     }
 
