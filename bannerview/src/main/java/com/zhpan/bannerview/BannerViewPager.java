@@ -19,10 +19,10 @@ import android.widget.RelativeLayout;
 import com.zhpan.bannerview.annotation.AIndicatorGravity;
 import com.zhpan.bannerview.annotation.AIndicatorSlideMode;
 import com.zhpan.bannerview.annotation.AIndicatorStyle;
-import com.zhpan.bannerview.annotation.APageStyle;
 import com.zhpan.bannerview.annotation.ATransformerStyle;
 import com.zhpan.bannerview.constants.IndicatorSlideMode;
 import com.zhpan.bannerview.constants.IndicatorStyle;
+import com.zhpan.bannerview.enums.PageStyle;
 import com.zhpan.bannerview.indicator.BaseIndicatorView;
 import com.zhpan.bannerview.indicator.DashIndicatorView;
 import com.zhpan.bannerview.indicator.IIndicator;
@@ -43,7 +43,6 @@ import java.util.List;
 import static com.zhpan.bannerview.constants.IndicatorGravity.CENTER;
 import static com.zhpan.bannerview.constants.IndicatorGravity.END;
 import static com.zhpan.bannerview.constants.IndicatorGravity.START;
-import static com.zhpan.bannerview.constants.PageStyle.MULTI_PAGE;
 
 /**
  * Created by zhpan on 2017/3/28.
@@ -129,6 +128,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     private int indicatorGap;
     private int indicatorHeight;
     private boolean isCustomIndicator;
+    private PageStyle mPageStyle = PageStyle.NORMAL;
 //    private OnPageSelectedListener mOnPageSelectedListener;
 
     public BannerViewPager(Context context) {
@@ -209,7 +209,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
                 }
             }
             if (isCanLoop) {
-                currentPosition = 1;
+                currentPosition = mPageStyle == PageStyle.NORMAL ? 1 : 2;
             }
             setupViewPager();
         }
@@ -281,6 +281,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
         if (holderCreator != null) {
             BannerPagerAdapter<T, VH> bannerPagerAdapter =
                     new BannerPagerAdapter<>(mList, holderCreator);
+            bannerPagerAdapter.setPageStyle(mPageStyle);
             bannerPagerAdapter.setPageClickListener(position -> {
                 if (mOnPageClickListener != null) {
                     int realPosition = isCanLoop ? position - 1 : position;
@@ -346,13 +347,28 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
 
     private int getRealPosition(int position) {
         if (isCanLoop) {
-            if (position == 0) {
-                return mList.size() - 1;
-            } else if (position == mList.size() + 1) {
-                return 0;
+            if (mPageStyle == PageStyle.NORMAL) {
+                if (position == 0) {
+                    return mList.size() - 1;
+                } else if (position == mList.size() + 1) {
+                    return 0;
+                } else {
+                    return --position;
+                }
             } else {
-                return --position;
+                if (position == 0) {
+                    return mList.size() - 2;
+                } else if (position == 1) {
+                    return mList.size() - 1;
+                } else if (position == mList.size() + 3) {
+                    return 1;
+                } else if (position == mList.size() + 2) {
+                    return 0;
+                } else {
+                    return position - 2;
+                }
             }
+
         } else {
             return position;
         }
@@ -676,7 +692,8 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
      *
      * @return
      */
-    public BannerViewPager<T, VH> setPageStyle(@APageStyle int pageStyle) {
+    public BannerViewPager<T, VH> setPageStyle(PageStyle pageStyle) {
+        mPageStyle = pageStyle;
         switch (pageStyle) {
             case MULTI_PAGE:
                 setMultiPageStyle();

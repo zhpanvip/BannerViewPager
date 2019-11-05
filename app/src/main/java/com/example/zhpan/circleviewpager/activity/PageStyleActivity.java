@@ -5,7 +5,7 @@ import android.os.Bundle;
 import com.example.zhpan.circleviewpager.R;
 import com.example.zhpan.circleviewpager.viewholder.ImageResourceViewHolder;
 import com.zhpan.bannerview.BannerViewPager;
-import com.zhpan.bannerview.constants.PageStyle;
+import com.zhpan.bannerview.enums.PageStyle;
 import com.zhpan.bannerview.utils.DpUtils;
 
 public class PageStyleActivity extends BaseDataActivity {
