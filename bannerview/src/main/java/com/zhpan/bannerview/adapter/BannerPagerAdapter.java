@@ -105,22 +105,22 @@ public class BannerPagerAdapter<T, VH extends ViewHolder> extends PagerAdapter {
                         holder.onBind(container.getContext(), list.get(position - 1), position - 1, size);
                     }
                 } else {
-                    if (position == 0) {
-                        view = holder.createView(container, container.getContext(), list.size() - 2);
-                        holder.onBind(container.getContext(), list.get(list.size() - 2), list.size() - 2, size);
-                    } else if (position == 1) {
-                        view = holder.createView(container, container.getContext(), list.size() - 1);
-                        holder.onBind(container.getContext(), list.get(list.size() - 1), list.size() - 1, size);
-                    } else if (position == size+2) {
-                        view = holder.createView(container, container.getContext(), 0);
-                        holder.onBind(container.getContext(), list.get(0), 0, size);
-                    } else if (position == size + 3) {
-                        view = holder.createView(container, container.getContext(), 1);
-                        holder.onBind(container.getContext(), list.get(1), 1, size);
-                    } else {
-                        view = holder.createView(container, container.getContext(), position - 2);
-                        holder.onBind(container.getContext(), list.get(position - 2), position - 2, size);
-                    }
+                        if (position == 0) {
+                            view = holder.createView(container, container.getContext(), list.size() - 2);
+                            holder.onBind(container.getContext(), list.get(list.size() - 2), list.size() - 2, size);
+                        } else if (position == 1) {
+                            view = holder.createView(container, container.getContext(), list.size() - 1);
+                            holder.onBind(container.getContext(), list.get(list.size() - 1), list.size() - 1, size);
+                        } else if (position == size + 2) {
+                            view = holder.createView(container, container.getContext(), 0);
+                            holder.onBind(container.getContext(), list.get(0), 0, size);
+                        } else if (position == size + 3) {
+                            view = holder.createView(container, container.getContext(), 1);
+                            holder.onBind(container.getContext(), list.get(1), 1, size);
+                        } else {
+                            view = holder.createView(container, container.getContext(), position - 2);
+                            holder.onBind(container.getContext(), list.get(position - 2), position - 2, size);
+                        }
                 }
 
             } else {

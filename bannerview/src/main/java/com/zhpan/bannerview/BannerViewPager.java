@@ -354,7 +354,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
                 }
             } else {
                 if (position == 0) {
-                    return mList.size() - 2;
+                    return mList.size() == 1 ? 0 : mList.size() - 2;
                 } else if (position == 1) {
                     return mList.size() - 1;
                 } else if (position == mList.size() + 3) {
@@ -372,7 +372,15 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     }
 
     private int toUnrealPosition(int position) {
-        return isCanLoop ? (position < mList.size()) ? (++position) : mList.size() : position;
+        if (isCanLoop) {
+            if (mPageStyle == PageStyle.NORMAL) {
+                return (position < mList.size()) ? (++position) : mList.size();
+            } else {
+                return (position < mList.size()) ? position + 2 : mList.size() + 1;
+            }
+        } else {
+            return position;
+        }
     }
 
 

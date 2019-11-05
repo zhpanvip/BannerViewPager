@@ -7,7 +7,7 @@ import android.os.Bundle;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BaseDataActivity extends AppCompatActivity {
+public abstract class BaseDataActivity extends AppCompatActivity {
     protected List<Integer> mDrawableList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {

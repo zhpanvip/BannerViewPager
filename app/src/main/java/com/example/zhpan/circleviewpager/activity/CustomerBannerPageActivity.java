@@ -43,7 +43,7 @@ public class CustomerBannerPageActivity extends AppCompatActivity {
                 .setHolderCreator(() -> {
                     CustomPageViewHolder customPageViewHolder = new CustomPageViewHolder();
                     customPageViewHolder.setOnSubViewClickListener((view, position) -> Toast.makeText(CustomerBannerPageActivity.this,
-                            "立即体验" + (position + 1), Toast.LENGTH_SHORT).show());
+                            "立即体验" + position, Toast.LENGTH_SHORT).show());
                     return customPageViewHolder;
                 }).create(getData());
     }

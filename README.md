@@ -8,22 +8,27 @@
 |--|--|--|
 | ![嵌套RecyclerView](https://github.com/zhpanvip/BannerViewPager/blob/master/image/preview1.gif) | ![自定义页面](https://github.com/zhpanvip/BannerViewPager/blob/master/image/preview2.gif) | ![嵌套PhotoView](https://github.com/zhpanvip/BannerViewPager/blob/master/image/preview3.gif)   |
 
+## 2.页面滑动样式--支持一屏多页
 
-## 2.设置IndicatorViewStyle
-如果以上样式不能满足你的需求，BannerViewPager还提供了完全自定义IndicatorView的功能。只要继承BaseIndicatorView或者实现IIndicator接口，并重写相应方法，就可以为所欲为的打造任意的Indicator了。下图是一个自定义仿支付宝的Indicator：
+| MULTI_PAGE |
+|--|
+| ![MULTI_PAGE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/page_style_multi.gif) |
+
+## 3.设置IndicatorViewStyle
+BannerViewPager支持多种IndicatorViewStyle,同时还提供了完全自定义IndicatorView的功能。只要继承BaseIndicatorView或者实现IIndicator接口，并重写相应方法，就可以为所欲为的打造任意的Indicator了。下图是一个自定义仿支付宝的Indicator：
 
 | CIRCLE | DASH | 自定义 |
 |--|--|--|
-| ![CIRCLE](https://github.com/zhpanvip/BannerViewPager/blob/v_2.4.0/image/style_circle.gif) | ![DASH](https://github.com/zhpanvip/BannerViewPager/blob/v_2.4.0/image/style_dash.gif) | ![NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/v_2.4.0/image/style_custum.gif) |
+| ![CIRCLE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_circle.gif) | ![DASH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_dash.gif) | ![NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_custum.gif) |
 
-## 3.设置IndicatorSlideMode
+## 4.设置IndicatorSlideMode
 
 | NORMAL | SMOOTH |
 |--|--|
 | ![NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/slide_normal.gif) |  ![SMOOTH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/slide_smooth.gif) |
 
 
-## 4.内置Transform样式
+## 5.内置Transform样式
 
 | 参数 | STACK | ROTATE | DEPTH | ACCORDION |
 |--|--|--|--|--|
@@ -57,10 +62,10 @@
 | BannerViewPager<T, VH> setPageTransformerStyle(int style) | 设置页面Transformer内置样式 |  |
 | BannerViewPager<T, VH> setCurrentItem(int item) | Set the currently selected page. | 2.3.5新增 |
 | void getCurrentItem() | 获取当前position | 2.3.5新增 |
-| BannerViewPager<T, VH> setPageStyle(@APageStyle int pageStyle) | 设置页面样式 | 2.4.0新增 可选（MULTI_PAGE）MULTI_PAGE：一屏多页样式 |
+| BannerViewPager<T, VH> setPageStyle(PageStyle pageStyle) | 设置页面样式 | 2.4.0新增 可选（MULTI_PAGE、NORMAL）MULTI_PAGE：一屏多页样式 |
 | BannerViewPager<T, VH> setPageMargin(int pageMargin) | 设置页面间隔 | 2.4.0新增 |
 | void startLoop() |开启自动轮播 | 初始化BannerViewPager时不必调用该方法,设置setAutoPlay后会调用startLoop() |
-| void stopLoop() | 停止自动轮播 | 如果开启自动轮播，为避免内存泄漏需要在onStop()或onDestory中调用此方法 |
+| void stopLoop() | 停止自动轮播 | 如果开启自动轮播，为避免内存泄漏需要在onStop()或onDestroy中调用此方法 |
 | ViewPager getViewPager() | 获取BannerViewPager内部封装的ViewPager |  |
 | List\<T> getList() | 获取Banner中的集合数据 |  |
 | void create(List<T> list) |初始化并构造BannerViewPager  |必须调用，否则前面设置的参数无效  |

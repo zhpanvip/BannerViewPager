@@ -1,5 +1,6 @@
 package com.example.zhpan.circleviewpager.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import com.example.zhpan.circleviewpager.R;
@@ -25,13 +26,9 @@ public class PageStyleActivity extends BaseDataActivity {
                 .setPageMargin(DpUtils.dp2px(20))
                 .setRevealWidth(DpUtils.dp2px(20))
                 .setHolderCreator(ImageResourceViewHolder::new)
+                .setIndicatorColor(Color.parseColor("#935656"), Color.parseColor("#FF4C39"))
                 .setPageStyle(PageStyle.MULTI_PAGE)
-                .setOnPageClickListener(new BannerViewPager.OnPageClickListener() {
-                    @Override
-                    public void onPageClick(int position) {
-                        ToastUtils.show("点击了第"+position+"张图片");
-                    }
-                })
+                .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
                 .create(mDrawableList);
     }
 

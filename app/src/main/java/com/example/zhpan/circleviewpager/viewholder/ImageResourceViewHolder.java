@@ -11,6 +11,7 @@ import com.example.zhpan.circleviewpager.R;
 import com.example.zhpan.circleviewpager.imageloader.ImageLoaderManager;
 import com.example.zhpan.circleviewpager.imageloader.ImageLoaderOptions;
 import com.example.zhpan.circleviewpager.net.BannerData;
+import com.example.zhpan.circleviewpager.view.CornerImageView;
 import com.zhpan.bannerview.holder.ViewHolder;
 
 /**
@@ -20,7 +21,7 @@ import com.zhpan.bannerview.holder.ViewHolder;
  * </pre>
  */
 public class ImageResourceViewHolder implements ViewHolder<Integer> {
-    private ImageView mImageView;
+    private CornerImageView mImageView;
 
     @Override
     public View createView(ViewGroup viewGroup, Context context, int position) {

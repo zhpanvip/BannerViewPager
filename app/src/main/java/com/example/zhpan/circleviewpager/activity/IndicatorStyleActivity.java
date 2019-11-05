@@ -66,9 +66,10 @@ public class IndicatorStyleActivity extends BaseDataActivity {
 
     private void setupDashIndicator() {
         mViewPager.setIndicatorStyle(IndicatorStyle.DASH)
-                .setIndicatorHeight(DpUtils.dp2px(2.5f))
+                .setIndicatorHeight(DpUtils.dp2px(3f))
                 .setIndicatorGravity(IndicatorGravity.CENTER)
-                .setIndicatorWidth(DpUtils.dp2px(6), DpUtils.dp2px(12))
+                .setIndicatorGap(DpUtils.dp2px(3))
+                .setIndicatorWidth(DpUtils.dp2px(3), DpUtils.dp2px(10))
                 .setIndicatorColor(Color.parseColor("#888888"),
                         Color.parseColor("#118EEA")).create(mDrawableList);
     }
