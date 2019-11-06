@@ -6,7 +6,8 @@ import androidx.viewpager.widget.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.zhpan.bannerview.enums.PageStyle;
+import com.zhpan.bannerview.annotation.APageStyle;
+import com.zhpan.bannerview.constants.PageStyle;
 import com.zhpan.bannerview.holder.HolderCreator;
 import com.zhpan.bannerview.holder.ViewHolder;
 
@@ -33,7 +34,7 @@ public class BannerPagerAdapter<T, VH extends ViewHolder> extends PagerAdapter {
         isCanLoop = canLoop;
     }
 
-    private PageStyle mPageStyle;
+    private int mPageStyle;
 
     public BannerPagerAdapter(List<T> list, HolderCreator<VH> holderCreator) {
         this.list = list;
@@ -154,7 +155,7 @@ public class BannerPagerAdapter<T, VH extends ViewHolder> extends PagerAdapter {
         mPageClickListener = pageClickListener;
     }
 
-    public void setPageStyle(PageStyle pageStyle) {
+    public void setPageStyle(@APageStyle int pageStyle) {
         mPageStyle = pageStyle;
     }
 

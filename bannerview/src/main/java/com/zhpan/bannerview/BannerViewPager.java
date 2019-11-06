@@ -19,10 +19,11 @@ import android.widget.RelativeLayout;
 import com.zhpan.bannerview.annotation.AIndicatorGravity;
 import com.zhpan.bannerview.annotation.AIndicatorSlideMode;
 import com.zhpan.bannerview.annotation.AIndicatorStyle;
+import com.zhpan.bannerview.annotation.APageStyle;
 import com.zhpan.bannerview.annotation.ATransformerStyle;
 import com.zhpan.bannerview.constants.IndicatorSlideMode;
 import com.zhpan.bannerview.constants.IndicatorStyle;
-import com.zhpan.bannerview.enums.PageStyle;
+import com.zhpan.bannerview.constants.PageStyle;
 import com.zhpan.bannerview.indicator.BaseIndicatorView;
 import com.zhpan.bannerview.indicator.DashIndicatorView;
 import com.zhpan.bannerview.indicator.IIndicator;
@@ -128,7 +129,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     private int indicatorGap;
     private int indicatorHeight;
     private boolean isCustomIndicator;
-    private PageStyle mPageStyle = PageStyle.NORMAL;
+    private int mPageStyle = PageStyle.NORMAL;
 //    private OnPageSelectedListener mOnPageSelectedListener;
 
     public BannerViewPager(Context context) {
@@ -161,6 +162,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
         if (attrs != null) {
             TypedArray typedArray =
                     getContext().obtainStyledAttributes(attrs, R.styleable.BannerViewPager);
+
             interval = typedArray.getInteger(R.styleable.BannerViewPager_bvp_interval, 3000);
             indicatorCheckedColor =
                     typedArray.getColor(R.styleable.BannerViewPager_bvp_indicator_checked_color,
@@ -173,13 +175,16 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
             indicatorGap = normalIndicatorWidth;
             indicatorHeight = normalIndicatorWidth / 2;
             checkedIndicatorWidth = normalIndicatorWidth;
-            mIndicatorStyle = IndicatorStyle.CIRCLE;
-            mIndicatorSlideMode = IndicatorSlideMode.NORMAL;
+
             isAutoPlay = typedArray.getBoolean(R.styleable.BannerViewPager_bvp_auto_play, true);
             isCanLoop = typedArray.getBoolean(R.styleable.BannerViewPager_bvp_can_loop, true);
-            gravity = typedArray.getInt(R.styleable.BannerViewPager_bvp_indicator_gravity, 0);
             mPageMargin = (int) typedArray.getDimension(R.styleable.BannerViewPager_bvp_page_margin, 0);
             mRevealWidth = (int) typedArray.getDimension(R.styleable.BannerViewPager_bvp_reveal_width, 0);
+
+            gravity = typedArray.getInt(R.styleable.BannerViewPager_bvp_indicator_gravity, 0);
+            mPageStyle = typedArray.getInt(R.styleable.BannerViewPager_bvp_page_style, 0);
+            mIndicatorStyle = typedArray.getInt(R.styleable.BannerViewPager_bvp_indicator_style, 0);
+            mIndicatorSlideMode = typedArray.getInt(R.styleable.BannerViewPager_bvp_indicator_slide_mode, 0);
             typedArray.recycle();
         }
     }
@@ -291,10 +296,19 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
             mViewPager.setAdapter(bannerPagerAdapter);
             mViewPager.setCurrentItem(currentPosition);
             mViewPager.addOnPageChangeListener(this);
+            initPageStyle();
             startLoop();
             setTouchListener();
         } else {
             throw new NullPointerException("You must set HolderCreator for BannerViewPager");
+        }
+    }
+
+    private void initPageStyle(){
+        switch (mPageStyle) {
+            case PageStyle.MULTI_PAGE:
+                setMultiPageStyle();
+                break;
         }
     }
 
@@ -695,15 +709,10 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     /**
      * 设置Banner页面样式
      *
-     * @return
+     * @return BannerViewPager
      */
-    public BannerViewPager<T, VH> setPageStyle(PageStyle pageStyle) {
+    public BannerViewPager<T, VH> setPageStyle(@APageStyle int pageStyle) {
         mPageStyle = pageStyle;
-        switch (pageStyle) {
-            case MULTI_PAGE:
-                setMultiPageStyle();
-                break;
-        }
         return this;
     }
 

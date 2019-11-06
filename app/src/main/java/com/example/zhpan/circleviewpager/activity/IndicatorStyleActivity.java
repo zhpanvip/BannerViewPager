@@ -27,9 +27,9 @@ public class IndicatorStyleActivity extends BaseDataActivity {
         setContentView(R.layout.activity_indicator_slide_mode);
         setTitle(getString(R.string.indicator_style));
         mViewPager = findViewById(R.id.banner_view_dash);
-        mViewPager.setRoundCorner(DpUtils.dp2px(5))
+        mViewPager.setRoundCorner(DpUtils.dp2px(8))
                 .setIndicatorGap(DpUtils.dp2px(6))
-                .setHolderCreator(ImageResourceViewHolder::new);
+                .setHolderCreator(() -> new ImageResourceViewHolder(0));
         initRadioGroup();
     }
 
@@ -60,6 +60,9 @@ public class IndicatorStyleActivity extends BaseDataActivity {
     private void setupCircleIndicator() {
         mViewPager.setIndicatorStyle(IndicatorStyle.CIRCLE)
                 .setIndicatorGravity(IndicatorGravity.CENTER)
+                .setIndicatorGap(DpUtils.dp2px(6))
+                .setPageMargin(0)
+                .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
                 .setIndicatorColor(Color.parseColor("#935656"), Color.parseColor("#FF4C39"))
                 .setIndicatorRadius(DpUtils.dp2px(4), DpUtils.dp2px(5)).create(mDrawableList);
     }
@@ -69,6 +72,7 @@ public class IndicatorStyleActivity extends BaseDataActivity {
                 .setIndicatorHeight(DpUtils.dp2px(3f))
                 .setIndicatorGravity(IndicatorGravity.CENTER)
                 .setIndicatorGap(DpUtils.dp2px(3))
+                .setPageMargin(0)
                 .setIndicatorWidth(DpUtils.dp2px(3), DpUtils.dp2px(10))
                 .setIndicatorColor(Color.parseColor("#888888"),
                         Color.parseColor("#118EEA")).create(mDrawableList);
@@ -80,8 +84,7 @@ public class IndicatorStyleActivity extends BaseDataActivity {
                 .setPageMargin(DpUtils.dp2px(20))
                 .setIndicatorGravity(IndicatorGravity.END)
                 .setIndicatorView(setupIndicatorView(mDrawableList.size()))
-                .setOnPageClickListener(position -> ToastUtils.show(position + ""))
-                .setHolderCreator(ImageResourceViewHolder::new).create(mDrawableList);
+                .setHolderCreator(() -> new ImageResourceViewHolder(0)).create(mDrawableList);
     }
 
     /**

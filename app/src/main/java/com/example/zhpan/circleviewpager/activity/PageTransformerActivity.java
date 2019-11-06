@@ -61,7 +61,7 @@ public class PageTransformerActivity extends AppCompatActivity {
                 .setScrollDuration(1000)
                 .setHolderCreator(TransformerViewHolder::new)
                 .setOnPageClickListener(position -> Toast.makeText(PageTransformerActivity.this,
-                        "this is item" + mViewpager.getCurrentItem(), Toast.LENGTH_SHORT).show())
+                        "this is item:" + mViewpager.getCurrentItem(), Toast.LENGTH_SHORT).show())
                 .create(getData());
         mViewpager.setPageTransformer(new StackTransformer());
     }

@@ -14,8 +14,8 @@
             <enum name="dash" value="1" />
         </attr>
         <attr name="bvp_indicator_slide_mode" format="enum">
-            <enum name="circle" value="0" />
-            <enum name="dash" value="1" />
+            <enum name="normal" value="0" />
+            <enum name="smooth" value="1" />
         </attr>
         <attr name="bvp_indicator_gravity" format="enum">
             <enum name="normal" value="0" />
@@ -31,6 +31,7 @@
             <enum name="stack" value="2" />
             <enum name="accordion" value="3" />
         </attr>
+
         <attr name="bvp_page_margin" format="dimension" />
         <attr name="bvp_reveal_width" format="dimension" />
     </declare-styleable>

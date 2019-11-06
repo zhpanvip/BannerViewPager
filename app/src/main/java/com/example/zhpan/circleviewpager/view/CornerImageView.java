@@ -20,7 +20,6 @@ public class CornerImageView extends AppCompatImageView {
 
     public CornerImageView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        setRoundCorner(DpUtils.dp2px(6));
     }
 
     public void setRoundCorner(int radius) {

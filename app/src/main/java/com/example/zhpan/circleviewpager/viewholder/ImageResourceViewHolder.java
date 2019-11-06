@@ -4,13 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.example.zhpan.circleviewpager.R;
-import com.example.zhpan.circleviewpager.imageloader.ImageLoaderManager;
-import com.example.zhpan.circleviewpager.imageloader.ImageLoaderOptions;
-import com.example.zhpan.circleviewpager.net.BannerData;
 import com.example.zhpan.circleviewpager.view.CornerImageView;
 import com.zhpan.bannerview.holder.ViewHolder;
 
@@ -22,6 +17,11 @@ import com.zhpan.bannerview.holder.ViewHolder;
  */
 public class ImageResourceViewHolder implements ViewHolder<Integer> {
     private CornerImageView mImageView;
+    private int roundCorner;
+
+    public ImageResourceViewHolder(int roundCorner) {
+        this.roundCorner = roundCorner;
+    }
 
     @Override
     public View createView(ViewGroup viewGroup, Context context, int position) {
@@ -33,5 +33,6 @@ public class ImageResourceViewHolder implements ViewHolder<Integer> {
     @Override
     public void onBind(Context context, Integer data, int position, int size) {
         mImageView.setImageResource(data);
+        mImageView.setRoundCorner(roundCorner);
     }
 }

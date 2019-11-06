@@ -109,7 +109,7 @@ public class NetworkBannerActivity extends RxAppCompatActivity {
                 .setOnPageClickListener(position -> {
                     BannerData bannerData = mBannerViewPager.getList().get(position);
                     Toast.makeText(NetworkBannerActivity.this,
-                            "点击了图片" + position + " " + bannerData.getDesc(), Toast.LENGTH_SHORT).show();
+                            "点击了position:" + position + " " + bannerData.getDesc(), Toast.LENGTH_SHORT).show();
 
                 });
     }
