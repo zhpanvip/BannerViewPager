@@ -25,9 +25,9 @@ public class PageStyleActivity extends BaseDataActivity {
         mBannerViewPager
                 .setPageMargin(DpUtils.dp2px(20))
                 .setRevealWidth(DpUtils.dp2px(20))
+                .setPageStyle(PageStyle.MULTI_PAGE)
                 .setHolderCreator(() -> new ImageResourceViewHolder(DpUtils.dp2px(5)))
                 .setIndicatorColor(Color.parseColor("#935656"), Color.parseColor("#FF4C39"))
-                .setPageStyle(PageStyle.MULTI_PAGE)
                 .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
                 .create(mDrawableList);
     }

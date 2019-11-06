@@ -304,7 +304,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
         }
     }
 
-    private void initPageStyle(){
+    private void initPageStyle() {
         switch (mPageStyle) {
             case PageStyle.MULTI_PAGE:
                 setMultiPageStyle();
@@ -717,6 +717,8 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     }
 
     private void setMultiPageStyle() {
+        mPageMargin=mPageMargin==0?DpUtils.dp2px(20):mPageMargin;
+        mRevealWidth=mRevealWidth==0?DpUtils.dp2px(20):mRevealWidth;
         setClipChildren(false);
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mViewPager.getLayoutParams();
         params.leftMargin = mPageMargin + mRevealWidth;
