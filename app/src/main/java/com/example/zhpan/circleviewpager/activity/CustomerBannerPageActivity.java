@@ -14,7 +14,7 @@ import com.zhpan.bannerview.BannerViewPager;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomerBannerItemActivity extends AppCompatActivity {
+public class CustomerBannerPageActivity extends AppCompatActivity {
     private BannerViewPager<CustomBean, CustomPageViewHolder> mViewPager;
     private int[] imgRes = {R.drawable.guide0, R.drawable.guide1, R.drawable.guide2};
     private String[] des = {"在这里\n你可以听到周围人的心声", "在这里\nTA会在下一秒遇见你", "在这里\n不再错过可以改变你一生的人"};
@@ -38,12 +38,12 @@ public class CustomerBannerItemActivity extends AppCompatActivity {
         mViewPager.setAutoPlay(false)
                 .setCanLoop(false)
                 .showIndicator(false)
-                .setOnPageClickListener(position -> Toast.makeText(CustomerBannerItemActivity.this,
+                .setOnPageClickListener(position -> Toast.makeText(CustomerBannerPageActivity.this,
                         "点击页面" + mViewPager.getCurrentItem(), Toast.LENGTH_SHORT).show())
                 .setHolderCreator(() -> {
                     CustomPageViewHolder customPageViewHolder = new CustomPageViewHolder();
-                    customPageViewHolder.setOnSubViewClickListener((view, position) -> Toast.makeText(CustomerBannerItemActivity.this,
-                            "立即体验" + (position + 1), Toast.LENGTH_SHORT).show());
+                    customPageViewHolder.setOnSubViewClickListener((view, position) -> Toast.makeText(CustomerBannerPageActivity.this,
+                            "立即体验" + position, Toast.LENGTH_SHORT).show());
                     return customPageViewHolder;
                 }).create(getData());
     }

@@ -2,19 +2,38 @@
 <resources>
     <declare-styleable name="BannerViewPager">
         <!--页面切换时间间隔-->
-        <attr name="interval" format="integer"/>
-        <attr name="isCanLoop" format="boolean"/>
-        <attr name="isAutoPlay" format="boolean"/>
+        <attr name="bvp_interval" format="integer" />
+        <attr name="bvp_can_loop" format="boolean" />
+        <attr name="bvp_auto_play" format="boolean" />
         <!--<attr name="indicator_gravity" format="integer"/>-->
-        <attr name="indicator_checked_color" format="color"/>
-        <attr name="indicator_normal_color" format="color"/>
-        <attr name="indicator_radius" format="dimension"/>
-        <attr name="indicator_gravity" format="enum">
-            <enum name="center" value="0"/>
-            <enum name="start" value="1"/>
-            <enum name="end" value="2"/>
+        <attr name="bvp_indicator_checked_color" format="color" />
+        <attr name="bvp_indicator_normal_color" format="color" />
+        <attr name="bvp_indicator_radius" format="dimension" />
+        <attr name="bvp_indicator_style" format="enum">
+            <enum name="circle" value="0" />
+            <enum name="dash" value="1" />
+        </attr>
+        <attr name="bvp_indicator_slide_mode" format="enum">
+            <enum name="normal" value="0" />
+            <enum name="smooth" value="1" />
+        </attr>
+        <attr name="bvp_indicator_gravity" format="enum">
+            <enum name="normal" value="0" />
+            <enum name="smooth" value="1" />
+        </attr>
+        <attr name="bvp_page_style" format="enum">
+            <enum name="normal" value="0" />
+            <enum name="multi_page" value="1" />
+        </attr>
+        <attr name="bvp_transformer_style" format="enum">
+            <enum name="normal" value="0" />
+            <enum name="depth" value="1" />
+            <enum name="stack" value="2" />
+            <enum name="accordion" value="3" />
         </attr>
 
+        <attr name="bvp_page_margin" format="dimension" />
+        <attr name="bvp_reveal_width" format="dimension" />
     </declare-styleable>
 
 </resources>

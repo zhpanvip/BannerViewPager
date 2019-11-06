@@ -10,7 +10,7 @@ import android.widget.Toast;
 import com.example.zhpan.circleviewpager.R;
 import com.example.zhpan.circleviewpager.viewholder.TransformerViewHolder;
 import com.zhpan.bannerview.BannerViewPager;
-import com.zhpan.bannerview.enums.TransformerStyle;
+import com.zhpan.bannerview.constants.TransformerStyle;
 import com.zhpan.bannerview.transform.StackTransformer;
 
 import java.util.ArrayList;
@@ -61,7 +61,7 @@ public class PageTransformerActivity extends AppCompatActivity {
                 .setScrollDuration(1000)
                 .setHolderCreator(TransformerViewHolder::new)
                 .setOnPageClickListener(position -> Toast.makeText(PageTransformerActivity.this,
-                        "this is item" + mViewpager.getCurrentItem(), Toast.LENGTH_SHORT).show())
+                        "this is item:" + mViewpager.getCurrentItem(), Toast.LENGTH_SHORT).show())
                 .create(getData());
         mViewpager.setPageTransformer(new StackTransformer());
     }

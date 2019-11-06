@@ -2,12 +2,13 @@ package com.zhpan.bannerview.indicator;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
 
 import androidx.annotation.Nullable;
 
-import com.zhpan.bannerview.enums.IndicatorSlideMode;
+import com.zhpan.bannerview.constants.IndicatorSlideMode;
 import com.zhpan.bannerview.utils.DpUtils;
 
 /**
@@ -49,16 +50,19 @@ public class BaseIndicatorView extends View implements IIndicator {
      * 是否是向右滑动，true向右，false向左
      */
     protected boolean slideToRight;
+
     /**
      * Indicator滑动模式，目前仅支持两种
      *
      * @see IndicatorSlideMode#NORMAL
      * @see IndicatorSlideMode#SMOOTH
      */
-    protected IndicatorSlideMode slideMode;
+    protected int slideMode;
 
     protected float normalIndicatorWidth;
     protected float checkedIndicatorWidth;
+
+    protected Paint mPaint;
 
     public BaseIndicatorView(Context context) {
         super(context);
@@ -76,6 +80,8 @@ public class BaseIndicatorView extends View implements IIndicator {
         normalColor = Color.parseColor("#8C18171C");
         checkedColor = Color.parseColor("#8C6C6D72");
         slideMode = IndicatorSlideMode.NORMAL;
+        mPaint = new Paint();
+        mPaint.setAntiAlias(true);
     }
 
     @Override
@@ -153,11 +159,11 @@ public class BaseIndicatorView extends View implements IIndicator {
 
     /**
      * @param slideMode Indicator滑动样式
-     * @see IndicatorSlideMode#NORMAL
-     * @see IndicatorSlideMode#SMOOTH
+     * @see com.zhpan.bannerview.constants.IndicatorSlideMode#NORMAL
+     * @see com.zhpan.bannerview.constants.IndicatorSlideMode#SMOOTH
      */
     @Override
-    public void setSlideMode(IndicatorSlideMode slideMode) {
+    public void setSlideMode(int slideMode) {
         this.slideMode = slideMode;
     }
 

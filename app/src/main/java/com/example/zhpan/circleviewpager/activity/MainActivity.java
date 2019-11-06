@@ -21,11 +21,11 @@ public class MainActivity extends AppCompatActivity {
     public void onClick(View view) {
         Intent intent;
         switch (view.getId()) {
-            case R.id.btn_custom_indicator:
-                intent = new Intent(this, CustomIndicatorActivity.class);
+            case R.id.tv_page_style:
+                intent = new Intent(this, PageStyleActivity.class);
                 break;
             case R.id.btn_view_pager3:
-                intent = new Intent(this, BannerPhotoViewActivity.class);
+                intent = new Intent(this, PhotoViewActivity.class);
                 break;
             case R.id.btn_view_pager4:
                 intent = new Intent(this, NetworkBannerActivity.class);
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
                 intent = new Intent(this, IndicatorStyleActivity.class);
                 break;
             default:
-                intent = new Intent(this, CustomerBannerItemActivity.class);
+                intent = new Intent(this, CustomerBannerPageActivity.class);
                 break;
         }
         startActivity(intent);

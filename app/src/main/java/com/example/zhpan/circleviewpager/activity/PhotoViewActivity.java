@@ -6,12 +6,12 @@ import android.os.Bundle;
 import com.example.zhpan.circleviewpager.R;
 import com.example.zhpan.circleviewpager.viewholder.PhotoViewHolder;
 import com.zhpan.bannerview.BannerViewPager;
-import com.zhpan.bannerview.enums.IndicatorSlideMode;
+import com.zhpan.bannerview.constants.IndicatorSlideMode;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BannerPhotoViewActivity extends AppCompatActivity {
+public class PhotoViewActivity extends AppCompatActivity {
     private List<Integer> mDrawableList = new ArrayList<>();
 
     @Override
@@ -21,12 +21,6 @@ public class BannerPhotoViewActivity extends AppCompatActivity {
         setTitle(R.string.wrapper_photo_view);
         initData();
         initViewPager();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        //  没有开启自动轮播，不需要stopLoop
     }
 
     private void initViewPager() {

@@ -8,20 +8,27 @@
 |--|--|--|
 | ![嵌套RecyclerView](https://github.com/zhpanvip/BannerViewPager/blob/master/image/preview1.gif) | ![自定义页面](https://github.com/zhpanvip/BannerViewPager/blob/master/image/preview2.gif) | ![嵌套PhotoView](https://github.com/zhpanvip/BannerViewPager/blob/master/image/preview3.gif)   |
 
-## 2.自定义Indicator样式
+## 2.页面滑动样式--支持一屏多页
+
+| MULTI_PAGE |
+|--|
+| ![MULTI_PAGE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/page_style_multi.gif) |
+
+## 3.设置IndicatorViewStyle
+BannerViewPager支持多种IndicatorViewStyle,同时还提供了完全自定义IndicatorView的功能。只要继承BaseIndicatorView或者实现IIndicator接口，并重写相应方法，就可以为所欲为的打造任意的Indicator了。
+
+| CIRCLE | DASH | 自定义 |
+|--|--|--|
+| ![CIRCLE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_circle.gif) | ![DASH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_dash.gif) | ![NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_custum.gif) |
+
+## 4.设置IndicatorSlideMode
 
 | NORMAL | SMOOTH |
 |--|--|
 | ![NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/slide_normal.gif) |  ![SMOOTH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/slide_smooth.gif) |
 
-## 3.自定义IndicatorView
-如果以上样式不能满足你的需求，BannerViewPager还提供了完全自定义IndicatorView的功能。只要继承BaseIndicatorView或者实现IIndicator接口，并重写相应方法，就可以为所欲为的打造任意的Indicator了。下图是一个自定义仿支付宝的Indicator：
 
-| Custom Indicator |
-|--|
-| ![NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/custom_indicator.gif) |
-
-## 4.内置Transform样式
+## 5.内置Transform样式
 
 | 参数 | STACK | ROTATE | DEPTH | ACCORDION |
 |--|--|--|--|--|
@@ -41,10 +48,10 @@
 | BannerViewPager<T, VH> setOnPageClickListener(OnPageClickListener onPageClickListener) | 设置页面点击事件 |  |
 | BannerViewPager<T, VH> setHolderCreator(HolderCreator\<VH> holderCreator) |设置HolderCreator  |必须设置HolderCreator，否则会抛出NullPointerException|
 | BannerViewPager<T, VH> showIndicator(boolean showIndicator) |  是否显示指示器|默认值true  |
-| BannerViewPager<T, VH> setIndicatorStyle(IndicatorStyle indicatorStyle) | 设置指示器样式 | 可选枚举(CIRCLE, DASH) 默认CIRCLE  |
+| BannerViewPager<T, VH> setIndicatorStyle(int indicatorStyle) | 设置指示器样式 | 可选枚举(CIRCLE, DASH) 默认CIRCLE  |
 | BannerViewPager<T, VH> setIndicatorGravity(int gravity) | 指示器位置 |可选值(CENTER、START、END)默认值CENTER |
 | BannerViewPager<T, VH> setIndicatorColor(int normalColor,int checkedColor) | 指示器圆点颜色 |normalColor：未选中时颜色默认"#8C6C6D72"， checkedColor：选中时颜色 默认"#8C18171C" |
-| BannerViewPager<T, VH> setIndicatorSlideMode(IndicatorSlideMode slideMode)  | 设置Indicator滑动模式 | 可选（NORMAL、SMOOTH），默认值SMOOTH  |
+| BannerViewPager<T, VH> setIndicatorSlideMode(int slideMode)  | 设置Indicator滑动模式 | 可选（NORMAL、SMOOTH），默认值SMOOTH  |
 | BannerViewPager<T, VH> setIndicatorRadius(int radius) | 设置指示器圆点半径 | 默认值4dp|
 | BannerViewPager<T, VH> setIndicatorRadius(int normalRadius,int checkRadius)  |设置指示器圆点半径  |  normalRadius:未选中时半径  checkedRadius:选中时的半径,默认值4dp |
 | BannerViewPager<T, VH> setIndicatorWidth(int indicatorWidth) | 设置指示器宽度，如果是圆形指示器，则为直径 |  默认值8dp|
@@ -52,9 +59,13 @@
 | BannerViewPager<T, VH> setIndicatorHeight(int indicatorHeight) | 设置指示器高度，仅在Indicator样式为DASH时有效 | 默认值normalIndicatorWidth/2 |
 | BannerViewPager<T, VH> setIndicatorGap(int indicatorMargin) | 指示器圆点间距| 默认值为指示器宽度（或者是圆的直径）|
 | BannerViewPager<T, VH> setIndicatorView(IIndicator indicatorView) | 设置自定义指示器| 设置自定义指示器后以上关于IndicatorView的参数会部分失效|
-| BannerViewPager<T, VH> setPageTransformerStyle(TransformerStyle style) | 设置页面Transformer内置样式 |  |
+| BannerViewPager<T, VH> setPageTransformerStyle(int style) | 设置页面Transformer内置样式 |  |
+| BannerViewPager<T, VH> setCurrentItem(int item) | Set the currently selected page. | 2.3.5新增 |
+| void getCurrentItem() | 获取当前position | 2.3.5新增 |
+| BannerViewPager<T, VH> setPageStyle(PageStyle pageStyle) | 设置页面样式 | 2.4.0新增 可选（MULTI_PAGE、NORMAL）MULTI_PAGE：一屏多页样式 |
+| BannerViewPager<T, VH> setPageMargin(int pageMargin) | 设置页面间隔 | 2.4.0新增 |
 | void startLoop() |开启自动轮播 | 初始化BannerViewPager时不必调用该方法,设置setAutoPlay后会调用startLoop() |
-| void stopLoop() | 停止自动轮播 | 如果开启自动轮播，为避免内存泄漏需要在onStop()或onDestory中调用此方法 |
+| void stopLoop() | 停止自动轮播 | 如果开启自动轮播，为避免内存泄漏需要在onStop()或onDestroy中调用此方法 |
 | ViewPager getViewPager() | 获取BannerViewPager内部封装的ViewPager |  |
 | List\<T> getList() | 获取Banner中的集合数据 |  |
 | void create(List<T> list) |初始化并构造BannerViewPager  |必须调用，否则前面设置的参数无效  |
@@ -175,7 +186,7 @@ public class NetViewHolder implements ViewHolder<BannerData> {
                 .setAutoPlay(true)
                 .setRoundCorner(DpUtils.dp2px(7))
                 .setIndicatorColor(Color.parseColor("#935656"), Color.parseColor("#FF4C39"))
-                .setIndicatorGravity(BannerViewPager.END)
+                .setIndicatorGravity(IndicatorGravity.END)
                 .setScrollDuration(1000).setHolderCreator(NetViewHolder::new)
                 .setOnPageClickListener(position -> {
                     BannerData bannerData = mBannerViewPager.getList().get(position);
@@ -220,83 +231,66 @@ public class NetViewHolder implements ViewHolder<BannerData> {
 **(1)自定义View并继承BaseIndicatorView**
 
 ```
-public class DashIndicatorView extends BaseIndicatorView {
-    private Paint mPaint;
-    private float sliderHeight;
+public class FigureIndicatorView extends BaseIndicatorView {
 
-   ...内部省略部分代码
+    private int radius = DpUtils.dp2px(20);
 
-    public DashIndicatorView(Context context, AttributeSet attrs, int defStyleAttr) {
+    private int backgroundColor = Color.parseColor("#88FF5252");
+
+    private int textColor = Color.WHITE;
+
+    private int textSize=DpUtils.dp2px(13);
+
+    public FigureIndicatorView(Context context) {
+        this(context, null);
+    }
+
+    public FigureIndicatorView(Context context, @Nullable AttributeSet attrs) {
+        this(context, attrs, 0);
+    }
+
+    public FigureIndicatorView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         mPaint = new Paint();
-        mPaint.setColor(normalColor);
-        mPaint.setAntiAlias(true);
-        sliderHeight = normalIndicatorWidth / 2;
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        setMeasuredDimension((int) ((mPageSize - 1) *mIndicatorGap  + normalIndicatorWidth * mPageSize),
-                (int) (sliderHeight));
+        setMeasuredDimension(2 * radius, 2 * radius);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        mPaint.setColor(normalColor);
-        for (int i = 0; i < mPageSize; i++) {
-            mPaint.setColor(normalColor);
-            canvas.drawRect(i * (normalIndicatorWidth) + i * +mIndicatorGap, 0, i * (normalIndicatorWidth) + i * +mIndicatorGap + normalIndicatorWidth, sliderHeight, mPaint);
-        }
-        drawSliderStyle(canvas);
+        mPaint.setColor(backgroundColor);
+        canvas.drawCircle(getWidth() / 2, getHeight() / 2, radius, mPaint);
+        mPaint.setColor(textColor);
+        mPaint.setTextSize(textSize);
+        String text = currentPosition + 1 + "/" + pageSize;
+        int textWidth = (int) mPaint.measureText(text);
+        Paint.FontMetricsInt fontMetricsInt = mPaint.getFontMetricsInt();
+        int baseline = (getMeasuredHeight() - fontMetricsInt.bottom + fontMetricsInt.top) / 2 - fontMetricsInt.top;
+        canvas.drawText(text, (getWidth() - textWidth) / 2, baseline, mPaint);
+    }
+
+    public void setRadius(int radius) {
+        this.radius = radius;
     }
 
     @Override
-    public void onPageSelected(int position) {
-        super.onPageSelected(position);
+    public void setBackgroundColor(@ColorInt int backgroundColor) {
+        this.backgroundColor = backgroundColor;
     }
 
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        super.onPageScrolled(position, positionOffset, positionOffsetPixels);
+    public void setTextSize(int textSize) {
+        this.textSize = textSize;
     }
 
-    @Override
-    public void onPageScrollStateChanged(int state) {
-        super.onPageScrollStateChanged(state);
+    public void setTextColor(int textColor) {
+        this.textColor = textColor;
     }
-
-    private void drawSliderStyle(Canvas canvas) {
-        mPaint.setColor(checkedColor);
-        float left = currentPosition * (checkedIndicatorWidth) + currentPosition * +mIndicatorGap + (checkedIndicatorWidth + mIndicatorGap) * slideProgress;
-        canvas.drawRect(left, 0, left + checkedIndicatorWidth, sliderHeight, mPaint);
-    }
-
 }
-```
-**(2)BannerViewPager设置自定义Indicator**
-
-```
- private void setUpViewPager() {
-        viewPager = findViewById(R.id.banner_view);
-        List<String> list = Arrays.asList(picUrls);
-        viewPager.setAutoPlay(false).setCanLoop(true)
-                .setRoundCorner(DpUtils.dp2px(5))
-                .setIndicatorView(setupIndicatorView(list.size()))
-                .setHolderCreator(SlideModeViewHolder::new).create(list);
-    }
-
-    private DashIndicatorView setupIndicatorView(int pageSize) {
-        DashIndicatorView indicatorView = new DashIndicatorView(this);
-        indicatorView.setPageSize(pageSize);
-        indicatorView.setIndicatorWidth(DpUtils.dp2px(8), DpUtils.dp2px(8));
-        indicatorView.setSliderHeight(DpUtils.dp2px(4));
-        indicatorView.setIndicatorGap(DpUtils.dp2px(5));
-        indicatorView.setCheckedColor(getResources().getColor(R.color.colorAccent));
-        indicatorView.setNormalColor(getResources().getColor(R.color.colorPrimary));
-        return indicatorView;
-    }
 ```
 
 # TODO 版本计划
@@ -312,7 +306,7 @@ public class DashIndicatorView extends BaseIndicatorView {
  - [x] 增加IndicatorView的滑动样式（2.2.2）
 
  - [x] 增添更多Indicator样式（2.3.+）
- - [ ]  支持一屏显示多页 （2.3.6）
+ - [ ]  支持一屏显示多页 （2.4.0）
  - [ ]  ViewPager更换为ViewPager2 （3.0.0）
  - [ ] 目前Indicator部分代码比较乱，还有很大很大的优化空间，后续版本将持续优化
  

@@ -11,5 +11,6 @@
     <string name="image_description">image description</string>
     <string name="normal">NORMAL</string>
     <string name="smooth">SMOOTH</string>
-    <string name="custom_indicator_view">Custom IndicatorView</string>
+    <string name="custom_indicator_view">自定义IndicatorView</string>
+    <string name="page_style">页面样式</string>
 </resources>

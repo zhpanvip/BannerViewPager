@@ -3,55 +3,81 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="15dp">
+    android:orientation="vertical">
 
-    <Button
+    <TextView
+        android:id="@+id/tv_page_style"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:onClick="onClick"
+        android:text="@string/page_style" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#dddddd" />
+    <TextView
         android:id="@+id/btn_indicator_style"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
+        android:gravity="center"
         android:onClick="onClick"
-        android:layout_marginTop="15dp"
         android:text="@string/indicator_style" />
 
-    <Button
-        android:id="@+id/btn_custom_indicator"
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="onClick"
-        android:layout_marginTop="15dp"
-        android:text="@string/custom_indicator_view" />
+        android:layout_height="1dp"
+        android:background="#dddddd" />
 
-    <Button
+    <TextView
         android:id="@+id/btn_view_pager4"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
+        android:gravity="center"
         android:onClick="onClick"
-        android:layout_marginTop="15dp"
         android:text="@string/load_data" />
 
-    <Button
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#dddddd" />
+
+    <TextView
         android:id="@+id/btn_view_pager2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_height="50dp"
+        android:gravity="center"
         android:onClick="onClick"
         android:text="@string/title_custom_page" />
 
-    <Button
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#dddddd" />
+
+    <TextView
         android:id="@+id/btn_view_pager3"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_height="50dp"
+        android:gravity="center"
         android:onClick="onClick"
         android:text="@string/wrapper_photo_view" />
 
-    <Button
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#dddddd" />
+
+    <TextView
         android:id="@+id/btn_view_pager5"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_height="50dp"
+        android:gravity="center"
         android:onClick="onClick"
         android:text="@string/title_transformer" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#dddddd" />
 </LinearLayout>
