@@ -8,27 +8,33 @@
 |--|--|--|
 | ![嵌套RecyclerView](https://github.com/zhpanvip/BannerViewPager/blob/master/image/preview1.gif) | ![自定义页面](https://github.com/zhpanvip/BannerViewPager/blob/master/image/preview2.gif) | ![嵌套PhotoView](https://github.com/zhpanvip/BannerViewPager/blob/master/image/preview3.gif)   |
 
-## 2.页面滑动样式--支持一屏多页
+## 2.setPageStyle--支持一屏多页
+
+[一屏多页Demo](https://github.com/zhpanvip/BannerViewPager/blob/master/app/src/main/java/com/example/zhpan/circleviewpager/activity/PageStyleActivity.java)
 
 | MULTI_PAGE |
 |--|
 | ![MULTI_PAGE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/page_style_multi.gif) |
 
-## 3.设置IndicatorViewStyle
+## 3.setIndicatorViewStyle
 BannerViewPager支持多种IndicatorViewStyle,同时还提供了完全自定义IndicatorView的功能。只要继承BaseIndicatorView或者实现IIndicator接口，并重写相应方法，就可以为所欲为的打造任意的Indicator了。
+
+[IndicatorViewStyle Demo](https://github.com/zhpanvip/BannerViewPager/blob/master/app/src/main/java/com/example/zhpan/circleviewpager/activity/IndicatorStyleActivity.java)
 
 | CIRCLE | DASH | 自定义 |
 |--|--|--|
 | ![CIRCLE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_circle.gif) | ![DASH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_dash.gif) | ![NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_custum.gif) |
 
-## 4.设置IndicatorSlideMode
+## 4.setIndicatorSlideMode
 
 | NORMAL | SMOOTH |
 |--|--|
 | ![NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/slide_normal.gif) |  ![SMOOTH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/slide_smooth.gif) |
 
 
-## 5.内置Transform样式
+## 5.setPageTransformerStyle
+
+[TransformStyle Demo](https://github.com/zhpanvip/BannerViewPager/blob/master/app/src/main/java/com/example/zhpan/circleviewpager/activity/PageTransformerActivity.java)
 
 | 参数 | STACK | ROTATE | DEPTH | ACCORDION |
 |--|--|--|--|--|

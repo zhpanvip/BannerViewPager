@@ -27,17 +27,15 @@ public class MainActivity extends AppCompatActivity {
             case R.id.btn_view_pager3:
                 intent = new Intent(this, PhotoViewActivity.class);
                 break;
-            case R.id.btn_view_pager4:
-                intent = new Intent(this, NetworkBannerActivity.class);
-                break;
             case R.id.btn_view_pager5:
                 intent = new Intent(this, PageTransformerActivity.class);
                 break;
             case R.id.btn_indicator_style:
                 intent = new Intent(this, IndicatorStyleActivity.class);
                 break;
+            case R.id.btn_view_pager4:
             default:
-                intent = new Intent(this, CustomerBannerPageActivity.class);
+                intent = new Intent(this, NetworkBannerActivity.class);
                 break;
         }
         startActivity(intent);

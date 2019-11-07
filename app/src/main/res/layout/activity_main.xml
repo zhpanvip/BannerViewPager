@@ -12,10 +12,7 @@
         android:gravity="center"
         android:onClick="onClick"
         android:text="@string/page_style" />
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#dddddd" />
+    <include layout="@layout/item_line" />
     <TextView
         android:id="@+id/btn_indicator_style"
         android:layout_width="match_parent"
@@ -24,10 +21,7 @@
         android:onClick="onClick"
         android:text="@string/indicator_style" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#dddddd" />
+    <include layout="@layout/item_line" />
 
     <TextView
         android:id="@+id/btn_view_pager4"
@@ -37,11 +31,8 @@
         android:onClick="onClick"
         android:text="@string/load_data" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#dddddd" />
-
+    <include layout="@layout/item_line" />
+<!--
     <TextView
         android:id="@+id/btn_view_pager2"
         android:layout_width="match_parent"
@@ -50,10 +41,7 @@
         android:onClick="onClick"
         android:text="@string/title_custom_page" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#dddddd" />
+    <include layout="@layout/item_line" />-->
 
     <TextView
         android:id="@+id/btn_view_pager3"
@@ -63,10 +51,7 @@
         android:onClick="onClick"
         android:text="@string/wrapper_photo_view" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#dddddd" />
+    <include layout="@layout/item_line" />
 
     <TextView
         android:id="@+id/btn_view_pager5"
@@ -76,8 +61,5 @@
         android:onClick="onClick"
         android:text="@string/title_transformer" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#dddddd" />
+    <include layout="@layout/item_line" />
 </LinearLayout>

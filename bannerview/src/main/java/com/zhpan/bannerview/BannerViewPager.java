@@ -52,7 +52,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
         ViewPager.OnPageChangeListener {
 
     private ViewPager mViewPager;
-    // 轮播数据集合
+
     private List<T> mList;
     // 页面切换时间间隔
     private int interval;
@@ -66,7 +66,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     private boolean isAutoPlay = false;
     // 是否显示指示器
     private boolean showIndicator = true;
-
+    // Indicator gravity
     private int gravity;
     // 未选中时指示器颜色
     private int indicatorNormalColor;
@@ -76,38 +76,31 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     private int normalIndicatorWidth;
     // 选中时指示宽度/直径
     private int checkedIndicatorWidth;
-
     // 页面点击事件监听
     private OnPageClickListener mOnPageClickListener;
     // 轮播指示器
     private IIndicator mIndicatorView;
     //  存放IndicatorView的容器
     private RelativeLayout mRelativeLayout;
-
-    /**
-     * 一屏多页page的间距
-     */
+    //  Item 间隔
     private int mPageMargin;
-    /**
-     * 一屏多页，显露其它page的width
-     */
+    // 一屏多页时，显露其它page的width
     private int mRevealWidth;
-
-    /**
-     * 指示器Style样式
-     *
-     * @see IndicatorStyle#CIRCLE 圆形指示器
-     * @see IndicatorStyle#DASH  虚线指示器
-     */
+    // 指示器Style样式
     private int mIndicatorStyle;
-
-    private HolderCreator<VH> holderCreator;
     // IndicatorView的滑动模式
     private int mIndicatorSlideMode;
 
-    Handler mHandler = new Handler();
+    private HolderCreator<VH> holderCreator;
+    private BannerScroller mScroller;
+    private int indicatorGap;
+    private int indicatorHeight;
+    private boolean isCustomIndicator;
+    private int mPageStyle = PageStyle.NORMAL;
 
-    Runnable mRunnable = new Runnable() {
+    private Handler mHandler = new Handler();
+
+    private Runnable mRunnable = new Runnable() {
         @Override
         public void run() {
             if (mList.size() > 1) {
@@ -122,14 +115,9 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
             }
         }
     };
-    private BannerScroller mScroller;
 
     public static final int DEFAULT_SCROLL_DURATION = 800;
 
-    private int indicatorGap;
-    private int indicatorHeight;
-    private boolean isCustomIndicator;
-    private int mPageStyle = PageStyle.NORMAL;
 //    private OnPageSelectedListener mOnPageSelectedListener;
 
     public BannerViewPager(Context context) {
@@ -599,7 +587,6 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
         return this;
     }
 
-
     /**
      * @param showIndicator 是否显示轮播指示器
      */
@@ -679,7 +666,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     }
 
     /**
-     * @return 获取当前真实position
+     * @return the currently selected page position.
      */
     public int getCurrentItem() {
         return getRealPosition(currentPosition);
@@ -707,7 +694,9 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     }
 
     /**
-     * 设置Banner页面样式
+     * Set Page Style for Banner
+     * {@link PageStyle#NORMAL}
+     * {@link PageStyle#MULTI_PAGE}
      *
      * @return BannerViewPager
      */
@@ -717,8 +706,8 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     }
 
     private void setMultiPageStyle() {
-        mPageMargin=mPageMargin==0?DpUtils.dp2px(20):mPageMargin;
-        mRevealWidth=mRevealWidth==0?DpUtils.dp2px(20):mRevealWidth;
+        mPageMargin = mPageMargin == 0 ? DpUtils.dp2px(20) : mPageMargin;
+        mRevealWidth = mRevealWidth == 0 ? DpUtils.dp2px(20) : mRevealWidth;
         setClipChildren(false);
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mViewPager.getLayoutParams();
         params.leftMargin = mPageMargin + mRevealWidth;

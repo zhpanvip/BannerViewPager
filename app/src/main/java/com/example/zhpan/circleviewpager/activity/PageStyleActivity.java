@@ -25,6 +25,7 @@ public class PageStyleActivity extends BaseDataActivity {
         mBannerViewPager
                 .setPageMargin(DpUtils.dp2px(20))
                 .setRevealWidth(DpUtils.dp2px(20))
+                .setInterval(3000)
                 .setPageStyle(PageStyle.MULTI_PAGE)
                 .setHolderCreator(() -> new ImageResourceViewHolder(DpUtils.dp2px(5)))
                 .setIndicatorColor(Color.parseColor("#935656"), Color.parseColor("#FF4C39"))
