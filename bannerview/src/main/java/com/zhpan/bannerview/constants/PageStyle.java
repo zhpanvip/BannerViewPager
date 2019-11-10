@@ -7,5 +7,5 @@ package com.zhpan.bannerview.constants;
  * </pre>
  */
 public interface PageStyle {
-    int NORMAL = 0, MULTI_PAGE = 1;
+    int NORMAL = 0, MULTI_PAGE = 1, MULTI_PAGE_OVERLAY = 2;
 }

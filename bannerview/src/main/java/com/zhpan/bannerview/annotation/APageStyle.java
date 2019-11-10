@@ -8,6 +8,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import static com.zhpan.bannerview.constants.PageStyle.MULTI_PAGE;
+import static com.zhpan.bannerview.constants.PageStyle.MULTI_PAGE_OVERLAY;
 import static com.zhpan.bannerview.constants.PageStyle.NORMAL;
 
 /**
@@ -16,7 +17,7 @@ import static com.zhpan.bannerview.constants.PageStyle.NORMAL;
  *   Description:
  * </pre>
  */
-@IntDef({NORMAL, MULTI_PAGE})
+@IntDef({NORMAL, MULTI_PAGE, MULTI_PAGE_OVERLAY})
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.PARAMETER)
 public @interface APageStyle {
