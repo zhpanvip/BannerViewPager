@@ -2,7 +2,6 @@ package com.zhpan.bannerview.indicator;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.util.AttributeSet;
 
 /**
@@ -43,7 +42,7 @@ public class CircleIndicatorView extends BaseIndicatorView {
         mNormalRadius = normalIndicatorWidth / 2;
         mCheckedRadius = checkedIndicatorWidth / 2;
         maxRadius = Math.max(mCheckedRadius, mNormalRadius);
-        setMeasuredDimension((int) ((pageSize - 1) * indicatorGap + 2 * maxRadius * pageSize),
+        setMeasuredDimension((int) ((pageSize - 1) * indicatorGap + 2 * (maxRadius + mNormalRadius * (pageSize - 1))),
                 (int) (2 * maxRadius));
     }
 

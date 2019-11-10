@@ -62,6 +62,7 @@ public class IndicatorStyleActivity extends BaseDataActivity {
                 .setIndicatorGravity(IndicatorGravity.CENTER)
                 .setIndicatorGap(DpUtils.dp2px(6))
                 .setPageMargin(0)
+                .setIndicatorMargin(0,0,0,DpUtils.dp2px(10))
                 .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
                 .setIndicatorColor(Color.parseColor("#935656"), Color.parseColor("#FF4C39"))
                 .setIndicatorRadius(DpUtils.dp2px(4), DpUtils.dp2px(5)).create(mDrawableList);

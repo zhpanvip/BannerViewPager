@@ -39,7 +39,7 @@ public class DashIndicatorView extends BaseIndicatorView {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         maxWidth = Math.max(normalIndicatorWidth, checkedIndicatorWidth);
         minWidth = Math.min(normalIndicatorWidth, checkedIndicatorWidth);
-        setMeasuredDimension((int) ((pageSize - 1) * indicatorGap + maxWidth * pageSize),
+        setMeasuredDimension((int) ((pageSize - 1) * indicatorGap + maxWidth + (pageSize - 1) * minWidth),
                 (int) (sliderHeight));
     }
 
