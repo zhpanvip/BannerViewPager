@@ -36,6 +36,7 @@ import com.zhpan.bannerview.holder.ViewHolder;
 import com.zhpan.bannerview.provider.BannerScroller;
 import com.zhpan.bannerview.provider.ViewStyleSetter;
 import com.zhpan.bannerview.transform.PageTransformerFactory;
+import com.zhpan.bannerview.view.CatchViewPager;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -51,7 +52,7 @@ import static com.zhpan.bannerview.constants.IndicatorGravity.START;
 public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout implements
         ViewPager.OnPageChangeListener {
 
-    private ViewPager mViewPager;
+    private CatchViewPager mViewPager;
 
     private List<T> mList;
     // 页面切换时间间隔
@@ -297,7 +298,23 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
             case PageStyle.MULTI_PAGE:
                 setMultiPageStyle();
                 break;
+            case PageStyle.MULTI_PAGE_OVERLAY:
+                setMultiPageOverlayStyle();
+                break;
         }
+    }
+
+    private void setMultiPageOverlayStyle() {
+        mPageMargin = mPageMargin == 0 ? DpUtils.dp2px(20) : mPageMargin;
+        mRevealWidth = mRevealWidth == 0 ? DpUtils.dp2px(20) : mRevealWidth;
+        setClipChildren(false);
+        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mViewPager.getLayoutParams();
+        params.leftMargin = mPageMargin + mRevealWidth;
+        params.rightMargin = mPageMargin + mRevealWidth;
+        mViewPager.setPageMargin(-mPageMargin);
+        mViewPager.setMultiPageOverlay(true);
+        mViewPager.setOffscreenPageLimit(2);
+        setPageTransformer(new ScaleInTransformer());
     }
 
     @Override

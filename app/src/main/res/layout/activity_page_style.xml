@@ -1,16 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".activity.PageStyleActivity">
 
     <com.zhpan.bannerview.BannerViewPager
         android:id="@+id/banner_view"
         android:layout_width="match_parent"
         android:layout_height="180dp"
-        app:bvp_page_style="multi_page"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="20dp"
+        app:bvp_page_style="multi_page" />
+
+    <RadioGroup
+        android:id="@+id/rg_indicator_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/banner_view"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:padding="15dp">
+
+        <RadioButton
+            android:id="@+id/rb_multi_page_overlay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:text="MULTI_PAGE_OVERLAY" />
+
+        <RadioButton
+            android:id="@+id/rb_multi_page"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:text="MULTI_PAGE" />
+
+
+    </RadioGroup>
 
 </RelativeLayout>
