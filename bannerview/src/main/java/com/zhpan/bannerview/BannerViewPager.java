@@ -14,6 +14,7 @@ import androidx.viewpager.widget.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.zhpan.bannerview.annotation.AIndicatorGravity;
@@ -118,6 +119,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     };
 
     public static final int DEFAULT_SCROLL_DURATION = 800;
+    private IndicatorMargin mIndicatorMargin;
 
 //    private OnPageSelectedListener mOnPageSelectedListener;
 
@@ -256,6 +258,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
         mRelativeLayout.removeAllViews();
         mRelativeLayout.addView((View) indicatorView);
         mIndicatorView = indicatorView;
+        setIndicatorViewMargin();
         RelativeLayout.LayoutParams layoutParams =
                 (RelativeLayout.LayoutParams) ((View) indicatorView).getLayoutParams();
         switch (gravity) {
@@ -268,6 +271,16 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
             case END:
                 layoutParams.addRule(RelativeLayout.ALIGN_PARENT_END);
                 break;
+        }
+    }
+
+    private void setIndicatorViewMargin() {
+        if (mIndicatorMargin != null) {
+            ViewGroup.MarginLayoutParams layoutParams = (MarginLayoutParams) mRelativeLayout.getLayoutParams();
+            layoutParams.rightMargin = mIndicatorMargin.right;
+            layoutParams.bottomMargin = mIndicatorMargin.bottom;
+            layoutParams.topMargin = mIndicatorMargin.top;
+            layoutParams.leftMargin = mIndicatorMargin.left;
         }
     }
 
@@ -760,10 +773,23 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
      * 获取BannerViewPager中封装的ViewPager，用于设置BannerViewPager未暴露出来的接口，
      * 比如setCurrentItem等。
      *
+     * 通过该方法调用getCurrentItem等方法可能会有问题
+     * 2.4.1已废弃，可直接调用BannerViewPager中相关方法替代
+     *
      * @return BannerViewPager中封装的ViewPager
      */
+    @Deprecated
     public ViewPager getViewPager() {
         return mViewPager;
+    }
+
+    public BannerViewPager<T, VH> setIndicatorMargin(int left, int top, int right, int bottom) {
+        mIndicatorMargin = new IndicatorMargin();
+        mIndicatorMargin.setBottom(bottom);
+        mIndicatorMargin.setLeft(left);
+        mIndicatorMargin.setTop(top);
+        mIndicatorMargin.setRight(right);
+        return this;
     }
 
     /**
@@ -780,6 +806,45 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
      */
     public interface OnPageClickListener {
         void onPageClick(int position);
+    }
+
+    public static class IndicatorMargin {
+        private int left;
+        private int right;
+        private int top;
+        private int bottom;
+
+        public int getLeft() {
+            return left;
+        }
+
+        public void setLeft(int left) {
+            this.left = left;
+        }
+
+        public int getRight() {
+            return right;
+        }
+
+        public void setRight(int right) {
+            this.right = right;
+        }
+
+        public int getTop() {
+            return top;
+        }
+
+        public void setTop(int top) {
+            this.top = top;
+        }
+
+        public int getBottom() {
+            return bottom;
+        }
+
+        public void setBottom(int bottom) {
+            this.bottom = bottom;
+        }
     }
 
 //    public interface OnPageSelectedListener {
