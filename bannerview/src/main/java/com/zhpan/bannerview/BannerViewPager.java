@@ -310,7 +310,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     private void initPageStyle() {
         switch (mPageStyle) {
             case PageStyle.MULTI_PAGE:
-                setMultiPageStyle(false, 0.99f);
+                setMultiPageStyle(false, 0.999f);
                 break;
             case PageStyle.MULTI_PAGE_CASCADING:
                 setMultiPageStyle(true, DEFAULT_MIN_SCALE);

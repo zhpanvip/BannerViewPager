@@ -30,10 +30,6 @@ public class BannerPagerAdapter<T, VH extends ViewHolder> extends PagerAdapter {
 
     private List<View> mViewList = new ArrayList<>();
 
-    public void setCanLoop(boolean canLoop) {
-        isCanLoop = canLoop;
-    }
-
     private int mPageStyle;
 
     public BannerPagerAdapter(List<T> list, HolderCreator<VH> holderCreator) {
@@ -153,6 +149,10 @@ public class BannerPagerAdapter<T, VH extends ViewHolder> extends PagerAdapter {
 
     public void setPageClickListener(PageClickListener pageClickListener) {
         mPageClickListener = pageClickListener;
+    }
+
+    public void setCanLoop(boolean canLoop) {
+        isCanLoop = canLoop;
     }
 
     public void setPageStyle(@APageStyle int pageStyle) {
