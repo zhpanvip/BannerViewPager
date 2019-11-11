@@ -46,6 +46,7 @@ import java.util.List;
 import static com.zhpan.bannerview.constants.IndicatorGravity.CENTER;
 import static com.zhpan.bannerview.constants.IndicatorGravity.END;
 import static com.zhpan.bannerview.constants.IndicatorGravity.START;
+import static com.zhpan.bannerview.transform.pagestyle.ScaleInTransformer.DEFAULT_MIN_SCALE;
 
 /**
  * Created by zhpan on 2017/3/28.
@@ -309,25 +310,28 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     private void initPageStyle() {
         switch (mPageStyle) {
             case PageStyle.MULTI_PAGE:
-                setMultiPageStyle();
+                setMultiPageStyle(false, 0.99f);
                 break;
-            case PageStyle.MULTI_PAGE_OVERLAY:
-                setMultiPageOverlayStyle();
+            case PageStyle.MULTI_PAGE_CASCADING:
+                setMultiPageStyle(true, DEFAULT_MIN_SCALE);
+                break;
+            case PageStyle.MULTI_PAGE_SCALE:
+                setMultiPageStyle(false, DEFAULT_MIN_SCALE);
                 break;
         }
     }
 
-    private void setMultiPageOverlayStyle() {
+    private void setMultiPageStyle(boolean cascading, float scale) {
         mPageMargin = mPageMargin == 0 ? DpUtils.dp2px(20) : mPageMargin;
         mRevealWidth = mRevealWidth == 0 ? DpUtils.dp2px(20) : mRevealWidth;
         setClipChildren(false);
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mViewPager.getLayoutParams();
         params.leftMargin = mPageMargin + mRevealWidth;
         params.rightMargin = mPageMargin + mRevealWidth;
-        mViewPager.setPageMargin(-mPageMargin);
-        mViewPager.setMultiPageOverlay(true);
+        mViewPager.setCascadingStyle(cascading);
+        mViewPager.setPageMargin(cascading ? -mPageMargin : mPageMargin);
         mViewPager.setOffscreenPageLimit(2);
-        setPageTransformer(new ScaleInTransformer());
+        setPageTransformer(new ScaleInTransformer(scale));
     }
 
     @Override
@@ -639,7 +643,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     }
 
     /**
-     * 设置IndicatorView滑动模式，默认值{@link IndicatorSlideMode#SMOOTH}
+     * 设置IndicatorView滑动模式，默认值{@link IndicatorSlideMode#NORMAL}
      *
      * @param slideMode Indicator滑动模式
      * @see com.zhpan.bannerview.constants.IndicatorSlideMode#NORMAL
@@ -735,18 +739,6 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
         return this;
     }
 
-    private void setMultiPageStyle() {
-        mPageMargin = mPageMargin == 0 ? DpUtils.dp2px(20) : mPageMargin;
-        mRevealWidth = mRevealWidth == 0 ? DpUtils.dp2px(20) : mRevealWidth;
-        setClipChildren(false);
-        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mViewPager.getLayoutParams();
-        params.leftMargin = mPageMargin + mRevealWidth;
-        params.rightMargin = mPageMargin + mRevealWidth;
-        mViewPager.setPageMargin(mPageMargin);
-        mViewPager.setOffscreenPageLimit(2);
-        setPageTransformer(new ScaleInTransformer());
-    }
-
     /**
      * 设置item间距
      *
@@ -772,7 +764,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     /**
      * 获取BannerViewPager中封装的ViewPager，用于设置BannerViewPager未暴露出来的接口，
      * 比如setCurrentItem等。
-     *
+     * <p>
      * 通过该方法调用getCurrentItem等方法可能会有问题
      * 2.4.1已废弃，可直接调用BannerViewPager中相关方法替代
      *

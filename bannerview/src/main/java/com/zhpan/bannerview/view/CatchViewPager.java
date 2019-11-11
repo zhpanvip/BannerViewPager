@@ -20,7 +20,7 @@ import java.util.Collections;
 public class CatchViewPager extends ViewPager {
     private ArrayList<Integer> mArrayList = new ArrayList<>();
     private SparseIntArray mSparseIntArray = new SparseIntArray();
-    private boolean mMultiPageOverlay = false;
+    private boolean mCascadingStyle = false;
 
     public CatchViewPager(Context context) {
         this(context, null);
@@ -42,7 +42,7 @@ public class CatchViewPager extends ViewPager {
 
     @Override
     protected int getChildDrawingOrder(int childCount, int i) {
-        if (mMultiPageOverlay) {
+        if (mCascadingStyle) {
             if (i == 0 || mSparseIntArray.size() != childCount) {
                 mArrayList.clear();
                 mSparseIntArray.clear();
@@ -66,7 +66,7 @@ public class CatchViewPager extends ViewPager {
         return array[0] + view.getWidth() / 2;
     }
 
-    public void setMultiPageOverlay(boolean multiPageOverlay) {
-        mMultiPageOverlay = multiPageOverlay;
+    public void setCascadingStyle(boolean cascading) {
+        mCascadingStyle = cascading;
     }
 }
