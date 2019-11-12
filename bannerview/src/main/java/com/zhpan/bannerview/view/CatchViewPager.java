@@ -23,7 +23,7 @@ import java.util.Collections;
 public class CatchViewPager extends ViewPager {
     private ArrayList<Integer> mArrayList = new ArrayList<>();
     private SparseIntArray mSparseIntArray = new SparseIntArray();
-    private boolean mCascadingStyle = false;
+    private boolean mOverlapStyle = false;
     private BannerScroller mBannerScroller;
     public static final int DEFAULT_SCROLL_DURATION = 800;
 
@@ -61,7 +61,7 @@ public class CatchViewPager extends ViewPager {
 
     @Override
     protected int getChildDrawingOrder(int childCount, int i) {
-        if (mCascadingStyle) {
+        if (mOverlapStyle) {
             if (i == 0 || mSparseIntArray.size() != childCount) {
                 mArrayList.clear();
                 mSparseIntArray.clear();
@@ -85,8 +85,8 @@ public class CatchViewPager extends ViewPager {
         return array[0] + view.getWidth() / 2;
     }
 
-    public void setCascadingStyle(boolean cascading) {
-        mCascadingStyle = cascading;
+    public void setOverlapStyle(boolean overlapStyle) {
+        mOverlapStyle = overlapStyle;
     }
 
     public void setScrollDuration(int scrollDuration) {

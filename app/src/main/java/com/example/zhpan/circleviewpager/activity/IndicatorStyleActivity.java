@@ -14,7 +14,6 @@ import com.zhpan.bannerview.BannerViewPager;
 import com.zhpan.bannerview.constants.IndicatorGravity;
 import com.zhpan.bannerview.constants.IndicatorStyle;
 import com.zhpan.bannerview.utils.DpUtils;
-import com.zhpan.idea.utils.LogUtils;
 import com.zhpan.idea.utils.ToastUtils;
 
 public class IndicatorStyleActivity extends BaseDataActivity {
@@ -38,7 +37,6 @@ public class IndicatorStyleActivity extends BaseDataActivity {
         radioGroupStyle.setVisibility(View.VISIBLE);
         radioGroupStyle.setVisibility(View.VISIBLE);
         radioGroupStyle.setOnCheckedChangeListener((group, checkedId) -> {
-            LogUtils.e("LLL", "check" + checkedId);
             switch (checkedId) {
                 case R.id.rb_circle:
                     mViewPager.resetIndicator();
@@ -62,7 +60,7 @@ public class IndicatorStyleActivity extends BaseDataActivity {
                 .setIndicatorGravity(IndicatorGravity.CENTER)
                 .setIndicatorGap(DpUtils.dp2px(6))
                 .setPageMargin(0)
-                .setIndicatorMargin(0,0,0,DpUtils.dp2px(10))
+                .setIndicatorMargin(0, 0, 0, DpUtils.dp2px(10))
                 .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
                 .setIndicatorColor(Color.parseColor("#935656"), Color.parseColor("#FF4C39"))
                 .setIndicatorRadius(DpUtils.dp2px(4), DpUtils.dp2px(5)).create(mDrawableList);
@@ -83,20 +81,20 @@ public class IndicatorStyleActivity extends BaseDataActivity {
         mViewPager = findViewById(R.id.banner_view_dash);
         mViewPager.setAutoPlay(false).setCanLoop(true)
                 .setPageMargin(DpUtils.dp2px(20))
+                .setIndicatorMargin(0, 0, DpUtils.dp2px(10), DpUtils.dp2px(10))
                 .setIndicatorGravity(IndicatorGravity.END)
-                .setIndicatorView(setupIndicatorView(mDrawableList.size()))
+                .setIndicatorView(setupIndicatorView())
                 .setHolderCreator(() -> new ImageResourceViewHolder(0)).create(mDrawableList);
     }
 
     /**
      * 这里可以是自定义的Indicator，需要继承BaseIndicatorView或者实现IIndicator接口;
      */
-    private FigureIndicatorView setupIndicatorView(int pageSize) {
+    private FigureIndicatorView setupIndicatorView() {
         FigureIndicatorView indicatorView = new FigureIndicatorView(this);
-        indicatorView.setPageSize(pageSize);
         indicatorView.setRadius(DpUtils.dp2px(18));
         indicatorView.setTextSize(DpUtils.dp2px(13));
-        indicatorView.setBackgroundColor(Color.parseColor("#88FF5252"));
+        indicatorView.setBackgroundColor(Color.parseColor("#aa118EEA"));
         return indicatorView;
     }
 

@@ -4,6 +4,7 @@ package com.example.zhpan.circleviewpager.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.zhpan.circleviewpager.R;
@@ -37,7 +38,7 @@ public class CustomerBannerPageActivity extends AppCompatActivity {
         mViewPager = findViewById(R.id.viewpager);
         mViewPager.setAutoPlay(false)
                 .setCanLoop(false)
-                .showIndicator(false)
+                .setIndicatorVisibility(View.GONE)
                 .setOnPageClickListener(position -> Toast.makeText(CustomerBannerPageActivity.this,
                         "点击页面" + mViewPager.getCurrentItem(), Toast.LENGTH_SHORT).show())
                 .setHolderCreator(() -> {

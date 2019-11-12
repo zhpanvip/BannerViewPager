@@ -49,11 +49,13 @@ public class CircleIndicatorView extends BaseIndicatorView {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        for (int i = 0; i < pageSize; i++) {
-            mPaint.setColor(normalColor);
-            canvas.drawCircle(maxRadius + (2 * mNormalRadius + indicatorGap) * i, height / 2f, mNormalRadius, mPaint);
+        if(pageSize>1){
+            for (int i = 0; i < pageSize; i++) {
+                mPaint.setColor(normalColor);
+                canvas.drawCircle(maxRadius + (2 * mNormalRadius + indicatorGap) * i, height / 2f, mNormalRadius, mPaint);
+            }
+            drawSliderStyle(canvas);
         }
-        drawSliderStyle(canvas);
     }
 
     @Override

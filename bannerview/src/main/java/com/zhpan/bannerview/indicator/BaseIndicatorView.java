@@ -8,6 +8,7 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 
+import com.zhpan.bannerview.annotation.AIndicatorSlideMode;
 import com.zhpan.bannerview.constants.IndicatorSlideMode;
 import com.zhpan.bannerview.utils.DpUtils;
 
@@ -163,7 +164,7 @@ public class BaseIndicatorView extends View implements IIndicator {
      * @see com.zhpan.bannerview.constants.IndicatorSlideMode#SMOOTH
      */
     @Override
-    public void setSlideMode(int slideMode) {
+    public void setSlideMode(@AIndicatorSlideMode int slideMode) {
         this.slideMode = slideMode;
     }
 

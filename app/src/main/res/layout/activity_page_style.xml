@@ -13,6 +13,14 @@
         android:layout_marginTop="20dp"
         app:bvp_page_style="multi_page" />
 
+    <com.zhpan.bannerview.indicator.CircleIndicatorView
+        android:id="@+id/indicator_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/banner_view" />
+
     <RadioGroup
         android:id="@+id/rg_indicator_style"
         android:layout_width="match_parent"
