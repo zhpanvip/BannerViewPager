@@ -7,6 +7,8 @@
 
 ## 效果预览
 
+ ### [扫描下载Demo](https://github.com/zhpanvip/BannerViewPager/raw/master/apk/app.apk)
+
 ![扫描下载Demo](https://github.com/zhpanvip/BannerViewPager/blob/master/image/qrcode.png)
 
 
