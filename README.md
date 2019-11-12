@@ -1,22 +1,24 @@
+# BannerViewPager
+
+[![License](https://img.shields.io/badge/License%20-Apache%202-337ab7.svg)](https://www.apache.org/licenses/LICENSE-2.0)
+[![MinSdk](https://img.shields.io/badge/API-19%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=19)
+[![JitPack](https://jitpack.io/v/zhpanvip/BannerViewPager.svg)](https://jitpack.io/#zhpanvip/BannerViewPager)
+[ ![JCenter](https://api.bintray.com/packages/zhpanvip/CircleViewPager/bannerview/images/download.svg) ](https://bintray.com/zhpanvip/CircleViewPager/bannerview/_latestVersion)
+
+## 效果预览
+
+![扫描下载Demo](https://github.com/zhpanvip/BannerViewPager/blob/master/image/qrcode.png)
 
 
-# 效果预览
-
-## 1.基础功能
-
-| 嵌套RecyclerView | 自定义页面 | 嵌套PhotoView   |
-|--|--|--|
-| ![嵌套RecyclerView](https://github.com/zhpanvip/BannerViewPager/blob/master/image/preview1.gif) | ![自定义页面](https://github.com/zhpanvip/BannerViewPager/blob/master/image/preview2.gif) | ![嵌套PhotoView](https://github.com/zhpanvip/BannerViewPager/blob/master/image/preview3.gif) |
-
-## 2.setPageStyle--支持一屏多页
+### 1.setPageStyle--支持一屏多页
 
 [一屏多页Demo](https://github.com/zhpanvip/BannerViewPager/blob/master/app/src/main/java/com/example/zhpan/circleviewpager/activity/PageStyleActivity.java)
 
-| MULTI_PAGE |MULTI_PAGE_SCALE | MULTI_PAGE_CASCADING |
+| MULTI_PAGE |MULTI_PAGE_SCALE | MULTI_PAGE_OVERLAP |
 |--|--|--|
 | ![MULTI_PAGE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/page_style_multi.gif) |![MULTI_PAGE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/page_style_multi_scale.gif) |![MULTI_PAGE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/page_style_multi_overlay.gif) |
 
-## 3.setIndicatorViewStyle
+### 2.setIndicatorViewStyle
 BannerViewPager支持多种IndicatorViewStyle,同时还提供了完全自定义IndicatorView的功能。只要继承BaseIndicatorView或者实现IIndicator接口，并重写相应方法，就可以为所欲为的打造任意的Indicator了。
 
 [IndicatorViewStyle Demo](https://github.com/zhpanvip/BannerViewPager/blob/master/app/src/main/java/com/example/zhpan/circleviewpager/activity/IndicatorStyleActivity.java)
@@ -25,14 +27,14 @@ BannerViewPager支持多种IndicatorViewStyle,同时还提供了完全自定义I
 |--|--|--|
 | ![CIRCLE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_circle.gif) | ![DASH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_dash.gif) | ![NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_custum.gif) |
 
-## 4.setIndicatorSlideMode
+### 3.setIndicatorSlideMode
 
 | NORMAL | SMOOTH |
 |--|--|
 | ![NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/slide_normal.gif) |  ![SMOOTH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/slide_smooth.gif) |
 
 
-## 5.setPageTransformerStyle
+### 4.setPageTransformerStyle
 
 [TransformStyle Demo](https://github.com/zhpanvip/BannerViewPager/blob/master/app/src/main/java/com/example/zhpan/circleviewpager/activity/PageTransformerActivity.java)
 
@@ -42,7 +44,7 @@ BannerViewPager支持多种IndicatorViewStyle,同时还提供了完全自定义I
 
 
 
-# 开放API
+## 开放API
 
 | 方法名 | 方法描述 | 说明 |
 |--|--|--|
@@ -79,9 +81,9 @@ BannerViewPager支持多种IndicatorViewStyle,同时还提供了完全自定义I
 
 
 
-# 如何使用
+## 如何使用
 
-## 1.gradle中添加依赖
+### 1.gradle中添加依赖
    
 
 如果您已迁移到AndroidX，请在项目的root build.gradle中添加如下配置：
@@ -110,7 +112,7 @@ implementation 'com.zhpan.library:bannerview:latestVersion'
 
 非Androidx latestVersion: [ ![latestVersion](https://api.bintray.com/packages/zhpanvip/CircleViewPager/bannerview/images/download.svg) ](https://bintray.com/zhpanvip/CircleViewPager/bannerview/_latestVersion)
 
-## 2.在xml文件中添加如下代码：
+### 2.在xml文件中添加如下代码：
 
 ```
     <com.zhpan.bannerview.BannerViewPager
@@ -120,7 +122,7 @@ implementation 'com.zhpan.library:bannerview:latestVersion'
             android:layout_height="160dp" />
 ```
 
-## 3.Banner的页面布局
+### 3.Banner的页面布局
 
 ```
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -156,7 +158,7 @@ implementation 'com.zhpan.library:bannerview:latestVersion'
 </RelativeLayout>
 ```
 
-## 4.自定义ViewHolder
+### 4.自定义ViewHolder
 
 ```
 public class NetViewHolder implements ViewHolder<BannerData> {
@@ -180,7 +182,7 @@ public class NetViewHolder implements ViewHolder<BannerData> {
 }
 ```
 
-## 5.BannerViewPager参数配置
+### 5.BannerViewPager参数配置
 
 ```
     private BannerViewPager<BannerData, NetViewHolder> mBannerViewPager;
@@ -204,7 +206,7 @@ public class NetViewHolder implements ViewHolder<BannerData> {
         }
 ```
 
-## 6.开启与停止轮播
+### 6.开启与停止轮播
 
 如果开启了自动轮播功能，请务必在onDestroy中停止轮播，以免出现内存泄漏。
 
@@ -233,7 +235,7 @@ public class NetViewHolder implements ViewHolder<BannerData> {
             mBannerViewPager.startLoop();
     }
 ```
-## 7.高级功能---自定义IndicatorView
+### 7.高级功能---自定义IndicatorView
 
 **(1)自定义View并继承BaseIndicatorView**
 
@@ -300,7 +302,7 @@ public class FigureIndicatorView extends BaseIndicatorView {
 }
 ```
 
-# TODO 版本计划
+## TODO 版本计划
 
  - [x] 优化及重构IndicatorView（2.0.1）
 
@@ -330,6 +332,24 @@ public class FigureIndicatorView extends BaseIndicatorView {
 [ViewPagerTransforms](https://github.com/ToxicBakery/ViewPagerTransforms)
 
 [玩Android](https://wanandroid.com/)
+
+
+License
+-------
+
+    Copyright 2019 zhpanvip
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
 
 
 

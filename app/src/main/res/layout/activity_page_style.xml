@@ -36,11 +36,11 @@
             android:text="MULTI_PAGE_SCALE" />
 
         <RadioButton
-            android:id="@+id/rb_multi_page_cascading"
+            android:id="@+id/rb_multi_page_overlap"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:text="MULTI_PAGE_CASCADING" />
+            android:text="MULTI_PAGE_OVERLAP" />
 
     </RadioGroup>
 

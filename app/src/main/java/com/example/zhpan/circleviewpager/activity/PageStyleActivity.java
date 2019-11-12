@@ -46,8 +46,8 @@ public class PageStyleActivity extends BaseDataActivity {
                 case R.id.rb_multi_page_scale:
                     setupBanner(PageStyle.MULTI_PAGE_SCALE);
                     break;
-                case R.id.rb_multi_page_cascading:
-                    setupBanner(PageStyle.MULTI_PAGE_CASCADING);
+                case R.id.rb_multi_page_overlap:
+                    setupBanner(PageStyle.MULTI_PAGE_OVERLAP);
                     break;
             }
         });

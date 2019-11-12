@@ -8,8 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:contentDescription="@string/guide"
-        android:scaleType="fitXY"
-        android:src="@drawable/guide0" />
+        android:scaleType="fitXY" />
 
     <TextView
         android:id="@+id/btn_start"
