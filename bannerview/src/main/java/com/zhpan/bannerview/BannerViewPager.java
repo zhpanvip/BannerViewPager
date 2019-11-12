@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
 
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -93,7 +94,6 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     private int mIndicatorSlideMode;
 
     private HolderCreator<VH> holderCreator;
-//    private BannerScroller mScroller;
     private int indicatorGap;
     private int indicatorHeight;
     private boolean isCustomIndicator;
@@ -305,15 +305,15 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
         }
     }
 
-    private void setMultiPageStyle(boolean cascading, float scale) {
+    private void setMultiPageStyle(boolean overlap, float scale) {
         mPageMargin = mPageMargin == 0 ? DpUtils.dp2px(20) : mPageMargin;
         mRevealWidth = mRevealWidth == 0 ? DpUtils.dp2px(20) : mRevealWidth;
         setClipChildren(false);
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mViewPager.getLayoutParams();
         params.leftMargin = mPageMargin + mRevealWidth;
         params.rightMargin = mPageMargin + mRevealWidth;
-        mViewPager.setCascadingStyle(cascading);
-        mViewPager.setPageMargin(cascading ? -mPageMargin : mPageMargin);
+        mViewPager.setOverlapStyle(overlap);
+        mViewPager.setPageMargin(overlap ? -mPageMargin : mPageMargin);
         mViewPager.setOffscreenPageLimit(2);
         setPageTransformer(new ScaleInTransformer(scale));
     }
@@ -649,7 +649,6 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
         if (customIndicator instanceof View) {
             isCustomIndicator = true;
             mIndicatorView = customIndicator;
-//            initIndicator((View) customIndicator);
         }
         return this;
     }
