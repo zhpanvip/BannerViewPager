@@ -12,7 +12,7 @@ public interface PageStyle {
 
     int MULTI_PAGE = 1;
 
-    int MULTI_PAGE_CASCADING = 2;
+    int MULTI_PAGE_OVERLAP = 2;
 
     int MULTI_PAGE_SCALE = 3;
 }
