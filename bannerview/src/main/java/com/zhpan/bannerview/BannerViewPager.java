@@ -23,6 +23,7 @@ import com.zhpan.bannerview.annotation.AIndicatorSlideMode;
 import com.zhpan.bannerview.annotation.AIndicatorStyle;
 import com.zhpan.bannerview.annotation.APageStyle;
 import com.zhpan.bannerview.annotation.ATransformerStyle;
+import com.zhpan.bannerview.annotation.Visibility;
 import com.zhpan.bannerview.constants.IndicatorSlideMode;
 import com.zhpan.bannerview.constants.IndicatorStyle;
 import com.zhpan.bannerview.constants.PageStyle;
@@ -182,7 +183,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
      */
     private void initData() {
         if (mList.size() > 0) {
-            if (mList.size() > 1 && showIndicator) {
+            if (mList.size() > 1) {
                 if (isCustomIndicator && null != mIndicatorView) {
                     initIndicator(mIndicatorView);
                 } else {
@@ -240,22 +241,24 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
      * 构造指示器
      */
     private void initIndicator(IIndicator indicatorView) {
-        mRelativeLayout.removeAllViews();
-        mRelativeLayout.addView((View) indicatorView);
         mIndicatorView = indicatorView;
-        setIndicatorViewMargin();
-        RelativeLayout.LayoutParams layoutParams =
-                (RelativeLayout.LayoutParams) ((View) indicatorView).getLayoutParams();
-        switch (gravity) {
-            case CENTER:
-                layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
-                break;
-            case START:
-                layoutParams.addRule(RelativeLayout.ALIGN_PARENT_START);
-                break;
-            case END:
-                layoutParams.addRule(RelativeLayout.ALIGN_PARENT_END);
-                break;
+        if (((View) indicatorView).getParent() == null) {
+            mRelativeLayout.removeAllViews();
+            mRelativeLayout.addView((View) indicatorView);
+            setIndicatorViewMargin();
+            RelativeLayout.LayoutParams layoutParams =
+                    (RelativeLayout.LayoutParams) ((View) indicatorView).getLayoutParams();
+            switch (gravity) {
+                case CENTER:
+                    layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
+                    break;
+                case START:
+                    layoutParams.addRule(RelativeLayout.ALIGN_PARENT_START);
+                    break;
+                case END:
+                    layoutParams.addRule(RelativeLayout.ALIGN_PARENT_END);
+                    break;
+            }
         }
     }
 
@@ -321,7 +324,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     @Override
     public void onPageSelected(int position) {
         currentPosition = position;
-        if (showIndicator && mIndicatorView != null) {
+        if (mIndicatorView != null) {
             mIndicatorView.onPageSelected(getRealPosition(position));
         }
 //        if (mOnPageSelectedListener != null)
@@ -330,7 +333,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
 
     @Override
     public void onPageScrollStateChanged(int state) {
-        if (showIndicator && mIndicatorView != null) {
+        if (mIndicatorView != null) {
             mIndicatorView.onPageScrollStateChanged(state);
         }
         if (isCanLoop) {
@@ -357,7 +360,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        if (showIndicator && mIndicatorView != null) {
+        if (mIndicatorView != null) {
             mIndicatorView.onPageScrolled(getRealPosition(position), positionOffset, positionOffsetPixels);
         }
     }
@@ -607,9 +610,17 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
 
     /**
      * @param showIndicator 是否显示轮播指示器
+     * @deprecated Use {@link #setIndicatorVisibility(int)} instead.
      */
+    @Deprecated
     public BannerViewPager<T, VH> showIndicator(boolean showIndicator) {
         this.showIndicator = showIndicator;
+        mRelativeLayout.setVisibility(showIndicator ? VISIBLE : GONE);
+        return this;
+    }
+
+    public BannerViewPager<T, VH> setIndicatorVisibility(@Visibility int visibility) {
+        mRelativeLayout.setVisibility(visibility);
         return this;
     }
 

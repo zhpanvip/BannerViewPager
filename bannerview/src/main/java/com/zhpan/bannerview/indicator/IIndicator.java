@@ -2,6 +2,8 @@ package com.zhpan.bannerview.indicator;
 
 import androidx.viewpager.widget.ViewPager;
 
+import com.zhpan.bannerview.annotation.AIndicatorSlideMode;
+
 
 /**
  * <pre>
@@ -16,7 +18,7 @@ public interface IIndicator extends ViewPager.OnPageChangeListener {
 
     void setCheckedColor(int checkedColor);
 
-    void setSlideMode(int slideStyle);
+    void setSlideMode(@AIndicatorSlideMode int slideStyle);
 
     void setIndicatorGap(int gap);
 

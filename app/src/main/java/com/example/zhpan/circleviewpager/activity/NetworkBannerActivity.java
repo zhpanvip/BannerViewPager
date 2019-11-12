@@ -98,7 +98,7 @@ public class NetworkBannerActivity extends RxAppCompatActivity {
     }
 
     private void initBanner() {
-        mBannerViewPager.showIndicator(true)
+        mBannerViewPager
                 .setInterval(3000)
                 .setCanLoop(false)
                 .setAutoPlay(true)
