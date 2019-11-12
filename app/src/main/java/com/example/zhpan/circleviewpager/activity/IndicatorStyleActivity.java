@@ -81,6 +81,7 @@ public class IndicatorStyleActivity extends BaseDataActivity {
         mViewPager = findViewById(R.id.banner_view_dash);
         mViewPager.setAutoPlay(false).setCanLoop(true)
                 .setPageMargin(DpUtils.dp2px(20))
+                .setIndicatorMargin(0, 0, DpUtils.dp2px(10), DpUtils.dp2px(10))
                 .setIndicatorGravity(IndicatorGravity.END)
                 .setIndicatorView(setupIndicatorView())
                 .setHolderCreator(() -> new ImageResourceViewHolder(0)).create(mDrawableList);
@@ -93,7 +94,7 @@ public class IndicatorStyleActivity extends BaseDataActivity {
         FigureIndicatorView indicatorView = new FigureIndicatorView(this);
         indicatorView.setRadius(DpUtils.dp2px(18));
         indicatorView.setTextSize(DpUtils.dp2px(13));
-        indicatorView.setBackgroundColor(Color.parseColor("#88FF5252"));
+        indicatorView.setBackgroundColor(Color.parseColor("#aa118EEA"));
         return indicatorView;
     }
 

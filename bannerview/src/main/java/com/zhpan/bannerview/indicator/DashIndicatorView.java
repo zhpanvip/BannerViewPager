@@ -51,11 +51,13 @@ public class DashIndicatorView extends BaseIndicatorView {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        for (int i = 0; i < pageSize; i++) {
-            if (slideMode == IndicatorSlideMode.SMOOTH) {
-                smoothSlide(canvas, i);
-            } else {
-                normalSlide(canvas, i);
+        if (pageSize > 1) {
+            for (int i = 0; i < pageSize; i++) {
+                if (slideMode == IndicatorSlideMode.SMOOTH) {
+                    smoothSlide(canvas, i);
+                } else {
+                    normalSlide(canvas, i);
+                }
             }
         }
     }

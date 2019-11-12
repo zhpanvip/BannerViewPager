@@ -17,8 +17,8 @@ public abstract class BaseDataActivity extends AppCompatActivity {
 
     private void initData() {
         for (int i = 0; i <= 3; i++) {
-            int drawable2 = getResources().getIdentifier("t" + i, "drawable", getPackageName());
-            mDrawableList.add(drawable2);
+            int drawable = getResources().getIdentifier("t" + i, "drawable", getPackageName());
+            mDrawableList.add(drawable);
         }
     }
 }

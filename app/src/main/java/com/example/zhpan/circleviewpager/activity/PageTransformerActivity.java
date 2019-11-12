@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.zhpan.circleviewpager.R;
@@ -55,7 +56,7 @@ public class PageTransformerActivity extends AppCompatActivity {
 
     private void initViewPager() {
         mViewpager = findViewById(R.id.viewpager);
-        mViewpager.showIndicator(false)
+        mViewpager.setIndicatorVisibility(View.GONE)
                 .setCanLoop(false)
                 .setAutoPlay(false)
                 .setScrollDuration(1000)

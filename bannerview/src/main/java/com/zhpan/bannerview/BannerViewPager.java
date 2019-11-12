@@ -54,51 +54,55 @@ import static com.zhpan.bannerview.transform.pagestyle.ScaleInTransformer.DEFAUL
 public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout implements
         ViewPager.OnPageChangeListener {
 
+    private int interval;
+
+    private int currentPosition;
+
+    private boolean isLooping;
+
+    private boolean isCanLoop;
+
+    private boolean isAutoPlay = false;
+
+    private int gravity;
+
+    private int indicatorNormalColor;
+
+    private int indicatorCheckedColor;
+
+    private int normalIndicatorWidth;
+
+    private int checkedIndicatorWidth;
+
+    private OnPageClickListener mOnPageClickListener;
+
+    private IIndicator mIndicatorView;
+
+    private RelativeLayout mRelativeLayout;
+
+    private int mPageMargin;
+
+    private int mRevealWidth;
+
+    private int mIndicatorStyle;
+
+    private int mIndicatorSlideMode;
+
     private CatchViewPager mViewPager;
 
     private List<T> mList;
-    // 页面切换时间间隔
-    private int interval;
-    // 当前页面位置
-    private int currentPosition;
-    // 是否正在循环
-    private boolean isLooping;
-    // 是否开启循环
-    private boolean isCanLoop;
-    // 是否开启自动播放
-    private boolean isAutoPlay = false;
-    // 是否显示指示器
-    private boolean showIndicator = true;
-    // Indicator gravity
-    private int gravity;
-    // 未选中时指示器颜色
-    private int indicatorNormalColor;
-    // 选中时的指示器颜色
-    private int indicatorCheckedColor;
-    // 指示器宽度/直径
-    private int normalIndicatorWidth;
-    // 选中时指示宽度/直径
-    private int checkedIndicatorWidth;
-    // 页面点击事件监听
-    private OnPageClickListener mOnPageClickListener;
-    // 轮播指示器
-    private IIndicator mIndicatorView;
-    //  存放IndicatorView的容器
-    private RelativeLayout mRelativeLayout;
-    //  Item 间隔
-    private int mPageMargin;
-    // 一屏多页时，显露其它page的width
-    private int mRevealWidth;
-    // 指示器Style样式
-    private int mIndicatorStyle;
-    // IndicatorView的滑动模式
-    private int mIndicatorSlideMode;
 
     private HolderCreator<VH> holderCreator;
+
     private int indicatorGap;
+
     private int indicatorHeight;
+
     private boolean isCustomIndicator;
+
     private int mPageStyle = PageStyle.NORMAL;
+
+    private IndicatorMargin mIndicatorMargin;
 
     private Handler mHandler = new Handler();
 
@@ -117,10 +121,6 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
             }
         }
     };
-
-    private IndicatorMargin mIndicatorMargin;
-
-//    private OnPageSelectedListener mOnPageSelectedListener;
 
     public BannerViewPager(Context context) {
         this(context, null);
@@ -327,8 +327,6 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
         if (mIndicatorView != null) {
             mIndicatorView.onPageSelected(getRealPosition(position));
         }
-//        if (mOnPageSelectedListener != null)
-//            mOnPageSelectedListener.onPageSelected(getRealPosition(position));
     }
 
     @Override
@@ -444,7 +442,6 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
         this.holderCreator = holderCreator;
         return this;
     }
-
 
     /**
      * 设置圆角ViewPager
@@ -614,7 +611,6 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
      */
     @Deprecated
     public BannerViewPager<T, VH> showIndicator(boolean showIndicator) {
-        this.showIndicator = showIndicator;
         mRelativeLayout.setVisibility(showIndicator ? VISIBLE : GONE);
         return this;
     }
@@ -686,7 +682,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
             mList.clear();
             mList.addAll(list);
             initData();
-            if (showIndicator && null != mIndicatorView) {
+            if (null != mIndicatorView) {
                 mIndicatorView.setPageSize(mList.size());
                 mIndicatorView.notifyDataChanged();
             }
@@ -750,11 +746,6 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
         return this;
     }
 
-    //    public BannerViewPager<T, VH> setOnPageSelectedListener(OnPageSelectedListener onPageSelectedListener) {
-//        mOnPageSelectedListener = onPageSelectedListener;
-//        return this;
-//    }
-
     /**
      * 获取BannerViewPager中封装的ViewPager，用于设置BannerViewPager未暴露出来的接口，
      * 比如setCurrentItem等。
@@ -771,10 +762,10 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
 
     public BannerViewPager<T, VH> setIndicatorMargin(int left, int top, int right, int bottom) {
         mIndicatorMargin = new IndicatorMargin();
-        mIndicatorMargin.setBottom(bottom);
-        mIndicatorMargin.setLeft(left);
-        mIndicatorMargin.setTop(top);
-        mIndicatorMargin.setRight(right);
+        mIndicatorMargin.bottom = bottom;
+        mIndicatorMargin.left = left;
+        mIndicatorMargin.top = top;
+        mIndicatorMargin.right = right;
         return this;
     }
 
@@ -794,46 +785,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
         void onPageClick(int position);
     }
 
-    public static class IndicatorMargin {
-        private int left;
-        private int right;
-        private int top;
-        private int bottom;
-
-        public int getLeft() {
-            return left;
-        }
-
-        public void setLeft(int left) {
-            this.left = left;
-        }
-
-        public int getRight() {
-            return right;
-        }
-
-        public void setRight(int right) {
-            this.right = right;
-        }
-
-        public int getTop() {
-            return top;
-        }
-
-        public void setTop(int top) {
-            this.top = top;
-        }
-
-        public int getBottom() {
-            return bottom;
-        }
-
-        public void setBottom(int bottom) {
-            this.bottom = bottom;
-        }
+    private static class IndicatorMargin {
+        private int left, right, top, bottom;
     }
-
-//    public interface OnPageSelectedListener {
-//        void onPageSelected(int position);
-//    }
 }
