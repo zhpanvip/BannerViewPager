@@ -26,8 +26,8 @@ public class PageStyleActivity extends BaseDataActivity {
 
     private void setupBanner(@APageStyle int pageStyle) {
         mViewPager
-                .setPageMargin(DpUtils.dp2px(20))
-                .setRevealWidth(DpUtils.dp2px(20))
+                .setPageMargin(DpUtils.dp2px(10))
+                .setRevealWidth(DpUtils.dp2px(10))
                 .setInterval(3000)
                 .setPageStyle(pageStyle)
                 .setHolderCreator(() -> new ImageResourceViewHolder(DpUtils.dp2px(5)))
@@ -43,12 +43,15 @@ public class PageStyleActivity extends BaseDataActivity {
                 case R.id.rb_multi_page:
                     setupBanner(PageStyle.MULTI_PAGE);
                     break;
-                case R.id.rb_multi_page_overlay:
-                    setupBanner(PageStyle.MULTI_PAGE_OVERLAY);
+                case R.id.rb_multi_page_scale:
+                    setupBanner(PageStyle.MULTI_PAGE_SCALE);
+                    break;
+                case R.id.rb_multi_page_overlap:
+                    setupBanner(PageStyle.MULTI_PAGE_OVERLAP);
                     break;
             }
         });
-        RadioButton radioButton = findViewById(R.id.rb_multi_page_overlay);
+        RadioButton radioButton = findViewById(R.id.rb_multi_page);
         radioButton.performClick();
     }
 

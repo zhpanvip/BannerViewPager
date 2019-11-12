@@ -6,9 +6,6 @@ import com.example.zhpan.circleviewpager.imageloader.GlideImageLoader;
 import com.example.zhpan.circleviewpager.imageloader.ImageLoaderManager;
 import com.zhpan.idea.utils.Utils;
 
-import leakcanary.AppWatcher;
-import leakcanary.LeakCanary;
-
 /**
  * <pre>
  *   Created by zhangpan on 2019-08-14.

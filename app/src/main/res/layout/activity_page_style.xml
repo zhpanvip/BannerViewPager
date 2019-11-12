@@ -19,15 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/banner_view"
         android:layout_marginTop="20dp"
-        android:orientation="horizontal"
         android:padding="15dp">
-
-        <RadioButton
-            android:id="@+id/rb_multi_page_overlay"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="15dp"
-            android:text="MULTI_PAGE_OVERLAY" />
 
         <RadioButton
             android:id="@+id/rb_multi_page"
@@ -36,6 +28,19 @@
             android:layout_marginEnd="15dp"
             android:text="MULTI_PAGE" />
 
+        <RadioButton
+            android:id="@+id/rb_multi_page_scale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="MULTI_PAGE_SCALE" />
+
+        <RadioButton
+            android:id="@+id/rb_multi_page_overlap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="MULTI_PAGE_OVERLAP" />
 
     </RadioGroup>
 
