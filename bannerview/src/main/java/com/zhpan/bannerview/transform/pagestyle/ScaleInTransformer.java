@@ -9,6 +9,7 @@ import androidx.viewpager.widget.ViewPager;
 public class ScaleInTransformer extends BasePageTransformer {
 
     public static final float DEFAULT_MIN_SCALE = 0.85f;
+    public static final float MAX_SCALE = 0.999f;
     private float mMinScale = DEFAULT_MIN_SCALE;
 
     public ScaleInTransformer() {

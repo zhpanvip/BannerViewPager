@@ -26,8 +26,7 @@ public class IndicatorStyleActivity extends BaseDataActivity {
         setContentView(R.layout.activity_indicator_slide_mode);
         setTitle(getString(R.string.indicator_style));
         mViewPager = findViewById(R.id.banner_view_dash);
-        mViewPager.setRoundCorner(DpUtils.dp2px(8))
-                .setIndicatorGap(DpUtils.dp2px(6))
+        mViewPager.setIndicatorGap(DpUtils.dp2px(6))
                 .setHolderCreator(() -> new ImageResourceViewHolder(0));
         initRadioGroup();
     }
