@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".activity.IndicatorStyleActivity">
+    android:orientation="vertical">
 
     <com.zhpan.bannerview.BannerViewPager
         android:id="@+id/banner_view_dash"

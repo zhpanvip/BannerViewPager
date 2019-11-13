@@ -8,37 +8,58 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
+import com.trello.rxlifecycle2.components.support.RxFragment;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * MVC模式的Base fragment
  */
-public abstract class BaseFragment extends Fragment {
-
+public abstract class BaseFragment extends RxFragment {
+    protected List<Integer> mDrawableList = new ArrayList<>();
     protected Context mContext;
-    protected View mView;
+    private Unbinder mBind;
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        this.mContext = context;
+        this.mContext = context.getApplicationContext();
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mView = inflater.inflate(getLayout(), container, false);
+        View view = inflater.inflate(getLayout(), container, false);
+        mBind = ButterKnife.bind(this,view);
+        initData();
         initTitle();
-        initView(savedInstanceState);
-        return mView;
+        initView(savedInstanceState, view);
+        return view;
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (mBind != null) {
+            mBind.unbind();
+        }
+    }
+
+    private void initData() {
+        for (int i = 0; i <= 3; i++) {
+            int drawable = getResources().getIdentifier("t" + i, "drawable", mContext.getPackageName());
+            mDrawableList.add(drawable);
+        }
+    }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-
     }
 
 
@@ -57,6 +78,6 @@ public abstract class BaseFragment extends Fragment {
     /**
      * 初始化数据
      */
-    protected abstract void initView(Bundle savedInstanceState);
+    protected abstract void initView(Bundle savedInstanceState, View view);
 
 }

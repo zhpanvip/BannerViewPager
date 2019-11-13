@@ -3,12 +3,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <ImageView
         android:id="@+id/banner_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:contentDescription="@string/guide"
         android:scaleType="fitXY" />
+
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="40dp"
+        android:src="@mipmap/ic_launcher" />
 
     <TextView
         android:id="@+id/btn_start"
@@ -29,8 +37,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="50dp"
-        android:lineSpacingExtra="5dp"
         android:layout_marginBottom="150dp"
+        android:lineSpacingExtra="5dp"
         android:textColor="#FFFFFF"
         android:textSize="18sp" />
 </RelativeLayout>
