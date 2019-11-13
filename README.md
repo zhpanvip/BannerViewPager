@@ -85,7 +85,7 @@ BannerViewPager支持多种IndicatorViewStyle,同时还提供了完全自定义I
 |--|--|--|
 | bvp_interval | integer | 自动轮播事件间隔 |
 | bvp_scroll_duration | integer | 页面切换时滑动时间|
-| bvp_can_loop | bvp_can_loop | 是否循环 |
+| bvp_can_loop | boolean| 是否循环 |
 | bvp_auto_play | boolean | 是否自动播放  |
 | bvp_indicator_checked_color | color | indicator选中时颜色 |
 | bvp_indicator_normal_color | color | indicator未选中时颜色 |
