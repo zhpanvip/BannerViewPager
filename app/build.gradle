@@ -53,4 +53,6 @@ dependencies {
     implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0'
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0-beta-2'
     implementation project(path: ':ideahttp')
+    api 'com.jakewharton:butterknife:10.2.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.0'
 }
