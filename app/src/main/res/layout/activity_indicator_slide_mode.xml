@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,7 +11,9 @@
         android:id="@+id/banner_view_dash"
         android:layout_width="match_parent"
         android:layout_height="180dp"
-        android:layout_margin="10dp" />
+        android:layout_margin="10dp"
+        app:bvp_indicator_visibility="visible"
+        app:bvp_round_corner="8dp" />
 
     <RadioGroup
         android:id="@+id/rg_indicator_style"

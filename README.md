@@ -7,12 +7,12 @@
 
 ## 效果预览
 
- ### [扫描下载Demo](https://github.com/zhpanvip/BannerViewPager/raw/master/download/app.apk)
+ ### [点击或扫描二维码下载apk](https://github.com/zhpanvip/BannerViewPager/raw/master/download/app.apk)
 
 ![扫描下载Demo](https://github.com/zhpanvip/BannerViewPager/blob/master/image/qrcode.png)
 
 
-### 1.setPageStyle--支持一屏多页
+### 1.setPageStyle
 
 [一屏多页Demo](https://github.com/zhpanvip/BannerViewPager/blob/master/app/src/main/java/com/example/zhpan/circleviewpager/activity/PageStyleActivity.java)
 
@@ -20,12 +20,12 @@
 |--|--|--|
 | ![MULTI_PAGE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/page_style_multi.gif) |![MULTI_PAGE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/page_style_multi_scale.gif) |![MULTI_PAGE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/page_style_multi_overlay.gif) |
 
-### 2.setIndicatorViewStyle
+### 2.setIndicatorStyle
 BannerViewPager支持多种IndicatorViewStyle,同时还提供了完全自定义IndicatorView的功能。只要继承BaseIndicatorView或者实现IIndicator接口，并重写相应方法，就可以为所欲为的打造任意的Indicator了。
 
 [IndicatorViewStyle Demo](https://github.com/zhpanvip/BannerViewPager/blob/master/app/src/main/java/com/example/zhpan/circleviewpager/activity/IndicatorStyleActivity.java)
 
-| CIRCLE | DASH | 自定义 |
+| CIRCLE | DASH | Custom |
 |--|--|--|
 | ![CIRCLE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_circle.gif) | ![DASH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_dash.gif) | ![NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_custum.gif) |
 
@@ -57,7 +57,7 @@ BannerViewPager支持多种IndicatorViewStyle,同时还提供了完全自定义I
 | BannerViewPager<T, VH> setRoundCorner(int radius) | 设置圆角 |默认无圆角 需要SDK_INT>=LOLLIPOP(API 21)  |
 | BannerViewPager<T, VH> setOnPageClickListener(OnPageClickListener onPageClickListener) | 设置页面点击事件 |  |
 | BannerViewPager<T, VH> setHolderCreator(HolderCreator\<VH> holderCreator) |设置HolderCreator  |必须设置HolderCreator，否则会抛出NullPointerException|
-| BannerViewPager<T, VH> showIndicator(boolean showIndicator) |  是否显示指示器|默认值true  |
+| BannerViewPager<T, VH> setIndicatorVisibility(@Visibility int visibility) | indicator vibility |默认值VISIBLE 2.4.2 新增|
 | BannerViewPager<T, VH> setIndicatorStyle(int indicatorStyle) | 设置指示器样式 | 可选枚举(CIRCLE, DASH) 默认CIRCLE  |
 | BannerViewPager<T, VH> setIndicatorGravity(int gravity) | 指示器位置 |可选值(CENTER、START、END)默认值CENTER |
 | BannerViewPager<T, VH> setIndicatorColor(int normalColor,int checkedColor) | 指示器圆点颜色 |normalColor：未选中时颜色默认"#8C6C6D72"， checkedColor：选中时颜色 默认"#8C18171C" |
@@ -77,10 +77,28 @@ BannerViewPager支持多种IndicatorViewStyle,同时还提供了完全自定义I
 | BannerViewPager<T, VH> setIndicatorMargin(int left, int top, int right, int bottom) | 设置Indicator边距 | 2.4.1新增 |
 | void startLoop() |开启自动轮播 | 初始化BannerViewPager时不必调用该方法,设置setAutoPlay后会调用startLoop() |
 | void stopLoop() | 停止自动轮播 | 如果开启自动轮播，为避免内存泄漏需要在onStop()或onDestroy中调用此方法 |
-| ViewPager getViewPager() | 获取BannerViewPager内部封装的ViewPager |  |
 | List\<T> getList() | 获取Banner中的集合数据 |  |
 | void create(List<T> list) |初始化并构造BannerViewPager  |必须调用，否则前面设置的参数无效  |
 
+### xml支持的attrs
+| Attributes | format | description |
+|--|--|--|
+| bvp_interval | integer | 自动轮播事件间隔 |
+| bvp_scroll_duration | integer | 页面切换时滑动时间|
+| bvp_can_loop | bvp_can_loop | 是否循环 |
+| bvp_auto_play | boolean | 是否自动播放  |
+| bvp_indicator_checked_color | color | indicator选中时颜色 |
+| bvp_indicator_normal_color | color | indicator未选中时颜色 |
+| bvp_indicator_radius | dimension | indicator圆点半径或者Dash模式的1/2宽度  |
+| bvp_round_corner| dimension  | Banner圆角大小 |
+| bvp_page_margin | dimension | 页面item间距 |
+| bvp_reveal_width | dimension | 一屏多页模式下两边item漏出的宽度 |
+| bvp_indicator_style | enum | indicator样式(circle/dash)  |
+| bvp_indicator_slide_mode | enum | indicator滑动模式(normal/smooth) |
+| bvp_indicator_gravity | enum | indicator位置(center/start/end) |
+| bvp_page_style | enum | page样式(normal/multi_page/multi_page_overlap/multi_page_scale) |
+| bvp_transformer_style | enum | transform样式(normal/depth/stack/accordion) |
+| bvp_indicator_visibility| enum | indicator visibility(visible/gone/invisible) |
 
 
 ## 如何使用
