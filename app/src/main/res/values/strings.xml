@@ -16,5 +16,7 @@
 
     <string name="tab1">首页</string>
     <string name="tab2">发现</string>
-    <string name="tab3">自定义</string>
+    <string name="tab3">其它</string>
+    <string name="text_page_style">Page Style:</string>
+    <string name="text_indicator_style">Indicator Style:</string>
 </resources>

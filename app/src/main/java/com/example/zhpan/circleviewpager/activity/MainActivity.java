@@ -35,6 +35,39 @@ public class MainActivity extends AppCompatActivity {
     private void initData() {
         AdapterFragmentPager mAdapter = new AdapterFragmentPager(getSupportFragmentManager());
         mViewPager.setAdapter(mAdapter);
+        mViewPager.setOffscreenPageLimit(2);
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                rgTab.check(getCheckedId(position));
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+    }
+
+    private int getCheckedId(int position) {
+        int checkedId = R.id.rb_home;
+        switch (position) {
+            case 0:
+                checkedId = R.id.rb_home;
+                break;
+            case 1:
+                checkedId = R.id.rb_find;
+                break;
+            case 2:
+                checkedId = R.id.rb_add;
+                break;
+        }
+        return checkedId;
     }
 
     private void setListener() {
@@ -46,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
                 mViewPager.setCurrentItem(AdapterFragmentPager.PAGE_FIND, false);
 
             } else if (checkedId == R.id.rb_add) {
-                mViewPager.setCurrentItem(AdapterFragmentPager.PAGE_PUBLISH, false);
+                mViewPager.setCurrentItem(AdapterFragmentPager.PAGE_OTHERS, false);
             }
         });
     }
