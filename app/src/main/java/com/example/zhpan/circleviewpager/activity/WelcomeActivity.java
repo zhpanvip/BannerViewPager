@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.zhpan.circleviewpager.R;
 import com.example.zhpan.circleviewpager.bean.CustomBean;
@@ -48,6 +49,14 @@ public class WelcomeActivity extends AppCompatActivity {
                 .setPageTransformerStyle(transforms[new Random().nextInt(4)])
                 .setIndicatorVisibility(View.GONE)
                 .setIndicatorView(getIndicatorView())
+                .setOnPageSelectedListener(new BannerViewPager.OnPageSelectedListener() {
+                    @Override
+                    public void onPageSelected(int position) {
+                        if (position == mViewPager.getList().size() - 1) {
+                            Toast.makeText(WelcomeActivity.this, "last page", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                })
                 .setHolderCreator(() -> {
                     CustomPageViewHolder customPageViewHolder = new CustomPageViewHolder();
                     customPageViewHolder.setOnSubViewClickListener((view, position) -> {

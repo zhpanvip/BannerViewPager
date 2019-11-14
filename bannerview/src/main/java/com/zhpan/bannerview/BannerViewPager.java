@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
 
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -330,14 +331,23 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
 
     @Override
     public void onPageSelected(int position) {
-        currentPosition = position;
+        Log.e("onPageSelected", "position" + getRealPosition(position));
+        if (mOnPageSelectedListener != null)
+            mOnPageSelectedListener.onPageSelected(getRealPosition(position));
+
         if (mIndicatorView != null) {
             mIndicatorView.onPageSelected(getRealPosition(position));
         }
+
+        currentPosition = position;
+
     }
 
     @Override
     public void onPageScrollStateChanged(int state) {
+        if (mOnPageSelectedListener != null)
+            mOnPageSelectedListener.onPageScrollStateChanged(state);
+
         if (mIndicatorView != null) {
             mIndicatorView.onPageScrollStateChanged(state);
         }
@@ -365,9 +375,12 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        if (mIndicatorView != null) {
+
+        if (mOnPageSelectedListener != null)
+            mOnPageSelectedListener.onPageScrolled(getRealPosition(position), positionOffset, positionOffsetPixels);
+
+        if (mIndicatorView != null)
             mIndicatorView.onPageScrolled(getRealPosition(position), positionOffset, positionOffsetPixels);
-        }
     }
 
     private int getRealPosition(int position) {
@@ -794,5 +807,27 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
 
     private static class IndicatorMargin {
         private int left, right, top, bottom;
+    }
+
+    public abstract static class OnPageSelectedListener implements ViewPager.OnPageChangeListener {
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+
+        }
+
+        @Override
+        public abstract void onPageSelected(int position);
+    }
+
+    private OnPageSelectedListener mOnPageSelectedListener;
+
+    public BannerViewPager<T, VH> setOnPageSelectedListener(OnPageSelectedListener onPageSelectedListener) {
+        mOnPageSelectedListener = onPageSelectedListener;
+        return this;
     }
 }
