@@ -11,6 +11,7 @@ import com.zhpan.bannerview.constants.PageStyle;
 import com.zhpan.bannerview.holder.HolderCreator;
 import com.zhpan.bannerview.holder.ViewHolder;
 import com.zhpan.bannerview.utils.BannerUtils;
+import com.zhpan.bannerview.utils.PositionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,7 @@ import java.util.List;
 
 public class BannerPagerAdapter<T, VH extends ViewHolder> extends PagerAdapter {
 
-    private List<T> list;
+    private List<T> mList;
 
     private HolderCreator holderCreator;
 
@@ -34,21 +35,20 @@ public class BannerPagerAdapter<T, VH extends ViewHolder> extends PagerAdapter {
     private int mPageStyle;
 
     public BannerPagerAdapter(List<T> list, HolderCreator<VH> holderCreator) {
-        this.list = list;
+        this.mList = list;
         this.holderCreator = holderCreator;
     }
 
-
     @Override
     public int getCount() {
-        if (isCanLoop && list.size() > 1) {
+        if (isCanLoop && mList.size() > 1) {
             if (mPageStyle == PageStyle.NORMAL) {
-                return list.size() + 2;
+                return mList.size() + 2;
             } else {
-                return list.size() + 4;
+                return mList.size() + 4;
             }
         } else {
-            return list.size();
+            return mList.size();
         }
     }
 
@@ -60,8 +60,7 @@ public class BannerPagerAdapter<T, VH extends ViewHolder> extends PagerAdapter {
     @Override
     public @NonNull
     Object instantiateItem(@NonNull final ViewGroup container, final int position) {
-        BannerUtils.e("position " + position);
-        View itemView = findViewByPosition(container, position);
+        View itemView = findViewByPosition(container, PositionUtils.getRealPosition(isCanLoop, position, mList.size(), mPageStyle));
         container.addView(itemView);
         return itemView;
     }
@@ -89,43 +88,9 @@ public class BannerPagerAdapter<T, VH extends ViewHolder> extends PagerAdapter {
 
     private View createView(ViewHolder<T> holder, int position, ViewGroup container) {
         View view = null;
-        if (list != null && list.size() > 0) {
-            if (isCanLoop && list.size() > 1) {
-                int size = list.size();
-                if (mPageStyle == PageStyle.NORMAL) {
-                    if (position == 0) {
-                        view = holder.createView(container, container.getContext(), list.size() - 1);
-                        holder.onBind(container.getContext(), list.get(list.size() - 1), list.size() - 1, size);
-                    } else if (position == list.size() + 1) {
-                        view = holder.createView(container, container.getContext(), 0);
-                        holder.onBind(container.getContext(), list.get(0), 0, size);
-                    } else {
-                        view = holder.createView(container, container.getContext(), position - 1);
-                        holder.onBind(container.getContext(), list.get(position - 1), position - 1, size);
-                    }
-                } else {
-                    if (position == 0) {
-                        view = holder.createView(container, container.getContext(), list.size() - 2);
-                        holder.onBind(container.getContext(), list.get(list.size() - 2), list.size() - 2, size);
-                    } else if (position == 1) {
-                        view = holder.createView(container, container.getContext(), list.size() - 1);
-                        holder.onBind(container.getContext(), list.get(list.size() - 1), list.size() - 1, size);
-                    } else if (position == size + 2) {
-                        view = holder.createView(container, container.getContext(), 0);
-                        holder.onBind(container.getContext(), list.get(0), 0, size);
-                    } else if (position == size + 3) {
-                        view = holder.createView(container, container.getContext(), 1);
-                        holder.onBind(container.getContext(), list.get(1), 1, size);
-                    } else {
-                        view = holder.createView(container, container.getContext(), position - 2);
-                        holder.onBind(container.getContext(), list.get(position - 2), position - 2, size);
-                    }
-                }
-
-            } else {
-                view = holder.createView(container, container.getContext(), position);
-                holder.onBind(container.getContext(), list.get(position), position, list.size());
-            }
+        if (mList != null && mList.size() > 0) {
+            view = holder.createView(container, container.getContext(), position);
+            holder.onBind(container.getContext(), mList.get(position), position, mList.size());
             setViewListener(view, position);
         }
         return view;
@@ -135,7 +100,7 @@ public class BannerPagerAdapter<T, VH extends ViewHolder> extends PagerAdapter {
         if (view != null)
             view.setOnClickListener(v -> {
                 if (null != mPageClickListener)
-                    mPageClickListener.onPageClick(position);
+                    mPageClickListener.onPageClick(PositionUtils.toUnrealPosition(isCanLoop, position, mList.size(), mPageStyle));
             });
     }
 

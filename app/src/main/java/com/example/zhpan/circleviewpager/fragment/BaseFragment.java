@@ -51,7 +51,7 @@ public abstract class BaseFragment extends RxFragment {
     }
 
     private void initData() {
-        for (int i = 0; i <= 3; i++) {
+        for (int i = 0; i < 4; i++) {
             int drawable = getResources().getIdentifier("t" + i, "drawable", mContext.getPackageName());
             mDrawableList.add(drawable);
         }
