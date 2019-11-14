@@ -345,9 +345,6 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
 
     @Override
     public void onPageScrollStateChanged(int state) {
-        if (mOnPageSelectedListener != null)
-            mOnPageSelectedListener.onPageScrollStateChanged(state);
-
         if (mIndicatorView != null) {
             mIndicatorView.onPageScrollStateChanged(state);
         }
@@ -368,17 +365,11 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
                     }
                     break;
             }
-        } else {
-            mViewPager.setCurrentItem(currentPosition);
         }
     }
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-        if (mOnPageSelectedListener != null)
-            mOnPageSelectedListener.onPageScrolled(getRealPosition(position), positionOffset, positionOffsetPixels);
-
         if (mIndicatorView != null)
             mIndicatorView.onPageScrolled(getRealPosition(position), positionOffset, positionOffsetPixels);
     }
@@ -809,19 +800,8 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
         private int left, right, top, bottom;
     }
 
-    public abstract static class OnPageSelectedListener implements ViewPager.OnPageChangeListener {
-        @Override
-        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-        }
-
-        @Override
-        public void onPageScrollStateChanged(int state) {
-
-        }
-
-        @Override
-        public abstract void onPageSelected(int position);
+    public interface OnPageSelectedListener {
+        void onPageSelected(int position);
     }
 
     private OnPageSelectedListener mOnPageSelectedListener;

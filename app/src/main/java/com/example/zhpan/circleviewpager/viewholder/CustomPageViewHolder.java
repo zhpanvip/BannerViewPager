@@ -17,7 +17,7 @@ import com.zhpan.bannerview.holder.ViewHolder;
 public class CustomPageViewHolder implements ViewHolder<CustomBean> {
     private ImageView mImageView;
     private TextView mTextView;
-    private TextView mTvStart;
+    private ImageView mImageStart;
     private OnSubViewClickListener mOnSubViewClickListener;
 
     @Override
@@ -25,7 +25,7 @@ public class CustomPageViewHolder implements ViewHolder<CustomBean> {
         View view = LayoutInflater.from(context).inflate(R.layout.item_custom_view, viewGroup, false);
         mImageView = view.findViewById(R.id.banner_image);
         mTextView = view.findViewById(R.id.tv_describe);
-        mTvStart = view.findViewById(R.id.btn_start);
+        mImageStart = view.findViewById(R.id.iv_logo);
         return view;
     }
 
@@ -33,11 +33,11 @@ public class CustomPageViewHolder implements ViewHolder<CustomBean> {
     public void onBind(Context context, CustomBean data, int position, int size) {
         mImageView.setImageResource(data.getImageRes());
         mTextView.setText(data.getImageDescription());
-        mTvStart.setOnClickListener(view -> {
+        mImageStart.setOnClickListener(view -> {
             if (null != mOnSubViewClickListener)
                 mOnSubViewClickListener.onViewClick(view, position);
         });
-        ObjectAnimator alphaAnimator = ObjectAnimator.ofFloat(mTvStart, "alpha", 0, 1);
+        ObjectAnimator alphaAnimator = ObjectAnimator.ofFloat(mImageStart, "alpha", 0, 1);
         alphaAnimator.setDuration(1500);
 
         ObjectAnimator translationAnim = ObjectAnimator.ofFloat(mTextView, "translationX", -120, 0);

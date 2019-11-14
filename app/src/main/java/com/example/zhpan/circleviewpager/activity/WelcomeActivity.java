@@ -3,9 +3,10 @@ package com.example.zhpan.circleviewpager.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
+import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.zhpan.circleviewpager.R;
@@ -21,6 +22,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class WelcomeActivity extends AppCompatActivity {
 
     private BannerViewPager<CustomBean, CustomPageViewHolder> mViewPager;
@@ -28,10 +33,14 @@ public class WelcomeActivity extends AppCompatActivity {
     private String[] des = {"在这里\n你可以听到周围人的心声", "在这里\nTA会在下一秒遇见你", "在这里\n不再错过可以改变你一生的人"};
     private int[] transforms = {TransformerStyle.NONE, TransformerStyle.ACCORDION, TransformerStyle.STACK, TransformerStyle.DEPTH, TransformerStyle.ROTATE};
 
+    @BindView(R.id.btn_start)
+    TextView mTvStart;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+        ButterKnife.bind(this);
         getData();
         setupViewPager();
     }
@@ -49,22 +58,28 @@ public class WelcomeActivity extends AppCompatActivity {
                 .setPageTransformerStyle(transforms[new Random().nextInt(4)])
                 .setIndicatorVisibility(View.GONE)
                 .setIndicatorView(getIndicatorView())
-                .setOnPageSelectedListener(new BannerViewPager.OnPageSelectedListener() {
-                    @Override
-                    public void onPageSelected(int position) {
-                        if (position == mViewPager.getList().size() - 1) {
-                            Toast.makeText(WelcomeActivity.this, "last page", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                })
+                .setOnPageSelectedListener(this::showStartButton)
                 .setHolderCreator(() -> {
                     CustomPageViewHolder customPageViewHolder = new CustomPageViewHolder();
-                    customPageViewHolder.setOnSubViewClickListener((view, position) -> {
-                        MainActivity.start(WelcomeActivity.this);
-                        finish();
-                    });
+                    customPageViewHolder.setOnSubViewClickListener((view, position) ->
+                            Toast.makeText(WelcomeActivity.this, "Click Logo " + position, Toast.LENGTH_SHORT).show());
                     return customPageViewHolder;
                 }).create(getData());
+    }
+
+    @OnClick(R.id.btn_start)
+    public void onClick(View view) {
+        MainActivity.start(WelcomeActivity.this);
+        finish();
+    }
+
+    private void showStartButton(int position) {
+        if (position == mViewPager.getList().size() - 1 && mTvStart.getVisibility() == View.GONE) {
+            mTvStart.setVisibility(View.VISIBLE);
+            ObjectAnimator alphaAnimator = ObjectAnimator.ofFloat(mTvStart, "alpha", 0, 1);
+            alphaAnimator.setDuration(1500);
+            alphaAnimator.start();
+        }
     }
 
     private IIndicator getIndicatorView() {
@@ -74,6 +89,7 @@ public class WelcomeActivity extends AppCompatActivity {
         indicatorView.setIndicatorWidth((int) getResources().getDimension(R.dimen.dp_6),
                 (int) getResources().getDimension(R.dimen.dp_9));
         indicatorView.setIndicatorGap((int) getResources().getDimension(R.dimen.dp_10));
+        indicatorView.setSlideMode(IndicatorSlideMode.SMOOTH);
         return indicatorView;
     }
 
