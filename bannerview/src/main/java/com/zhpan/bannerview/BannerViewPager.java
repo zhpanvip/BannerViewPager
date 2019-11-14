@@ -331,7 +331,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
 
     @Override
     public void onPageSelected(int position) {
-        Log.e("onPageSelected", "position" + getRealPosition(position));
+        BannerUtils.e("onPageSelected", "position" + getRealPosition(position));
         if (mOnPageSelectedListener != null)
             mOnPageSelectedListener.onPageSelected(getRealPosition(position));
 

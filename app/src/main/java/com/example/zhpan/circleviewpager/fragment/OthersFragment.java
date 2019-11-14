@@ -121,8 +121,8 @@ public class OthersFragment extends BaseFragment {
     }
 
     @Override
-    public void onDestroy() {
+    public void onDestroyView() {
         mViewPager.stopLoop();
-        super.onDestroy();
+        super.onDestroyView();
     }
 }
