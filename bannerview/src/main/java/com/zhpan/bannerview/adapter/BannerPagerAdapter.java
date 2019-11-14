@@ -10,6 +10,7 @@ import com.zhpan.bannerview.annotation.APageStyle;
 import com.zhpan.bannerview.constants.PageStyle;
 import com.zhpan.bannerview.holder.HolderCreator;
 import com.zhpan.bannerview.holder.ViewHolder;
+import com.zhpan.bannerview.utils.BannerUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +60,7 @@ public class BannerPagerAdapter<T, VH extends ViewHolder> extends PagerAdapter {
     @Override
     public @NonNull
     Object instantiateItem(@NonNull final ViewGroup container, final int position) {
+        BannerUtils.e("position " + position);
         View itemView = findViewByPosition(container, position);
         container.addView(itemView);
         return itemView;

@@ -12,16 +12,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.zhpan.circleviewpager.R;
-import com.example.zhpan.circleviewpager.view.FigureIndicatorView;
 import com.example.zhpan.circleviewpager.viewholder.ImageResourceViewHolder;
 import com.zhpan.bannerview.BannerViewPager;
 import com.zhpan.bannerview.annotation.APageStyle;
-import com.zhpan.bannerview.constants.IndicatorGravity;
-import com.zhpan.bannerview.constants.IndicatorStyle;
 import com.zhpan.bannerview.constants.PageStyle;
 import com.zhpan.bannerview.indicator.BaseIndicatorView;
 import com.zhpan.bannerview.indicator.CircleIndicatorView;
-import com.zhpan.bannerview.utils.DpUtils;
+import com.zhpan.bannerview.utils.BannerUtils;
 import com.zhpan.idea.utils.ToastUtils;
 
 import butterknife.BindView;
@@ -52,9 +49,9 @@ public class FindFragment extends BaseFragment {
     @Override
     protected void initView(Bundle savedInstanceState, View view) {
         mViewPager
-                .setPageMargin(DpUtils.dp2px(10))
-                .setRevealWidth(DpUtils.dp2px(10))
-                .setHolderCreator(() -> new ImageResourceViewHolder(DpUtils.dp2px(5)))
+                .setPageMargin(BannerUtils.dp2px(10))
+                .setRevealWidth(BannerUtils.dp2px(10))
+                .setHolderCreator(() -> new ImageResourceViewHolder(BannerUtils.dp2px(5)))
                 .setIndicatorColor(Color.parseColor("#935656"), Color.parseColor("#FF4C39"))
                 .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
                 .setInterval(3000);

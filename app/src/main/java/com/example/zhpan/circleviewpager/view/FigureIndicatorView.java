@@ -10,7 +10,7 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.Nullable;
 
 import com.zhpan.bannerview.indicator.BaseIndicatorView;
-import com.zhpan.bannerview.utils.DpUtils;
+import com.zhpan.bannerview.utils.BannerUtils;
 
 /**
  * <pre>
@@ -20,13 +20,13 @@ import com.zhpan.bannerview.utils.DpUtils;
  */
 public class FigureIndicatorView extends BaseIndicatorView {
 
-    private int radius = DpUtils.dp2px(20);
+    private int radius = BannerUtils.dp2px(20);
 
     private int backgroundColor = Color.parseColor("#88FF5252");
 
     private int textColor = Color.WHITE;
 
-    private int textSize=DpUtils.dp2px(13);
+    private int textSize= BannerUtils.dp2px(13);
 
     public FigureIndicatorView(Context context) {
         this(context, null);

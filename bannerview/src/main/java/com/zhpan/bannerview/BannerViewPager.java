@@ -32,7 +32,7 @@ import com.zhpan.bannerview.indicator.DashIndicatorView;
 import com.zhpan.bannerview.indicator.IIndicator;
 import com.zhpan.bannerview.indicator.IndicatorFactory;
 import com.zhpan.bannerview.transform.pagestyle.ScaleInTransformer;
-import com.zhpan.bannerview.utils.DpUtils;
+import com.zhpan.bannerview.utils.BannerUtils;
 import com.zhpan.bannerview.adapter.BannerPagerAdapter;
 import com.zhpan.bannerview.holder.HolderCreator;
 import com.zhpan.bannerview.holder.ViewHolder;
@@ -164,7 +164,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
                     typedArray.getColor(R.styleable.BannerViewPager_bvp_indicator_normal_color,
                             Color.parseColor("#8C6C6D72"));
             normalIndicatorWidth = (int) typedArray.getDimension(R.styleable.BannerViewPager_bvp_indicator_radius,
-                    DpUtils.dp2px(8));
+                    BannerUtils.dp2px(8));
 
             indicatorGap = normalIndicatorWidth;
             indicatorHeight = normalIndicatorWidth / 2;
@@ -317,8 +317,8 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     }
 
     private void setMultiPageStyle(boolean overlap, float scale) {
-        mPageMargin = mPageMargin == 0 ? DpUtils.dp2px(20) : mPageMargin;
-        mRevealWidth = mRevealWidth == 0 ? DpUtils.dp2px(20) : mRevealWidth;
+        mPageMargin = mPageMargin == 0 ? BannerUtils.dp2px(20) : mPageMargin;
+        mRevealWidth = mRevealWidth == 0 ? BannerUtils.dp2px(20) : mRevealWidth;
         setClipChildren(false);
         ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) mViewPager.getLayoutParams();
         params.leftMargin = mPageMargin + mRevealWidth;

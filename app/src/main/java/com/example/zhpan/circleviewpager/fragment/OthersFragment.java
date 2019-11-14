@@ -14,7 +14,7 @@ import com.example.zhpan.circleviewpager.viewholder.ImageResourceViewHolder;
 import com.zhpan.bannerview.BannerViewPager;
 import com.zhpan.bannerview.constants.IndicatorGravity;
 import com.zhpan.bannerview.constants.IndicatorStyle;
-import com.zhpan.bannerview.utils.DpUtils;
+import com.zhpan.bannerview.utils.BannerUtils;
 import com.zhpan.idea.utils.ToastUtils;
 
 import butterknife.BindView;
@@ -43,7 +43,7 @@ public class OthersFragment extends BaseFragment {
 
     @Override
     protected void initView(Bundle savedInstanceState, View view) {
-        mViewPager.setIndicatorGap(DpUtils.dp2px(6))
+        mViewPager.setIndicatorGap(BannerUtils.dp2px(6))
                 .setHolderCreator(() -> new ImageResourceViewHolder(0));
         initRadioGroup();
     }
@@ -76,29 +76,29 @@ public class OthersFragment extends BaseFragment {
     private void setupCircleIndicator() {
         mViewPager.setIndicatorStyle(IndicatorStyle.CIRCLE)
                 .setIndicatorGravity(IndicatorGravity.CENTER)
-                .setIndicatorGap(DpUtils.dp2px(6))
+                .setIndicatorGap(BannerUtils.dp2px(6))
                 .setPageMargin(0)
-                .setIndicatorMargin(0, 0, 0, DpUtils.dp2px(10))
+                .setIndicatorMargin(0, 0, 0, BannerUtils.dp2px(10))
                 .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
                 .setIndicatorColor(Color.parseColor("#935656"), Color.parseColor("#FF4C39"))
-                .setIndicatorRadius(DpUtils.dp2px(4), DpUtils.dp2px(5)).create(mDrawableList);
+                .setIndicatorRadius(BannerUtils.dp2px(4), BannerUtils.dp2px(5)).create(mDrawableList);
     }
 
     private void setupDashIndicator() {
         mViewPager.setIndicatorStyle(IndicatorStyle.DASH)
-                .setIndicatorHeight(DpUtils.dp2px(3f))
+                .setIndicatorHeight(BannerUtils.dp2px(3f))
                 .setIndicatorGravity(IndicatorGravity.CENTER)
-                .setIndicatorGap(DpUtils.dp2px(3))
+                .setIndicatorGap(BannerUtils.dp2px(3))
                 .setPageMargin(0)
-                .setIndicatorWidth(DpUtils.dp2px(3), DpUtils.dp2px(10))
+                .setIndicatorWidth(BannerUtils.dp2px(3), BannerUtils.dp2px(10))
                 .setIndicatorColor(Color.parseColor("#888888"),
                         Color.parseColor("#118EEA")).create(mDrawableList);
     }
 
     private void setupCustomIndicator() {
         mViewPager.setAutoPlay(false).setCanLoop(true)
-                .setPageMargin(DpUtils.dp2px(20))
-                .setIndicatorMargin(0, 0, DpUtils.dp2px(10), DpUtils.dp2px(10))
+                .setPageMargin(BannerUtils.dp2px(20))
+                .setIndicatorMargin(0, 0, BannerUtils.dp2px(10), BannerUtils.dp2px(10))
                 .setIndicatorGravity(IndicatorGravity.END)
                 .setIndicatorView(setupIndicatorView())
                 .setHolderCreator(() -> new ImageResourceViewHolder(0)).create(mDrawableList);
@@ -109,8 +109,8 @@ public class OthersFragment extends BaseFragment {
      */
     private FigureIndicatorView setupIndicatorView() {
         FigureIndicatorView indicatorView = new FigureIndicatorView(mContext);
-        indicatorView.setRadius(DpUtils.dp2px(18));
-        indicatorView.setTextSize(DpUtils.dp2px(13));
+        indicatorView.setRadius(BannerUtils.dp2px(18));
+        indicatorView.setTextSize(BannerUtils.dp2px(13));
         indicatorView.setBackgroundColor(Color.parseColor("#aa118EEA"));
         return indicatorView;
     }
