@@ -340,8 +340,8 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
 
     @Override
     public void onPageSelected(int position) {
-        if (mOnPageSelectedListener != null)
-            mOnPageSelectedListener.onPageSelected(PositionUtils.getRealPosition(isCanLoop, position, mList.size(), mPageStyle));
+        if (mOnPageChangeListener != null)
+            mOnPageChangeListener.onPageSelected(PositionUtils.getRealPosition(isCanLoop, position, mList.size(), mPageStyle));
 
         if (mIndicatorView != null) {
             mIndicatorView.onPageSelected(PositionUtils.getRealPosition(isCanLoop, position, mList.size(), mPageStyle));
@@ -355,6 +355,9 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     public void onPageScrollStateChanged(int state) {
         if (mIndicatorView != null) {
             mIndicatorView.onPageScrollStateChanged(state);
+        }
+        if (mOnPageChangeListener != null) {
+            mOnPageChangeListener.onPageScrollStateChanged(state);
         }
         if (isCanLoop) {
             switch (state) {
@@ -378,6 +381,9 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        if (mOnPageChangeListener != null) {
+            mOnPageChangeListener.onPageScrolled(position, positionOffset, positionOffsetPixels);
+        }
         if (mIndicatorView != null)
             mIndicatorView.onPageScrolled(PositionUtils.getRealPosition(isCanLoop, position, mList.size(), mPageStyle),
                     positionOffset, positionOffsetPixels);
@@ -765,14 +771,10 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
         private int left, right, top, bottom;
     }
 
-    public interface OnPageSelectedListener {
-        void onPageSelected(int position);
-    }
+    private ViewPager.OnPageChangeListener mOnPageChangeListener;
 
-    private OnPageSelectedListener mOnPageSelectedListener;
-
-    public BannerViewPager<T, VH> setOnPageSelectedListener(OnPageSelectedListener onPageSelectedListener) {
-        mOnPageSelectedListener = onPageSelectedListener;
+    public BannerViewPager<T, VH> setOnPageChangeListener(ViewPager.OnPageChangeListener onPageChangeListener) {
+        mOnPageChangeListener = onPageChangeListener;
         return this;
     }
 }

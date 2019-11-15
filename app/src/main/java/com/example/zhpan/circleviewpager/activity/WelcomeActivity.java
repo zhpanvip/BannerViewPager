@@ -1,6 +1,8 @@
 package com.example.zhpan.circleviewpager.activity;
 
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +13,7 @@ import com.example.zhpan.circleviewpager.R;
 import com.example.zhpan.circleviewpager.bean.CustomBean;
 import com.example.zhpan.circleviewpager.viewholder.CustomPageViewHolder;
 import com.zhpan.bannerview.BannerViewPager;
+import com.zhpan.bannerview.adapter.OnPageChangeListenerAdapter;
 import com.zhpan.bannerview.constants.IndicatorSlideMode;
 import com.zhpan.bannerview.constants.TransformerStyle;
 import com.zhpan.bannerview.holder.HolderCreator;
@@ -61,7 +64,12 @@ public class WelcomeActivity extends BaseDataActivity implements
                         getResources().getColor(R.color.white_alpha_75))
                 .setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
                 .setIndicatorRadius((int) getResources().getDimension(R.dimen.dp_3), (int) getResources().getDimension(R.dimen.dp_4_5))
-                .setOnPageSelectedListener(this::showStartButton)
+                .setOnPageChangeListener(new OnPageChangeListenerAdapter() {
+                    @Override
+                    public void onPageSelected(int position) {
+                        showStartButton(position);
+                    }
+                })
                 .setHolderCreator(this)
                 .create(getData());
     }
