@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 
 import com.zhpan.bannerview.annotation.AIndicatorSlideMode;
 import com.zhpan.bannerview.constants.IndicatorSlideMode;
-import com.zhpan.bannerview.utils.DpUtils;
+import com.zhpan.bannerview.utils.BannerUtils;
 
 /**
  * <pre>
@@ -75,7 +75,7 @@ public class BaseIndicatorView extends View implements IIndicator {
 
     public BaseIndicatorView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        normalIndicatorWidth = DpUtils.dp2px(8);
+        normalIndicatorWidth = BannerUtils.dp2px(8);
         checkedIndicatorWidth = normalIndicatorWidth;
         indicatorGap = normalIndicatorWidth;
         normalColor = Color.parseColor("#8C18171C");

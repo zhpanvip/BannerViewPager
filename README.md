@@ -14,7 +14,7 @@
 
 ### 1.setPageStyle
 
-[一屏多页Demo](https://github.com/zhpanvip/BannerViewPager/blob/master/app/src/main/java/com/example/zhpan/circleviewpager/activity/PageStyleActivity.java)
+[一屏多页Demo](https://github.com/zhpanvip/BannerViewPager/blob/master/app/src/main/java/com/example/zhpan/circleviewpager/fragment/PageFragment.java)
 
 | MULTI_PAGE |MULTI_PAGE_SCALE | MULTI_PAGE_OVERLAP |
 |--|--|--|
@@ -23,7 +23,7 @@
 ### 2.setIndicatorStyle
 BannerViewPager支持多种IndicatorViewStyle,同时还提供了完全自定义IndicatorView的功能。只要继承BaseIndicatorView或者实现IIndicator接口，并重写相应方法，就可以为所欲为的打造任意的Indicator了。
 
-[IndicatorViewStyle Demo](https://github.com/zhpanvip/BannerViewPager/blob/master/app/src/main/java/com/example/zhpan/circleviewpager/activity/IndicatorStyleActivity.java)
+[IndicatorViewStyle Demo](https://github.com/zhpanvip/BannerViewPager/blob/master/app/src/main/java/com/example/zhpan/circleviewpager/fragment/IndicatorFragment.java)
 
 | CIRCLE | DASH | Custom |
 |--|--|--|
@@ -38,7 +38,7 @@ BannerViewPager支持多种IndicatorViewStyle,同时还提供了完全自定义I
 
 ### 4.setPageTransformerStyle
 
-[TransformStyle Demo](https://github.com/zhpanvip/BannerViewPager/blob/master/app/src/main/java/com/example/zhpan/circleviewpager/activity/PageTransformerActivity.java)
+[TransformStyle Demo](https://github.com/zhpanvip/BannerViewPager/blob/master/app/src/main/java/com/example/zhpan/circleviewpager/activity/WelcomeActivity.java)
 
 | 参数 | STACK | ROTATE | DEPTH | ACCORDION |
 |--|--|--|--|--|
@@ -68,13 +68,14 @@ BannerViewPager支持多种IndicatorViewStyle,同时还提供了完全自定义I
 | BannerViewPager<T, VH> setIndicatorWidth(int normalWidth, int checkWidth) | 设置指示器宽度，如果是圆形指示器，则为直径 | 默认值8dp |
 | BannerViewPager<T, VH> setIndicatorHeight(int indicatorHeight) | 设置指示器高度，仅在Indicator样式为DASH时有效 | 默认值normalIndicatorWidth/2 |
 | BannerViewPager<T, VH> setIndicatorGap(int indicatorMargin) | 指示器圆点间距| 默认值为指示器宽度（或者是圆的直径）|
-| BannerViewPager<T, VH> setIndicatorView(IIndicator indicatorView) | 设置自定义指示器| 设置自定义指示器后以上关于IndicatorView的参数会部分失效|
+| BannerViewPager<T, VH> setIndicatorView(IIndicator indicatorView) | 设置自定义指示器| |
 | BannerViewPager<T, VH> setPageTransformerStyle(int style) | 设置页面Transformer内置样式 |  |
 | BannerViewPager<T, VH> setCurrentItem(int item) | Set the currently selected page. | 2.3.5新增 |
 | void getCurrentItem() | 获取当前position | 2.3.5新增 |
 | BannerViewPager<T, VH> setPageStyle(PageStyle pageStyle) | 设置页面样式 | 2.4.0新增 可选（MULTI_PAGE、NORMAL）MULTI_PAGE：一屏多页样式 |
 | BannerViewPager<T, VH> setPageMargin(int pageMargin) | 设置页面间隔 | 2.4.0新增 |
 | BannerViewPager<T, VH> setIndicatorMargin(int left, int top, int right, int bottom) | 设置Indicator边距 | 2.4.1新增 |
+| BannerViewPager<T, VH> setOnPageChangeListener(OnPageChangeListener l) | 页面改变的监听事件 | 2.4.3新增 |
 | void startLoop() |开启自动轮播 | 初始化BannerViewPager时不必调用该方法,设置setAutoPlay后会调用startLoop() |
 | void stopLoop() | 停止自动轮播 | 如果开启自动轮播，为避免内存泄漏需要在onStop()或onDestroy中调用此方法 |
 | List\<T> getList() | 获取Banner中的集合数据 |  |
@@ -142,7 +143,7 @@ implementation 'com.zhpan.library:bannerview:latestVersion'
             android:layout_height="160dp" />
 ```
 
-### 3.Banner的页面布局
+### 3.Banner的Item页面布局
 
 ```
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -335,8 +336,9 @@ public class FigureIndicatorView extends BaseIndicatorView {
  - [x] 增加IndicatorView的滑动样式（2.2.2）
 
  - [x] 增添更多Indicator样式（2.3.+）
- - [x]  支持一屏显示多页 （2.4.0）
- - [ ]  ViewPager更换为ViewPager2 （3.0.0）
+ - [x] 支持一屏显示多页 （2.4.0）
+ - [ ] 将v2.4.3版本中着重优化提升性能
+ - [ ] ViewPager更换为ViewPager2 （3.0.0）
  - [ ] 目前Indicator部分代码比较乱，还有很大很大的优化空间，后续版本将持续优化
  
 

@@ -61,7 +61,7 @@
 
 
 
-        <androidx.viewpager.widget.ViewPager
+        <com.zhpan.bannerview.view.CatchViewPager
             android:id="@+id/vp_fragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

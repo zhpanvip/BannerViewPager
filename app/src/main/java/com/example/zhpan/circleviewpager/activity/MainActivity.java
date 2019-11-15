@@ -11,6 +11,7 @@ import android.widget.RadioGroup;
 
 import com.example.zhpan.circleviewpager.R;
 import com.example.zhpan.circleviewpager.adapter.AdapterFragmentPager;
+import com.zhpan.bannerview.view.CatchViewPager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.rg_tab)
     RadioGroup rgTab;
     @BindView(R.id.vp_fragment)
-    ViewPager mViewPager;
+    CatchViewPager mViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private void initData() {
         AdapterFragmentPager mAdapter = new AdapterFragmentPager(getSupportFragmentManager());
         mViewPager.setAdapter(mAdapter);
+        mViewPager.disableTouchScroll(true);
         mViewPager.setOffscreenPageLimit(2);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -87,5 +89,4 @@ public class MainActivity extends AppCompatActivity {
     public static void start(Context context) {
         context.startActivity(new Intent(context, MainActivity.class));
     }
-
 }

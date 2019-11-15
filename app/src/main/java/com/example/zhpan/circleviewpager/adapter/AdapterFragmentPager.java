@@ -10,11 +10,9 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 
 import com.example.zhpan.circleviewpager.fragment.BaseFragment;
-import com.example.zhpan.circleviewpager.fragment.FindFragment;
+import com.example.zhpan.circleviewpager.fragment.IndicatorFragment;
+import com.example.zhpan.circleviewpager.fragment.PageFragment;
 import com.example.zhpan.circleviewpager.fragment.HomeFragment;
-import com.example.zhpan.circleviewpager.fragment.OthersFragment;
-
-import java.util.List;
 
 public class AdapterFragmentPager extends FragmentPagerAdapter {
 
@@ -34,8 +32,8 @@ public class AdapterFragmentPager extends FragmentPagerAdapter {
     private SparseArray<BaseFragment> getFragments() {
         SparseArray<BaseFragment> fragmentList = new SparseArray<>();
         fragmentList.put(PAGE_HOME, HomeFragment.getInstance());
-        fragmentList.put(PAGE_FIND, FindFragment.getInstance());
-        fragmentList.put(PAGE_OTHERS, OthersFragment.getInstance());
+        fragmentList.put(PAGE_FIND, PageFragment.getInstance());
+        fragmentList.put(PAGE_OTHERS, IndicatorFragment.getInstance());
         return fragmentList;
     }
 

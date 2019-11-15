@@ -14,4 +14,7 @@
     <color name="tab_normal_text">#000000</color>
     <color name="tab_selected_text">#000000</color>
     <color name="line_color">#DCDCDC</color>
+
+    <color name="red_checked_color">#FF4C39</color>
+    <color name="red_normal_color">#935656</color>
 </resources>

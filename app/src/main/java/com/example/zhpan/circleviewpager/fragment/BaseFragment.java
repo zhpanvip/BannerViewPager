@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -35,7 +37,7 @@ public abstract class BaseFragment extends RxFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(getLayout(), container, false);
-        mBind = ButterKnife.bind(this,view);
+        mBind = ButterKnife.bind(this, view);
         initData();
         initTitle();
         initView(savedInstanceState, view);
@@ -51,10 +53,15 @@ public abstract class BaseFragment extends RxFragment {
     }
 
     private void initData() {
-        for (int i = 0; i <= 3; i++) {
+        for (int i = 0; i < 4; i++) {
             int drawable = getResources().getIdentifier("t" + i, "drawable", mContext.getPackageName());
             mDrawableList.add(drawable);
         }
+    }
+
+    protected @ColorInt
+    int getColor(@ColorRes int colorRes) {
+        return getContext().getResources().getColor(colorRes);
     }
 
     @Override

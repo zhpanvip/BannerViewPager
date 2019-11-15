@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <ImageView
         android:id="@+id/banner_image"
         android:layout_width="match_parent"
@@ -12,24 +11,12 @@
         android:scaleType="fitXY" />
 
     <ImageView
+        android:id="@+id/iv_logo"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginStart="40dp"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
         android:src="@mipmap/ic_launcher" />
-
-    <TextView
-        android:id="@+id/btn_start"
-        android:layout_width="wrap_content"
-        android:layout_height="35dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/bg_start"
-        android:gravity="center_vertical"
-        android:text="@string/start_now"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/tv_describe"

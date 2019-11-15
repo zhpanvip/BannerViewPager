@@ -7,7 +7,6 @@ import android.util.AttributeSet;
 import androidx.appcompat.widget.AppCompatImageView;
 
 import com.zhpan.bannerview.provider.ViewStyleSetter;
-import com.zhpan.bannerview.utils.DpUtils;
 
 public class CornerImageView extends AppCompatImageView {
     public CornerImageView(Context context) {
