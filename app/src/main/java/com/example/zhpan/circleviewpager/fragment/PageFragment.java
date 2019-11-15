@@ -103,13 +103,15 @@ public class PageFragment extends BaseFragment {
 
     @Override
     public void onStop() {
-        mViewPager.stopLoop();
+        if (mViewPager != null)
+            mViewPager.stopLoop();
         super.onStop();
     }
 
     @Override
     public void onResume() {
-        mViewPager.startLoop();
+        if (mViewPager != null)
+            mViewPager.startLoop();
         super.onResume();
     }
 }
