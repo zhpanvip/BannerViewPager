@@ -124,6 +124,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     private int mIndicatorVisibility;
     private int mScrollDuration;
     private int mRoundCorner;
+    private boolean disableTouchScroll;
 
     public BannerViewPager(Context context) {
         this(context, null);
@@ -296,6 +297,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
             mViewPager.setCurrentItem(currentPosition);
             mViewPager.addOnPageChangeListener(this);
             mViewPager.setScrollDuration(mScrollDuration);
+            mViewPager.disableTouchScroll(disableTouchScroll);
             initPageStyle();
             startLoop();
             setTouchListener();
@@ -736,6 +738,12 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
         mIndicatorMargin.right = right;
         return this;
     }
+
+    public BannerViewPager<T, VH> disableTouchScroll(boolean disableTouchScroll) {
+        this.disableTouchScroll = disableTouchScroll;
+        return this;
+    }
+
 
     /**
      * 仅供demo使用

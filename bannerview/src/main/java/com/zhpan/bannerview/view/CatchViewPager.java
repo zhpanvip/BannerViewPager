@@ -26,7 +26,7 @@ public class CatchViewPager extends ViewPager {
     private boolean mOverlapStyle = false;
     private BannerScroller mBannerScroller;
     public static final int DEFAULT_SCROLL_DURATION = 800;
-
+    private boolean disableTouchScroll;
 
     public CatchViewPager(Context context) {
         this(context, null);
@@ -40,6 +40,9 @@ public class CatchViewPager extends ViewPager {
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         try {
+            if (disableTouchScroll) {
+                return false;
+            }
             return super.onInterceptTouchEvent(ev);
         } catch (IllegalArgumentException ex) {
             ex.printStackTrace();
@@ -91,5 +94,17 @@ public class CatchViewPager extends ViewPager {
 
     public void setScrollDuration(int scrollDuration) {
         mBannerScroller.setDuration(scrollDuration);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent ev) {
+        if (disableTouchScroll) {
+            return false;
+        }
+        return super.onTouchEvent(ev);
+    }
+
+    public void disableTouchScroll(boolean disableTouchScroll) {
+        this.disableTouchScroll = disableTouchScroll;
     }
 }
