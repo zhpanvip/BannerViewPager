@@ -1,5 +1,6 @@
 package com.example.zhpan.circleviewpager.fragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +26,7 @@ import butterknife.BindView;
  * Created by zhpan on 2018/7/24.
  */
 public class PageFragment extends BaseFragment {
+
     @BindView(R.id.banner_view)
     BannerViewPager<Integer, ImageResourceViewHolder> mViewPager;
     @BindView(R.id.rg_page_style)
@@ -52,7 +54,7 @@ public class PageFragment extends BaseFragment {
                 .setHolderCreator(() -> new ImageResourceViewHolder(BannerUtils.dp2px(5)))
                 .setIndicatorColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
                 .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
-                .setInterval(3000);
+                .setInterval(5000);
         initRadioGroup();
     }
 
@@ -94,7 +96,8 @@ public class PageFragment extends BaseFragment {
                 .setIndicatorVisibility(View.GONE)
                 .setPageStyle(PageStyle.MULTI_PAGE_OVERLAP)
                 .setIndicatorView(indicatorView)
-                .setIndicatorColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
+                .setIndicatorColor(Color.parseColor("#888888"),
+                        Color.parseColor("#118EEA"))
                 .create(mDrawableList);
     }
 

@@ -1,6 +1,5 @@
 package com.example.zhpan.circleviewpager.fragment;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +20,7 @@ import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.zhpan.bannerview.BannerViewPager;
 import com.zhpan.bannerview.constants.IndicatorGravity;
-import com.zhpan.idea.net.common.DefaultObserver;
+import com.zhpan.idea.net.common.ResponseObserver;
 import com.zhpan.idea.utils.RxUtil;
 
 import java.util.ArrayList;
@@ -79,13 +78,10 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void fetchData(boolean showLoading) {
-        Observable.zip(getBannerObserver(), getArticleObserver(), (bannerData, articles) -> {
-            DataWrapper dataWrapper = new DataWrapper();
-            dataWrapper.setArticleList(articles.getDatas());
-            dataWrapper.setDataBeanList(bannerData);
-            return dataWrapper;
-        }).compose(RxUtil.rxSchedulerHelper(this, showLoading))
-                .subscribe(new DefaultObserver<DataWrapper>() {
+        Observable.zip(getBannerObserver(), getArticleObserver(), (bannerData, articles) ->
+                new DataWrapper(articles.getDatas(), bannerData))
+                .compose(RxUtil.rxSchedulerHelper(this, showLoading))
+                .subscribe(new ResponseObserver<DataWrapper>() {
                     @Override
                     public void onSuccess(DataWrapper response) {
                         mBannerViewPager.create(response.getDataBeanList());
@@ -133,13 +129,15 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     public void onStop() {
-        mBannerViewPager.stopLoop();
+        if (mBannerViewPager != null)
+            mBannerViewPager.stopLoop();
         super.onStop();
     }
 
     @Override
     public void onResume() {
-        mBannerViewPager.startLoop();
+        if (mBannerViewPager != null)
+            mBannerViewPager.startLoop();
         super.onResume();
     }
 }
