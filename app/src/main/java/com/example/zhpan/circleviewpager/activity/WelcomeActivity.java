@@ -1,8 +1,6 @@
 package com.example.zhpan.circleviewpager.activity;
 
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.view.View;
@@ -26,10 +24,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class WelcomeActivity extends AppCompatActivity {
+public class WelcomeActivity extends BaseDataActivity {
 
     private BannerViewPager<CustomBean, CustomPageViewHolder> mViewPager;
-    private int[] imgRes = {R.drawable.guide0, R.drawable.guide1, R.drawable.guide2};
     private String[] des = {"在这里\n你可以听到周围人的心声", "在这里\nTA会在下一秒遇见你", "在这里\n不再错过可以改变你一生的人"};
     private int[] transforms = {TransformerStyle.NONE, TransformerStyle.ACCORDION, TransformerStyle.STACK, TransformerStyle.DEPTH, TransformerStyle.ROTATE};
 
@@ -95,9 +92,9 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private List<CustomBean> getData() {
         List<CustomBean> list = new ArrayList<>();
-        for (int i = 0; i < imgRes.length; i++) {
+        for (int i = 0; i < mDrawableList.size(); i++) {
             CustomBean customBean = new CustomBean();
-            customBean.setImageRes(imgRes[i]);
+            customBean.setImageRes(mDrawableList.get(i));
             customBean.setImageDescription(des[i]);
             list.add(customBean);
         }
