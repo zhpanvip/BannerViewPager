@@ -13,8 +13,6 @@ import com.example.zhpan.circleviewpager.viewholder.CustomPageViewHolder;
 import com.zhpan.bannerview.BannerViewPager;
 import com.zhpan.bannerview.constants.IndicatorSlideMode;
 import com.zhpan.bannerview.constants.TransformerStyle;
-import com.zhpan.bannerview.indicator.CircleIndicatorView;
-import com.zhpan.bannerview.indicator.IIndicator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,12 +52,17 @@ public class WelcomeActivity extends BaseDataActivity {
                 .setCanLoop(false)
                 .setPageTransformerStyle(transforms[new Random().nextInt(4)])
                 .setIndicatorVisibility(View.GONE)
-                .setIndicatorView(getIndicatorView())
+                .setIndicatorView(findViewById(R.id.indicator))
+                .setIndicatorGap((int) getResources().getDimension(R.dimen.dp_10))
+                .setIndicatorColor(getResources().getColor(R.color.white),
+                        getResources().getColor(R.color.white_alpha_75))
+                .setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
+                .setIndicatorRadius((int) getResources().getDimension(R.dimen.dp_3), (int) getResources().getDimension(R.dimen.dp_4_5))
                 .setOnPageSelectedListener(this::showStartButton)
                 .setHolderCreator(() -> {
                     CustomPageViewHolder customPageViewHolder = new CustomPageViewHolder();
                     customPageViewHolder.setOnSubViewClickListener((view, position) ->
-                            Toast.makeText(WelcomeActivity.this, "Click Logo " + position, Toast.LENGTH_SHORT).show());
+                            Toast.makeText(WelcomeActivity.this, "Logo Clicked,Item: " + position, Toast.LENGTH_SHORT).show());
                     return customPageViewHolder;
                 }).create(getData());
     }
@@ -77,17 +80,6 @@ public class WelcomeActivity extends BaseDataActivity {
             alphaAnimator.setDuration(1500);
             alphaAnimator.start();
         }
-    }
-
-    private IIndicator getIndicatorView() {
-        CircleIndicatorView indicatorView = findViewById(R.id.indicator);
-        indicatorView.setNormalColor(getResources().getColor(R.color.white));
-        indicatorView.setCheckedColor(getResources().getColor(R.color.white_alpha_75));
-        indicatorView.setIndicatorWidth((int) getResources().getDimension(R.dimen.dp_6),
-                (int) getResources().getDimension(R.dimen.dp_9));
-        indicatorView.setIndicatorGap((int) getResources().getDimension(R.dimen.dp_10));
-        indicatorView.setSlideMode(IndicatorSlideMode.SMOOTH);
-        return indicatorView;
     }
 
     private List<CustomBean> getData() {

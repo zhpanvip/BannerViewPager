@@ -1,6 +1,5 @@
 package com.example.zhpan.circleviewpager.fragment;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +15,6 @@ import com.example.zhpan.circleviewpager.viewholder.ImageResourceViewHolder;
 import com.zhpan.bannerview.BannerViewPager;
 import com.zhpan.bannerview.annotation.APageStyle;
 import com.zhpan.bannerview.constants.PageStyle;
-import com.zhpan.bannerview.indicator.BaseIndicatorView;
 import com.zhpan.bannerview.indicator.CircleIndicatorView;
 import com.zhpan.bannerview.utils.BannerUtils;
 import com.zhpan.idea.utils.ToastUtils;
@@ -26,7 +24,7 @@ import butterknife.BindView;
 /**
  * Created by zhpan on 2018/7/24.
  */
-public class FindFragment extends BaseFragment {
+public class PageFragment extends BaseFragment {
     @BindView(R.id.banner_view)
     BannerViewPager<Integer, ImageResourceViewHolder> mViewPager;
     @BindView(R.id.rg_page_style)
@@ -52,7 +50,7 @@ public class FindFragment extends BaseFragment {
                 .setPageMargin(BannerUtils.dp2px(10))
                 .setRevealWidth(BannerUtils.dp2px(10))
                 .setHolderCreator(() -> new ImageResourceViewHolder(BannerUtils.dp2px(5)))
-                .setIndicatorColor(Color.parseColor("#935656"), Color.parseColor("#FF4C39"))
+                .setIndicatorColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
                 .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
                 .setInterval(3000);
         initRadioGroup();
@@ -64,8 +62,8 @@ public class FindFragment extends BaseFragment {
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
-    public static FindFragment getInstance() {
-        return new FindFragment();
+    public static PageFragment getInstance() {
+        return new PageFragment();
     }
 
     private void setupBanner(@APageStyle int pageStyle) {
@@ -95,25 +93,20 @@ public class FindFragment extends BaseFragment {
         mViewPager
                 .setIndicatorVisibility(View.GONE)
                 .setPageStyle(PageStyle.MULTI_PAGE_OVERLAP)
-                .setIndicatorView(setupIndicatorView())
+                .setIndicatorView(indicatorView)
+                .setIndicatorColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
                 .create(mDrawableList);
-    }
-
-    private BaseIndicatorView setupIndicatorView() {
-        indicatorView.setCheckedColor(Color.parseColor("#935656"));
-        indicatorView.setNormalColor(Color.parseColor("#FF4C39"));
-        return indicatorView;
     }
 
     @Override
     public void onStop() {
-        super.onStop();
         mViewPager.stopLoop();
+        super.onStop();
     }
 
     @Override
     public void onResume() {
-        super.onResume();
         mViewPager.startLoop();
+        super.onResume();
     }
 }

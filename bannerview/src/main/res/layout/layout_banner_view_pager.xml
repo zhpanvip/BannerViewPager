@@ -15,6 +15,5 @@
         android:id="@+id/rl_indicator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="10dp"/>
+        android:layout_alignParentBottom="true"/>
 </merge>

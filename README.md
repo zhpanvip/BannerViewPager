@@ -68,7 +68,7 @@ BannerViewPager支持多种IndicatorViewStyle,同时还提供了完全自定义I
 | BannerViewPager<T, VH> setIndicatorWidth(int normalWidth, int checkWidth) | 设置指示器宽度，如果是圆形指示器，则为直径 | 默认值8dp |
 | BannerViewPager<T, VH> setIndicatorHeight(int indicatorHeight) | 设置指示器高度，仅在Indicator样式为DASH时有效 | 默认值normalIndicatorWidth/2 |
 | BannerViewPager<T, VH> setIndicatorGap(int indicatorMargin) | 指示器圆点间距| 默认值为指示器宽度（或者是圆的直径）|
-| BannerViewPager<T, VH> setIndicatorView(IIndicator indicatorView) | 设置自定义指示器| 设置自定义指示器后以上关于IndicatorView的参数会部分失效|
+| BannerViewPager<T, VH> setIndicatorView(IIndicator indicatorView) | 设置自定义指示器| |
 | BannerViewPager<T, VH> setPageTransformerStyle(int style) | 设置页面Transformer内置样式 |  |
 | BannerViewPager<T, VH> setCurrentItem(int item) | Set the currently selected page. | 2.3.5新增 |
 | void getCurrentItem() | 获取当前position | 2.3.5新增 |
@@ -143,7 +143,7 @@ implementation 'com.zhpan.library:bannerview:latestVersion'
             android:layout_height="160dp" />
 ```
 
-### 3.Banner的页面布局
+### 3.Banner的Item页面布局
 
 ```
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"

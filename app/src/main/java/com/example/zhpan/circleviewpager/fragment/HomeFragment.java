@@ -113,7 +113,7 @@ public class HomeFragment extends BaseFragment {
                 .setInterval(3000)
                 .setCanLoop(false)
                 .setAutoPlay(true)
-                .setIndicatorColor(Color.parseColor("#935656"), Color.parseColor("#FF4C39"))
+                .setIndicatorColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
                 .setIndicatorGravity(IndicatorGravity.END)
                 .setScrollDuration(1000).setHolderCreator(NetViewHolder::new)
                 .setOnPageClickListener(position -> {

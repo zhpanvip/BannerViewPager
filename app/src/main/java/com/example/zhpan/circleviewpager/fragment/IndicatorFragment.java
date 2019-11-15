@@ -23,7 +23,7 @@ import butterknife.OnClick;
 /**
  * Created by zhpan on 2018/7/24.
  */
-public class OthersFragment extends BaseFragment {
+public class IndicatorFragment extends BaseFragment {
     @BindView(R.id.banner_view)
     BannerViewPager<Integer, ImageResourceViewHolder> mViewPager;
     @BindView(R.id.rg_indicator_style)
@@ -48,8 +48,8 @@ public class OthersFragment extends BaseFragment {
         initRadioGroup();
     }
 
-    public static OthersFragment getInstance() {
-        return new OthersFragment();
+    public static IndicatorFragment getInstance() {
+        return new IndicatorFragment();
     }
 
     private void initRadioGroup() {
@@ -80,7 +80,7 @@ public class OthersFragment extends BaseFragment {
                 .setPageMargin(0)
                 .setIndicatorMargin(0, 0, 0, BannerUtils.dp2px(10))
                 .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
-                .setIndicatorColor(Color.parseColor("#935656"), Color.parseColor("#FF4C39"))
+                .setIndicatorColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
                 .setIndicatorRadius(BannerUtils.dp2px(4), BannerUtils.dp2px(5)).create(mDrawableList);
     }
 
