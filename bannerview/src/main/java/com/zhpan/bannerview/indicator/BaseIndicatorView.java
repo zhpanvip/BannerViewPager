@@ -93,11 +93,9 @@ public class BaseIndicatorView extends View implements IIndicator {
             invalidate();
         } else if (slideMode == IndicatorSlideMode.SMOOTH) {
             if (position == 0 && slideToRight) {
-//                    Log.e(tag, "slideToRight position-----》" + position);
                 currentPosition = 0;
                 slideProgress = 0;
                 invalidate();
-
             } else if (position == pageSize - 1 && !slideToRight) {
                 currentPosition = pageSize - 1;
                 slideProgress = 0;
@@ -106,16 +104,12 @@ public class BaseIndicatorView extends View implements IIndicator {
         }
     }
 
-    private static final String tag = "BaseIndicatorView";
-
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
         if (slideMode == IndicatorSlideMode.SMOOTH) {
             if ((prePosition == 0 && position == pageSize - 1)) {
                 slideToRight = false;
             } else if (prePosition == pageSize - 1 && position == 0) {
-//                Log.e(tag, "prePosition-----》" + prePosition);
-//                Log.e(tag, "position-----》" + position);
                 slideToRight = true;
             } else {
                 slideToRight = (position + positionOffset - prePosition) > 0;

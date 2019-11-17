@@ -287,12 +287,12 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
             BannerPagerAdapter<T, VH> bannerPagerAdapter =
                     new BannerPagerAdapter<>(mList, holderCreator);
             bannerPagerAdapter.setPageStyle(mPageStyle);
+            bannerPagerAdapter.setCanLoop(isCanLoop);
             bannerPagerAdapter.setPageClickListener(position -> {
                 if (mOnPageClickListener != null) {
                     mOnPageClickListener.onPageClick(PositionUtils.getRealPosition(isCanLoop, position, mList.size(), mPageStyle));
                 }
             });
-            bannerPagerAdapter.setCanLoop(isCanLoop);
             mViewPager.setAdapter(bannerPagerAdapter);
             mViewPager.setCurrentItem(currentPosition);
             mViewPager.addOnPageChangeListener(this);
@@ -342,13 +342,10 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     public void onPageSelected(int position) {
         if (mOnPageChangeListener != null)
             mOnPageChangeListener.onPageSelected(PositionUtils.getRealPosition(isCanLoop, position, mList.size(), mPageStyle));
-
         if (mIndicatorView != null) {
             mIndicatorView.onPageSelected(PositionUtils.getRealPosition(isCanLoop, position, mList.size(), mPageStyle));
         }
-
         currentPosition = position;
-
     }
 
     @Override
@@ -382,7 +379,8 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
         if (mOnPageChangeListener != null) {
-            mOnPageChangeListener.onPageScrolled(position, positionOffset, positionOffsetPixels);
+            mOnPageChangeListener.onPageScrolled(PositionUtils.getRealPosition(isCanLoop, position, mList.size(), mPageStyle),
+                    positionOffset, positionOffsetPixels);
         }
         if (mIndicatorView != null)
             mIndicatorView.onPageScrolled(PositionUtils.getRealPosition(isCanLoop, position, mList.size(), mPageStyle),
@@ -428,7 +426,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     }
 
     /**
-     * 设置圆角ViewPager
+     * 设置圆角ViewPager 只有在SDK_INT>=LOLLIPOP(API 21)时有效
      *
      * @param radius 圆角大小
      */
@@ -467,7 +465,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     /**
      * 设置自动轮播时间间隔
      *
-     * @param interval 自动轮播时间间隔
+     * @param interval 自动轮播时间间隔 单位毫秒ms
      */
     public BannerViewPager<T, VH> setInterval(int interval) {
         this.interval = interval;
@@ -525,7 +523,6 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
      * 设置指示器半径大小，选中与未选中半径大小相等
      *
      * @param radius 指示器圆点半径
-     * @return
      */
     public BannerViewPager<T, VH> setIndicatorRadius(int radius) {
         this.normalIndicatorWidth = radius * 2;
@@ -536,12 +533,12 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     /**
      * 设置Indicator半径
      *
-     * @param normalRadius 未选中时半径
-     * @param checkRadius  选中时半径
+     * @param normalRadius  未选中时半径
+     * @param checkedRadius 选中时半径
      */
-    public BannerViewPager<T, VH> setIndicatorRadius(int normalRadius, int checkRadius) {
+    public BannerViewPager<T, VH> setIndicatorRadius(int normalRadius, int checkedRadius) {
         this.normalIndicatorWidth = normalRadius * 2;
-        this.checkedIndicatorWidth = checkRadius * 2;
+        this.checkedIndicatorWidth = checkedRadius * 2;
         return this;
     }
 

@@ -1,11 +1,11 @@
 package com.example.zhpan.circleviewpager.activity;
 
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +17,7 @@ import com.zhpan.bannerview.adapter.OnPageChangeListenerAdapter;
 import com.zhpan.bannerview.constants.IndicatorSlideMode;
 import com.zhpan.bannerview.constants.TransformerStyle;
 import com.zhpan.bannerview.holder.HolderCreator;
+import com.zhpan.bannerview.utils.BannerUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,12 +39,18 @@ public class WelcomeActivity extends BaseDataActivity implements
     @BindView(R.id.btn_start)
     TextView mTvStart;
 
+    @BindView(R.id.tv_describe)
+    TextView mTvDescription;
+
+    private static final int ANIMATION_DURATION = 1300;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
         ButterKnife.bind(this);
         setupViewPager();
+        updateUI(0);
     }
 
     @Override
@@ -57,8 +64,8 @@ public class WelcomeActivity extends BaseDataActivity implements
         mViewPager.setAutoPlay(false)
                 .setCanLoop(false)
                 .setPageTransformerStyle(transforms[new Random().nextInt(5)])
-                .setIndicatorVisibility(View.GONE)
-                .setIndicatorView(findViewById(R.id.indicator))
+                .setScrollDuration(ANIMATION_DURATION)
+                .setIndicatorMargin(0, 0, 0, BannerUtils.dp2px(100))
                 .setIndicatorGap((int) getResources().getDimension(R.dimen.dp_10))
                 .setIndicatorColor(getResources().getColor(R.color.white),
                         getResources().getColor(R.color.white_alpha_75))
@@ -67,7 +74,7 @@ public class WelcomeActivity extends BaseDataActivity implements
                 .setOnPageChangeListener(new OnPageChangeListenerAdapter() {
                     @Override
                     public void onPageSelected(int position) {
-                        showStartButton(position);
+                        updateUI(position);
                     }
                 })
                 .setHolderCreator(this)
@@ -80,12 +87,22 @@ public class WelcomeActivity extends BaseDataActivity implements
         finish();
     }
 
-    private void showStartButton(int position) {
+    private void updateUI(int position) {
+        mTvDescription.setText(des[position]);
+        ObjectAnimator translationAnim = ObjectAnimator.ofFloat(mTvDescription, "translationX", -120, 0);
+        translationAnim.setDuration(ANIMATION_DURATION);
+        translationAnim.setInterpolator(new DecelerateInterpolator());
+        ObjectAnimator alphaAnimator1 = ObjectAnimator.ofFloat(mTvDescription, "alpha", 0, 1);
+        alphaAnimator1.setDuration(ANIMATION_DURATION);
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.playTogether(translationAnim, alphaAnimator1);
+        animatorSet.start();
+
         if (position == mViewPager.getList().size() - 1 && mTvStart.getVisibility() == View.GONE) {
             mTvStart.setVisibility(View.VISIBLE);
             ObjectAnimator
                     .ofFloat(mTvStart, "alpha", 0, 1)
-                    .setDuration(1500).start();
+                    .setDuration(ANIMATION_DURATION).start();
         } else {
             mTvStart.setVisibility(View.GONE);
         }

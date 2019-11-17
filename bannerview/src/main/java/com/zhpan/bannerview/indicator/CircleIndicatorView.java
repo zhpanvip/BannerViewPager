@@ -8,7 +8,6 @@ import android.util.AttributeSet;
  * Created by zhpan on 2017/12/6.
  */
 public class CircleIndicatorView extends BaseIndicatorView {
-    private static final String tag = "IndicatorView";
     private float mNormalRadius;
     private float mCheckedRadius;
     private float maxRadius;
