@@ -42,6 +42,7 @@ import com.zhpan.bannerview.view.CatchViewPager;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.zhpan.bannerview.adapter.BannerPagerAdapter.MAX_VALUE;
 import static com.zhpan.bannerview.constants.IndicatorGravity.CENTER;
 import static com.zhpan.bannerview.constants.IndicatorGravity.END;
 import static com.zhpan.bannerview.constants.IndicatorGravity.START;
@@ -110,13 +111,23 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
         @Override
         public void run() {
             if (mList.size() > 1) {
-                currentPosition = currentPosition % (mList.size() + 1) + 1;
-                if (currentPosition == 1) {
-                    mViewPager.setCurrentItem(currentPosition, false);
-                    mHandler.post(mRunnable);
+                currentPosition = mViewPager.getCurrentItem() + 1;
+                if (isCanLoop) {
+                    if (currentPosition == MAX_VALUE - 1) {
+                        currentPosition = 0;
+                        mViewPager.setCurrentItem(currentPosition, false);
+                        mHandler.post(mRunnable);
+                    } else {
+                        mViewPager.setCurrentItem(currentPosition);
+                        mHandler.postDelayed(mRunnable, interval);
+                    }
                 } else {
-                    mViewPager.setCurrentItem(currentPosition, true);
-                    mHandler.postDelayed(mRunnable, interval);
+                    if (currentPosition >= MAX_VALUE) {
+                        stopLoop();
+                    } else {
+                        mViewPager.setCurrentItem(currentPosition);
+                        mHandler.postDelayed(mRunnable, interval);
+                    }
                 }
             }
         }
@@ -196,7 +207,8 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
                     }
                 }
                 if (isCanLoop) {
-                    currentPosition = mPageStyle == PageStyle.NORMAL ? 1 : 2;
+//                    currentPosition = mPageStyle == PageStyle.NORMAL ? 1 : 2;
+                    currentPosition = MAX_VALUE / 2 - ((MAX_VALUE / 2) % mList.size()) + 1;
                 }
                 setupViewPager();
                 setIndicatorValues();
@@ -284,6 +296,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
 
     private void setupViewPager() {
         if (holderCreator != null) {
+            removeAllViews();
             BannerPagerAdapter<T, VH> bannerPagerAdapter =
                     new BannerPagerAdapter<>(mList, holderCreator);
             bannerPagerAdapter.setPageStyle(mPageStyle);
@@ -293,11 +306,14 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
                     mOnPageClickListener.onPageClick(PositionUtils.getRealPosition(isCanLoop, position, mList.size(), mPageStyle));
                 }
             });
+
             mViewPager.setAdapter(bannerPagerAdapter);
             mViewPager.setCurrentItem(currentPosition);
             mViewPager.addOnPageChangeListener(this);
             mViewPager.setScrollDuration(mScrollDuration);
             mViewPager.disableTouchScroll(disableTouchScroll);
+            addView(mViewPager);
+            addView(mIndicatorLayout);
             initPageStyle();
             startLoop();
             setTouchListener();
@@ -341,9 +357,9 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     @Override
     public void onPageSelected(int position) {
         if (mOnPageChangeListener != null)
-            mOnPageChangeListener.onPageSelected(PositionUtils.getRealPosition(isCanLoop, position, mList.size(), mPageStyle));
+            mOnPageChangeListener.onPageSelected(PositionUtils.getRealPosition(isCanLoop, position, mList.size()));
         if (mIndicatorView != null) {
-            mIndicatorView.onPageSelected(PositionUtils.getRealPosition(isCanLoop, position, mList.size(), mPageStyle));
+            mIndicatorView.onPageSelected(PositionUtils.getRealPosition(isCanLoop, position, mList.size()));
         }
         currentPosition = position;
     }
@@ -356,34 +372,34 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
         if (mOnPageChangeListener != null) {
             mOnPageChangeListener.onPageScrollStateChanged(state);
         }
-        if (isCanLoop) {
-            switch (state) {
-                case ViewPager.SCROLL_STATE_IDLE:
-                    if (currentPosition == 0) {
-                        mViewPager.setCurrentItem(mList.size(), false);
-                    } else if (currentPosition == mList.size() + 1) {
-                        mViewPager.setCurrentItem(1, false);
-                    }
-                    break;
-                case ViewPager.SCROLL_STATE_DRAGGING:
-                    if (currentPosition == mList.size() + 1) {
-                        mViewPager.setCurrentItem(1, false);
-                    } else if (currentPosition == 0) {
-                        mViewPager.setCurrentItem(mList.size(), false);
-                    }
-                    break;
-            }
-        }
+//        if (isCanLoop) {
+//            switch (state) {
+//                case ViewPager.SCROLL_STATE_IDLE:
+//                    if (currentPosition == 0) {
+//                        mViewPager.setCurrentItem(mList.size(), false);
+//                    } else if (currentPosition == mList.size() + 1) {
+//                        mViewPager.setCurrentItem(1, false);
+//                    }
+//                    break;
+//                case ViewPager.SCROLL_STATE_DRAGGING:
+//                    if (currentPosition == mList.size() + 1) {
+//                        mViewPager.setCurrentItem(1, false);
+//                    } else if (currentPosition == 0) {
+//                        mViewPager.setCurrentItem(mList.size(), false);
+//                    }
+//                    break;
+//            }
+//        }
     }
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
         if (mOnPageChangeListener != null) {
-            mOnPageChangeListener.onPageScrolled(PositionUtils.getRealPosition(isCanLoop, position, mList.size(), mPageStyle),
+            mOnPageChangeListener.onPageScrolled(PositionUtils.getRealPosition(isCanLoop, position, mList.size()),
                     positionOffset, positionOffsetPixels);
         }
         if (mIndicatorView != null)
-            mIndicatorView.onPageScrolled(PositionUtils.getRealPosition(isCanLoop, position, mList.size(), mPageStyle),
+            mIndicatorView.onPageScrolled(PositionUtils.getRealPosition(isCanLoop, position, mList.size()),
                     positionOffset, positionOffsetPixels);
     }
 
