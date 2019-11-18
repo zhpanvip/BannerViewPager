@@ -62,7 +62,7 @@ public class WelcomeActivity extends BaseDataActivity implements
     private void setupViewPager() {
         mViewPager = findViewById(R.id.viewpager);
         mViewPager.setAutoPlay(false)
-                .setCanLoop(true)
+                .setCanLoop(false)
                 .setPageTransformerStyle(transforms[new Random().nextInt(5)])
                 .setScrollDuration(ANIMATION_DURATION)
                 .setIndicatorMargin(0, 0, 0, BannerUtils.dp2px(100))
