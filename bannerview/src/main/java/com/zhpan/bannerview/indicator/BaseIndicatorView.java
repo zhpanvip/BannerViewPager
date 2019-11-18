@@ -107,22 +107,26 @@ public class BaseIndicatorView extends View implements IIndicator {
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
         if (slideMode == IndicatorSlideMode.SMOOTH) {
-            if ((prePosition == 0 && position == pageSize - 1)) {
-                slideToRight = false;
-            } else if (prePosition == pageSize - 1 && position == 0) {
-                slideToRight = true;
-            } else {
-                slideToRight = (position + positionOffset - prePosition) > 0;
-            }
+            slideToRight = isSlideToRight(position, positionOffset);
             //  TODO 解决滑动过快时positionOffset不会等0的情况
             if (positionOffset == 0) {
                 prePosition = position;
             }
-            if (!(position == pageSize - 1 && slideToRight || (position == pageSize - 1 && !slideToRight))) {
+            if (!(position == pageSize - 1)) {
                 slideProgress = (currentPosition == pageSize - 1) && slideToRight ? 0 : positionOffset;
                 currentPosition = position;
                 invalidate();
             }
+        }
+    }
+
+    private boolean isSlideToRight(int position, float positionOffset) {
+        if ((prePosition == 0 && position == pageSize - 1)) {
+            return false;
+        } else if (prePosition == pageSize - 1 && position == 0) {
+            return true;
+        } else {
+            return (position + positionOffset - prePosition) > 0;
         }
     }
 
