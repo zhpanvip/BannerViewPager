@@ -751,11 +751,11 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     /**
      * 仅供demo使用
      */
-    @Deprecated
-    public void resetIndicator() {
-        isCustomIndicator = false;
-        mIndicatorView = null;
-    }
+//    @Deprecated
+//    public void resetIndicator() {
+//        isCustomIndicator = false;
+//        mIndicatorView = null;
+//    }
 
     /**
      * 页面点击事件接口
