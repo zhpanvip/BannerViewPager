@@ -48,6 +48,7 @@ import static com.zhpan.bannerview.constants.IndicatorGravity.END;
 import static com.zhpan.bannerview.constants.IndicatorGravity.START;
 import static com.zhpan.bannerview.transform.pagestyle.ScaleInTransformer.DEFAULT_MIN_SCALE;
 import static com.zhpan.bannerview.transform.pagestyle.ScaleInTransformer.MAX_SCALE;
+import static com.zhpan.bannerview.view.CatchViewPager.DEFAULT_SCROLL_DURATION;
 
 /**
  * Created by zhpan on 2017/3/28.
@@ -186,7 +187,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
             mIndicatorStyle = typedArray.getInt(R.styleable.BannerViewPager_bvp_indicator_style, 0);
             mIndicatorSlideMode = typedArray.getInt(R.styleable.BannerViewPager_bvp_indicator_slide_mode, 0);
             mIndicatorVisibility = typedArray.getInt(R.styleable.BannerViewPager_bvp_indicator_visibility, 0);
-            mScrollDuration = typedArray.getInt(R.styleable.BannerViewPager_bvp_scroll_duration, 800);
+            mScrollDuration = typedArray.getInt(R.styleable.BannerViewPager_bvp_scroll_duration, DEFAULT_SCROLL_DURATION);
             typedArray.recycle();
             indicatorGap = normalIndicatorWidth;
             indicatorHeight = normalIndicatorWidth / 2;
@@ -207,7 +208,6 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
                     }
                 }
                 if (isCanLoop) {
-//                    currentPosition = mPageStyle == PageStyle.NORMAL ? 1 : 2;
                     currentPosition = MAX_VALUE / 2 - ((MAX_VALUE / 2) % mList.size()) + 1;
                 }
                 setupViewPager();
@@ -311,6 +311,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
             mViewPager.addOnPageChangeListener(this);
             mViewPager.setScrollDuration(mScrollDuration);
             mViewPager.disableTouchScroll(disableTouchScroll);
+            mViewPager.setFirstLayout(true);
             addView(mViewPager);
             addView(mIndicatorLayout);
             initPageStyle();
