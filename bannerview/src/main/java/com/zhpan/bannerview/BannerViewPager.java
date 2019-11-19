@@ -14,6 +14,7 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.zhpan.bannerview.annotation.AIndicatorGravity;
@@ -267,8 +268,8 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     }
 
     private void initIndicatorGravity() {
-        LayoutParams layoutParams =
-                (LayoutParams) ((View) mIndicatorView).getLayoutParams();
+        RelativeLayout.LayoutParams layoutParams =
+                (RelativeLayout.LayoutParams) ((View) mIndicatorView).getLayoutParams();
         switch (indicatorGravity) {
             case CENTER:
                 layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
@@ -283,7 +284,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     }
 
     private void initIndicatorViewMargin() {
-        MarginLayoutParams layoutParams = (MarginLayoutParams) ((View) mIndicatorView).getLayoutParams();
+        ViewGroup.MarginLayoutParams layoutParams = (MarginLayoutParams) ((View) mIndicatorView).getLayoutParams();
         if (mIndicatorMargin == null) {
             int dp10 = BannerUtils.dp2px(10);
             layoutParams.setMargins(dp10, dp10, dp10, dp10);
@@ -298,11 +299,10 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
             removeAllViews();
             BannerPagerAdapter<T, VH> bannerPagerAdapter =
                     new BannerPagerAdapter<>(mList, holderCreator);
-            bannerPagerAdapter.setPageStyle(mPageStyle);
             bannerPagerAdapter.setCanLoop(isCanLoop);
             bannerPagerAdapter.setPageClickListener(position -> {
                 if (mOnPageClickListener != null) {
-                    mOnPageClickListener.onPageClick(PositionUtils.getRealPosition(isCanLoop, position, mList.size(), mPageStyle));
+                    mOnPageClickListener.onPageClick(position);
                 }
             });
 
@@ -344,7 +344,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
         mPageMargin = mPageMargin == 0 ? BannerUtils.dp2px(20) : mPageMargin;
         mRevealWidth = mRevealWidth == 0 ? BannerUtils.dp2px(20) : mRevealWidth;
         setClipChildren(false);
-        MarginLayoutParams params = (MarginLayoutParams) mViewPager.getLayoutParams();
+        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) mViewPager.getLayoutParams();
         params.leftMargin = mPageMargin + mRevealWidth;
         params.rightMargin = mPageMargin + mRevealWidth;
         mViewPager.setOverlapStyle(overlap);
@@ -355,12 +355,12 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
 
     @Override
     public void onPageSelected(int position) {
+        currentPosition = PositionUtils.getRealPosition(isCanLoop, position, mList.size());
         if (mOnPageChangeListener != null)
-            mOnPageChangeListener.onPageSelected(PositionUtils.getRealPosition(isCanLoop, position, mList.size()));
+            mOnPageChangeListener.onPageSelected(currentPosition);
         if (mIndicatorView != null) {
-            mIndicatorView.onPageSelected(PositionUtils.getRealPosition(isCanLoop, position, mList.size()));
+            mIndicatorView.onPageSelected(currentPosition);
         }
-        currentPosition = position;
     }
 
     @Override
@@ -371,24 +371,6 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
         if (mOnPageChangeListener != null) {
             mOnPageChangeListener.onPageScrollStateChanged(state);
         }
-//        if (isCanLoop) {
-//            switch (state) {
-//                case ViewPager.SCROLL_STATE_IDLE:
-//                    if (currentPosition == 0) {
-//                        mViewPager.setCurrentItem(mList.size(), false);
-//                    } else if (currentPosition == mList.size() + 1) {
-//                        mViewPager.setCurrentItem(1, false);
-//                    }
-//                    break;
-//                case ViewPager.SCROLL_STATE_DRAGGING:
-//                    if (currentPosition == mList.size() + 1) {
-//                        mViewPager.setCurrentItem(1, false);
-//                    } else if (currentPosition == 0) {
-//                        mViewPager.setCurrentItem(mList.size(), false);
-//                    }
-//                    break;
-//            }
-//        }
     }
 
     @Override
@@ -630,8 +612,8 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
      * 设置IndicatorView滑动模式，默认值{@link IndicatorSlideMode#NORMAL}
      *
      * @param slideMode Indicator滑动模式
-     * @see IndicatorSlideMode#NORMAL
-     * @see IndicatorSlideMode#SMOOTH
+     * @see com.zhpan.bannerview.constants.IndicatorSlideMode#NORMAL
+     * @see com.zhpan.bannerview.constants.IndicatorSlideMode#SMOOTH
      */
     public BannerViewPager<T, VH> setIndicatorSlideMode(@AIndicatorSlideMode int slideMode) {
         mIndicatorSlideMode = slideMode;
@@ -678,7 +660,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
      * @return the currently selected page position.
      */
     public int getCurrentItem() {
-        return PositionUtils.getRealPosition(isCanLoop, currentPosition, mList.size(), mPageStyle);
+        return currentPosition;
     }
 
     /**
@@ -689,7 +671,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
      * @param item Item index to select
      */
     public void setCurrentItem(int item) {
-        mViewPager.setCurrentItem(PositionUtils.toUnrealPosition(isCanLoop, item, mList.size(), mPageStyle));
+        mViewPager.setCurrentItem(isCanLoop ? MAX_VALUE / 2 - ((MAX_VALUE / 2) % mList.size()) + 1 + item : item);
     }
 
     /**
@@ -699,7 +681,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
      * @param smoothScroll True to smoothly scroll to the new item, false to transition immediately
      */
     public void setCurrentItem(int item, boolean smoothScroll) {
-        mViewPager.setCurrentItem(PositionUtils.toUnrealPosition(isCanLoop, item, mList.size(), mPageStyle), smoothScroll);
+        mViewPager.setCurrentItem(isCanLoop ? MAX_VALUE / 2 - ((MAX_VALUE / 2) % mList.size()) + 1 + item : item, smoothScroll);
     }
 
     /**
