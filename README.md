@@ -126,7 +126,7 @@ implementation 'com.github.zhpanvip:BannerViewPager:latestVersion'
 
 Androidx latestVersion:[![latestVersion](https://jitpack.io/v/zhpanvip/BannerViewPager.svg)](https://jitpack.io/#zhpanvip/BannerViewPager)
 
-如果未迁移到AndroidX请使用（非Androidx的包托管在JCenter上，2.3.5之后不再维护）：
+如果未迁移到AndroidX请使用（非Androidx的包托管在JCenter上）：
 ```
 implementation 'com.zhpan.library:bannerview:latestVersion'
 ```
@@ -352,7 +352,7 @@ public class FigureIndicatorView extends BaseIndicatorView {
 
  - [x] 增添更多Indicator样式（2.3.+）
  - [x] 支持一屏显示多页 （2.4.0）
- - [ ] 将v2.4.3版本中着重优化提升性能
+ - [x] 将v2.4.3版本中着重优化提升性能
  - [ ] ViewPager更换为ViewPager2 （3.0.0）
  - [ ] 目前Indicator部分代码比较乱，还有很大很大的优化空间，后续版本将持续优化
  
