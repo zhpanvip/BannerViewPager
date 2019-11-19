@@ -16,6 +16,20 @@ public class PositionUtils {
         }
     }
 
+    public static int getRealPosition(boolean isCanLoop, int position, int pageSize) {
+        int realPosition;
+        if (pageSize <= 0)
+            return 0;
+        if (isCanLoop) {
+            realPosition = (position - 1 + pageSize) % pageSize;
+        } else {
+            realPosition = (position + pageSize) % pageSize;
+        }
+        if (realPosition < 0)
+            realPosition += pageSize;
+        return realPosition;
+    }
+
     public static int getRealPosition(boolean isCanLoop, int position, int pageSize, int pageStyle) {
         if (isCanLoop) {
             if (pageStyle == PageStyle.NORMAL) {

@@ -61,17 +61,17 @@ BannerViewPager支持多种IndicatorViewStyle,同时还提供了完全自定义I
 | BannerViewPager<T, VH> setIndicatorStyle(int indicatorStyle) | 设置指示器样式 | 可选枚举(CIRCLE, DASH) 默认CIRCLE  |
 | BannerViewPager<T, VH> setIndicatorGravity(int gravity) | 指示器位置 |可选值(CENTER、START、END)默认值CENTER |
 | BannerViewPager<T, VH> setIndicatorColor(int normalColor,int checkedColor) | 指示器圆点颜色 |normalColor：未选中时颜色默认"#8C6C6D72"， checkedColor：选中时颜色 默认"#8C18171C" |
-| BannerViewPager<T, VH> setIndicatorSlideMode(int slideMode)  | 设置Indicator滑动模式 | 可选（NORMAL、SMOOTH），默认值SMOOTH  |
+| BannerViewPager<T, VH> setIndicatorSlideMode(int slideMode)  | 设置Indicator滑动模式 | 可选（NORMAL、SMOOTH），默认值NORMAL  |
 | BannerViewPager<T, VH> setIndicatorRadius(int radius) | 设置指示器圆点半径 | 默认值4dp|
 | BannerViewPager<T, VH> setIndicatorRadius(int normalRadius,int checkRadius)  |设置指示器圆点半径  |  normalRadius:未选中时半径  checkedRadius:选中时的半径,默认值4dp |
 | BannerViewPager<T, VH> setIndicatorWidth(int indicatorWidth) | 设置指示器宽度，如果是圆形指示器，则为直径 |  默认值8dp|
 | BannerViewPager<T, VH> setIndicatorWidth(int normalWidth, int checkWidth) | 设置指示器宽度，如果是圆形指示器，则为直径 | 默认值8dp |
 | BannerViewPager<T, VH> setIndicatorHeight(int indicatorHeight) | 设置指示器高度，仅在Indicator样式为DASH时有效 | 默认值normalIndicatorWidth/2 |
 | BannerViewPager<T, VH> setIndicatorGap(int indicatorMargin) | 指示器圆点间距| 默认值为指示器宽度（或者是圆的直径）|
-| BannerViewPager<T, VH> setIndicatorView(IIndicator indicatorView) | 设置自定义指示器| |
+| BannerViewPager<T, VH> setIndicatorView(IIndicator indicatorView) | 设置自定义指示器|自定义View需要继承BaseIndicatorView或实现IIndicator |
 | BannerViewPager<T, VH> setPageTransformerStyle(int style) | 设置页面Transformer内置样式 |  |
 | BannerViewPager<T, VH> setCurrentItem(int item) | Set the currently selected page. | 2.3.5新增 |
-| void getCurrentItem() | 获取当前position | 2.3.5新增 |
+| int getCurrentItem() | 获取当前position | 2.3.5新增 |
 | BannerViewPager<T, VH> setPageStyle(PageStyle pageStyle) | 设置页面样式 | 2.4.0新增 可选（MULTI_PAGE、NORMAL）MULTI_PAGE：一屏多页样式 |
 | BannerViewPager<T, VH> setPageMargin(int pageMargin) | 设置页面间隔 | 2.4.0新增 |
 | BannerViewPager<T, VH> setIndicatorMargin(int left, int top, int right, int bottom) | 设置Indicator边距 | 2.4.1新增 |
@@ -84,7 +84,7 @@ BannerViewPager支持多种IndicatorViewStyle,同时还提供了完全自定义I
 ### xml支持的attrs
 | Attributes | format | description |
 |--|--|--|
-| bvp_interval | integer | 自动轮播事件间隔 |
+| bvp_interval | integer | 自动轮播时间间隔 |
 | bvp_scroll_duration | integer | 页面切换时滑动时间|
 | bvp_can_loop | boolean| 是否循环 |
 | bvp_auto_play | boolean | 是否自动播放  |
@@ -258,6 +258,8 @@ public class NetViewHolder implements ViewHolder<BannerData> {
 ```
 ### 7.高级功能---自定义IndicatorView
 
+在内置Indicator不满足需求时可以通过自定义IndicatorView实现。
+
 **(1)自定义View并继承BaseIndicatorView**
 
 ```
@@ -321,6 +323,19 @@ public class FigureIndicatorView extends BaseIndicatorView {
         this.textColor = textColor;
     }
 }
+```
+** (2)设置自定义指示器 **
+
+```
+    FigureIndicatorView indicatorView = new FigureIndicatorView(mContext);
+    indicatorView.setRadius(BannerUtils.dp2px(18));
+    indicatorView.setTextSize(BannerUtils.dp2px(13));
+    indicatorView.setBackgroundColor(Color.parseColor("#aa118EEA"));
+
+    mViewPager.setIndicatorGravity(IndicatorGravity.END)
+              .setIndicatorView(indicatorView)
+              .setHolderCreator(() -> new ImageResourceViewHolder(0))
+              .create(mDrawableList);
 ```
 
 ## TODO 版本计划

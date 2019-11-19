@@ -7,10 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.zhpan.bannerview.annotation.APageStyle;
-import com.zhpan.bannerview.constants.PageStyle;
 import com.zhpan.bannerview.holder.HolderCreator;
 import com.zhpan.bannerview.holder.ViewHolder;
-import com.zhpan.bannerview.utils.BannerUtils;
 import com.zhpan.bannerview.utils.PositionUtils;
 
 import java.util.ArrayList;
@@ -34,6 +32,8 @@ public class BannerPagerAdapter<T, VH extends ViewHolder> extends PagerAdapter {
 
     private int mPageStyle;
 
+    public static final int MAX_VALUE = Integer.MAX_VALUE;
+
     public BannerPagerAdapter(List<T> list, HolderCreator<VH> holderCreator) {
         this.mList = list;
         this.holderCreator = holderCreator;
@@ -42,11 +42,7 @@ public class BannerPagerAdapter<T, VH extends ViewHolder> extends PagerAdapter {
     @Override
     public int getCount() {
         if (isCanLoop && mList.size() > 1) {
-            if (mPageStyle == PageStyle.NORMAL) {
-                return mList.size() + 2;
-            } else {
-                return mList.size() + 4;
-            }
+            return MAX_VALUE;
         } else {
             return mList.size();
         }
@@ -60,7 +56,7 @@ public class BannerPagerAdapter<T, VH extends ViewHolder> extends PagerAdapter {
     @Override
     public @NonNull
     Object instantiateItem(@NonNull final ViewGroup container, final int position) {
-        View itemView = findViewByPosition(container, PositionUtils.getRealPosition(isCanLoop, position, mList.size(), mPageStyle));
+        View itemView = findViewByPosition(container, PositionUtils.getRealPosition(isCanLoop, position, mList.size()));
         container.addView(itemView);
         return itemView;
     }
