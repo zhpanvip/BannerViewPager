@@ -78,7 +78,6 @@ public class IndicatorFragment extends BaseFragment {
                 .setIndicatorGravity(IndicatorGravity.CENTER)
                 .setIndicatorGap(BannerUtils.dp2px(6))
                 .setPageMargin(0)
-                .setIndicatorMargin(0, 0, 0, BannerUtils.dp2px(10))
                 .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
                 .setIndicatorColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
                 .setIndicatorRadius(BannerUtils.dp2px(4), BannerUtils.dp2px(5)).create(mDrawableList);
@@ -98,7 +97,6 @@ public class IndicatorFragment extends BaseFragment {
     private void setupCustomIndicator() {
         mViewPager.setAutoPlay(false).setCanLoop(true)
                 .setPageMargin(BannerUtils.dp2px(20))
-                .setIndicatorMargin(0, 0, BannerUtils.dp2px(10), BannerUtils.dp2px(10))
                 .setIndicatorGravity(IndicatorGravity.END)
                 .setIndicatorView(setupIndicatorView())
                 .setHolderCreator(() -> new ImageResourceViewHolder(0)).create(mDrawableList);
