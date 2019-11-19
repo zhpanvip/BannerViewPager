@@ -6,7 +6,6 @@ import androidx.viewpager.widget.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.zhpan.bannerview.annotation.APageStyle;
 import com.zhpan.bannerview.holder.HolderCreator;
 import com.zhpan.bannerview.holder.ViewHolder;
 import com.zhpan.bannerview.utils.PositionUtils;
@@ -29,8 +28,6 @@ public class BannerPagerAdapter<T, VH extends ViewHolder> extends PagerAdapter {
     private PageClickListener mPageClickListener;
 
     private List<View> mViewList = new ArrayList<>();
-
-    private int mPageStyle;
 
     public static final int MAX_VALUE = Integer.MAX_VALUE;
 
@@ -77,7 +74,7 @@ public class BannerPagerAdapter<T, VH extends ViewHolder> extends PagerAdapter {
     private View getView(final int position, ViewGroup container) {
         ViewHolder<T> holder = holderCreator.createViewHolder();
         if (holder == null) {
-            throw new RuntimeException("can not return a null holder");
+            throw new NullPointerException("can not return a null holder");
         }
         return createView(holder, position, container);
     }
@@ -96,7 +93,7 @@ public class BannerPagerAdapter<T, VH extends ViewHolder> extends PagerAdapter {
         if (view != null)
             view.setOnClickListener(v -> {
                 if (null != mPageClickListener)
-                    mPageClickListener.onPageClick(PositionUtils.toUnrealPosition(isCanLoop, position, mList.size(), mPageStyle));
+                    mPageClickListener.onPageClick(position);
             });
     }
 
@@ -118,9 +115,6 @@ public class BannerPagerAdapter<T, VH extends ViewHolder> extends PagerAdapter {
         isCanLoop = canLoop;
     }
 
-    public void setPageStyle(@APageStyle int pageStyle) {
-        mPageStyle = pageStyle;
-    }
 
     public interface PageClickListener {
         void onPageClick(int position);

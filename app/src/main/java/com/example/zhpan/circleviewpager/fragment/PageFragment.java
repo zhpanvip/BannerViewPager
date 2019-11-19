@@ -115,9 +115,8 @@ public class PageFragment extends BaseFragment {
 
     @Override
     public void onResume() {
-
+        super.onResume();
         if (mViewPager != null)
             mViewPager.startLoop();
-        super.onResume();
     }
 }
