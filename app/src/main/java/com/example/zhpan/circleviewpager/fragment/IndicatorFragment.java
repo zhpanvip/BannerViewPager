@@ -119,9 +119,16 @@ public class IndicatorFragment extends BaseFragment {
     }
 
     @Override
-    public void onDestroyView() {
+    public void onStop() {
         if (mViewPager != null)
             mViewPager.stopLoop();
-        super.onDestroyView();
+        super.onStop();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mViewPager != null)
+            mViewPager.stopLoop();
     }
 }
