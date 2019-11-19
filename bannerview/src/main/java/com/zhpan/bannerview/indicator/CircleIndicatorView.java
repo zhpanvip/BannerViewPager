@@ -2,16 +2,12 @@ package com.zhpan.bannerview.indicator;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.util.AttributeSet;
-
 
 /**
  * Created by zhpan on 2017/12/6.
  */
 public class CircleIndicatorView extends BaseIndicatorView {
-    private static final String tag = "IndicatorView";
-    private Paint mPaint;
     private float mNormalRadius;
     private float mCheckedRadius;
     private float maxRadius;
@@ -27,9 +23,7 @@ public class CircleIndicatorView extends BaseIndicatorView {
 
     public CircleIndicatorView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        mPaint = new Paint();
         mPaint.setColor(normalColor);
-        mPaint.setAntiAlias(true);
         mNormalRadius = normalIndicatorWidth / 2;
         mCheckedRadius = checkedIndicatorWidth / 2;
         indicatorGap = mNormalRadius * 2;
@@ -47,18 +41,20 @@ public class CircleIndicatorView extends BaseIndicatorView {
         mNormalRadius = normalIndicatorWidth / 2;
         mCheckedRadius = checkedIndicatorWidth / 2;
         maxRadius = Math.max(mCheckedRadius, mNormalRadius);
-        setMeasuredDimension((int) ((pageSize - 1) * indicatorGap + 2 * maxRadius * pageSize),
+        setMeasuredDimension((int) ((pageSize - 1) * indicatorGap + 2 * (maxRadius + mNormalRadius * (pageSize - 1))),
                 (int) (2 * maxRadius));
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        for (int i = 0; i < pageSize; i++) {
-            mPaint.setColor(normalColor);
-            canvas.drawCircle(maxRadius + (2 * mNormalRadius + indicatorGap) * i, height / 2f, mNormalRadius, mPaint);
+        if(pageSize>1){
+            for (int i = 0; i < pageSize; i++) {
+                mPaint.setColor(normalColor);
+                canvas.drawCircle(maxRadius + (2 * mNormalRadius + indicatorGap) * i, height / 2f, mNormalRadius, mPaint);
+            }
+            drawSliderStyle(canvas);
         }
-        drawSliderStyle(canvas);
     }
 
     @Override

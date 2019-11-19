@@ -19,6 +19,7 @@ import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.zhpan.bannerview.BannerViewPager;
+import com.zhpan.bannerview.constants.IndicatorGravity;
 import com.zhpan.idea.net.common.DefaultObserver;
 import com.zhpan.idea.utils.RxUtil;
 
@@ -91,7 +92,7 @@ public class NetworkBannerActivity extends RxAppCompatActivity {
         recyclerView.setAdapter(articleAdapter);
         mBannerViewPager.showIndicator(true)
                 .setInterval(3000)
-                .setIndicatorGravity(BannerViewPager.END)
+                .setIndicatorGravity(IndicatorGravity.END)
                 .setScrollDuration(1000).setHolderCreator(NetViewHolder::new)
                 .setOnPageClickListener(position -> {
                     BannerData bannerData = mBannerViewPager.getList().get(position);

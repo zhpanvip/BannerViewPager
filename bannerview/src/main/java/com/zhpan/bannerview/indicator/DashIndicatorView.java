@@ -5,13 +5,12 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 
-import com.zhpan.bannerview.enums.IndicatorSlideMode;
+import com.zhpan.bannerview.constants.IndicatorSlideMode;
 
 /**
  * Created by zhpan on 2017/12/6.
  */
-public class DashIndicatorView extends BaseIndicatorView  {
-    private Paint mPaint;
+public class DashIndicatorView extends BaseIndicatorView {
     private float sliderHeight;
     private float maxWidth;
     private float minWidth;
@@ -26,9 +25,7 @@ public class DashIndicatorView extends BaseIndicatorView  {
 
     public DashIndicatorView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        mPaint = new Paint();
         mPaint.setColor(normalColor);
-        mPaint.setAntiAlias(true);
         sliderHeight = normalIndicatorWidth / 2;
     }
 
@@ -42,7 +39,7 @@ public class DashIndicatorView extends BaseIndicatorView  {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         maxWidth = Math.max(normalIndicatorWidth, checkedIndicatorWidth);
         minWidth = Math.min(normalIndicatorWidth, checkedIndicatorWidth);
-        setMeasuredDimension((int) ((pageSize - 1) * indicatorGap + maxWidth * pageSize),
+        setMeasuredDimension((int) ((pageSize - 1) * indicatorGap + maxWidth + (pageSize - 1) * minWidth),
                 (int) (sliderHeight));
     }
 
@@ -54,11 +51,13 @@ public class DashIndicatorView extends BaseIndicatorView  {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        for (int i = 0; i < pageSize; i++) {
-            if (slideMode == IndicatorSlideMode.SMOOTH) {
-                smoothSlide(canvas, i);
-            } else {
-                normalSlide(canvas, i);
+        if (pageSize > 1) {
+            for (int i = 0; i < pageSize; i++) {
+                if (slideMode == IndicatorSlideMode.SMOOTH) {
+                    smoothSlide(canvas, i);
+                } else {
+                    normalSlide(canvas, i);
+                }
             }
         }
     }

@@ -9,6 +9,7 @@ import com.example.zhpan.circleviewpager.R;
 import com.example.zhpan.circleviewpager.bean.CustomBean;
 import com.example.zhpan.circleviewpager.viewholder.CustomPageViewHolder;
 import com.zhpan.bannerview.BannerViewPager;
+import com.zhpan.bannerview.constants.IndicatorGravity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +42,7 @@ public class CustomerBannerActivity extends AppCompatActivity {
                 .setCanLoop(true)
                 .setRoundCorner((int) getResources().getDimension(R.dimen.banner_corner))
                 .setIndicatorRadius(10)
-                .setIndicatorGravity(BannerViewPager.END)
+                .setIndicatorGravity(IndicatorGravity.END)
                 .setIndicatorColor(Color.parseColor("#6C6D72"),
                         Color.parseColor("#FFFFFF"))
                 .setOnPageClickListener(position -> Toast.makeText(CustomerBannerActivity.this,

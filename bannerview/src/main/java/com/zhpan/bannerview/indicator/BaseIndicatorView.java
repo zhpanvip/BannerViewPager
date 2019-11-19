@@ -2,12 +2,14 @@ package com.zhpan.bannerview.indicator;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.zhpan.bannerview.Utils.DpUtils;
-import com.zhpan.bannerview.enums.IndicatorSlideMode;
+import com.zhpan.bannerview.annotation.AIndicatorSlideMode;
+import com.zhpan.bannerview.constants.IndicatorSlideMode;
+import com.zhpan.bannerview.utils.BannerUtils;
 
 /**
  * <pre>
@@ -48,16 +50,19 @@ public class BaseIndicatorView extends View implements IIndicator {
      * 是否是向右滑动，true向右，false向左
      */
     protected boolean slideToRight;
+
     /**
      * Indicator滑动模式，目前仅支持两种
      *
      * @see IndicatorSlideMode#NORMAL
      * @see IndicatorSlideMode#SMOOTH
      */
-    protected IndicatorSlideMode slideMode;
+    protected int slideMode;
 
     protected float normalIndicatorWidth;
     protected float checkedIndicatorWidth;
+
+    protected Paint mPaint;
 
     public BaseIndicatorView(Context context) {
         super(context);
@@ -69,12 +74,14 @@ public class BaseIndicatorView extends View implements IIndicator {
 
     public BaseIndicatorView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        normalIndicatorWidth = DpUtils.dp2px(8);
+        normalIndicatorWidth = BannerUtils.dp2px(8);
         checkedIndicatorWidth = normalIndicatorWidth;
         indicatorGap = normalIndicatorWidth;
         normalColor = Color.parseColor("#8C18171C");
         checkedColor = Color.parseColor("#8C6C6D72");
         slideMode = IndicatorSlideMode.NORMAL;
+        mPaint = new Paint();
+        mPaint.setAntiAlias(true);
     }
 
     @Override
@@ -85,11 +92,9 @@ public class BaseIndicatorView extends View implements IIndicator {
             invalidate();
         } else if (slideMode == IndicatorSlideMode.SMOOTH) {
             if (position == 0 && slideToRight) {
-//                    Log.e(tag, "slideToRight position-----》" + position);
                 currentPosition = 0;
                 slideProgress = 0;
                 invalidate();
-
             } else if (position == pageSize - 1 && !slideToRight) {
                 currentPosition = pageSize - 1;
                 slideProgress = 0;
@@ -98,29 +103,29 @@ public class BaseIndicatorView extends View implements IIndicator {
         }
     }
 
-    private static final String tag = "BaseIndicatorView";
-
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
         if (slideMode == IndicatorSlideMode.SMOOTH) {
-            if ((prePosition == 0 && position == pageSize - 1)) {
-                slideToRight = false;
-            } else if (prePosition == pageSize - 1 && position == 0) {
-//                Log.e(tag, "prePosition-----》" + prePosition);
-//                Log.e(tag, "position-----》" + position);
-                slideToRight = true;
-            } else {
-                slideToRight = (position + positionOffset - prePosition) > 0;
-            }
+            slideToRight = isSlideToRight(position, positionOffset);
             //  TODO 解决滑动过快时positionOffset不会等0的情况
             if (positionOffset == 0) {
                 prePosition = position;
             }
-            if (!(position == pageSize - 1 && slideToRight || (position == pageSize - 1 && !slideToRight))) {
+            if (!(position == pageSize - 1)) {
                 slideProgress = (currentPosition == pageSize - 1) && slideToRight ? 0 : positionOffset;
                 currentPosition = position;
                 invalidate();
             }
+        }
+    }
+
+    private boolean isSlideToRight(int position, float positionOffset) {
+        if ((prePosition == 0 && position == pageSize - 1)) {
+            return false;
+        } else if (prePosition == pageSize - 1 && position == 0) {
+            return true;
+        } else {
+            return (position + positionOffset - prePosition) > 0;
         }
     }
 
@@ -156,7 +161,7 @@ public class BaseIndicatorView extends View implements IIndicator {
      * @see IndicatorSlideMode#SMOOTH
      */
     @Override
-    public void setSlideMode(IndicatorSlideMode slideMode) {
+    public void setSlideMode(@AIndicatorSlideMode int slideMode) {
         this.slideMode = slideMode;
     }
 

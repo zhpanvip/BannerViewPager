@@ -5,8 +5,10 @@ import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.zhpan.bannerview.annotation.APageStyle;
 import com.zhpan.bannerview.holder.HolderCreator;
 import com.zhpan.bannerview.holder.ViewHolder;
+import com.zhpan.bannerview.utils.PositionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +19,7 @@ import java.util.List;
 
 public class BannerPagerAdapter<T, VH extends ViewHolder> extends PagerAdapter {
 
-    private List<T> list;
+    private List<T> mList;
 
     private HolderCreator holderCreator;
 
@@ -27,18 +29,22 @@ public class BannerPagerAdapter<T, VH extends ViewHolder> extends PagerAdapter {
 
     private List<View> mViewList = new ArrayList<>();
 
-    public void setCanLoop(boolean canLoop) {
-        isCanLoop = canLoop;
-    }
+    private int mPageStyle;
+
+    public static final int MAX_VALUE = Integer.MAX_VALUE;
 
     public BannerPagerAdapter(List<T> list, HolderCreator<VH> holderCreator) {
-        this.list = list;
+        this.mList = list;
         this.holderCreator = holderCreator;
     }
 
     @Override
     public int getCount() {
-        return (isCanLoop && list.size() > 1) ? list.size() + 2 : list.size();
+        if (isCanLoop && mList.size() > 1) {
+            return MAX_VALUE;
+        } else {
+            return mList.size();
+        }
     }
 
     @Override
@@ -49,7 +55,7 @@ public class BannerPagerAdapter<T, VH extends ViewHolder> extends PagerAdapter {
     @Override
     public @NonNull
     Object instantiateItem(@NonNull final ViewGroup container, final int position) {
-        View itemView = findViewByPosition(container, position);
+        View itemView = findViewByPosition(container, PositionUtils.getRealPosition(isCanLoop, position, mList.size()));
         container.addView(itemView);
         return itemView;
     }
@@ -77,23 +83,9 @@ public class BannerPagerAdapter<T, VH extends ViewHolder> extends PagerAdapter {
 
     private View createView(ViewHolder<T> holder, int position, ViewGroup container) {
         View view = null;
-        if (list != null && list.size() > 0) {
-            if (isCanLoop && list.size() > 1) {
-                int size = list.size();
-                if (position == 0) {
-                    view = holder.createView(container, container.getContext(), list.size() - 1);
-                    holder.onBind(container.getContext(), list.get(list.size() - 1), list.size() - 1, size);
-                } else if (position == list.size() + 1) {
-                    view = holder.createView(container, container.getContext(), 0);
-                    holder.onBind(container.getContext(), list.get(0), 0, size);
-                } else {
-                    view = holder.createView(container, container.getContext(), position - 1);
-                    holder.onBind(container.getContext(), list.get(position - 1), position - 1, size);
-                }
-            } else {
-                view = holder.createView(container, container.getContext(), position);
-                holder.onBind(container.getContext(), list.get(position), position, list.size());
-            }
+        if (mList != null && mList.size() > 0) {
+            view = holder.createView(container, container.getContext(), position);
+            holder.onBind(container.getContext(), mList.get(position), position, mList.size());
             setViewListener(view, position);
         }
         return view;
@@ -103,7 +95,7 @@ public class BannerPagerAdapter<T, VH extends ViewHolder> extends PagerAdapter {
         if (view != null)
             view.setOnClickListener(v -> {
                 if (null != mPageClickListener)
-                    mPageClickListener.onPageClick(position);
+                    mPageClickListener.onPageClick(PositionUtils.toUnrealPosition(isCanLoop, position, mList.size(), mPageStyle));
             });
     }
 
@@ -115,11 +107,18 @@ public class BannerPagerAdapter<T, VH extends ViewHolder> extends PagerAdapter {
     @Override
     public void finishUpdate(@NonNull ViewGroup container) {
         super.finishUpdate(container);
-
     }
 
     public void setPageClickListener(PageClickListener pageClickListener) {
         mPageClickListener = pageClickListener;
+    }
+
+    public void setCanLoop(boolean canLoop) {
+        isCanLoop = canLoop;
+    }
+
+    public void setPageStyle(@APageStyle int pageStyle) {
+        mPageStyle = pageStyle;
     }
 
     public interface PageClickListener {

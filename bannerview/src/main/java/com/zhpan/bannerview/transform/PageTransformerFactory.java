@@ -1,12 +1,17 @@
 package com.zhpan.bannerview.transform;
 
+
 import android.support.v4.view.ViewPager;
 
-import com.zhpan.bannerview.enums.TransformerStyle;
+import static com.zhpan.bannerview.constants.TransformerStyle.ACCORDION;
+import static com.zhpan.bannerview.constants.TransformerStyle.DEPTH;
+import static com.zhpan.bannerview.constants.TransformerStyle.ROTATE;
+import static com.zhpan.bannerview.constants.TransformerStyle.STACK;
+
 
 public class PageTransformerFactory {
 
-    public ViewPager.PageTransformer createPageTransformer(TransformerStyle transformerStyle) {
+    public ViewPager.PageTransformer createPageTransformer(int transformerStyle) {
         ViewPager.PageTransformer transformer = null;
         switch (transformerStyle) {
             case DEPTH:
@@ -16,10 +21,10 @@ public class PageTransformerFactory {
                 transformer=new RotateUpTransformer();
                 break;
             case STACK:
-                transformer=new StackTransformer();
+                transformer = new StackTransformer();
                 break;
             case ACCORDION:
-                transformer=new AccordionTransformer();
+                transformer = new AccordionTransformer();
                 break;
         }
         return transformer;

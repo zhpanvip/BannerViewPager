@@ -10,7 +10,7 @@ import android.view.ViewGroup;
  */
 
 public interface ViewHolder<T> {
-    View createView(ViewGroup viewGroup,Context context, int position);
+    View createView(ViewGroup viewGroup, Context context, int position);
    // void onBind(Context context, int position, T data);
     /**
      * @param context context
@@ -18,5 +18,5 @@ public interface ViewHolder<T> {
      * @param position 当前位置
      * @param size 页面个数
      */
-    void onBind(Context context,T data,int position,int size);
+    void onBind(Context context, T data, int position, int size);
 }
