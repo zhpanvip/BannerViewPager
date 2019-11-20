@@ -22,27 +22,27 @@ public class BaseIndicatorView extends View implements IIndicator {
     /**
      * 页面size
      */
-    protected int pageSize;
+    private int pageSize;
     /**
      * 未选中时Indicator颜色
      */
-    protected int normalColor;
+    private int normalColor;
     /**
      * 选中时Indicator颜色
      */
-    protected int checkedColor;
+    private int checkedColor;
     /**
      * Indicator间距
      */
-    protected float indicatorGap;
+    private float indicatorGap;
     /**
      * 从一个点滑动到另一个点的进度
      */
-    protected float slideProgress;
+    private float slideProgress;
     /**
      * 指示器当前位置
      */
-    protected int currentPosition;
+    private int currentPosition;
     /**
      * 指示器上一个位置
      */
@@ -50,7 +50,7 @@ public class BaseIndicatorView extends View implements IIndicator {
     /**
      * 是否是向右滑动，true向右，false向左
      */
-    protected boolean slideToRight;
+    private boolean slideToRight;
 
     /**
      * Indicator滑动模式，目前仅支持两种
@@ -58,10 +58,10 @@ public class BaseIndicatorView extends View implements IIndicator {
      * @see IndicatorSlideMode#NORMAL
      * @see IndicatorSlideMode#SMOOTH
      */
-    protected int slideMode;
+    private int slideMode;
 
-    protected float normalIndicatorWidth;
-    protected float checkedIndicatorWidth;
+    private float normalIndicatorWidth;
+    private float checkedIndicatorWidth;
 
     protected Paint mPaint;
 
@@ -148,11 +148,11 @@ public class BaseIndicatorView extends View implements IIndicator {
 
 
     /**
-     * @param gapRes Indicator间距
+     * @param indicatorGap Indicator间距
      */
-    public void setIndicatorGap(int gapRes) {
-        if (gapRes >= 0) {
-            this.indicatorGap = gapRes;
+    public void setIndicatorGap(float indicatorGap) {
+        if (indicatorGap >= 0) {
+            this.indicatorGap = indicatorGap;
         }
     }
 
@@ -177,6 +177,51 @@ public class BaseIndicatorView extends View implements IIndicator {
         this.normalIndicatorWidth = normalIndicatorWidth;
         this.checkedIndicatorWidth = checkedIndicatorWidth;
     }
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public int getNormalColor() {
+        return normalColor;
+    }
+
+    public int getCheckedColor() {
+        return checkedColor;
+    }
+
+    public float getIndicatorGap() {
+        return indicatorGap;
+    }
+
+    public float getSlideProgress() {
+        return slideProgress;
+    }
+
+    public int getCurrentPosition() {
+        return currentPosition;
+    }
+
+//    public int getPrePosition() {
+//        return prePosition;
+//    }
+
+    public boolean isSlideToRight() {
+        return slideToRight;
+    }
+
+    public int getSlideMode() {
+        return slideMode;
+    }
+
+    public float getNormalIndicatorWidth() {
+        return normalIndicatorWidth;
+    }
+
+    public float getCheckedIndicatorWidth() {
+        return checkedIndicatorWidth;
+    }
+
 
     @Override
     public void notifyDataChanged() {

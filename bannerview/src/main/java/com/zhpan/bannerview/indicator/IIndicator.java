@@ -20,7 +20,7 @@ public interface IIndicator extends ViewPager.OnPageChangeListener {
 
     void setSlideMode(@AIndicatorSlideMode int slideStyle);
 
-    void setIndicatorGap(int gap);
+    void setIndicatorGap(float gap);
 
     void setIndicatorWidth(int normalIndicatorWidth, int checkedIndicatorWidth);
 

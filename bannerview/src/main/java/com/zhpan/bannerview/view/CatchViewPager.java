@@ -15,6 +15,8 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import static com.zhpan.bannerview.manager.BannerOptions.DEFAULT_SCROLL_DURATION;
+
 /**
  * Author zhangpan
  * Time:2018/11/14 15:24
@@ -25,7 +27,6 @@ public class CatchViewPager extends ViewPager {
     private SparseIntArray mSparseIntArray = new SparseIntArray();
     private boolean mOverlapStyle = false;
     private BannerScroller mBannerScroller;
-    public static final int DEFAULT_SCROLL_DURATION = 500;
     private boolean disableTouchScroll;
     private boolean firstLayout = true;
 
