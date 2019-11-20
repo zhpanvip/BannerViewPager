@@ -104,4 +104,18 @@ public class PageFragment extends BaseFragment {
                 .setIndicatorView(indicatorView)
                 .create(mDrawableList);
     }
+
+    @Override
+    public void onStop() {
+        if (mViewPager != null)
+            mViewPager.stopLoop();
+        super.onStop();
+    }
+
+    @Override
+    public void onResume() {
+        if (mViewPager != null)
+            mViewPager.startLoop();
+        super.onResume();
+    }
 }

@@ -127,4 +127,18 @@ public class HomeFragment extends BaseFragment {
         mBannerViewPager = view.findViewById(R.id.banner_view);
         return view;
     }
+
+    @Override
+    public void onStop() {
+        if (mBannerViewPager != null)
+            mBannerViewPager.stopLoop();
+        super.onStop();
+    }
+
+    @Override
+    public void onResume() {
+        if (mBannerViewPager != null)
+            mBannerViewPager.startLoop();
+        super.onResume();
+    }
 }
