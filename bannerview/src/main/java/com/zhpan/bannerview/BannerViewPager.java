@@ -163,6 +163,18 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
         mList = new ArrayList<>();
     }
 
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        stopLoop();
+    }
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        startLoop();
+    }
+
     private void initAttrs(AttributeSet attrs) {
         if (attrs != null) {
             TypedArray typedArray =

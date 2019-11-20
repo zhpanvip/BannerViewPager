@@ -53,11 +53,6 @@ public class WelcomeActivity extends BaseDataActivity implements
         updateUI(0);
     }
 
-    @Override
-    protected void onDestroy() {
-        mViewPager.stopLoop();
-        super.onDestroy();
-    }
 
     private void setupViewPager() {
         mViewPager = findViewById(R.id.viewpager);

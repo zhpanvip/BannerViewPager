@@ -1,6 +1,5 @@
 package com.example.zhpan.circleviewpager.fragment;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -104,19 +103,5 @@ public class PageFragment extends BaseFragment {
                 .setPageStyle(PageStyle.MULTI_PAGE_OVERLAP)
                 .setIndicatorView(indicatorView)
                 .create(mDrawableList);
-    }
-
-    @Override
-    public void onStop() {
-        if (mViewPager != null)
-            mViewPager.stopLoop();
-        super.onStop();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (mViewPager != null)
-            mViewPager.startLoop();
     }
 }

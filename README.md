@@ -227,35 +227,7 @@ public class NetViewHolder implements ViewHolder<BannerData> {
         }
 ```
 
-### 6.开启与停止轮播
 
-如果开启了自动轮播功能，请务必在onDestroy中停止轮播，以免出现内存泄漏。
-
-```
-	@Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (mBannerViewPager != null)
-    		mViewpager.stopLoop();
-    }
-```
-为了节省性能也可以在onStop中停止轮播，在onResume中开启轮播：
-
-```
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if (mBannerViewPager != null)
-            mBannerViewPager.stopLoop();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (mBannerViewPager != null)
-            mBannerViewPager.startLoop();
-    }
-```
 ### 7.高级功能---自定义IndicatorView
 
 在内置Indicator不满足需求时可以通过自定义IndicatorView实现。
