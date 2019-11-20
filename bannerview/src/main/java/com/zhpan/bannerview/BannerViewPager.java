@@ -160,9 +160,10 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
 
     private void setIndicatorValues() {
         if (null != mIndicatorView) {
-            IndicatorOptions bannerOptions = mBannerManager.bannerOptions().getIndicatorOptions();
-            bannerOptions.setPageSize(mList.size());
-            mIndicatorView.setIndicatorOptions(bannerOptions);
+            mIndicatorView.setPageSize(mList.size());
+            IndicatorOptions indicatorOptions = mBannerManager.bannerOptions().getIndicatorOptions();
+            indicatorOptions.setPageSize(mList.size());
+            mIndicatorView.setIndicatorOptions(indicatorOptions);
             mIndicatorView.notifyDataChanged();
         }
     }
