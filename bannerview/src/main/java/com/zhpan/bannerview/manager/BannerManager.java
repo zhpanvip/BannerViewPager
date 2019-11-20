@@ -3,6 +3,12 @@ package com.zhpan.bannerview.manager;
 import android.content.Context;
 import android.util.AttributeSet;
 
+/**
+ * <pre>
+ *   Created by zhpan on 2019/11/20.
+ *   Description:
+ * </pre>
+ */
 public class BannerManager {
 
     private BannerOptions mBannerOptions;

@@ -2,7 +2,6 @@ package com.zhpan.bannerview.indicator;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.util.AttributeSet;
 
 import com.zhpan.bannerview.constants.IndicatorSlideMode;
@@ -40,7 +39,7 @@ public class DashIndicatorView extends BaseIndicatorView {
         maxWidth = Math.max(getNormalIndicatorWidth(), getCheckedIndicatorWidth());
         minWidth = Math.min(getNormalIndicatorWidth(), getCheckedIndicatorWidth());
         setMeasuredDimension((int) ((getPageSize() - 1) * getIndicatorGap() + maxWidth + (getPageSize() - 1) * minWidth),
-                (int) (sliderHeight));
+                (int) (getSliderHeight()));
     }
 
     @Override
@@ -67,21 +66,21 @@ public class DashIndicatorView extends BaseIndicatorView {
         if (getNormalIndicatorWidth() == getCheckedIndicatorWidth()) {
             mPaint.setColor(getNormalColor());
             float left = i * (getNormalIndicatorWidth()) + i * +getIndicatorGap();
-            canvas.drawRect(left, 0, left + getNormalIndicatorWidth(), sliderHeight, mPaint);
+            canvas.drawRect(left, 0, left + getNormalIndicatorWidth(), getSliderHeight(), mPaint);
             drawSliderStyle(canvas);
         } else {  //  仿支付宝首页轮播图的Indicator
             if (i < getCurrentPosition()) {
                 mPaint.setColor(getNormalColor());
                 float left = i * minWidth + i * getIndicatorGap();
-                canvas.drawRect(left, 0, left + minWidth, sliderHeight, mPaint);
+                canvas.drawRect(left, 0, left + minWidth, getSliderHeight(), mPaint);
             } else if (i == getCurrentPosition()) {
                 mPaint.setColor(getCheckedColor());
                 float left = i * minWidth + i * getIndicatorGap();
-                canvas.drawRect(left, 0, left + minWidth + (maxWidth - minWidth), sliderHeight, mPaint);
+                canvas.drawRect(left, 0, left + minWidth + (maxWidth - minWidth), getSliderHeight(), mPaint);
             } else {
                 mPaint.setColor(getNormalColor());
                 float left = i * minWidth + i * getIndicatorGap() + (maxWidth - minWidth);
-                canvas.drawRect(left, 0, left + minWidth, sliderHeight, mPaint);
+                canvas.drawRect(left, 0, left + minWidth, getSliderHeight(), mPaint);
             }
         }
     }
@@ -89,7 +88,7 @@ public class DashIndicatorView extends BaseIndicatorView {
     private void smoothSlide(Canvas canvas, int i) {
         mPaint.setColor(getNormalColor());
         float left = i * (maxWidth) + i * +getIndicatorGap() + (maxWidth - minWidth);
-        canvas.drawRect(left, 0, left + minWidth, sliderHeight, mPaint);
+        canvas.drawRect(left, 0, left + minWidth, getSliderHeight(), mPaint);
         drawSliderStyle(canvas);
     }
 
@@ -111,11 +110,18 @@ public class DashIndicatorView extends BaseIndicatorView {
     private void drawSliderStyle(Canvas canvas) {
         mPaint.setColor(getCheckedColor());
         float left = getCurrentPosition() * (maxWidth) + getCurrentPosition() * +getIndicatorGap() + (maxWidth + getIndicatorGap()) * getSlideProgress();
-        canvas.drawRect(left, 0, left + maxWidth, sliderHeight, mPaint);
+        canvas.drawRect(left, 0, left + maxWidth, getSliderHeight(), mPaint);
     }
 
-    public DashIndicatorView setSliderHeight(int sliderHeight) {
+    public DashIndicatorView setSliderHeight(float sliderHeight) {
         this.sliderHeight = sliderHeight;
         return this;
+    }
+
+    public float getSliderHeight() {
+        if (getIndicatorOptions().getSliderHeight() > 0) {
+            return getIndicatorOptions().getSliderHeight();
+        }
+        return sliderHeight;
     }
 }

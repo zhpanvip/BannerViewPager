@@ -2,8 +2,18 @@ package com.zhpan.bannerview.manager;
 
 import com.zhpan.bannerview.constants.PageStyle;
 
-
+/**
+ * <pre>
+ *   Created by zhpan on 2019/11/20.
+ *   Description:
+ * </pre>
+ */
 public class BannerOptions {
+
+    public BannerOptions() {
+        mIndicatorOptions = new IndicatorOptions();
+    }
+
     public static final int DEFAULT_SCROLL_DURATION = 500;
 
     private int interval;
@@ -18,25 +28,11 @@ public class BannerOptions {
 
     private int indicatorGravity;
 
-    private int indicatorNormalColor;
-
-    private int indicatorCheckedColor;
-
-    private int normalIndicatorWidth;
-
-    private int checkedIndicatorWidth;
-
     private int mPageMargin;
 
     private int mRevealWidth;
 
     private int mIndicatorStyle;
-
-    private int mIndicatorSlideMode;
-
-    private int indicatorGap;
-
-    private int indicatorHeight;
 
     private boolean isCustomIndicator;
 
@@ -51,6 +47,8 @@ public class BannerOptions {
     private int mRoundCorner;
 
     private boolean disableTouchScroll;
+
+    private IndicatorOptions mIndicatorOptions;
 
     public int getInterval() {
         return interval;
@@ -101,35 +99,39 @@ public class BannerOptions {
     }
 
     public int getIndicatorNormalColor() {
-        return indicatorNormalColor;
+        return mIndicatorOptions.getNormalColor();
     }
 
     public void setIndicatorNormalColor(int indicatorNormalColor) {
-        this.indicatorNormalColor = indicatorNormalColor;
+        mIndicatorOptions.setNormalColor(indicatorNormalColor);
     }
 
     public int getIndicatorCheckedColor() {
-        return indicatorCheckedColor;
+        return mIndicatorOptions.getCheckedColor();
     }
 
     public void setIndicatorCheckedColor(int indicatorCheckedColor) {
-        this.indicatorCheckedColor = indicatorCheckedColor;
+        mIndicatorOptions.setCheckedColor(indicatorCheckedColor);
     }
 
     public int getNormalIndicatorWidth() {
-        return normalIndicatorWidth;
+        return (int) mIndicatorOptions.getNormalIndicatorWidth();
     }
 
     public void setNormalIndicatorWidth(int normalIndicatorWidth) {
-        this.normalIndicatorWidth = normalIndicatorWidth;
+        mIndicatorOptions.setNormalIndicatorWidth(normalIndicatorWidth);
     }
 
     public int getCheckedIndicatorWidth() {
-        return checkedIndicatorWidth;
+        return (int) mIndicatorOptions.getCheckedIndicatorWidth();
     }
 
     public void setCheckedIndicatorWidth(int checkedIndicatorWidth) {
-        this.checkedIndicatorWidth = checkedIndicatorWidth;
+        mIndicatorOptions.setCheckedIndicatorWidth(checkedIndicatorWidth);
+    }
+
+    public IndicatorOptions getIndicatorOptions() {
+        return mIndicatorOptions;
     }
 
     public int getPageMargin() {
@@ -157,27 +159,27 @@ public class BannerOptions {
     }
 
     public int getIndicatorSlideMode() {
-        return mIndicatorSlideMode;
+        return mIndicatorOptions.getSlideMode();
     }
 
     public void setIndicatorSlideMode(int indicatorSlideMode) {
-        mIndicatorSlideMode = indicatorSlideMode;
+        mIndicatorOptions.setSlideMode(indicatorSlideMode);
     }
 
-    public int getIndicatorGap() {
-        return indicatorGap;
+    public float getIndicatorGap() {
+        return mIndicatorOptions.getIndicatorGap();
     }
 
-    public void setIndicatorGap(int indicatorGap) {
-        this.indicatorGap = indicatorGap;
+    public void setIndicatorGap(float indicatorGap) {
+        mIndicatorOptions.setIndicatorGap(indicatorGap);
     }
 
-    public int getIndicatorHeight() {
-        return indicatorHeight;
+    public float getIndicatorHeight() {
+        return mIndicatorOptions.getSliderHeight();
     }
 
     public void setIndicatorHeight(int indicatorHeight) {
-        this.indicatorHeight = indicatorHeight;
+        mIndicatorOptions.setSliderHeight(indicatorHeight);
     }
 
     public boolean isCustomIndicator() {

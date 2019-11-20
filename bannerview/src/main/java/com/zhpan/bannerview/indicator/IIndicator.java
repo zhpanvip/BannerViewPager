@@ -3,6 +3,7 @@ package com.zhpan.bannerview.indicator;
 import androidx.viewpager.widget.ViewPager;
 
 import com.zhpan.bannerview.annotation.AIndicatorSlideMode;
+import com.zhpan.bannerview.manager.IndicatorOptions;
 
 
 /**
@@ -23,6 +24,8 @@ public interface IIndicator extends ViewPager.OnPageChangeListener {
     void setIndicatorGap(float gap);
 
     void setIndicatorWidth(int normalIndicatorWidth, int checkedIndicatorWidth);
+
+    void setIndicatorOptions(IndicatorOptions options);
 
     void notifyDataChanged();
 }

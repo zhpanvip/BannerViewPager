@@ -24,11 +24,11 @@ import com.zhpan.bannerview.annotation.Visibility;
 import com.zhpan.bannerview.constants.IndicatorSlideMode;
 import com.zhpan.bannerview.constants.IndicatorStyle;
 import com.zhpan.bannerview.constants.PageStyle;
-import com.zhpan.bannerview.indicator.DashIndicatorView;
 import com.zhpan.bannerview.indicator.IIndicator;
 import com.zhpan.bannerview.indicator.IndicatorFactory;
 import com.zhpan.bannerview.manager.BannerManager;
 import com.zhpan.bannerview.manager.BannerOptions;
+import com.zhpan.bannerview.manager.IndicatorOptions;
 import com.zhpan.bannerview.transform.pagestyle.ScaleInTransformer;
 import com.zhpan.bannerview.utils.BannerUtils;
 import com.zhpan.bannerview.adapter.BannerPagerAdapter;
@@ -160,16 +160,9 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
 
     private void setIndicatorValues() {
         if (null != mIndicatorView) {
-            mIndicatorView.setPageSize(mList.size());
-            BannerOptions bannerOptions = mBannerManager.bannerOptions();
-            mIndicatorView.setCheckedColor(bannerOptions.getIndicatorCheckedColor());
-            mIndicatorView.setNormalColor(bannerOptions.getIndicatorNormalColor());
-            mIndicatorView.setIndicatorGap(bannerOptions.getIndicatorGap());
-            mIndicatorView.setSlideMode(bannerOptions.getIndicatorSlideMode());
-            mIndicatorView.setIndicatorWidth(bannerOptions.getNormalIndicatorWidth(), bannerOptions.getCheckedIndicatorWidth());
-            if (mIndicatorView instanceof DashIndicatorView) {
-                ((DashIndicatorView) mIndicatorView).setSliderHeight(bannerOptions.getIndicatorHeight());
-            }
+            IndicatorOptions bannerOptions = mBannerManager.bannerOptions().getIndicatorOptions();
+            bannerOptions.setPageSize(mList.size());
+            mIndicatorView.setIndicatorOptions(bannerOptions);
             mIndicatorView.notifyDataChanged();
         }
     }

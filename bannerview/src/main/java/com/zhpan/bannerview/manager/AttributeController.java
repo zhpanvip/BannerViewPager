@@ -13,7 +13,12 @@ import com.zhpan.bannerview.utils.BannerUtils;
 
 import static com.zhpan.bannerview.manager.BannerOptions.DEFAULT_SCROLL_DURATION;
 
-
+/**
+ * <pre>
+ *   Created by zhpan on 2019/11/20.
+ *   Description:
+ * </pre>
+ */
 public class AttributeController {
 
     private BannerOptions mBannerOptions;
