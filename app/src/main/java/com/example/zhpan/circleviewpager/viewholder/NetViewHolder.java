@@ -36,7 +36,7 @@ public class NetViewHolder implements ViewHolder<BannerData> {
 
     @Override
     public void onBind(Context context, BannerData data, int position, int size) {
-        ImageLoaderOptions options = new ImageLoaderOptions.Builder().into(mImageView).load(data.getImagePath())/*.placeHolder(R.drawable.placeholder)*/.build();
+        ImageLoaderOptions options = new ImageLoaderOptions.Builder().into(mImageView).load(data.getImagePath()).placeHolder(R.drawable.placeholder).build();
         ImageLoaderManager.getInstance().loadImage(options);
 //        mTextView.setText(data.getTitle());
     }

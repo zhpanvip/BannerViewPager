@@ -36,7 +36,6 @@ import com.zhpan.bannerview.holder.HolderCreator;
 import com.zhpan.bannerview.holder.ViewHolder;
 import com.zhpan.bannerview.provider.ViewStyleSetter;
 import com.zhpan.bannerview.transform.PageTransformerFactory;
-import com.zhpan.bannerview.utils.PositionUtils;
 import com.zhpan.bannerview.view.CatchViewPager;
 
 import java.util.ArrayList;
@@ -368,7 +367,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
 
     @Override
     public void onPageSelected(int position) {
-        currentPosition = PositionUtils.getRealPosition(isCanLoop, position, mList.size());
+        currentPosition = BannerUtils.getRealPosition(isCanLoop, position, mList.size());
         if (mOnPageChangeListener != null)
             mOnPageChangeListener.onPageSelected(currentPosition);
         if (mIndicatorView != null) {
@@ -389,11 +388,11 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
         if (mOnPageChangeListener != null) {
-            mOnPageChangeListener.onPageScrolled(PositionUtils.getRealPosition(isCanLoop, position, mList.size()),
+            mOnPageChangeListener.onPageScrolled(BannerUtils.getRealPosition(isCanLoop, position, mList.size()),
                     positionOffset, positionOffsetPixels);
         }
         if (mIndicatorView != null)
-            mIndicatorView.onPageScrolled(PositionUtils.getRealPosition(isCanLoop, position, mList.size()),
+            mIndicatorView.onPageScrolled(BannerUtils.getRealPosition(isCanLoop, position, mList.size()),
                     positionOffset, positionOffsetPixels);
     }
 

@@ -25,7 +25,7 @@ public class CatchViewPager extends ViewPager {
     private SparseIntArray mSparseIntArray = new SparseIntArray();
     private boolean mOverlapStyle = false;
     private BannerScroller mBannerScroller;
-    public static final int DEFAULT_SCROLL_DURATION = 800;
+    public static final int DEFAULT_SCROLL_DURATION = 500;
     private boolean disableTouchScroll;
     private boolean firstLayout = true;
 

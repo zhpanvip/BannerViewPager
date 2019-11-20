@@ -47,4 +47,8 @@ public class BannerUtils {
             Log.e("BannerView", msg);
         }
     }
+
+    public static int getRealPosition(boolean isCanLoop, int position, int pageSize) {
+        return isCanLoop ? (position - 1 + pageSize) % pageSize : (position + pageSize) % pageSize;
+    }
 }
