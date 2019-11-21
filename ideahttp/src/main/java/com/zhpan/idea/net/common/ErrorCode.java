@@ -1,6 +1,7 @@
 
 package com.zhpan.idea.net.common;
 
+
 import android.support.annotation.StringRes;
 
 import com.zhpan.idea.R;

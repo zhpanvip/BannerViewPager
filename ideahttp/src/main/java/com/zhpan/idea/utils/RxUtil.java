@@ -42,14 +42,18 @@ public class RxUtil {
      * @param <T>
      * @return
      */
-    public static <T> ObservableTransformer<T, T> rxSchedulerHelper(final RxFragment fragment) {    //compose简化线程
+    public static <T> ObservableTransformer<T, T> rxSchedulerHelper(final RxFragment fragment, final boolean showLoading) {
         return new ObservableTransformer<T, T>() {
             @Override
             public ObservableSource<T> apply(Observable<T> observable) {
-                return observable.subscribeOn(Schedulers.io())
+                Observable<T> compose = observable.subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .compose(ProgressUtils.<T>applyProgressBar(fragment.getActivity()))
-                        .compose(fragment.<T>bindUntilEvent(FragmentEvent.DESTROY_VIEW));
+                        .compose(fragment.<T>bindUntilEvent(FragmentEvent.DESTROY));
+                if (showLoading) {
+                    return compose.compose(ProgressUtils.<T>applyProgressBar(fragment.getActivity()));
+                } else {
+                    return compose;
+                }
             }
         };
     }

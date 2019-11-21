@@ -1,8 +1,14 @@
 <resources>
-    <string name="app_name">CircleViewPager</string>
-    <string name="wrapper_photo_view">嵌套PhotoView</string>
-    <string name="title_custom_page">自定义页面样式</string>
-    <string name="title_view_pager">圆角自动轮播</string>
-    <string name="load_data">嵌套RecyclerView</string>
-    <string name="title_transformer">Page Transformer</string>
+    <string name="app_name">BannerViewPager</string>
+    <string name="wrapper_photo_view">With PhotoView</string>
+    <string name="start_now">Start Now</string>
+    <string name="guide">guide</string>
+    <string name="normal">NORMAL</string>
+    <string name="smooth">SMOOTH</string>
+    <string name="image_description">image description</string>
+    <string name="tab1">Home</string>
+    <string name="tab2">Page</string>
+    <string name="tab3">Indicator</string>
+    <string name="text_page_style">Page Style:</string>
+    <string name="text_indicator_style">Indicator Style:</string>
 </resources>

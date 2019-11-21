@@ -4,6 +4,7 @@ package com.zhpan.bannerview.indicator;
 import android.support.v4.view.ViewPager;
 
 import com.zhpan.bannerview.annotation.AIndicatorSlideMode;
+import com.zhpan.bannerview.manager.IndicatorOptions;
 
 
 /**
@@ -21,9 +22,11 @@ public interface IIndicator extends ViewPager.OnPageChangeListener {
 
     void setSlideMode(@AIndicatorSlideMode int slideStyle);
 
-    void setIndicatorGap(int gap);
+    void setIndicatorGap(float gap);
 
     void setIndicatorWidth(int normalIndicatorWidth, int checkedIndicatorWidth);
+
+    void setIndicatorOptions(IndicatorOptions options);
 
     void notifyDataChanged();
 }

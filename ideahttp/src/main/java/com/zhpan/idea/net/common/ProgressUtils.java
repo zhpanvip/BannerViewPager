@@ -1,5 +1,6 @@
 package com.zhpan.idea.net.common;
 
+
 import android.app.Activity;
 import android.support.annotation.NonNull;
 

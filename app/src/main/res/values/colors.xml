@@ -3,4 +3,18 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
+    <color name="red">#FF5252</color>
+
+    <color name="transparent_red">#88FF5252</color>
+    <color name="white">#FFFFFF</color>
+    <color name="white_alpha_75">#BFFFFFFF</color>
+
+
+    <color name="tab_normal_text">#000000</color>
+    <color name="tab_selected_text">#000000</color>
+    <color name="line_color">#DCDCDC</color>
+
+    <color name="red_checked_color">#FF4C39</color>
+    <color name="red_normal_color">#935656</color>
 </resources>

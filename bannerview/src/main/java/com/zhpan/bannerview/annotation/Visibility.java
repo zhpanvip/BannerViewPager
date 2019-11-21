@@ -9,10 +9,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import static com.zhpan.bannerview.constants.IndicatorGravity.CENTER;
-import static com.zhpan.bannerview.constants.IndicatorGravity.END;
-import static com.zhpan.bannerview.constants.IndicatorGravity.START;
-
 
 /**
  * <pre>
