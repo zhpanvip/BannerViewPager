@@ -44,6 +44,7 @@ public class IndicatorFragment extends BaseFragment {
     @Override
     protected void initView(Bundle savedInstanceState, View view) {
         mViewPager.setIndicatorGap(BannerUtils.dp2px(6))
+                .setRoundCorner(BannerUtils.dp2px(6))
                 .setHolderCreator(() -> new ImageResourceViewHolder(0));
         initRadioGroup();
     }

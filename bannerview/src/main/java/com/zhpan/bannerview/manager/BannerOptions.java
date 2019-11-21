@@ -1,6 +1,7 @@
 package com.zhpan.bannerview.manager;
 
 import com.zhpan.bannerview.constants.PageStyle;
+import com.zhpan.bannerview.utils.BannerUtils;
 
 /**
  * <pre>
@@ -12,6 +13,8 @@ public class BannerOptions {
 
     public BannerOptions() {
         mIndicatorOptions = new IndicatorOptions();
+        mPageMargin = BannerUtils.dp2px(20);
+        mRevealWidth = BannerUtils.dp2px(20);
     }
 
     public static final int DEFAULT_SCROLL_DURATION = 500;

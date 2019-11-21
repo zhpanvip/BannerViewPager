@@ -72,31 +72,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
 
     private Handler mHandler = new Handler();
 
-    private Runnable mRunnable = new Runnable() {
-        @Override
-        public void run() {
-            if (mList.size() > 1) {
-                currentPosition = mViewPager.getCurrentItem() + 1;
-                if (isCanLoop()) {
-                    if (currentPosition == MAX_VALUE - 1) {
-                        currentPosition = 0;
-                        mViewPager.setCurrentItem(currentPosition, false);
-                        mHandler.post(mRunnable);
-                    } else {
-                        mViewPager.setCurrentItem(currentPosition);
-                        mHandler.postDelayed(mRunnable, getInterval());
-                    }
-                } else {
-                    if (currentPosition >= MAX_VALUE) {
-                        stopLoop();
-                    } else {
-                        mViewPager.setCurrentItem(currentPosition);
-                        mHandler.postDelayed(mRunnable, getInterval());
-                    }
-                }
-            }
-        }
-    };
+    private Runnable mRunnable = this::handlePosition;
 
     public BannerViewPager(Context context) {
         this(context, null);
@@ -136,9 +112,6 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
         startLoop();
     }
 
-    /**
-     * 设置触摸事件，当滑动或者触摸时停止自动轮播
-     */
     @SuppressLint("ClickableViewAccessibility")
     private void setTouchListener() {
         mViewPager.setOnTouchListener((v, event) -> {
@@ -191,6 +164,29 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
                     positionOffset, positionOffsetPixels);
     }
 
+    private void handlePosition() {
+        if (mList.size() > 1) {
+            currentPosition = mViewPager.getCurrentItem() + 1;
+            if (isCanLoop()) {
+                if (currentPosition == MAX_VALUE - 1) {
+                    currentPosition = 0;
+                    mViewPager.setCurrentItem(currentPosition, false);
+                    mHandler.post(mRunnable);
+                } else {
+                    mViewPager.setCurrentItem(currentPosition);
+                    mHandler.postDelayed(mRunnable, getInterval());
+                }
+            } else {
+                if (currentPosition >= MAX_VALUE) {
+                    stopLoop();
+                } else {
+                    mViewPager.setCurrentItem(currentPosition);
+                    mHandler.postDelayed(mRunnable, getInterval());
+                }
+            }
+        }
+    }
+
     private void initBannerData(List<T> list) {
         if (list != null) {
             mList.clear();
@@ -204,7 +200,6 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
             }
         }
     }
-
 
     private void setIndicatorValues() {
         BannerOptions bannerOptions = mBannerManager.bannerOptions();
@@ -311,15 +306,9 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     }
 
     private void setMultiPageStyle(boolean overlap, float scale) {
-        BannerOptions bannerOptions = mBannerManager.bannerOptions();
-        if (bannerOptions.getPageMargin() == 0) {
-            bannerOptions.setPageMargin(BannerUtils.dp2px(20));
-        }
-        if (bannerOptions.getRevealWidth() == 0) {
-            bannerOptions.setRevealWidth(BannerUtils.dp2px(20));
-        }
         setClipChildren(false);
         ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) mViewPager.getLayoutParams();
+        BannerOptions bannerOptions = mBannerManager.bannerOptions();
         params.leftMargin = bannerOptions.getPageMargin() + bannerOptions.getRevealWidth();
         params.rightMargin = params.leftMargin;
         mViewPager.setOverlapStyle(overlap);
@@ -485,8 +474,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
      * @param radius 指示器圆点半径
      */
     public BannerViewPager<T, VH> setIndicatorRadius(int radius) {
-        mBannerManager.bannerOptions().setNormalIndicatorWidth(radius * 2);
-        mBannerManager.bannerOptions().setCheckedIndicatorWidth(radius * 2);
+        setIndicatorRadius(radius,radius);
         return this;
     }
 
@@ -509,8 +497,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
      * @param indicatorWidth 单个Indicator宽度/直径
      */
     public BannerViewPager<T, VH> setIndicatorWidth(int indicatorWidth) {
-        mBannerManager.bannerOptions().setNormalIndicatorWidth(indicatorWidth);
-        mBannerManager.bannerOptions().setCheckedIndicatorWidth(indicatorWidth);
+        setIndicatorWidth(indicatorWidth, indicatorWidth);
         return this;
     }
 
