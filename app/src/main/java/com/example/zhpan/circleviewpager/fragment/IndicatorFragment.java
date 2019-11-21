@@ -118,17 +118,17 @@ public class IndicatorFragment extends BaseFragment {
         startActivity(new Intent(getActivity(), PhotoViewActivity.class));
     }
 
-    @Override
-    public void onStop() {
-        if (mViewPager != null)
-            mViewPager.stopLoop();
-        super.onStop();
-    }
-
-    @Override
-    public void onResume() {
-        if (mViewPager != null)
-            mViewPager.startLoop();
-        super.onResume();
-    }
+//    @Override
+//    public void onStop() {
+//        if (mViewPager != null)
+//            mViewPager.stopLoop();
+//        super.onStop();
+//    }
+//
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        if (mViewPager != null)
+//            mViewPager.startLoop();
+//    }
 }

@@ -37,14 +37,9 @@ public class AttributeController {
     }
 
     private void initIndicatorAttrs(TypedArray typedArray) {
-        int indicatorCheckedColor =
-                typedArray.getColor(R.styleable.BannerViewPager_bvp_indicator_checked_color,
-                        Color.parseColor("#8C18171C"));
-        int indicatorNormalColor =
-                typedArray.getColor(R.styleable.BannerViewPager_bvp_indicator_normal_color,
-                        Color.parseColor("#8C6C6D72"));
-        int normalIndicatorWidth = (int) typedArray.getDimension(R.styleable.BannerViewPager_bvp_indicator_radius,
-                BannerUtils.dp2px(8));
+        int indicatorCheckedColor = typedArray.getColor(R.styleable.BannerViewPager_bvp_indicator_checked_color, Color.parseColor("#8C18171C"));
+        int indicatorNormalColor = typedArray.getColor(R.styleable.BannerViewPager_bvp_indicator_normal_color, Color.parseColor("#8C6C6D72"));
+        int normalIndicatorWidth = (int) typedArray.getDimension(R.styleable.BannerViewPager_bvp_indicator_radius, BannerUtils.dp2px(8));
         int indicatorGravity = typedArray.getInt(R.styleable.BannerViewPager_bvp_indicator_gravity, 0);
         int indicatorStyle = typedArray.getInt(R.styleable.BannerViewPager_bvp_indicator_style, 0);
         int indicatorSlideMode = typedArray.getInt(R.styleable.BannerViewPager_bvp_indicator_slide_mode, 0);

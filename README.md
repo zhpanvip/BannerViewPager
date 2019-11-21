@@ -228,7 +228,9 @@ public class NetViewHolder implements ViewHolder<BannerData> {
 ```
 ### 6.开启与停止轮播
 
-如果开启了自动轮播功能，请务必在onDestroy中停止轮播，以免出现内存泄漏。
+***2.5.0之后版本无需自行在Activity或Fragment中管理stopLoop和startLoop方法，但这两个方法依旧保留对外开发***
+
+~~如果开启了自动轮播功能，请务必在onDestroy中停止轮播，以免出现内存泄漏。~~
 
 ```
 	@Override
@@ -238,7 +240,7 @@ public class NetViewHolder implements ViewHolder<BannerData> {
     		mViewpager.stopLoop();
     }
 ```
-为了节省性能也可以在onStop中停止轮播，在onResume中开启轮播：
+~~为了节省性能也可以在onStop中停止轮播，在onResume中开启轮播：~~
 
 ```
     @Override
@@ -353,7 +355,7 @@ public class FigureIndicatorView extends BaseIndicatorView {
  - [x] 增添更多Indicator样式（2.3.+）
  - [x] 支持一屏显示多页 （2.4.0）
  - [x] v2.4.3版本着重优化提升性能
- - [ ] v2.4.4优化整理Indicator，尽量修复Indicator SMOOTH模式下滑动问题
+ - [ ] v2.5.0优化整理Indicator，尽量修复Indicator SMOOTH模式下滑动问题
  - [ ] ViewPager更换为ViewPager2 （3.0.0）
  - [ ] 目前Indicator部分代码比较乱，还有很大很大的优化空间，后续版本将持续优化
  
