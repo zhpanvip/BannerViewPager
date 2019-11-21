@@ -10,9 +10,9 @@ public interface PageStyle {
 
     int NORMAL = 0;
 
-    int MULTI_PAGE = 1;
+    int MULTI_PAGE = 1 << 1;
 
-    int MULTI_PAGE_OVERLAP = 2;
+    int MULTI_PAGE_OVERLAP = 1 << 2;
 
-    int MULTI_PAGE_SCALE = 3;
+    int MULTI_PAGE_SCALE = 1 << 3;
 }

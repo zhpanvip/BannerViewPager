@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 
 public interface ViewHolder<T> {
     View createView(ViewGroup viewGroup,Context context, int position);
-   // void onBind(Context context, int position, T data);
+
     /**
      * @param context context
      * @param data 实体类对象

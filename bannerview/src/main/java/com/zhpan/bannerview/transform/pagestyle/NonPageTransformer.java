@@ -4,9 +4,6 @@ import android.view.View;
 
 import androidx.viewpager.widget.ViewPager;
 
-/**
- * Created by zhy on 16/5/7.
- */
 public class NonPageTransformer implements ViewPager.PageTransformer {
     @Override
     public void transformPage(View page, float position) {
