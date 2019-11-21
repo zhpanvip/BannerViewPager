@@ -58,11 +58,11 @@ public class IndicatorFragment extends BaseFragment {
         radioGroupStyle.setOnCheckedChangeListener((group, checkedId) -> {
             switch (checkedId) {
                 case R.id.rb_circle:
-//                    mViewPager.resetIndicator();
+                    mViewPager.resetIndicator();
                     setupCircleIndicator();
                     break;
                 case R.id.rb_dash:
-//                    mViewPager.resetIndicator();
+                    mViewPager.resetIndicator();
                     setupDashIndicator();
                     break;
                 case R.id.rb_custom:
@@ -117,18 +117,4 @@ public class IndicatorFragment extends BaseFragment {
     public void onClick(View view) {
         startActivity(new Intent(getActivity(), PhotoViewActivity.class));
     }
-
-//    @Override
-//    public void onStop() {
-//        if (mViewPager != null)
-//            mViewPager.stopLoop();
-//        super.onStop();
-//    }
-//
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        if (mViewPager != null)
-//            mViewPager.startLoop();
-//    }
 }
