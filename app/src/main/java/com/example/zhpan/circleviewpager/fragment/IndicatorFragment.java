@@ -58,11 +58,11 @@ public class IndicatorFragment extends BaseFragment {
         radioGroupStyle.setOnCheckedChangeListener((group, checkedId) -> {
             switch (checkedId) {
                 case R.id.rb_circle:
-                    mViewPager.resetIndicator();
+//                    mViewPager.resetIndicator();
                     setupCircleIndicator();
                     break;
                 case R.id.rb_dash:
-                    mViewPager.resetIndicator();
+//                    mViewPager.resetIndicator();
                     setupDashIndicator();
                     break;
                 case R.id.rb_custom:

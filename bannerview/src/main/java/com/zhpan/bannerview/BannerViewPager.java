@@ -718,9 +718,9 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     }
 
     //  仅供demo使用
-    @Deprecated
-    public void resetIndicator() {
-        mBannerManager.bannerOptions().setCustomIndicator(false);
-        mIndicatorView = null;
-    }
+//    @Deprecated
+//    public void resetIndicator() {
+//        mBannerManager.bannerOptions().setCustomIndicator(false);
+//        mIndicatorView = null;
+//    }
 }

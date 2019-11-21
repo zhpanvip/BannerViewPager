@@ -78,18 +78,18 @@ public class PageFragment extends BaseFragment {
         mRadioGroupPageStyle.setOnCheckedChangeListener((group, checkedId) -> {
             switch (checkedId) {
                 case R.id.rb_multi_page:
-                    mViewPager.resetIndicator();// 在实际开发中这行代码不必添加，此处因为受到其它两种模式影响所以要隐藏掉内置指示器
+//                    mViewPager.resetIndicator();// 在实际开发中这行代码不必添加，此处因为受到其它两种模式影响所以要隐藏掉内置指示器
                     indicatorView.setVisibility(View.INVISIBLE);// 在实际开发中这行代码不必添加，此处因为受到其它两种模式影响所以要隐藏掉内置指示器
                     setupBanner(PageStyle.MULTI_PAGE);
                     break;
                 case R.id.rb_multi_page_scale:
-                    mViewPager.resetIndicator();// 在实际开发中这行代码不必添加，此处因为受到其它两种模式影响所以要隐藏掉内置指示器
+//                    mViewPager.resetIndicator();// 在实际开发中这行代码不必添加，此处因为受到其它两种模式影响所以要隐藏掉内置指示器
                     indicatorView.setVisibility(View.INVISIBLE);// 在实际开发中这行代码不必添加，此处因为受到其它两种模式影响所以要隐藏掉内置指示器
                     setupBanner(PageStyle.MULTI_PAGE_SCALE);
                     break;
                 case R.id.rb_multi_page_overlap:
                     indicatorView.setVisibility(View.VISIBLE);// 在实际开发中这行代码不必添加，此处因为受到其它两种模式影响所以要隐藏掉内置指示器
-                    mViewPager.resetIndicator();
+//                    mViewPager.resetIndicator();
                     setupOverlapBanner();
                     break;
             }
