@@ -216,7 +216,7 @@ Kotlin示例：
                 .setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
                 .setIndicatorMargin(0, 0, 0, ConvertUtils.dp2px(40f))
                 .setIndicatorGravity(IndicatorGravity.CENTER)
-                .setHolderCreator { NetViewHolder() }
+                .setHolderCreator { CustomPageViewHolder() }
                 .setOnPageChangeListener(
                     object : OnPageChangeListenerAdapter() {
                         override fun onPageSelected(position: Int) {

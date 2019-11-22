@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.animation.DecelerateInterpolator
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 
 import com.example.zhpan.circleviewpager.R
 import com.example.zhpan.circleviewpager.bean.CustomBean
@@ -61,8 +62,8 @@ class WelcomeActivity : BaseDataActivity(), HolderCreator<CustomPageViewHolder> 
                 .setScrollDuration(ANIMATION_DURATION)
                 .setIndicatorMargin(0, 0, 0, BannerUtils.dp2px(100f))
                 .setIndicatorGap(resources.getDimension(R.dimen.dp_10).toInt())
-                .setIndicatorColor(resources.getColor(R.color.white),
-                        resources.getColor(R.color.white_alpha_75))
+                .setIndicatorColor(ContextCompat.getColor(this, R.color.white),
+                        ContextCompat.getColor(this, R.color.white_alpha_75))
                 .setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
                 .setIndicatorRadius(resources.getDimension(R.dimen.dp_3).toInt(), resources.getDimension(R.dimen.dp_4_5).toInt())
                 .setOnPageChangeListener(object : OnPageChangeListenerAdapter() {
@@ -109,6 +110,6 @@ class WelcomeActivity : BaseDataActivity(), HolderCreator<CustomPageViewHolder> 
 
     companion object {
 
-        private val ANIMATION_DURATION = 1300
+        private const val ANIMATION_DURATION = 1300
     }
 }
