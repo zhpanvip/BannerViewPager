@@ -19,7 +19,8 @@ import com.example.zhpan.circleviewpager.viewholder.NetViewHolder;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.zhpan.bannerview.BannerViewPager;
-import com.zhpan.bannerview.constants.IndicatorGravity;
+import com.zhpan.bannerview.constants.PageStyle;
+import com.zhpan.bannerview.utils.BannerUtils;
 import com.zhpan.idea.net.common.ResponseObserver;
 import com.zhpan.idea.utils.RxUtil;
 
@@ -106,16 +107,18 @@ public class HomeFragment extends BaseFragment {
 
     private void initBanner() {
         mBannerViewPager
-                .setInterval(3000)
-                .setCanLoop(false)
                 .setAutoPlay(true)
+                .setInterval(5000)
+                .setRevealWidth(BannerUtils.dp2px(10))
+                .setPageMargin(BannerUtils.dp2px(10))
+                .setPageStyle(PageStyle.MULTI_PAGE_OVERLAP)
                 .setIndicatorColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
-                .setIndicatorGravity(IndicatorGravity.END)
-                .setScrollDuration(1000).setHolderCreator(NetViewHolder::new)
+                .setHolderCreator(NetViewHolder::new)
+                .setIndicatorMargin(0,0,0, (int) getResources().getDimension(R.dimen.dp_18))
                 .setOnPageClickListener(position -> {
                     BannerData bannerData = mBannerViewPager.getList().get(position);
                     Toast.makeText(mContext,
-                            "点击了position:" + position + " " + bannerData.getDesc(), Toast.LENGTH_SHORT).show();
+                            "点击了position:" + position + " " + bannerData.getTitle(), Toast.LENGTH_SHORT).show();
 
                 });
     }
@@ -124,19 +127,5 @@ public class HomeFragment extends BaseFragment {
         View view = LayoutInflater.from(mContext).inflate(R.layout.item_header_view, recyclerView, false);
         mBannerViewPager = view.findViewById(R.id.banner_view);
         return view;
-    }
-
-    @Override
-    public void onStop() {
-        if (mBannerViewPager != null)
-            mBannerViewPager.stopLoop();
-        super.onStop();
-    }
-
-    @Override
-    public void onResume() {
-        if (mBannerViewPager != null)
-            mBannerViewPager.startLoop();
-        super.onResume();
     }
 }

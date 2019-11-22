@@ -1,5 +1,6 @@
 package com.zhpan.bannerview.view;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 
 import androidx.viewpager.widget.ViewPager;
@@ -15,6 +16,8 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import static com.zhpan.bannerview.manager.BannerOptions.DEFAULT_SCROLL_DURATION;
+
 /**
  * Author zhangpan
  * Time:2018/11/14 15:24
@@ -25,8 +28,8 @@ public class CatchViewPager extends ViewPager {
     private SparseIntArray mSparseIntArray = new SparseIntArray();
     private boolean mOverlapStyle = false;
     private BannerScroller mBannerScroller;
-    public static final int DEFAULT_SCROLL_DURATION = 800;
     private boolean disableTouchScroll;
+    private boolean firstLayout = true;
 
     public CatchViewPager(Context context) {
         this(context, null);
@@ -48,18 +51,6 @@ public class CatchViewPager extends ViewPager {
             ex.printStackTrace();
         }
         return false;
-    }
-
-    private void hookScroller() {
-        try {
-            mBannerScroller = new BannerScroller(getContext());
-            mBannerScroller.setDuration(DEFAULT_SCROLL_DURATION);
-            Field mField = ViewPager.class.getDeclaredField("mScroller");
-            mField.setAccessible(true);
-            mField.set(this, mBannerScroller);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
@@ -96,6 +87,7 @@ public class CatchViewPager extends ViewPager {
         mBannerScroller.setDuration(scrollDuration);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         if (disableTouchScroll) {
@@ -106,5 +98,46 @@ public class CatchViewPager extends ViewPager {
 
     public void disableTouchScroll(boolean disableTouchScroll) {
         this.disableTouchScroll = disableTouchScroll;
+    }
+
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        hookFirstLayout();
+    }
+
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        firstLayout = false;
+    }
+
+    private void hookScroller() {
+        try {
+            mBannerScroller = new BannerScroller(getContext());
+            mBannerScroller.setDuration(DEFAULT_SCROLL_DURATION);
+            Field mField = ViewPager.class.getDeclaredField("mScroller");
+            mField.setAccessible(true);
+            mField.set(this, mBannerScroller);
+        } catch (IllegalAccessException | NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void hookFirstLayout() {
+        try {
+            Field mFirstLayout = ViewPager.class.getDeclaredField("mFirstLayout");
+            mFirstLayout.setAccessible(true);
+            mFirstLayout.set(this, firstLayout);
+            setCurrentItem(getCurrentItem());
+        } catch (IllegalAccessException | NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setFirstLayout(boolean firstLayout) {
+        this.firstLayout = firstLayout;
     }
 }

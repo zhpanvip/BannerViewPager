@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import com.zhpan.bannerview.holder.HolderCreator;
 import com.zhpan.bannerview.holder.ViewHolder;
-import com.zhpan.bannerview.utils.PositionUtils;
+import com.zhpan.bannerview.utils.BannerUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +53,7 @@ public class BannerPagerAdapter<T, VH extends ViewHolder> extends PagerAdapter {
     @Override
     public @NonNull
     Object instantiateItem(@NonNull final ViewGroup container, final int position) {
-        View itemView = findViewByPosition(container, PositionUtils.getRealPosition(isCanLoop, position, mList.size()));
+        View itemView = findViewByPosition(container, BannerUtils.getRealPosition(isCanLoop, position, mList.size()));
         container.addView(itemView);
         return itemView;
     }
@@ -74,7 +74,7 @@ public class BannerPagerAdapter<T, VH extends ViewHolder> extends PagerAdapter {
     private View getView(final int position, ViewGroup container) {
         ViewHolder<T> holder = holderCreator.createViewHolder();
         if (holder == null) {
-            throw new NullPointerException("can not return a null holder");
+            throw new NullPointerException("Can not return a null holder");
         }
         return createView(holder, position, container);
     }

@@ -23,19 +23,6 @@ public class BannerUtils {
         return (int) (0.5F + dpValue * Resources.getSystem().getDisplayMetrics().density);
     }
 
-    public static float px2dp(float pxValue) {
-        return pxValue / Resources.getSystem().getDisplayMetrics().density;
-    }
-
-    public int dip2px(float dpValue) {
-        return (int) (0.5F + dpValue * this.density);
-    }
-
-    public float px2dip(int pxValue) {
-        return (float) pxValue / this.density;
-    }
-
-
     public static void e(String tag, String msg) {
         if (DEBUG) {
             Log.e(tag, msg);
@@ -46,5 +33,9 @@ public class BannerUtils {
         if (DEBUG) {
             Log.e("BannerView", msg);
         }
+    }
+
+    public static int getRealPosition(boolean isCanLoop, int position, int pageSize) {
+        return isCanLoop ? (position - 1 + pageSize) % pageSize : (position + pageSize) % pageSize;
     }
 }

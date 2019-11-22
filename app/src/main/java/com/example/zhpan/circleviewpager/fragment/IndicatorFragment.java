@@ -44,6 +44,7 @@ public class IndicatorFragment extends BaseFragment {
     @Override
     protected void initView(Bundle savedInstanceState, View view) {
         mViewPager.setIndicatorGap(BannerUtils.dp2px(6))
+                .setRoundCorner(BannerUtils.dp2px(6))
                 .setHolderCreator(() -> new ImageResourceViewHolder(0));
         initRadioGroup();
     }
@@ -116,19 +117,5 @@ public class IndicatorFragment extends BaseFragment {
     @OnClick(R.id.tv_photo_view)
     public void onClick(View view) {
         startActivity(new Intent(getActivity(), PhotoViewActivity.class));
-    }
-
-    @Override
-    public void onStop() {
-        if (mViewPager != null)
-            mViewPager.stopLoop();
-        super.onStop();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (mViewPager != null)
-            mViewPager.stopLoop();
     }
 }

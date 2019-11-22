@@ -54,7 +54,7 @@ public class FigureIndicatorView extends BaseIndicatorView {
         canvas.drawCircle(getWidth() / 2, getHeight() / 2, radius, mPaint);
         mPaint.setColor(textColor);
         mPaint.setTextSize(textSize);
-        String text = currentPosition + 1 + "/" + pageSize;
+        String text = getCurrentPosition() + 1 + "/" + getPageSize();
         int textWidth = (int) mPaint.measureText(text);
         Paint.FontMetricsInt fontMetricsInt = mPaint.getFontMetricsInt();
         int baseline = (getMeasuredHeight() - fontMetricsInt.bottom + fontMetricsInt.top) / 2 - fontMetricsInt.top;

@@ -6,9 +6,6 @@ import android.view.View;
 
 import androidx.viewpager.widget.ViewPager;
 
-/**
- * Created by zhy on 16/5/7.
- */
 public abstract class BasePageTransformer implements ViewPager.PageTransformer {
     protected ViewPager.PageTransformer mPageTransformer = NonPageTransformer.INSTANCE;
     public static final float DEFAULT_CENTER = 0.5f;
