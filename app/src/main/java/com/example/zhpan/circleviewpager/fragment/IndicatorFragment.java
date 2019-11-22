@@ -81,7 +81,7 @@ public class IndicatorFragment extends BaseFragment {
                 .setPageMargin(0)
                 .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
                 .setIndicatorColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
-                .setIndicatorRadius(BannerUtils.dp2px(4), BannerUtils.dp2px(5)).create(mDrawableList);
+                .setIndicatorRadius(BannerUtils.dp2px(4), BannerUtils.dp2px(5)).create(getMDrawableList());
     }
 
     private void setupDashIndicator() {
@@ -92,7 +92,7 @@ public class IndicatorFragment extends BaseFragment {
                 .setPageMargin(0)
                 .setIndicatorWidth(BannerUtils.dp2px(3), BannerUtils.dp2px(10))
                 .setIndicatorColor(Color.parseColor("#888888"),
-                        Color.parseColor("#118EEA")).create(mDrawableList);
+                        Color.parseColor("#118EEA")).create(getMDrawableList());
     }
 
     private void setupCustomIndicator() {
@@ -100,14 +100,14 @@ public class IndicatorFragment extends BaseFragment {
                 .setPageMargin(BannerUtils.dp2px(20))
                 .setIndicatorGravity(IndicatorGravity.END)
                 .setIndicatorView(setupIndicatorView())
-                .setHolderCreator(() -> new ImageResourceViewHolder(0)).create(mDrawableList);
+                .setHolderCreator(() -> new ImageResourceViewHolder(0)).create(getMDrawableList());
     }
 
     /**
      * 这里可以是自定义的Indicator，需要继承BaseIndicatorView或者实现IIndicator接口;
      */
     private FigureIndicatorView setupIndicatorView() {
-        FigureIndicatorView indicatorView = new FigureIndicatorView(mContext);
+        FigureIndicatorView indicatorView = new FigureIndicatorView(getMContext());
         indicatorView.setRadius(BannerUtils.dp2px(18));
         indicatorView.setTextSize(BannerUtils.dp2px(13));
         indicatorView.setBackgroundColor(Color.parseColor("#aa118EEA"));

@@ -71,7 +71,7 @@ public class PageFragment extends BaseFragment {
         mViewPager
                 .setIndicatorVisibility(View.VISIBLE) // 在实际开发中这行代码不必添加，此处因为受到其它两种模式影响所以要隐藏掉内置指示器
                 .setPageStyle(pageStyle)
-                .create(mDrawableList);
+                .create(getMDrawableList());
     }
 
     private void initRadioGroup() {
@@ -102,6 +102,6 @@ public class PageFragment extends BaseFragment {
                 .setIndicatorVisibility(View.GONE) // 在实际开发中这行代码不必添加，此处因为受到其它两种模式影响所以要隐藏掉内置指示器
                 .setPageStyle(PageStyle.MULTI_PAGE_OVERLAP)
                 .setIndicatorView(indicatorView)
-                .create(mDrawableList);
+                .create(getMDrawableList());
     }
 }
