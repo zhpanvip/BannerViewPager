@@ -25,8 +25,8 @@ import com.zhpan.bannerview.annotation.Visibility;
 import com.zhpan.bannerview.constants.IndicatorSlideMode;
 import com.zhpan.bannerview.constants.IndicatorStyle;
 import com.zhpan.bannerview.constants.PageStyle;
+import com.zhpan.bannerview.indicator.IndicatorView;
 import com.zhpan.bannerview.indicator.IIndicator;
-import com.zhpan.bannerview.indicator.IndicatorFactory;
 import com.zhpan.bannerview.manager.BannerManager;
 import com.zhpan.bannerview.manager.BannerOptions;
 import com.zhpan.bannerview.transform.pagestyle.ScaleInTransformer;
@@ -206,7 +206,8 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
         if (bannerOptions.isCustomIndicator() && null != mIndicatorView) {
             initIndicator(mIndicatorView);
         } else {
-            initIndicator(IndicatorFactory.createIndicatorView(getContext(), bannerOptions.getIndicatorStyle()));
+//            initIndicator(IndicatorFactory.createIndicatorView(getContext(), bannerOptions.getIndicatorStyle()));
+            initIndicator(new IndicatorView(getContext()));
         }
         mIndicatorView.setIndicatorOptions(bannerOptions.getIndicatorOptions());
         mIndicatorView.setPageSize(mList.size());
@@ -474,7 +475,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
      * @param radius 指示器圆点半径
      */
     public BannerViewPager<T, VH> setIndicatorRadius(int radius) {
-        setIndicatorRadius(radius,radius);
+        setIndicatorRadius(radius, radius);
         return this;
     }
 

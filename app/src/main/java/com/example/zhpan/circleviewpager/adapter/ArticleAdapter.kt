@@ -37,23 +37,14 @@ class ArticleAdapter(context: Context, data: List<ArticleWrapper.Article>) : Rec
         notifyDataSetChanged()
     }
 
-    fun addData(list: List<ArticleWrapper.Article>) {
-        mList.addAll(list)
-        notifyDataSetChanged()
-    }
-
     override fun getItemCount(): Int {
         return mList.size
     }
 
     inner class ArticleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        internal var tvTitle: TextView
-        internal var tvAuthor: TextView
+        internal var tvTitle: TextView = itemView.findViewById(R.id.tv_title)
+        internal var tvAuthor: TextView = itemView.findViewById(R.id.tv_auther)
 
-        init {
-            tvTitle = itemView.findViewById(R.id.tv_title)
-            tvAuthor = itemView.findViewById(R.id.tv_auther)
-        }
     }
 
 }

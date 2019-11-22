@@ -11,7 +11,7 @@
         android:layout_marginTop="20dp"
         app:bvp_page_style="multi_page" />
 
-    <com.zhpan.bannerview.indicator.CircleIndicatorView
+    <com.zhpan.bannerview.indicator.IndicatorView
         android:id="@+id/indicator_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

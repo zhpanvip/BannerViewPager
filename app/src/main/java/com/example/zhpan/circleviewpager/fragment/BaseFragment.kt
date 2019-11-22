@@ -13,17 +13,12 @@ import com.trello.rxlifecycle2.components.support.RxFragment
 
 import java.util.ArrayList
 
-import butterknife.ButterKnife
-import butterknife.Unbinder
-
 /**
  * MVC模式的Base fragment
  */
 abstract class BaseFragment : RxFragment() {
     protected var mDrawableList: MutableList<Int> = ArrayList()
     protected lateinit var mContext: Context
-    private var mBind: Unbinder? = null
-
 
     /**
      * 获取当前Activity的UI布局
@@ -39,18 +34,10 @@ abstract class BaseFragment : RxFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(layout, container, false)
-        mBind = ButterKnife.bind(this, view)
         initData()
         initTitle()
         initView(savedInstanceState, view)
         return view
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        if (mBind != null) {
-            mBind!!.unbind()
-        }
     }
 
     private fun initData() {
