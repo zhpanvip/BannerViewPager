@@ -25,11 +25,6 @@ public abstract class BaseDrawer implements IDrawer {
         mMeasureResult = new MeasureResult();
     }
 
-    @Override
-    public void setIndicatorOptions(IndicatorOptions indicatorOptions) {
-        this.mIndicatorOptions = indicatorOptions;
-    }
-
     public class MeasureResult {
 
         public int measureWidth;

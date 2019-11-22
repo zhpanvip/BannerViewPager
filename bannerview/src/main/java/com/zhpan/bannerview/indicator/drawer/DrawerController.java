@@ -14,31 +14,26 @@ import static com.zhpan.bannerview.constants.IndicatorStyle.DASH;
  * </pre>
  */
 public class DrawerController {
-
-    private IndicatorOptions mIndicatorOptions;
-
+    
     private IDrawer mIDrawer;
 
     public DrawerController(IndicatorOptions indicatorOptions) {
-        this.mIndicatorOptions = indicatorOptions;
-        init();
+        init(indicatorOptions);
     }
 
-    private void init() {
-        switch (mIndicatorOptions.getIndicatorStyle()) {
+    private void init(IndicatorOptions indicatorOptions) {
+        switch (indicatorOptions.getIndicatorStyle()) {
             case CIRCLE:
-                mIDrawer = new CircleDrawer(mIndicatorOptions);
+                mIDrawer = new CircleDrawer(indicatorOptions);
                 break;
             case DASH:
-                mIDrawer = new DashDrawer(mIndicatorOptions);
+                mIDrawer = new DashDrawer(indicatorOptions);
                 break;
         }
     }
 
     public void setIndicatorOptions(IndicatorOptions indicatorOptions) {
-        mIndicatorOptions = indicatorOptions;
-        mIDrawer.setIndicatorOptions(indicatorOptions);
-        init();
+        init(indicatorOptions);
     }
 
     public BaseDrawer.MeasureResult measure(int widthMeasureSpec, int heightMeasureSpec) {

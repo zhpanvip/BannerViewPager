@@ -15,7 +15,4 @@ public interface IDrawer {
     BaseDrawer.MeasureResult onMeasure(int widthMeasureSpec, int heightMeasureSpec);
 
     void onDraw(Canvas canvas);
-
-    void setIndicatorOptions(IndicatorOptions indicatorOptions);
-
 }
