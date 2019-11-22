@@ -4,9 +4,6 @@ import android.content.Context;
 import android.view.animation.Interpolator;
 import android.widget.Scroller;
 
-/**
- * 代码来自https://github.com/youth5201314/banner
- */
 public class BannerScroller extends Scroller {
     private int mDuration = 1000;
 

@@ -62,6 +62,7 @@
         android:layout_marginTop="20dp"
         android:background="@color/white"
         android:gravity="center"
+        android:onClick="onClick"
         android:text="@string/wrapper_photo_view"
         android:textColor="#000000"
         android:textSize="16sp" />

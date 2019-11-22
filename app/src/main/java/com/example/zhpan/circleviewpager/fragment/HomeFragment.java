@@ -64,17 +64,17 @@ public class HomeFragment extends BaseFragment {
 
     private void initRecyclerView(View view) {
         recyclerView = view.findViewById(R.id.recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getMContext()));
         recyclerView.addHeadView(getHeaderView());
-        recyclerView.addItemDecoration(new DividerItemDecoration(mContext,
+        recyclerView.addItemDecoration(new DividerItemDecoration(getMContext(),
                 DividerItemDecoration.VERTICAL));
-        articleAdapter = new ArticleAdapter(mContext, new ArrayList<>());
+        articleAdapter = new ArticleAdapter(getMContext(), new ArrayList<>());
         recyclerView.setAdapter(articleAdapter);
     }
 
     private void initRefreshLayout(View view) {
         mSmartRefreshLayout = view.findViewById(R.id.refresh_layout);
-        mSmartRefreshLayout.setRefreshHeader(new MaterialHeader(mContext));
+        mSmartRefreshLayout.setRefreshHeader(new MaterialHeader(getMContext()));
         mSmartRefreshLayout.setOnRefreshListener(refreshLayout -> fetchData(false));
     }
 
@@ -117,14 +117,14 @@ public class HomeFragment extends BaseFragment {
                 .setIndicatorMargin(0,0,0, (int) getResources().getDimension(R.dimen.dp_18))
                 .setOnPageClickListener(position -> {
                     BannerData bannerData = mBannerViewPager.getList().get(position);
-                    Toast.makeText(mContext,
+                    Toast.makeText(getMContext(),
                             "点击了position:" + position + " " + bannerData.getTitle(), Toast.LENGTH_SHORT).show();
 
                 });
     }
 
     private View getHeaderView() {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_header_view, recyclerView, false);
+        View view = LayoutInflater.from(getMContext()).inflate(R.layout.item_header_view, recyclerView, false);
         mBannerViewPager = view.findViewById(R.id.banner_view);
         return view;
     }

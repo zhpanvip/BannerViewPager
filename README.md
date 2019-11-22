@@ -380,9 +380,10 @@ public class FigureIndicatorView extends BaseIndicatorView {
  - [x] 增添更多Indicator样式（2.3.+）
  - [x] 支持一屏显示多页 （2.4.0）
  - [x] v2.4.3版本着重优化提升性能
- - [ ] v2.5.0优化整理Indicator，尽量修复Indicator SMOOTH模式下滑动问题
+ - [x] 重构Indicator，~~尽量修复Indicator SMOOTH模式下滑动问题~~
+ - [x] 目前Indicator部分代码比较乱，还有很大很大的优化空间，后续版本将持续优化(2.5.0对Indicator再次进行了重构，重构后代码已经很整洁，但仍然有优化空间)
  - [ ] ViewPager更换为ViewPager2 （3.0.0）
- - [ ] 目前Indicator部分代码比较乱，还有很大很大的优化空间，后续版本将持续优化
+
  
 
 
