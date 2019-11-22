@@ -45,11 +45,11 @@ class AdapterFragmentPager(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
     companion object {
 
-        val PAGE_HOME = 0
+        const val PAGE_HOME = 0
 
-        val PAGE_FIND = 1
+        const val PAGE_FIND = 1
 
-        val PAGE_OTHERS = 2
+        const val PAGE_OTHERS = 2
     }
 
 }

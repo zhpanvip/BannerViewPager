@@ -6,7 +6,9 @@ import android.util.AttributeSet;
 
 /**
  * Created by zhpan on 2017/12/6.
+ * @deprecated Use {@link IndicatorView} instead.
  */
+@Deprecated
 public class CircleIndicatorView extends BaseIndicatorView {
 
     private float mNormalRadius;
@@ -56,21 +58,6 @@ public class CircleIndicatorView extends BaseIndicatorView {
             }
             drawSliderStyle(canvas);
         }
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-        super.onPageSelected(position);
-    }
-
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        super.onPageScrolled(position, positionOffset, positionOffsetPixels);
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-        super.onPageScrollStateChanged(state);
     }
 
     private void drawSliderStyle(Canvas canvas) {

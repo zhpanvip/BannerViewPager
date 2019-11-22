@@ -22,8 +22,6 @@ import com.zhpan.bannerview.utils.BannerUtils
 import java.util.ArrayList
 import java.util.Random
 
-import butterknife.ButterKnife
-import butterknife.OnClick
 import kotlinx.android.synthetic.main.activity_welcome.*
 
 class WelcomeActivity : BaseDataActivity(), HolderCreator<CustomPageViewHolder> {
@@ -49,7 +47,6 @@ class WelcomeActivity : BaseDataActivity(), HolderCreator<CustomPageViewHolder> 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_welcome)
-        ButterKnife.bind(this)
         setupViewPager()
         updateUI(0)
     }
@@ -75,7 +72,6 @@ class WelcomeActivity : BaseDataActivity(), HolderCreator<CustomPageViewHolder> 
                 .create(data)
     }
 
-    @OnClick(R.id.btn_start)
     fun onClick(view: View) {
         MainActivity.start(this)
         finish()
@@ -92,7 +88,7 @@ class WelcomeActivity : BaseDataActivity(), HolderCreator<CustomPageViewHolder> 
         animatorSet.playTogether(translationAnim, alphaAnimator1)
         animatorSet.start()
 
-        if (position == mViewPager!!.list.size - 1 && btn_start!!.visibility == View.GONE) {
+        if (position == mViewPager.list.size - 1 && btn_start!!.visibility == View.GONE) {
             btn_start!!.visibility = View.VISIBLE
             ObjectAnimator
                     .ofFloat(btn_start, "alpha", 0f, 1f)

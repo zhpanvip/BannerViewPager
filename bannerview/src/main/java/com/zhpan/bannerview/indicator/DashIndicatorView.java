@@ -8,7 +8,10 @@ import com.zhpan.bannerview.constants.IndicatorSlideMode;
 
 /**
  * Created by zhpan on 2017/12/6.
+ *
+ * @deprecated Use {@link IndicatorView} instead.
  */
+@Deprecated
 public class DashIndicatorView extends BaseIndicatorView {
     private float sliderHeight;
     private float maxWidth;
@@ -29,22 +32,12 @@ public class DashIndicatorView extends BaseIndicatorView {
     }
 
     @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        super.onSizeChanged(w, h, oldw, oldh);
-    }
-
-    @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         maxWidth = Math.max(getNormalIndicatorWidth(), getCheckedIndicatorWidth());
         minWidth = Math.min(getNormalIndicatorWidth(), getCheckedIndicatorWidth());
         setMeasuredDimension((int) ((getPageSize() - 1) * getIndicatorGap() + maxWidth + (getPageSize() - 1) * minWidth),
                 (int) (getSliderHeight()));
-    }
-
-    @Override
-    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-        super.onLayout(changed, left, top, right, bottom);
     }
 
     @Override
@@ -90,21 +83,6 @@ public class DashIndicatorView extends BaseIndicatorView {
         float left = i * (maxWidth) + i * +getIndicatorGap() + (maxWidth - minWidth);
         canvas.drawRect(left, 0, left + minWidth, getSliderHeight(), mPaint);
         drawSliderStyle(canvas);
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-        super.onPageSelected(position);
-    }
-
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        super.onPageScrolled(position, positionOffset, positionOffsetPixels);
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-        super.onPageScrollStateChanged(state);
     }
 
     private void drawSliderStyle(Canvas canvas) {

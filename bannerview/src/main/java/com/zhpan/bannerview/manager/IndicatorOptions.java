@@ -8,7 +8,7 @@ import com.zhpan.bannerview.utils.BannerUtils;
 /**
  * <pre>
  *   Created by zhpan on 2019/11/20.
- *   Description:
+ *   Description:Indicator的配置参数
  * </pre>
  */
 public class IndicatorOptions {
@@ -21,6 +21,8 @@ public class IndicatorOptions {
         checkedColor = Color.parseColor("#8C6C6D72");
         slideMode = IndicatorSlideMode.NORMAL;
     }
+
+    private int mIndicatorStyle;
 
     /**
      * 页面size
@@ -158,10 +160,18 @@ public class IndicatorOptions {
     }
 
     public float getSliderHeight() {
-        return sliderHeight;
+        return sliderHeight > 0 ? sliderHeight : normalIndicatorWidth / 2;
     }
 
     public void setSliderHeight(float sliderHeight) {
         this.sliderHeight = sliderHeight;
+    }
+
+    public int getIndicatorStyle() {
+        return mIndicatorStyle;
+    }
+
+    public void setIndicatorStyle(int indicatorStyle) {
+        mIndicatorStyle = indicatorStyle;
     }
 }

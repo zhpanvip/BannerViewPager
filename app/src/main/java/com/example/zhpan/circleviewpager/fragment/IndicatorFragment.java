@@ -17,19 +17,14 @@ import com.zhpan.bannerview.constants.IndicatorStyle;
 import com.zhpan.bannerview.utils.BannerUtils;
 import com.zhpan.idea.utils.ToastUtils;
 
-import butterknife.BindView;
-import butterknife.OnClick;
-
 /**
  * Created by zhpan on 2018/7/24.
  */
-public class IndicatorFragment extends BaseFragment {
-    @BindView(R.id.banner_view)
-    BannerViewPager<Integer, ImageResourceViewHolder> mViewPager;
-    @BindView(R.id.rg_indicator_style)
-    RadioGroup radioGroupStyle;
-    @BindView(R.id.rb_circle)
-    RadioButton radioButton;
+public class IndicatorFragment extends BaseFragment implements View.OnClickListener {
+
+    private BannerViewPager<Integer, ImageResourceViewHolder> mViewPager;
+    private RadioGroup radioGroupStyle;
+    private RadioButton radioButton;
 
     @Override
     protected int getLayout() {
@@ -43,6 +38,10 @@ public class IndicatorFragment extends BaseFragment {
 
     @Override
     protected void initView(Bundle savedInstanceState, View view) {
+        radioButton = view.findViewById(R.id.rb_circle);
+        radioGroupStyle = view.findViewById(R.id.rg_indicator_style);
+        mViewPager = view.findViewById(R.id.banner_view);
+        view.findViewById(R.id.tv_photo_view).setOnClickListener(this);
         mViewPager.setIndicatorGap(BannerUtils.dp2px(6))
                 .setRoundCorner(BannerUtils.dp2px(6))
                 .setHolderCreator(() -> new ImageResourceViewHolder(0));
@@ -114,7 +113,7 @@ public class IndicatorFragment extends BaseFragment {
         return indicatorView;
     }
 
-    @OnClick(R.id.tv_photo_view)
+    @Override
     public void onClick(View view) {
         startActivity(new Intent(getActivity(), PhotoViewActivity.class));
     }

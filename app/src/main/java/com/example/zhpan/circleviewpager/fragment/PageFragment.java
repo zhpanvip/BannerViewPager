@@ -15,25 +15,19 @@ import com.example.zhpan.circleviewpager.viewholder.ImageResourceViewHolder;
 import com.zhpan.bannerview.BannerViewPager;
 import com.zhpan.bannerview.annotation.APageStyle;
 import com.zhpan.bannerview.constants.PageStyle;
-import com.zhpan.bannerview.indicator.CircleIndicatorView;
+import com.zhpan.bannerview.indicator.IndicatorView;
 import com.zhpan.bannerview.utils.BannerUtils;
 import com.zhpan.idea.utils.ToastUtils;
-
-import butterknife.BindView;
 
 /**
  * Created by zhpan on 2018/7/24.
  */
 public class PageFragment extends BaseFragment {
 
-    @BindView(R.id.banner_view)
-    BannerViewPager<Integer, ImageResourceViewHolder> mViewPager;
-    @BindView(R.id.rg_page_style)
-    RadioGroup mRadioGroupPageStyle;
-    @BindView(R.id.indicator_view)
-    CircleIndicatorView indicatorView;
-    @BindView(R.id.rb_multi_page)
-    RadioButton radioButton;
+    private BannerViewPager<Integer, ImageResourceViewHolder> mViewPager;
+    private RadioGroup mRadioGroupPageStyle;
+    private IndicatorView indicatorView;
+    private RadioButton radioButton;
 
     @Override
     protected int getLayout() {
@@ -47,6 +41,10 @@ public class PageFragment extends BaseFragment {
 
     @Override
     protected void initView(Bundle savedInstanceState, View view) {
+        mViewPager = view.findViewById(R.id.banner_view);
+        mRadioGroupPageStyle = view.findViewById(R.id.rg_page_style);
+        indicatorView = view.findViewById(R.id.indicator_view);
+        radioButton = view.findViewById(R.id.rb_multi_page);
         mViewPager
                 .setPageMargin(BannerUtils.dp2px(10))
                 .setRevealWidth(BannerUtils.dp2px(10))
@@ -55,12 +53,6 @@ public class PageFragment extends BaseFragment {
                 .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
                 .setInterval(5000);
         initRadioGroup();
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     public static PageFragment getInstance() {
