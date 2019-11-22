@@ -205,6 +205,31 @@ public class NetViewHolder implements ViewHolder<BannerData> {
 
 ### 5.BannerViewPager参数配置
 
+Kotlin示例：
+
+```
+    private lateinit var mBannerViewPager: BannerViewPager<Int, WelcomeViewHolder>
+    
+    private fun initViewPager() {
+            mBannerViewPager = findViewById(R.id.bannerView)
+            mBannerViewPager.setCanLoop(false)
+                .setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
+                .setIndicatorMargin(0, 0, 0, ConvertUtils.dp2px(40f))
+                .setIndicatorGravity(IndicatorGravity.CENTER)
+                .setHolderCreator { NetViewHolder() }
+                .setOnPageChangeListener(
+                    object : OnPageChangeListenerAdapter() {
+                        override fun onPageSelected(position: Int) {
+                            pageSelect(position)
+                        }
+                    }
+                )
+                .create(res.toList())
+        }
+```    
+
+Java示例：
+
 ```
     private BannerViewPager<BannerData, NetViewHolder> mBannerViewPager;
     ...
