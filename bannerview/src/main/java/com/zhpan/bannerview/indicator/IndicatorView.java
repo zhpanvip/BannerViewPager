@@ -13,7 +13,9 @@ import com.zhpan.bannerview.manager.IndicatorOptions;
 /**
  * <pre>
  *   Created by zhpan on 2019/11/23.
- *   Description:The Indicator in BannerViewPager.
+ *   Description:The Indicator in BannerViewPager，this include two indicator style,as below:
+ *  {@link com.zhpan.bannerview.constants.IndicatorStyle#CIRCLE }
+ *  {@link com.zhpan.bannerview.constants.IndicatorStyle#DASH}
  * </pre>
  */
 public class IndicatorView extends BaseIndicatorView implements IIndicator {
