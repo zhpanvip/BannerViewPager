@@ -1,7 +1,6 @@
 package com.zhpan.bannerview.indicator.drawer;
 
 import android.graphics.Canvas;
-import android.util.Pair;
 
 import com.zhpan.bannerview.manager.IndicatorOptions;
 
@@ -11,16 +10,16 @@ import static com.zhpan.bannerview.constants.IndicatorStyle.DASH;
 /**
  * <pre>
  *   Created by zhpan on 2019/11/23.
- *   Description:
+ *   Description: Indicator Drawer Controller.
  * </pre>
  */
-public class DrawController {
+public class DrawerController {
 
     private IndicatorOptions mIndicatorOptions;
 
     private IDrawer mIDrawer;
 
-    public DrawController(IndicatorOptions indicatorOptions) {
+    public DrawerController(IndicatorOptions indicatorOptions) {
         this.mIndicatorOptions = indicatorOptions;
         init();
     }
@@ -42,11 +41,11 @@ public class DrawController {
         init();
     }
 
-    public Pair<Integer, Integer> measure(int widthMeasureSpec, int heightMeasureSpec) {
-        return mIDrawer.measure(widthMeasureSpec, heightMeasureSpec);
+    public BaseDrawer.MeasureResult measure(int widthMeasureSpec, int heightMeasureSpec) {
+        return mIDrawer.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
     public void draw(Canvas canvas) {
-        mIDrawer.draw(canvas);
+        mIDrawer.onDraw(canvas);
     }
 }

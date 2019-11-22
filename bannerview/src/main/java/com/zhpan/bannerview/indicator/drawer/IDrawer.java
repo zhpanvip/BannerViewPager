@@ -1,7 +1,6 @@
 package com.zhpan.bannerview.indicator.drawer;
 
 import android.graphics.Canvas;
-import android.util.Pair;
 
 import com.zhpan.bannerview.manager.IndicatorOptions;
 
@@ -13,11 +12,10 @@ import com.zhpan.bannerview.manager.IndicatorOptions;
  */
 public interface IDrawer {
 
-    Pair<Integer, Integer> measure(int widthMeasureSpec, int heightMeasureSpec);
+    BaseDrawer.MeasureResult onMeasure(int widthMeasureSpec, int heightMeasureSpec);
 
-    void draw(Canvas canvas);
+    void onDraw(Canvas canvas);
 
     void setIndicatorOptions(IndicatorOptions indicatorOptions);
 
-    IndicatorOptions getIndicatorOptions();
 }

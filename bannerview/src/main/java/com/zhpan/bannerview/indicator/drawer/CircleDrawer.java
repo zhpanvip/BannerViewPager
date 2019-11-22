@@ -1,14 +1,13 @@
 package com.zhpan.bannerview.indicator.drawer;
 
 import android.graphics.Canvas;
-import android.util.Pair;
 
 import com.zhpan.bannerview.manager.IndicatorOptions;
 
 /**
  * <pre>
  *   Created by zhpan on 2019/11/23.
- *   Description:Circle Indicator drawer.
+ *   Description: Circle Indicator drawer.
  * </pre>
  */
 public class CircleDrawer extends BaseDrawer {
@@ -22,10 +21,11 @@ public class CircleDrawer extends BaseDrawer {
     }
 
     @Override
-    public Pair<Integer, Integer> measure(int widthMeasureSpec, int heightMeasureSpec) {
+    public MeasureResult onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         maxWidth = Math.max(mIndicatorOptions.getNormalIndicatorWidth(), mIndicatorOptions.getCheckedIndicatorWidth());
         minWidth = Math.min(mIndicatorOptions.getNormalIndicatorWidth(), mIndicatorOptions.getCheckedIndicatorWidth());
-        return new Pair<>(getMeasureWidth(), (int) maxWidth);
+        mMeasureResult.setMeasureResult(getMeasureWidth(), (int)maxWidth);
+        return mMeasureResult;
     }
 
     private int getMeasureWidth() {
@@ -35,13 +35,8 @@ public class CircleDrawer extends BaseDrawer {
     }
 
     @Override
-    public void draw(Canvas canvas) {
+    public void onDraw(Canvas canvas) {
         drawIndicator(canvas);
-    }
-
-    @Override
-    public IndicatorOptions getIndicatorOptions() {
-        return mIndicatorOptions;
     }
 
     private void drawIndicator(Canvas canvas) {

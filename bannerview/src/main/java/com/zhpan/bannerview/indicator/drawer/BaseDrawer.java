@@ -12,18 +12,42 @@ import com.zhpan.bannerview.manager.IndicatorOptions;
  */
 public abstract class BaseDrawer implements IDrawer {
 
-    protected IndicatorOptions mIndicatorOptions;
+    IndicatorOptions mIndicatorOptions;
 
-    protected Paint mPaint;
+    Paint mPaint;
 
-    public BaseDrawer(IndicatorOptions indicatorOptions) {
+    MeasureResult mMeasureResult;
+
+    BaseDrawer(IndicatorOptions indicatorOptions) {
         this.mIndicatorOptions = indicatorOptions;
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
+        mMeasureResult = new MeasureResult();
     }
 
     @Override
     public void setIndicatorOptions(IndicatorOptions indicatorOptions) {
         this.mIndicatorOptions = indicatorOptions;
+    }
+
+    public class MeasureResult {
+
+        public int measureWidth;
+
+        public int measureHeight;
+
+        public void setMeasureResult(int measureWidth, int measureHeight) {
+            this.measureWidth = measureWidth;
+            this.measureHeight = measureHeight;
+        }
+
+        public int getMeasureWidth() {
+            return measureWidth;
+        }
+
+        public int getMeasureHeight() {
+            return measureHeight;
+        }
+
     }
 }

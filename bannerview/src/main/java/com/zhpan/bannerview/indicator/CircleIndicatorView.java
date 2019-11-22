@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 
 /**
  * Created by zhpan on 2017/12/6.
+ *
  * @deprecated Use {@link IndicatorView} instead.
  */
 @Deprecated
@@ -29,7 +30,7 @@ public class CircleIndicatorView extends BaseIndicatorView {
         mPaint.setColor(getNormalColor());
         mNormalRadius = getNormalIndicatorWidth() / 2;
         mCheckedRadius = getCheckedIndicatorWidth() / 2;
-        setIndicatorGap(mNormalRadius * 2);
+        getIndicatorOptions().setIndicatorGap(mNormalRadius * 2);
     }
 
     @Override

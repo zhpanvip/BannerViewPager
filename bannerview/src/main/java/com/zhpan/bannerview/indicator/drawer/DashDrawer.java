@@ -1,7 +1,6 @@
 package com.zhpan.bannerview.indicator.drawer;
 
 import android.graphics.Canvas;
-import android.util.Pair;
 
 import com.zhpan.bannerview.constants.IndicatorSlideMode;
 import com.zhpan.bannerview.manager.IndicatorOptions;
@@ -9,7 +8,7 @@ import com.zhpan.bannerview.manager.IndicatorOptions;
 /**
  * <pre>
  *   Created by zhpan on 2019/11/23.
- *   Description:Dash Indicator Drawer.
+ *   Description: Dash Indicator Drawer.
  * </pre>
  */
 public class DashDrawer extends BaseDrawer {
@@ -23,10 +22,11 @@ public class DashDrawer extends BaseDrawer {
     }
 
     @Override
-    public Pair<Integer, Integer> measure(int widthMeasureSpec, int heightMeasureSpec) {
+    public MeasureResult onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         maxWidth = Math.max(mIndicatorOptions.getNormalIndicatorWidth(), mIndicatorOptions.getCheckedIndicatorWidth());
         minWidth = Math.min(mIndicatorOptions.getNormalIndicatorWidth(), mIndicatorOptions.getCheckedIndicatorWidth());
-        return new Pair<>(getMeasureWidth(), (int) mIndicatorOptions.getSliderHeight());
+        mMeasureResult.setMeasureResult(getMeasureWidth(), (int)mIndicatorOptions.getSliderHeight());
+        return mMeasureResult;
     }
 
     private int getMeasureWidth() {
@@ -36,13 +36,8 @@ public class DashDrawer extends BaseDrawer {
     }
 
     @Override
-    public void draw(Canvas canvas) {
+    public void onDraw(Canvas canvas) {
         drawIndicator(canvas);
-    }
-
-    @Override
-    public IndicatorOptions getIndicatorOptions() {
-        return mIndicatorOptions;
     }
 
     private void drawIndicator(Canvas canvas) {

@@ -15,6 +15,7 @@ import com.example.zhpan.circleviewpager.viewholder.CustomPageViewHolder
 import com.zhpan.bannerview.BannerViewPager
 import com.zhpan.bannerview.adapter.OnPageChangeListenerAdapter
 import com.zhpan.bannerview.constants.IndicatorSlideMode
+import com.zhpan.bannerview.constants.IndicatorStyle
 import com.zhpan.bannerview.constants.TransformerStyle
 import com.zhpan.bannerview.holder.HolderCreator
 import com.zhpan.bannerview.utils.BannerUtils
