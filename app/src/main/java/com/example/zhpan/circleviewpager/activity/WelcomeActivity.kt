@@ -27,7 +27,7 @@ import kotlinx.android.synthetic.main.activity_welcome.*
 
 class WelcomeActivity : BaseDataActivity(), HolderCreator<CustomPageViewHolder> {
 
-    private var mViewPager: BannerViewPager<CustomBean, CustomPageViewHolder>? = null
+    private lateinit var mViewPager: BannerViewPager<CustomBean, CustomPageViewHolder>
 
     private val des = arrayOf("在这里\n你可以听到周围人的心声", "在这里\nTA会在下一秒遇见你", "在这里\n不再错过可以改变你一生的人")
 
@@ -55,7 +55,7 @@ class WelcomeActivity : BaseDataActivity(), HolderCreator<CustomPageViewHolder> 
 
     private fun setupViewPager() {
         mViewPager = findViewById(R.id.viewpager)
-        mViewPager!!.setAutoPlay(false)
+        mViewPager.setAutoPlay(false)
                 .setCanLoop(false)
                 .setPageTransformerStyle(transforms[Random().nextInt(5)])
                 .setScrollDuration(ANIMATION_DURATION)

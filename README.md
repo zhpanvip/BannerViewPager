@@ -208,11 +208,11 @@ public class NetViewHolder implements ViewHolder<BannerData> {
 Kotlin示例：
 
 ```
-    private var mViewPager: BannerViewPager<CustomBean, CustomPageViewHolder>? = null
+    private lateinit var mViewPager: BannerViewPager<CustomBean, CustomPageViewHolder>
     
     private fun initViewPager() {
             mBannerViewPager = findViewById(R.id.bannerView)
-            mBannerViewPager!!.setCanLoop(false)
+            mBannerViewPager.setCanLoop(false)
                 .setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
                 .setIndicatorMargin(0, 0, 0, ConvertUtils.dp2px(40f))
                 .setIndicatorGravity(IndicatorGravity.CENTER)
