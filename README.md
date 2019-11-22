@@ -208,11 +208,11 @@ public class NetViewHolder implements ViewHolder<BannerData> {
 Kotlin示例：
 
 ```
-    private lateinit var mBannerViewPager: BannerViewPager<Int, WelcomeViewHolder>
+    private var mViewPager: BannerViewPager<CustomBean, CustomPageViewHolder>? = null
     
     private fun initViewPager() {
             mBannerViewPager = findViewById(R.id.bannerView)
-            mBannerViewPager.setCanLoop(false)
+            mBannerViewPager!!.setCanLoop(false)
                 .setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
                 .setIndicatorMargin(0, 0, 0, ConvertUtils.dp2px(40f))
                 .setIndicatorGravity(IndicatorGravity.CENTER)
@@ -253,7 +253,7 @@ Java示例：
 ```
 ### 6.开启与停止轮播
 
-***2.5.0之后版本无需自行在Activity或Fragment中管理stopLoop和startLoop方法，但这两个方法依旧保留对外开发***
+***2.5.0之后版本无需自行在Activity或Fragment中管理stopLoop和startLoop方法，但这两个方法依旧保留对外开放***
 
 ~~如果开启了自动轮播功能，请务必在onDestroy中停止轮播，以免出现内存泄漏。~~
 
