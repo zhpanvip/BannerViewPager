@@ -25,16 +25,16 @@ class MainActivity : AppCompatActivity() {
 
     private fun initData() {
         val mAdapter = AdapterFragmentPager(supportFragmentManager)
-        vp_fragment!!.adapter = mAdapter
-        vp_fragment!!.disableTouchScroll(true)
-        vp_fragment!!.offscreenPageLimit = 2
-        vp_fragment!!.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+        vp_fragment?.adapter = mAdapter
+        vp_fragment?.disableTouchScroll(true)
+        vp_fragment?.offscreenPageLimit = 2
+        vp_fragment?.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
 
             }
 
             override fun onPageSelected(position: Int) {
-                rg_tab!!.check(getCheckedId(position))
+                rg_tab?.check(getCheckedId(position))
             }
 
             override fun onPageScrollStateChanged(state: Int) {
@@ -54,15 +54,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setListener() {
-        rg_tab!!.setOnCheckedChangeListener { group, checkedId ->
+        rg_tab?.setOnCheckedChangeListener { group, checkedId ->
             if (checkedId == R.id.rb_home) {
-                vp_fragment!!.setCurrentItem(AdapterFragmentPager.PAGE_HOME, false)
+                vp_fragment?.setCurrentItem(AdapterFragmentPager.PAGE_HOME, false)
 
             } else if (checkedId == R.id.rb_find) {
-                vp_fragment!!.setCurrentItem(AdapterFragmentPager.PAGE_FIND, false)
+                vp_fragment?.setCurrentItem(AdapterFragmentPager.PAGE_FIND, false)
 
             } else if (checkedId == R.id.rb_add) {
-                vp_fragment!!.setCurrentItem(AdapterFragmentPager.PAGE_OTHERS, false)
+                vp_fragment?.setCurrentItem(AdapterFragmentPager.PAGE_OTHERS, false)
             }
         }
     }
