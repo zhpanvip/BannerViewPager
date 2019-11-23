@@ -91,11 +91,6 @@ public class DashIndicatorView extends BaseIndicatorView {
         canvas.drawRect(left, 0, left + maxWidth, getSliderHeight(), mPaint);
     }
 
-    public DashIndicatorView setSliderHeight(float sliderHeight) {
-        this.sliderHeight = sliderHeight;
-        return this;
-    }
-
     public float getSliderHeight() {
         if (getIndicatorOptions().getSliderHeight() > 0) {
             return getIndicatorOptions().getSliderHeight();
