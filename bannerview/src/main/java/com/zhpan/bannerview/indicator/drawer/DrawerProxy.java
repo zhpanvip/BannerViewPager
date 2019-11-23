@@ -10,7 +10,7 @@ import static com.zhpan.bannerview.constants.IndicatorStyle.DASH;
 /**
  * <pre>
  *   Created by zhpan on 2019/11/23.
- *   Description: Indicator Drawer Controller.
+ *   Description: Indicator Drawer Proxy.
  * </pre>
  */
 public class DrawerProxy implements IDrawer{
