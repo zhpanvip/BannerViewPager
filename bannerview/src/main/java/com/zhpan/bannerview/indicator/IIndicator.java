@@ -14,19 +14,8 @@ import com.zhpan.bannerview.manager.IndicatorOptions;
  * </pre>
  */
 public interface IIndicator extends ViewPager.OnPageChangeListener {
+
     void setPageSize(int pageSize);
 
-    void setNormalColor(int normalColor);
-
-    void setCheckedColor(int checkedColor);
-
-    void setSlideMode(@AIndicatorSlideMode int slideStyle);
-
-    void setIndicatorGap(float gap);
-
-    void setIndicatorWidth(int normalIndicatorWidth, int checkedIndicatorWidth);
-
     void setIndicatorOptions(IndicatorOptions options);
-
-    void notifyDataChanged();
 }

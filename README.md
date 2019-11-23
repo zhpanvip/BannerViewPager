@@ -205,6 +205,31 @@ public class NetViewHolder implements ViewHolder<BannerData> {
 
 ### 5.BannerViewPager参数配置
 
+Kotlin示例：
+
+```
+    private lateinit var mViewPager: BannerViewPager<CustomBean, CustomPageViewHolder>
+    
+    private fun initViewPager() {
+            mBannerViewPager = findViewById(R.id.bannerView)
+            mBannerViewPager.setCanLoop(false)
+                .setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
+                .setIndicatorMargin(0, 0, 0, ConvertUtils.dp2px(40f))
+                .setIndicatorGravity(IndicatorGravity.CENTER)
+                .setHolderCreator { CustomPageViewHolder() }
+                .setOnPageChangeListener(
+                    object : OnPageChangeListenerAdapter() {
+                        override fun onPageSelected(position: Int) {
+                            pageSelect(position)
+                        }
+                    }
+                )
+                .create(res.toList())
+        }
+```    
+
+Java示例：
+
 ```
     private BannerViewPager<BannerData, NetViewHolder> mBannerViewPager;
     ...
@@ -228,7 +253,7 @@ public class NetViewHolder implements ViewHolder<BannerData> {
 ```
 ### 6.开启与停止轮播
 
-***2.5.0之后版本无需自行在Activity或Fragment中管理stopLoop和startLoop方法，但这两个方法依旧保留对外开发***
+***2.5.0之后版本无需自行在Activity或Fragment中管理stopLoop和startLoop方法，但这两个方法依旧保留对外开放***
 
 ~~如果开启了自动轮播功能，请务必在onDestroy中停止轮播，以免出现内存泄漏。~~
 
@@ -355,9 +380,10 @@ public class FigureIndicatorView extends BaseIndicatorView {
  - [x] 增添更多Indicator样式（2.3.+）
  - [x] 支持一屏显示多页 （2.4.0）
  - [x] v2.4.3版本着重优化提升性能
- - [ ] v2.5.0优化整理Indicator，尽量修复Indicator SMOOTH模式下滑动问题
+ - [x] 重构Indicator，~~尽量修复Indicator SMOOTH模式下滑动问题~~
+ - [x] 目前Indicator部分代码比较乱，还有很大很大的优化空间，后续版本将持续优化(2.5.0对Indicator再次进行了重构，重构后代码已经很整洁，但仍然有优化空间)
  - [ ] ViewPager更换为ViewPager2 （3.0.0）
- - [ ] 目前Indicator部分代码比较乱，还有很大很大的优化空间，后续版本将持续优化
+
  
 
 

@@ -16,7 +16,7 @@ import static com.zhpan.bannerview.manager.BannerOptions.DEFAULT_SCROLL_DURATION
 /**
  * <pre>
  *   Created by zhpan on 2019/11/20.
- *   Description:
+ *   Description:初始化xml的自定义属性
  * </pre>
  */
 public class AttributeController {

@@ -20,11 +20,11 @@ import com.zhpan.idea.utils.ToastUtils;
 /**
  * Created by zhpan on 2018/7/24.
  */
-public class IndicatorFragment extends BaseFragment {
+public class IndicatorFragment extends BaseFragment implements View.OnClickListener {
 
-    BannerViewPager<Integer, ImageResourceViewHolder> mViewPager;
-    RadioGroup radioGroupStyle;
-    RadioButton radioButton;
+    private BannerViewPager<Integer, ImageResourceViewHolder> mViewPager;
+    private RadioGroup radioGroupStyle;
+    private RadioButton radioButton;
 
     @Override
     protected int getLayout() {
@@ -38,11 +38,12 @@ public class IndicatorFragment extends BaseFragment {
 
     @Override
     protected void initView(Bundle savedInstanceState, View view) {
-        mViewPager = view.findViewById(R.id.banner_view);
-        radioGroupStyle = view.findViewById(R.id.rg_indicator_style);
         radioButton = view.findViewById(R.id.rb_circle);
-        view.findViewById(R.id.tv_photo_view).setOnClickListener(v -> startActivity(new Intent(getActivity(), PhotoViewActivity.class)));
+        radioGroupStyle = view.findViewById(R.id.rg_indicator_style);
+        mViewPager = view.findViewById(R.id.banner_view);
+        view.findViewById(R.id.tv_photo_view).setOnClickListener(this);
         mViewPager.setIndicatorGap(BannerUtils.dp2px(6))
+                .setRoundCorner(BannerUtils.dp2px(6))
                 .setHolderCreator(() -> new ImageResourceViewHolder(0));
         initRadioGroup();
     }
@@ -79,7 +80,7 @@ public class IndicatorFragment extends BaseFragment {
                 .setPageMargin(0)
                 .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
                 .setIndicatorColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
-                .setIndicatorRadius(BannerUtils.dp2px(4), BannerUtils.dp2px(5)).create(mDrawableList);
+                .setIndicatorRadius(BannerUtils.dp2px(4), BannerUtils.dp2px(5)).create(getMDrawableList());
     }
 
     private void setupDashIndicator() {
@@ -90,7 +91,7 @@ public class IndicatorFragment extends BaseFragment {
                 .setPageMargin(0)
                 .setIndicatorWidth(BannerUtils.dp2px(3), BannerUtils.dp2px(10))
                 .setIndicatorColor(Color.parseColor("#888888"),
-                        Color.parseColor("#118EEA")).create(mDrawableList);
+                        Color.parseColor("#118EEA")).create(getMDrawableList());
     }
 
     private void setupCustomIndicator() {
@@ -98,32 +99,22 @@ public class IndicatorFragment extends BaseFragment {
                 .setPageMargin(BannerUtils.dp2px(20))
                 .setIndicatorGravity(IndicatorGravity.END)
                 .setIndicatorView(setupIndicatorView())
-                .setHolderCreator(() -> new ImageResourceViewHolder(0)).create(mDrawableList);
+                .setHolderCreator(() -> new ImageResourceViewHolder(0)).create(getMDrawableList());
     }
 
     /**
      * 这里可以是自定义的Indicator，需要继承BaseIndicatorView或者实现IIndicator接口;
      */
     private FigureIndicatorView setupIndicatorView() {
-        FigureIndicatorView indicatorView = new FigureIndicatorView(mContext);
+        FigureIndicatorView indicatorView = new FigureIndicatorView(getMContext());
         indicatorView.setRadius(BannerUtils.dp2px(18));
         indicatorView.setTextSize(BannerUtils.dp2px(13));
         indicatorView.setBackgroundColor(Color.parseColor("#aa118EEA"));
         return indicatorView;
     }
 
-
-//    @Override
-//    public void onStop() {
-//        if (mViewPager != null)
-//            mViewPager.stopLoop();
-//        super.onStop();
-//    }
-//
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        if (mViewPager != null)
-//            mViewPager.startLoop();
-//    }
+    @Override
+    public void onClick(View view) {
+        startActivity(new Intent(getActivity(), PhotoViewActivity.class));
+    }
 }

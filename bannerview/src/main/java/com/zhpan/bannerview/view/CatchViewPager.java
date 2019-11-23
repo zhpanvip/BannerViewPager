@@ -1,5 +1,6 @@
 package com.zhpan.bannerview.view;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 
 import android.support.v4.view.ViewPager;
@@ -85,6 +86,7 @@ public class CatchViewPager extends ViewPager {
         mBannerScroller.setDuration(scrollDuration);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         if (disableTouchScroll) {

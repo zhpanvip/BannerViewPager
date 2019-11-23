@@ -15,20 +15,19 @@ import com.example.zhpan.circleviewpager.viewholder.ImageResourceViewHolder;
 import com.zhpan.bannerview.BannerViewPager;
 import com.zhpan.bannerview.annotation.APageStyle;
 import com.zhpan.bannerview.constants.PageStyle;
-import com.zhpan.bannerview.indicator.CircleIndicatorView;
+import com.zhpan.bannerview.indicator.IndicatorView;
 import com.zhpan.bannerview.utils.BannerUtils;
 import com.zhpan.idea.utils.ToastUtils;
-
 
 /**
  * Created by zhpan on 2018/7/24.
  */
 public class PageFragment extends BaseFragment {
 
-    BannerViewPager<Integer, ImageResourceViewHolder> mViewPager;
-    RadioGroup mRadioGroupPageStyle;
-    CircleIndicatorView indicatorView;
-    RadioButton radioButton;
+    private BannerViewPager<Integer, ImageResourceViewHolder> mViewPager;
+    private RadioGroup mRadioGroupPageStyle;
+    private IndicatorView indicatorView;
+    private RadioButton radioButton;
 
     @Override
     protected int getLayout() {
@@ -56,12 +55,6 @@ public class PageFragment extends BaseFragment {
         initRadioGroup();
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
-    }
-
     public static PageFragment getInstance() {
         return new PageFragment();
     }
@@ -70,7 +63,7 @@ public class PageFragment extends BaseFragment {
         mViewPager
                 .setIndicatorVisibility(View.VISIBLE) // 在实际开发中这行代码不必添加，此处因为受到其它两种模式影响所以要隐藏掉内置指示器
                 .setPageStyle(pageStyle)
-                .create(mDrawableList);
+                .create(getMDrawableList());
     }
 
     private void initRadioGroup() {
@@ -101,20 +94,6 @@ public class PageFragment extends BaseFragment {
                 .setIndicatorVisibility(View.GONE) // 在实际开发中这行代码不必添加，此处因为受到其它两种模式影响所以要隐藏掉内置指示器
                 .setPageStyle(PageStyle.MULTI_PAGE_OVERLAP)
                 .setIndicatorView(indicatorView)
-                .create(mDrawableList);
+                .create(getMDrawableList());
     }
-
-//    @Override
-//    public void onStop() {
-//        if (mViewPager != null)
-//            mViewPager.stopLoop();
-//        super.onStop();
-//    }
-//
-//    @Override
-//    public void onResume() {
-//        if (mViewPager != null)
-//            mViewPager.startLoop();
-//        super.onResume();
-//    }
 }

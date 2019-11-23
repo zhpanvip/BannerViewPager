@@ -1,17 +1,20 @@
 package com.zhpan.bannerview.manager;
 
 import com.zhpan.bannerview.constants.PageStyle;
+import com.zhpan.bannerview.utils.BannerUtils;
 
 /**
  * <pre>
  *   Created by zhpan on 2019/11/20.
- *   Description:
+ *   Description:BannerViewPager的配置参数
  * </pre>
  */
 public class BannerOptions {
 
     public BannerOptions() {
         mIndicatorOptions = new IndicatorOptions();
+        mPageMargin = BannerUtils.dp2px(20);
+        mRevealWidth = BannerUtils.dp2px(20);
     }
 
     public static final int DEFAULT_SCROLL_DURATION = 500;
@@ -31,8 +34,6 @@ public class BannerOptions {
     private int mPageMargin;
 
     private int mRevealWidth;
-
-    private int mIndicatorStyle;
 
     private boolean isCustomIndicator;
 
@@ -151,11 +152,11 @@ public class BannerOptions {
     }
 
     public int getIndicatorStyle() {
-        return mIndicatorStyle;
+        return mIndicatorOptions.getIndicatorStyle();
     }
 
     public void setIndicatorStyle(int indicatorStyle) {
-        mIndicatorStyle = indicatorStyle;
+        mIndicatorOptions.setIndicatorStyle(indicatorStyle);
     }
 
     public int getIndicatorSlideMode() {

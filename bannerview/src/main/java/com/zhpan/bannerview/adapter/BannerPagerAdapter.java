@@ -74,7 +74,7 @@ public class BannerPagerAdapter<T, VH extends ViewHolder> extends PagerAdapter {
     private View getView(final int position, ViewGroup container) {
         ViewHolder<T> holder = holderCreator.createViewHolder();
         if (holder == null) {
-            throw new NullPointerException("can not return a null holder");
+            throw new NullPointerException("Can not return a null holder");
         }
         return createView(holder, position, container);
     }
