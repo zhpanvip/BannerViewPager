@@ -79,7 +79,7 @@ class WelcomeActivity : BaseDataActivity(), HolderCreator<CustomPageViewHolder> 
     }
 
     private fun updateUI(position: Int) {
-        tv_describe!!.text = des[position]
+        tv_describe?.text = des[position]
         val translationAnim = ObjectAnimator.ofFloat(tv_describe, "translationX", -120f, 0f)
         translationAnim.duration = ANIMATION_DURATION.toLong()
         translationAnim.interpolator = DecelerateInterpolator()
@@ -89,13 +89,13 @@ class WelcomeActivity : BaseDataActivity(), HolderCreator<CustomPageViewHolder> 
         animatorSet.playTogether(translationAnim, alphaAnimator1)
         animatorSet.start()
 
-        if (position == mViewPager.list.size - 1 && btn_start!!.visibility == View.GONE) {
-            btn_start!!.visibility = View.VISIBLE
+        if (position == mViewPager.list.size - 1 && btn_start?.visibility == View.GONE) {
+            btn_start?.visibility = View.VISIBLE
             ObjectAnimator
                     .ofFloat(btn_start, "alpha", 0f, 1f)
                     .setDuration(ANIMATION_DURATION.toLong()).start()
         } else {
-            btn_start!!.visibility = View.GONE
+            btn_start?.visibility = View.GONE
         }
     }
 

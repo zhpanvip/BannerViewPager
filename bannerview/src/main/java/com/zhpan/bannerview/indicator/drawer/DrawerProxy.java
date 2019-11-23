@@ -10,14 +10,14 @@ import static com.zhpan.bannerview.constants.IndicatorStyle.DASH;
 /**
  * <pre>
  *   Created by zhpan on 2019/11/23.
- *   Description: Indicator Drawer Controller.
+ *   Description: Indicator Drawer Proxy.
  * </pre>
  */
-public class DrawerController {
+public class DrawerProxy implements IDrawer{
     
     private IDrawer mIDrawer;
 
-    public DrawerController(IndicatorOptions indicatorOptions) {
+    public DrawerProxy(IndicatorOptions indicatorOptions) {
         init(indicatorOptions);
     }
 
@@ -36,11 +36,13 @@ public class DrawerController {
         init(indicatorOptions);
     }
 
-    public BaseDrawer.MeasureResult measure(int widthMeasureSpec, int heightMeasureSpec) {
+    @Override
+    public BaseDrawer.MeasureResult onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         return mIDrawer.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
-    public void draw(Canvas canvas) {
+    @Override
+    public void onDraw(Canvas canvas) {
         mIDrawer.onDraw(canvas);
     }
 }
