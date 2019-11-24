@@ -206,7 +206,6 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
         if (bannerOptions.isCustomIndicator() && null != mIndicatorView) {
             initIndicator(mIndicatorView);
         } else {
-//            initIndicator(IndicatorFactory.createIndicatorView(getContext(), bannerOptions.getIndicatorStyle()));
             initIndicator(new IndicatorView(getContext()));
         }
         mIndicatorView.setIndicatorOptions(bannerOptions.getIndicatorOptions());

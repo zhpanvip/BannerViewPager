@@ -390,8 +390,10 @@ public class FigureIndicatorView extends BaseIndicatorView {
 ##  更多详情请参看以下链接
 
 [《打造一个丝滑般自动轮播无限循环Android库》](https://juejin.im/post/5d6bce24f265da03db0790d1)
+
 [《BannerViewPager源码解析》](https://juejin.im/post/5d74d3faf265da03b5747015)
 
+[《剖析BannerViewPager中Indicator的设计思想》](https://juejin.im/post/5dda0b6d518825731f569a8c)
 
 ## 感谢
 

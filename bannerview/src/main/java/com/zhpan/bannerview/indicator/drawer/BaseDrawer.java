@@ -27,11 +27,11 @@ public abstract class BaseDrawer implements IDrawer {
 
     public class MeasureResult {
 
-        public int measureWidth;
+        int measureWidth;
 
-        public int measureHeight;
+        int measureHeight;
 
-        public void setMeasureResult(int measureWidth, int measureHeight) {
+        void setMeasureResult(int measureWidth, int measureHeight) {
             this.measureWidth = measureWidth;
             this.measureHeight = measureHeight;
         }
