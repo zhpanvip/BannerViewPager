@@ -135,6 +135,11 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
 
     @Override
     public void onPageSelected(int position) {
+        // Optimized For Issue #42
+        if (mList.size() > 0 && isCanLoop() && position == 0) {
+            position = MAX_VALUE / 2 - ((MAX_VALUE / 2) % mList.size()) + 1;
+            setCurrentItem(BannerUtils.getRealPosition(isCanLoop(), position, mList.size()));
+        }
         currentPosition = BannerUtils.getRealPosition(isCanLoop(), position, mList.size());
         if (mOnPageChangeListener != null)
             mOnPageChangeListener.onPageSelected(currentPosition);
