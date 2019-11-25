@@ -24,9 +24,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/indicator_view"
+        android:layout_marginStart="10dp"
         android:text="@string/text_page_style"
         android:textColor="#000000"
-        android:layout_marginStart="10dp"
         android:textSize="18sp"
         android:textStyle="bold" />
 
@@ -59,5 +59,13 @@
             android:text="MULTI_PAGE_OVERLAP" />
 
     </RadioGroup>
+
+    <Button
+        android:id="@+id/btn_refresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="Refresh Data" />
 
 </RelativeLayout>

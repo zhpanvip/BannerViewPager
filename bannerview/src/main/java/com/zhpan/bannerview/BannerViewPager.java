@@ -167,37 +167,29 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     private void handlePosition() {
         if (mList.size() > 1) {
             currentPosition = mViewPager.getCurrentItem() + 1;
-            if (isCanLoop()) {
-                if (currentPosition == MAX_VALUE - 1) {
-                    currentPosition = 0;
-                    mViewPager.setCurrentItem(currentPosition, false);
-                    mHandler.post(mRunnable);
-                } else {
-                    mViewPager.setCurrentItem(currentPosition);
-                    mHandler.postDelayed(mRunnable, getInterval());
-                }
-            } else {
-                if (currentPosition >= MAX_VALUE) {
-                    stopLoop();
-                } else {
-                    mViewPager.setCurrentItem(currentPosition);
-                    mHandler.postDelayed(mRunnable, getInterval());
-                }
-            }
+            mViewPager.setCurrentItem(currentPosition);
+            mHandler.postDelayed(mRunnable, getInterval());
         }
     }
 
     private void initBannerData(List<T> list) {
         if (list != null) {
-            mList.clear();
-            mList.addAll(list);
-            if (mList.size() > 0) {
-                if (mList.size() > 1) setIndicatorValues();
-                if (isCanLoop())
-                    currentPosition = MAX_VALUE / 2 - ((MAX_VALUE / 2) % mList.size()) + 1;
-                setupViewPager();
-                initRoundCorner();
-            }
+            initList(list);
+            setupViewPager();
+            initRoundCorner();
+        }
+    }
+
+    private void initList(List<T> list) {
+        mList.clear();
+        mList.addAll(list);
+        if (mList.size() > 1) {
+            setIndicatorValues();
+        } else if (mIndicatorView != null) {
+            mIndicatorView.setPageSize(mList.size());
+        }
+        if (mList.size() > 0 && isCanLoop()) {
+            currentPosition = MAX_VALUE / 2 - ((MAX_VALUE / 2) % mList.size()) + 1;
         }
     }
 

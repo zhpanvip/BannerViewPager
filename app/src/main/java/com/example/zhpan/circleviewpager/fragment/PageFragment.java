@@ -14,6 +14,8 @@ import com.zhpan.bannerview.indicator.IndicatorView;
 import com.zhpan.bannerview.utils.BannerUtils;
 import com.zhpan.idea.utils.ToastUtils;
 
+import java.util.Random;
+
 /**
  * Created by zhpan on 2018/7/24.
  */
@@ -23,6 +25,7 @@ public class PageFragment extends BaseFragment {
     private RadioGroup mRadioGroupPageStyle;
     private IndicatorView indicatorView;
     private RadioButton radioButton;
+    private int i = 0;
 
     @Override
     protected int getLayout() {
@@ -48,6 +51,15 @@ public class PageFragment extends BaseFragment {
                 .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
                 .setInterval(5000);
         initRadioGroup();
+
+        view.findViewById(R.id.btn_refresh).setOnClickListener(v -> updateData());
+    }
+
+    private void updateData() {
+        //  生成[-1,3]整数
+        initData(new Random().nextInt(5)-1);
+        ToastUtils.show("size=" + getMDrawableList().size());
+        mViewPager.create(getMDrawableList());
     }
 
     public static PageFragment getInstance() {
