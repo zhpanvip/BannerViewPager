@@ -58,6 +58,13 @@
             android:layout_marginTop="15dp"
             android:text="MULTI_PAGE_OVERLAP" />
 
+        <RadioButton
+            android:id="@+id/rb_multi_page_wy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="仿网易云(QQ)音乐Banner" />
+
     </RadioGroup>
 
     <Button

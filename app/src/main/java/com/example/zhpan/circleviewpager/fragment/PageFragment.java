@@ -25,7 +25,6 @@ public class PageFragment extends BaseFragment {
     private RadioGroup mRadioGroupPageStyle;
     private IndicatorView indicatorView;
     private RadioButton radioButton;
-    private int i = 0;
 
     @Override
     protected int getLayout() {
@@ -57,7 +56,7 @@ public class PageFragment extends BaseFragment {
 
     private void updateData() {
         //  生成[-1,3]整数
-        initData(new Random().nextInt(5)-1);
+        initData(new Random().nextInt(5) - 1);
         ToastUtils.show("size=" + getMDrawableList().size());
         mViewPager.create(getMDrawableList());
     }
@@ -91,6 +90,10 @@ public class PageFragment extends BaseFragment {
 //                    mViewPager.resetIndicator();
                     setupOverlapBanner();
                     break;
+                case R.id.rb_multi_page_wy:
+                    indicatorView.setVisibility(View.INVISIBLE);
+                    setNetEaseMusicStyle();
+                    break;
             }
         });
         radioButton.performClick();
@@ -102,5 +105,17 @@ public class PageFragment extends BaseFragment {
                 .setPageStyle(PageStyle.MULTI_PAGE_OVERLAP)
                 .setIndicatorView(indicatorView)
                 .create(getMDrawableList());
+    }
+
+    //  网易云音乐、QQ音乐类似的Banner都可以通过设置不同的pargeMargin和revealWidth来实现
+    private void setNetEaseMusicStyle() {
+        mViewPager
+                .setPageMargin(BannerUtils.dp2px(30))
+                .setRevealWidth(BannerUtils.dp2px(-15))
+                .setPageStyle(PageStyle.MULTI_PAGE)
+                .setHolderCreator(() -> new ImageResourceViewHolder(BannerUtils.dp2px(5)))
+                .setIndicatorColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
+                .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
+                .setInterval(5000).create(getMDrawableList());
     }
 }
