@@ -585,9 +585,10 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     /**
      * 设置Indicator样式
      *
-     * @param indicatorStyle indicator样式，目前有圆和断线两种样式
+     * @param indicatorStyle indicator样式，目前有圆、短线及圆角矩形三种样式
      *                       {@link IndicatorStyle#CIRCLE}
      *                       {@link IndicatorStyle#DASH}
+     *                       {@link IndicatorStyle#ROUND_RECT}
      */
     public BannerViewPager<T, VH> setIndicatorStyle(@AIndicatorStyle int indicatorStyle) {
         mBannerManager.bannerOptions().setIndicatorStyle(indicatorStyle);

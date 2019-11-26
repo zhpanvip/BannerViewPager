@@ -14,6 +14,7 @@ import com.example.zhpan.circleviewpager.viewholder.ImageResourceViewHolder;
 import com.zhpan.bannerview.BannerViewPager;
 import com.zhpan.bannerview.constants.IndicatorGravity;
 import com.zhpan.bannerview.constants.IndicatorStyle;
+import com.zhpan.bannerview.indicator.IIndicator;
 import com.zhpan.bannerview.utils.BannerUtils;
 import com.zhpan.idea.utils.ToastUtils;
 
@@ -65,12 +66,26 @@ public class IndicatorFragment extends BaseFragment implements View.OnClickListe
 //                    mViewPager.resetIndicator();
                     setupDashIndicator();
                     break;
+                case R.id.rb_round_rect:
+                    setupRoundRectIndicator();
+                    break;
                 case R.id.rb_custom:
                     setupCustomIndicator();
                     break;
             }
         });
         radioButton.performClick();
+    }
+
+    private void setupRoundRectIndicator() {
+        mViewPager.setIndicatorStyle(IndicatorStyle.ROUND_RECT)
+                .setIndicatorGravity(IndicatorGravity.CENTER)
+                .setIndicatorGap(BannerUtils.dp2px(4))
+                .setPageMargin(0)
+                .setIndicatorHeight(BannerUtils.dp2px(5f))
+                .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
+                .setIndicatorColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
+                .setIndicatorWidth(BannerUtils.dp2px(5), BannerUtils.dp2px(10)).create(getMDrawableList());
     }
 
     private void setupCircleIndicator() {
@@ -105,7 +120,7 @@ public class IndicatorFragment extends BaseFragment implements View.OnClickListe
     /**
      * 这里可以是自定义的Indicator，需要继承BaseIndicatorView或者实现IIndicator接口;
      */
-    private FigureIndicatorView setupIndicatorView() {
+    private IIndicator setupIndicatorView() {
         FigureIndicatorView indicatorView = new FigureIndicatorView(getMContext());
         indicatorView.setRadius(BannerUtils.dp2px(18));
         indicatorView.setTextSize(BannerUtils.dp2px(13));
