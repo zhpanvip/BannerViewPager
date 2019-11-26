@@ -391,7 +391,7 @@ public class FigureIndicatorView extends BaseIndicatorView {
 
 ## 有问题可以扫码加QQ群交流
 
- ![QQ交流群](https://github.com/zhpanvip/BannerViewPager/blob/master/image/qq_group.png)
+ ![QQ交流群60902509](https://github.com/zhpanvip/BannerViewPager/blob/master/image/qq_group.png)
 
 
 ##  更多详情请参看以下链接
