@@ -388,7 +388,10 @@ public class FigureIndicatorView extends BaseIndicatorView {
  - [x] 目前Indicator部分代码比较乱，还有很大很大的优化空间，后续版本将持续优化(2.5.0对Indicator再次进行了重构，重构后代码已经很整洁，但仍然有优化空间)
  - [ ] ViewPager更换为ViewPager2 （3.0.0）
 
- 
+
+## 有问题可以扫码加QQ群交流
+
+ ![QQ交流群](https://github.com/zhpanvip/BannerViewPager/blob/master/image/qq_group.png)
 
 
 ##  更多详情请参看以下链接
