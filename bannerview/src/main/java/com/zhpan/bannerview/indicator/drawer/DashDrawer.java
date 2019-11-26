@@ -17,7 +17,7 @@ public class DashDrawer extends BaseDrawer {
 
     private float minWidth;
 
-    public DashDrawer(IndicatorOptions indicatorOptions) {
+    DashDrawer(IndicatorOptions indicatorOptions) {
         super(indicatorOptions);
     }
 

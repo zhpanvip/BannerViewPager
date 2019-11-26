@@ -16,7 +16,7 @@ public class CircleDrawer extends BaseDrawer {
 
     private float minWidth;
 
-    public CircleDrawer(IndicatorOptions indicatorOptions) {
+    CircleDrawer(IndicatorOptions indicatorOptions) {
         super(indicatorOptions);
     }
 

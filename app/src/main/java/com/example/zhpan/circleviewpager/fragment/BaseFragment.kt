@@ -34,14 +34,15 @@ abstract class BaseFragment : RxFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(layout, container, false)
-        initData()
+        initData(3)
         initTitle()
         initView(savedInstanceState, view)
         return view
     }
 
-    private fun initData() {
-        for (i in 0..3) {
+    protected fun initData(j: Int) {
+        mDrawableList.clear()
+        for (i in 0..j) {
             val drawable = resources.getIdentifier("t$i", "drawable", mContext.packageName)
             mDrawableList.add(drawable)
         }
