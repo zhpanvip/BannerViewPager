@@ -24,9 +24,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/indicator_view"
+        android:layout_marginStart="10dp"
         android:text="@string/text_page_style"
         android:textColor="#000000"
-        android:layout_marginStart="10dp"
         android:textSize="18sp"
         android:textStyle="bold" />
 
@@ -58,6 +58,21 @@
             android:layout_marginTop="15dp"
             android:text="MULTI_PAGE_OVERLAP" />
 
+        <RadioButton
+            android:id="@+id/rb_multi_page_wy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="仿网易云(QQ)音乐Banner" />
+
     </RadioGroup>
+
+    <Button
+        android:id="@+id/btn_refresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="Refresh Data" />
 
 </RelativeLayout>

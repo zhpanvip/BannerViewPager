@@ -5,6 +5,10 @@
 [![JitPack](https://jitpack.io/v/zhpanvip/BannerViewPager.svg)](https://jitpack.io/#zhpanvip/BannerViewPager)
 [ ![JCenter](https://api.bintray.com/packages/zhpanvip/CircleViewPager/bannerview/images/download.svg) ](https://bintray.com/zhpanvip/CircleViewPager/bannerview/_latestVersion)
 
+
+> 腾讯视频、QQ音乐、酷狗音乐、支付宝、天猫、淘宝、优酷视频、喜马拉雅、网易云音乐、哔哩哔哩、全民K歌等App的Banner样式都可以通过BannerViewPager实现哦！
+
+
 ## 效果预览
 
  ### [点击或扫描二维码下载apk](https://github.com/zhpanvip/BannerViewPager/raw/master/download/app.apk)
@@ -384,14 +388,19 @@ public class FigureIndicatorView extends BaseIndicatorView {
  - [x] 目前Indicator部分代码比较乱，还有很大很大的优化空间，后续版本将持续优化(2.5.0对Indicator再次进行了重构，重构后代码已经很整洁，但仍然有优化空间)
  - [ ] ViewPager更换为ViewPager2 （3.0.0）
 
- 
+
+## 有问题可以扫码加QQ群交流
+
+ ![QQ交流群60902509](https://github.com/zhpanvip/BannerViewPager/blob/master/image/qq_group.png)
 
 
 ##  更多详情请参看以下链接
 
 [《打造一个丝滑般自动轮播无限循环Android库》](https://juejin.im/post/5d6bce24f265da03db0790d1)
+
 [《BannerViewPager源码解析》](https://juejin.im/post/5d74d3faf265da03b5747015)
 
+[《剖析BannerViewPager中Indicator的设计思想》](https://juejin.im/post/5dda0b6d518825731f569a8c)
 
 ## 感谢
 

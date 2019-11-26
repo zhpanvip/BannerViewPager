@@ -13,8 +13,8 @@ import static com.zhpan.bannerview.constants.IndicatorStyle.DASH;
  *   Description: Indicator Drawer Proxy.
  * </pre>
  */
-public class DrawerProxy implements IDrawer{
-    
+public class DrawerProxy implements IDrawer {
+
     private IDrawer mIDrawer;
 
     public DrawerProxy(IndicatorOptions indicatorOptions) {
@@ -22,14 +22,7 @@ public class DrawerProxy implements IDrawer{
     }
 
     private void init(IndicatorOptions indicatorOptions) {
-        switch (indicatorOptions.getIndicatorStyle()) {
-            case CIRCLE:
-                mIDrawer = new CircleDrawer(indicatorOptions);
-                break;
-            case DASH:
-                mIDrawer = new DashDrawer(indicatorOptions);
-                break;
-        }
+        mIDrawer = DrawerFactory.createDrawer(indicatorOptions);
     }
 
     public void setIndicatorOptions(IndicatorOptions indicatorOptions) {
