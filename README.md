@@ -1,7 +1,7 @@
 # BannerViewPager
 
 [![License](https://img.shields.io/badge/License%20-Apache%202-337ab7.svg)](https://www.apache.org/licenses/LICENSE-2.0)
-[![MinSdk](https://img.shields.io/badge/API-19%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=19)
+[![MinSdk](https://img.shields.io/badge/API-16%2B-brightgreen.svg?style=flat)
 [![JitPack](https://jitpack.io/v/zhpanvip/BannerViewPager.svg)](https://jitpack.io/#zhpanvip/BannerViewPager)
 [ ![JCenter](https://api.bintray.com/packages/zhpanvip/CircleViewPager/bannerview/images/download.svg) ](https://bintray.com/zhpanvip/CircleViewPager/bannerview/_latestVersion)
 
@@ -111,7 +111,7 @@ BannerViewPager支持多种IndicatorViewStyle,同时还提供了完全自定义I
 ### 1.gradle中添加依赖
    
 
-如果您已迁移到AndroidX，请在项目的root build.gradle中添加如下配置：
+如果您已迁移到AndroidX（2.5.1版本minSdkVersion支持到19），请在项目的root build.gradle中添加如下配置：
 ```
 allprojects {
 		repositories {
@@ -130,7 +130,7 @@ implementation 'com.github.zhpanvip:BannerViewPager:latestVersion'
 
 Androidx latestVersion:[![latestVersion](https://jitpack.io/v/zhpanvip/BannerViewPager.svg)](https://jitpack.io/#zhpanvip/BannerViewPager)
 
-如果未迁移到AndroidX请使用（非Androidx的包托管在JCenter上）：
+如果未迁移到AndroidX请使用（2.5.1版本minSdkVersion支持到16）：
 ```
 implementation 'com.zhpan.library:bannerview:latestVersion'
 ```
