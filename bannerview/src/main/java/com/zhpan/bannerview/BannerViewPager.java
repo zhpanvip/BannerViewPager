@@ -261,7 +261,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
             removeAllViews();
             mViewPager.setAdapter(getPagerAdapter());
             mViewPager.setCurrentItem(currentPosition);
-            mViewPager.addOnPageChangeListener(this);
+            mViewPager.setOnPageChangeListener(this);
             BannerOptions bannerOptions = mBannerManager.bannerOptions();
             mViewPager.setScrollDuration(bannerOptions.getScrollDuration());
             mViewPager.disableTouchScroll(bannerOptions.isDisableTouchScroll());

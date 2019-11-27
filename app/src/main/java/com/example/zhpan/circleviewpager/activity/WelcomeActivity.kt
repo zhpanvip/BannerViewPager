@@ -49,12 +49,13 @@ class WelcomeActivity : BaseDataActivity(), HolderCreator<CustomPageViewHolder> 
         setContentView(R.layout.activity_welcome)
         setupViewPager()
         updateUI(0)
+        mViewPager.create(data);
     }
 
     private fun setupViewPager() {
         mViewPager = findViewById(R.id.viewpager)
         mViewPager.setAutoPlay(false)
-                .setCanLoop(false)
+                .setCanLoop(true)
                 .setPageTransformerStyle(transforms[Random().nextInt(5)])
                 .setScrollDuration(ANIMATION_DURATION)
                 .setIndicatorMargin(0, 0, 0, BannerUtils.dp2px(100f))
@@ -65,6 +66,7 @@ class WelcomeActivity : BaseDataActivity(), HolderCreator<CustomPageViewHolder> 
                 .setIndicatorRadius(resources.getDimension(R.dimen.dp_3).toInt(), resources.getDimension(R.dimen.dp_4_5).toInt())
                 .setOnPageChangeListener(object : OnPageChangeListenerAdapter() {
                     override fun onPageSelected(position: Int) {
+                        BannerUtils.e("position:$position")
                         updateUI(position)
                     }
                 })

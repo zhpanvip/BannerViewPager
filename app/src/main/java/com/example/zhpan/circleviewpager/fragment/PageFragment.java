@@ -107,11 +107,11 @@ public class PageFragment extends BaseFragment {
                 .create(getMDrawableList());
     }
 
-    //  网易云音乐、QQ音乐类似的Banner都可以通过设置不同的pargeMargin和revealWidth来实现
+    //  仿QQ音乐的Banner
     private void setNetEaseMusicStyle() {
         mViewPager
-                .setPageMargin(BannerUtils.dp2px(30))
-                .setRevealWidth(BannerUtils.dp2px(-15))
+                .setPageMargin(BannerUtils.dp2px(15))
+                .setRevealWidth(BannerUtils.dp2px(0))
                 .setPageStyle(PageStyle.MULTI_PAGE)
                 .setHolderCreator(() -> new ImageResourceViewHolder(BannerUtils.dp2px(5)))
                 .setIndicatorColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
