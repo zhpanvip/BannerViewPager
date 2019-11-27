@@ -82,10 +82,10 @@ public class IndicatorFragment extends BaseFragment implements View.OnClickListe
                 .setIndicatorGravity(IndicatorGravity.CENTER)
                 .setIndicatorGap(BannerUtils.dp2px(4))
                 .setPageMargin(0)
-                .setIndicatorHeight(BannerUtils.dp2px(5f))
+                .setIndicatorHeight(BannerUtils.dp2px(4f))
                 .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
                 .setIndicatorColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
-                .setIndicatorWidth(BannerUtils.dp2px(5), BannerUtils.dp2px(10)).create(getMDrawableList());
+                .setIndicatorWidth(BannerUtils.dp2px(4), BannerUtils.dp2px(10)).create(getMDrawableList());
     }
 
     private void setupCircleIndicator() {

@@ -49,13 +49,13 @@ class WelcomeActivity : BaseDataActivity(), HolderCreator<CustomPageViewHolder> 
         setContentView(R.layout.activity_welcome)
         setupViewPager()
         updateUI(0)
-        mViewPager.create(data);
+        mViewPager.create(data)
     }
 
     private fun setupViewPager() {
         mViewPager = findViewById(R.id.viewpager)
         mViewPager.setAutoPlay(false)
-                .setCanLoop(true)
+                .setCanLoop(false)
                 .setPageTransformerStyle(transforms[Random().nextInt(5)])
                 .setScrollDuration(ANIMATION_DURATION)
                 .setIndicatorMargin(0, 0, 0, BannerUtils.dp2px(100f))

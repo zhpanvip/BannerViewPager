@@ -29,9 +29,9 @@ BannerViewPager支持多种IndicatorViewStyle,同时还提供了完全自定义I
 
 [IndicatorViewStyle Demo](https://github.com/zhpanvip/BannerViewPager/blob/master/app/src/main/java/com/example/zhpan/circleviewpager/fragment/IndicatorFragment.java)
 
-| CIRCLE | DASH | Custom |
+| CIRCLE | DASH | ROUND_RECT |
 |--|--|--|
-| ![CIRCLE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_circle.gif) | ![DASH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_dash.gif) | ![NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_custum.gif) |
+| ![CIRCLE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_circle.gif) | ![DASH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_dash.gif) | ![NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_round_rect.gif) |
 
 ### 3.setIndicatorSlideMode
 
@@ -289,7 +289,11 @@ Java示例：
 
 ### 7.高级功能---自定义IndicatorView
 
-在内置Indicator不满足需求时可以通过自定义IndicatorView实现。
+在内置Indicator不满足需求时可以通过自定义IndicatorView实现,例子将实现一个如下图所示的IndicatorView。
+
+| Custom IndicatorView|
+|--|
+| ![NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_custum.gif) |
 
 **(1)自定义View并继承BaseIndicatorView**
 
