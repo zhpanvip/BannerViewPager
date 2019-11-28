@@ -62,27 +62,27 @@
     </RadioGroup>
 
     <TextView
-        android:id="@+id/btn_refresh"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_below="@id/rg_indicator_style"
-        android:layout_centerHorizontal="true"
-        android:background="@color/white"
-        android:gravity="center"
-        android:text="Refresh"
-        android:textColor="#000000"
-        android:textSize="16sp" />
-
-    <TextView
         android:id="@+id/tv_photo_view"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:layout_below="@id/btn_refresh"
-        android:layout_marginTop="10dp"
+        android:layout_below="@id/rg_indicator_style"
         android:background="@color/white"
         android:gravity="center"
         android:onClick="onClick"
         android:text="@string/wrapper_photo_view"
+        android:textColor="#000000"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/btn_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_below="@id/tv_photo_view"
+        android:layout_centerHorizontal="true"
+        android:background="@color/white"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/dp_10"
+        android:text="Refresh"
         android:textColor="#000000"
         android:textSize="16sp" />
 
