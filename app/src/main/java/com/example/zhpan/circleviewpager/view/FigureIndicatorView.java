@@ -50,7 +50,7 @@ public class FigureIndicatorView extends BaseIndicatorView {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if (getPageSize() > 1) {
+        if (getPageSize() > 0) {
             mPaint.setColor(backgroundColor);
             canvas.drawCircle(getWidth() / 2, getHeight() / 2, radius, mPaint);
             mPaint.setColor(textColor);

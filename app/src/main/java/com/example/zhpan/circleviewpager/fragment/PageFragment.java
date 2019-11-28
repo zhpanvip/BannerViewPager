@@ -38,8 +38,6 @@ public class PageFragment extends BaseFragment {
         mRadioGroupPageStyle = view.findViewById(R.id.rg_page_style);
         radioButton = view.findViewById(R.id.rb_multi_page);
         mViewPager
-                .setPageMargin(BannerUtils.dp2px(10))
-                .setRevealWidth(BannerUtils.dp2px(10))
                 .setHolderCreator(() -> new ImageResourceViewHolder(BannerUtils.dp2px(5)))
                 .setIndicatorColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
                 .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
@@ -75,6 +73,8 @@ public class PageFragment extends BaseFragment {
 
     private void setupBanner(@APageStyle int pageStyle) {
         mViewPager
+                .setPageMargin(BannerUtils.dp2px(10))
+                .setRevealWidth(BannerUtils.dp2px(10))
                 .setPageStyle(pageStyle)
                 .create(getMDrawableList());
     }
