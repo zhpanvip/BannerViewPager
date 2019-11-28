@@ -5,12 +5,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-
-
-import com.example.zhpan.circleviewpager.fragment.BaseFragment
-import com.example.zhpan.circleviewpager.fragment.IndicatorFragment
-import com.example.zhpan.circleviewpager.fragment.PageFragment
-import com.example.zhpan.circleviewpager.fragment.HomeFragment
+import com.example.zhpan.circleviewpager.fragment.*
 
 class AdapterFragmentPager(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
@@ -21,7 +16,8 @@ class AdapterFragmentPager(fm: FragmentManager) : FragmentPagerAdapter(fm) {
             val fragmentList = SparseArray<BaseFragment>()
             fragmentList.put(PAGE_HOME, HomeFragment.getInstance())
             fragmentList.put(PAGE_FIND, PageFragment.getInstance())
-            fragmentList.put(PAGE_OTHERS, IndicatorFragment.getInstance())
+            fragmentList.put(PAGE_INDICATOR, IndicatorFragment.getInstance())
+            fragmentList.put(PAGE_OTHERS, OthersFragment.getInstance())
             return fragmentList
         }
 
@@ -49,7 +45,10 @@ class AdapterFragmentPager(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
         const val PAGE_FIND = 1
 
-        const val PAGE_OTHERS = 2
+        const val PAGE_INDICATOR = 2
+
+        const val PAGE_OTHERS = 3
+
     }
 
 }

@@ -54,7 +54,6 @@ public class AttributeController {
         mBannerOptions.setIndicatorGap(normalIndicatorWidth);
         mBannerOptions.setIndicatorHeight(normalIndicatorWidth / 2);
         mBannerOptions.setCheckedIndicatorWidth(normalIndicatorWidth);
-
     }
 
     private void initBannerAttrs(TypedArray typedArray) {

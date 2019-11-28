@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,18 +13,10 @@
         app:bvp_indicator_visibility="visible"
         app:bvp_round_corner="8dp" />
 
-    <com.zhpan.bannerview.indicator.IndicatorView
-        android:id="@+id/indicator_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/banner_view"
-        android:layout_centerHorizontal="true" />
-
     <TextView
         android:id="@+id/tv_page_style"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/indicator_view"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:text="@string/text_indicator_style"
@@ -36,17 +28,16 @@
         android:id="@+id/rg_indicator_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_page_style"
         android:orientation="vertical"
         android:padding="15dp">
 
         <RadioButton
-            android:id="@+id/rb_indicator_below"
+            android:id="@+id/rb_circle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="@dimen/dp_10"
-            android:text="Indicator below of Banner"
+            android:text="Circle"
             android:textSize="16sp" />
 
         <RadioButton
@@ -55,36 +46,19 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="@dimen/dp_10"
-            android:text="Custom Indicator"
+            android:text="Dash"
             android:textSize="16sp" />
 
+        <RadioButton
+            android:id="@+id/rb_round_rect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:text="ROUND_RECT"
+            android:textSize="16sp" />
 
     </RadioGroup>
 
-    <TextView
-        android:id="@+id/tv_photo_view"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_below="@id/rg_indicator_style"
-        android:background="@color/white"
-        android:gravity="center"
-        android:onClick="onClick"
-        android:text="@string/wrapper_photo_view"
-        android:textColor="#000000"
-        android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/btn_refresh"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_below="@id/tv_photo_view"
-        android:layout_centerHorizontal="true"
-        android:background="@color/white"
-        android:gravity="center"
-        android:layout_marginTop="@dimen/dp_10"
-        android:text="Refresh"
-        android:textColor="#000000"
-        android:textSize="16sp" />
-
-
-</RelativeLayout>
+</LinearLayout>
