@@ -114,13 +114,13 @@ public class HomeFragment extends BaseFragment {
                 .setPageStyle(PageStyle.MULTI_PAGE_OVERLAP)
                 .setIndicatorColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
                 .setHolderCreator(NetViewHolder::new)
-                .setIndicatorMargin(0,0,0, (int) getResources().getDimension(R.dimen.dp_18))
-                .setOnPageClickListener(position -> {
-                    BannerData bannerData = mBannerViewPager.getList().get(position);
-                    Toast.makeText(getMContext(),
-                            "点击了position:" + position + " " + bannerData.getTitle(), Toast.LENGTH_SHORT).show();
+                .setIndicatorMargin(0, 0, 0, (int) getResources().getDimension(R.dimen.dp_18))
+                .setOnPageClickListener(this::onPageClicked);
+    }
 
-                });
+    private void onPageClicked(int position) {
+        BannerData bannerData = mBannerViewPager.getList().get(position);
+        Toast.makeText(getMContext(), "position:" + position + " " + bannerData.getTitle(), Toast.LENGTH_SHORT).show();
     }
 
     private View getHeaderView() {
