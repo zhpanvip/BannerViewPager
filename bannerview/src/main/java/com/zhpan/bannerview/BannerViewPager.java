@@ -56,6 +56,8 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
 
     private int currentPosition;
 
+    private boolean isCustomIndicator;
+
     private OnPageClickListener mOnPageClickListener;
 
     private IIndicator mIndicatorView;
@@ -200,7 +202,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
 
     private void setIndicatorValues() {
         BannerOptions bannerOptions = mBannerManager.bannerOptions();
-        if (bannerOptions.isCustomIndicator() && null != mIndicatorView) {
+        if (isCustomIndicator && null != mIndicatorView) {
             initIndicator(mIndicatorView);
         } else {
             initIndicator(new IndicatorView(getContext()));
@@ -228,10 +230,10 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
                 layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
                 break;
             case START:
-                layoutParams.addRule(RelativeLayout.ALIGN_PARENT_START);
+                layoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
                 break;
             case END:
-                layoutParams.addRule(RelativeLayout.ALIGN_PARENT_END);
+                layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
                 break;
         }
     }
@@ -577,7 +579,8 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
      */
     public BannerViewPager<T, VH> setIndicatorView(IIndicator customIndicator) {
         if (customIndicator instanceof View) {
-            mBannerManager.bannerOptions().setCustomIndicator(true);
+//            mBannerManager.bannerOptions().setCustomIndicator(true);
+            isCustomIndicator = true;
             mIndicatorView = customIndicator;
         }
         return this;
@@ -702,11 +705,4 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
         mOnPageChangeListener = onPageChangeListener;
         return this;
     }
-
-    //  仅供demo使用
-//    @Deprecated
-//    public void resetIndicator() {
-//        mBannerManager.bannerOptions().setCustomIndicator(false);
-//        mIndicatorView = null;
-//    }
 }

@@ -56,6 +56,19 @@
                 android:text="@string/tab3"
                 android:textColor="@drawable/text_color_selector" />
 
+            <RadioButton
+                android:id="@+id/rb_others"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawableTop="@drawable/tab4_selector"
+                android:gravity="center_horizontal|bottom"
+                android:paddingBottom="5dp"
+                android:text="@string/tab4"
+                android:textColor="@drawable/text_color_selector" />
+
 
         </RadioGroup>
 

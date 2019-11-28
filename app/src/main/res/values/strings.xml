@@ -11,4 +11,8 @@
     <string name="tab3">Indicator</string>
     <string name="text_page_style">Page Style:</string>
     <string name="text_indicator_style">Indicator Style:</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tab4">Others</string>
 </resources>
