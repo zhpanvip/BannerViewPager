@@ -80,6 +80,7 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
         radioButton.performClick();
     }
 
+
     private void setIndicatorBelowOfBanner() {
         mIndicatorView.setVisibility(View.VISIBLE);
         mViewPager
