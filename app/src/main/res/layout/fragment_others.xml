@@ -27,7 +27,7 @@
         android:layout_below="@id/indicator_view"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        android:text="@string/text_indicator_style"
+        android:text="@string/custom_style"
         android:textColor="#000000"
         android:textSize="18sp"
         android:textStyle="bold" />

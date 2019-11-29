@@ -108,10 +108,11 @@ public class HomeFragment extends BaseFragment {
     private void initBanner() {
         mBannerViewPager
                 .setAutoPlay(true)
-                .setInterval(3000)
-                .setRevealWidth(BannerUtils.dp2px(10))
+                .setInterval(5000)
+                .setScrollDuration(1200)
+//                .setRevealWidth(BannerUtils.dp2px(10))
                 .setPageMargin(BannerUtils.dp2px(10))
-                .setPageStyle(PageStyle.MULTI_PAGE_OVERLAP)
+                .setPageStyle(PageStyle.MULTI_PAGE)
                 .setIndicatorColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
                 .setHolderCreator(NetViewHolder::new)
                 .setIndicatorMargin(0, 0, 0, (int) getResources().getDimension(R.dimen.dp_18))

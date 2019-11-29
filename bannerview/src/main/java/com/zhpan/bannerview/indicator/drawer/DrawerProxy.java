@@ -25,8 +25,9 @@ public class DrawerProxy implements IDrawer {
         mIDrawer = DrawerFactory.createDrawer(indicatorOptions);
     }
 
-    public void setIndicatorOptions(IndicatorOptions indicatorOptions) {
-        init(indicatorOptions);
+    @Override
+    public void onLayout(boolean changed, int left, int top, int right, int bottom) {
+
     }
 
     @Override
@@ -37,5 +38,9 @@ public class DrawerProxy implements IDrawer {
     @Override
     public void onDraw(Canvas canvas) {
         mIDrawer.onDraw(canvas);
+    }
+
+    public void setIndicatorOptions(IndicatorOptions indicatorOptions) {
+        init(indicatorOptions);
     }
 }

@@ -89,7 +89,6 @@ public class BaseIndicatorView extends View implements IIndicator {
     public void setPageSize(int pageSize) {
         mIndicatorOptions.setPageSize(pageSize);
         requestLayout();
-        invalidate();
     }
 
 
