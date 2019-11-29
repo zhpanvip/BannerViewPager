@@ -59,10 +59,10 @@ public class BannerPagerAdapter<T, VH extends ViewHolder> extends PagerAdapter {
         return itemView;
     }
 
-    @Override
-    public int getItemPosition(@NonNull Object object) {
-        return POSITION_NONE;
-    }
+//    @Override
+//    public int getItemPosition(@NonNull Object object) {
+//        return POSITION_NONE;
+//    }
 
     private View findViewByPosition(ViewGroup container, int position) {
         for (View view : mViewList) {
@@ -126,13 +126,13 @@ public class BannerPagerAdapter<T, VH extends ViewHolder> extends PagerAdapter {
         void onPageClick(int position);
     }
 
-    public void setList(List<T> list) {
-        mList.clear();
-        notifyDataSetChanged();
-        mList.addAll(list);
-        notifyDataSetChanged();
-        mViewList.clear();
-    }
+//    public void setList(List<T> list) {
+//        mList.clear();
+//        notifyDataSetChanged();
+//        mList.addAll(list);
+//        notifyDataSetChanged();
+//        mViewList.clear();
+//    }
 
     public List<T> getList() {
         return mList;

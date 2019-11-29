@@ -619,7 +619,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
 //            if (mBannerPagerAdapter != null && mBannerManager.bannerOptions().getPageStyle() == PageStyle.NORMAL) {
 //                mBannerPagerAdapter.setList(list);
 //                mIndicatorView.setPageSize(list.size());
-//                setCurrentItem(0, false);
+////                setCurrentItem(0, false);
 //            } else {
 //                initBannerData(list);
 //            }

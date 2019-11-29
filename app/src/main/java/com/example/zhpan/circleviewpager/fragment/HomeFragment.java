@@ -108,7 +108,7 @@ public class HomeFragment extends BaseFragment {
     private void initBanner() {
         mBannerViewPager
                 .setAutoPlay(true)
-                .setInterval(5000)
+                .setInterval(3000)
                 .setRevealWidth(BannerUtils.dp2px(10))
                 .setPageMargin(BannerUtils.dp2px(10))
                 .setPageStyle(PageStyle.MULTI_PAGE_OVERLAP)
