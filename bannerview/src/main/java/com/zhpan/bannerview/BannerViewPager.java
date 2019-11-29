@@ -137,7 +137,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
         int size = mBannerPagerAdapter.getListSize();
         if (size > 0 && isCanLoop() && position == 0) {
             position = MAX_VALUE / 2 - ((MAX_VALUE / 2) % size) + 1;
-            setCurrentItem(position, false);
+            setCurrentItem(0, false);
         }
         currentPosition = BannerUtils.getRealPosition(isCanLoop(), position, size);
         if (mOnPageChangeListener != null)
