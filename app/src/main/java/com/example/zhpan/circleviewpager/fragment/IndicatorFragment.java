@@ -1,6 +1,5 @@
 package com.example.zhpan.circleviewpager.fragment;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -8,8 +7,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.example.zhpan.circleviewpager.R;
-import com.example.zhpan.circleviewpager.activity.PhotoViewActivity;
-import com.example.zhpan.circleviewpager.view.FigureIndicatorView;
 import com.example.zhpan.circleviewpager.viewholder.ImageResourceViewHolder;
 import com.zhpan.bannerview.BannerViewPager;
 import com.zhpan.bannerview.constants.IndicatorGravity;
@@ -20,7 +17,7 @@ import com.zhpan.idea.utils.ToastUtils;
 /**
  * Created by zhpan on 2018/7/24.
  */
-public class IndicatorFragment extends BaseFragment implements View.OnClickListener {
+public class IndicatorFragment extends BaseFragment {
 
     private BannerViewPager<Integer, ImageResourceViewHolder> mViewPager;
     private RadioGroup radioGroupStyle;
@@ -28,7 +25,7 @@ public class IndicatorFragment extends BaseFragment implements View.OnClickListe
 
     @Override
     protected int getLayout() {
-        return R.layout.fragment_others;
+        return R.layout.fragment_indicator;
     }
 
     @Override
@@ -41,7 +38,6 @@ public class IndicatorFragment extends BaseFragment implements View.OnClickListe
         radioButton = view.findViewById(R.id.rb_circle);
         radioGroupStyle = view.findViewById(R.id.rg_indicator_style);
         mViewPager = view.findViewById(R.id.banner_view);
-        view.findViewById(R.id.tv_photo_view).setOnClickListener(this);
         mViewPager.setIndicatorGap(BannerUtils.dp2px(6))
                 .setRoundCorner(BannerUtils.dp2px(6))
                 .setHolderCreator(() -> new ImageResourceViewHolder(0));
@@ -53,24 +49,31 @@ public class IndicatorFragment extends BaseFragment implements View.OnClickListe
     }
 
     private void initRadioGroup() {
-        radioGroupStyle.setVisibility(View.VISIBLE);
-        radioGroupStyle.setVisibility(View.VISIBLE);
         radioGroupStyle.setOnCheckedChangeListener((group, checkedId) -> {
             switch (checkedId) {
                 case R.id.rb_circle:
-//                    mViewPager.resetIndicator();
                     setupCircleIndicator();
                     break;
                 case R.id.rb_dash:
-//                    mViewPager.resetIndicator();
                     setupDashIndicator();
                     break;
-                case R.id.rb_custom:
-                    setupCustomIndicator();
+                case R.id.rb_round_rect:
+                    setupRoundRectIndicator();
                     break;
             }
         });
         radioButton.performClick();
+    }
+
+    private void setupRoundRectIndicator() {
+        mViewPager.setIndicatorStyle(IndicatorStyle.ROUND_RECT)
+                .setIndicatorGravity(IndicatorGravity.CENTER)
+                .setIndicatorGap(BannerUtils.dp2px(4))
+                .setPageMargin(0)
+                .setIndicatorHeight(BannerUtils.dp2px(4f))
+                .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
+                .setIndicatorColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
+                .setIndicatorWidth(BannerUtils.dp2px(4), BannerUtils.dp2px(10)).create(getMDrawableList());
     }
 
     private void setupCircleIndicator() {
@@ -92,29 +95,5 @@ public class IndicatorFragment extends BaseFragment implements View.OnClickListe
                 .setIndicatorWidth(BannerUtils.dp2px(3), BannerUtils.dp2px(10))
                 .setIndicatorColor(Color.parseColor("#888888"),
                         Color.parseColor("#118EEA")).create(getMDrawableList());
-    }
-
-    private void setupCustomIndicator() {
-        mViewPager.setAutoPlay(false).setCanLoop(true)
-                .setPageMargin(BannerUtils.dp2px(20))
-                .setIndicatorGravity(IndicatorGravity.END)
-                .setIndicatorView(setupIndicatorView())
-                .setHolderCreator(() -> new ImageResourceViewHolder(0)).create(getMDrawableList());
-    }
-
-    /**
-     * 这里可以是自定义的Indicator，需要继承BaseIndicatorView或者实现IIndicator接口;
-     */
-    private FigureIndicatorView setupIndicatorView() {
-        FigureIndicatorView indicatorView = new FigureIndicatorView(getMContext());
-        indicatorView.setRadius(BannerUtils.dp2px(18));
-        indicatorView.setTextSize(BannerUtils.dp2px(13));
-        indicatorView.setBackgroundColor(Color.parseColor("#aa118EEA"));
-        return indicatorView;
-    }
-
-    @Override
-    public void onClick(View view) {
-        startActivity(new Intent(getActivity(), PhotoViewActivity.class));
     }
 }

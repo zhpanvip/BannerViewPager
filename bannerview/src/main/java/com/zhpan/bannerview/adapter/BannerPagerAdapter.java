@@ -32,7 +32,8 @@ public class BannerPagerAdapter<T, VH extends ViewHolder> extends PagerAdapter {
     public static final int MAX_VALUE = Integer.MAX_VALUE;
 
     public BannerPagerAdapter(List<T> list, HolderCreator<VH> holderCreator) {
-        this.mList = list;
+        mList = new ArrayList<>();
+        mList.addAll(list);
         this.holderCreator = holderCreator;
     }
 
@@ -57,6 +58,11 @@ public class BannerPagerAdapter<T, VH extends ViewHolder> extends PagerAdapter {
         container.addView(itemView);
         return itemView;
     }
+
+//    @Override
+//    public int getItemPosition(@NonNull Object object) {
+//        return POSITION_NONE;
+//    }
 
     private View findViewByPosition(ViewGroup container, int position) {
         for (View view : mViewList) {
@@ -118,5 +124,21 @@ public class BannerPagerAdapter<T, VH extends ViewHolder> extends PagerAdapter {
 
     public interface PageClickListener {
         void onPageClick(int position);
+    }
+
+//    public void setList(List<T> list) {
+//        mList.clear();
+//        notifyDataSetChanged();
+//        mList.addAll(list);
+//        notifyDataSetChanged();
+//        mViewList.clear();
+//    }
+
+    public List<T> getList() {
+        return mList;
+    }
+
+    public int getListSize() {
+        return mList.size();
     }
 }

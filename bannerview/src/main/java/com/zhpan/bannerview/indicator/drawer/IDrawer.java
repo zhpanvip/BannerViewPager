@@ -12,6 +12,8 @@ import com.zhpan.bannerview.manager.IndicatorOptions;
  */
 public interface IDrawer {
 
+    void onLayout(boolean changed, int left, int top, int right, int bottom);
+
     BaseDrawer.MeasureResult onMeasure(int widthMeasureSpec, int heightMeasureSpec);
 
     void onDraw(Canvas canvas);

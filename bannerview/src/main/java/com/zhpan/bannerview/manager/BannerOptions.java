@@ -35,8 +35,6 @@ public class BannerOptions {
 
     private int mRevealWidth;
 
-    private boolean isCustomIndicator;
-
     private int mPageStyle = PageStyle.NORMAL;
 
     private IndicatorMargin mIndicatorMargin;
@@ -181,14 +179,6 @@ public class BannerOptions {
 
     public void setIndicatorHeight(int indicatorHeight) {
         mIndicatorOptions.setSliderHeight(indicatorHeight);
-    }
-
-    public boolean isCustomIndicator() {
-        return isCustomIndicator;
-    }
-
-    public void setCustomIndicator(boolean customIndicator) {
-        isCustomIndicator = customIndicator;
     }
 
     public int getPageStyle() {

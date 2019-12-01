@@ -9,6 +9,8 @@
     <string name="tab1">Home</string>
     <string name="tab2">Page</string>
     <string name="tab3">Indicator</string>
+    <string name="tab4">Others</string>
     <string name="text_page_style">Page Style:</string>
     <string name="text_indicator_style">Indicator Style:</string>
+    <string name="custom_style">Custom Style</string>
 </resources>

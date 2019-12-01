@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.support.annotation.ColorInt
 import android.support.annotation.ColorRes
+import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -50,7 +51,7 @@ abstract class BaseFragment : RxFragment() {
 
     @ColorInt
     protected fun getColor(@ColorRes colorRes: Int): Int {
-        return context!!.resources.getColor(colorRes)
+        return ContextCompat.getColor(context!!,colorRes)
     }
 
     /**

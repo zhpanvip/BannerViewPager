@@ -9,4 +9,5 @@ package com.zhpan.bannerview.constants;
 public interface IndicatorStyle {
     int CIRCLE = 0;
     int DASH = 1 << 1;
+    int ROUND_RECT = 1 << 2;
 }
