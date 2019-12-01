@@ -27,7 +27,7 @@ class AdapterFragmentPager(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val fragment = super.instantiateItem(container, position) as Fragment
-        fragmentList!!.put(position, fragment as BaseFragment)
+        fragmentList?.put(position, fragment as BaseFragment)
         return fragment
     }
 

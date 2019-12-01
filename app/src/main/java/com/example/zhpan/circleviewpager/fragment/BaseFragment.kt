@@ -8,6 +8,7 @@ import android.view.ViewGroup
 
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
+import androidx.core.content.ContextCompat
 
 import com.trello.rxlifecycle2.components.support.RxFragment
 
@@ -50,7 +51,7 @@ abstract class BaseFragment : RxFragment() {
 
     @ColorInt
     protected fun getColor(@ColorRes colorRes: Int): Int {
-        return context!!.resources.getColor(colorRes)
+        return ContextCompat.getColor(context!!,colorRes)
     }
 
     /**

@@ -37,6 +37,12 @@ public class IndicatorView extends BaseIndicatorView implements IIndicator {
     }
 
     @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+        mDrawerProxy.onLayout(changed,left,top,right,bottom);
+    }
+
+    @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         BaseDrawer.MeasureResult measureResult = mDrawerProxy.onMeasure(widthMeasureSpec, heightMeasureSpec);
@@ -44,14 +50,14 @@ public class IndicatorView extends BaseIndicatorView implements IIndicator {
     }
 
     @Override
-    public void setIndicatorOptions(IndicatorOptions indicatorOptions) {
-        super.setIndicatorOptions(indicatorOptions);
-        mDrawerProxy.setIndicatorOptions(indicatorOptions);
-    }
-
-    @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         mDrawerProxy.onDraw(canvas);
+    }
+
+    @Override
+    public void setIndicatorOptions(IndicatorOptions indicatorOptions) {
+        super.setIndicatorOptions(indicatorOptions);
+        mDrawerProxy.setIndicatorOptions(indicatorOptions);
     }
 }
