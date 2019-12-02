@@ -60,9 +60,22 @@ public class IndicatorFragment extends BaseFragment {
                 case R.id.rb_round_rect:
                     setupRoundRectIndicator();
                     break;
+                case R.id.rb_tmall:
+                    setupTmallIndicator();
+                    break;
             }
         });
         radioButton.performClick();
+    }
+
+    private void setupTmallIndicator() {
+        mViewPager
+                .setIndicatorStyle(IndicatorStyle.DASH)
+                .setIndicatorGap(0)
+                .setIndicatorColor(getColor(R.color.white_alpha_75), getColor(R.color.white))
+                .setIndicatorWidth(BannerUtils.dp2px(12), BannerUtils.dp2px(12))
+                .setIndicatorHeight(BannerUtils.dp2px(1.5f))
+                .create(getMDrawableList());
     }
 
     private void setupRoundRectIndicator() {
