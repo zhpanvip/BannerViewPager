@@ -9,6 +9,7 @@ import java.lang.annotation.Target;
 
 import static com.zhpan.bannerview.constants.IndicatorStyle.CIRCLE;
 import static com.zhpan.bannerview.constants.IndicatorStyle.DASH;
+import static com.zhpan.bannerview.constants.IndicatorStyle.ROUND_RECT;
 
 /**
  * <pre>
@@ -16,7 +17,7 @@ import static com.zhpan.bannerview.constants.IndicatorStyle.DASH;
  *   Description:
  * </pre>
  */
-@IntDef({CIRCLE, DASH})
+@IntDef({CIRCLE, DASH,ROUND_RECT})
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.PARAMETER)
 public @interface AIndicatorStyle {
