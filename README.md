@@ -150,66 +150,64 @@ implementation 'com.zhpan.library:bannerview:latestVersion'
 ### 3.Banner的Item页面布局
 
 ```
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <ImageView
-        android:id="@+id/banner_image"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop" />
+        android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="#66000000"
-        android:gravity="center_vertical">
-
-        <TextView
-            android:id="@+id/tv_describe"
-            android:layout_width="wrap_content"
+        <ImageView
+            android:id="@+id/banner_image"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="15dp"
-            android:gravity="center_vertical"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:textColor="#FFFFFF"
-            android:textSize="16sp" />
-    </LinearLayout>
+            android:scaleType="centerCrop" />
 
-</RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="#66000000"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tv_describe"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="15dp"
+                android:gravity="center_vertical"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+    </RelativeLayout>
 ```
 
 ### 4.自定义ViewHolder
 
 ```
-public class NetViewHolder implements ViewHolder<BannerData> {
-    private ImageView mImageView;
-    private TextView mTextView;
+    public class NetViewHolder implements ViewHolder<BannerData> {
 
-    @Override
-    public View createView(ViewGroup viewGroup, Context context, int position) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_net, viewGroup, false);
-        mImageView = view.findViewById(R.id.banner_image);
-        mTextView = view.findViewById(R.id.tv_describe);
-        return view;
-    }
+        @Override
+        public int getLayoutId() {
+            return R.layout.item_net;
+        }
 
-    @Override
-    public void onBind(Context context, BannerData data, int position, int size) {
-        ImageLoaderOptions options = new ImageLoaderOptions.Builder().into(mImageView).load(data.getImagePath()).placeHolder(R.drawable.placeholder).build();
-        ImageLoaderManager.getInstance().loadImage(options);
-        mTextView.setText(data.getTitle());
+        @Override
+        public void onBind(View itemView, BannerData data, int position, int size) {
+            CornerImageView imageView = itemView.findViewById(R.id.banner_image);
+            imageView.setRoundCorner(BannerUtils.dp2px(5));
+            ImageLoaderOptions options = new ImageLoaderOptions.Builder()
+                    .into(imageView).load(data.getImagePath())
+                    .placeHolder(R.drawable.placeholder).build();
+            ImageLoaderManager.getInstance().loadImage(options);
+        }
     }
-}
 ```
 
 ### 5.BannerViewPager参数配置
 
-Kotlin示例：
+Kotlin：
 
 ```
     private lateinit var mViewPager: BannerViewPager<CustomBean, CustomPageViewHolder>
@@ -232,7 +230,7 @@ Kotlin示例：
         }
 ```    
 
-Java示例：
+Java：
 
 ```
     private BannerViewPager<BannerData, NetViewHolder> mBannerViewPager;
