@@ -8,7 +8,7 @@
 
 ## English | [中文](https://github.com/zhpanvip/BannerViewPager/blob/master/README_CN.md)
 
-> Tencent Video、QQ Music、KuGou、AliPay、Tmall、TaoBao、YouKu、Himalaya、Netease Cloud Music、Bilibili ect.All of above App's Banner can be implements By BannerViewPager！
+> Tencent Video,QQ Music,KuGou,AliPay,Tmall,TaoBao,YouKu,Himalaya,NetEase Music,Bilibili ect. All of above App's Banner can be implements By BannerViewPager.
 
 ## Preview
 
