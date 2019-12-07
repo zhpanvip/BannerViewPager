@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
     private fun initData() {
         vp_fragment.adapter = AdapterFragmentPager(this)
         vp_fragment.offscreenPageLimit = 3
+        vp_fragment.isUserInputEnabled=false
         vp_fragment.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
@@ -45,7 +46,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setListener() {
-        rg_tab?.setOnCheckedChangeListener { group, checkedId ->
+        rg_tab?.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 R.id.rb_home -> vp_fragment.setCurrentItem(AdapterFragmentPager.PAGE_HOME, false)
                 R.id.rb_find -> vp_fragment.setCurrentItem(AdapterFragmentPager.PAGE_FIND, false)
