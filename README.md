@@ -12,7 +12,7 @@
 
 ## Preview
 
- ### [Click here or scan The QR Code to Download demo apk](https://github.com/zhpanvip/BannerViewPager/raw/master/download/app.apk)
+ ### [Click here or scan the QR code to download demo apk](https://github.com/zhpanvip/BannerViewPager/raw/master/download/app.apk)
 
 ![QRCode](https://github.com/zhpanvip/BannerViewPager/blob/master/image/qrcode.png)
 
