@@ -1,8 +1,8 @@
 package com.zhpan.bannerview.holder;
 
-import android.content.Context;
 import android.view.View;
-import android.view.ViewGroup;
+
+import androidx.annotation.LayoutRes;
 
 /**
  * Created by zhpan on 2017/10/30.
@@ -10,13 +10,16 @@ import android.view.ViewGroup;
  */
 
 public interface ViewHolder<T> {
-    View createView(ViewGroup viewGroup,Context context, int position);
+
+    @LayoutRes int getLayoutId();
+
+//    void createView(View itemView,int position);
 
     /**
-     * @param context context
-     * @param data 实体类对象
+     * @param itemView  ViewPager item View
+     * @param data     实体类对象
      * @param position 当前位置
-     * @param size 页面个数
+     * @param size     页面个数
      */
-    void onBind(Context context,T data,int position,int size);
+    void onBind(View itemView, T data, int position, int size);
 }

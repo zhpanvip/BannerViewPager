@@ -1,9 +1,6 @@
 package com.example.zhpan.circleviewpager.viewholder;
 
-import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.zhpan.circleviewpager.R;
@@ -16,20 +13,16 @@ import com.zhpan.bannerview.holder.ViewHolder;
  */
 
 public class PhotoViewHolder implements ViewHolder<Integer> {
-    private PhotoView mImageView;
 
     @Override
-    public View createView(ViewGroup viewGroup, Context context, int position) {
-        // 返回页面布局文件
-        View view = LayoutInflater.from(context).inflate(R.layout.item_photo_view, viewGroup, false);
-        mImageView = view.findViewById(R.id.banner_image);
-        return view;
+    public int getLayoutId() {
+        return R.layout.item_photo_view;
     }
 
     @Override
-    public void onBind(final Context context, Integer data, final int position, final int size) {
-        // 数据绑定
-        mImageView.setImageResource(data);
-        mImageView.setOnClickListener(v -> Toast.makeText(context, position + "  页面数" + size, Toast.LENGTH_SHORT).show());
+    public void onBind(View itemView, Integer data, int position, int size) {
+        PhotoView imageView = itemView.findViewById(R.id.banner_image);
+        imageView.setImageResource(data);
+        imageView.setOnClickListener(v -> Toast.makeText(itemView.getContext(), position + "  页面数" + size, Toast.LENGTH_SHORT).show());
     }
 }

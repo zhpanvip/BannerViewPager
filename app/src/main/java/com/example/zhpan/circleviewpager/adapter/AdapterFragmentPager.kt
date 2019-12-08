@@ -1,42 +1,42 @@
 package com.example.zhpan.circleviewpager.adapter
 
+
 import android.util.SparseArray
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
-import com.example.zhpan.circleviewpager.fragment.*
+import androidx.fragment.app.FragmentActivity
+import androidx.viewpager2.adapter.FragmentStateAdapter
 
-class AdapterFragmentPager(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+import com.example.zhpan.circleviewpager.fragment.BaseFragment
+import com.example.zhpan.circleviewpager.fragment.HomeFragment
+import com.example.zhpan.circleviewpager.fragment.IndicatorFragment
+import com.example.zhpan.circleviewpager.fragment.OthersFragment
+import com.example.zhpan.circleviewpager.fragment.PageFragment
 
-    private val fragmentList: SparseArray<BaseFragment>?
+import java.util.ArrayList
 
-    private val fragments: SparseArray<BaseFragment>
-        get() {
-            val fragmentList = SparseArray<BaseFragment>()
-            fragmentList.put(PAGE_HOME, HomeFragment.getInstance())
-            fragmentList.put(PAGE_FIND, PageFragment.getInstance())
-            fragmentList.put(PAGE_INDICATOR, IndicatorFragment.getInstance())
-            fragmentList.put(PAGE_OTHERS, OthersFragment.getInstance())
-            return fragmentList
-        }
+/**
+ * <pre>
+ * Created by zhangpan on 2019-12-05.
+ * Description:
+</pre> *
+ */
+class AdapterFragmentPager(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
+
+    private val fragments: SparseArray<BaseFragment> = SparseArray()
 
     init {
-        fragmentList = fragments
+        fragments.put(PAGE_HOME, HomeFragment.getInstance())
+        fragments.put(PAGE_FIND, PageFragment.getInstance())
+        fragments.put(PAGE_INDICATOR, IndicatorFragment.getInstance())
+        fragments.put(PAGE_OTHERS, OthersFragment.getInstance())
     }
 
-    override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        val fragment = super.instantiateItem(container, position) as Fragment
-        fragmentList?.put(position, fragment as BaseFragment)
-        return fragment
+    override fun createFragment(position: Int): Fragment {
+        return fragments[position]
     }
 
-    override fun getItem(position: Int): Fragment {
-        return fragmentList!!.get(position)
-    }
-
-    override fun getCount(): Int {
-        return fragmentList?.size() ?: 0
+    override fun getItemCount(): Int {
+        return fragments.size()
     }
 
     companion object {

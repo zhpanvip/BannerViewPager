@@ -12,8 +12,8 @@
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_alignParentBottom="true"
-            android:background="@color/white"
             android:layout_centerInParent="true"
+            android:background="@color/white"
             android:orientation="horizontal">
 
             <RadioButton
@@ -72,9 +72,7 @@
 
         </RadioGroup>
 
-
-
-        <com.zhpan.bannerview.view.CatchViewPager
+        <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/vp_fragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -93,67 +91,3 @@
         android:background="@drawable/add_bg"/>-->
 </FrameLayout>
 
-<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/activity_main"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <TextView
-        android:id="@+id/tv_page_style"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:gravity="center"
-        android:onClick="onClick"
-        android:text="@string/page_style" />
-    <include layout="@layout/item_line" />
-    <TextView
-        android:id="@+id/btn_indicator_style"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:gravity="center"
-        android:onClick="onClick"
-        android:text="@string/indicator_style" />
-
-    <include layout="@layout/item_line" />
-
-    <TextView
-        android:id="@+id/btn_view_pager4"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:gravity="center"
-        android:onClick="onClick"
-        android:text="@string/load_data" />
-
-    <include layout="@layout/item_line" />
-&lt;!&ndash;
-    <TextView
-        android:id="@+id/btn_view_pager2"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:gravity="center"
-        android:onClick="onClick"
-        android:text="@string/title_custom_page" />
-
-    <include layout="@layout/item_line" />&ndash;&gt;
-
-    <TextView
-        android:id="@+id/btn_view_pager3"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:gravity="center"
-        android:onClick="onClick"
-        android:text="@string/wrapper_photo_view" />
-
-    <include layout="@layout/item_line" />
-
-    <TextView
-        android:id="@+id/btn_view_pager5"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:gravity="center"
-        android:onClick="onClick"
-        android:text="@string/title_transformer" />
-
-    <include layout="@layout/item_line" />
-</LinearLayout>-->
