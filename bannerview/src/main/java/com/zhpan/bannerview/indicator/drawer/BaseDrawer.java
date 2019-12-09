@@ -25,6 +25,11 @@ public abstract class BaseDrawer implements IDrawer {
         mMeasureResult = new MeasureResult();
     }
 
+    @Override
+    public void onLayout(boolean changed, int left, int top, int right, int bottom) {
+
+    }
+
     public class MeasureResult {
 
         int measureWidth;

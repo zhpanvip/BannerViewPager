@@ -12,9 +12,10 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activity.Main2Activity"></activity>
         <activity
             android:name=".activity.WelcomeActivity"
-            android:theme="@style/FullScreenTheme" >
+            android:theme="@style/FullScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -22,13 +23,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activity.PhotoViewActivity"
             android:theme="@style/FullScreenTheme" />
-        <activity android:name=".activity.MainActivity">
-
-        </activity>
+        <activity android:name=".activity.MainActivity" />
     </application>
 
 </manifest>

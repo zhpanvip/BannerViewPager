@@ -16,28 +16,29 @@
 
         <attr name="bvp_indicator_style" format="enum">
             <enum name="circle" value="0" />
-            <enum name="dash" value="1" />
+            <enum name="dash" value="2" />
+            <enum name="round_rect" value="4" />
         </attr>
         <attr name="bvp_indicator_slide_mode" format="enum">
             <enum name="normal" value="0" />
-            <enum name="smooth" value="1" />
+            <enum name="smooth" value="2" />
         </attr>
         <attr name="bvp_indicator_gravity" format="enum">
             <enum name="center" value="0" />
-            <enum name="start" value="1" />
-            <enum name="end" value="2" />
+            <enum name="start" value="2" />
+            <enum name="end" value="4" />
         </attr>
         <attr name="bvp_page_style" format="enum">
             <enum name="normal" value="0" />
-            <enum name="multi_page" value="1" />
-            <enum name="multi_page_overlap" value="2" />
-            <enum name="multi_page_scale" value="3" />
+            <enum name="multi_page" value="2" />
+            <enum name="multi_page_overlap" value="4" />
+            <enum name="multi_page_scale" value="8" />
         </attr>
         <attr name="bvp_transformer_style" format="enum">
             <enum name="normal" value="0" />
-            <enum name="depth" value="1" />
-            <enum name="stack" value="2" />
-            <enum name="accordion" value="3" />
+            <enum name="depth" value="2" />
+            <enum name="stack" value="4" />
+            <enum name="accordion" value="8" />
         </attr>
 
         <attr name="bvp_indicator_visibility" format="enum">

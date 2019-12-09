@@ -120,7 +120,9 @@ public class CatchViewPager extends ViewPager {
             Field mField = ViewPager.class.getDeclaredField("mScroller");
             mField.setAccessible(true);
             mField.set(this, mBannerScroller);
-        } catch (IllegalAccessException | NoSuchFieldException e) {
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
             e.printStackTrace();
         }
     }
@@ -131,7 +133,9 @@ public class CatchViewPager extends ViewPager {
             mFirstLayout.setAccessible(true);
             mFirstLayout.set(this, firstLayout);
             setCurrentItem(getCurrentItem());
-        } catch (IllegalAccessException | NoSuchFieldException e) {
+        } catch (IllegalAccessException  e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
             e.printStackTrace();
         }
     }

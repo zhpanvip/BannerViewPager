@@ -37,7 +37,6 @@ import com.zhpan.bannerview.provider.ViewStyleSetter;
 import com.zhpan.bannerview.transform.PageTransformerFactory;
 import com.zhpan.bannerview.view.CatchViewPager;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.zhpan.bannerview.adapter.BannerPagerAdapter.MAX_VALUE;
@@ -55,6 +54,8 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
 
     private int currentPosition;
 
+    private boolean isCustomIndicator;
+
     private OnPageClickListener mOnPageClickListener;
 
     private IIndicator mIndicatorView;
@@ -62,8 +63,6 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     private RelativeLayout mIndicatorLayout;
 
     private CatchViewPager mViewPager;
-
-    private List<T> mList;
 
     private BannerManager mBannerManager;
 
@@ -96,7 +95,6 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
         inflate(getContext(), R.layout.layout_banner_view_pager, this);
         mViewPager = findViewById(R.id.vp_main);
         mIndicatorLayout = findViewById(R.id.rl_indicator);
-        mList = new ArrayList<>();
     }
 
     @Override
@@ -135,11 +133,12 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     @Override
     public void onPageSelected(int position) {
         // Optimized For Issue #42
-        if (mList.size() > 0 && isCanLoop() && position == 0) {
-            position = MAX_VALUE / 2 - ((MAX_VALUE / 2) % mList.size()) + 1;
-            setCurrentItem(BannerUtils.getRealPosition(isCanLoop(), position, mList.size()));
+        int size = mBannerPagerAdapter.getListSize();
+        if (size > 0 && isCanLoop() && position == 0) {
+            position = MAX_VALUE / 2 - ((MAX_VALUE / 2) % size) + 1;
+            setCurrentItem(0, false);
         }
-        currentPosition = BannerUtils.getRealPosition(isCanLoop(), position, mList.size());
+        currentPosition = BannerUtils.getRealPosition(isCanLoop(), position, size);
         if (mOnPageChangeListener != null)
             mOnPageChangeListener.onPageSelected(currentPosition);
         if (mIndicatorView != null) {
@@ -159,17 +158,20 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        if (mOnPageChangeListener != null) {
-            mOnPageChangeListener.onPageScrolled(BannerUtils.getRealPosition(isCanLoop(), position, mList.size()),
-                    positionOffset, positionOffsetPixels);
+        int listSize = mBannerPagerAdapter.getListSize();
+        if (listSize > 0) {
+            if (mOnPageChangeListener != null) {
+                mOnPageChangeListener.onPageScrolled(BannerUtils.getRealPosition(isCanLoop(), position, listSize),
+                        positionOffset, positionOffsetPixels);
+            }
+            if (mIndicatorView != null)
+                mIndicatorView.onPageScrolled(BannerUtils.getRealPosition(isCanLoop(), position, listSize),
+                        positionOffset, positionOffsetPixels);
         }
-        if (mIndicatorView != null)
-            mIndicatorView.onPageScrolled(BannerUtils.getRealPosition(isCanLoop(), position, mList.size()),
-                    positionOffset, positionOffsetPixels);
     }
 
     private void handlePosition() {
-        if (mList.size() > 1) {
+        if (mBannerPagerAdapter.getListSize() > 1) {
             currentPosition = mViewPager.getCurrentItem() + 1;
             mViewPager.setCurrentItem(currentPosition);
             mHandler.postDelayed(mRunnable, getInterval());
@@ -178,34 +180,34 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
 
     private void initBannerData(List<T> list) {
         if (list != null) {
-            initList(list);
-            setupViewPager();
+            setIndicatorValues(list);
+            setupViewPager(list);
             initRoundCorner();
         }
     }
 
-    private void initList(List<T> list) {
-        mList.clear();
-        mList.addAll(list);
-        if (mList.size() > 1) {
-            setIndicatorValues();
-        } else if (mIndicatorView != null) {
-            mIndicatorView.setPageSize(mList.size());
-        }
-        if (mList.size() > 0 && isCanLoop()) {
-            currentPosition = MAX_VALUE / 2 - ((MAX_VALUE / 2) % mList.size()) + 1;
-        }
-    }
+//    private void initList(List<T> list) {
+//        mList.clear();
+//        mList.addAll(list);
+//        mIndicatorView.setPageSize(mList.size());
+//        if (mList.size() > 1) {
+//            setIndicatorValues();
+//        } else if (mIndicatorView != null) {
+//            mIndicatorView.setPageSize(mList.size());
+//        }
+//        setIndicatorValues(list);
+//
+//    }
 
-    private void setIndicatorValues() {
+    private void setIndicatorValues(List<T> list) {
         BannerOptions bannerOptions = mBannerManager.bannerOptions();
-        if (bannerOptions.isCustomIndicator() && null != mIndicatorView) {
+        if (isCustomIndicator && null != mIndicatorView) {
             initIndicator(mIndicatorView);
         } else {
             initIndicator(new IndicatorView(getContext()));
         }
         mIndicatorView.setIndicatorOptions(bannerOptions.getIndicatorOptions());
-        mIndicatorView.setPageSize(mList.size());
+        mIndicatorView.setPageSize(list.size());
     }
 
     private void initIndicator(IIndicator indicatorView) {
@@ -227,10 +229,10 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
                 layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
                 break;
             case START:
-                layoutParams.addRule(RelativeLayout.ALIGN_PARENT_START);
+                layoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
                 break;
             case END:
-                layoutParams.addRule(RelativeLayout.ALIGN_PARENT_END);
+                layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
                 break;
         }
     }
@@ -255,11 +257,15 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
         }
     }
 
-    private void setupViewPager() {
+    private void setupViewPager(List<T> list) {
         if (holderCreator != null) {
+            if (list.size() > 0 && isCanLoop()) {
+                currentPosition = MAX_VALUE / 2 - ((MAX_VALUE / 2) % list.size()) + 1;
+            }
             removeAllViews();
-            mViewPager.setAdapter(getPagerAdapter());
+            mViewPager.setAdapter(getPagerAdapter(list));
             mViewPager.setCurrentItem(currentPosition);
+            mViewPager.removeOnPageChangeListener(this);
             mViewPager.addOnPageChangeListener(this);
             BannerOptions bannerOptions = mBannerManager.bannerOptions();
             mViewPager.setScrollDuration(bannerOptions.getScrollDuration());
@@ -275,16 +281,18 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
         }
     }
 
-    private PagerAdapter getPagerAdapter() {
-        BannerPagerAdapter<T, VH> bannerPagerAdapter =
-                new BannerPagerAdapter<>(mList, holderCreator);
-        bannerPagerAdapter.setCanLoop(isCanLoop());
-        bannerPagerAdapter.setPageClickListener(position -> {
+    private BannerPagerAdapter<T, VH> mBannerPagerAdapter;
+
+    private PagerAdapter getPagerAdapter(List<T> list) {
+        mBannerPagerAdapter =
+                new BannerPagerAdapter<>(list, holderCreator);
+        mBannerPagerAdapter.setCanLoop(isCanLoop());
+        mBannerPagerAdapter.setPageClickListener(position -> {
             if (mOnPageClickListener != null) {
                 mOnPageClickListener.onPageClick(position);
             }
         });
-        return bannerPagerAdapter;
+        return mBannerPagerAdapter;
     }
 
     private void initPageStyle() {
@@ -337,14 +345,15 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
      * @return BannerViewPager数据集合
      */
     public List<T> getList() {
-        return mList;
+        return mBannerPagerAdapter.getList();
     }
 
     /**
      * 开启轮播
      */
     public void startLoop() {
-        if (!isLooping() && isAutoPlay() && mList.size() > 1) {
+        if (!isLooping() && isAutoPlay() && mBannerPagerAdapter != null &&
+                mBannerPagerAdapter.getListSize() > 1) {
             mHandler.postDelayed(mRunnable, getInterval());
             setLooping(true);
         }
@@ -575,7 +584,8 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
      */
     public BannerViewPager<T, VH> setIndicatorView(IIndicator customIndicator) {
         if (customIndicator instanceof View) {
-            mBannerManager.bannerOptions().setCustomIndicator(true);
+//            mBannerManager.bannerOptions().setCustomIndicator(true);
+            isCustomIndicator = true;
             mIndicatorView = customIndicator;
         }
         return this;
@@ -584,9 +594,10 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     /**
      * 设置Indicator样式
      *
-     * @param indicatorStyle indicator样式，目前有圆和断线两种样式
+     * @param indicatorStyle indicator样式，目前有圆、短线及圆角矩形三种样式
      *                       {@link IndicatorStyle#CIRCLE}
      *                       {@link IndicatorStyle#DASH}
+     *                       {@link IndicatorStyle#ROUND_RECT}
      */
     public BannerViewPager<T, VH> setIndicatorStyle(@AIndicatorStyle int indicatorStyle) {
         mBannerManager.bannerOptions().setIndicatorStyle(indicatorStyle);
@@ -601,6 +612,18 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     public void create(List<T> list) {
         initBannerData(list);
     }
+
+//    public void update(List<T> list) {
+//        if (null != list) {
+//            if (mBannerPagerAdapter != null && mBannerManager.bannerOptions().getPageStyle() == PageStyle.NORMAL) {
+//                mBannerPagerAdapter.setList(list);
+//                mIndicatorView.setPageSize(list.size());
+////                setCurrentItem(0, false);
+//            } else {
+//                initBannerData(list);
+//            }
+//        }
+//    }
 
     /**
      * @return the currently selected page position.
@@ -617,7 +640,14 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
      * @param item Item index to select
      */
     public void setCurrentItem(int item) {
-        mViewPager.setCurrentItem(isCanLoop() ? MAX_VALUE / 2 - ((MAX_VALUE / 2) % mList.size()) + 1 + item : item);
+        if (isCanLoop() && mBannerPagerAdapter.getListSize() > 1) {
+            removeAllViews();
+            mViewPager.setCurrentItem(MAX_VALUE / 2 - ((MAX_VALUE / 2) % mBannerPagerAdapter.getListSize()) + 1 + item);
+            addView(mViewPager);
+            addView(mIndicatorLayout);
+        } else {
+            mViewPager.setCurrentItem(item);
+        }
     }
 
     /**
@@ -627,7 +657,14 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
      * @param smoothScroll True to smoothly scroll to the new item, false to transition immediately
      */
     public void setCurrentItem(int item, boolean smoothScroll) {
-        mViewPager.setCurrentItem(isCanLoop() ? MAX_VALUE / 2 - ((MAX_VALUE / 2) % mList.size()) + 1 + item : item, smoothScroll);
+        if (isCanLoop() && mBannerPagerAdapter.getListSize() > 1) {
+            removeAllViews();
+            mViewPager.setCurrentItem(MAX_VALUE / 2 - ((MAX_VALUE / 2) % mBannerPagerAdapter.getListSize()) + 1 + item, smoothScroll);
+            addView(mViewPager);
+            addView(mIndicatorLayout);
+        } else {
+            mViewPager.setCurrentItem(item, smoothScroll);
+        }
     }
 
     /**
@@ -699,11 +736,4 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
         mOnPageChangeListener = onPageChangeListener;
         return this;
     }
-
-    //  仅供demo使用
-//    @Deprecated
-//    public void resetIndicator() {
-//        mBannerManager.bannerOptions().setCustomIndicator(false);
-//        mIndicatorView = null;
-//    }
 }

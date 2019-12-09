@@ -1,9 +1,6 @@
 package com.example.zhpan.circleviewpager.viewholder;
 
-import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.example.zhpan.circleviewpager.R;
 import com.example.zhpan.circleviewpager.view.CornerImageView;
@@ -16,7 +13,7 @@ import com.zhpan.bannerview.holder.ViewHolder;
  * </pre>
  */
 public class ImageResourceViewHolder implements ViewHolder<Integer> {
-    private CornerImageView mImageView;
+
     private int roundCorner;
 
     public ImageResourceViewHolder(int roundCorner) {
@@ -24,15 +21,15 @@ public class ImageResourceViewHolder implements ViewHolder<Integer> {
     }
 
     @Override
-    public View createView(ViewGroup viewGroup, Context context, int position) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_slide_mode, viewGroup, false);
-        mImageView = view.findViewById(R.id.banner_image);
-        return view;
+    public int getLayoutId() {
+        return R.layout.item_slide_mode;
     }
 
     @Override
-    public void onBind(Context context, Integer data, int position, int size) {
-        mImageView.setImageResource(data);
-        mImageView.setRoundCorner(roundCorner);
+    public void onBind(View itemView, Integer data, int position, int size) {
+        CornerImageView imageView = itemView.findViewById(R.id.banner_image);
+        imageView.setImageResource(data);
+        imageView.setRoundCorner(roundCorner);
     }
+
 }

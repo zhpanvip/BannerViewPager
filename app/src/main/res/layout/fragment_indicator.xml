@@ -1,63 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <com.zhpan.bannerview.BannerViewPager
         android:id="@+id/banner_view"
         android:layout_width="match_parent"
         android:layout_height="180dp"
-        android:layout_marginTop="20dp"
-        app:bvp_page_style="multi_page" />
+        android:layout_margin="10dp"
+        app:bvp_indicator_visibility="visible"
+        app:bvp_round_corner="8dp" />
 
     <TextView
         android:id="@+id/tv_page_style"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/banner_view"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        android:text="@string/text_page_style"
+        android:text="@string/text_indicator_style"
         android:textColor="#000000"
         android:textSize="18sp"
         android:textStyle="bold" />
 
     <RadioGroup
-        android:id="@+id/rg_page_style"
+        android:id="@+id/rg_indicator_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_page_style"
+        android:orientation="vertical"
         android:padding="15dp">
 
         <RadioButton
-            android:id="@+id/rb_multi_page"
+            android:id="@+id/rb_circle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="15dp"
-            android:text="MULTI_PAGE" />
+            android:layout_marginBottom="@dimen/dp_10"
+            android:text="Circle"
+            android:textSize="16sp" />
 
         <RadioButton
-            android:id="@+id/rb_multi_page_scale"
+            android:id="@+id/rb_dash"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:text="MULTI_PAGE_SCALE" />
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:text="Dash"
+            android:textSize="16sp" />
 
         <RadioButton
-            android:id="@+id/rb_multi_page_overlap"
+            android:id="@+id/rb_round_rect"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:text="MULTI_PAGE_OVERLAP" />
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:text="ROUND_RECT"
+            android:textSize="16sp" />
 
         <RadioButton
-            android:id="@+id/rb_qq_music_style"
+            android:id="@+id/rb_tmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:text="QQ Music Banner Style" />
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:text="Tmall Indicator Style"
+            android:textSize="16sp" />
+
 
     </RadioGroup>
 
-</RelativeLayout>
+
+</LinearLayout>

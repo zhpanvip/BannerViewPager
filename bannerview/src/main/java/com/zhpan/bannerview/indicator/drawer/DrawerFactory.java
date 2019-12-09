@@ -3,6 +3,7 @@ package com.zhpan.bannerview.indicator.drawer;
 import com.zhpan.bannerview.manager.IndicatorOptions;
 
 import static com.zhpan.bannerview.constants.IndicatorStyle.DASH;
+import static com.zhpan.bannerview.constants.IndicatorStyle.ROUND_RECT;
 
 /**
  * <pre>
@@ -13,8 +14,11 @@ import static com.zhpan.bannerview.constants.IndicatorStyle.DASH;
 class DrawerFactory {
     static IDrawer createDrawer(IndicatorOptions indicatorOptions) {
         IDrawer drawer;
-        if (indicatorOptions.getIndicatorStyle() == DASH) {
+        int indicatorStyle = indicatorOptions.getIndicatorStyle();
+        if (indicatorStyle == DASH) {
             drawer = new DashDrawer(indicatorOptions);
+        } else if (indicatorStyle == ROUND_RECT) {
+            drawer = new RoundRectDrawer(indicatorOptions);
         } else {
             drawer = new CircleDrawer(indicatorOptions);
         }
