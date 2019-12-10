@@ -11,6 +11,7 @@ import static com.zhpan.bannerview.constants.TransformerStyle.ACCORDION;
 import static com.zhpan.bannerview.constants.TransformerStyle.DEPTH;
 import static com.zhpan.bannerview.constants.TransformerStyle.NONE;
 import static com.zhpan.bannerview.constants.TransformerStyle.ROTATE;
+import static com.zhpan.bannerview.constants.TransformerStyle.SCALE_IN;
 import static com.zhpan.bannerview.constants.TransformerStyle.STACK;
 
 /**
@@ -19,7 +20,7 @@ import static com.zhpan.bannerview.constants.TransformerStyle.STACK;
  *   Description:
  * </pre>
  */
-@IntDef({NONE, DEPTH, STACK, ACCORDION, ROTATE})
+@IntDef({NONE, DEPTH, STACK, ACCORDION, ROTATE,SCALE_IN})
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.PARAMETER)
 public @interface ATransformerStyle {

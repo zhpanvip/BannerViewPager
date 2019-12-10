@@ -56,7 +56,6 @@ public class BannerPagerAdapter<T, VH extends ViewHolder> extends PagerAdapter {
     public @NonNull
     Object instantiateItem(@NonNull final ViewGroup container, final int position) {
         View itemView = getView(container, BannerUtils.getRealPosition(isCanLoop, position, mList.size()));
-
         container.addView(itemView);
         return itemView;
     }

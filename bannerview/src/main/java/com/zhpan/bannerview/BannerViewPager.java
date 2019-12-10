@@ -29,7 +29,7 @@ import com.zhpan.bannerview.indicator.IndicatorView;
 import com.zhpan.bannerview.indicator.IIndicator;
 import com.zhpan.bannerview.manager.BannerManager;
 import com.zhpan.bannerview.manager.BannerOptions;
-import com.zhpan.bannerview.transform.pagestyle.ScaleInTransformer;
+import com.zhpan.bannerview.transform.ScaleInTransformer;
 import com.zhpan.bannerview.utils.BannerUtils;
 import com.zhpan.bannerview.adapter.BannerPagerAdapter;
 import com.zhpan.bannerview.holder.HolderCreator;
@@ -44,8 +44,8 @@ import static com.zhpan.bannerview.adapter.BannerPagerAdapter.MAX_VALUE;
 import static com.zhpan.bannerview.constants.IndicatorGravity.CENTER;
 import static com.zhpan.bannerview.constants.IndicatorGravity.END;
 import static com.zhpan.bannerview.constants.IndicatorGravity.START;
-import static com.zhpan.bannerview.transform.pagestyle.ScaleInTransformer.DEFAULT_MIN_SCALE;
-import static com.zhpan.bannerview.transform.pagestyle.ScaleInTransformer.MAX_SCALE;
+import static com.zhpan.bannerview.transform.ScaleInTransformer.DEFAULT_MIN_SCALE;
+import static com.zhpan.bannerview.transform.ScaleInTransformer.MAX_SCALE;
 
 /**
  * Created by zhpan on 2017/3/28.
