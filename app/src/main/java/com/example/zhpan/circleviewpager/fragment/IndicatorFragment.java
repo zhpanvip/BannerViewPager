@@ -39,7 +39,7 @@ public class IndicatorFragment extends BaseFragment {
         radioGroupStyle = view.findViewById(R.id.rg_indicator_style);
         mViewPager = view.findViewById(R.id.banner_view);
         mViewPager.setIndicatorGap(BannerUtils.dp2px(6))
-                .setRoundCorner(BannerUtils.dp2px(6))
+                .setRoundRect(BannerUtils.dp2px(6))
                 .setHolderCreator(() -> new ImageResourceViewHolder(0));
         initRadioGroup();
     }

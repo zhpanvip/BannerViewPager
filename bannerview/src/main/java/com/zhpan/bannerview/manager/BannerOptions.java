@@ -43,7 +43,7 @@ public class BannerOptions {
 
     private int mScrollDuration;
 
-    private int mRoundCorner;
+    private int mRoundRadius;
 
     private boolean disableTouchScroll;
 
@@ -197,12 +197,12 @@ public class BannerOptions {
         mIndicatorMargin = new IndicatorMargin(left, top, right, bottom);
     }
 
-    public int getRoundCorner() {
-        return mRoundCorner;
+    public int getRoundRectRadius() {
+        return mRoundRadius;
     }
 
-    public void setRoundCorner(int roundCorner) {
-        this.mRoundCorner = roundCorner;
+    public void setRoundRectRadius(int roundRadius) {
+        this.mRoundRadius = roundRadius;
     }
 
     public int getScrollDuration() {
