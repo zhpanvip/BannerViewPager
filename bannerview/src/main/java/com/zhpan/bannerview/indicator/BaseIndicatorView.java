@@ -43,32 +43,32 @@ public class BaseIndicatorView extends View implements IIndicator {
             setCurrentPosition(position);
             setSlideProgress(0);
             invalidate();
-        } else if (getSlideMode() == IndicatorSlideMode.SMOOTH) {
-            boolean slideToRight = mIndicatorOptions.isSlideToRight();
-            if (position == 0 && slideToRight) {
-                setCurrentPosition(0);
-                setSlideProgress(0);
-                invalidate();
-            } else if (position == getPageSize() - 1 && !slideToRight) {
-                setCurrentPosition(getPageSize() - 1);
-                setSlideProgress(0);
-                invalidate();
-            }
         }
     }
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        if (getSlideMode() == IndicatorSlideMode.SMOOTH) {
-            setSlideToRight(isSlideToRight(position, positionOffset));
-            //  TODO 解决滑动过快时positionOffset不会等0的情况
-            if (positionOffset == 0) {
-                setPrePosition(position);
-            }
-            if (!(position == getPageSize() - 1)) {
-                float slideProgress = (getCurrentPosition() == getPageSize() - 1) && isSlideToRight() ? 0 : positionOffset;
-                setSlideProgress(slideProgress);
+
+        if (getSlideMode() == IndicatorSlideMode.SMOOTH && getPageSize() > 1 && positionOffset != 0) {
+            scrollSlider(position, positionOffset);
+        }
+    }
+
+    private void scrollSlider(int position, float positionOffset) {
+        for (int i = 0; i < getPageSize(); i++) {
+            if (position % getPageSize() == getPageSize() - 1) { //   最后一个页面与第一个页面
+                if (positionOffset < 0.5) {
+                    setCurrentPosition(position);
+                    setSlideProgress(0);
+                    invalidate();
+                } else {
+                    setCurrentPosition(0);
+                    setSlideProgress(0);
+                    invalidate();
+                }
+            } else {    //  中间页面
                 setCurrentPosition(position);
+                setSlideProgress(positionOffset);
                 invalidate();
             }
         }
