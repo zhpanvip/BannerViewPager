@@ -66,7 +66,7 @@ class WelcomeActivity : BaseDataActivity(), HolderCreator<CustomPageViewHolder> 
                 .setIndicatorRadius(resources.getDimension(R.dimen.dp_3).toInt(), resources.getDimension(R.dimen.dp_4_5).toInt())
                 .setOnPageChangeListener(object : OnPageChangeListenerAdapter() {
                     override fun onPageSelected(position: Int) {
-                        BannerUtils.e("position:$position")
+                        BannerUtils.log("position:$position")
                         updateUI(position)
                     }
                 })

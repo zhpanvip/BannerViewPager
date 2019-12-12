@@ -378,21 +378,21 @@ public class FigureIndicatorView extends BaseIndicatorView {
 
  - [x] Fix a bug which page frozen sometimes when sliding in version 2.1.0  （2.1.0.1）
 
- - [x] support setTransformStyle（2.1.2）
+ - [x] Set Transform Style Supported（2.1.2）
 
  - [x] Migrate to Androidx（2.2.0）
 
- - [x] Support indicator smooth slide（2.2.2）
+ - [x] indicator smooth slide Supported（2.2.2）
  
- - [x] Support Dash IndicatorView（2.3.+）
+ - [x] Dash IndicatorView Supported（2.3.+）
  
- - [x] Support MULTI_PAGE Style （2.4.0）
+ - [x] MULTI_PAGE Style Supported（2.4.0）
  
  - [x] Optimize code and improve performance in version 2.4.3
  
  - [x] Refactor Indicator again (2.5.0)
  
- - [ ] Change ViewPager to ViewPager2 （3.0.0）
+ - [ ] Migrate to ViewPager2 （3.0.0）
 
 
 ## If you have any question you can scan the QR code to join the QQ group to communicate.

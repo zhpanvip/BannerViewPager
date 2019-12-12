@@ -71,7 +71,12 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
 
     private Handler mHandler = new Handler();
 
-    private Runnable mRunnable = this::handlePosition;
+    private Runnable mRunnable = new Runnable() {
+        @Override
+        public void run() {
+            handlePosition();
+        }
+    };
 
     public BannerViewPager(Context context) {
         this(context, null);
@@ -112,22 +117,25 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
 
     @SuppressLint("ClickableViewAccessibility")
     private void setTouchListener() {
-        mViewPager.setOnTouchListener((v, event) -> {
-            int action = event.getAction();
-            switch (action) {
-                case MotionEvent.ACTION_DOWN:
-                case MotionEvent.ACTION_MOVE:
-                    setLooping(true);
-                    stopLoop();
-                    break;
-                case MotionEvent.ACTION_UP:
-                case MotionEvent.ACTION_CANCEL:
-                    setLooping(false);
-                    startLoop();
-                default:
-                    break;
+        mViewPager.setOnTouchListener(new OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int action = event.getAction();
+                switch (action) {
+                    case MotionEvent.ACTION_DOWN:
+                    case MotionEvent.ACTION_MOVE:
+                        BannerViewPager.this.setLooping(true);
+                        BannerViewPager.this.stopLoop();
+                        break;
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL:
+                        BannerViewPager.this.setLooping(false);
+                        BannerViewPager.this.startLoop();
+                    default:
+                        break;
+                }
+                return false;
             }
-            return false;
         });
     }
 
@@ -288,9 +296,12 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
         mBannerPagerAdapter =
                 new BannerPagerAdapter<>(list, holderCreator);
         mBannerPagerAdapter.setCanLoop(isCanLoop());
-        mBannerPagerAdapter.setPageClickListener(position -> {
-            if (mOnPageClickListener != null) {
-                mOnPageClickListener.onPageClick(position);
+        mBannerPagerAdapter.setPageClickListener(new BannerPagerAdapter.PageClickListener() {
+            @Override
+            public void onPageClick(int position) {
+                if (mOnPageClickListener != null) {
+                    mOnPageClickListener.onPageClick(position);
+                }
             }
         });
         return mBannerPagerAdapter;
