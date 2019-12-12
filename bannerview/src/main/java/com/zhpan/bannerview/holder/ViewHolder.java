@@ -11,9 +11,10 @@ import androidx.annotation.LayoutRes;
 
 public interface ViewHolder<T> {
 
+    /**
+     * @return Layout Resource of BannerViewPager item
+     */
     @LayoutRes int getLayoutId();
-
-//    void createView(View itemView,int position);
 
     /**
      * @param itemView  ViewPager item View

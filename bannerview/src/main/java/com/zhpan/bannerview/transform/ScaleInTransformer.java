@@ -1,37 +1,22 @@
-package com.zhpan.bannerview.transform.pagestyle;
+package com.zhpan.bannerview.transform;
 
-import android.annotation.TargetApi;
-import android.os.Build;
 import android.view.View;
 
 import androidx.viewpager.widget.ViewPager;
 
-public class ScaleInTransformer extends BasePageTransformer {
+public class ScaleInTransformer implements ViewPager.PageTransformer {
 
+    private static final float DEFAULT_CENTER = 0.5f;
     public static final float DEFAULT_MIN_SCALE = 0.85f;
     public static final float MAX_SCALE = 0.999f;
-    private float mMinScale = DEFAULT_MIN_SCALE;
-
-    public ScaleInTransformer() {
-
-    }
+    private float mMinScale;
 
     public ScaleInTransformer(float minScale) {
-        this(minScale, NonPageTransformer.INSTANCE);
-    }
-
-    public ScaleInTransformer(ViewPager.PageTransformer pageTransformer) {
-        this(DEFAULT_MIN_SCALE, pageTransformer);
-    }
-
-    public ScaleInTransformer(float minScale, ViewPager.PageTransformer pageTransformer) {
         mMinScale = minScale;
-        mPageTransformer = pageTransformer;
     }
 
-
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public void pageTransform(View view, float position) {
+    @Override
+    public void transformPage(View view, float position) {
         int pageWidth = view.getWidth();
         int pageHeight = view.getHeight();
 

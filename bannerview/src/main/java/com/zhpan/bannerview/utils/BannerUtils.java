@@ -23,13 +23,13 @@ public class BannerUtils {
         return (int) (0.5F + dpValue * Resources.getSystem().getDisplayMetrics().density);
     }
 
-    public static void e(String tag, String msg) {
+    public static void log(String tag, String msg) {
         if (DEBUG) {
             Log.e(tag, msg);
         }
     }
 
-    public static void e(String msg) {
+    public static void log(String msg) {
         if (DEBUG) {
             Log.e("BannerView", msg);
         }

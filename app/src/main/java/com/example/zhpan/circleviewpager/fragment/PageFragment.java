@@ -9,6 +9,7 @@ import com.example.zhpan.circleviewpager.R;
 import com.example.zhpan.circleviewpager.viewholder.ImageResourceViewHolder;
 import com.zhpan.bannerview.BannerViewPager;
 import com.zhpan.bannerview.annotation.APageStyle;
+import com.zhpan.bannerview.constants.IndicatorSlideMode;
 import com.zhpan.bannerview.constants.PageStyle;
 import com.zhpan.bannerview.utils.BannerUtils;
 import com.zhpan.idea.utils.ToastUtils;
@@ -38,6 +39,7 @@ public class PageFragment extends BaseFragment {
         mRadioGroupPageStyle = view.findViewById(R.id.rg_page_style);
         radioButton = view.findViewById(R.id.rb_multi_page);
         mViewPager
+                .setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
                 .setHolderCreator(() -> new ImageResourceViewHolder(BannerUtils.dp2px(5)))
                 .setIndicatorColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
                 .setOnPageClickListener(position -> ToastUtils.show("position:" + position))

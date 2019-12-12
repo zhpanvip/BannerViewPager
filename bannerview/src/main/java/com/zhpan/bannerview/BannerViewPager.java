@@ -29,7 +29,7 @@ import com.zhpan.bannerview.indicator.IndicatorView;
 import com.zhpan.bannerview.indicator.IIndicator;
 import com.zhpan.bannerview.manager.BannerManager;
 import com.zhpan.bannerview.manager.BannerOptions;
-import com.zhpan.bannerview.transform.pagestyle.ScaleInTransformer;
+import com.zhpan.bannerview.transform.ScaleInTransformer;
 import com.zhpan.bannerview.utils.BannerUtils;
 import com.zhpan.bannerview.adapter.BannerPagerAdapter;
 import com.zhpan.bannerview.holder.HolderCreator;
@@ -44,8 +44,8 @@ import static com.zhpan.bannerview.adapter.BannerPagerAdapter.MAX_VALUE;
 import static com.zhpan.bannerview.constants.IndicatorGravity.CENTER;
 import static com.zhpan.bannerview.constants.IndicatorGravity.END;
 import static com.zhpan.bannerview.constants.IndicatorGravity.START;
-import static com.zhpan.bannerview.transform.pagestyle.ScaleInTransformer.DEFAULT_MIN_SCALE;
-import static com.zhpan.bannerview.transform.pagestyle.ScaleInTransformer.MAX_SCALE;
+import static com.zhpan.bannerview.transform.ScaleInTransformer.DEFAULT_MIN_SCALE;
+import static com.zhpan.bannerview.transform.ScaleInTransformer.MAX_SCALE;
 
 /**
  * Created by zhpan on 2017/3/28.
@@ -71,7 +71,12 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
 
     private Handler mHandler = new Handler();
 
-    private Runnable mRunnable = this::handlePosition;
+    private Runnable mRunnable = new Runnable() {
+        @Override
+        public void run() {
+            handlePosition();
+        }
+    };
 
     public BannerViewPager(Context context) {
         this(context, null);
@@ -112,22 +117,25 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
 
     @SuppressLint("ClickableViewAccessibility")
     private void setTouchListener() {
-        mViewPager.setOnTouchListener((v, event) -> {
-            int action = event.getAction();
-            switch (action) {
-                case MotionEvent.ACTION_DOWN:
-                case MotionEvent.ACTION_MOVE:
-                    setLooping(true);
-                    stopLoop();
-                    break;
-                case MotionEvent.ACTION_UP:
-                case MotionEvent.ACTION_CANCEL:
-                    setLooping(false);
-                    startLoop();
-                default:
-                    break;
+        mViewPager.setOnTouchListener(new OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int action = event.getAction();
+                switch (action) {
+                    case MotionEvent.ACTION_DOWN:
+                    case MotionEvent.ACTION_MOVE:
+                        BannerViewPager.this.setLooping(true);
+                        BannerViewPager.this.stopLoop();
+                        break;
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL:
+                        BannerViewPager.this.setLooping(false);
+                        BannerViewPager.this.startLoop();
+                    default:
+                        break;
+                }
+                return false;
             }
-            return false;
         });
     }
 
@@ -202,6 +210,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
 
     private void setIndicatorValues(List<T> list) {
         BannerOptions bannerOptions = mBannerManager.bannerOptions();
+        bannerOptions.resetIndicatorOptions();
         if (isCustomIndicator && null != mIndicatorView) {
             initIndicator(mIndicatorView);
         } else {
@@ -251,10 +260,10 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     }
 
     private void initRoundCorner() {
-        int roundCorner = mBannerManager.bannerOptions().getRoundCorner();
+        int roundCorner = mBannerManager.bannerOptions().getRoundRectRadius();
         if (roundCorner > 0 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             ViewStyleSetter viewStyleSetter = new ViewStyleSetter(this);
-            viewStyleSetter.setRoundCorner(roundCorner);
+            viewStyleSetter.setRoundRect(roundCorner);
         }
     }
 
@@ -288,9 +297,12 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
         mBannerPagerAdapter =
                 new BannerPagerAdapter<>(list, holderCreator);
         mBannerPagerAdapter.setCanLoop(isCanLoop());
-        mBannerPagerAdapter.setPageClickListener(position -> {
-            if (mOnPageClickListener != null) {
-                mOnPageClickListener.onPageClick(position);
+        mBannerPagerAdapter.setPageClickListener(new BannerPagerAdapter.PageClickListener() {
+            @Override
+            public void onPageClick(int position) {
+                if (mOnPageClickListener != null) {
+                    mOnPageClickListener.onPageClick(position);
+                }
             }
         });
         return mBannerPagerAdapter;
@@ -382,12 +394,26 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     }
 
     /**
-     * 设置圆角ViewPager 只有在SDK_INT>=LOLLIPOP(API 21)时有效
-     *
      * @param radius 圆角大小
+     * @deprecated Use{@link BannerViewPager#setRoundRect(int)} instead.
+     * <p>
+     * 设置圆角ViewPager 只有在SDK_INT>=LOLLIPOP(API 21)时有效
      */
+    @Deprecated
     public BannerViewPager<T, VH> setRoundCorner(int radius) {
-        mBannerManager.bannerOptions().setRoundCorner(radius);
+        mBannerManager.bannerOptions().setRoundRectRadius(radius);
+        return this;
+    }
+
+    /**
+     * Set round rectangle effect for BannerViewPager.
+     * <p>
+     * Require SDK_INT>=LOLLIPOP(API 21)
+     *
+     * @param radius round radius
+     */
+    public BannerViewPager<T, VH> setRoundRect(int radius) {
+        mBannerManager.bannerOptions().setRoundRectRadius(radius);
         return this;
     }
 

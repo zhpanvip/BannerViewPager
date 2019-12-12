@@ -26,7 +26,7 @@ public class NetViewHolder implements ViewHolder<BannerData> {
     @Override
     public void onBind(View itemView, BannerData data, int position, int size) {
         CornerImageView imageView = itemView.findViewById(R.id.banner_image);
-        imageView.setRoundCorner(BannerUtils.dp2px(5));
+        imageView.setRoundCorner(BannerUtils.dp2px(0));
         ImageLoaderOptions options = new ImageLoaderOptions.Builder()
                 .into(imageView).load(data.getImagePath())
                 .placeHolder(R.drawable.placeholder).build();

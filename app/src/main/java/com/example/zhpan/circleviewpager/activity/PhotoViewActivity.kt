@@ -23,7 +23,6 @@ class PhotoViewActivity : BaseDataActivity() {
         bannerViewPager.setAutoPlay(false)
                 .setCanLoop(false)
                 .setHolderCreator { PhotoViewHolder() }
-                .setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
                 .create(mDrawableList)
         bannerViewPager.currentItem = 1
     }

@@ -56,7 +56,6 @@ public class BannerPagerAdapter<T, VH extends ViewHolder> extends PagerAdapter {
     public @NonNull
     Object instantiateItem(@NonNull final ViewGroup container, final int position) {
         View itemView = getView(container, BannerUtils.getRealPosition(isCanLoop, position, mList.size()));
-
         container.addView(itemView);
         return itemView;
     }
@@ -97,11 +96,14 @@ public class BannerPagerAdapter<T, VH extends ViewHolder> extends PagerAdapter {
         return itemView;
     }
 
-    private void setViewListener(View view, int position) {
+    private void setViewListener(View view, final int position) {
         if (view != null)
-            view.setOnClickListener(v -> {
-                if (null != mPageClickListener)
-                    mPageClickListener.onPageClick(position);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (null != mPageClickListener)
+                        mPageClickListener.onPageClick(position);
+                }
             });
     }
 

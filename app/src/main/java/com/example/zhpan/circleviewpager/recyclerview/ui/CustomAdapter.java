@@ -91,7 +91,7 @@ public final class CustomAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 headcount = 0;
             }
 //                customViewHolder.setIsRecyclable(false);
-//            Log.e("CustomAdapter", "onCreateViewHolder#HEADVIEW_TYPE");
+//            Log.log("CustomAdapter", "onCreateViewHolder#HEADVIEW_TYPE");
             return customViewHolder;
 //            }else{
 //                return new CustomViewHolder(mCache.get(contentView.getTag()));
@@ -159,7 +159,7 @@ public final class CustomAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     }
                 }
             });
-//            Log.e("CustomAdapter", "onBindViewHolder" + position + "------->" + customViewHolder);
+//            Log.log("CustomAdapter", "onBindViewHolder" + position + "------->" + customViewHolder);
         } else {
             mAdapter.onBindViewHolder(viewHolder, position - getHeadSize());
         }
