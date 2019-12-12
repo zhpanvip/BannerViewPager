@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="200dp" />
 
+    <!--这里为了设置标题故用了自定义Indicator,如果无需标题则没必要将Indicator定义在此处-->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="35dp"

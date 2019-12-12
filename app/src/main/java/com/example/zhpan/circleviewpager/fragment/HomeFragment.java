@@ -117,7 +117,7 @@ public class HomeFragment extends BaseFragment {
                 .setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
                 .setInterval(5000)
                 .setScrollDuration(1200)
-                .setIndicatorView(mIndicatorView)
+                .setIndicatorView(mIndicatorView)// 这里为了设置标题故用了自定义Indicator,如果无需标题则没必要添加此行代码
                 .setIndicatorColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
                 .setHolderCreator(NetViewHolder::new)
                 .setOnPageChangeListener(new OnPageChangeListenerAdapter() {
