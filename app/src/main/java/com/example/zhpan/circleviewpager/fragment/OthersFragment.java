@@ -13,6 +13,7 @@ import com.example.zhpan.circleviewpager.view.FigureIndicatorView;
 import com.example.zhpan.circleviewpager.viewholder.ImageResourceViewHolder;
 import com.zhpan.bannerview.BannerViewPager;
 import com.zhpan.bannerview.constants.IndicatorGravity;
+import com.zhpan.bannerview.constants.IndicatorSlideMode;
 import com.zhpan.bannerview.indicator.IIndicator;
 import com.zhpan.bannerview.indicator.IndicatorView;
 import com.zhpan.bannerview.utils.BannerUtils;
@@ -84,6 +85,7 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
     private void setIndicatorBelowOfBanner() {
         mIndicatorView.setVisibility(View.VISIBLE);
         mViewPager
+                .setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
                 .setIndicatorVisibility(View.GONE)
                 .setIndicatorView(mIndicatorView)
                 .create(getMDrawableList());
@@ -93,6 +95,7 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
     private void setupCustomIndicator() {
         mIndicatorView.setVisibility(View.INVISIBLE);
         mViewPager.setAutoPlay(false).setCanLoop(true)
+                .setIndicatorSlideMode(IndicatorSlideMode.NORMAL)
                 .setIndicatorVisibility(View.VISIBLE)
                 .setPageMargin(BannerUtils.dp2px(20))
                 .setIndicatorGravity(IndicatorGravity.END)

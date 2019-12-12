@@ -21,9 +21,8 @@ import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.zhpan.bannerview.BannerViewPager;
 import com.zhpan.bannerview.adapter.OnPageChangeListenerAdapter;
-import com.zhpan.bannerview.constants.PageStyle;
+import com.zhpan.bannerview.constants.IndicatorSlideMode;
 import com.zhpan.bannerview.indicator.IndicatorView;
-import com.zhpan.bannerview.utils.BannerUtils;
 import com.zhpan.idea.net.common.ResponseObserver;
 import com.zhpan.idea.utils.RxUtil;
 
@@ -115,6 +114,7 @@ public class HomeFragment extends BaseFragment {
     private void initBanner() {
         mBannerViewPager
                 .setAutoPlay(true)
+                .setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
                 .setInterval(5000)
                 .setScrollDuration(1200)
                 .setIndicatorView(mIndicatorView)

@@ -210,6 +210,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
 
     private void setIndicatorValues(List<T> list) {
         BannerOptions bannerOptions = mBannerManager.bannerOptions();
+        bannerOptions.resetIndicatorOptions();
         if (isCustomIndicator && null != mIndicatorView) {
             initIndicator(mIndicatorView);
         } else {
@@ -406,7 +407,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
 
     /**
      * Set round rectangle effect for BannerViewPager.
-     *
+     * <p>
      * Require SDK_INT>=LOLLIPOP(API 21)
      *
      * @param radius round radius

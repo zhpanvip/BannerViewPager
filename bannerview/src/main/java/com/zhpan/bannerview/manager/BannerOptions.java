@@ -229,6 +229,11 @@ public class BannerOptions {
         this.disableTouchScroll = disableTouchScroll;
     }
 
+    public void resetIndicatorOptions(){
+        mIndicatorOptions.setCurrentPosition(0);
+        mIndicatorOptions.setSlideProgress(0);
+    }
+
     public static class IndicatorMargin {
 
         private int left, right, top, bottom;

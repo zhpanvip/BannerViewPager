@@ -391,7 +391,7 @@ public class FigureIndicatorView extends BaseIndicatorView {
  - [x] Optimize code and improve performance in version 2.4.3
  
  - [x] Refactor Indicator again (2.5.0)
- 
+ - [x] Fix issue #34 that Indicator smooth slide problem(2.6.1).
  - [ ] Migrate to ViewPager2 （3.0.0）
 
 
