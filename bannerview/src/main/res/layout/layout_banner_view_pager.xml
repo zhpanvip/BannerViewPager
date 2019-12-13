@@ -12,7 +12,7 @@
         android:layout_height="match_parent" />
 
     <RelativeLayout
-        android:id="@+id/rl_indicator"
+        android:id="@+id/bvp_layout_indicator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"/>

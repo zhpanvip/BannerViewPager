@@ -34,6 +34,22 @@ public class PageFragment extends BaseFragment {
     }
 
     @Override
+    public void onStop() {
+        super.onStop();
+        if (mViewPager != null) {
+            mViewPager.stopLoop();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mViewPager != null) {
+            mViewPager.startLoop();
+        }
+    }
+
+    @Override
     protected void initView(Bundle savedInstanceState, View view) {
         mViewPager = view.findViewById(R.id.banner_view);
         mRadioGroupPageStyle = view.findViewById(R.id.rg_page_style);

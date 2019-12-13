@@ -44,6 +44,22 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
     }
 
     @Override
+    public void onStop() {
+        super.onStop();
+        if (mViewPager != null) {
+            mViewPager.stopLoop();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mViewPager != null) {
+            mViewPager.startLoop();
+        }
+    }
+
+    @Override
     protected void initView(Bundle savedInstanceState, View view) {
         radioButton = view.findViewById(R.id.rb_indicator_below);
         radioGroupStyle = view.findViewById(R.id.rg_indicator_style);
