@@ -30,7 +30,7 @@ class WelcomeActivity : BaseDataActivity(), HolderCreator<CustomPageViewHolder> 
 
     private val des = arrayOf("在这里\n你可以听到周围人的心声", "在这里\nTA会在下一秒遇见你", "在这里\n不再错过可以改变你一生的人")
 
-    private val transforms = intArrayOf(TransformerStyle.NONE, TransformerStyle.ACCORDION, TransformerStyle.STACK, TransformerStyle.DEPTH, TransformerStyle.ROTATE)
+    private val transforms = intArrayOf(TransformerStyle.NONE, TransformerStyle.ACCORDION, TransformerStyle.STACK, TransformerStyle.DEPTH, TransformerStyle.ROTATE, TransformerStyle.SCALE_IN)
 
     private val data: List<CustomBean>
         get() {
@@ -56,7 +56,7 @@ class WelcomeActivity : BaseDataActivity(), HolderCreator<CustomPageViewHolder> 
         mViewPager = findViewById(R.id.viewpager)
         mViewPager.setAutoPlay(false)
                 .setCanLoop(false)
-                .setPageTransformerStyle(transforms[Random().nextInt(5)])
+                .setPageTransformerStyle(transforms[Random().nextInt(6)])
                 .setScrollDuration(ANIMATION_DURATION)
                 .setIndicatorMargin(0, 0, 0, BannerUtils.dp2px(100f))
                 .setIndicatorGap(resources.getDimension(R.dimen.dp_10).toInt())
@@ -66,7 +66,7 @@ class WelcomeActivity : BaseDataActivity(), HolderCreator<CustomPageViewHolder> 
                 .setIndicatorRadius(resources.getDimension(R.dimen.dp_3).toInt(), resources.getDimension(R.dimen.dp_4_5).toInt())
                 .setOnPageChangeListener(object : OnPageChangeListenerAdapter() {
                     override fun onPageSelected(position: Int) {
-                        BannerUtils.e("position:$position")
+                        BannerUtils.log("position:$position")
                         updateUI(position)
                     }
                 })

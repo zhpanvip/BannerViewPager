@@ -2,7 +2,6 @@ package com.zhpan.bannerview.holder;
 
 import android.support.annotation.LayoutRes;
 import android.view.View;
-import android.view.ViewGroup;
 
 /**
  * Created by zhpan on 2017/10/30.
@@ -11,10 +10,10 @@ import android.view.ViewGroup;
 
 public interface ViewHolder<T> {
 
-    @LayoutRes
-    int getLayoutId();
-
-//    void createView(View itemView,int position);
+    /**
+     * @return Layout Resource of BannerViewPager item
+     */
+    @LayoutRes int getLayoutId();
 
     /**
      * @param itemView  ViewPager item View

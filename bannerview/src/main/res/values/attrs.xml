@@ -39,6 +39,7 @@
             <enum name="depth" value="2" />
             <enum name="stack" value="4" />
             <enum name="accordion" value="8" />
+            <enum name="scale_in" value="16" />
         </attr>
 
         <attr name="bvp_indicator_visibility" format="enum">

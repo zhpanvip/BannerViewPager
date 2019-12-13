@@ -10,7 +10,6 @@ import com.bumptech.glide.load.Transformation;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
-import com.example.zhpan.circleviewpager.imageloader.transformer.BlurTransformation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,9 +56,6 @@ public class GlideImageLoader implements IImageLoaderStrategy {
             list.add(new RoundedCorners((int)options.getRoundCorner()));
         }
 
-        if(options.isBlurImage()) {
-            list.add(new BlurTransformation(options.getBlurValue()));
-        }
 
         for(Transformation<Bitmap> transformation : list) {
             requestOptions.transform(transformation);

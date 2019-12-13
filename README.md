@@ -12,7 +12,7 @@
 
 ## Preview
 
- ### [Click here or scan the QR code to download demo apk](https://github.com/zhpanvip/BannerViewPager/raw/master/download/app.apk)
+ ### [Click here or scan the QR code to download demo apk](https://github.com/zhpanvip/BannerViewPager/raw/master/app/release/app-release.apk)
 
 ![QRCode](https://github.com/zhpanvip/BannerViewPager/blob/master/image/qrcode.png)
 
@@ -58,7 +58,7 @@ BannerViewPager supports three Indicator Styles now. It's also support you to cu
 | BannerViewPager<T, VH> setAutoPlay(boolean autoPlay) | set is atuo play | default value true|
 | BannerViewPager<T, VH> setInterval(int interval) | set the interval of item switch interval |The unit is millisecond，default value 3000ms  |
 | BannerViewPager<T, VH> setScrollDuration(int scrollDuration) | set page scroll duration | set page scroll duration |unit is millisecond，default is 500ms |
-| BannerViewPager<T, VH> setRoundCorner(int radius) | set Round Corner for Banner | required SDK_INT>=LOLLIPOP(API 21)  |
+| BannerViewPager<T, VH> setRoundRect(int radius) | set Round Rectangle for Banner | required SDK_INT>=LOLLIPOP(API 21)  |
 | BannerViewPager<T, VH> setOnPageClickListener(OnPageClickListener onPageClickListener) | set item click listener |  |
 | BannerViewPager<T, VH> setHolderCreator(HolderCreator\<VH> holderCreator) |set Holder Creator  |You must set HolderCreator for BannerViewPager，or will throw NullPointerException|
 | BannerViewPager<T, VH> setIndicatorVisibility(@Visibility int visibility) | indicator visibility |default value is VISIBLE，added in version 2.4.2|
@@ -378,21 +378,21 @@ public class FigureIndicatorView extends BaseIndicatorView {
 
  - [x] Fix a bug which page frozen sometimes when sliding in version 2.1.0  （2.1.0.1）
 
- - [x] support setTransformStyle（2.1.2）
+ - [x] Set Transform Style Supported（2.1.2）
 
  - [x] Migrate to Androidx（2.2.0）
 
- - [x] Support indicator smooth slide（2.2.2）
+ - [x] indicator smooth slide Supported（2.2.2）
  
- - [x] Support Dash IndicatorView（2.3.+）
+ - [x] Dash IndicatorView Supported（2.3.+）
  
- - [x] Support MULTI_PAGE Style （2.4.0）
+ - [x] MULTI_PAGE Style Supported（2.4.0）
  
  - [x] Optimize code and improve performance in version 2.4.3
  
  - [x] Refactor Indicator again (2.5.0)
- 
- - [ ] Change ViewPager to ViewPager2 （3.0.0）
+ - [x] Fix issue #34 which Indicator smooth slide problem(2.6.1).
+ - [ ] Migrate to ViewPager2 （3.0.0）
 
 
 ## If you have any question you can scan the QR code to join the QQ group to communicate.

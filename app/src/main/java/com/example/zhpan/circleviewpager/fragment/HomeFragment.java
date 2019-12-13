@@ -5,6 +5,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -19,8 +20,9 @@ import com.example.zhpan.circleviewpager.viewholder.NetViewHolder;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.zhpan.bannerview.BannerViewPager;
-import com.zhpan.bannerview.constants.PageStyle;
-import com.zhpan.bannerview.utils.BannerUtils;
+import com.zhpan.bannerview.adapter.OnPageChangeListenerAdapter;
+import com.zhpan.bannerview.constants.IndicatorSlideMode;
+import com.zhpan.bannerview.indicator.IndicatorView;
 import com.zhpan.idea.net.common.ResponseObserver;
 import com.zhpan.idea.utils.RxUtil;
 
@@ -39,6 +41,8 @@ public class HomeFragment extends BaseFragment {
     private CustomRecyclerView recyclerView;
     private ArticleAdapter articleAdapter;
     private SmartRefreshLayout mSmartRefreshLayout;
+    private IndicatorView mIndicatorView;
+    private TextView mTvTitle;
 
     @Override
     protected int getLayout() {
@@ -87,6 +91,8 @@ public class HomeFragment extends BaseFragment {
                     public void onSuccess(DataWrapper response) {
                         mBannerViewPager.create(response.getDataBeanList());
                         articleAdapter.setData(response.getArticleList());
+                        if (response.getDataBeanList().size() > 0)
+                            mTvTitle.setText(response.getDataBeanList().get(0).getTitle());
                     }
 
                     @Override
@@ -108,14 +114,20 @@ public class HomeFragment extends BaseFragment {
     private void initBanner() {
         mBannerViewPager
                 .setAutoPlay(true)
+                .setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
                 .setInterval(5000)
                 .setScrollDuration(1200)
-//                .setRevealWidth(BannerUtils.dp2px(10))
-                .setPageMargin(BannerUtils.dp2px(10))
-                .setPageStyle(PageStyle.MULTI_PAGE)
+                .setIndicatorView(mIndicatorView)// 这里为了设置标题故用了自定义Indicator,如果无需标题则没必要添加此行代码
                 .setIndicatorColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
                 .setHolderCreator(NetViewHolder::new)
-                .setIndicatorMargin(0, 0, 0, (int) getResources().getDimension(R.dimen.dp_18))
+                .setOnPageChangeListener(new OnPageChangeListenerAdapter() {
+                    @Override
+                    public void onPageSelected(int position) {
+                        super.onPageSelected(position);
+                        BannerData bannerData = mBannerViewPager.getList().get(position);
+                        mTvTitle.setText(bannerData.getTitle());
+                    }
+                })
                 .setOnPageClickListener(this::onPageClicked);
     }
 
@@ -127,6 +139,8 @@ public class HomeFragment extends BaseFragment {
     private View getHeaderView() {
         View view = LayoutInflater.from(getMContext()).inflate(R.layout.item_header_view, recyclerView, false);
         mBannerViewPager = view.findViewById(R.id.banner_view);
+        mTvTitle = view.findViewById(R.id.tv_title);
+        mIndicatorView = view.findViewById(R.id.indicator_view);
         return view;
     }
 }

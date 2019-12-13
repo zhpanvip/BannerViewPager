@@ -6,4 +6,5 @@ public interface TransformerStyle {
     int STACK = 1 << 2;
     int ACCORDION = 1 << 3;
     int ROTATE = 1 << 4;
+    int SCALE_IN = 1 << 5;
 }
