@@ -14,24 +14,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="50dp"
-        android:layout_marginBottom="150dp"
-        android:lineSpacingExtra="5dp"
+        android:layout_marginStart="@dimen/dp_50"
+        android:layout_marginBottom="@dimen/dp_150"
+        android:lineSpacingExtra="@dimen/dp_5"
         android:textColor="#FFFFFF"
-        android:textSize="18sp" />
+        android:textSize="@dimen/sp_18" />
 
     <TextView
         android:id="@+id/btn_start"
         android:layout_width="wrap_content"
-        android:layout_height="35dp"
+        android:layout_height="@dimen/dp_35"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="@dimen/dp_20"
         android:background="@drawable/bg_start"
         android:gravity="center_vertical"
         android:text="@string/start_now"
         android:onClick="onClick"
         android:textColor="#FFFFFF"
-        android:textSize="16sp"
+        android:textSize="@dimen/sp_16"
         android:visibility="gone" />
 </RelativeLayout>

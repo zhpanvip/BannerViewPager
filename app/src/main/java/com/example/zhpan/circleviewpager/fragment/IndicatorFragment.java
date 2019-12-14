@@ -55,8 +55,8 @@ public class IndicatorFragment extends BaseFragment {
         radioButton = view.findViewById(R.id.rb_circle);
         radioGroupStyle = view.findViewById(R.id.rg_indicator_style);
         mViewPager = view.findViewById(R.id.banner_view);
-        mViewPager.setIndicatorGap(BannerUtils.dp2px(6))
-                .setRoundRect(BannerUtils.dp2px(6))
+        mViewPager.setIndicatorGap(getResources().getDimensionPixelOffset(R.dimen.dp_6))
+                .setRoundRect(getResources().getDimensionPixelOffset(R.dimen.dp_6))
                 .setHolderCreator(() -> new ImageResourceViewHolder(0));
         initRadioGroup();
     }
@@ -91,7 +91,7 @@ public class IndicatorFragment extends BaseFragment {
                 .setIndicatorGap(0)
                 .setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
                 .setIndicatorColor(getColor(R.color.white_alpha_75), getColor(R.color.white))
-                .setIndicatorWidth(BannerUtils.dp2px(12), BannerUtils.dp2px(12))
+                .setIndicatorWidth(getResources().getDimensionPixelOffset(R.dimen.dp_12), getResources().getDimensionPixelOffset(R.dimen.dp_12))
                 .setIndicatorHeight(BannerUtils.dp2px(1.5f))
                 .create(getMDrawableList());
     }
@@ -102,31 +102,31 @@ public class IndicatorFragment extends BaseFragment {
                 .setIndicatorGap(BannerUtils.dp2px(4))
                 .setPageMargin(0)
                 .setIndicatorSlideMode(IndicatorSlideMode.NORMAL)
-                .setIndicatorHeight(BannerUtils.dp2px(4f))
+                .setIndicatorHeight(getResources().getDimensionPixelOffset(R.dimen.dp_4))
                 .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
                 .setIndicatorColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
-                .setIndicatorWidth(BannerUtils.dp2px(4), BannerUtils.dp2px(10)).create(getMDrawableList());
+                .setIndicatorWidth(getResources().getDimensionPixelOffset(R.dimen.dp_4), getResources().getDimensionPixelOffset(R.dimen.dp_10)).create(getMDrawableList());
     }
 
     private void setupCircleIndicator() {
         mViewPager.setIndicatorStyle(IndicatorStyle.CIRCLE)
                 .setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
                 .setIndicatorGravity(IndicatorGravity.CENTER)
-                .setIndicatorGap(BannerUtils.dp2px(6))
+                .setIndicatorGap(getResources().getDimensionPixelOffset(R.dimen.dp_6))
                 .setPageMargin(0)
                 .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
                 .setIndicatorColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
-                .setIndicatorRadius(BannerUtils.dp2px(4), BannerUtils.dp2px(5)).create(getMDrawableList());
+                .setIndicatorRadius(getResources().getDimensionPixelOffset(R.dimen.dp_4), getResources().getDimensionPixelOffset(R.dimen.dp_5)).create(getMDrawableList());
     }
 
     private void setupDashIndicator() {
         mViewPager.setIndicatorStyle(IndicatorStyle.DASH)
-                .setIndicatorHeight(BannerUtils.dp2px(3f))
+                .setIndicatorHeight(getResources().getDimensionPixelOffset(R.dimen.dp_3))
                 .setIndicatorGravity(IndicatorGravity.CENTER)
                 .setIndicatorSlideMode(IndicatorSlideMode.NORMAL)
-                .setIndicatorGap(BannerUtils.dp2px(3))
+                .setIndicatorGap(getResources().getDimensionPixelOffset(R.dimen.dp_3))
                 .setPageMargin(0)
-                .setIndicatorWidth(BannerUtils.dp2px(3), BannerUtils.dp2px(10))
+                .setIndicatorWidth(getResources().getDimensionPixelOffset(R.dimen.dp_3), getResources().getDimensionPixelOffset(R.dimen.dp_10))
                 .setIndicatorColor(Color.parseColor("#888888"),
                         Color.parseColor("#118EEA")).create(getMDrawableList());
     }

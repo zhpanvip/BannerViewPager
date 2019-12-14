@@ -7,8 +7,8 @@
     <com.zhpan.bannerview.BannerViewPager
         android:id="@+id/banner_view"
         android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:layout_marginTop="20dp"
+        android:layout_height="@dimen/dp_180"
+        android:layout_marginTop="@dimen/dp_20"
         app:bvp_page_style="multi_page" />
 
     <TextView
@@ -16,11 +16,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/banner_view"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_10"
         android:text="@string/text_page_style"
         android:textColor="#000000"
-        android:textSize="18sp"
+        android:textSize="@dimen/sp_18"
         android:textStyle="bold" />
 
     <RadioGroup
@@ -28,34 +28,38 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_page_style"
-        android:padding="15dp">
+        android:padding="@dimen/dp_15">
 
         <RadioButton
             android:id="@+id/rb_multi_page"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="15dp"
+            android:textSize="@dimen/sp_16"
+            android:layout_marginEnd="@dimen/dp_15"
             android:text="MULTI_PAGE" />
 
         <RadioButton
             android:id="@+id/rb_multi_page_scale"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="@dimen/dp_15"
+            android:textSize="@dimen/sp_16"
             android:text="MULTI_PAGE_SCALE" />
 
         <RadioButton
             android:id="@+id/rb_multi_page_overlap"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:textSize="@dimen/sp_16"
+            android:layout_marginTop="@dimen/dp_15"
             android:text="MULTI_PAGE_OVERLAP" />
 
         <RadioButton
             android:id="@+id/rb_qq_music_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:textSize="@dimen/sp_16"
+            android:layout_marginTop="@dimen/dp_15"
             android:text="QQ Music Banner Style" />
 
     </RadioGroup>

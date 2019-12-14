@@ -197,7 +197,7 @@ Android support latestVersion: [ ![latestVersion](https://api.bintray.com/packag
         @Override
         public void onBind(View itemView, BannerData data, int position, int size) {
             CornerImageView imageView = itemView.findViewById(R.id.banner_image);
-            imageView.setRoundCorner(BannerUtils.dp2px(5));
+            imageView.setRoundCorner(imageView.getContext().getResources().getDimensionPixelOffset(R.dimen.dp_5));
             ImageLoaderOptions options = new ImageLoaderOptions.Builder()
                     .into(imageView).load(data.getImagePath())
                     .placeHolder(R.drawable.placeholder).build();
@@ -217,7 +217,7 @@ Kotlin：
             mBannerViewPager = findViewById(R.id.bannerView)
             mBannerViewPager.setCanLoop(false)
                 .setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
-                .setIndicatorMargin(0, 0, 0, ConvertUtils.dp2px(40f))
+                .setIndicatorMargin(0, 0, 0, getResources().getDimensionPixelOffset(R.dimen.dp_40))
                 .setIndicatorGravity(IndicatorGravity.CENTER)
                 .setHolderCreator { CustomPageViewHolder() }
                 .setOnPageChangeListener(
@@ -242,7 +242,7 @@ Java：
                 .setInterval(3000)
                 .setCanLoop(false)
                 .setAutoPlay(true)
-                .setRoundCorner(DpUtils.dp2px(7))
+                .setRoundCorner(getResources().getDimensionPixelOffset(R.dimen.dp_7))
                 .setIndicatorColor(Color.parseColor("#935656"), Color.parseColor("#FF4C39"))
                 .setIndicatorGravity(IndicatorGravity.END)
                 .setScrollDuration(1000).setHolderCreator(NetViewHolder::new)
@@ -362,8 +362,8 @@ public class FigureIndicatorView extends BaseIndicatorView {
 
 ```
     FigureIndicatorView indicatorView = new FigureIndicatorView(mContext);
-    indicatorView.setRadius(BannerUtils.dp2px(18));
-    indicatorView.setTextSize(BannerUtils.dp2px(13));
+    indicatorView.setRadius(getResources().getDimensionPixelOffset(R.dimen.dp_18));
+    indicatorView.setTextSize(getResources().getDimensionPixelOffset(R.dimen.dp_13));
     indicatorView.setBackgroundColor(Color.parseColor("#aa118EEA"));
 
     mViewPager.setIndicatorGravity(IndicatorGravity.END)
