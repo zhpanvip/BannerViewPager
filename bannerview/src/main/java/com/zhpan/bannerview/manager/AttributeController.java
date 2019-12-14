@@ -69,7 +69,7 @@ public class AttributeController {
         mBannerOptions.setAutoPlay(isAutoPlay);
         mBannerOptions.setCanLoop(isCanLoop);
         mBannerOptions.setPageMargin(pageMargin);
-        mBannerOptions.setRoundCorner(roundCorner);
+        mBannerOptions.setRoundRectRadius(roundCorner);
         mBannerOptions.setRevealWidth(revealWidth);
         mBannerOptions.setPageStyle(pageStyle);
         mBannerOptions.setScrollDuration(scrollDuration);

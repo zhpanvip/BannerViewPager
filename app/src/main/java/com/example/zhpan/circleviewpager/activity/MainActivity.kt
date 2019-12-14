@@ -48,7 +48,6 @@ class MainActivity : AppCompatActivity() {
             0 -> checkedId = R.id.rb_home
             1 -> checkedId = R.id.rb_find
             2 -> checkedId = R.id.rb_add
-            3 -> checkedId = R.id.rb_others
         }
         return checkedId
     }
@@ -62,8 +61,6 @@ class MainActivity : AppCompatActivity() {
                 vp_fragment?.setCurrentItem(AdapterFragmentPager.PAGE_FIND, false)
 
             } else if (checkedId == R.id.rb_add) {
-                vp_fragment?.setCurrentItem(AdapterFragmentPager.PAGE_INDICATOR, false)
-            } else if (checkedId == R.id.rb_others) {
                 vp_fragment?.setCurrentItem(AdapterFragmentPager.PAGE_OTHERS, false)
             }
         }

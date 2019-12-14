@@ -10,6 +10,7 @@ import com.example.zhpan.circleviewpager.R;
 import com.example.zhpan.circleviewpager.viewholder.ImageResourceViewHolder;
 import com.zhpan.bannerview.BannerViewPager;
 import com.zhpan.bannerview.constants.IndicatorGravity;
+import com.zhpan.bannerview.constants.IndicatorSlideMode;
 import com.zhpan.bannerview.constants.IndicatorStyle;
 import com.zhpan.bannerview.utils.BannerUtils;
 import com.zhpan.idea.utils.ToastUtils;
@@ -39,7 +40,7 @@ public class IndicatorFragment extends BaseFragment {
         radioGroupStyle = view.findViewById(R.id.rg_indicator_style);
         mViewPager = view.findViewById(R.id.banner_view);
         mViewPager.setIndicatorGap(BannerUtils.dp2px(6))
-                .setRoundCorner(BannerUtils.dp2px(6))
+                .setRoundRect(BannerUtils.dp2px(6))
                 .setHolderCreator(() -> new ImageResourceViewHolder(0));
         initRadioGroup();
     }
@@ -60,9 +61,23 @@ public class IndicatorFragment extends BaseFragment {
                 case R.id.rb_round_rect:
                     setupRoundRectIndicator();
                     break;
+                case R.id.rb_tmall:
+                    setupTmallIndicator();
+                    break;
             }
         });
         radioButton.performClick();
+    }
+
+    private void setupTmallIndicator() {
+        mViewPager
+                .setIndicatorStyle(IndicatorStyle.DASH)
+                .setIndicatorGap(0)
+                .setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
+                .setIndicatorColor(getColor(R.color.white_alpha_75), getColor(R.color.white))
+                .setIndicatorWidth(BannerUtils.dp2px(12), BannerUtils.dp2px(12))
+                .setIndicatorHeight(BannerUtils.dp2px(1.5f))
+                .create(getMDrawableList());
     }
 
     private void setupRoundRectIndicator() {
@@ -70,6 +85,7 @@ public class IndicatorFragment extends BaseFragment {
                 .setIndicatorGravity(IndicatorGravity.CENTER)
                 .setIndicatorGap(BannerUtils.dp2px(4))
                 .setPageMargin(0)
+                .setIndicatorSlideMode(IndicatorSlideMode.NORMAL)
                 .setIndicatorHeight(BannerUtils.dp2px(4f))
                 .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
                 .setIndicatorColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
@@ -78,6 +94,7 @@ public class IndicatorFragment extends BaseFragment {
 
     private void setupCircleIndicator() {
         mViewPager.setIndicatorStyle(IndicatorStyle.CIRCLE)
+                .setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
                 .setIndicatorGravity(IndicatorGravity.CENTER)
                 .setIndicatorGap(BannerUtils.dp2px(6))
                 .setPageMargin(0)
@@ -90,6 +107,7 @@ public class IndicatorFragment extends BaseFragment {
         mViewPager.setIndicatorStyle(IndicatorStyle.DASH)
                 .setIndicatorHeight(BannerUtils.dp2px(3f))
                 .setIndicatorGravity(IndicatorGravity.CENTER)
+                .setIndicatorSlideMode(IndicatorSlideMode.NORMAL)
                 .setIndicatorGap(BannerUtils.dp2px(3))
                 .setPageMargin(0)
                 .setIndicatorWidth(BannerUtils.dp2px(3), BannerUtils.dp2px(10))

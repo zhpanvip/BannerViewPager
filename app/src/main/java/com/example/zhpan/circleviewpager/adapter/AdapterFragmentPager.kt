@@ -16,8 +16,8 @@ class AdapterFragmentPager(fm: FragmentManager) : FragmentPagerAdapter(fm) {
             val fragmentList = SparseArray<BaseFragment>()
             fragmentList.put(PAGE_HOME, HomeFragment.getInstance())
             fragmentList.put(PAGE_FIND, PageFragment.getInstance())
-            fragmentList.put(PAGE_INDICATOR, IndicatorFragment.getInstance())
-            fragmentList.put(PAGE_OTHERS, OthersFragment.getInstance())
+            fragmentList.put(PAGE_INDICATOR, OthersFragment.getInstance())
+            fragmentList.put(PAGE_OTHERS, IndicatorFragment.getInstance())
             return fragmentList
         }
 

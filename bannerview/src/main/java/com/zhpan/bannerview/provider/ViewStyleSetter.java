@@ -27,7 +27,7 @@ public class ViewStyleSetter {
      * @param radius 圆角半径
      */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public void setRoundCorner(float radius) {
+    public void setRoundRect(float radius) {
         this.mView.setClipToOutline(true);// 用outline裁剪内容区域
         this.mView.setOutlineProvider(new RoundViewOutlineProvider(radius));
     }
@@ -36,7 +36,7 @@ public class ViewStyleSetter {
      * 设置View为圆形
      */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public void setOval() {
+    public void setOvalView() {
         this.mView.setClipToOutline(true);// 用outline裁剪内容区域
         this.mView.setOutlineProvider(new OvalViewOutlineProvider());
     }

@@ -3,6 +3,7 @@ package com.zhpan.bannerview.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -27,7 +28,7 @@ public class BannerPagerAdapter<T, VH extends ViewHolder> extends PagerAdapter {
 
     private PageClickListener mPageClickListener;
 
-    private List<View> mViewList = new ArrayList<>();
+//    private List<View> mViewList = new ArrayList<>();
 
     public static final int MAX_VALUE = Integer.MAX_VALUE;
 
@@ -54,7 +55,7 @@ public class BannerPagerAdapter<T, VH extends ViewHolder> extends PagerAdapter {
     @Override
     public @NonNull
     Object instantiateItem(@NonNull final ViewGroup container, final int position) {
-        View itemView = findViewByPosition(container, BannerUtils.getRealPosition(isCanLoop, position, mList.size()));
+        View itemView = getView(container, BannerUtils.getRealPosition(isCanLoop, position, mList.size()));
         container.addView(itemView);
         return itemView;
     }
@@ -63,21 +64,21 @@ public class BannerPagerAdapter<T, VH extends ViewHolder> extends PagerAdapter {
 //    public int getItemPosition(@NonNull Object object) {
 //        return POSITION_NONE;
 //    }
-
-    private View findViewByPosition(ViewGroup container, int position) {
-        for (View view : mViewList) {
-            if (((int) view.getTag()) == position && view.getParent() == null) {
-                return view;
-            }
-        }
-        View view = getView(position, container);
-        view.setTag(position);
-        mViewList.add(view);
-        return view;
-    }
+    //  没必要缓存
+//    private View findViewByPosition(ViewGroup container, int position) {
+//        for (View view : mViewList) {
+//            if (((int) view.getTag()) == position && view.getParent() == null) {
+//                return view;
+//            }
+//        }
+//        View view = getView(container, position);
+//        view.setTag(position);
+//        mViewList.add(view);
+//        return view;
+//    }
 
     @SuppressWarnings("unchecked")
-    private View getView(final int position, ViewGroup container) {
+    private View getView(ViewGroup container, final int position) {
         ViewHolder<T> holder = holderCreator.createViewHolder();
         if (holder == null) {
             throw new NullPointerException("Can not return a null holder");
@@ -86,20 +87,23 @@ public class BannerPagerAdapter<T, VH extends ViewHolder> extends PagerAdapter {
     }
 
     private View createView(ViewHolder<T> holder, int position, ViewGroup container) {
-        View view = null;
+        View itemView = LayoutInflater.from(container.getContext()).inflate(holder.getLayoutId(), container, false);
         if (mList != null && mList.size() > 0) {
-            view = holder.createView(container, container.getContext(), position);
-            holder.onBind(container.getContext(), mList.get(position), position, mList.size());
-            setViewListener(view, position);
+//            holder.createView(itemView, position);
+            holder.onBind(itemView, mList.get(position), position, mList.size());
+            setViewListener(itemView, position);
         }
-        return view;
+        return itemView;
     }
 
-    private void setViewListener(View view, int position) {
+    private void setViewListener(View view, final int position) {
         if (view != null)
-            view.setOnClickListener(v -> {
-                if (null != mPageClickListener)
-                    mPageClickListener.onPageClick(position);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (null != mPageClickListener)
+                        mPageClickListener.onPageClick(position);
+                }
             });
     }
 
