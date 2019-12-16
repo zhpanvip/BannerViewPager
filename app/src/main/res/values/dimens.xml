@@ -1,8 +1,4 @@
 <resources>
-    <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="banner_corner">8dp</dimen>
 
     <dimen name="dp_m_130">-130dp</dimen>
     <dimen name="dp_m_110">-110dp</dimen>

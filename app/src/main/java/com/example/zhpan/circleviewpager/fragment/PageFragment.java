@@ -56,7 +56,7 @@ public class PageFragment extends BaseFragment {
         radioButton = view.findViewById(R.id.rb_multi_page);
         mViewPager
                 .setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
-                .setHolderCreator(() -> new ImageResourceViewHolder(BannerUtils.dp2px(5)))
+                .setHolderCreator(() -> new ImageResourceViewHolder(getResources().getDimensionPixelOffset(R.dimen.dp_5)))
                 .setIndicatorColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
                 .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
                 .setInterval(5000);
@@ -91,8 +91,8 @@ public class PageFragment extends BaseFragment {
 
     private void setupBanner(@APageStyle int pageStyle) {
         mViewPager
-                .setPageMargin(BannerUtils.dp2px(10))
-                .setRevealWidth(BannerUtils.dp2px(10))
+                .setPageMargin(getResources().getDimensionPixelOffset(R.dimen.dp_10))
+                .setRevealWidth(getResources().getDimensionPixelOffset(R.dimen.dp_10))
                 .setPageStyle(pageStyle)
                 .create(getMDrawableList());
     }
@@ -100,10 +100,10 @@ public class PageFragment extends BaseFragment {
     //  仿QQ音乐的Banner
     private void setNetEaseMusicStyle() {
         mViewPager
-                .setPageMargin(BannerUtils.dp2px(15))
+                .setPageMargin(getResources().getDimensionPixelOffset(R.dimen.dp_15))
                 .setRevealWidth(BannerUtils.dp2px(0))
                 .setPageStyle(PageStyle.MULTI_PAGE)
-                .setHolderCreator(() -> new ImageResourceViewHolder(BannerUtils.dp2px(5)))
+                .setHolderCreator(() -> new ImageResourceViewHolder(getResources().getDimensionPixelOffset(R.dimen.dp_5)))
                 .setIndicatorColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
                 .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
                 .setInterval(5000).create(getMDrawableList());
