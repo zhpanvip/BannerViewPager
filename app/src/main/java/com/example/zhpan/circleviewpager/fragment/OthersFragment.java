@@ -68,7 +68,7 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
         view.findViewById(R.id.tv_photo_view).setOnClickListener(this);
         view.findViewById(R.id.btn_refresh).setOnClickListener(v -> updateData());
         mViewPager.setIndicatorGap(BannerUtils.dp2px(6))
-                .setRoundRect(BannerUtils.dp2px(6))
+                .setRoundCorner(BannerUtils.dp2px(6))
                 .setOnPageClickListener(position -> ToastUtils.show("Position:" + position))
                 .setIndicatorColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
                 .setHolderCreator(() -> new ImageResourceViewHolder(0));

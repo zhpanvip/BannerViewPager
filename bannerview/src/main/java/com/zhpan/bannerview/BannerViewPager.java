@@ -355,14 +355,14 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     }
 
     /**
-     * @return BannerViewPager数据集合
+     * @return BannerViewPager data set
      */
     public List<T> getList() {
         return mBannerPagerAdapter.getList();
     }
 
     /**
-     * 开启轮播
+     * Start loop
      */
     public void startLoop() {
         if (!isLooping() && isAutoPlay() && mBannerPagerAdapter != null &&
@@ -394,12 +394,12 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     }
 
     /**
-     * @param radius 圆角大小
-     * @deprecated Use{@link BannerViewPager#setRoundRect(int)} instead.
+     * Set round rectangle effect for BannerViewPager.
      * <p>
-     * 设置圆角ViewPager 只有在SDK_INT>=LOLLIPOP(API 21)时有效
+     * Require SDK_INT>=LOLLIPOP(API 21)
+     *
+     * @param radius round radius
      */
-    @Deprecated
     public BannerViewPager<T, VH> setRoundCorner(int radius) {
         mBannerManager.bannerOptions().setRoundRectRadius(radius);
         return this;
