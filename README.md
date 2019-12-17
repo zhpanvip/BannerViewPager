@@ -27,7 +27,7 @@
 
 ### 2.setIndicatorStyle
 
-BannerViewPager supports three Indicator Styles now. It's also support you to custom indicator style,just need extends BaseIndicatorView or implement the IIndicator and then override methods, you can draw Indicators for whatever you want.
+BannerViewPager supports three Indicator Styles now. It's also support to custom indicator style,just need extends BaseIndicatorView or implement the IIndicator and override methods, then you can draw Indicators for whatever you want.
 
 [Sample Click Here](https://github.com/zhpanvip/BannerViewPager/blob/master/app/src/main/java/com/example/zhpan/circleviewpager/fragment/IndicatorFragment.java)
 
@@ -58,7 +58,7 @@ BannerViewPager supports three Indicator Styles now. It's also support you to cu
 | BannerViewPager<T, VH> setAutoPlay(boolean autoPlay) | set is atuo play | default value true|
 | BannerViewPager<T, VH> setInterval(int interval) | set the interval of item switch interval |The unit is millisecond，default value 3000ms  |
 | BannerViewPager<T, VH> setScrollDuration(int scrollDuration) | set page scroll duration | set page scroll duration |unit is millisecond，default is 500ms |
-| BannerViewPager<T, VH> setRoundRect(int radius) | set Round Rectangle for Banner | required SDK_INT>=LOLLIPOP(API 21)  |
+| BannerViewPager<T, VH> setRoundCorner(int radius) | set Round Rectangle style for Banner | required SDK_INT>=LOLLIPOP(API 21)  |
 | BannerViewPager<T, VH> setOnPageClickListener(OnPageClickListener onPageClickListener) | set item click listener |  |
 | BannerViewPager<T, VH> setHolderCreator(HolderCreator\<VH> holderCreator) |set Holder Creator  |You must set HolderCreator for BannerViewPager，or will throw NullPointerException|
 | BannerViewPager<T, VH> setIndicatorVisibility(@Visibility int visibility) | indicator visibility |default value is VISIBLE，added in version 2.4.2|
@@ -148,7 +148,7 @@ Android support latestVersion: [ ![latestVersion](https://api.bintray.com/packag
             android:layout_height="160dp" />
 ```
 
-### 3.The layout of banner item:
+### 3.The item layout of banner:
 
 ```
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -184,10 +184,10 @@ Android support latestVersion: [ ![latestVersion](https://api.bintray.com/packag
     </RelativeLayout>
 ```
 
-### 4.Set ViewHolder for BannerViewPager,you must implements ViewHolder:
+### 4.Set custom ViewHolder for BannerViewPager, the custom ViewHolder must implements com.zhpan.bannerview.holder.ViewHolder:
 
 ```
-    public class NetViewHolder implements ViewHolder<BannerData> {
+    public class NetViewHolder implements ViewHolder<CustomBean> {
 
         @Override
         public int getLayoutId() {
@@ -195,11 +195,11 @@ Android support latestVersion: [ ![latestVersion](https://api.bintray.com/packag
         }
 
         @Override
-        public void onBind(View itemView, BannerData data, int position, int size) {
+        public void onBind(View itemView, CustomBean data, int position, int size) {
             CornerImageView imageView = itemView.findViewById(R.id.banner_image);
             imageView.setRoundCorner(imageView.getContext().getResources().getDimensionPixelOffset(R.dimen.dp_5));
             ImageLoaderOptions options = new ImageLoaderOptions.Builder()
-                    .into(imageView).load(data.getImagePath())
+                    .into(imageView).load(data.getImageRes())
                     .placeHolder(R.drawable.placeholder).build();
             ImageLoaderManager.getInstance().loadImage(options);
         }
@@ -211,15 +211,15 @@ Android support latestVersion: [ ![latestVersion](https://api.bintray.com/packag
 Kotlin：
 
 ```
-    private lateinit var mViewPager: BannerViewPager<CustomBean, CustomPageViewHolder>
+    private lateinit var mViewPager: BannerViewPager<CustomBean, NetViewHolder>
     
     private fun initViewPager() {
-            mBannerViewPager = findViewById(R.id.bannerView)
+            mBannerViewPager = findViewById(R.id.banner_view)
             mBannerViewPager.setCanLoop(false)
                 .setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
                 .setIndicatorMargin(0, 0, 0, getResources().getDimensionPixelOffset(R.dimen.dp_40))
                 .setIndicatorGravity(IndicatorGravity.CENTER)
-                .setHolderCreator { CustomPageViewHolder() }
+                .setHolderCreator { NetViewHolder() }
                 .setOnPageChangeListener(
                     object : OnPageChangeListenerAdapter() {
                         override fun onPageSelected(position: Int) {
@@ -234,7 +234,7 @@ Kotlin：
 Java：
 
 ```
-    private BannerViewPager<BannerData, NetViewHolder> mBannerViewPager;
+    private BannerViewPager<CustomBean, NetViewHolder> mBannerViewPager;
     ...
 	private void initViewPager() {
              mBannerViewPager = findViewById(R.id.banner_view);
@@ -247,28 +247,18 @@ Java：
                 .setIndicatorGravity(IndicatorGravity.END)
                 .setScrollDuration(1000).setHolderCreator(NetViewHolder::new)
                 .setOnPageClickListener(position -> {
-                    BannerData bannerData = mBannerViewPager.getList().get(position);
+                    CustomBean bannerData = mBannerViewPager.getList().get(position);
                     Toast.makeText(NetworkBannerActivity.this,
-                            "点击了图片" + position + " " + bannerData.getDesc(), Toast.LENGTH_SHORT).show();
+                            "点击了图片" + position + " " + bannerData.getImageDescription(), Toast.LENGTH_SHORT).show();
 
                 }).create(mList);
         }
 ```
 ### 6.startLoop and stopLoop
 
-***If the version you used is later than 2.5.0,you don't need care of startLoop and stopLoop in Activity or Fragment .But the two methods is still public.***
+***If the version you used is later than 2.5.0,you don't need care of startLoop and stopLoop in Activity or Fragment. But the two methods is still public.***
 
-~~If you set auto play for BannerViewPager,you must to call stopLoop() in onDestroy() to avoid memory leak~~
-
-```
-	@Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (mBannerViewPager != null)
-    		mViewpager.stopLoop();
-    }
-```
-Or you can stop Loop in onStop() and startLoop in onResume() to improve performance：
+Recommend call stopLoop in onStop() and startLoop in onResume() to improve performance：
 
 ```
     @Override
@@ -288,7 +278,7 @@ Or you can stop Loop in onStop() and startLoop in onResume() to improve performa
 
 ### 7.Custom IndicatorView
 
-The example will implement an custom IndicatorView as the below gif shown .
+The example will implement an custom IndicatorView as the follow gif.
 
 | Custom IndicatorView Style|
 |--|
