@@ -36,7 +36,7 @@ class AdapterFragmentPager(fragmentActivity: FragmentActivity) : FragmentStateAd
     }
 
     override fun getItemCount(): Int {
-        return fragments.size()
+        return 4
     }
 
     companion object {

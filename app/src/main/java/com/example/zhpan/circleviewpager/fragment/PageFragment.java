@@ -34,8 +34,8 @@ public class PageFragment extends BaseFragment {
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
+    public void onPause() {
+        super.onPause();
         if (mViewPager != null) {
             mViewPager.stopLoop();
         }

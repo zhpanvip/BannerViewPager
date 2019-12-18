@@ -25,6 +25,7 @@ import com.zhpan.bannerview.adapter.OnPageChangeListenerAdapter;
 import com.zhpan.bannerview.constants.IndicatorSlideMode;
 import com.zhpan.bannerview.indicator.IndicatorView;
 import com.zhpan.idea.net.common.ResponseObserver;
+import com.zhpan.idea.utils.LogUtils;
 import com.zhpan.idea.utils.RxUtil;
 
 import java.util.ArrayList;
@@ -57,8 +58,9 @@ public class HomeFragment extends BaseFragment {
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
+    public void onPause() {
+        super.onPause();
+        LogUtils.e("HomeFragment","onPause");
         if (mViewPager != null) {
             mViewPager.stopLoop();
         }
@@ -67,6 +69,7 @@ public class HomeFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
+        LogUtils.e("HomeFragment","onResume");
         if (mViewPager != null) {
             mViewPager.startLoop();
         }

@@ -260,15 +260,16 @@ Java：
 
 ***2.5.0之后版本无需自行在Activity或Fragment中管理stopLoop和startLoop方法，但这两个方法依旧保留对外开放***
 
-但是为了节省性能建议在onStop中停止轮播，在onResume中开启轮播：
+但是为了节省性能建议在onPause中停止轮播，在onResume中开启轮播：
 
 ```
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if (mBannerViewPager != null)
-            mBannerViewPager.stopLoop();
-    }
+     @Override
+      public void onPause() {
+          super.onPause();
+          if (mViewPager != null) {
+              mViewPager.stopLoop();
+          }
+      }
 
     @Override
     protected void onResume() {

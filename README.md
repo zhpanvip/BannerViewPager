@@ -258,14 +258,14 @@ Java：
 
 ***If the version you used is later than 2.5.0,you don't need care of startLoop and stopLoop in Activity or Fragment. But the two methods is still public.***
 
-Recommend call stopLoop in onStop() and startLoop in onResume() to improve performance：
+Recommend call stopLoop in onPause() and startLoop in onResume() to improve performance：
 
 ```
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onPause() {
         if (mBannerViewPager != null)
-            mBannerViewPager.stopLoop();
+                mBannerViewPager.stopLoop();
+        super.onPause();
     }
 
     @Override

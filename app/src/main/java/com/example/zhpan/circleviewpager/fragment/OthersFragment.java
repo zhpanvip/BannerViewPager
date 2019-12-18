@@ -44,8 +44,8 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
+    public void onPause() {
+        super.onPause();
         if (mViewPager != null) {
             mViewPager.stopLoop();
         }
