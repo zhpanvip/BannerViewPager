@@ -407,6 +407,18 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     }
 
     /**
+     * Set round rectangle effect for BannerViewPager.
+     * <p>
+     * Require SDK_INT>=LOLLIPOP(API 21)
+     *
+     * @param radius round radius
+     */
+    public BannerViewPager<T, VH> setRoundRect(int radius) {
+        setRoundCorner(radius);
+        return this;
+    }
+
+    /**
      * Enable/disable auto play
      *
      * @param autoPlay is enable auto play
