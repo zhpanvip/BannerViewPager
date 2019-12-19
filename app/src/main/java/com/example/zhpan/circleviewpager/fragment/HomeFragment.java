@@ -3,6 +3,7 @@ package com.example.zhpan.circleviewpager.fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +25,7 @@ import com.zhpan.bannerview.adapter.OnPageChangeListenerAdapter;
 import com.zhpan.bannerview.constants.IndicatorSlideMode;
 import com.zhpan.bannerview.indicator.IndicatorView;
 import com.zhpan.idea.net.common.ResponseObserver;
+import com.zhpan.idea.utils.LogUtils;
 import com.zhpan.idea.utils.RxUtil;
 
 import java.util.ArrayList;
@@ -37,12 +39,13 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class HomeFragment extends BaseFragment {
 
-    private BannerViewPager<BannerData, NetViewHolder> mBannerViewPager;
+    private BannerViewPager<BannerData, NetViewHolder> mViewPager;
     private CustomRecyclerView recyclerView;
     private ArticleAdapter articleAdapter;
     private SmartRefreshLayout mSmartRefreshLayout;
     private IndicatorView mIndicatorView;
     private TextView mTvTitle;
+    private RelativeLayout mRlIndicator;
 
     @Override
     protected int getLayout() {
@@ -52,6 +55,24 @@ public class HomeFragment extends BaseFragment {
     @Override
     protected void initTitle() {
 
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        LogUtils.e("HomeFragment","onPause");
+        if (mViewPager != null) {
+            mViewPager.stopLoop();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        LogUtils.e("HomeFragment","onResume");
+        if (mViewPager != null) {
+            mViewPager.startLoop();
+        }
     }
 
     @Override
@@ -89,10 +110,12 @@ public class HomeFragment extends BaseFragment {
                 .subscribe(new ResponseObserver<DataWrapper>() {
                     @Override
                     public void onSuccess(DataWrapper response) {
-                        mBannerViewPager.create(response.getDataBeanList());
+                        mViewPager.create(response.getDataBeanList());
                         articleAdapter.setData(response.getArticleList());
-                        if (response.getDataBeanList().size() > 0)
+                        if (response.getDataBeanList().size() > 0) {
                             mTvTitle.setText(response.getDataBeanList().get(0).getTitle());
+                            mRlIndicator.setVisibility(View.VISIBLE);
+                        }
                     }
 
                     @Override
@@ -112,7 +135,7 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void initBanner() {
-        mBannerViewPager
+        mViewPager
                 .setAutoPlay(true)
                 .setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
                 .setInterval(5000)
@@ -124,7 +147,7 @@ public class HomeFragment extends BaseFragment {
                     @Override
                     public void onPageSelected(int position) {
                         super.onPageSelected(position);
-                        BannerData bannerData = mBannerViewPager.getList().get(position);
+                        BannerData bannerData = mViewPager.getList().get(position);
                         mTvTitle.setText(bannerData.getTitle());
                     }
                 })
@@ -132,13 +155,14 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void onPageClicked(int position) {
-        BannerData bannerData = mBannerViewPager.getList().get(position);
+        BannerData bannerData = mViewPager.getList().get(position);
         Toast.makeText(getMContext(), "position:" + position + " " + bannerData.getTitle(), Toast.LENGTH_SHORT).show();
     }
 
     private View getHeaderView() {
         View view = LayoutInflater.from(getMContext()).inflate(R.layout.item_header_view, recyclerView, false);
-        mBannerViewPager = view.findViewById(R.id.banner_view);
+        mRlIndicator = view.findViewById(R.id.layout_indicator);
+        mViewPager = view.findViewById(R.id.banner_view);
         mTvTitle = view.findViewById(R.id.tv_title);
         mIndicatorView = view.findViewById(R.id.indicator_view);
         return view;

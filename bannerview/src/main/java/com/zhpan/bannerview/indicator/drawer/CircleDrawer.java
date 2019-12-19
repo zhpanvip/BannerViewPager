@@ -4,6 +4,9 @@ import android.graphics.Canvas;
 
 import com.zhpan.bannerview.manager.IndicatorOptions;
 
+import static com.zhpan.bannerview.constants.IndicatorSlideMode.NORMAL;
+import static com.zhpan.bannerview.constants.IndicatorSlideMode.SMOOTH;
+
 /**
  * <pre>
  *   Created by zhpan on 2019/11/23.
@@ -24,7 +27,7 @@ public class CircleDrawer extends BaseDrawer {
     public MeasureResult onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         maxWidth = Math.max(mIndicatorOptions.getNormalIndicatorWidth(), mIndicatorOptions.getCheckedIndicatorWidth());
         minWidth = Math.min(mIndicatorOptions.getNormalIndicatorWidth(), mIndicatorOptions.getCheckedIndicatorWidth());
-        mMeasureResult.setMeasureResult(getMeasureWidth(), (int)maxWidth);
+        mMeasureResult.setMeasureResult(getMeasureWidth(), (int) maxWidth);
         return mMeasureResult;
     }
 
@@ -55,7 +58,20 @@ public class CircleDrawer extends BaseDrawer {
         mPaint.setColor(mIndicatorOptions.getCheckedColor());
         float normalIndicatorWidth = mIndicatorOptions.getNormalIndicatorWidth();
         float indicatorGap = mIndicatorOptions.getIndicatorGap();
-        canvas.drawCircle(maxWidth / 2 + (normalIndicatorWidth + indicatorGap) * mIndicatorOptions.getCurrentPosition() + (normalIndicatorWidth + indicatorGap) * mIndicatorOptions.getSlideProgress(),
+        switch (mIndicatorOptions.getSlideMode()) {
+            case NORMAL:
+            case SMOOTH:
+                drawSmoothSlide(canvas, normalIndicatorWidth, indicatorGap);
+                break;
+//            case WORM:
+//                drawWormSlider(canvas, normalIndicatorWidth, indicatorGap);
+//                break;
+        }
+    }
+
+    private void drawSmoothSlide(Canvas canvas, float normalIndicatorWidth, float indicatorGap) {
+        canvas.drawCircle(maxWidth / 2 + (normalIndicatorWidth + indicatorGap) * mIndicatorOptions.getCurrentPosition()
+                        + (normalIndicatorWidth + indicatorGap) * mIndicatorOptions.getSlideProgress(),
                 maxWidth / 2f, mIndicatorOptions.getCheckedIndicatorWidth() / 2, mPaint);
     }
 }

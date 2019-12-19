@@ -13,14 +13,14 @@
     <TextView
         android:id="@+id/btn_start"
         android:layout_width="wrap_content"
-        android:layout_height="35dp"
+        android:layout_height="@dimen/dp_35"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="@dimen/dp_20"
         android:background="@drawable/bg_start"
         android:gravity="center_vertical"
         android:text="@string/start_now"
         android:textColor="#FFFFFF"
-        android:textSize="16sp" />
+        android:textSize="@dimen/sp_16" />
 
 </RelativeLayout>

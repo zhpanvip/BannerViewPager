@@ -44,6 +44,22 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        if (mViewPager != null) {
+            mViewPager.stopLoop();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mViewPager != null) {
+            mViewPager.startLoop();
+        }
+    }
+
+    @Override
     protected void initView(Bundle savedInstanceState, View view) {
         radioButton = view.findViewById(R.id.rb_indicator_below);
         radioGroupStyle = view.findViewById(R.id.rg_indicator_style);
@@ -52,7 +68,7 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
         view.findViewById(R.id.tv_photo_view).setOnClickListener(this);
         view.findViewById(R.id.btn_refresh).setOnClickListener(v -> updateData());
         mViewPager.setIndicatorGap(BannerUtils.dp2px(6))
-                .setRoundRect(BannerUtils.dp2px(6))
+                .setRoundCorner(BannerUtils.dp2px(6))
                 .setOnPageClickListener(position -> ToastUtils.show("Position:" + position))
                 .setIndicatorColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
                 .setHolderCreator(() -> new ImageResourceViewHolder(0));

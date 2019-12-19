@@ -10,62 +10,63 @@
         <RadioGroup
             android:id="@+id/rg_tab"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
+            android:layout_height="@dimen/dp_55"
             android:layout_alignParentBottom="true"
             android:layout_centerInParent="true"
             android:background="@color/white"
+            android:padding="@dimen/dp_5"
             android:orientation="horizontal">
 
             <RadioButton
                 android:id="@+id/rb_home"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="bottom"
                 android:layout_weight="1"
                 android:button="@null"
                 android:checked="true"
                 android:drawableTop="@drawable/tab1_selector"
                 android:gravity="center_horizontal|bottom"
-                android:paddingBottom="5dp"
+                android:paddingBottom="@dimen/dp_5"
                 android:text="@string/tab1"
                 android:textColor="@drawable/text_color_selector" />
 
             <RadioButton
                 android:id="@+id/rb_find"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="bottom"
                 android:layout_weight="1"
                 android:button="@null"
                 android:drawableTop="@drawable/tab2_selector"
                 android:gravity="center_horizontal|bottom"
-                android:paddingBottom="5dp"
+                android:paddingBottom="@dimen/dp_5"
                 android:text="@string/tab2"
                 android:textColor="@drawable/text_color_selector" />
 
             <RadioButton
                 android:id="@+id/rb_add"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="bottom"
                 android:layout_weight="1"
                 android:button="@null"
                 android:drawableTop="@drawable/tab3_selector"
                 android:gravity="center_horizontal|bottom"
-                android:paddingBottom="5dp"
+                android:paddingBottom="@dimen/dp_5"
                 android:text="@string/tab3"
                 android:textColor="@drawable/text_color_selector" />
 
             <RadioButton
                 android:id="@+id/rb_others"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="bottom"
                 android:layout_weight="1"
                 android:button="@null"
                 android:drawableTop="@drawable/tab4_selector"
                 android:gravity="center_horizontal|bottom"
-                android:paddingBottom="5dp"
+                android:paddingBottom="@dimen/dp_5"
                 android:text="@string/tab4"
                 android:textColor="@drawable/text_color_selector" />
 
@@ -79,7 +80,7 @@
             android:layout_above="@id/rg_tab" />
         <View
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
+            android:layout_height="@dimen/dp_0_5"
             android:background="@color/line_color"
             android:layout_below="@id/vp_fragment"/>
 

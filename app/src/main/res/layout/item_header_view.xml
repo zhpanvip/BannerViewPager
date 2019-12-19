@@ -2,18 +2,20 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="@dimen/dp_200"
     android:orientation="vertical">
 
     <com.zhpan.bannerview.BannerViewPager
         android:id="@+id/banner_view"
         android:layout_width="match_parent"
-        android:layout_height="200dp" />
+        android:layout_height="@dimen/dp_200" />
 
     <!--这里为了设置标题故用了自定义Indicator,如果无需标题则没必要将Indicator定义在此处-->
     <RelativeLayout
+        android:id="@+id/layout_indicator"
         android:layout_width="match_parent"
-        android:layout_height="35dp"
+        android:layout_height="@dimen/dp_35"
+        android:visibility="gone"
         android:layout_alignParentBottom="true"
         android:background="#77000000">
 
@@ -24,7 +26,7 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/dp_15"
             android:textColor="@color/white"
-            android:textSize="14sp"
+            android:textSize="@dimen/sp_14"
             tools:text="This is Title" />
 
         <com.zhpan.bannerview.indicator.IndicatorView
