@@ -98,7 +98,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     }
 
     private void initView() {
-        inflate(getContext(), R.layout.layout_banner_view_pager, this);
+        inflate(getContext(), R.layout.bvp_layout, this);
         mViewPager = findViewById(R.id.vp_main);
         mIndicatorLayout = findViewById(R.id.bvp_layout_indicator);
     }
