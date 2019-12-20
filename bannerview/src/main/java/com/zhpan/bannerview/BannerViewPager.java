@@ -115,6 +115,22 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
         startLoop();
     }
 
+    //触碰控件的时候，翻页应该停止，离开的时候如果之前是开启了翻页的话则重新启动翻页
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        int action = ev.getAction();
+        if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_CANCEL || action == MotionEvent.ACTION_OUTSIDE) {
+            // 开始翻页
+            setLooping(false);
+            startLoop();
+        } else if (action == MotionEvent.ACTION_DOWN) {
+            // 停止翻页
+            setLooping(true);
+            stopLoop();
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
     @SuppressLint("ClickableViewAccessibility")
     private void setTouchListener() {
         mViewPager.setOnTouchListener(new OnTouchListener() {
@@ -285,7 +301,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
             addView(mIndicatorLayout);
             initPageStyle();
             startLoop();
-            setTouchListener();
+//            setTouchListener();
         } else {
             throw new NullPointerException("You must set HolderCreator for BannerViewPager");
         }
