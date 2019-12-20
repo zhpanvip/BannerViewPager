@@ -1,6 +1,5 @@
 package com.zhpan.bannerview;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
 import android.os.Handler;
@@ -115,7 +114,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
         startLoop();
     }
 
-    //触碰控件的时候，翻页应该停止，离开的时候如果之前是开启了翻页的话则重新启动翻页
+    //  触碰控件的时候，翻页应该停止，离开的时候如果之前是开启了翻页的话则重新启动翻页
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         int action = ev.getAction();
@@ -129,30 +128,6 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
             stopLoop();
         }
         return super.dispatchTouchEvent(ev);
-    }
-
-    @SuppressLint("ClickableViewAccessibility")
-    private void setTouchListener() {
-        mViewPager.setOnTouchListener(new OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                int action = event.getAction();
-                switch (action) {
-                    case MotionEvent.ACTION_DOWN:
-                    case MotionEvent.ACTION_MOVE:
-                        BannerViewPager.this.setLooping(true);
-                        BannerViewPager.this.stopLoop();
-                        break;
-                    case MotionEvent.ACTION_UP:
-                    case MotionEvent.ACTION_CANCEL:
-                        BannerViewPager.this.setLooping(false);
-                        BannerViewPager.this.startLoop();
-                    default:
-                        break;
-                }
-                return false;
-            }
-        });
     }
 
     @Override
@@ -210,19 +185,6 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
             initRoundCorner();
         }
     }
-
-//    private void initList(List<T> list) {
-//        mList.clear();
-//        mList.addAll(list);
-//        mIndicatorView.setPageSize(mList.size());
-//        if (mList.size() > 1) {
-//            setIndicatorValues();
-//        } else if (mIndicatorView != null) {
-//            mIndicatorView.setPageSize(mList.size());
-//        }
-//        setIndicatorValues(list);
-//
-//    }
 
     private void setIndicatorValues(List<T> list) {
         BannerOptions bannerOptions = mBannerManager.bannerOptions();
@@ -284,27 +246,25 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     }
 
     private void setupViewPager(List<T> list) {
-        if (holderCreator != null) {
-            if (list.size() > 0 && isCanLoop()) {
-                currentPosition = MAX_VALUE / 2 - ((MAX_VALUE / 2) % list.size()) + 1;
-            }
-            removeAllViews();
-            mViewPager.setAdapter(getPagerAdapter(list));
-            mViewPager.setCurrentItem(currentPosition);
-            mViewPager.removeOnPageChangeListener(this);
-            mViewPager.addOnPageChangeListener(this);
-            BannerOptions bannerOptions = mBannerManager.bannerOptions();
-            mViewPager.setScrollDuration(bannerOptions.getScrollDuration());
-            mViewPager.disableTouchScroll(bannerOptions.isDisableTouchScroll());
-            mViewPager.setFirstLayout(true);
-            addView(mViewPager);
-            addView(mIndicatorLayout);
-            initPageStyle();
-            startLoop();
-//            setTouchListener();
-        } else {
+        if (holderCreator == null) {
             throw new NullPointerException("You must set HolderCreator for BannerViewPager");
         }
+        if (list.size() > 0 && isCanLoop()) {
+            currentPosition = MAX_VALUE / 2 - ((MAX_VALUE / 2) % list.size()) + 1;
+        }
+        removeAllViews();
+        mViewPager.setAdapter(getPagerAdapter(list));
+        mViewPager.setCurrentItem(currentPosition);
+        mViewPager.removeOnPageChangeListener(this);
+        mViewPager.addOnPageChangeListener(this);
+        BannerOptions bannerOptions = mBannerManager.bannerOptions();
+        mViewPager.setScrollDuration(bannerOptions.getScrollDuration());
+        mViewPager.disableTouchScroll(bannerOptions.isDisableTouchScroll());
+        mViewPager.setFirstLayout(true);
+        addView(mViewPager);
+        addView(mIndicatorLayout);
+        initPageStyle();
+        startLoop();
     }
 
     private BannerPagerAdapter<T, VH> mBannerPagerAdapter;
