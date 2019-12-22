@@ -47,7 +47,7 @@ public class BaseIndicatorView extends View implements IIndicator {
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        if (getSlideMode() == IndicatorSlideMode.SMOOTH && getPageSize() > 1 && positionOffset != 0) {
+        if (getSlideMode() == IndicatorSlideMode.SMOOTH && getPageSize() > 1) {
             scrollSlider(position, positionOffset);
         }
     }

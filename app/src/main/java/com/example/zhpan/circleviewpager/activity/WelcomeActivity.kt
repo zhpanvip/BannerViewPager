@@ -58,7 +58,7 @@ class WelcomeActivity : BaseDataActivity(), HolderCreator<CustomPageViewHolder> 
                 .setCanLoop(false)
                 .setPageTransformerStyle(transforms[Random().nextInt(6)])
                 .setScrollDuration(ANIMATION_DURATION)
-                .setIndicatorMargin(0, 0, 0, BannerUtils.dp2px(100f))
+                .setIndicatorMargin(0, 0, 0, resources.getDimension(R.dimen.dp_100).toInt())
                 .setIndicatorGap(resources.getDimension(R.dimen.dp_10).toInt())
                 .setIndicatorColor(ContextCompat.getColor(this, R.color.white),
                         ContextCompat.getColor(this, R.color.white_alpha_75))

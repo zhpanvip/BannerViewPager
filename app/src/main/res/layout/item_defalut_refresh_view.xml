@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
-    android:padding="10dp"
+    android:padding="@dimen/dp_10"
     android:text="下拉刷新"
     android:layout_gravity="bottom"
-    android:textSize="15sp"/>
+    android:textSize="@dimen/sp_15"/>

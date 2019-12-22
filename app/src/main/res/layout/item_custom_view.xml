@@ -12,10 +12,10 @@
 
     <ImageView
         android:id="@+id/iv_logo"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="@dimen/dp_60"
+        android:layout_height="@dimen/dp_60"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="@dimen/dp_40"
         android:src="@mipmap/ic_launcher" />
 
 </RelativeLayout>

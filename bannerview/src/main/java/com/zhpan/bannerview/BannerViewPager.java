@@ -1,6 +1,5 @@
 package com.zhpan.bannerview;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
 import android.os.Handler;
@@ -97,9 +96,9 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     }
 
     private void initView() {
-        inflate(getContext(), R.layout.layout_banner_view_pager, this);
+        inflate(getContext(), R.layout.bvp_layout, this);
         mViewPager = findViewById(R.id.vp_main);
-        mIndicatorLayout = findViewById(R.id.rl_indicator);
+        mIndicatorLayout = findViewById(R.id.bvp_layout_indicator);
     }
 
     @Override
@@ -114,28 +113,20 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
         startLoop();
     }
 
-    @SuppressLint("ClickableViewAccessibility")
-    private void setTouchListener() {
-        mViewPager.setOnTouchListener(new OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                int action = event.getAction();
-                switch (action) {
-                    case MotionEvent.ACTION_DOWN:
-                    case MotionEvent.ACTION_MOVE:
-                        BannerViewPager.this.setLooping(true);
-                        BannerViewPager.this.stopLoop();
-                        break;
-                    case MotionEvent.ACTION_UP:
-                    case MotionEvent.ACTION_CANCEL:
-                        BannerViewPager.this.setLooping(false);
-                        BannerViewPager.this.startLoop();
-                    default:
-                        break;
-                }
-                return false;
-            }
-        });
+    //  触碰控件的时候，翻页应该停止，离开的时候如果之前是开启了翻页的话则重新启动翻页
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        int action = ev.getAction();
+        if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_CANCEL || action == MotionEvent.ACTION_OUTSIDE) {
+            // 开始翻页
+            setLooping(false);
+            startLoop();
+        } else if (action == MotionEvent.ACTION_DOWN) {
+            // 停止翻页
+            setLooping(true);
+            stopLoop();
+        }
+        return super.dispatchTouchEvent(ev);
     }
 
     @Override
@@ -193,19 +184,6 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
             initRoundCorner();
         }
     }
-
-//    private void initList(List<T> list) {
-//        mList.clear();
-//        mList.addAll(list);
-//        mIndicatorView.setPageSize(mList.size());
-//        if (mList.size() > 1) {
-//            setIndicatorValues();
-//        } else if (mIndicatorView != null) {
-//            mIndicatorView.setPageSize(mList.size());
-//        }
-//        setIndicatorValues(list);
-//
-//    }
 
     private void setIndicatorValues(List<T> list) {
         BannerOptions bannerOptions = mBannerManager.bannerOptions();
@@ -267,27 +245,25 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     }
 
     private void setupViewPager(List<T> list) {
-        if (holderCreator != null) {
-            if (list.size() > 0 && isCanLoop()) {
-                currentPosition = MAX_VALUE / 2 - ((MAX_VALUE / 2) % list.size()) + 1;
-            }
-            removeAllViews();
-            mViewPager.setAdapter(getPagerAdapter(list));
-            mViewPager.setCurrentItem(currentPosition);
-            mViewPager.removeOnPageChangeListener(this);
-            mViewPager.addOnPageChangeListener(this);
-            BannerOptions bannerOptions = mBannerManager.bannerOptions();
-            mViewPager.setScrollDuration(bannerOptions.getScrollDuration());
-            mViewPager.disableTouchScroll(bannerOptions.isDisableTouchScroll());
-            mViewPager.setFirstLayout(true);
-            addView(mViewPager);
-            addView(mIndicatorLayout);
-            initPageStyle();
-            startLoop();
-            setTouchListener();
-        } else {
+        if (holderCreator == null) {
             throw new NullPointerException("You must set HolderCreator for BannerViewPager");
         }
+        if (list.size() > 0 && isCanLoop()) {
+            currentPosition = MAX_VALUE / 2 - ((MAX_VALUE / 2) % list.size()) + 1;
+        }
+        removeAllViews();
+        mViewPager.setAdapter(getPagerAdapter(list));
+        mViewPager.setCurrentItem(currentPosition);
+        mViewPager.removeOnPageChangeListener(this);
+        mViewPager.addOnPageChangeListener(this);
+        BannerOptions bannerOptions = mBannerManager.bannerOptions();
+        mViewPager.setScrollDuration(bannerOptions.getScrollDuration());
+        mViewPager.disableTouchScroll(bannerOptions.isDisableTouchScroll());
+        mViewPager.setFirstLayout(true);
+        addView(mViewPager);
+        addView(mIndicatorLayout);
+        initPageStyle();
+        startLoop();
     }
 
     private BannerPagerAdapter<T, VH> mBannerPagerAdapter;
@@ -354,14 +330,14 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     }
 
     /**
-     * @return BannerViewPager数据集合
+     * @return BannerViewPager data set
      */
     public List<T> getList() {
         return mBannerPagerAdapter.getList();
     }
 
     /**
-     * 开启轮播
+     * Start loop
      */
     public void startLoop() {
         if (!isLooping() && isAutoPlay() && mBannerPagerAdapter != null &&
@@ -372,7 +348,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     }
 
     /**
-     * 停止轮播
+     * stoop loop
      */
     public void stopLoop() {
         if (isLooping()) {
@@ -382,8 +358,9 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     }
 
     /**
-     * 必须为BannerViewPager设置HolderCreator,HolderCreator中创建ViewHolder，
-     * 在ViewHolder中管理BannerViewPager的ItemView.
+     * Must set HolderCreator for BannerViewPager
+     * <p>
+     * In BannerPagerAdapter, the HolderCreator will return custom ViewHolder,then get item layout id by ViewHolder.
      *
      * @param holderCreator HolderCreator
      */
@@ -393,12 +370,12 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     }
 
     /**
-     * @param radius 圆角大小
-     * @deprecated Use{@link BannerViewPager#setRoundRect(int)} instead.
+     * Set round rectangle effect for BannerViewPager.
      * <p>
-     * 设置圆角ViewPager 只有在SDK_INT>=LOLLIPOP(API 21)时有效
+     * Require SDK_INT>=LOLLIPOP(API 21)
+     *
+     * @param radius round radius
      */
-    @Deprecated
     public BannerViewPager<T, VH> setRoundCorner(int radius) {
         mBannerManager.bannerOptions().setRoundRectRadius(radius);
         return this;
@@ -412,14 +389,14 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
      * @param radius round radius
      */
     public BannerViewPager<T, VH> setRoundRect(int radius) {
-        mBannerManager.bannerOptions().setRoundRectRadius(radius);
+        setRoundCorner(radius);
         return this;
     }
 
     /**
-     * 设置是否自动轮播
+     * Enable/disable auto play
      *
-     * @param autoPlay 是否自动轮播
+     * @param autoPlay is enable auto play
      */
     public BannerViewPager<T, VH> setAutoPlay(boolean autoPlay) {
         mBannerManager.bannerOptions().setAutoPlay(autoPlay);
@@ -430,9 +407,9 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     }
 
     /**
-     * 设置是否可以循环
+     * Enable/disable loop
      *
-     * @param canLoop 是否可以循环
+     * @param canLoop is can loop
      */
     public BannerViewPager<T, VH> setCanLoop(boolean canLoop) {
         mBannerManager.bannerOptions().setCanLoop(canLoop);
@@ -443,9 +420,9 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     }
 
     /**
-     * 设置自动轮播时间间隔
+     * Set loop interval
      *
-     * @param interval 自动轮播时间间隔 单位毫秒ms
+     * @param interval loop interval,unit is millisecond.
      */
     public BannerViewPager<T, VH> setInterval(int interval) {
         mBannerManager.bannerOptions().setInterval(interval);
@@ -453,7 +430,15 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     }
 
     /**
-     * 设置页面Transformer内置样式
+     * PageTransformer Style.
+     *
+     * @param style PageTransformerStyle
+     * @see com.zhpan.bannerview.constants.TransformerStyle#NONE
+     * @see com.zhpan.bannerview.constants.TransformerStyle#DEPTH
+     * @see com.zhpan.bannerview.constants.TransformerStyle#SCALE_IN
+     * @see com.zhpan.bannerview.constants.TransformerStyle#STACK
+     * @see com.zhpan.bannerview.constants.TransformerStyle#ROTATE
+     * @see com.zhpan.bannerview.constants.TransformerStyle#ACCORDION
      */
     public BannerViewPager<T, VH> setPageTransformerStyle(@ATransformerStyle int style) {
         mViewPager.setPageTransformer(true, new PageTransformerFactory().createPageTransformer(style));
@@ -469,9 +454,9 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
 
 
     /**
-     * 设置页面点击事件
+     * set item click listener
      *
-     * @param onPageClickListener 页面点击监听
+     * @param onPageClickListener item click listener
      */
     public BannerViewPager<T, VH> setOnPageClickListener(OnPageClickListener onPageClickListener) {
         this.mOnPageClickListener = onPageClickListener;
@@ -479,9 +464,9 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     }
 
     /**
-     * 设置page滚动时间
+     * Set page scroll duration
      *
-     * @param scrollDuration page滚动时间
+     * @param scrollDuration page scroll duration
      */
     public BannerViewPager<T, VH> setScrollDuration(int scrollDuration) {
         mBannerManager.bannerOptions().setScrollDuration(scrollDuration);
@@ -489,8 +474,10 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     }
 
     /**
-     * @param checkedColor 选中时指示器颜色
-     * @param normalColor  未选中时指示器颜色
+     * set indicator color
+     *
+     * @param checkedColor checked color of indicator
+     * @param normalColor  unchecked color of indicator
      */
     public BannerViewPager<T, VH> setIndicatorColor(@ColorInt int normalColor,
                                                     @ColorInt int checkedColor) {
@@ -500,7 +487,10 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     }
 
     /**
-     * 设置指示器半径大小，选中与未选中半径大小相等
+     * set indicator circle radius
+     * <p>
+     * if the indicator style is {@link IndicatorStyle#DASH} or {@link IndicatorStyle#ROUND_RECT}
+     * the indicator dash width=2*radius
      *
      * @param radius 指示器圆点半径
      */
@@ -510,10 +500,10 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     }
 
     /**
-     * 设置Indicator半径
+     * set indicator circle radius
      *
-     * @param normalRadius  未选中时半径
-     * @param checkedRadius 选中时半径
+     * @param normalRadius  unchecked circle radius
+     * @param checkedRadius checked circle radius
      */
     public BannerViewPager<T, VH> setIndicatorRadius(int normalRadius, int checkedRadius) {
         mBannerManager.bannerOptions().setNormalIndicatorWidth(normalRadius * 2);
@@ -523,9 +513,10 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
 
 
     /**
-     * 设置单个Indicator宽度，如果是圆则为圆的直径
+     * Set indicator dash width，if indicator style is {@link IndicatorStyle#CIRCLE},
+     * the indicator circle radius is indicatorWidth/2.
      *
-     * @param indicatorWidth 单个Indicator宽度/直径
+     * @param indicatorWidth indicator dash width.
      */
     public BannerViewPager<T, VH> setIndicatorWidth(int indicatorWidth) {
         setIndicatorWidth(indicatorWidth, indicatorWidth);
@@ -534,10 +525,15 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
 
 
     /**
-     * 设置单个Indicator宽度，如果是圆则为圆的直径
+     * Set indicator dash width，if indicator style is {@link IndicatorStyle#CIRCLE},
+     * the indicator circle radius is indicatorWidth/2.
      *
-     * @param normalWidth 未选中时宽度/直径
-     * @param checkWidth  选中时宽度/直径
+     * @param normalWidth if the indicator style is {@link IndicatorStyle#DASH} the params means unchecked dash width
+     *                    if the indicator style is {@link IndicatorStyle#ROUND_RECT}  means unchecked round rectangle width
+     *                    if the indicator style is {@link IndicatorStyle#CIRCLE } means unchecked circle diameter
+     * @param checkWidth  if the indicator style is {@link IndicatorStyle#DASH} the params means checked dash width
+     *                    if the indicator style is {@link IndicatorStyle#ROUND_RECT} the params means checked round rectangle width
+     *                    if the indicator style is {@link IndicatorStyle#CIRCLE } means checked circle diameter
      */
     public BannerViewPager<T, VH> setIndicatorWidth(int normalWidth, int checkWidth) {
         mBannerManager.bannerOptions().setNormalIndicatorWidth(normalWidth);
@@ -551,10 +547,9 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     }
 
     /**
-     * 设置指示器间隔
+     * Set Indicator gap of dash/circle
      *
-     * @param indicatorGap 指示器间隔
-     * @return BannerViewPager
+     * @param indicatorGap indicator gap
      */
     public BannerViewPager<T, VH> setIndicatorGap(int indicatorGap) {
         mBannerManager.bannerOptions().setIndicatorGap(indicatorGap);
@@ -562,7 +557,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     }
 
     /**
-     * @param showIndicator 是否显示轮播指示器
+     * @param showIndicator is show indicator
      * @deprecated Use {@link #setIndicatorVisibility(int)} instead.
      */
     @Deprecated
@@ -571,15 +566,20 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
         return this;
     }
 
+    /**
+     * Set the visibility state of indicator view.
+     *
+     * @param visibility One of {@link View#VISIBLE}, {@link View#INVISIBLE}, or {@link View#GONE}.
+     */
     public BannerViewPager<T, VH> setIndicatorVisibility(@Visibility int visibility) {
         mBannerManager.bannerOptions().setIndicatorVisibility(visibility);
         return this;
     }
 
     /**
-     * 设置指示器位置
+     * set indicator gravity in BannerViewPager
      *
-     * @param gravity 指示器位置
+     * @param gravity indicator gravity
      *                {@link com.zhpan.bannerview.constants.IndicatorGravity#CENTER}
      *                {@link com.zhpan.bannerview.constants.IndicatorGravity#START}
      *                {@link com.zhpan.bannerview.constants.IndicatorGravity#END}
@@ -590,9 +590,9 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     }
 
     /**
-     * 设置IndicatorView滑动模式，默认值{@link IndicatorSlideMode#NORMAL}
+     * Set Indicator slide mode，default value is {@link IndicatorSlideMode#NORMAL}
      *
-     * @param slideMode Indicator滑动模式
+     * @param slideMode Indicator slide mode
      * @see com.zhpan.bannerview.constants.IndicatorSlideMode#NORMAL
      * @see com.zhpan.bannerview.constants.IndicatorSlideMode#SMOOTH
      */
@@ -603,14 +603,13 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
 
 
     /**
-     * 设置自定义View指示器,自定义View需要需要继承BaseIndicator或者实现IIndicator接口自行绘制指示器。
-     * 注意，一旦设置了自定义IndicatorView,通过BannerViewPager设置的部分IndicatorView参数将失效。
+     * Set custom indicator.
+     * the custom indicator view must extends BaseIndicator or implements IIndicator
      *
-     * @param customIndicator 自定义指示器
+     * @param customIndicator custom indicator view
      */
     public BannerViewPager<T, VH> setIndicatorView(IIndicator customIndicator) {
         if (customIndicator instanceof View) {
-//            mBannerManager.bannerOptions().setCustomIndicator(true);
             isCustomIndicator = true;
             mIndicatorView = customIndicator;
         }
@@ -618,12 +617,12 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     }
 
     /**
-     * 设置Indicator样式
+     * Set indicator style
      *
-     * @param indicatorStyle indicator样式，目前有圆、短线及圆角矩形三种样式
-     *                       {@link IndicatorStyle#CIRCLE}
-     *                       {@link IndicatorStyle#DASH}
-     *                       {@link IndicatorStyle#ROUND_RECT}
+     * @param indicatorStyle indicator style
+     * @see IndicatorStyle#CIRCLE
+     * @see IndicatorStyle#DASH
+     * @see IndicatorStyle#ROUND_RECT
      */
     public BannerViewPager<T, VH> setIndicatorStyle(@AIndicatorStyle int indicatorStyle) {
         mBannerManager.bannerOptions().setIndicatorStyle(indicatorStyle);
@@ -631,9 +630,9 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     }
 
     /**
-     * 构造ViewPager
+     * Create BannerViewPager
      *
-     * @param list ViewPager数据
+     * @param list the data set of Banner
      */
     public void create(List<T> list) {
         initBannerData(list);
@@ -706,10 +705,9 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     }
 
     /**
-     * 设置item间距
+     * set page margin
      *
-     * @param pageMargin item间距
-     * @return BannerViewPager
+     * @param pageMargin page margin
      */
     public BannerViewPager<T, VH> setPageMargin(int pageMargin) {
         mBannerManager.bannerOptions().setPageMargin(pageMargin);
@@ -739,6 +737,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
         return mViewPager;
     }
 
+
     public BannerViewPager<T, VH> setIndicatorMargin(int left, int top, int right, int bottom) {
         mBannerManager.bannerOptions().setIndicatorMargin(left, top, right, bottom);
         return this;
@@ -749,9 +748,6 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
         return this;
     }
 
-    /**
-     * 页面点击事件接口
-     */
     public interface OnPageClickListener {
         void onPageClick(int position);
     }

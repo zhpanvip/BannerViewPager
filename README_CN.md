@@ -61,7 +61,7 @@ BannerViewPager支持多种IndicatorViewStyle,同时还提供了完全自定义I
 | BannerViewPager<T, VH> setAutoPlay(boolean autoPlay) | 是否开启自动轮播 | 默认值true|
 | BannerViewPager<T, VH> setInterval(int interval) | 自动轮播时间间隔 |单位毫秒，默认值3000  |
 | BannerViewPager<T, VH> setScrollDuration(int scrollDuration) | 设置页面滚动时间 | 设置页面滚动时间 |单位毫秒，默认值500  |
-| BannerViewPager<T, VH> setRoundRect(int radius) | 设置圆角 |默认无圆角 需要SDK_INT>=LOLLIPOP(API 21)  |
+| BannerViewPager<T, VH> setRoundCorner(int radius) | 设置圆角 |默认无圆角 需要SDK_INT>=LOLLIPOP(API 21)  |
 | BannerViewPager<T, VH> setOnPageClickListener(OnPageClickListener onPageClickListener) | 设置页面点击事件 |  |
 | BannerViewPager<T, VH> setHolderCreator(HolderCreator\<VH> holderCreator) |设置HolderCreator  |必须设置HolderCreator，否则会抛出NullPointerException|
 | BannerViewPager<T, VH> setIndicatorVisibility(@Visibility int visibility) | indicator visibility |默认值VISIBLE 2.4.2 新增|
@@ -186,10 +186,10 @@ Android support latestVersion: [ ![latestVersion](https://api.bintray.com/packag
     </RelativeLayout>
 ```
 
-### 4.自定义ViewHolder
+### 4.自定义ViewHolder,自定义的ViewHolder需要实现com.zhpan.bannerview.holder.ViewHolder接口
 
 ```
-    public class NetViewHolder implements ViewHolder<BannerData> {
+    public class NetViewHolder implements ViewHolder<CustomBean> {
 
         @Override
         public int getLayoutId() {
@@ -197,11 +197,11 @@ Android support latestVersion: [ ![latestVersion](https://api.bintray.com/packag
         }
 
         @Override
-        public void onBind(View itemView, BannerData data, int position, int size) {
+        public void onBind(View itemView, CustomBean data, int position, int size) {
             CornerImageView imageView = itemView.findViewById(R.id.banner_image);
-            imageView.setRoundCorner(BannerUtils.dp2px(5));
+            imageView.setRoundCorner(imageView.getContext().getResources().getDimensionPixelOffset(R.dimen.dp_5));
             ImageLoaderOptions options = new ImageLoaderOptions.Builder()
-                    .into(imageView).load(data.getImagePath())
+                    .into(imageView).load(data.getImageRes())
                     .placeHolder(R.drawable.placeholder).build();
             ImageLoaderManager.getInstance().loadImage(options);
         }
@@ -213,15 +213,15 @@ Android support latestVersion: [ ![latestVersion](https://api.bintray.com/packag
 Kotlin：
 
 ```
-    private lateinit var mViewPager: BannerViewPager<CustomBean, CustomPageViewHolder>
-    
+    private lateinit var mViewPager: BannerViewPager<CustomBean, NetViewHolder>
+
     private fun initViewPager() {
-            mBannerViewPager = findViewById(R.id.bannerView)
+            mBannerViewPager = findViewById(R.id.banner_view)
             mBannerViewPager.setCanLoop(false)
                 .setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
-                .setIndicatorMargin(0, 0, 0, ConvertUtils.dp2px(40f))
+                .setIndicatorMargin(0, 0, 0, getResources().getDimensionPixelOffset(R.dimen.dp_40))
                 .setIndicatorGravity(IndicatorGravity.CENTER)
-                .setHolderCreator { CustomPageViewHolder() }
+                .setHolderCreator { NetViewHolder() }
                 .setOnPageChangeListener(
                     object : OnPageChangeListenerAdapter() {
                         override fun onPageSelected(position: Int) {
@@ -231,12 +231,12 @@ Kotlin：
                 )
                 .create(res.toList())
         }
-```    
+```
 
 Java：
 
 ```
-    private BannerViewPager<BannerData, NetViewHolder> mBannerViewPager;
+    private BannerViewPager<CustomBean, NetViewHolder> mBannerViewPager;
     ...
 	private void initViewPager() {
              mBannerViewPager = findViewById(R.id.banner_view);
@@ -244,14 +244,14 @@ Java：
                 .setInterval(3000)
                 .setCanLoop(false)
                 .setAutoPlay(true)
-                .setRoundCorner(DpUtils.dp2px(7))
+                .setRoundCorner(getResources().getDimensionPixelOffset(R.dimen.dp_7))
                 .setIndicatorColor(Color.parseColor("#935656"), Color.parseColor("#FF4C39"))
                 .setIndicatorGravity(IndicatorGravity.END)
                 .setScrollDuration(1000).setHolderCreator(NetViewHolder::new)
                 .setOnPageClickListener(position -> {
-                    BannerData bannerData = mBannerViewPager.getList().get(position);
+                    CustomBean bannerData = mBannerViewPager.getList().get(position);
                     Toast.makeText(NetworkBannerActivity.this,
-                            "点击了图片" + position + " " + bannerData.getDesc(), Toast.LENGTH_SHORT).show();
+                            "点击了图片" + position + " " + bannerData.getImageDescription(), Toast.LENGTH_SHORT).show();
 
                 }).create(mList);
         }
@@ -260,25 +260,16 @@ Java：
 
 ***2.5.0之后版本无需自行在Activity或Fragment中管理stopLoop和startLoop方法，但这两个方法依旧保留对外开放***
 
-~~如果开启了自动轮播功能，请务必在onDestroy中停止轮播，以免出现内存泄漏。~~
+但是为了节省性能建议在onPause中停止轮播，在onResume中开启轮播：
 
 ```
-	@Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (mBannerViewPager != null)
-    		mViewpager.stopLoop();
-    }
-```
-为了节省性能也可以在onStop中停止轮播，在onResume中开启轮播：
-
-```
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if (mBannerViewPager != null)
-            mBannerViewPager.stopLoop();
-    }
+     @Override
+      public void onPause() {
+          super.onPause();
+          if (mViewPager != null) {
+              mViewPager.stopLoop();
+          }
+      }
 
     @Override
     protected void onResume() {

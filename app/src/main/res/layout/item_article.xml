@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="@dimen/dp_100"
     android:orientation="vertical"
     android:gravity="center_vertical"
-    android:padding="16dp">
+    android:padding="@dimen/dp_16">
 
     <TextView
         android:id="@+id/tv_title"
@@ -14,14 +14,14 @@
         android:maxLines="1"
         android:ellipsize="end"
         android:textColor="#000000"
-        android:textSize="18sp" />
+        android:textSize="@dimen/sp_18" />
 
     <TextView
         android:id="@+id/tv_auther"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/dp_10"
         android:text="this is title"
-        android:textSize="16sp" />
+        android:textSize="@dimen/sp_16" />
 
 </LinearLayout>
