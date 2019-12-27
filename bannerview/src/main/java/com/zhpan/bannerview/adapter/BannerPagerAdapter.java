@@ -28,7 +28,7 @@ public class BannerPagerAdapter<T, VH extends ViewHolder> extends PagerAdapter {
 
     private PageClickListener mPageClickListener;
 
-    public static final int MAX_VALUE = 200;
+    public static final int MAX_VALUE = 500;
 
     public BannerPagerAdapter(List<T> list, HolderCreator<VH> holderCreator) {
         mList = new ArrayList<>();
