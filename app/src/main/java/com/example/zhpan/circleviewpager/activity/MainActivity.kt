@@ -43,25 +43,22 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getCheckedId(position: Int): Int {
-        var checkedId = R.id.rb_home
-        when (position) {
-            0 -> checkedId = R.id.rb_home
-            1 -> checkedId = R.id.rb_find
-            2 -> checkedId = R.id.rb_add
+        return when (position) {
+            0 -> R.id.rb_home
+            1 -> R.id.rb_find
+            2 -> R.id.rb_add
+            3 -> R.id.rb_others
+            else -> R.id.rb_home
         }
-        return checkedId
     }
 
     private fun setListener() {
-        rg_tab?.setOnCheckedChangeListener { group, checkedId ->
-            if (checkedId == R.id.rb_home) {
-                vp_fragment?.setCurrentItem(AdapterFragmentPager.PAGE_HOME, false)
-
-            } else if (checkedId == R.id.rb_find) {
-                vp_fragment?.setCurrentItem(AdapterFragmentPager.PAGE_FIND, false)
-
-            } else if (checkedId == R.id.rb_add) {
-                vp_fragment?.setCurrentItem(AdapterFragmentPager.PAGE_OTHERS, false)
+        rg_tab?.setOnCheckedChangeListener { _, checkedId ->
+            when (checkedId) {
+                R.id.rb_home -> vp_fragment?.setCurrentItem(AdapterFragmentPager.PAGE_HOME, false)
+                R.id.rb_find -> vp_fragment?.setCurrentItem(AdapterFragmentPager.PAGE_FIND, false)
+                R.id.rb_add -> vp_fragment?.setCurrentItem(AdapterFragmentPager.PAGE_INDICATOR, false)
+                R.id.rb_others -> vp_fragment?.setCurrentItem(AdapterFragmentPager.PAGE_OTHERS, false)
             }
         }
     }
