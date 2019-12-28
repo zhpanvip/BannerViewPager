@@ -6,7 +6,6 @@ import android.support.v4.app.FragmentPagerAdapter
 import android.util.SparseArray
 import android.view.ViewGroup
 import com.example.zhpan.circleviewpager.fragment.*
-
 class AdapterFragmentPager(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
     private val fragmentList: SparseArray<BaseFragment>?

@@ -11,12 +11,14 @@ import android.util.Log;
  */
 public class BannerUtils {
 
-    private static final boolean DEBUG = true;
+    private static boolean debugMode = false;
 
-    public float density;
+    public static void setDebugMode(boolean isDebug) {
+        debugMode = isDebug;
+    }
 
-    public BannerUtils() {
-        this.density = Resources.getSystem().getDisplayMetrics().density;
+    public static boolean isDebugMode() {
+        return debugMode;
     }
 
     public static int dp2px(float dpValue) {
@@ -24,13 +26,13 @@ public class BannerUtils {
     }
 
     public static void log(String tag, String msg) {
-        if (DEBUG) {
+        if (debugMode) {
             Log.e(tag, msg);
         }
     }
 
     public static void log(String msg) {
-        if (DEBUG) {
+        if (debugMode) {
             Log.e("BannerView", msg);
         }
     }
