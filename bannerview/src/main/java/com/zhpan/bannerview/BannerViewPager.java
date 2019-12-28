@@ -158,7 +158,6 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
         int listSize = mBannerPagerAdapter.getListSize();
         int realPosition = BannerUtils.getRealPosition(isCanLoop(), position, listSize);
-        BannerUtils.log("position:" + position + " realPosition:" + realPosition);
         if (listSize > 0) {
             if (mOnPageChangeListener != null) {
                 mOnPageChangeListener.onPageScrolled(realPosition, positionOffset, positionOffsetPixels);

@@ -2,9 +2,12 @@ package com.example.zhpan.circleviewpager.view;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.util.AttributeSet;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.Nullable;
 
 import com.zhpan.bannerview.indicator.BaseIndicatorView;
@@ -16,13 +19,14 @@ import com.zhpan.bannerview.indicator.BaseIndicatorView;
  **/
 public class DrawableIndicator extends BaseIndicatorView {
     // 选中与未选中的图片
-    private Bitmap mCheckedIcon, mNormalIcon;
+    private Bitmap mCheckedBitmap, mNormalBitmap;
     // 图片之间的间距
     private int mIndicatorPadding;
     // 选中图片的宽高
-    private int mFocusIconWidth, mFocusIconHeight;
+    private int mCheckedBitmapWidth, mCheckedBitmapHeight;
     //未选中图片的宽高
-    private int mNormalIconWidth, mNormalIconHeight;
+    private int mNormalBitmapWidth, mNormalBitmapHeight;
+    private IndicatorSize mIndicatorSize;
 
     public DrawableIndicator(Context context) {
         this(context, null);
@@ -39,30 +43,30 @@ public class DrawableIndicator extends BaseIndicatorView {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        int maxHeight = Math.max(mFocusIconHeight, mNormalIconHeight);
-        int realWidth = mFocusIconWidth + (mNormalIconWidth + mIndicatorPadding) * (getPageSize() - 1);
+        int maxHeight = Math.max(mCheckedBitmapHeight, mNormalBitmapHeight);
+        int realWidth = mCheckedBitmapWidth + (mNormalBitmapWidth + mIndicatorPadding) * (getPageSize() - 1);
         setMeasuredDimension(realWidth, maxHeight);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if (getPageSize() > 1 || mCheckedIcon == null || mNormalIcon == null) {
+        if (getPageSize() > 1 || mCheckedBitmap == null || mNormalBitmap == null) {
             for (int i = 1; i < getPageSize() + 1; i++) {
-                int left = 0;
-                int top = 0;
-                Bitmap bitmap = mNormalIcon;
+                int left;
+                int top;
+                Bitmap bitmap = mNormalBitmap;
                 int index = i - 1;
                 if (index < getCurrentPosition()) {
-                    left = (i - 1) * (mNormalIconWidth + mIndicatorPadding);
-                    top = getMeasuredHeight() / 2 - mNormalIconHeight / 2;
+                    left = (i - 1) * (mNormalBitmapWidth + mIndicatorPadding);
+                    top = getMeasuredHeight() / 2 - mNormalBitmapHeight / 2;
                 } else if (index == getCurrentPosition()) {
-                    left = (i - 1) * (mNormalIconWidth + mIndicatorPadding);
-                    top = getMeasuredHeight() / 2 - mFocusIconHeight / 2;
-                    bitmap = mCheckedIcon;
+                    left = (i - 1) * (mNormalBitmapWidth + mIndicatorPadding);
+                    top = getMeasuredHeight() / 2 - mCheckedBitmapHeight / 2;
+                    bitmap = mCheckedBitmap;
                 } else {
-                    left = (i - 1) * mIndicatorPadding + (i - 2) * mNormalIconWidth + mFocusIconWidth;
-                    top = getMeasuredHeight() / 2 - mNormalIconHeight / 2;
+                    left = (i - 1) * mIndicatorPadding + (i - 2) * mNormalBitmapWidth + mCheckedBitmapWidth;
+                    top = getMeasuredHeight() / 2 - mNormalBitmapHeight / 2;
                 }
                 drawIcon(canvas, left, top, bitmap);
             }
@@ -77,36 +81,79 @@ public class DrawableIndicator extends BaseIndicatorView {
     }
 
     private void initIconSize() {
-        if (mCheckedIcon != null) {
-            mFocusIconWidth = mCheckedIcon.getWidth();
-            mFocusIconHeight = mCheckedIcon.getHeight();
+        if (mCheckedBitmap != null) {
+            if (mIndicatorSize != null) {
+                if (mCheckedBitmap.isMutable()) {
+                    mCheckedBitmap.setWidth(mIndicatorSize.checkedWidth);
+                    mCheckedBitmap.setHeight(mIndicatorSize.checkedHeight);
+                } else {
+                    int width = mCheckedBitmap.getWidth();
+                    int height = mCheckedBitmap.getHeight();
+                    float scaleWidth = ((float) (mIndicatorSize.checkedWidth) / width);
+                    float scaleHeight = ((float) (mIndicatorSize.checkedHeight) / height);
+                    Matrix matrix = new Matrix();
+                    matrix.postScale(scaleWidth, scaleHeight);
+                    mCheckedBitmap = Bitmap.createBitmap(mCheckedBitmap, 0, 0, width, height, matrix, true);
+                }
+            }
+            mCheckedBitmapWidth = mCheckedBitmap.getWidth();
+            mCheckedBitmapHeight = mCheckedBitmap.getHeight();
         }
 
-        if (mNormalIcon != null) {
-            mNormalIconWidth = mNormalIcon.getWidth();
-            mNormalIconHeight = mNormalIcon.getHeight();
+        if (mNormalBitmap != null) {
+            if (mIndicatorSize != null) {
+                if (mNormalBitmap.isMutable()) {
+                    mNormalBitmap.setWidth(mIndicatorSize.normalWidth);
+                    mNormalBitmap.setHeight(mIndicatorSize.normalHeight);
+                } else {
+                    int width = mNormalBitmap.getWidth();
+                    int height = mNormalBitmap.getHeight();
+                    float scaleWidth = ((float) (mIndicatorSize.normalWidth) / mNormalBitmap.getWidth());
+                    float scaleHeight = ((float) (mIndicatorSize.normalHeight) / mNormalBitmap.getHeight());
+                    Matrix matrix = new Matrix();
+                    matrix.postScale(scaleWidth, scaleHeight);
+                    mNormalBitmap = Bitmap.createBitmap(mNormalBitmap, 0, 0, width, height, matrix, true);
+                }
+            }
+            mNormalBitmapWidth = mNormalBitmap.getWidth();
+            mNormalBitmapHeight = mNormalBitmap.getHeight();
         }
     }
 
-    public DrawableIndicator setFocusIcon(Bitmap icon) {
-        mCheckedIcon = icon;
+    public DrawableIndicator setIndicatorDrawable(@DrawableRes int normalDrawable, @DrawableRes int checkedDrawable) {
+        mNormalBitmap = mCheckedBitmap = BitmapFactory.decodeResource(getResources(), normalDrawable);
+        mCheckedBitmap = BitmapFactory.decodeResource(getResources(), checkedDrawable);
         initIconSize();
         postInvalidate();
         return this;
     }
 
-    public DrawableIndicator setNormalIcon(Bitmap icon) {
-        mNormalIcon = icon;
+    public DrawableIndicator setIndicatorSize(int normalWidth, int normalHeight, int checkedWidth, int checkedHeight) {
+        this.mIndicatorSize = new IndicatorSize(normalWidth, normalHeight, checkedWidth, checkedHeight);
         initIconSize();
         postInvalidate();
         return this;
     }
 
-    public DrawableIndicator setIndicatorPadding(int padding) {
+    public DrawableIndicator setIndicatorGap(int padding) {
         if (padding >= 0) {
             mIndicatorPadding = padding;
             postInvalidate();
         }
         return this;
+    }
+
+    static class IndicatorSize {
+        int normalWidth;
+        int checkedWidth;
+        int normalHeight;
+        int checkedHeight;
+
+        public IndicatorSize(int normalWidth, int normalHeight, int checkedWidth, int checkedHeight) {
+            this.normalWidth = normalWidth;
+            this.checkedWidth = checkedWidth;
+            this.normalHeight = normalHeight;
+            this.checkedHeight = checkedHeight;
+        }
     }
 }

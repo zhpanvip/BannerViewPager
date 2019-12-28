@@ -88,8 +88,8 @@ public class BannerPagerAdapter<T, VH extends ViewHolder> extends PagerAdapter {
         View itemView = LayoutInflater.from(container.getContext()).inflate(holder.getLayoutId(), container, false);
         if (mList != null && mList.size() > 0) {
 //            holder.createView(itemView, position);
-            holder.onBind(itemView, mList.get(position), position, mList.size());
             setViewListener(itemView, position);
+            holder.onBind(itemView, mList.get(position), position, mList.size());
         }
         return itemView;
     }
