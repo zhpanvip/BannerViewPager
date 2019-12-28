@@ -2,6 +2,7 @@ package com.example.zhpan.circleviewpager;
 
 import android.app.Application;
 
+import com.zhpan.bannerview.utils.BannerUtils;
 import com.zhpan.idea.utils.Utils;
 
 /**
@@ -16,5 +17,6 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         Utils.init(getApplicationContext());
+        BannerUtils.setDebugMode(true);
     }
 }

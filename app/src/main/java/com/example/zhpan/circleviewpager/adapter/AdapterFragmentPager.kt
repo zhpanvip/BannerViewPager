@@ -1,6 +1,5 @@
 package com.example.zhpan.circleviewpager.adapter
 
-
 import android.util.SparseArray
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -11,8 +10,6 @@ import com.example.zhpan.circleviewpager.fragment.HomeFragment
 import com.example.zhpan.circleviewpager.fragment.IndicatorFragment
 import com.example.zhpan.circleviewpager.fragment.OthersFragment
 import com.example.zhpan.circleviewpager.fragment.PageFragment
-
-import java.util.ArrayList
 
 /**
  * <pre>

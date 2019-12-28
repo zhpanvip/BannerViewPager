@@ -9,6 +9,7 @@ import android.widget.RadioGroup;
 
 import com.example.zhpan.circleviewpager.R;
 import com.example.zhpan.circleviewpager.activity.PhotoViewActivity;
+import com.example.zhpan.circleviewpager.view.DrawableIndicator;
 import com.example.zhpan.circleviewpager.view.FigureIndicatorView;
 import com.example.zhpan.circleviewpager.viewholder.ImageResourceViewHolder;
 import com.zhpan.bannerview.BannerViewPager;
@@ -92,11 +93,32 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
                     resetBannerViewPager();
                     setupCustomIndicator();
                     break;
+                case R.id.rb_drawable:
+                    resetBannerViewPager();
+                    setDrawableIndicator();
+                    break;
             }
         });
         radioButton.performClick();
     }
 
+    private void setDrawableIndicator() {
+        mIndicatorView.setVisibility(View.INVISIBLE);
+        mViewPager
+                .setIndicatorView(getDrawableIndicator())
+                .setIndicatorSlideMode(IndicatorSlideMode.NORMAL)
+                .setIndicatorVisibility(View.VISIBLE)
+                .setIndicatorGravity(IndicatorGravity.CENTER)
+                .create(getMDrawableList());
+    }
+
+    private IIndicator getDrawableIndicator() {
+        int dp10 = getResources().getDimensionPixelOffset(R.dimen.dp_10);
+        return new DrawableIndicator(getContext())
+                .setIndicatorGap(getResources().getDimensionPixelOffset(R.dimen.dp_2_5))
+                .setIndicatorDrawable(R.drawable.heart_empty, R.drawable.heart_red)
+                .setIndicatorSize(dp10, dp10, dp10, dp10);
+    }
 
     private void setIndicatorBelowOfBanner() {
         mIndicatorView.setVisibility(View.VISIBLE);

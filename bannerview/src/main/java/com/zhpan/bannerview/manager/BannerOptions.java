@@ -19,6 +19,8 @@ public class BannerOptions {
 
     public static final int DEFAULT_SCROLL_DURATION = 500;
 
+    private int offScreenPageLimit;
+
     private int interval;
 
     private int currentPosition;
@@ -232,6 +234,14 @@ public class BannerOptions {
     public void resetIndicatorOptions(){
         mIndicatorOptions.setCurrentPosition(0);
         mIndicatorOptions.setSlideProgress(0);
+    }
+
+    public int getOffScreenPageLimit() {
+        return offScreenPageLimit;
+    }
+
+    public void setOffScreenPageLimit(int offScreenPageLimit) {
+        this.offScreenPageLimit = offScreenPageLimit;
     }
 
     public static class IndicatorMargin {
