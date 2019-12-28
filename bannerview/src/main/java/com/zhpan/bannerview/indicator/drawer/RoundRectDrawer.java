@@ -90,8 +90,10 @@ public class RoundRectDrawer extends BaseDrawer {
 
     private void smoothSlide(Canvas canvas, int i) {
         mPaint.setColor(mIndicatorOptions.getNormalColor());
+        float sliderHeight = mIndicatorOptions.getSliderHeight();
         float left = i * (maxWidth) + i * +mIndicatorOptions.getIndicatorGap() + (maxWidth - minWidth);
-        canvas.drawRect(left, 0, left + minWidth, mIndicatorOptions.getSliderHeight(), mPaint);
+        RectF rectF = new RectF(left, 0, left + minWidth, sliderHeight);
+        canvas.drawRoundRect(rectF, sliderHeight, sliderHeight, mPaint);
         drawSliderStyle(canvas);
     }
 
@@ -99,8 +101,11 @@ public class RoundRectDrawer extends BaseDrawer {
         mPaint.setColor(mIndicatorOptions.getCheckedColor());
         int currentPosition = mIndicatorOptions.getCurrentPosition();
         float indicatorGap = mIndicatorOptions.getIndicatorGap();
+        float sliderHeight = mIndicatorOptions.getSliderHeight();
         float left = currentPosition * (maxWidth) + currentPosition * +indicatorGap + (maxWidth + indicatorGap) * mIndicatorOptions.getSlideProgress();
-        canvas.drawRect(left, 0, left + maxWidth, mIndicatorOptions.getSliderHeight(), mPaint);
+        RectF rectF = new RectF(left, 0, left + minWidth, sliderHeight);
+        canvas.drawRoundRect(rectF, sliderHeight, sliderHeight, mPaint);
+//        canvas.drawRect(left, 0, left + maxWidth, mIndicatorOptions.getSliderHeight(), mPaint);
     }
 
 

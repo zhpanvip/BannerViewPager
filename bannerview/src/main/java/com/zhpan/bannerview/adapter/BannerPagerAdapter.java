@@ -28,9 +28,7 @@ public class BannerPagerAdapter<T, VH extends ViewHolder> extends PagerAdapter {
 
     private PageClickListener mPageClickListener;
 
-//    private List<View> mViewList = new ArrayList<>();
-
-    public static final int MAX_VALUE = 10000;
+    public static final int MAX_VALUE = 500;
 
     public BannerPagerAdapter(List<T> list, HolderCreator<VH> holderCreator) {
         mList = new ArrayList<>();
@@ -90,8 +88,8 @@ public class BannerPagerAdapter<T, VH extends ViewHolder> extends PagerAdapter {
         View itemView = LayoutInflater.from(container.getContext()).inflate(holder.getLayoutId(), container, false);
         if (mList != null && mList.size() > 0) {
 //            holder.createView(itemView, position);
-            holder.onBind(itemView, mList.get(position), position, mList.size());
             setViewListener(itemView, position);
+            holder.onBind(itemView, mList.get(position), position, mList.size());
         }
         return itemView;
     }
