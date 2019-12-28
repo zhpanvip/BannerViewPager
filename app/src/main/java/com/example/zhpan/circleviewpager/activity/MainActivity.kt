@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
     private fun initData() {
         vp_fragment.adapter = AdapterFragmentPager(this)
         vp_fragment.offscreenPageLimit = 3
-        vp_fragment.isUserInputEnabled=false
+        vp_fragment.isUserInputEnabled = false
         vp_fragment.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
@@ -35,14 +35,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getCheckedId(position: Int): Int {
-        var checkedId = R.id.rb_home
-        when (position) {
-            0 -> checkedId = R.id.rb_home
-            1 -> checkedId = R.id.rb_find
-            2 -> checkedId = R.id.rb_add
-            3 -> checkedId = R.id.rb_others
+        return when (position) {
+            0 -> R.id.rb_home
+            1 -> R.id.rb_find
+            2 -> R.id.rb_add
+            3 -> R.id.rb_others
+            else -> R.id.rb_home
         }
-        return checkedId
     }
 
     private fun setListener() {
