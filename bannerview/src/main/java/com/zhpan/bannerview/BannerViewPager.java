@@ -285,6 +285,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
         if (holderCreator == null) {
             throw new NullPointerException("You must set HolderCreator for BannerViewPager");
         }
+        currentPosition = 0;
         if (list.size() > 0 && isCanLoop()) {
             currentPosition = MAX_VALUE / 2 - ((MAX_VALUE / 2) % list.size()) + 1;
         }
