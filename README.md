@@ -27,7 +27,7 @@
 
 ### 2.setIndicatorStyle
 
-BannerViewPager supports three Indicator Styles now. It's also support to custom indicator style,just need extends BaseIndicatorView or implement the IIndicator and override methods, then you can draw Indicators for whatever you want.
+BannerViewPager supports three Indicator Styles now. 
 
 [Sample Click Here](https://github.com/zhpanvip/BannerViewPager/blob/master/app/src/main/java/com/example/zhpan/circleviewpager/fragment/IndicatorFragment.java)
 
@@ -35,14 +35,25 @@ BannerViewPager supports three Indicator Styles now. It's also support to custom
 |--|--|--|
 | ![CIRCLE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_circle.gif) | ![DASH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_dash.gif) | ![NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_round_rect.gif) |
 
-### 3.setIndicatorSlideMode
+### 3.Custom Indicator
+
+It's also support to custom indicator style,just need extends BaseIndicatorView or implement the IIndicator and override methods, then you can draw Indicators for whatever you want.
+
+[Sample Click Here](https://github.com/zhpanvip/BannerViewPager/blob/master/app/src/main/java/com/example/zhpan/circleviewpager/fragment/OthersFragment.java)
+
+| Figure Indicator | Drawable Indicator | Indicator below of Banner |
+|--|--|--|
+| ![CIRCLE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_custom.gif) | ![DASH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_custom1.gif) | ![NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_custom2.gif) |
+
+
+### 4.setIndicatorSlideMode
 
 | NORMAL | SMOOTH |
 |--|--|
 | ![NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/slide_normal.gif) |  ![SMOOTH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/slide_smooth.gif) |
 
 
-### 4.setPageTransformerStyle
+### 5.setPageTransformerStyle
 
 [Sample Click Here](https://github.com/zhpanvip/BannerViewPager/blob/master/app/src/main/java/com/example/zhpan/circleviewpager/activity/WelcomeActivity.java)
 
@@ -383,6 +394,14 @@ public class FigureIndicatorView extends BaseIndicatorView {
  - [x] Refactor Indicator again (2.5.0)
  - [x] Fix issue #34 which Indicator smooth slide problem(2.6.1).
  - [ ] Migrate to ViewPager2 （3.0.0）
+
+## Sponsor
+
+**开源不易 随心赞赏**
+
+| Alipay | WeChat Pay |
+|--|--|
+| ![NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/pay_alipay.jpb) |  ![SMOOTH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/pay_wechat.png) |
 
 
 ## If you have any question you can scan the QR code to join the QQ group to communicate.

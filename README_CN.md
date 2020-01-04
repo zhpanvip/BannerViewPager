@@ -28,7 +28,7 @@
 | ![MULTI_PAGE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/page_style_multi.gif) |![MULTI_PAGE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/page_style_multi_scale.gif) |![MULTI_PAGE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/page_style_multi_overlay.gif) |
 
 ### 2.setIndicatorStyle
-BannerViewPager支持多种IndicatorViewStyle,同时还提供了完全自定义IndicatorView的功能。只要继承BaseIndicatorView或者实现IIndicator接口，并重写相应方法，就可以为所欲为的打造任意的Indicator了。
+BannerViewPager目前已支持三种IndicatorViewStyle,分别如下：
 
 [IndicatorViewStyle Demo](https://github.com/zhpanvip/BannerViewPager/blob/master/app/src/main/java/com/example/zhpan/circleviewpager/fragment/IndicatorFragment.java)
 
@@ -36,21 +36,32 @@ BannerViewPager支持多种IndicatorViewStyle,同时还提供了完全自定义I
 |--|--|--|
 | ![CIRCLE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_circle.gif) | ![DASH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_dash.gif) | ![NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_round_rect.gif) |
 
-### 3.setIndicatorSlideMode
+### 3.Custom Indicator
+
+同时BannerViewPager还提供了自定义IndicatorView的功能。只要继承BaseIndicatorView或者实现IIndicator接口，并重写相应方法，就可以为所欲为的打造任意的Indicator了。
+
+[Sample Click Here](https://github.com/zhpanvip/BannerViewPager/blob/master/app/src/main/java/com/example/zhpan/circleviewpager/fragment/OthersFragment.java)
+
+| Figure Indicator | Drawable Indicator | Indicator below of Banner |
+|--|--|--|
+| ![CIRCLE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_custom.gif) | ![DASH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_custom1.gif) | ![NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_custom2.gif) |
+
+
+
+### 4.setIndicatorSlideMode
 
 | NORMAL | SMOOTH |
 |--|--|
 | ![NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/slide_normal.gif) |  ![SMOOTH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/slide_smooth.gif) |
 
 
-### 4.setPageTransformerStyle
+### 5.setPageTransformerStyle
 
 [TransformStyle Demo](https://github.com/zhpanvip/BannerViewPager/blob/master/app/src/main/java/com/example/zhpan/circleviewpager/activity/WelcomeActivity.java)
 
 | 参数 | STACK | ROTATE | DEPTH | ACCORDION |
 |--|--|--|--|--|
 | 预览 | ![STACK](https://github.com/zhpanvip/BannerViewPager/blob/master/image/transform_stack.gif) | ![ROTATE_DOWN](https://github.com/zhpanvip/BannerViewPager/blob/master/image/transform_rotate.gif) | ![DEPTH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/transform_depth.gif)  |![ACCORDION](https://github.com/zhpanvip/BannerViewPager/blob/master/image/transform_accordion.gif)  |
-
 
 
 ## 开放API
@@ -384,6 +395,14 @@ public class FigureIndicatorView extends BaseIndicatorView {
  - [x] 目前Indicator部分代码比较乱，还有很大很大的优化空间，后续版本将持续优化(2.5.0对Indicator再次进行了重构，重构后代码已经很整洁，但仍然有优化空间)
  - [x] 修复 issue #34 Indicator 在Smooth模式下存在的问题 (2.6.1).
  - [ ] ViewPager更换为ViewPager2 （3.0.0）
+
+## Sponsor
+
+**开源不易 随心赞赏**
+
+| 支付宝 | 微信支付 |
+|--|--|
+| ![NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/pay_alipay.jpb) |  ![SMOOTH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/pay_wechat.png) |
 
 
 ## 有问题可以扫码加QQ群交流

@@ -44,7 +44,7 @@ abstract class BaseFragment : RxFragment() {
     protected fun initData(j: Int) {
         mDrawableList.clear()
         for (i in 0..j) {
-            val drawable = resources.getIdentifier("t$i", "drawable", mContext.packageName)
+            val drawable = resources.getIdentifier("bg_card$i", "drawable", mContext.packageName)
             mDrawableList.add(drawable)
         }
     }
