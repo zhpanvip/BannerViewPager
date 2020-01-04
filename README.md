@@ -43,7 +43,7 @@ It's also support to custom indicator style,just need extends BaseIndicatorView 
 
 | Figure Indicator | Drawable Indicator | Indicator below of Banner |
 |--|--|--|
-| ![CIRCLE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_custom.gif) | ![DASH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_custom1.gif) | ![NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_custom2.gif) |
+| ![CIRCLE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_custum.gif) | ![DASH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_custom1.gif) | ![NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_custom2.gif) |
 
 
 ### 4.setIndicatorSlideMode
@@ -399,9 +399,9 @@ public class FigureIndicatorView extends BaseIndicatorView {
 
 **开源不易 随心赞赏**
 
-| Alipay | WeChat Pay |
+| Alipay | WeChat |
 |--|--|
-| ![NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/pay_alipay.jpb) |  ![SMOOTH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/pay_wechat.png) |
+| ![Alipay](https://github.com/zhpanvip/BannerViewPager/blob/master/image/pay_alipay.jpg) |  ![WeChat](https://github.com/zhpanvip/BannerViewPager/blob/master/image/pay_wechat.png) |
 
 
 ## If you have any question you can scan the QR code to join the QQ group to communicate.
