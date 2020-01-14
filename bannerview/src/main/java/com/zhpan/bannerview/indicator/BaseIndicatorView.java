@@ -50,6 +50,7 @@ public class BaseIndicatorView extends View implements IIndicator {
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
         if (getSlideMode() == IndicatorSlideMode.SMOOTH && getPageSize() > 1) {
             scrollSlider(position, positionOffset);
+            invalidate();
         }
     }
 
@@ -59,16 +60,13 @@ public class BaseIndicatorView extends View implements IIndicator {
                 if (positionOffset < 0.5) {
                     setCurrentPosition(position);
                     setSlideProgress(0);
-                    invalidate();
                 } else {
                     setCurrentPosition(0);
                     setSlideProgress(0);
-                    invalidate();
                 }
             } else {    //  中间页面
                 setCurrentPosition(position);
                 setSlideProgress(positionOffset);
-                invalidate();
             }
         }
     }
