@@ -33,7 +33,7 @@ BannerViewPager supports three Indicator Styles now.
 
 | CIRCLE | DASH | ROUND_RECT |
 |--|--|--|
-| ![CIRCLE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_circle.gif) | ![DASH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_dash.gif) | ![NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_round_rect.gif) |
+| ![CIRCLE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/slide_normal.gif) | ![DASH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_dash.gif) | ![NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_round_rect.gif) |
 
 ### 3.Custom Indicator
 
@@ -48,9 +48,9 @@ It's also support to custom indicator style,just need extends BaseIndicatorView 
 
 ### 4.setIndicatorSlideMode
 
-| NORMAL | SMOOTH |
-|--|--|
-| ![NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/slide_normal.gif) |  ![SMOOTH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/slide_smooth.gif) |
+| NORMAL | SMOOTH | WORM |
+|--|--|--|
+| ![NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/slide_normal.gif) |  ![SMOOTH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/slide_smooth.gif) ||  ![SMOOTH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/slide_worm.gif) |
 
 
 ### 5.setPageTransformerStyle
@@ -76,7 +76,7 @@ It's also support to custom indicator style,just need extends BaseIndicatorView 
 | BannerViewPager<T, VH> setIndicatorStyle(int indicatorStyle) | set indicator style | enum(CIRCLE, DASH、ROUND_RECT) default CIRCLE  |
 | BannerViewPager<T, VH> setIndicatorGravity(int gravity) | set indicator gravity |enum(CENTER、START、END) default value CENTER |
 | BannerViewPager<T, VH> setIndicatorColor(int normalColor,int checkedColor) | set indicator color |normalColor：color of indicator dot not selected, default value  "#8C6C6D72"， checkedColor：color of indicator selected default value is "#8C18171C" |
-| BannerViewPager<T, VH> setIndicatorSlideMode(int slideMode)  | set indicator slide mode | enum（NORMAL、SMOOTH），default value NORMAL  |
+| BannerViewPager<T, VH> setIndicatorSlideMode(int slideMode)  | set indicator slide mode | enum（NORMAL;SMOOTH;WORM），default value NORMAL  |
 | BannerViewPager<T, VH> setIndicatorRadius(int radius) | set indicator dot radius | default value is 4dp|
 | BannerViewPager<T, VH> setIndicatorRadius(int normalRadius,int checkRadius)  |set indicator dot radius  |  normalRadius:normal radius of indicator dot,  checkedRadius:checked radius of indicator dot,default value is 4dp |
 | BannerViewPager<T, VH> setIndicatorWidth(int indicatorWidth) | set indicator dot width，if it's Circle indicator the parameter is diameter of circle | default value is 8dp|
@@ -110,7 +110,7 @@ It's also support to custom indicator style,just need extends BaseIndicatorView 
 | bvp_page_margin | dimension | set item margin |
 | bvp_reveal_width | dimension | it's only used when the page style is MULTI_PAGE/MULTI_PAGE_SCALE/MULTI_PAGE_OVERLAP,the value is two side item reveal width |
 | bvp_indicator_style | enum | indicator style. enum(circle/dash)  |
-| bvp_indicator_slide_mode | enum | indicator slide mode.enum(normal/smooth) |
+| bvp_indicator_slide_mode | enum | indicator slide mode.enum(normal;smooth;worm) |
 | bvp_indicator_gravity | enum | indicator gravity. enum(center/start/end) |
 | bvp_page_style | enum | page style. enum(normal/multi_page/multi_page_overlap/multi_page_scale) |
 | bvp_transformer_style | enum | transform style. enum(normal/depth/stack/accordion) |

@@ -1,9 +1,14 @@
 package com.zhpan.bannerview.indicator.drawer;
 
 import android.graphics.Canvas;
+import android.graphics.RectF;
 
 import com.zhpan.bannerview.manager.IndicatorOptions;
 import com.zhpan.bannerview.utils.BannerUtils;
+
+import static com.zhpan.bannerview.constants.IndicatorSlideMode.NORMAL;
+import static com.zhpan.bannerview.constants.IndicatorSlideMode.SMOOTH;
+import static com.zhpan.bannerview.constants.IndicatorSlideMode.WORM;
 
 /**
  * <pre>
@@ -20,6 +25,8 @@ public class CircleDrawer extends BaseDrawer {
     CircleDrawer(IndicatorOptions indicatorOptions) {
         super(indicatorOptions);
     }
+
+    private RectF rectF = new RectF();
 
     @Override
     public MeasureResult onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -39,7 +46,7 @@ public class CircleDrawer extends BaseDrawer {
     public void onDraw(Canvas canvas) {
         if (mIndicatorOptions.getPageSize() > 1) {
             drawableNormalCircle(canvas);
-            drawSelectedCircle(canvas);
+            drawSlider(canvas);
         }
     }
 
@@ -53,15 +60,41 @@ public class CircleDrawer extends BaseDrawer {
         }
     }
 
-    private void drawSelectedCircle(Canvas canvas) {
+    private void drawSlider(Canvas canvas) {
         mPaint.setColor(mIndicatorOptions.getCheckedColor());
-        float normalIndicatorWidth = mIndicatorOptions.getNormalIndicatorWidth();
-        float indicatorGap = mIndicatorOptions.getIndicatorGap();
-        float coordinateX = maxWidth / 2 + (normalIndicatorWidth + indicatorGap) * mIndicatorOptions.getCurrentPosition()
-                + (normalIndicatorWidth + indicatorGap) * mIndicatorOptions.getSlideProgress();
-        float coordinateY = maxWidth / 2f;
+        switch (mIndicatorOptions.getSlideMode()) {
+            case NORMAL:
+            case SMOOTH:
+                drawCircleSlider(canvas);
+                break;
+            case WORM:
+                drawWormSlider(canvas, mIndicatorOptions.getSliderHeight() * 2);
+                break;
+//            case THIN_WORM:
+//                drawWormSlider(canvas, mIndicatorOptions.getSliderHeight());
+//                break;
+        }
+    }
+
+    private void drawCircleSlider(Canvas canvas) {
+        int currentPosition = mIndicatorOptions.getCurrentPosition();
+        float startCoordinateX = BannerUtils.getCoordinateX(mIndicatorOptions, maxWidth, currentPosition);
+        float endCoordinateX = BannerUtils.getCoordinateX(mIndicatorOptions, maxWidth, (currentPosition + 1) % mIndicatorOptions.getPageSize());
+        float coordinateX = startCoordinateX + (endCoordinateX - startCoordinateX) * mIndicatorOptions.getSlideProgress();
+        float coordinateY = BannerUtils.getCoordinateY(maxWidth);
         float radius = mIndicatorOptions.getCheckedIndicatorWidth() / 2;
         drawCircle(canvas, coordinateX, coordinateY, radius);
+    }
+
+    private void drawWormSlider(Canvas canvas, float sliderHeight) {
+        float slideProgress = mIndicatorOptions.getSlideProgress();
+        int currentPosition = mIndicatorOptions.getCurrentPosition();
+        float distance = mIndicatorOptions.getIndicatorGap() + mIndicatorOptions.getNormalIndicatorWidth();
+        float startCoordinateX = BannerUtils.getCoordinateX(mIndicatorOptions, maxWidth, currentPosition);
+        float left = startCoordinateX + Math.max(distance * (slideProgress - 0.5f) * 2.0f, 0) - mIndicatorOptions.getNormalIndicatorWidth() / 2;
+        float right = startCoordinateX + Math.min((distance * slideProgress * 2), distance) + mIndicatorOptions.getNormalIndicatorWidth() / 2;
+        rectF.set(left, 0, right, sliderHeight);
+        canvas.drawRoundRect(rectF, sliderHeight, sliderHeight, mPaint);
     }
 
     private void drawCircle(Canvas canvas, float coordinateX, float coordinateY, float radius) {

@@ -48,7 +48,7 @@ public class BannerUtils {
         return maxDiameter / 2 + (normalIndicatorWidth + indicatorOptions.getIndicatorGap()) * index;
     }
 
-    public static float getCoordinateY(float height) {
-        return height / 2;
+    public static float getCoordinateY(float maxDiameter) {
+        return maxDiameter / 2;
     }
 }

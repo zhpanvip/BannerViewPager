@@ -22,6 +22,7 @@
         <attr name="bvp_indicator_slide_mode" format="enum">
             <enum name="normal" value="0" />
             <enum name="smooth" value="2" />
+            <enum name="worm" value="3" />
         </attr>
         <attr name="bvp_indicator_gravity" format="enum">
             <enum name="center" value="0" />

@@ -8,6 +8,7 @@
         android:id="@+id/banner_view"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_180"
+        app:bvp_indicator_slide_mode="worm"
         android:layout_marginTop="@dimen/dp_20"
         app:bvp_page_style="multi_page" />
 
