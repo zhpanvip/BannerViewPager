@@ -13,4 +13,5 @@
     <string name="text_page_style">Page Style:</string>
     <string name="text_indicator_style">Indicator Style:</string>
     <string name="custom_style">Custom Style</string>
+    <string name="text_slide_mode">Indicator Slide Mode</string>
 </resources>

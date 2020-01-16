@@ -45,10 +45,18 @@ public class RoundRectDrawer extends BaseDrawer {
         int pageSize = mIndicatorOptions.getPageSize();
         if (pageSize > 1) {
             for (int i = 0; i < pageSize; i++) {
-                if (mIndicatorOptions.getSlideMode() == IndicatorSlideMode.SMOOTH) {
-                    smoothSlide(canvas, i);
-                } else {
-                    normalSlide(canvas, i);
+                switch (mIndicatorOptions.getSlideMode()) {
+                    case IndicatorSlideMode.NORMAL:
+                        normalSlide(canvas, i);
+                        break;
+                    case IndicatorSlideMode.SMOOTH:
+                    case IndicatorSlideMode.WORM:
+                        if (mIndicatorOptions.getNormalIndicatorWidth() == mIndicatorOptions.getCheckedIndicatorWidth()) {
+                            smoothSlide(canvas, i);
+                        } else {
+                            normalSlide(canvas, i);
+                        }
+                        break;
                 }
             }
         }
@@ -68,7 +76,6 @@ public class RoundRectDrawer extends BaseDrawer {
             canvas.drawRoundRect(rectF, sliderHeight, sliderHeight, mPaint);
             drawSliderStyle(canvas);
         } else {
-
             if (i < currentPosition) {
                 mPaint.setColor(normalColor);
                 float left = i * minWidth + i * indicatorGap;
@@ -103,7 +110,7 @@ public class RoundRectDrawer extends BaseDrawer {
         float indicatorGap = mIndicatorOptions.getIndicatorGap();
         float sliderHeight = mIndicatorOptions.getSliderHeight();
         float left = currentPosition * (maxWidth) + currentPosition * +indicatorGap + (maxWidth + indicatorGap) * mIndicatorOptions.getSlideProgress();
-        RectF rectF = new RectF(left, 0, left + minWidth, sliderHeight);
+        RectF rectF = new RectF(left, 0, left + maxWidth, sliderHeight);
         canvas.drawRoundRect(rectF, sliderHeight, sliderHeight, mPaint);
 //        canvas.drawRect(left, 0, left + maxWidth, mIndicatorOptions.getSliderHeight(), mPaint);
     }

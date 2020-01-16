@@ -55,8 +55,10 @@ public class PageFragment extends BaseFragment {
         mRadioGroupPageStyle = view.findViewById(R.id.rg_page_style);
         radioButton = view.findViewById(R.id.rb_multi_page);
         mViewPager
+                .setIndicatorSlideMode(IndicatorSlideMode.NORMAL)
                 .setHolderCreator(() -> new ImageResourceViewHolder(getResources().getDimensionPixelOffset(R.dimen.dp_5)))
                 .setIndicatorColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
+                .setIndicatorRadius(getResources().getDimensionPixelOffset(R.dimen.dp_4),getResources().getDimensionPixelOffset(R.dimen.dp_5))
                 .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
                 .setInterval(5000);
         initRadioGroup();
@@ -90,7 +92,6 @@ public class PageFragment extends BaseFragment {
 
     private void setupBanner(@APageStyle int pageStyle) {
         mViewPager
-                .setIndicatorSlideMode(IndicatorSlideMode.WORM)
                 .setPageMargin(getResources().getDimensionPixelOffset(R.dimen.dp_10))
                 .setRevealWidth(getResources().getDimensionPixelOffset(R.dimen.dp_10))
                 .setPageStyle(pageStyle)
@@ -100,7 +101,6 @@ public class PageFragment extends BaseFragment {
     //  仿QQ音乐的Banner
     private void setNetEaseMusicStyle() {
         mViewPager
-                .setIndicatorSlideMode(IndicatorSlideMode.NORMAL)
                 .setPageMargin(getResources().getDimensionPixelOffset(R.dimen.dp_15))
                 .setRevealWidth(BannerUtils.dp2px(0))
                 .setPageStyle(PageStyle.MULTI_PAGE)

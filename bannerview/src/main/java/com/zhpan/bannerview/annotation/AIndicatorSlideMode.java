@@ -19,6 +19,6 @@ import static com.zhpan.bannerview.constants.IndicatorSlideMode.WORM;
  */
 @IntDef({NORMAL, SMOOTH,WORM})
 @Retention(RetentionPolicy.SOURCE)
-@Target(ElementType.PARAMETER)
+@Target({ElementType.PARAMETER,ElementType.FIELD})
 public @interface AIndicatorSlideMode {
 }

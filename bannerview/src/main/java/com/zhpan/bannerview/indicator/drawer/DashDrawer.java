@@ -25,7 +25,7 @@ public class DashDrawer extends BaseDrawer {
     public MeasureResult onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         maxWidth = Math.max(mIndicatorOptions.getNormalIndicatorWidth(), mIndicatorOptions.getCheckedIndicatorWidth());
         minWidth = Math.min(mIndicatorOptions.getNormalIndicatorWidth(), mIndicatorOptions.getCheckedIndicatorWidth());
-        mMeasureResult.setMeasureResult(getMeasureWidth(), (int)mIndicatorOptions.getSliderHeight());
+        mMeasureResult.setMeasureResult(getMeasureWidth(), (int) mIndicatorOptions.getSliderHeight());
         return mMeasureResult;
     }
 
@@ -44,10 +44,18 @@ public class DashDrawer extends BaseDrawer {
         int pageSize = mIndicatorOptions.getPageSize();
         if (pageSize > 1) {
             for (int i = 0; i < pageSize; i++) {
-                if (mIndicatorOptions.getSlideMode() == IndicatorSlideMode.SMOOTH) {
-                    smoothSlide(canvas, i);
-                } else {
-                    normalSlide(canvas, i);
+                switch (mIndicatorOptions.getSlideMode()) {
+                    case IndicatorSlideMode.NORMAL:
+                        normalSlide(canvas, i);
+                        break;
+                    case IndicatorSlideMode.SMOOTH:
+                    case IndicatorSlideMode.WORM:
+                        if (mIndicatorOptions.getNormalIndicatorWidth() == mIndicatorOptions.getCheckedIndicatorWidth()) {
+                            smoothSlide(canvas, i);
+                        } else {
+                            normalSlide(canvas, i);
+                        }
+                        break;
                 }
             }
         }

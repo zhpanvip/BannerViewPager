@@ -45,12 +45,12 @@ public class CircleDrawer extends BaseDrawer {
     @Override
     public void onDraw(Canvas canvas) {
         if (mIndicatorOptions.getPageSize() > 1) {
-            drawableNormalCircle(canvas);
+            drawableNormal(canvas);
             drawSlider(canvas);
         }
     }
 
-    private void drawableNormalCircle(Canvas canvas) {
+    private void drawableNormal(Canvas canvas) {
         float normalIndicatorWidth = mIndicatorOptions.getNormalIndicatorWidth();
         mPaint.setColor(mIndicatorOptions.getNormalColor());
         for (int i = 0; i < mIndicatorOptions.getPageSize(); i++) {
@@ -68,11 +68,8 @@ public class CircleDrawer extends BaseDrawer {
                 drawCircleSlider(canvas);
                 break;
             case WORM:
-                drawWormSlider(canvas, mIndicatorOptions.getSliderHeight() * 2);
+                drawWormSlider(canvas, mIndicatorOptions.getNormalIndicatorWidth());
                 break;
-//            case THIN_WORM:
-//                drawWormSlider(canvas, mIndicatorOptions.getSliderHeight());
-//                break;
         }
     }
 
