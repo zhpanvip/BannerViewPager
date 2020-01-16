@@ -1,6 +1,5 @@
 package com.example.zhpan.circleviewpager.fragment;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RadioButton;
@@ -26,7 +25,7 @@ public class IndicatorFragment extends BaseFragment {
     private RadioGroup mRadioGroupMode;
     private RadioButton radioButton;
     private @AIndicatorSlideMode
-    int mSlideMode = IndicatorSlideMode.WORM;
+    int mSlideMode = IndicatorSlideMode.SMOOTH;
     private int mCheckId = R.id.rb_circle;
 
     @Override
