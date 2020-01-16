@@ -27,14 +27,14 @@
 |--|--|--|
 | ![MULTI_PAGE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/page_style_multi.gif) |![MULTI_PAGE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/page_style_multi_scale.gif) |![MULTI_PAGE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/page_style_multi_overlay.gif) |
 
-### 2.setIndicatorStyle
-BannerViewPager目前已支持三种IndicatorViewStyle,分别如下：
+### 2.setIndicatorStyle 与 setIndicatorSlideMode
 
-[IndicatorViewStyle Demo](https://github.com/zhpanvip/BannerViewPager/blob/master/app/src/main/java/com/example/zhpan/circleviewpager/fragment/IndicatorFragment.java)
-
-| CIRCLE | DASH | ROUND_RECT |
-|--|--|--|
-| ![CIRCLE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_circle.gif) | ![DASH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_dash.gif) | ![NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_round_rect.gif) |
+BannerViewPager目前已支持三种IndicatorViewStyle,以及三种IndicatorSlideMode,分别如下：
+| 属性 | CIRCLE | DASH | ROUND_RECT |
+|--|--|--|--|
+| NORMAL| ![CIRCLE_NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/slide_circle_normal.gif) | ![DASH_NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_dash_normal.gif) | ![ROUND_RECT_NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_round_rect_normal.gif) |
+| SMOOTH| ![CIRCLE_SMOOTH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/slide_circle_smooth.gif) | ![DASH_SMOOTH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_dash_smooth.gif) | ![ROUND_RECT_SMOOTH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_round_rect_smooth.gif) |
+| WORM| ![CIRCLE_WORM](https://github.com/zhpanvip/BannerViewPager/blob/master/image/slide_circle_worm.gif) | ![DASH_WORM](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_dash_worm.gif) | ![ROUND_WORM](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_round_rect_worm.gif) |
 
 ### 3.Custom Indicator
 
@@ -47,15 +47,7 @@ BannerViewPager目前已支持三种IndicatorViewStyle,分别如下：
 | ![CIRCLE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_custom.gif) | ![DASH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_custom1.gif) | ![NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_custom2.gif) |
 
 
-
-### 4.setIndicatorSlideMode
-
-| NORMAL | SMOOTH |
-|--|--|
-| ![NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/slide_normal.gif) |  ![SMOOTH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/slide_smooth.gif) |
-
-
-### 5.setPageTransformerStyle
+### 4.setPageTransformerStyle
 
 [TransformStyle Demo](https://github.com/zhpanvip/BannerViewPager/blob/master/app/src/main/java/com/example/zhpan/circleviewpager/activity/WelcomeActivity.java)
 
@@ -79,7 +71,7 @@ BannerViewPager目前已支持三种IndicatorViewStyle,分别如下：
 | BannerViewPager<T, VH> setIndicatorStyle(int indicatorStyle) | 设置指示器样式 | 可选枚举(CIRCLE, DASH、ROUND_RECT) 默认CIRCLE  |
 | BannerViewPager<T, VH> setIndicatorGravity(int gravity) | 指示器位置 |可选值(CENTER、START、END)默认值CENTER |
 | BannerViewPager<T, VH> setIndicatorColor(int normalColor,int checkedColor) | 指示器圆点颜色 |normalColor：未选中时颜色默认"#8C6C6D72"， checkedColor：选中时颜色 默认"#8C18171C" |
-| BannerViewPager<T, VH> setIndicatorSlideMode(int slideMode)  | 设置Indicator滑动模式 | 可选（NORMAL、SMOOTH），默认值NORMAL  |
+| BannerViewPager<T, VH> setIndicatorSlideMode(int slideMode)  | 设置Indicator滑动模式 | 可选（NORMAL、SMOOTH、WORM），默认值NORMAL  |
 | BannerViewPager<T, VH> setIndicatorRadius(int radius) | 设置指示器圆点半径 | 默认值4dp|
 | BannerViewPager<T, VH> setIndicatorRadius(int normalRadius,int checkRadius)  |设置指示器圆点半径  |  normalRadius:未选中时半径  checkedRadius:选中时的半径,默认值4dp |
 | BannerViewPager<T, VH> setIndicatorWidth(int indicatorWidth) | 设置指示器宽度，如果是圆形指示器，则为直径 |  默认值8dp|
@@ -113,7 +105,7 @@ BannerViewPager目前已支持三种IndicatorViewStyle,分别如下：
 | bvp_page_margin | dimension | 页面item间距 |
 | bvp_reveal_width | dimension | 一屏多页模式下两边item漏出的宽度 |
 | bvp_indicator_style | enum | indicator样式(circle/dash)  |
-| bvp_indicator_slide_mode | enum | indicator滑动模式(normal/smooth) |
+| bvp_indicator_slide_mode | enum | indicator滑动模式(normal;smooth;worm) |
 | bvp_indicator_gravity | enum | indicator位置(center/start/end) |
 | bvp_page_style | enum | page样式(normal/multi_page/multi_page_overlap/multi_page_scale) |
 | bvp_transformer_style | enum | transform样式(normal/depth/stack/accordion) |

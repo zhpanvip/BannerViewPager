@@ -9,6 +9,7 @@ import java.lang.annotation.Target;
 
 import static com.zhpan.bannerview.constants.IndicatorSlideMode.NORMAL;
 import static com.zhpan.bannerview.constants.IndicatorSlideMode.SMOOTH;
+import static com.zhpan.bannerview.constants.IndicatorSlideMode.WORM;
 
 /**
  * <pre>
@@ -16,8 +17,8 @@ import static com.zhpan.bannerview.constants.IndicatorSlideMode.SMOOTH;
  *   Description:
  * </pre>
  */
-@IntDef({NORMAL, SMOOTH})
+@IntDef({NORMAL, SMOOTH,WORM})
 @Retention(RetentionPolicy.SOURCE)
-@Target(ElementType.PARAMETER)
+@Target({ElementType.PARAMETER,ElementType.FIELD})
 public @interface AIndicatorSlideMode {
 }

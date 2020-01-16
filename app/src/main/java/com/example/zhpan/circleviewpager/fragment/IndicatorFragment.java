@@ -1,6 +1,5 @@
 package com.example.zhpan.circleviewpager.fragment;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RadioButton;
@@ -9,6 +8,7 @@ import android.widget.RadioGroup;
 import com.example.zhpan.circleviewpager.R;
 import com.example.zhpan.circleviewpager.viewholder.ImageResourceViewHolder;
 import com.zhpan.bannerview.BannerViewPager;
+import com.zhpan.bannerview.annotation.AIndicatorSlideMode;
 import com.zhpan.bannerview.constants.IndicatorGravity;
 import com.zhpan.bannerview.constants.IndicatorSlideMode;
 import com.zhpan.bannerview.constants.IndicatorStyle;
@@ -21,8 +21,12 @@ import com.zhpan.idea.utils.ToastUtils;
 public class IndicatorFragment extends BaseFragment {
 
     private BannerViewPager<Integer, ImageResourceViewHolder> mViewPager;
-    private RadioGroup radioGroupStyle;
+    private RadioGroup mRadioGroupStyle;
+    private RadioGroup mRadioGroupMode;
     private RadioButton radioButton;
+    private @AIndicatorSlideMode
+    int mSlideMode = IndicatorSlideMode.SMOOTH;
+    private int mCheckId = R.id.rb_circle;
 
     @Override
     protected int getLayout() {
@@ -53,7 +57,8 @@ public class IndicatorFragment extends BaseFragment {
     @Override
     protected void initView(Bundle savedInstanceState, View view) {
         radioButton = view.findViewById(R.id.rb_circle);
-        radioGroupStyle = view.findViewById(R.id.rg_indicator_style);
+        mRadioGroupStyle = view.findViewById(R.id.rg_indicator_style);
+        mRadioGroupMode = view.findViewById(R.id.rg_slide_mode);
         mViewPager = view.findViewById(R.id.banner_view);
         mViewPager.setIndicatorGap(BannerUtils.dp2px(6))
                 .setRoundCorner(BannerUtils.dp2px(6))
@@ -66,68 +71,97 @@ public class IndicatorFragment extends BaseFragment {
     }
 
     private void initRadioGroup() {
-        radioGroupStyle.setOnCheckedChangeListener((group, checkedId) -> {
+        mRadioGroupStyle.setOnCheckedChangeListener((group, checkedId) -> checkedChange(mCheckId = checkedId));
+        radioButton.performClick();
+        mRadioGroupMode.setOnCheckedChangeListener((group, checkedId) -> {
             switch (checkedId) {
-                case R.id.rb_circle:
-                    setupCircleIndicator();
+                case R.id.rb_normal:
+                    mSlideMode = IndicatorSlideMode.NORMAL;
                     break;
-                case R.id.rb_dash:
-                    setupDashIndicator();
+                case R.id.rb_worm:
+                    mSlideMode = IndicatorSlideMode.WORM;
                     break;
-                case R.id.rb_round_rect:
-                    setupRoundRectIndicator();
-                    break;
-                case R.id.rb_tmall:
-                    setupTmallIndicator();
+                case R.id.rb_smooth:
+                    mSlideMode = IndicatorSlideMode.SMOOTH;
                     break;
             }
+            checkedChange(mCheckId);
         });
-        radioButton.performClick();
     }
 
-    private void setupTmallIndicator() {
+    private void checkedChange(int checkedId) {
+        switch (checkedId) {
+            case R.id.rb_circle:
+                setupCircleIndicator();
+                break;
+            case R.id.rb_dash:
+                setupDashIndicator();
+                break;
+            case R.id.rb_round_rect:
+                setupRoundRectIndicator();
+                break;
+            case R.id.rb_tmall:
+                setupTMallIndicator();
+                break;
+        }
+    }
+
+    private void setupTMallIndicator() {
         mViewPager
                 .setIndicatorStyle(IndicatorStyle.DASH)
                 .setIndicatorGap(0)
-                .setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
-                .setIndicatorColor(getColor(R.color.white_alpha_75), getColor(R.color.white))
-                .setIndicatorWidth(getResources().getDimensionPixelOffset(R.dimen.dp_12), getResources().getDimensionPixelOffset(R.dimen.dp_12))
-                .setIndicatorHeight(BannerUtils.dp2px(1.5f))
+                .setIndicatorSlideMode(mSlideMode)
+                .setIndicatorColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
+                .setIndicatorWidth(getResources().getDimensionPixelOffset(R.dimen.dp_15))
+                .setIndicatorHeight(getResources().getDimensionPixelOffset(R.dimen.dp_3))
                 .create(getMDrawableList());
     }
 
     private void setupRoundRectIndicator() {
+        int checkedWidth = getResources().getDimensionPixelOffset(R.dimen.dp_10);
+        int normalWidth = getNormalWidth();
         mViewPager.setIndicatorStyle(IndicatorStyle.ROUND_RECT)
                 .setIndicatorGravity(IndicatorGravity.CENTER)
                 .setIndicatorGap(BannerUtils.dp2px(4))
                 .setPageMargin(0)
-                .setIndicatorSlideMode(IndicatorSlideMode.NORMAL)
+                .setIndicatorSlideMode(mSlideMode)
                 .setIndicatorHeight(getResources().getDimensionPixelOffset(R.dimen.dp_4))
                 .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
                 .setIndicatorColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
-                .setIndicatorWidth(getResources().getDimensionPixelOffset(R.dimen.dp_4), getResources().getDimensionPixelOffset(R.dimen.dp_10)).create(getMDrawableList());
+                .setIndicatorWidth(normalWidth, checkedWidth).create(getMDrawableList());
     }
 
     private void setupCircleIndicator() {
         mViewPager.setIndicatorStyle(IndicatorStyle.CIRCLE)
-                .setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
+                .setIndicatorSlideMode(mSlideMode)
                 .setIndicatorGravity(IndicatorGravity.CENTER)
                 .setIndicatorGap(getResources().getDimensionPixelOffset(R.dimen.dp_6))
+                .setIndicatorHeight(getResources().getDimensionPixelOffset(R.dimen.dp_4))
                 .setPageMargin(0)
                 .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
                 .setIndicatorColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
-                .setIndicatorRadius(getResources().getDimensionPixelOffset(R.dimen.dp_4), getResources().getDimensionPixelOffset(R.dimen.dp_5)).create(getMDrawableList());
+                .setIndicatorRadius(getResources().getDimensionPixelOffset(R.dimen.dp_4)).create(getMDrawableList());
     }
 
     private void setupDashIndicator() {
+        int checkedWidth = getResources().getDimensionPixelOffset(R.dimen.dp_10);
+        int normalWidth = getNormalWidth();
         mViewPager.setIndicatorStyle(IndicatorStyle.DASH)
                 .setIndicatorHeight(getResources().getDimensionPixelOffset(R.dimen.dp_3))
                 .setIndicatorGravity(IndicatorGravity.CENTER)
-                .setIndicatorSlideMode(IndicatorSlideMode.NORMAL)
+                .setIndicatorSlideMode(mSlideMode)
                 .setIndicatorGap(getResources().getDimensionPixelOffset(R.dimen.dp_3))
                 .setPageMargin(0)
-                .setIndicatorWidth(getResources().getDimensionPixelOffset(R.dimen.dp_3), getResources().getDimensionPixelOffset(R.dimen.dp_10))
-                .setIndicatorColor(Color.parseColor("#888888"),
-                        Color.parseColor("#118EEA")).create(getMDrawableList());
+                .setIndicatorWidth(normalWidth, checkedWidth)
+                .setIndicatorColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
+                .create(getMDrawableList());
+    }
+
+    private int getNormalWidth() {
+        if (mSlideMode == IndicatorSlideMode.SMOOTH || mSlideMode == IndicatorSlideMode.WORM) {
+            return getResources().getDimensionPixelOffset(R.dimen.dp_10);
+        } else {
+            return getResources().getDimensionPixelOffset(R.dimen.dp_4);
+        }
     }
 }

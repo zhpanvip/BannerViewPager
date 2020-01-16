@@ -48,8 +48,9 @@ public class BaseIndicatorView extends View implements IIndicator {
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        if (getSlideMode() == IndicatorSlideMode.SMOOTH && getPageSize() > 1) {
+        if (getSlideMode() != IndicatorSlideMode.NORMAL && getPageSize() > 1) {
             scrollSlider(position, positionOffset);
+            invalidate();
         }
     }
 
@@ -59,30 +60,27 @@ public class BaseIndicatorView extends View implements IIndicator {
                 if (positionOffset < 0.5) {
                     setCurrentPosition(position);
                     setSlideProgress(0);
-                    invalidate();
                 } else {
                     setCurrentPosition(0);
                     setSlideProgress(0);
-                    invalidate();
                 }
             } else {    //  中间页面
                 setCurrentPosition(position);
                 setSlideProgress(positionOffset);
-                invalidate();
             }
         }
     }
 
-    private boolean isSlideToRight(int position, float positionOffset) {
-        int prePosition = mIndicatorOptions.getPrePosition();
-        if ((prePosition == 0 && position == getPageSize() - 1)) {
-            return false;
-        } else if (prePosition == getPageSize() - 1 && position == 0) {
-            return true;
-        } else {
-            return (position + positionOffset - prePosition) > 0;
-        }
-    }
+//    private boolean isSlideToRight(int position, float positionOffset) {
+//        int prePosition = mIndicatorOptions.getPrePosition();
+//        if ((prePosition == 0 && position == getPageSize() - 1)) {
+//            return false;
+//        } else if (prePosition == getPageSize() - 1 && position == 0) {
+//            return true;
+//        } else {
+//            return (position + positionOffset - prePosition) > 0;
+//        }
+//    }
 
     @Override
     public void setPageSize(int pageSize) {
@@ -123,9 +121,9 @@ public class BaseIndicatorView extends View implements IIndicator {
         mIndicatorOptions = indicatorOptions;
     }
 
-    public boolean isSlideToRight() {
-        return mIndicatorOptions.isSlideToRight();
-    }
+//    public boolean isSlideToRight() {
+//        return mIndicatorOptions.isSlideToRight();
+//    }
 
     public int getSlideMode() {
         return mIndicatorOptions.getSlideMode();
@@ -143,13 +141,13 @@ public class BaseIndicatorView extends View implements IIndicator {
         mIndicatorOptions.setSlideProgress(slideProgress);
     }
 
-    private void setPrePosition(int prePosition) {
-        mIndicatorOptions.setPrePosition(prePosition);
-    }
+//    private void setPrePosition(int prePosition) {
+//        mIndicatorOptions.setPrePosition(prePosition);
+//    }
 
-    private void setSlideToRight(boolean slideToRight) {
-        mIndicatorOptions.setSlideToRight(slideToRight);
-    }
+//    private void setSlideToRight(boolean slideToRight) {
+//        mIndicatorOptions.setSlideToRight(slideToRight);
+//    }
 
     public IndicatorOptions getIndicatorOptions() {
         return mIndicatorOptions;

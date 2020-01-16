@@ -137,9 +137,10 @@ public class HomeFragment extends BaseFragment {
     private void initBanner() {
         mViewPager
                 .setAutoPlay(true)
-                .setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
+                .setIndicatorSlideMode(IndicatorSlideMode.WORM)
                 .setInterval(5000)
                 .setScrollDuration(1200)
+                .setIndicatorRadius(getResources().getDimensionPixelSize(R.dimen.dp_3))
                 .setIndicatorView(mIndicatorView)// 这里为了设置标题故用了自定义Indicator,如果无需标题则没必要添加此行代码
                 .setIndicatorColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
                 .setHolderCreator(NetViewHolder::new)
