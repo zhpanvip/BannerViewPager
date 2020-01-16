@@ -162,7 +162,7 @@ public class IndicatorFragment extends BaseFragment {
         if (mSlideMode == IndicatorSlideMode.SMOOTH || mSlideMode == IndicatorSlideMode.WORM) {
             return getResources().getDimensionPixelOffset(R.dimen.dp_10);
         } else {
-            return getResources().getDimensionPixelOffset(R.dimen.dp_4);
+            return getResources().getDimensionPixelOffset(R.dimen.dp_10);
         }
     }
 }

@@ -50,4 +50,8 @@ public abstract class BaseDrawer implements IDrawer {
         }
 
     }
+
+    protected boolean isWidthEquals() {
+        return mIndicatorOptions.getNormalIndicatorWidth() == mIndicatorOptions.getCheckedIndicatorWidth();
+    }
 }

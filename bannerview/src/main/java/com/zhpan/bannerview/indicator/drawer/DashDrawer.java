@@ -50,7 +50,7 @@ public class DashDrawer extends BaseDrawer {
                         break;
                     case IndicatorSlideMode.SMOOTH:
                     case IndicatorSlideMode.WORM:
-                        if (mIndicatorOptions.getNormalIndicatorWidth() == mIndicatorOptions.getCheckedIndicatorWidth()) {
+                        if (isWidthEquals()) {
                             smoothSlide(canvas, i);
                         } else {
                             normalSlide(canvas, i);

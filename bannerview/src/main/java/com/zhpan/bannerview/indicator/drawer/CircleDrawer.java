@@ -45,12 +45,12 @@ public class CircleDrawer extends BaseDrawer {
     @Override
     public void onDraw(Canvas canvas) {
         if (mIndicatorOptions.getPageSize() > 1) {
-            drawableNormal(canvas);
+            drawNormal(canvas);
             drawSlider(canvas);
         }
     }
 
-    private void drawableNormal(Canvas canvas) {
+    private void drawNormal(Canvas canvas) {
         float normalIndicatorWidth = mIndicatorOptions.getNormalIndicatorWidth();
         mPaint.setColor(mIndicatorOptions.getNormalColor());
         for (int i = 0; i < mIndicatorOptions.getPageSize(); i++) {
