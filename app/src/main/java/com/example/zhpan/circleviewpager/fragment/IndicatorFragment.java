@@ -114,7 +114,7 @@ public class IndicatorFragment extends BaseFragment {
                 .setIndicatorSlideMode(mSlideMode)
                 .setIndicatorColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
                 .setIndicatorWidth(getResources().getDimensionPixelOffset(R.dimen.dp_15))
-                .setIndicatorHeight(BannerUtils.dp2px(3f))
+                .setIndicatorHeight(getResources().getDimensionPixelOffset(R.dimen.dp_3))
                 .create(getMDrawableList());
     }
 
