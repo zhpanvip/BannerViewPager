@@ -18,10 +18,6 @@ import static com.zhpan.bannerview.constants.IndicatorSlideMode.WORM;
  */
 public class CircleDrawer extends BaseDrawer {
 
-    private float maxWidth;
-
-    private float minWidth;
-
     CircleDrawer(IndicatorOptions indicatorOptions) {
         super(indicatorOptions);
     }
@@ -29,17 +25,8 @@ public class CircleDrawer extends BaseDrawer {
     private RectF rectF = new RectF();
 
     @Override
-    public MeasureResult onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        maxWidth = Math.max(mIndicatorOptions.getNormalIndicatorWidth(), mIndicatorOptions.getCheckedIndicatorWidth());
-        minWidth = Math.min(mIndicatorOptions.getNormalIndicatorWidth(), mIndicatorOptions.getCheckedIndicatorWidth());
-        mMeasureResult.setMeasureResult(measureWidth(), (int) maxWidth);
-        return mMeasureResult;
-    }
-
-    private int measureWidth() {
-        int pageSize = mIndicatorOptions.getPageSize();
-        float indicatorGap = mIndicatorOptions.getIndicatorGap();
-        return (int) ((pageSize - 1) * indicatorGap + maxWidth + (pageSize - 1) * minWidth);
+    protected int measureHeight() {
+        return (int) maxWidth;
     }
 
     @Override

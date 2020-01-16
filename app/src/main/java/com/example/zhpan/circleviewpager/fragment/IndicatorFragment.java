@@ -154,15 +154,15 @@ public class IndicatorFragment extends BaseFragment {
                 .setIndicatorGap(getResources().getDimensionPixelOffset(R.dimen.dp_3))
                 .setPageMargin(0)
                 .setIndicatorWidth(normalWidth, checkedWidth)
-                .setIndicatorColor(Color.parseColor("#888888"),
-                        Color.parseColor("#118EEA")).create(getMDrawableList());
+                .setIndicatorColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
+                .create(getMDrawableList());
     }
 
     private int getNormalWidth() {
         if (mSlideMode == IndicatorSlideMode.SMOOTH || mSlideMode == IndicatorSlideMode.WORM) {
             return getResources().getDimensionPixelOffset(R.dimen.dp_10);
         } else {
-            return getResources().getDimensionPixelOffset(R.dimen.dp_10);
+            return getResources().getDimensionPixelOffset(R.dimen.dp_4);
         }
     }
 }
