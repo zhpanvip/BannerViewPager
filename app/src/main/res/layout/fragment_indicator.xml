@@ -13,7 +13,7 @@
         app:bvp_indicator_visibility="visible"
         app:bvp_round_corner="@dimen/dp_8" />
 
-    <androidx.core.widget.NestedScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -139,7 +139,7 @@
             </RadioGroup>
 
         </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+    </android.support.v4.widget.NestedScrollView>
 
 </LinearLayout>
 
