@@ -8,6 +8,7 @@ package com.zhpan.bannerview.constants;
  */
 public interface IndicatorSlideMode {
     int NORMAL = 0;
-    int SMOOTH = 1 << 1;
-//    int WORM = 3;
+    int SMOOTH = 2;
+    int WORM = 3;
+//    int THIN_WORM = 4;
 }

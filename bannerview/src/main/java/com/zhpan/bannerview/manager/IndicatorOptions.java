@@ -48,14 +48,14 @@ public class IndicatorOptions {
      * 指示器当前位置
      */
     private int currentPosition;
-    /**
-     * 指示器上一个位置
-     */
-    private int prePosition;
-    /**
-     * 是否是向右滑动，true向右，false向左
-     */
-    private boolean slideToRight;
+//    /**
+//     * 指示器上一个位置
+//     */
+//    private int prePosition;
+//    /**
+//     * 是否是向右滑动，true向右，false向左
+//     */
+//    private boolean slideToRight;
 
     private float sliderHeight;
 
@@ -119,21 +119,21 @@ public class IndicatorOptions {
         this.currentPosition = currentPosition;
     }
 
-    public int getPrePosition() {
-        return prePosition;
-    }
+//    public int getPrePosition() {
+//        return prePosition;
+//    }
 
-    public void setPrePosition(int prePosition) {
-        this.prePosition = prePosition;
-    }
+//    public void setPrePosition(int prePosition) {
+//        this.prePosition = prePosition;
+//    }
 
-    public boolean isSlideToRight() {
-        return slideToRight;
-    }
+//    public boolean isSlideToRight() {
+//        return slideToRight;
+//    }
 
-    public void setSlideToRight(boolean slideToRight) {
-        this.slideToRight = slideToRight;
-    }
+//    public void setSlideToRight(boolean slideToRight) {
+//        this.slideToRight = slideToRight;
+//    }
 
     public int getSlideMode() {
         return slideMode;
