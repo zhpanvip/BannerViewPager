@@ -5,10 +5,14 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.util.AttributeSet;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatDrawableManager;
+import androidx.core.graphics.drawable.DrawableCompat;
 
 import com.zhpan.bannerview.indicator.BaseIndicatorView;
 
@@ -27,6 +31,8 @@ public class DrawableIndicator extends BaseIndicatorView {
     //未选中图片的宽高
     private int mNormalBitmapWidth, mNormalBitmapHeight;
     private IndicatorSize mIndicatorSize;
+    private boolean normalCanResize = true;
+    private boolean checkCanResize=true;
 
     public DrawableIndicator(Context context) {
         this(context, null);
@@ -51,7 +57,7 @@ public class DrawableIndicator extends BaseIndicatorView {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if (getPageSize() > 1 || mCheckedBitmap == null || mNormalBitmap == null) {
+        if (getPageSize() > 1 && mCheckedBitmap != null && mNormalBitmap != null) {
             for (int i = 1; i < getPageSize() + 1; i++) {
                 int left;
                 int top;
@@ -83,7 +89,7 @@ public class DrawableIndicator extends BaseIndicatorView {
     private void initIconSize() {
         if (mCheckedBitmap != null) {
             if (mIndicatorSize != null) {
-                if (mCheckedBitmap.isMutable()) {
+                if (mCheckedBitmap.isMutable()&& checkCanResize) {
                     mCheckedBitmap.setWidth(mIndicatorSize.checkedWidth);
                     mCheckedBitmap.setHeight(mIndicatorSize.checkedHeight);
                 } else {
@@ -102,7 +108,7 @@ public class DrawableIndicator extends BaseIndicatorView {
 
         if (mNormalBitmap != null) {
             if (mIndicatorSize != null) {
-                if (mNormalBitmap.isMutable()) {
+                if (mNormalBitmap.isMutable()&& normalCanResize) {
                     mNormalBitmap.setWidth(mIndicatorSize.normalWidth);
                     mNormalBitmap.setHeight(mIndicatorSize.normalHeight);
                 } else {
@@ -123,6 +129,14 @@ public class DrawableIndicator extends BaseIndicatorView {
     public DrawableIndicator setIndicatorDrawable(@DrawableRes int normalDrawable, @DrawableRes int checkedDrawable) {
         mNormalBitmap = mCheckedBitmap = BitmapFactory.decodeResource(getResources(), normalDrawable);
         mCheckedBitmap = BitmapFactory.decodeResource(getResources(), checkedDrawable);
+        if (mNormalBitmap == null) {
+            mNormalBitmap = getBitmapFromVectorDrawable(getContext(), normalDrawable);
+            normalCanResize =false;
+        }
+        if (mCheckedBitmap == null) {
+            mCheckedBitmap = getBitmapFromVectorDrawable(getContext(), checkedDrawable);
+            checkCanResize =false;
+        }
         initIconSize();
         postInvalidate();
         return this;
@@ -141,6 +155,19 @@ public class DrawableIndicator extends BaseIndicatorView {
             postInvalidate();
         }
         return this;
+    }
+
+    public static Bitmap getBitmapFromVectorDrawable(Context context, int drawableId) {
+        Drawable drawable = AppCompatDrawableManager.get().getDrawable(context, drawableId);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            drawable = (DrawableCompat.wrap(drawable)).mutate();
+        }
+        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
+                drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+        return bitmap;
     }
 
     static class IndicatorSize {

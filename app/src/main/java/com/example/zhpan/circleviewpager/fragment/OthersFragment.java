@@ -84,28 +84,29 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
         radioGroupStyle.setVisibility(View.VISIBLE);
         radioGroupStyle.setVisibility(View.VISIBLE);
         radioGroupStyle.setOnCheckedChangeListener((group, checkedId) -> {
+            resetBannerViewPager();
             switch (checkedId) {
                 case R.id.rb_indicator_below:
-                    resetBannerViewPager();
                     setIndicatorBelowOfBanner();
                     break;
                 case R.id.rb_dash:
-                    resetBannerViewPager();
                     setupCustomIndicator();
                     break;
                 case R.id.rb_drawable:
-                    resetBannerViewPager();
-                    setDrawableIndicator();
+                    setDrawableIndicator(getDrawableIndicator());
+                    break;
+                case R.id.rb_vector_drawable:
+                    setDrawableIndicator(getVectorDrawableIndicator());
                     break;
             }
         });
         radioButton.performClick();
     }
 
-    private void setDrawableIndicator() {
+    private void setDrawableIndicator(IIndicator indicator) {
         mIndicatorView.setVisibility(View.INVISIBLE);
         mViewPager
-                .setIndicatorView(getDrawableIndicator())
+                .setIndicatorView(indicator)
                 .setIndicatorSlideMode(IndicatorSlideMode.NORMAL)
                 .setIndicatorVisibility(View.VISIBLE)
                 .setIndicatorGravity(IndicatorGravity.CENTER)
@@ -118,6 +119,14 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
                 .setIndicatorGap(getResources().getDimensionPixelOffset(R.dimen.dp_2_5))
                 .setIndicatorDrawable(R.drawable.heart_empty, R.drawable.heart_red)
                 .setIndicatorSize(dp10, dp10, dp10, dp10);
+    }
+
+    private IIndicator getVectorDrawableIndicator() {
+        int dp6 = getResources().getDimensionPixelOffset(R.dimen.dp_6);
+        return new DrawableIndicator(getContext())
+                .setIndicatorGap(getResources().getDimensionPixelOffset(R.dimen.dp_2_5))
+                .setIndicatorDrawable(R.drawable.banner_indicator_nornal, R.drawable.banner_indicator_focus)
+                .setIndicatorSize(dp6, dp6, getResources().getDimensionPixelOffset(R.dimen.dp_13), dp6);
     }
 
     private void setIndicatorBelowOfBanner() {
