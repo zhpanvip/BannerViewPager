@@ -55,19 +55,17 @@ public class BaseIndicatorView extends View implements IIndicator {
     }
 
     private void scrollSlider(int position, float positionOffset) {
-        for (int i = 0; i < getPageSize(); i++) {
-            if (position % getPageSize() == getPageSize() - 1) { //   最后一个页面与第一个页面
-                if (positionOffset < 0.5) {
-                    setCurrentPosition(position);
-                    setSlideProgress(0);
-                } else {
-                    setCurrentPosition(0);
-                    setSlideProgress(0);
-                }
-            } else {    //  中间页面
+        if (position % getPageSize() == getPageSize() - 1) { //   最后一个页面与第一个页面
+            if (positionOffset < 0.5) {
                 setCurrentPosition(position);
-                setSlideProgress(positionOffset);
+                setSlideProgress(0);
+            } else {
+                setCurrentPosition(0);
+                setSlideProgress(0);
             }
+        } else {    //  中间页面
+            setCurrentPosition(position);
+            setSlideProgress(positionOffset);
         }
     }
 
