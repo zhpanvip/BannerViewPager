@@ -14,11 +14,11 @@ import com.example.zhpan.circleviewpager.view.FigureIndicatorView;
 import com.example.zhpan.circleviewpager.viewholder.ImageResourceViewHolder;
 import com.zhpan.bannerview.BannerViewPager;
 import com.zhpan.bannerview.constants.IndicatorGravity;
-import com.zhpan.bannerview.constants.IndicatorSlideMode;
-import com.zhpan.bannerview.indicator.IIndicator;
-import com.zhpan.bannerview.indicator.IndicatorView;
 import com.zhpan.bannerview.utils.BannerUtils;
 import com.zhpan.idea.utils.ToastUtils;
+import com.zhpan.indicatorview.base.IIndicator;
+import com.zhpan.indicatorview.enums.IndicatorSlideMode;
+import com.zhpan.indicatorview.IndicatorView;
 
 import java.lang.reflect.Field;
 import java.util.Random;

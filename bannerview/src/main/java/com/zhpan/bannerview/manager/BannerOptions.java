@@ -2,6 +2,7 @@ package com.zhpan.bannerview.manager;
 
 import com.zhpan.bannerview.constants.PageStyle;
 import com.zhpan.bannerview.utils.BannerUtils;
+import com.zhpan.indicatorview.model.IndicatorOptions;
 
 /**
  * <pre>

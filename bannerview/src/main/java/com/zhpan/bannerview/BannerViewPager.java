@@ -16,16 +16,16 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.zhpan.bannerview.annotation.AIndicatorGravity;
-import com.zhpan.bannerview.annotation.AIndicatorSlideMode;
-import com.zhpan.bannerview.annotation.AIndicatorStyle;
+import com.zhpan.indicatorview.annotation.AIndicatorSlideMode;
+import com.zhpan.indicatorview.annotation.AIndicatorStyle;
 import com.zhpan.bannerview.annotation.APageStyle;
 import com.zhpan.bannerview.annotation.ATransformerStyle;
 import com.zhpan.bannerview.annotation.Visibility;
-import com.zhpan.bannerview.constants.IndicatorSlideMode;
-import com.zhpan.bannerview.constants.IndicatorStyle;
+import com.zhpan.indicatorview.enums.IndicatorSlideMode;
+import com.zhpan.indicatorview.enums.IndicatorStyle;
 import com.zhpan.bannerview.constants.PageStyle;
-import com.zhpan.bannerview.indicator.IndicatorView;
-import com.zhpan.bannerview.indicator.IIndicator;
+import com.zhpan.indicatorview.IndicatorView;
+import com.zhpan.indicatorview.base.IIndicator;
 import com.zhpan.bannerview.manager.BannerManager;
 import com.zhpan.bannerview.manager.BannerOptions;
 import com.zhpan.bannerview.transform.ScaleInTransformer;
@@ -630,8 +630,8 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
      * Set Indicator slide mode，default value is {@link IndicatorSlideMode#NORMAL}
      *
      * @param slideMode Indicator slide mode
-     * @see com.zhpan.bannerview.constants.IndicatorSlideMode#NORMAL
-     * @see com.zhpan.bannerview.constants.IndicatorSlideMode#SMOOTH
+     * @see IndicatorSlideMode#NORMAL
+     * @see IndicatorSlideMode#SMOOTH
      */
     public BannerViewPager<T, VH> setIndicatorSlideMode(@AIndicatorSlideMode int slideMode) {
         mBannerManager.bannerOptions().setIndicatorSlideMode(slideMode);

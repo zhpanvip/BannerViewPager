@@ -9,8 +9,8 @@ import android.util.AttributeSet;
 import androidx.annotation.ColorInt;
 import androidx.annotation.Nullable;
 
-import com.zhpan.bannerview.indicator.BaseIndicatorView;
 import com.zhpan.bannerview.utils.BannerUtils;
+import com.zhpan.indicatorview.base.BaseIndicatorView;
 
 /**
  * <pre>

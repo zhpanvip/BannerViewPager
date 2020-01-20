@@ -8,12 +8,12 @@ import android.widget.RadioGroup;
 import com.example.zhpan.circleviewpager.R;
 import com.example.zhpan.circleviewpager.viewholder.ImageResourceViewHolder;
 import com.zhpan.bannerview.BannerViewPager;
-import com.zhpan.bannerview.annotation.AIndicatorSlideMode;
 import com.zhpan.bannerview.constants.IndicatorGravity;
-import com.zhpan.bannerview.constants.IndicatorSlideMode;
-import com.zhpan.bannerview.constants.IndicatorStyle;
 import com.zhpan.bannerview.utils.BannerUtils;
 import com.zhpan.idea.utils.ToastUtils;
+import com.zhpan.indicatorview.annotation.AIndicatorSlideMode;
+import com.zhpan.indicatorview.enums.IndicatorSlideMode;
+import com.zhpan.indicatorview.enums.IndicatorStyle;
 
 /**
  * Created by zhpan on 2018/7/24.
