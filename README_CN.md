@@ -19,7 +19,7 @@
 ![扫描下载Demo](https://github.com/zhpanvip/BannerViewPager/blob/master/image/qrcode.png)
 
 
-### 1.setPageStyle
+### 1.PageStyle
 
 [一屏多页Demo](https://github.com/zhpanvip/BannerViewPager/blob/master/app/src/main/java/com/example/zhpan/circleviewpager/fragment/PageFragment.java)
 
@@ -27,17 +27,21 @@
 |--|--|--|
 | ![MULTI_PAGE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/page_style_multi.gif) |![MULTI_PAGE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/page_style_multi_scale.gif) |![MULTI_PAGE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/page_style_multi_overlay.gif) |
 
-### 2.setIndicatorStyle 与 setIndicatorSlideMode
+### 2.Indicator 
+
+目前指示器已经从BannerViewPager中分离出来，现在单独为一个仓库，新的仓库地址为[ViewPagerIndicator](https://github.com/zhpanvip/viewpagerindicator)，你可以点击连接了解更多关于[ViewPagerIndicator](https://github.com/zhpanvip/viewpagerindicator)的信息。
+
+#### (1)IndicatorStyle 与 IndicatorSlideMode
 
 BannerViewPager目前已支持三种IndicatorViewStyle,以及三种IndicatorSlideMode,分别如下：
 
 | 属性 | CIRCLE | DASH | ROUND_RECT |
 |--|--|--|--|
-| NORMAL| ![CIRCLE_NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/slide_circle_normal.gif) | ![DASH_NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_dash_normal.gif) | ![ROUND_RECT_NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_round_rect_normal.gif) |
-| SMOOTH| ![CIRCLE_SMOOTH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/slide_circle_smooth.gif) | ![DASH_SMOOTH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_dash_smooth.gif) | ![ROUND_RECT_SMOOTH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_round_rect_smooth.gif) |
-| WORM| ![CIRCLE_WORM](https://github.com/zhpanvip/BannerViewPager/blob/master/image/slide_circle_worm.gif) | ![DASH_WORM](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_dash_worm.gif) | ![ROUND_WORM](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_round_rect_worm.gif) |
+| NORMAL| ![CIRCLE_NORMAL](https://github.com/zhpanvip/viewpagerindicator/blob/master/image/slide_circle_normal.gif) | ![DASH_NORMAL](https://github.com/zhpanvip/viewpagerindicator/blob/master/image/style_dash_normal.gif) | ![ROUND_RECT_NORMAL](https://github.com/zhpanvip/viewpagerindicator/blob/master/image/style_round_rect_normal.gif) |
+| SMOOTH| ![CIRCLE_SMOOTH](https://github.com/zhpanvip/viewpagerindicator/blob/master/image/slide_circle_smooth.gif) | ![DASH_SMOOTH](https://github.com/zhpanvip/viewpagerindicator/blob/master/image/style_dash_smooth.gif) | ![ROUND_RECT_SMOOTH](https://github.com/zhpanvip/viewpagerindicator/blob/master/image/style_round_rect_smooth.gif) |
+| WORM| ![CIRCLE_WORM](https://github.com/zhpanvip/viewpagerindicator/blob/master/image/slide_circle_worm.gif) | ![DASH_WORM](https://github.com/zhpanvip/viewpagerindicator/blob/master/image/style_dash_worm.gif) | ![ROUND_WORM](https://github.com/zhpanvip/viewpagerindicator/blob/master/image/style_round_rect_worm.gif) |
 
-### 3.Custom Indicator
+#### (2)Custom Indicator
 
 同时BannerViewPager还提供了自定义IndicatorView的功能。只要继承BaseIndicatorView或者实现IIndicator接口，并重写相应方法，就可以为所欲为的打造任意的Indicator了。
 
@@ -48,7 +52,7 @@ BannerViewPager目前已支持三种IndicatorViewStyle,以及三种IndicatorSlid
 | ![CIRCLE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_custom.gif) | ![DASH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_custom1.gif) | ![NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_custom2.gif) |
 
 
-### 4.setPageTransformerStyle
+### 3.PageTransformerStyle
 
 [TransformStyle Demo](https://github.com/zhpanvip/BannerViewPager/blob/master/app/src/main/java/com/example/zhpan/circleviewpager/activity/WelcomeActivity.java)
 
@@ -389,18 +393,19 @@ public class FigureIndicatorView extends BaseIndicatorView {
  - [x] 修复 issue #34 Indicator 在Smooth模式下存在的问题 (2.6.1).
  - [ ] ViewPager更换为ViewPager2 （3.0.0）
 
-## Sponsor
+## 有问题可以扫码加QQ群交流
+
+ ![QQ交流群60902509](https://github.com/zhpanvip/BannerViewPager/blob/master/image/qq_group.png)
+
+
+
+## <span id="Sponsor"> Sponsor </span>
 
 **开源不易 随心赞赏**
 
 | 支付宝 | 微信支付 |
 |--|--|
-| ![NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/pay_alipay.jpb) |  ![SMOOTH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/pay_wechat.png) |
-
-
-## 有问题可以扫码加QQ群交流
-
- ![QQ交流群60902509](https://github.com/zhpanvip/BannerViewPager/blob/master/image/qq_group.png)
+| ![NORMAL](https://github.com/zhpanvip/viewpagerindicator/blob/master/image/pay_alipay.jpb) |  ![SMOOTH](https://github.com/zhpanvip/viewpagerindicator/blob/master/image/pay_wechat.png) |
 
 
 ##  更多详情请参看以下链接
