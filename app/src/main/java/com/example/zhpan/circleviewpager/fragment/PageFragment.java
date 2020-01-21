@@ -12,7 +12,7 @@ import com.zhpan.bannerview.annotation.APageStyle;
 import com.zhpan.bannerview.constants.PageStyle;
 import com.zhpan.bannerview.utils.BannerUtils;
 import com.zhpan.idea.utils.ToastUtils;
-import com.zhpan.indicatorview.enums.IndicatorSlideMode;
+import com.zhpan.indicator.enums.IndicatorSlideMode;
 
 /**
  * Created by zhpan on 2018/7/24.
@@ -57,8 +57,8 @@ public class PageFragment extends BaseFragment {
         mViewPager
                 .setIndicatorSlideMode(IndicatorSlideMode.NORMAL)
                 .setHolderCreator(() -> new ImageResourceViewHolder(getResources().getDimensionPixelOffset(R.dimen.dp_5)))
-                .setIndicatorColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
-                .setIndicatorRadius(getResources().getDimensionPixelOffset(R.dimen.dp_4),getResources().getDimensionPixelOffset(R.dimen.dp_5))
+                .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
+                .setIndicatorSliderRadius(getResources().getDimensionPixelOffset(R.dimen.dp_4),getResources().getDimensionPixelOffset(R.dimen.dp_5))
                 .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
                 .setInterval(5000);
         initRadioGroup();
@@ -105,7 +105,7 @@ public class PageFragment extends BaseFragment {
                 .setRevealWidth(BannerUtils.dp2px(0))
                 .setPageStyle(PageStyle.MULTI_PAGE)
                 .setHolderCreator(() -> new ImageResourceViewHolder(getResources().getDimensionPixelOffset(R.dimen.dp_5)))
-                .setIndicatorColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
+                .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
                 .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
                 .setInterval(5000).create(getMDrawableList());
     }
