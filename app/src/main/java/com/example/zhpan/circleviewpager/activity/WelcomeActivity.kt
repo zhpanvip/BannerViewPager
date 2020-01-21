@@ -14,10 +14,10 @@ import com.example.zhpan.circleviewpager.bean.CustomBean
 import com.example.zhpan.circleviewpager.viewholder.CustomPageViewHolder
 import com.zhpan.bannerview.BannerViewPager
 import com.zhpan.bannerview.adapter.OnPageChangeListenerAdapter
-import com.zhpan.indicatorview.enums.IndicatorSlideMode
 import com.zhpan.bannerview.constants.TransformerStyle
 import com.zhpan.bannerview.holder.HolderCreator
 import com.zhpan.bannerview.utils.BannerUtils
+import com.zhpan.indicator.enums.IndicatorSlideMode
 
 import java.util.ArrayList
 import java.util.Random
@@ -59,11 +59,11 @@ class WelcomeActivity : BaseDataActivity(), HolderCreator<CustomPageViewHolder> 
                 .setPageTransformerStyle(transforms[Random().nextInt(6)])
                 .setScrollDuration(ANIMATION_DURATION)
                 .setIndicatorMargin(0, 0, 0, resources.getDimension(R.dimen.dp_100).toInt())
-                .setIndicatorGap(resources.getDimension(R.dimen.dp_10).toInt())
-                .setIndicatorColor(ContextCompat.getColor(this, R.color.white),
+                .setIndicatorSliderGap(resources.getDimension(R.dimen.dp_10).toInt())
+                .setIndicatorSliderColor(ContextCompat.getColor(this, R.color.white),
                         ContextCompat.getColor(this, R.color.white_alpha_75))
                 .setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
-                .setIndicatorRadius(resources.getDimension(R.dimen.dp_3).toInt(), resources.getDimension(R.dimen.dp_4_5).toInt())
+                .setIndicatorSliderRadius(resources.getDimension(R.dimen.dp_3).toInt(), resources.getDimension(R.dimen.dp_4_5).toInt())
                 .setOnPageChangeListener(object : OnPageChangeListenerAdapter() {
                     override fun onPageSelected(position: Int) {
                         BannerUtils.log("position:$position")
