@@ -8,12 +8,12 @@ import android.widget.RadioGroup;
 import com.example.zhpan.circleviewpager.R;
 import com.example.zhpan.circleviewpager.viewholder.ImageResourceViewHolder;
 import com.zhpan.bannerview.BannerViewPager;
-import com.zhpan.bannerview.annotation.AIndicatorSlideMode;
 import com.zhpan.bannerview.constants.IndicatorGravity;
-import com.zhpan.bannerview.constants.IndicatorSlideMode;
-import com.zhpan.bannerview.constants.IndicatorStyle;
 import com.zhpan.bannerview.utils.BannerUtils;
 import com.zhpan.idea.utils.ToastUtils;
+import com.zhpan.indicator.annotation.AIndicatorSlideMode;
+import com.zhpan.indicator.enums.IndicatorSlideMode;
+import com.zhpan.indicator.enums.IndicatorStyle;
 
 /**
  * Created by zhpan on 2018/7/24.
@@ -60,7 +60,7 @@ public class IndicatorFragment extends BaseFragment {
         mRadioGroupStyle = view.findViewById(R.id.rg_indicator_style);
         mRadioGroupMode = view.findViewById(R.id.rg_slide_mode);
         mViewPager = view.findViewById(R.id.banner_view);
-        mViewPager.setIndicatorGap(BannerUtils.dp2px(6))
+        mViewPager.setIndicatorSliderGap(BannerUtils.dp2px(6))
                 .setRoundCorner(BannerUtils.dp2px(6))
                 .setHolderCreator(() -> new ImageResourceViewHolder(0));
         initRadioGroup();
@@ -109,10 +109,10 @@ public class IndicatorFragment extends BaseFragment {
     private void setupTMallIndicator() {
         mViewPager
                 .setIndicatorStyle(IndicatorStyle.DASH)
-                .setIndicatorGap(0)
+                .setIndicatorSliderGap(0)
                 .setIndicatorSlideMode(mSlideMode)
-                .setIndicatorColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
-                .setIndicatorWidth(getResources().getDimensionPixelOffset(R.dimen.dp_15))
+                .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
+                .setIndicatorSliderWidth(getResources().getDimensionPixelOffset(R.dimen.dp_15))
                 .setIndicatorHeight(getResources().getDimensionPixelOffset(R.dimen.dp_3))
                 .create(getMDrawableList());
     }
@@ -122,25 +122,25 @@ public class IndicatorFragment extends BaseFragment {
         int normalWidth = getNormalWidth();
         mViewPager.setIndicatorStyle(IndicatorStyle.ROUND_RECT)
                 .setIndicatorGravity(IndicatorGravity.CENTER)
-                .setIndicatorGap(BannerUtils.dp2px(4))
+                .setIndicatorSliderGap(BannerUtils.dp2px(4))
                 .setPageMargin(0)
                 .setIndicatorSlideMode(mSlideMode)
                 .setIndicatorHeight(getResources().getDimensionPixelOffset(R.dimen.dp_4))
                 .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
-                .setIndicatorColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
-                .setIndicatorWidth(normalWidth, checkedWidth).create(getMDrawableList());
+                .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
+                .setIndicatorSliderWidth(normalWidth, checkedWidth).create(getMDrawableList());
     }
 
     private void setupCircleIndicator() {
         mViewPager.setIndicatorStyle(IndicatorStyle.CIRCLE)
                 .setIndicatorSlideMode(mSlideMode)
                 .setIndicatorGravity(IndicatorGravity.CENTER)
-                .setIndicatorGap(getResources().getDimensionPixelOffset(R.dimen.dp_6))
+                .setIndicatorSliderGap(getResources().getDimensionPixelOffset(R.dimen.dp_6))
                 .setIndicatorHeight(getResources().getDimensionPixelOffset(R.dimen.dp_4))
                 .setPageMargin(0)
                 .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
-                .setIndicatorColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
-                .setIndicatorRadius(getResources().getDimensionPixelOffset(R.dimen.dp_4)).create(getMDrawableList());
+                .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
+                .setIndicatorSliderRadius(getResources().getDimensionPixelOffset(R.dimen.dp_4)).create(getMDrawableList());
     }
 
     private void setupDashIndicator() {
@@ -150,10 +150,10 @@ public class IndicatorFragment extends BaseFragment {
                 .setIndicatorHeight(getResources().getDimensionPixelOffset(R.dimen.dp_3))
                 .setIndicatorGravity(IndicatorGravity.CENTER)
                 .setIndicatorSlideMode(mSlideMode)
-                .setIndicatorGap(getResources().getDimensionPixelOffset(R.dimen.dp_3))
+                .setIndicatorSliderGap(getResources().getDimensionPixelOffset(R.dimen.dp_3))
                 .setPageMargin(0)
-                .setIndicatorWidth(normalWidth, checkedWidth)
-                .setIndicatorColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
+                .setIndicatorSliderWidth(normalWidth, checkedWidth)
+                .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
                 .create(getMDrawableList());
     }
 

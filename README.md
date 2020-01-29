@@ -17,7 +17,7 @@
 ![QRCode](https://github.com/zhpanvip/BannerViewPager/blob/master/image/qrcode.png)
 
 
-### 1.setPageStyle
+### 1.PageStyle
 
 [Sample Click Here](https://github.com/zhpanvip/BannerViewPager/blob/master/app/src/main/java/com/example/zhpan/circleviewpager/fragment/PageFragment.java)
 
@@ -25,7 +25,11 @@
 |--|--|--|
 | ![MULTI_PAGE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/page_style_multi.gif) |![MULTI_PAGE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/page_style_multi_scale.gif) |![MULTI_PAGE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/page_style_multi_overlay.gif) |
 
-### 2.setIndicatorStyle and setIndicatorSlideMode
+### 2.Indicator
+
+The IndicatorView was split from BannerViewPager,the new repo is [ViewPagerIndicator](https://github.com/zhpanvip/viewpagerindicator)，Click the link to see more information about [ViewPagerIndicator](https://github.com/zhpanvip/viewpagerindicator)
+
+#### (1)setIndicatorStyle and setIndicatorSlideMode
 
 BannerViewPager supports three Indicator Styles and three Indicator Slide mode now. 
 
@@ -33,11 +37,11 @@ BannerViewPager supports three Indicator Styles and three Indicator Slide mode n
 
 | Attrs | CIRCLE | DASH | ROUND_RECT |
 |--|--|--|--|
-| NORMAL| ![CIRCLE_NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/slide_circle_normal.gif) | ![DASH_NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_dash_normal.gif) | ![ROUND_RECT_NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_round_rect_normal.gif) |
-| SMOOTH| ![CIRCLE_SMOOTH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/slide_circle_smooth.gif) | ![DASH_SMOOTH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_dash_smooth.gif) | ![ROUND_RECT_SMOOTH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_round_rect_smooth.gif) |
-| WORM| ![CIRCLE_WORM](https://github.com/zhpanvip/BannerViewPager/blob/master/image/slide_circle_worm.gif) | ![DASH_WORM](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_dash_worm.gif) | ![ROUND_WORM](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_round_rect_worm.gif) |
+| NORMAL| ![CIRCLE_NORMAL](https://github.com/zhpanvip/viewpagerindicator/blob/master/image/slide_circle_normal.gif) | ![DASH_NORMAL](https://github.com/zhpanvip/viewpagerindicator/blob/master/image/style_dash_normal.gif) | ![ROUND_RECT_NORMAL](https://github.com/zhpanvip/viewpagerindicator/blob/master/image/style_round_rect_normal.gif) |
+| SMOOTH| ![CIRCLE_SMOOTH](https://github.com/zhpanvip/viewpagerindicator/blob/master/image/slide_circle_smooth.gif) | ![DASH_SMOOTH](https://github.com/zhpanvip/viewpagerindicator/blob/master/image/style_dash_smooth.gif) | ![ROUND_RECT_SMOOTH](https://github.com/zhpanvip/viewpagerindicator/blob/master/image/style_round_rect_smooth.gif) |
+| WORM| ![CIRCLE_WORM](https://github.com/zhpanvip/viewpagerindicator/blob/master/image/slide_circle_worm.gif) | ![DASH_WORM](https://github.com/zhpanvip/viewpagerindicator/blob/master/image/style_dash_worm.gif) | ![ROUND_WORM](https://github.com/zhpanvip/viewpagerindicator/blob/master/image/style_round_rect_worm.gif) |
 
-### 3.Custom Indicator
+#### (2)Custom Indicator
 
 It's also support to custom indicator style,just need extends BaseIndicatorView or implement the IIndicator and override methods, then you can draw Indicators for whatever you want.
 
@@ -48,7 +52,7 @@ It's also support to custom indicator style,just need extends BaseIndicatorView 
 | ![CIRCLE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_custum.gif) | ![DASH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_custom2.gif) | ![NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_custom1.gif) |
 
 
-### 4.setPageTransformerStyle
+### 3.PageTransformerStyle
 
 [Sample Click Here](https://github.com/zhpanvip/BannerViewPager/blob/master/app/src/main/java/com/example/zhpan/circleviewpager/activity/WelcomeActivity.java)
 
@@ -72,12 +76,12 @@ It's also support to custom indicator style,just need extends BaseIndicatorView 
 | BannerViewPager<T, VH> setIndicatorGravity(int gravity) | set indicator gravity |enum(CENTER、START、END) default value CENTER |
 | BannerViewPager<T, VH> setIndicatorColor(int normalColor,int checkedColor) | set indicator color |normalColor：color of indicator dot not selected, default value  "#8C6C6D72"， checkedColor：color of indicator selected default value is "#8C18171C" |
 | BannerViewPager<T, VH> setIndicatorSlideMode(int slideMode)  | set indicator slide mode | enum（NORMAL;SMOOTH;WORM），default value NORMAL  |
-| BannerViewPager<T, VH> setIndicatorRadius(int radius) | set indicator dot radius | default value is 4dp|
-| BannerViewPager<T, VH> setIndicatorRadius(int normalRadius,int checkRadius)  |set indicator dot radius  |  normalRadius:normal radius of indicator dot,  checkedRadius:checked radius of indicator dot,default value is 4dp |
-| BannerViewPager<T, VH> setIndicatorWidth(int indicatorWidth) | set indicator dot width，if it's Circle indicator the parameter is diameter of circle | default value is 8dp|
-| BannerViewPager<T, VH> setIndicatorWidth(int normalWidth, int checkWidth) | set indicator dot width，if is circle style，the width is diameter of circle | default is 8dp |
+| BannerViewPager<T, VH> setIndicatorSliderRadius(int radius) | set indicator dot radius | default value is 4dp|
+| BannerViewPager<T, VH> setIndicatorSliderRadius(int normalRadius,int checkRadius)  |set indicator dot radius  |  normalRadius:normal radius of indicator dot,  checkedRadius:checked radius of indicator dot,default value is 4dp |
+| BannerViewPager<T, VH> setIndicatorSliderWidth(int indicatorWidth) | set indicator dot width，if it's Circle indicator the parameter is diameter of circle | default value is 8dp|
+| BannerViewPager<T, VH> setIndicatorSliderWidth(int normalWidth, int checkWidth) | set indicator dot width，if is circle style，the width is diameter of circle | default is 8dp |
 | BannerViewPager<T, VH> setIndicatorHeight(int indicatorHeight) | set indicator hight，it's only used when the indicator style is dash | default value is normalIndicatorWidth/2 |
-| BannerViewPager<T, VH> setIndicatorGap(int indicatorMargin) | set the gap of indicator dot| default value is indicator dot width（or the diameter of circle）|
+| BannerViewPager<T, VH> setIndicatorSliderGap(int indicatorMargin) | set the gap of indicator dot| default value is indicator dot width（or the diameter of circle）|
 | BannerViewPager<T, VH> setIndicatorView(IIndicator indicatorView) | set custom indicator|The custom indicator must extends BaseIndicatorView or implements IIndicator |
 | BannerViewPager<T, VH> setPageTransformerStyle(int style) | set transform style |  |
 | BannerViewPager<T, VH> setCurrentItem(int item) | Set the currently selected page. |  add in v2.3.5 |
@@ -249,7 +253,7 @@ Java：
                 .setCanLoop(false)
                 .setAutoPlay(true)
                 .setRoundCorner(getResources().getDimensionPixelOffset(R.dimen.dp_7))
-                .setIndicatorColor(Color.parseColor("#935656"), Color.parseColor("#FF4C39"))
+                .setIndicatorSliderColor(Color.parseColor("#935656"), Color.parseColor("#FF4C39"))
                 .setIndicatorGravity(IndicatorGravity.END)
                 .setScrollDuration(1000).setHolderCreator(NetViewHolder::new)
                 .setOnPageClickListener(position -> {
@@ -390,19 +394,20 @@ public class FigureIndicatorView extends BaseIndicatorView {
  - [x] Fix issue #34 which Indicator smooth slide problem(2.6.1).
  - [ ] Migrate to ViewPager2 （3.0.0）
 
-## Sponsor
+## FAQ
+
+ **If you have any question regard to BannerViewPager, please scan the QR code and join the QQ group to communicate.**
+
+ ![QQ交流群60902509](https://github.com/zhpanvip/BannerViewPager/blob/master/image/qq_group.png)
+
+
+## <span id="Sponsor"> Sponsor </span>
 
 **开源不易 随心赞赏**
 
 | Alipay | WeChat |
 |--|--|
-| ![Alipay](https://github.com/zhpanvip/BannerViewPager/blob/master/image/pay_alipay.jpg) |  ![WeChat](https://github.com/zhpanvip/BannerViewPager/blob/master/image/pay_wechat.png) |
-
-
-## If you have any question you can scan the QR code to join the QQ group to communicate.
-
- ![QQ交流群60902509](https://github.com/zhpanvip/BannerViewPager/blob/master/image/qq_group.png)
-
+| ![Alipay](https://github.com/zhpanvip/viewpagerindicator/blob/master/image/pay_alipay.jpg) |  ![WeChat](https://github.com/zhpanvip/viewpagerindicator/blob/master/image/pay_wechat.png) |
 
 ##  More details
 

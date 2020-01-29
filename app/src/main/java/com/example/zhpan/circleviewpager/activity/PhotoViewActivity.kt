@@ -6,8 +6,6 @@ import android.os.Bundle
 import com.example.zhpan.circleviewpager.R
 import com.example.zhpan.circleviewpager.viewholder.PhotoViewHolder
 import com.zhpan.bannerview.BannerViewPager
-import com.zhpan.bannerview.constants.IndicatorSlideMode
-import com.zhpan.bannerview.holder.HolderCreator
 
 class PhotoViewActivity : BaseDataActivity() {
 

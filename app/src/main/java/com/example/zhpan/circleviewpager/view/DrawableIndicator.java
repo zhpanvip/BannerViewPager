@@ -14,7 +14,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatDrawableManager;
 import androidx.core.graphics.drawable.DrawableCompat;
 
-import com.zhpan.bannerview.indicator.BaseIndicatorView;
+import com.zhpan.indicator.base.BaseIndicatorView;
+
 
 /**
  * @ author : zhouweibin

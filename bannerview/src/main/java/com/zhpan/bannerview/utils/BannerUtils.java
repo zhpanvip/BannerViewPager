@@ -3,8 +3,6 @@ package com.zhpan.bannerview.utils;
 import android.content.res.Resources;
 import android.util.Log;
 
-import com.zhpan.bannerview.manager.IndicatorOptions;
-
 /**
  * <pre>
  *   Created by zhangpan on 2019-08-14.
@@ -43,12 +41,4 @@ public class BannerUtils {
         return isCanLoop ? (position - 1 + pageSize) % pageSize : (position + pageSize) % pageSize;
     }
 
-    public static float getCoordinateX(IndicatorOptions indicatorOptions, float maxDiameter, int index) {
-        float normalIndicatorWidth = indicatorOptions.getNormalIndicatorWidth();
-        return maxDiameter / 2 + (normalIndicatorWidth + indicatorOptions.getIndicatorGap()) * index;
-    }
-
-    public static float getCoordinateY(float maxDiameter) {
-        return maxDiameter / 2;
-    }
 }

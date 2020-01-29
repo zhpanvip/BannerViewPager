@@ -22,11 +22,11 @@ import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.zhpan.bannerview.BannerViewPager;
 import com.zhpan.bannerview.adapter.OnPageChangeListenerAdapter;
-import com.zhpan.bannerview.constants.IndicatorSlideMode;
-import com.zhpan.bannerview.indicator.IndicatorView;
 import com.zhpan.idea.net.common.ResponseObserver;
 import com.zhpan.idea.utils.LogUtils;
 import com.zhpan.idea.utils.RxUtil;
+import com.zhpan.indicator.IndicatorView;
+import com.zhpan.indicator.enums.IndicatorSlideMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -140,9 +140,9 @@ public class HomeFragment extends BaseFragment {
                 .setIndicatorSlideMode(IndicatorSlideMode.WORM)
                 .setInterval(5000)
                 .setScrollDuration(1200)
-                .setIndicatorRadius(getResources().getDimensionPixelSize(R.dimen.dp_3))
+                .setIndicatorSliderRadius(getResources().getDimensionPixelSize(R.dimen.dp_3))
                 .setIndicatorView(mIndicatorView)// 这里为了设置标题故用了自定义Indicator,如果无需标题则没必要添加此行代码
-                .setIndicatorColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
+                .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
                 .setHolderCreator(NetViewHolder::new)
                 .setOnPageChangeListener(new OnPageChangeListenerAdapter() {
                     @Override

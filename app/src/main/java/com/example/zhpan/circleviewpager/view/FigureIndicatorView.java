@@ -9,8 +9,8 @@ import android.util.AttributeSet;
 import androidx.annotation.ColorInt;
 import androidx.annotation.Nullable;
 
-import com.zhpan.bannerview.indicator.BaseIndicatorView;
 import com.zhpan.bannerview.utils.BannerUtils;
+import com.zhpan.indicator.base.BaseIndicatorView;
 
 /**
  * <pre>
@@ -27,6 +27,8 @@ public class FigureIndicatorView extends BaseIndicatorView {
     private int textColor = Color.WHITE;
 
     private int textSize = BannerUtils.dp2px(13);
+
+    private Paint mPaint;
 
     public FigureIndicatorView(Context context) {
         this(context, null);

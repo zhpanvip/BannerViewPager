@@ -19,7 +19,7 @@
 ![扫描下载Demo](https://github.com/zhpanvip/BannerViewPager/blob/master/image/qrcode.png)
 
 
-### 1.setPageStyle
+### 1.PageStyle
 
 [一屏多页Demo](https://github.com/zhpanvip/BannerViewPager/blob/master/app/src/main/java/com/example/zhpan/circleviewpager/fragment/PageFragment.java)
 
@@ -27,17 +27,21 @@
 |--|--|--|
 | ![MULTI_PAGE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/page_style_multi.gif) |![MULTI_PAGE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/page_style_multi_scale.gif) |![MULTI_PAGE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/page_style_multi_overlay.gif) |
 
-### 2.setIndicatorStyle 与 setIndicatorSlideMode
+### 2.Indicator 
+
+目前指示器已经从BannerViewPager中分离出来，现在单独为一个仓库，新的仓库地址为[ViewPagerIndicator](https://github.com/zhpanvip/viewpagerindicator)，你可以点击连接了解更多关于[ViewPagerIndicator](https://github.com/zhpanvip/viewpagerindicator)的信息。
+
+#### (1)IndicatorStyle 与 IndicatorSlideMode
 
 BannerViewPager目前已支持三种IndicatorViewStyle,以及三种IndicatorSlideMode,分别如下：
 
 | 属性 | CIRCLE | DASH | ROUND_RECT |
 |--|--|--|--|
-| NORMAL| ![CIRCLE_NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/slide_circle_normal.gif) | ![DASH_NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_dash_normal.gif) | ![ROUND_RECT_NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_round_rect_normal.gif) |
-| SMOOTH| ![CIRCLE_SMOOTH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/slide_circle_smooth.gif) | ![DASH_SMOOTH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_dash_smooth.gif) | ![ROUND_RECT_SMOOTH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_round_rect_smooth.gif) |
-| WORM| ![CIRCLE_WORM](https://github.com/zhpanvip/BannerViewPager/blob/master/image/slide_circle_worm.gif) | ![DASH_WORM](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_dash_worm.gif) | ![ROUND_WORM](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_round_rect_worm.gif) |
+| NORMAL| ![CIRCLE_NORMAL](https://github.com/zhpanvip/viewpagerindicator/blob/master/image/slide_circle_normal.gif) | ![DASH_NORMAL](https://github.com/zhpanvip/viewpagerindicator/blob/master/image/style_dash_normal.gif) | ![ROUND_RECT_NORMAL](https://github.com/zhpanvip/viewpagerindicator/blob/master/image/style_round_rect_normal.gif) |
+| SMOOTH| ![CIRCLE_SMOOTH](https://github.com/zhpanvip/viewpagerindicator/blob/master/image/slide_circle_smooth.gif) | ![DASH_SMOOTH](https://github.com/zhpanvip/viewpagerindicator/blob/master/image/style_dash_smooth.gif) | ![ROUND_RECT_SMOOTH](https://github.com/zhpanvip/viewpagerindicator/blob/master/image/style_round_rect_smooth.gif) |
+| WORM| ![CIRCLE_WORM](https://github.com/zhpanvip/viewpagerindicator/blob/master/image/slide_circle_worm.gif) | ![DASH_WORM](https://github.com/zhpanvip/viewpagerindicator/blob/master/image/style_dash_worm.gif) | ![ROUND_WORM](https://github.com/zhpanvip/viewpagerindicator/blob/master/image/style_round_rect_worm.gif) |
 
-### 3.Custom Indicator
+#### (2)Custom Indicator
 
 同时BannerViewPager还提供了自定义IndicatorView的功能。只要继承BaseIndicatorView或者实现IIndicator接口，并重写相应方法，就可以为所欲为的打造任意的Indicator了。
 
@@ -48,7 +52,7 @@ BannerViewPager目前已支持三种IndicatorViewStyle,以及三种IndicatorSlid
 | ![CIRCLE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_custom.gif) | ![DASH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_custom1.gif) | ![NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_custom2.gif) |
 
 
-### 4.setPageTransformerStyle
+### 3.PageTransformerStyle
 
 [TransformStyle Demo](https://github.com/zhpanvip/BannerViewPager/blob/master/app/src/main/java/com/example/zhpan/circleviewpager/activity/WelcomeActivity.java)
 
@@ -73,12 +77,12 @@ BannerViewPager目前已支持三种IndicatorViewStyle,以及三种IndicatorSlid
 | BannerViewPager<T, VH> setIndicatorGravity(int gravity) | 指示器位置 |可选值(CENTER、START、END)默认值CENTER |
 | BannerViewPager<T, VH> setIndicatorColor(int normalColor,int checkedColor) | 指示器圆点颜色 |normalColor：未选中时颜色默认"#8C6C6D72"， checkedColor：选中时颜色 默认"#8C18171C" |
 | BannerViewPager<T, VH> setIndicatorSlideMode(int slideMode)  | 设置Indicator滑动模式 | 可选（NORMAL、SMOOTH、WORM），默认值NORMAL  |
-| BannerViewPager<T, VH> setIndicatorRadius(int radius) | 设置指示器圆点半径 | 默认值4dp|
-| BannerViewPager<T, VH> setIndicatorRadius(int normalRadius,int checkRadius)  |设置指示器圆点半径  |  normalRadius:未选中时半径  checkedRadius:选中时的半径,默认值4dp |
-| BannerViewPager<T, VH> setIndicatorWidth(int indicatorWidth) | 设置指示器宽度，如果是圆形指示器，则为直径 |  默认值8dp|
-| BannerViewPager<T, VH> setIndicatorWidth(int normalWidth, int checkWidth) | 设置指示器宽度，如果是圆形指示器，则为直径 | 默认值8dp |
+| BannerViewPager<T, VH> setIndicatorSliderRadius(int radius) | 设置指示器圆点半径 | 默认值4dp|
+| BannerViewPager<T, VH> setIndicatorSliderRadius(int normalRadius,int checkRadius)  |设置指示器圆点半径  |  normalRadius:未选中时半径  checkedRadius:选中时的半径,默认值4dp |
+| BannerViewPager<T, VH> setIndicatorSliderWidth(int indicatorWidth) | 设置指示器宽度，如果是圆形指示器，则为直径 |  默认值8dp|
+| BannerViewPager<T, VH> setIndicatorSliderWidth(int normalWidth, int checkWidth) | 设置指示器宽度，如果是圆形指示器，则为直径 | 默认值8dp |
 | BannerViewPager<T, VH> setIndicatorHeight(int indicatorHeight) | 设置指示器高度，仅在Indicator样式为DASH时有效 | 默认值normalIndicatorWidth/2 |
-| BannerViewPager<T, VH> setIndicatorGap(int indicatorMargin) | 指示器圆点间距| 默认值为指示器宽度（或者是圆的直径）|
+| BannerViewPager<T, VH> setIndicatorSliderGap(int indicatorMargin) | 指示器圆点间距| 默认值为指示器宽度（或者是圆的直径）|
 | BannerViewPager<T, VH> setIndicatorView(IIndicator indicatorView) | 设置自定义指示器|自定义View需要继承BaseIndicatorView或实现IIndicator |
 | BannerViewPager<T, VH> setPageTransformerStyle(int style) | 设置页面Transformer内置样式 |  |
 | BannerViewPager<T, VH> setCurrentItem(int item) | Set the currently selected page. | 2.3.5新增 |
@@ -249,7 +253,7 @@ Java：
                 .setCanLoop(false)
                 .setAutoPlay(true)
                 .setRoundCorner(getResources().getDimensionPixelOffset(R.dimen.dp_7))
-                .setIndicatorColor(Color.parseColor("#935656"), Color.parseColor("#FF4C39"))
+                .setIndicatorSliderColor(Color.parseColor("#935656"), Color.parseColor("#FF4C39"))
                 .setIndicatorGravity(IndicatorGravity.END)
                 .setScrollDuration(1000).setHolderCreator(NetViewHolder::new)
                 .setOnPageClickListener(position -> {
@@ -389,18 +393,19 @@ public class FigureIndicatorView extends BaseIndicatorView {
  - [x] 修复 issue #34 Indicator 在Smooth模式下存在的问题 (2.6.1).
  - [ ] ViewPager更换为ViewPager2 （3.0.0）
 
-## Sponsor
+## 有问题可以扫码加QQ群交流
+
+ ![QQ交流群60902509](https://github.com/zhpanvip/BannerViewPager/blob/master/image/qq_group.png)
+
+
+
+## <span id="Sponsor"> Sponsor </span>
 
 **开源不易 随心赞赏**
 
 | 支付宝 | 微信支付 |
 |--|--|
-| ![NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/pay_alipay.jpb) |  ![SMOOTH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/pay_wechat.png) |
-
-
-## 有问题可以扫码加QQ群交流
-
- ![QQ交流群60902509](https://github.com/zhpanvip/BannerViewPager/blob/master/image/qq_group.png)
+| ![NORMAL](https://github.com/zhpanvip/viewpagerindicator/blob/master/image/pay_alipay.jpb) |  ![SMOOTH](https://github.com/zhpanvip/viewpagerindicator/blob/master/image/pay_wechat.png) |
 
 
 ##  更多详情请参看以下链接

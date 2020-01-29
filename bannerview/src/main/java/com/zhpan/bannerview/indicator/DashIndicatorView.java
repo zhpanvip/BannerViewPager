@@ -2,20 +2,23 @@ package com.zhpan.bannerview.indicator;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.util.AttributeSet;
 
-import com.zhpan.bannerview.constants.IndicatorSlideMode;
+import com.zhpan.indicator.base.BaseIndicatorView;
+import com.zhpan.indicator.enums.IndicatorSlideMode;
 
 /**
  * Created by zhpan on 2017/12/6.
  *
- * @deprecated Use {@link IndicatorView} instead.
+ * @deprecated Use {@link com.zhpan.indicator.IndicatorView} instead.
  */
 @Deprecated
 public class DashIndicatorView extends BaseIndicatorView {
     private float sliderHeight;
     private float maxWidth;
     private float minWidth;
+    private Paint mPaint=new Paint();
 
     public DashIndicatorView(Context context) {
         this(context, null);
@@ -27,15 +30,16 @@ public class DashIndicatorView extends BaseIndicatorView {
 
     public DashIndicatorView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        mPaint.setAntiAlias(true);
         mPaint.setColor(getNormalColor());
-        sliderHeight = getNormalIndicatorWidth() / 2;
+        sliderHeight = getNormalSliderWidth() / 2;
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        maxWidth = Math.max(getNormalIndicatorWidth(), getCheckedIndicatorWidth());
-        minWidth = Math.min(getNormalIndicatorWidth(), getCheckedIndicatorWidth());
+        maxWidth = Math.max(getNormalSliderWidth(), getCheckedSliderWidth());
+        minWidth = Math.min(getNormalSliderWidth(), getCheckedSliderWidth());
         setMeasuredDimension((int) ((getPageSize() - 1) * getIndicatorGap() + maxWidth + (getPageSize() - 1) * minWidth),
                 (int) (getSliderHeight()));
     }
@@ -56,10 +60,10 @@ public class DashIndicatorView extends BaseIndicatorView {
 
 
     private void normalSlide(Canvas canvas, int i) {
-        if (getNormalIndicatorWidth() == getCheckedIndicatorWidth()) {
+        if (getNormalSliderWidth() == getCheckedSliderWidth()) {
             mPaint.setColor(getNormalColor());
-            float left = i * (getNormalIndicatorWidth()) + i * +getIndicatorGap();
-            canvas.drawRect(left, 0, left + getNormalIndicatorWidth(), getSliderHeight(), mPaint);
+            float left = i * (getNormalSliderWidth()) + i * +getIndicatorGap();
+            canvas.drawRect(left, 0, left + getNormalSliderWidth(), getSliderHeight(), mPaint);
             drawSliderStyle(canvas);
         } else {  //  仿支付宝首页轮播图的Indicator
             if (i < getCurrentPosition()) {
