@@ -230,7 +230,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
         }
         mIndicatorView.setIndicatorOptions(bannerOptions.getIndicatorOptions());
         bannerOptions.getIndicatorOptions().setPageSize(list.size());
-//        mIndicatorView.setPageSize(list.size());
+        mIndicatorView.notifyDataChanged();
     }
 
     private void initIndicator(IIndicator indicatorView) {
