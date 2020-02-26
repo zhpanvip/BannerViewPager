@@ -113,58 +113,58 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     }
 
     //  触碰控件的时候，翻页应该停止，离开的时候如果之前是开启了翻页的话则重新启动翻页
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        switch (ev.getAction()) {
-            case MotionEvent.ACTION_UP:
-            case MotionEvent.ACTION_CANCEL:
-            case MotionEvent.ACTION_OUTSIDE:
-                setLooping(false);
-                startLoop();
-                break;
-            case MotionEvent.ACTION_DOWN:
-                setLooping(true);
-                stopLoop();
-                break;
-        }
-        return super.dispatchTouchEvent(ev);
-    }
-
-//    private int startX, startY;
 //    @Override
 //    public boolean dispatchTouchEvent(MotionEvent ev) {
 //        switch (ev.getAction()) {
-//            case MotionEvent.ACTION_DOWN:
-//                setLooping(true);
-//                stopLoop();
-//                startX = (int) ev.getX();
-//                startY = (int) ev.getY();
-//                getParent().requestDisallowInterceptTouchEvent(true);
-//                break;
-//            case MotionEvent.ACTION_MOVE:
-//                int endX = (int) ev.getX();
-//                int endY = (int) ev.getY();
-//                int disX = Math.abs(endX - startX);
-//                int disY = Math.abs(endY - startY);
-//                if (disX > disY) {
-//                    getParent().requestDisallowInterceptTouchEvent(true);
-//                } else {
-//                    getParent().requestDisallowInterceptTouchEvent(false);
-//                }
-//                break;
 //            case MotionEvent.ACTION_UP:
 //            case MotionEvent.ACTION_CANCEL:
-//                setLooping(false);
-//                startLoop();
-//                getParent().requestDisallowInterceptTouchEvent(false);
-//                break;
 //            case MotionEvent.ACTION_OUTSIDE:
 //                setLooping(false);
 //                startLoop();
 //                break;
+//            case MotionEvent.ACTION_DOWN:
+//                setLooping(true);
+//                stopLoop();
+//                break;
 //        }
 //        return super.dispatchTouchEvent(ev);
 //    }
+
+    private int startX, startY;
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        switch (ev.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                setLooping(true);
+                stopLoop();
+                startX = (int) ev.getX();
+                startY = (int) ev.getY();
+                getParent().requestDisallowInterceptTouchEvent(true);
+                break;
+            case MotionEvent.ACTION_MOVE:
+                int endX = (int) ev.getX();
+                int endY = (int) ev.getY();
+                int disX = Math.abs(endX - startX);
+                int disY = Math.abs(endY - startY);
+                if (disX > disY) {
+                    getParent().requestDisallowInterceptTouchEvent(true);
+                } else {
+                    getParent().requestDisallowInterceptTouchEvent(false);
+                }
+                break;
+            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_CANCEL:
+                setLooping(false);
+                startLoop();
+                getParent().requestDisallowInterceptTouchEvent(false);
+                break;
+            case MotionEvent.ACTION_OUTSIDE:
+                setLooping(false);
+                startLoop();
+                break;
+        }
+        return super.dispatchTouchEvent(ev);
+    }
 
     @Override
     public void onPageSelected(int position) {

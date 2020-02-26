@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
     private fun initData() {
         vp_fragment.adapter = AdapterFragmentPager(this)
         vp_fragment.offscreenPageLimit = 3
-        vp_fragment.isUserInputEnabled = false
+//        vp_fragment.isUserInputEnabled = false
         vp_fragment.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
