@@ -44,16 +44,14 @@ public class AttributeController {
         int indicatorStyle = typedArray.getInt(R.styleable.BannerViewPager_bvp_indicator_style, 0);
         int indicatorSlideMode = typedArray.getInt(R.styleable.BannerViewPager_bvp_indicator_slide_mode, 0);
         int indicatorVisibility = typedArray.getInt(R.styleable.BannerViewPager_bvp_indicator_visibility, 0);
-        mBannerOptions.setIndicatorCheckedColor(indicatorCheckedColor);
-        mBannerOptions.setIndicatorNormalColor(indicatorNormalColor);
-        mBannerOptions.setNormalIndicatorWidth(normalIndicatorWidth);
+        mBannerOptions.setIndicatorSliderColor(indicatorNormalColor,indicatorCheckedColor);
+        mBannerOptions.setIndicatorSliderWidth(normalIndicatorWidth,normalIndicatorWidth);
         mBannerOptions.setIndicatorGravity(indicatorGravity);
         mBannerOptions.setIndicatorStyle(indicatorStyle);
         mBannerOptions.setIndicatorSlideMode(indicatorSlideMode);
         mBannerOptions.setIndicatorVisibility(indicatorVisibility);
         mBannerOptions.setIndicatorGap(normalIndicatorWidth);
         mBannerOptions.setIndicatorHeight(normalIndicatorWidth / 2);
-        mBannerOptions.setCheckedIndicatorWidth(normalIndicatorWidth);
     }
 
     private void initBannerAttrs(TypedArray typedArray) {

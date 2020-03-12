@@ -2,10 +2,15 @@ package com.zhpan.bannerview.indicator;
 
 import android.content.Context;
 import android.graphics.Paint;
+import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
+import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.View;
 
+
+import com.zhpan.bannerview.annotation.AIndicatorSlideMode;
+import com.zhpan.bannerview.annotation.AIndicatorStyle;
 import com.zhpan.bannerview.constants.IndicatorSlideMode;
 import com.zhpan.bannerview.manager.IndicatorOptions;
 
@@ -20,6 +25,8 @@ public class BaseIndicatorView extends View implements IIndicator {
     private IndicatorOptions mIndicatorOptions;
 
     protected Paint mPaint;
+
+    private ViewPager mViewPager;
 
     public BaseIndicatorView(Context context) {
         super(context);
@@ -54,54 +61,90 @@ public class BaseIndicatorView extends View implements IIndicator {
     }
 
     private void scrollSlider(int position, float positionOffset) {
-        for (int i = 0; i < getPageSize(); i++) {
-            if (position % getPageSize() == getPageSize() - 1) { //   最后一个页面与第一个页面
-                if (positionOffset < 0.5) {
-                    setCurrentPosition(position);
-                    setSlideProgress(0);
-                } else {
-                    setCurrentPosition(0);
-                    setSlideProgress(0);
-                }
-            } else {    //  中间页面
+        if (position % getPageSize() == getPageSize() - 1) { //   最后一个页面与第一个页面
+            if (positionOffset < 0.5) {
                 setCurrentPosition(position);
-                setSlideProgress(positionOffset);
+                setSlideProgress(0);
+            } else {
+                setCurrentPosition(0);
+                setSlideProgress(0);
             }
+        } else {    //  中间页面
+            setCurrentPosition(position);
+            setSlideProgress(positionOffset);
         }
     }
 
-//    private boolean isSlideToRight(int position, float positionOffset) {
-//        int prePosition = mIndicatorOptions.getPrePosition();
-//        if ((prePosition == 0 && position == getPageSize() - 1)) {
-//            return false;
-//        } else if (prePosition == getPageSize() - 1 && position == 0) {
-//            return true;
-//        } else {
-//            return (position + positionOffset - prePosition) > 0;
-//        }
-//    }
 
     @Override
-    public void setPageSize(int pageSize) {
-        mIndicatorOptions.setPageSize(pageSize);
+    public void notifyDataChanged() {
+        setupViewPager();
         requestLayout();
+        invalidate();
     }
 
+    private void setupViewPager() {
+        if (mViewPager != null) {
+            mViewPager.removeOnPageChangeListener(this);
+            mViewPager.addOnPageChangeListener(this);
+            if (mViewPager.getAdapter() != null)
+                setPageSize(mViewPager.getAdapter().getCount());
+        }
+    }
+
+    private void setPageSize(int pageSize) {
+        mIndicatorOptions.setPageSize(pageSize);
+    }
+
+    public BaseIndicatorView setSliderColor(@ColorInt int normalColor, @ColorInt int selectedColor) {
+        mIndicatorOptions.setSliderColor(normalColor, selectedColor);
+        return this;
+    }
+
+    public BaseIndicatorView setSliderWidth(float sliderWidth) {
+        mIndicatorOptions.setSliderWidth(sliderWidth);
+        return this;
+    }
+
+    public BaseIndicatorView setSliderWidth(float normalSliderWidth, float selectedSliderWidth) {
+        mIndicatorOptions.setSliderWidth(normalSliderWidth, selectedSliderWidth);
+        return this;
+    }
+
+    public BaseIndicatorView setSliderGap(float sliderGap) {
+        mIndicatorOptions.setSliderGap(sliderGap);
+        return this;
+    }
+
+    public BaseIndicatorView setSlideMode(@AIndicatorSlideMode int slideMode) {
+        mIndicatorOptions.setSlideMode(slideMode);
+        return this;
+    }
+
+    public BaseIndicatorView setIndicatorStyle(@AIndicatorStyle int indicatorStyle) {
+        mIndicatorOptions.setIndicatorStyle(indicatorStyle);
+        return this;
+    }
+
+    public BaseIndicatorView setSliderHeight(float sliderHeight) {
+        mIndicatorOptions.setSliderHeight(sliderHeight);
+        return this;
+    }
 
     public int getPageSize() {
         return mIndicatorOptions.getPageSize();
     }
 
     public int getNormalColor() {
-        return mIndicatorOptions.getNormalColor();
+        return mIndicatorOptions.getNormalSliderColor();
     }
 
     public int getCheckedColor() {
-        return mIndicatorOptions.getCheckedColor();
+        return mIndicatorOptions.getCheckedSliderColor();
     }
 
     public float getIndicatorGap() {
-        return mIndicatorOptions.getIndicatorGap();
+        return mIndicatorOptions.getSliderGap();
     }
 
     public float getSlideProgress() {
@@ -112,41 +155,30 @@ public class BaseIndicatorView extends View implements IIndicator {
         return mIndicatorOptions.getCurrentPosition();
     }
 
-    public void setCurrentPosition(int currentPosition) {
-        mIndicatorOptions.setCurrentPosition(currentPosition);
-    }
-
-    public void setIndicatorOptions(IndicatorOptions indicatorOptions) {
-        mIndicatorOptions = indicatorOptions;
-    }
-
-//    public boolean isSlideToRight() {
-//        return mIndicatorOptions.isSlideToRight();
-//    }
-
     public int getSlideMode() {
         return mIndicatorOptions.getSlideMode();
     }
 
-    public float getNormalIndicatorWidth() {
-        return mIndicatorOptions.getNormalIndicatorWidth();
+    public float getNormalSliderWidth() {
+        return mIndicatorOptions.getNormalSliderWidth();
     }
 
-    public float getCheckedIndicatorWidth() {
-        return mIndicatorOptions.getCheckedIndicatorWidth();
+    public float getCheckedSliderWidth() {
+        return mIndicatorOptions.getCheckedSliderWidth();
     }
 
     private void setSlideProgress(float slideProgress) {
         mIndicatorOptions.setSlideProgress(slideProgress);
     }
 
-//    private void setPrePosition(int prePosition) {
-//        mIndicatorOptions.setPrePosition(prePosition);
-//    }
+    private void setCurrentPosition(int currentPosition) {
+        mIndicatorOptions.setCurrentPosition(currentPosition);
+    }
 
-//    private void setSlideToRight(boolean slideToRight) {
-//        mIndicatorOptions.setSlideToRight(slideToRight);
-//    }
+    public void setupWithViewPager(ViewPager viewPager) {
+        mViewPager = viewPager;
+        notifyDataChanged();
+    }
 
     public IndicatorOptions getIndicatorOptions() {
         return mIndicatorOptions;
@@ -154,5 +186,9 @@ public class BaseIndicatorView extends View implements IIndicator {
 
     @Override
     public void onPageScrollStateChanged(int state) {
+    }
+
+    public void setIndicatorOptions(IndicatorOptions indicatorOptions) {
+        mIndicatorOptions = indicatorOptions;
     }
 }

@@ -20,8 +20,6 @@ import com.zhpan.bannerview.annotation.AIndicatorStyle;
 import com.zhpan.bannerview.annotation.APageStyle;
 import com.zhpan.bannerview.annotation.ATransformerStyle;
 import com.zhpan.bannerview.annotation.Visibility;
-import com.zhpan.bannerview.constants.IndicatorSlideMode;
-import com.zhpan.bannerview.constants.IndicatorStyle;
 import com.zhpan.bannerview.constants.PageStyle;
 import com.zhpan.bannerview.indicator.IndicatorView;
 import com.zhpan.bannerview.indicator.IIndicator;
@@ -230,7 +228,8 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
             initIndicator(new IndicatorView(getContext()));
         }
         mIndicatorView.setIndicatorOptions(bannerOptions.getIndicatorOptions());
-        mIndicatorView.setPageSize(list.size());
+        bannerOptions.getIndicatorOptions().setPageSize(list.size());
+        mIndicatorView.notifyDataChanged();
     }
 
     private void initIndicator(IIndicator indicatorView) {
@@ -515,25 +514,27 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
      * @param checkedColor checked color of indicator
      * @param normalColor  unchecked color of indicator
      */
-    public BannerViewPager<T, VH> setIndicatorColor(@ColorInt int normalColor,
-                                                    @ColorInt int checkedColor) {
-        mBannerManager.bannerOptions().setIndicatorCheckedColor(checkedColor);
-        mBannerManager.bannerOptions().setIndicatorNormalColor(normalColor);
+    public BannerViewPager<T, VH> setIndicatorSliderColor(@ColorInt int normalColor,
+                                                          @ColorInt int checkedColor) {
+        mBannerManager.bannerOptions().setIndicatorSliderColor(normalColor, checkedColor);
         return this;
     }
+
 
     /**
      * set indicator circle radius
      * <p>
-     * if the indicator style is {@link IndicatorStyle#DASH} or {@link IndicatorStyle#ROUND_RECT}
+     * if the indicator style is {@link com.zhpan.indicator.enums.IndicatorStyle#DASH}
+     * or {@link com.zhpan.indicator.enums.IndicatorStyle#ROUND_RECT}
      * the indicator dash width=2*radius
      *
      * @param radius 指示器圆点半径
      */
-    public BannerViewPager<T, VH> setIndicatorRadius(int radius) {
-        setIndicatorRadius(radius, radius);
+    public BannerViewPager<T, VH> setIndicatorSliderRadius(int radius) {
+        setIndicatorSliderRadius(radius, radius);
         return this;
     }
+
 
     /**
      * set indicator circle radius
@@ -541,39 +542,29 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
      * @param normalRadius  unchecked circle radius
      * @param checkedRadius checked circle radius
      */
-    public BannerViewPager<T, VH> setIndicatorRadius(int normalRadius, int checkedRadius) {
-        mBannerManager.bannerOptions().setNormalIndicatorWidth(normalRadius * 2);
-        mBannerManager.bannerOptions().setCheckedIndicatorWidth(checkedRadius * 2);
+    public BannerViewPager<T, VH> setIndicatorSliderRadius(int normalRadius, int checkedRadius) {
+        mBannerManager.bannerOptions().setIndicatorSliderWidth(normalRadius * 2, checkedRadius * 2);
         return this;
     }
 
-
-    /**
-     * Set indicator dash width，if indicator style is {@link IndicatorStyle#CIRCLE},
-     * the indicator circle radius is indicatorWidth/2.
-     *
-     * @param indicatorWidth indicator dash width.
-     */
-    public BannerViewPager<T, VH> setIndicatorWidth(int indicatorWidth) {
-        setIndicatorWidth(indicatorWidth, indicatorWidth);
+    public BannerViewPager<T, VH> setIndicatorSliderWidth(int indicatorWidth) {
+        setIndicatorSliderWidth(indicatorWidth, indicatorWidth);
         return this;
     }
 
-
     /**
-     * Set indicator dash width，if indicator style is {@link IndicatorStyle#CIRCLE},
+     * Set indicator dash width，if indicator style is {@link com.zhpan.indicator.enums.IndicatorStyle#CIRCLE},
      * the indicator circle radius is indicatorWidth/2.
      *
-     * @param normalWidth if the indicator style is {@link IndicatorStyle#DASH} the params means unchecked dash width
-     *                    if the indicator style is {@link IndicatorStyle#ROUND_RECT}  means unchecked round rectangle width
-     *                    if the indicator style is {@link IndicatorStyle#CIRCLE } means unchecked circle diameter
-     * @param checkWidth  if the indicator style is {@link IndicatorStyle#DASH} the params means checked dash width
-     *                    if the indicator style is {@link IndicatorStyle#ROUND_RECT} the params means checked round rectangle width
-     *                    if the indicator style is {@link IndicatorStyle#CIRCLE } means checked circle diameter
+     * @param normalWidth if the indicator style is {@link com.zhpan.indicator.enums.IndicatorStyle#DASH} the params means unchecked dash width
+     *                    if the indicator style is {@link com.zhpan.indicator.enums.IndicatorStyle#ROUND_RECT}  means unchecked round rectangle width
+     *                    if the indicator style is {@link com.zhpan.indicator.enums.IndicatorStyle#CIRCLE } means unchecked circle diameter
+     * @param checkWidth  if the indicator style is {@link com.zhpan.indicator.enums.IndicatorStyle#DASH} the params means checked dash width
+     *                    if the indicator style is {@link com.zhpan.indicator.enums.IndicatorStyle#ROUND_RECT} the params means checked round rectangle width
+     *                    if the indicator style is {@link com.zhpan.indicator.enums.IndicatorStyle#CIRCLE } means checked circle diameter
      */
-    public BannerViewPager<T, VH> setIndicatorWidth(int normalWidth, int checkWidth) {
-        mBannerManager.bannerOptions().setNormalIndicatorWidth(normalWidth);
-        mBannerManager.bannerOptions().setCheckedIndicatorWidth(checkWidth);
+    public BannerViewPager<T, VH> setIndicatorSliderWidth(int normalWidth, int checkWidth) {
+        mBannerManager.bannerOptions().setIndicatorSliderWidth(normalWidth, checkWidth);
         return this;
     }
 
@@ -587,18 +578,8 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
      *
      * @param indicatorGap indicator gap
      */
-    public BannerViewPager<T, VH> setIndicatorGap(int indicatorGap) {
+    public BannerViewPager<T, VH> setIndicatorSliderGap(int indicatorGap) {
         mBannerManager.bannerOptions().setIndicatorGap(indicatorGap);
-        return this;
-    }
-
-    /**
-     * @param showIndicator is show indicator
-     * @deprecated Use {@link #setIndicatorVisibility(int)} instead.
-     */
-    @Deprecated
-    public BannerViewPager<T, VH> showIndicator(boolean showIndicator) {
-        mIndicatorLayout.setVisibility(showIndicator ? VISIBLE : GONE);
         return this;
     }
 
@@ -626,11 +607,11 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     }
 
     /**
-     * Set Indicator slide mode，default value is {@link IndicatorSlideMode#NORMAL}
+     * Set Indicator slide mode，default value is {@link com.zhpan.indicator.enums.IndicatorSlideMode#NORMAL}
      *
      * @param slideMode Indicator slide mode
-     * @see com.zhpan.bannerview.constants.IndicatorSlideMode#NORMAL
-     * @see com.zhpan.bannerview.constants.IndicatorSlideMode#SMOOTH
+     * @see com.zhpan.indicator.enums.IndicatorSlideMode#NORMAL
+     * @see com.zhpan.indicator.enums.IndicatorSlideMode#SMOOTH
      */
     public BannerViewPager<T, VH> setIndicatorSlideMode(@AIndicatorSlideMode int slideMode) {
         mBannerManager.bannerOptions().setIndicatorSlideMode(slideMode);
@@ -656,9 +637,9 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
      * Set indicator style
      *
      * @param indicatorStyle indicator style
-     * @see IndicatorStyle#CIRCLE
-     * @see IndicatorStyle#DASH
-     * @see IndicatorStyle#ROUND_RECT
+     * @see com.zhpan.indicator.enums.IndicatorStyle#CIRCLE
+     * @see com.zhpan.indicator.enums.IndicatorStyle#DASH
+     * @see com.zhpan.indicator.enums.IndicatorStyle#ROUND_RECT
      */
     public BannerViewPager<T, VH> setIndicatorStyle(@AIndicatorStyle int indicatorStyle) {
         mBannerManager.bannerOptions().setIndicatorStyle(indicatorStyle);
@@ -673,18 +654,6 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     public void create(List<T> list) {
         initBannerData(list);
     }
-
-//    public void update(List<T> list) {
-//        if (null != list) {
-//            if (mBannerPagerAdapter != null && mBannerManager.bannerOptions().getPageStyle() == PageStyle.NORMAL) {
-//                mBannerPagerAdapter.setList(list);
-//                mIndicatorView.setPageSize(list.size());
-////                setCurrentItem(0, false);
-//            } else {
-//                initBannerData(list);
-//            }
-//        }
-//    }
 
     /**
      * @return the currently selected page position.
@@ -791,6 +760,97 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
 
     public BannerViewPager<T, VH> setOnPageChangeListener(ViewPager.OnPageChangeListener onPageChangeListener) {
         mOnPageChangeListener = onPageChangeListener;
+        return this;
+    }
+
+
+    /**
+     * set indicator circle radius
+     *
+     * @param normalRadius  unchecked circle radius
+     * @param checkedRadius checked circle radius
+     * @deprecated use {@link #setIndicatorSliderRadius(int,int)} instead
+     */
+    @Deprecated
+    public BannerViewPager<T, VH> setIndicatorRadius(int normalRadius, int checkedRadius) {
+        mBannerManager.bannerOptions().setIndicatorSliderWidth(normalRadius * 2, checkedRadius * 2);
+        return this;
+    }
+
+    /**
+     * set indicator circle radius
+     * <p>
+     * if the indicator style is {@link com.zhpan.indicator.enums.IndicatorStyle#DASH}
+     * or {@link com.zhpan.indicator.enums.IndicatorStyle#ROUND_RECT}
+     * the indicator dash width=2*radius
+     *
+     * @param radius 指示器圆点半径
+     * @deprecated use {@link #setIndicatorSliderRadius(int)} instead
+     */
+    @Deprecated
+    public BannerViewPager<T, VH> setIndicatorRadius(int radius) {
+        setIndicatorSliderRadius(radius, radius);
+        return this;
+    }
+
+
+    /**
+     * Set indicator dash width，if indicator style is {@link com.zhpan.indicator.enums.IndicatorStyle#CIRCLE},
+     * the indicator circle radius is indicatorWidth/2.
+     *
+     * @param indicatorWidth indicator dash width.
+     * @deprecated Use {@link #setIndicatorSliderWidth(int)} instead.
+     */
+    @Deprecated
+    public BannerViewPager<T, VH> setIndicatorWidth(int indicatorWidth) {
+        setIndicatorSliderWidth(indicatorWidth, indicatorWidth);
+        return this;
+    }
+
+
+    /**
+     *
+     * @deprecated Use {@link #setIndicatorSliderWidth(int,int)} instead.
+     */
+    @Deprecated
+    public BannerViewPager<T, VH> setIndicatorWidth(int normalWidth, int checkWidth) {
+        mBannerManager.bannerOptions().setIndicatorSliderWidth(normalWidth, checkWidth);
+        return this;
+    }
+
+    /**
+     * set indicator color
+     *
+     * @param checkedColor checked color of indicator
+     * @param normalColor  unchecked color of indicator
+     * @deprecated use {@link #setIndicatorSliderColor(int, int)} instead
+     */
+    @Deprecated
+    public BannerViewPager<T, VH> setIndicatorColor(@ColorInt int normalColor,
+                                                    @ColorInt int checkedColor) {
+        mBannerManager.bannerOptions().setIndicatorSliderColor(normalColor, checkedColor);
+        return this;
+    }
+
+
+    /**
+     * Set Indicator gap of dash/circle
+     *
+     * @param indicatorGap indicator gap
+     * @deprecated Use {@link #setIndicatorSliderGap(int)} instead.
+     */
+    public BannerViewPager<T, VH> setIndicatorGap(int indicatorGap) {
+        mBannerManager.bannerOptions().setIndicatorGap(indicatorGap);
+        return this;
+    }
+
+    /**
+     * @param showIndicator is show indicator
+     * @deprecated Use {@link #setIndicatorVisibility(int)} instead.
+     */
+    @Deprecated
+    public BannerViewPager<T, VH> showIndicator(boolean showIndicator) {
+        mIndicatorLayout.setVisibility(showIndicator ? VISIBLE : GONE);
         return this;
     }
 }

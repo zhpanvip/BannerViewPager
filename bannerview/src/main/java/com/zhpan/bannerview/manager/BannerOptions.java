@@ -100,36 +100,30 @@ public class BannerOptions {
     }
 
     public int getIndicatorNormalColor() {
-        return mIndicatorOptions.getNormalColor();
-    }
-
-    public void setIndicatorNormalColor(int indicatorNormalColor) {
-        mIndicatorOptions.setNormalColor(indicatorNormalColor);
+        return mIndicatorOptions.getNormalSliderColor();
     }
 
     public int getIndicatorCheckedColor() {
-        return mIndicatorOptions.getCheckedColor();
-    }
-
-    public void setIndicatorCheckedColor(int indicatorCheckedColor) {
-        mIndicatorOptions.setCheckedColor(indicatorCheckedColor);
+        return mIndicatorOptions.getCheckedSliderColor();
     }
 
     public int getNormalIndicatorWidth() {
-        return (int) mIndicatorOptions.getNormalIndicatorWidth();
+        return (int) mIndicatorOptions.getNormalSliderWidth();
     }
 
-    public void setNormalIndicatorWidth(int normalIndicatorWidth) {
-        mIndicatorOptions.setNormalIndicatorWidth(normalIndicatorWidth);
+
+
+    public void setIndicatorSliderColor(int normalColor,int checkedColor){
+        mIndicatorOptions.setSliderColor(normalColor,checkedColor);
     }
 
+    public void setIndicatorSliderWidth(int normalWidth,int checkedWidth){
+        mIndicatorOptions.setSliderWidth(normalWidth,checkedWidth);
+    }
     public int getCheckedIndicatorWidth() {
-        return (int) mIndicatorOptions.getCheckedIndicatorWidth();
+        return (int) mIndicatorOptions.getCheckedSliderWidth();
     }
 
-    public void setCheckedIndicatorWidth(int checkedIndicatorWidth) {
-        mIndicatorOptions.setCheckedIndicatorWidth(checkedIndicatorWidth);
-    }
 
     public IndicatorOptions getIndicatorOptions() {
         return mIndicatorOptions;
@@ -168,11 +162,11 @@ public class BannerOptions {
     }
 
     public float getIndicatorGap() {
-        return mIndicatorOptions.getIndicatorGap();
+        return mIndicatorOptions.getSliderGap();
     }
 
     public void setIndicatorGap(float indicatorGap) {
-        mIndicatorOptions.setIndicatorGap(indicatorGap);
+        mIndicatorOptions.setSliderGap(indicatorGap);
     }
 
     public float getIndicatorHeight() {

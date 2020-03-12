@@ -35,17 +35,17 @@ public class RectDrawer extends BaseDrawer {
 
     private void drawUncheckedSlider(Canvas canvas, int pageSize) {
         for (int i = 0; i < pageSize; i++) {
-            mPaint.setColor(mIndicatorOptions.getNormalColor());
+            mPaint.setColor(mIndicatorOptions.getNormalSliderColor());
             float sliderHeight = mIndicatorOptions.getSliderHeight();
-            float left = i * (maxWidth) + i * +mIndicatorOptions.getIndicatorGap() + (maxWidth - minWidth);
+            float left = i * (maxWidth) + i * +mIndicatorOptions.getSliderGap() + (maxWidth - minWidth);
             mRectF.set(left, 0, left + minWidth, sliderHeight);
             drawRoundRect(canvas, sliderHeight, sliderHeight);
         }
     }
 
     private void drawInequalitySlider(Canvas canvas, int i) {
-        int normalColor = mIndicatorOptions.getNormalColor();
-        float indicatorGap = mIndicatorOptions.getIndicatorGap();
+        int normalColor = mIndicatorOptions.getNormalSliderColor();
+        float indicatorGap = mIndicatorOptions.getSliderGap();
         float sliderHeight = mIndicatorOptions.getSliderHeight();
         int currentPosition = mIndicatorOptions.getCurrentPosition();
         if (i < currentPosition) {
@@ -54,7 +54,7 @@ public class RectDrawer extends BaseDrawer {
             mRectF.set(left, 0, left + minWidth, sliderHeight);
             drawRoundRect(canvas, sliderHeight, sliderHeight);
         } else if (i == currentPosition) {
-            mPaint.setColor(mIndicatorOptions.getCheckedColor());
+            mPaint.setColor(mIndicatorOptions.getCheckedSliderColor());
             float left = i * minWidth + i * indicatorGap;
             mRectF.set(left, 0, left + minWidth + (maxWidth - minWidth), sliderHeight);
             drawRoundRect(canvas, sliderHeight, sliderHeight);
@@ -67,7 +67,7 @@ public class RectDrawer extends BaseDrawer {
     }
 
     private void drawCheckedSlider(Canvas canvas) {
-        mPaint.setColor(mIndicatorOptions.getCheckedColor());
+        mPaint.setColor(mIndicatorOptions.getCheckedSliderColor());
         switch (mIndicatorOptions.getSlideMode()) {
             case IndicatorSlideMode.SMOOTH:
                 drawSmoothSlider(canvas);
@@ -82,17 +82,17 @@ public class RectDrawer extends BaseDrawer {
         float sliderHeight = mIndicatorOptions.getSliderHeight();
         float slideProgress = mIndicatorOptions.getSlideProgress();
         int currentPosition = mIndicatorOptions.getCurrentPosition();
-        float distance = mIndicatorOptions.getIndicatorGap() + mIndicatorOptions.getNormalIndicatorWidth();
+        float distance = mIndicatorOptions.getSliderGap() + mIndicatorOptions.getNormalSliderWidth();
         float startCoordinateX = BannerUtils.getCoordinateX(mIndicatorOptions, maxWidth, currentPosition);
-        float left = startCoordinateX + Math.max(distance * (slideProgress - 0.5f) * 2.0f, 0) - mIndicatorOptions.getNormalIndicatorWidth() / 2;
-        float right = startCoordinateX + Math.min((distance * slideProgress * 2), distance) + mIndicatorOptions.getNormalIndicatorWidth() / 2;
+        float left = startCoordinateX + Math.max(distance * (slideProgress - 0.5f) * 2.0f, 0) - mIndicatorOptions.getNormalSliderWidth() / 2;
+        float right = startCoordinateX + Math.min((distance * slideProgress * 2), distance) + mIndicatorOptions.getNormalSliderWidth() / 2;
         mRectF.set(left, 0, right, sliderHeight);
         drawRoundRect(canvas, sliderHeight, sliderHeight);
     }
 
     private void drawSmoothSlider(Canvas canvas) {
         int currentPosition = mIndicatorOptions.getCurrentPosition();
-        float indicatorGap = mIndicatorOptions.getIndicatorGap();
+        float indicatorGap = mIndicatorOptions.getSliderGap();
         float sliderHeight = mIndicatorOptions.getSliderHeight();
         float left = currentPosition * (maxWidth) + currentPosition * +indicatorGap + (maxWidth + indicatorGap) * mIndicatorOptions.getSlideProgress();
         mRectF.set(left, 0, left + maxWidth, sliderHeight);

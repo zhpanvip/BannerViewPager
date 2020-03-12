@@ -28,14 +28,14 @@ public class DashIndicatorView extends BaseIndicatorView {
     public DashIndicatorView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         mPaint.setColor(getNormalColor());
-        sliderHeight = getNormalIndicatorWidth() / 2;
+        sliderHeight = getNormalSliderWidth() / 2;
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        maxWidth = Math.max(getNormalIndicatorWidth(), getCheckedIndicatorWidth());
-        minWidth = Math.min(getNormalIndicatorWidth(), getCheckedIndicatorWidth());
+        maxWidth = Math.max(getNormalSliderWidth(), getCheckedSliderWidth());
+        minWidth = Math.min(getNormalSliderWidth(), getCheckedSliderWidth());
         setMeasuredDimension((int) ((getPageSize() - 1) * getIndicatorGap() + maxWidth + (getPageSize() - 1) * minWidth),
                 (int) (getSliderHeight()));
     }
@@ -56,10 +56,10 @@ public class DashIndicatorView extends BaseIndicatorView {
 
 
     private void normalSlide(Canvas canvas, int i) {
-        if (getNormalIndicatorWidth() == getCheckedIndicatorWidth()) {
+        if (getNormalSliderWidth() == getCheckedSliderWidth()) {
             mPaint.setColor(getNormalColor());
-            float left = i * (getNormalIndicatorWidth()) + i * +getIndicatorGap();
-            canvas.drawRect(left, 0, left + getNormalIndicatorWidth(), getSliderHeight(), mPaint);
+            float left = i * (getNormalSliderWidth()) + i * +getIndicatorGap();
+            canvas.drawRect(left, 0, left + getNormalSliderWidth(), getSliderHeight(), mPaint);
             drawSliderStyle(canvas);
         } else {  //  仿支付宝首页轮播图的Indicator
             if (i < getCurrentPosition()) {

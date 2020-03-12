@@ -2,6 +2,8 @@ package com.zhpan.bannerview.manager;
 
 import android.graphics.Color;
 
+import com.zhpan.bannerview.annotation.AIndicatorSlideMode;
+import com.zhpan.bannerview.annotation.AIndicatorStyle;
 import com.zhpan.bannerview.constants.IndicatorSlideMode;
 import com.zhpan.bannerview.utils.BannerUtils;
 
@@ -14,15 +16,25 @@ import com.zhpan.bannerview.utils.BannerUtils;
 public class IndicatorOptions {
 
     public IndicatorOptions() {
-        normalIndicatorWidth = BannerUtils.dp2px(8);
-        checkedIndicatorWidth = normalIndicatorWidth;
-        indicatorGap = normalIndicatorWidth;
+        normalSliderWidth = BannerUtils.dp2px(8);
+        checkedSliderWidth = normalSliderWidth;
+        sliderGap = normalSliderWidth;
         normalColor = Color.parseColor("#8C18171C");
         checkedColor = Color.parseColor("#8C6C6D72");
         slideMode = IndicatorSlideMode.NORMAL;
     }
 
-    private int mIndicatorStyle;
+    private @AIndicatorStyle
+    int mIndicatorStyle;
+
+    /**
+     * Indicator滑动模式，目前仅支持两种
+     *
+     * @see IndicatorSlideMode#NORMAL
+     * @see IndicatorSlideMode#SMOOTH
+     */
+    private @AIndicatorSlideMode
+    int slideMode;
 
     /**
      * 页面size
@@ -39,55 +51,33 @@ public class IndicatorOptions {
     /**
      * Indicator间距
      */
-    private float indicatorGap;
-    /**
-     * 从一个点滑动到另一个点的进度
-     */
-    private float slideProgress;
+    private float sliderGap;
+
+    private float sliderHeight;
+
+    private float normalSliderWidth;
+
+    private float checkedSliderWidth;
+
     /**
      * 指示器当前位置
      */
     private int currentPosition;
-//    /**
-//     * 指示器上一个位置
-//     */
-//    private int prePosition;
-//    /**
-//     * 是否是向右滑动，true向右，false向左
-//     */
-//    private boolean slideToRight;
-
-    private float sliderHeight;
 
     /**
-     * Indicator滑动模式，目前仅支持两种
-     *
-     * @see IndicatorSlideMode#NORMAL
-     * @see IndicatorSlideMode#SMOOTH
+     * 从一个点滑动到另一个点的进度
      */
-    private int slideMode;
-
-    private float normalIndicatorWidth;
-
-    private float checkedIndicatorWidth;
+    private float slideProgress;
 
     public int getPageSize() {
         return pageSize;
     }
 
-    public void setPageSize(int pageSize) {
-        this.pageSize = pageSize;
-    }
-
-    public int getNormalColor() {
+    public int getNormalSliderColor() {
         return normalColor;
     }
 
-    public void setNormalColor(int normalColor) {
-        this.normalColor = normalColor;
-    }
-
-    public int getCheckedColor() {
+    public int getCheckedSliderColor() {
         return checkedColor;
     }
 
@@ -95,12 +85,12 @@ public class IndicatorOptions {
         this.checkedColor = checkedColor;
     }
 
-    public float getIndicatorGap() {
-        return indicatorGap;
+    public float getSliderGap() {
+        return sliderGap;
     }
 
-    public void setIndicatorGap(float indicatorGap) {
-        this.indicatorGap = indicatorGap;
+    public void setSliderGap(float sliderGap) {
+        this.sliderGap = sliderGap;
     }
 
     public float getSlideProgress() {
@@ -119,22 +109,6 @@ public class IndicatorOptions {
         this.currentPosition = currentPosition;
     }
 
-//    public int getPrePosition() {
-//        return prePosition;
-//    }
-
-//    public void setPrePosition(int prePosition) {
-//        this.prePosition = prePosition;
-//    }
-
-//    public boolean isSlideToRight() {
-//        return slideToRight;
-//    }
-
-//    public void setSlideToRight(boolean slideToRight) {
-//        this.slideToRight = slideToRight;
-//    }
-
     public int getSlideMode() {
         return slideMode;
     }
@@ -143,24 +117,17 @@ public class IndicatorOptions {
         this.slideMode = slideMode;
     }
 
-    public float getNormalIndicatorWidth() {
-        return normalIndicatorWidth;
+    public float getNormalSliderWidth() {
+        return normalSliderWidth;
     }
 
-    public void setNormalIndicatorWidth(float normalIndicatorWidth) {
-        this.normalIndicatorWidth = normalIndicatorWidth;
+    public float getCheckedSliderWidth() {
+        return checkedSliderWidth;
     }
 
-    public float getCheckedIndicatorWidth() {
-        return checkedIndicatorWidth;
-    }
-
-    public void setCheckedIndicatorWidth(float checkedIndicatorWidth) {
-        this.checkedIndicatorWidth = checkedIndicatorWidth;
-    }
 
     public float getSliderHeight() {
-        return sliderHeight > 0 ? sliderHeight : normalIndicatorWidth / 2;
+        return sliderHeight > 0 ? sliderHeight : normalSliderWidth / 2;
     }
 
     public void setSliderHeight(float sliderHeight) {
@@ -171,7 +138,25 @@ public class IndicatorOptions {
         return mIndicatorStyle;
     }
 
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
+
     public void setIndicatorStyle(int indicatorStyle) {
         mIndicatorStyle = indicatorStyle;
+    }
+
+    public void setSliderWidth(float normalIndicatorWidth, float checkedIndicatorWidth) {
+        this.normalSliderWidth = normalIndicatorWidth;
+        this.checkedSliderWidth = checkedIndicatorWidth;
+    }
+
+    public void setSliderWidth(float sliderWidth) {
+        setSliderWidth(sliderWidth, sliderWidth);
+    }
+
+    public void setSliderColor(int normalColor, int checkedColor) {
+        this.normalColor = normalColor;
+        this.checkedColor = checkedColor;
     }
 }

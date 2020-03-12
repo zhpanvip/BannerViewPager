@@ -38,8 +38,8 @@ public class CircleDrawer extends BaseDrawer {
     }
 
     private void drawNormal(Canvas canvas) {
-        float normalIndicatorWidth = mIndicatorOptions.getNormalIndicatorWidth();
-        mPaint.setColor(mIndicatorOptions.getNormalColor());
+        float normalIndicatorWidth = mIndicatorOptions.getNormalSliderWidth();
+        mPaint.setColor(mIndicatorOptions.getNormalSliderColor());
         for (int i = 0; i < mIndicatorOptions.getPageSize(); i++) {
             float coordinateX = BannerUtils.getCoordinateX(mIndicatorOptions, maxWidth, i);
             float coordinateY = BannerUtils.getCoordinateY(maxWidth);
@@ -48,14 +48,14 @@ public class CircleDrawer extends BaseDrawer {
     }
 
     private void drawSlider(Canvas canvas) {
-        mPaint.setColor(mIndicatorOptions.getCheckedColor());
+        mPaint.setColor(mIndicatorOptions.getCheckedSliderColor());
         switch (mIndicatorOptions.getSlideMode()) {
             case NORMAL:
             case SMOOTH:
                 drawCircleSlider(canvas);
                 break;
             case WORM:
-                drawWormSlider(canvas, mIndicatorOptions.getNormalIndicatorWidth());
+                drawWormSlider(canvas, mIndicatorOptions.getNormalSliderWidth());
                 break;
         }
     }
@@ -66,17 +66,17 @@ public class CircleDrawer extends BaseDrawer {
         float endCoordinateX = BannerUtils.getCoordinateX(mIndicatorOptions, maxWidth, (currentPosition + 1) % mIndicatorOptions.getPageSize());
         float coordinateX = startCoordinateX + (endCoordinateX - startCoordinateX) * mIndicatorOptions.getSlideProgress();
         float coordinateY = BannerUtils.getCoordinateY(maxWidth);
-        float radius = mIndicatorOptions.getCheckedIndicatorWidth() / 2;
+        float radius = mIndicatorOptions.getCheckedSliderWidth() / 2;
         drawCircle(canvas, coordinateX, coordinateY, radius);
     }
 
     private void drawWormSlider(Canvas canvas, float sliderHeight) {
         float slideProgress = mIndicatorOptions.getSlideProgress();
         int currentPosition = mIndicatorOptions.getCurrentPosition();
-        float distance = mIndicatorOptions.getIndicatorGap() + mIndicatorOptions.getNormalIndicatorWidth();
+        float distance = mIndicatorOptions.getSliderGap() + mIndicatorOptions.getNormalSliderWidth();
         float startCoordinateX = BannerUtils.getCoordinateX(mIndicatorOptions, maxWidth, currentPosition);
-        float left = startCoordinateX + Math.max(distance * (slideProgress - 0.5f) * 2.0f, 0) - mIndicatorOptions.getNormalIndicatorWidth() / 2;
-        float right = startCoordinateX + Math.min((distance * slideProgress * 2), distance) + mIndicatorOptions.getNormalIndicatorWidth() / 2;
+        float left = startCoordinateX + Math.max(distance * (slideProgress - 0.5f) * 2.0f, 0) - mIndicatorOptions.getNormalSliderWidth() / 2;
+        float right = startCoordinateX + Math.min((distance * slideProgress * 2), distance) + mIndicatorOptions.getNormalSliderWidth() / 2;
         rectF.set(left, 0, right, sliderHeight);
         canvas.drawRoundRect(rectF, sliderHeight, sliderHeight, mPaint);
     }
