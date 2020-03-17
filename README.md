@@ -208,10 +208,7 @@ Android support latestVersion: [ ![latestVersion](https://api.bintray.com/packag
         public void onBind(View itemView, CustomBean data, int position, int size) {
             CornerImageView imageView = itemView.findViewById(R.id.banner_image);
             imageView.setRoundCorner(imageView.getContext().getResources().getDimensionPixelOffset(R.dimen.dp_5));
-            ImageLoaderOptions options = new ImageLoaderOptions.Builder()
-                    .into(imageView).load(data.getImageRes())
-                    .placeHolder(R.drawable.placeholder).build();
-            ImageLoaderManager.getInstance().loadImage(options);
+            Glide.with(imageView).load(data.getImagePath()).placeholder(R.drawable.placeholder).into(imageView);
         }
     }
 ```
@@ -236,7 +233,9 @@ Kotlin：
                             pageSelect(position)
                         }
                     }
-                )
+                ).setOnPageClickListener {
+                    onPageClick()
+                }
                 .create(res.toList())
         }
 ```    
