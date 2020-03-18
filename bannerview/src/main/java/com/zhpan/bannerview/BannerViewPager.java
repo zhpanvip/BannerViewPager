@@ -296,7 +296,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
         mViewPager.setScrollDuration(bannerOptions.getScrollDuration());
         mViewPager.disableTouchScroll(bannerOptions.isDisableTouchScroll());
         mViewPager.setFirstLayout(true);
-        mViewPager.setOffscreenPageLimit(mBannerManager.bannerOptions().getOffScreenPageLimit());
+        mViewPager.setOffscreenPageLimit(bannerOptions.getOffScreenPageLimit());
         initPageStyle();
         startLoop();
     }
