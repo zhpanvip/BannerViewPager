@@ -74,6 +74,8 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
         }
     };
 
+    private int startX, startY;
+
     public BannerViewPager(Context context) {
         this(context, null);
     }
@@ -111,59 +113,48 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
         startLoop();
     }
 
-    //  触碰控件的时候，翻页应该停止，离开的时候如果之前是开启了翻页的话则重新启动翻页
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         switch (ev.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                setLooping(true);
+                stopLoop();
+                startX = (int) ev.getX();
+                startY = (int) ev.getY();
+                getParent().requestDisallowInterceptTouchEvent(true);
+                break;
+            case MotionEvent.ACTION_MOVE:
+                int endX = (int) ev.getX();
+                int endY = (int) ev.getY();
+                int disX = Math.abs(endX - startX);
+                int disY = Math.abs(endY - startY);
+                if (disX > disY) {
+                    if (!isCanLoop()) {
+                        if (currentPosition == 0 && endX - startX > 0) {
+                            getParent().requestDisallowInterceptTouchEvent(false);
+                        } else if (currentPosition == getList().size() - 1 && endX - startX < 0) {
+                            getParent().requestDisallowInterceptTouchEvent(false);
+                        } else {
+                            getParent().requestDisallowInterceptTouchEvent(true);
+                        }
+                    } else {
+                        getParent().requestDisallowInterceptTouchEvent(true);
+                    }
+                }
+                break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
+                setLooping(false);
+                startLoop();
+                getParent().requestDisallowInterceptTouchEvent(false);
+                break;
             case MotionEvent.ACTION_OUTSIDE:
                 setLooping(false);
                 startLoop();
                 break;
-            case MotionEvent.ACTION_DOWN:
-                setLooping(true);
-                stopLoop();
-                break;
         }
         return super.dispatchTouchEvent(ev);
     }
-
-//    private int startX, startY;
-//    @Override
-//    public boolean dispatchTouchEvent(MotionEvent ev) {
-//        switch (ev.getAction()) {
-//            case MotionEvent.ACTION_DOWN:
-//                setLooping(true);
-//                stopLoop();
-//                startX = (int) ev.getX();
-//                startY = (int) ev.getY();
-//                getParent().requestDisallowInterceptTouchEvent(true);
-//                break;
-//            case MotionEvent.ACTION_MOVE:
-//                int endX = (int) ev.getX();
-//                int endY = (int) ev.getY();
-//                int disX = Math.abs(endX - startX);
-//                int disY = Math.abs(endY - startY);
-//                if (disX > disY) {
-//                    getParent().requestDisallowInterceptTouchEvent(true);
-//                } else {
-//                    getParent().requestDisallowInterceptTouchEvent(false);
-//                }
-//                break;
-//            case MotionEvent.ACTION_UP:
-//            case MotionEvent.ACTION_CANCEL:
-//                setLooping(false);
-//                startLoop();
-//                getParent().requestDisallowInterceptTouchEvent(false);
-//                break;
-//            case MotionEvent.ACTION_OUTSIDE:
-//                setLooping(false);
-//                startLoop();
-//                break;
-//        }
-//        return super.dispatchTouchEvent(ev);
-//    }
 
     @Override
     public void onPageSelected(int position) {
@@ -524,8 +515,8 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     /**
      * set indicator circle radius
      * <p>
-     * if the indicator style is {@link com.zhpan.indicator.enums.IndicatorStyle#DASH}
-     * or {@link com.zhpan.indicator.enums.IndicatorStyle#ROUND_RECT}
+     * if the indicator style is {@link com.zhpan.bannerview.constants.IndicatorStyle#DASH}
+     * or {@link com.zhpan.bannerview.constants.IndicatorStyle#ROUND_RECT}
      * the indicator dash width=2*radius
      *
      * @param radius 指示器圆点半径
@@ -553,15 +544,15 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     }
 
     /**
-     * Set indicator dash width，if indicator style is {@link com.zhpan.indicator.enums.IndicatorStyle#CIRCLE},
+     * Set indicator dash width，if indicator style is {@link com.zhpan.bannerview.constants.IndicatorStyle#CIRCLE},
      * the indicator circle radius is indicatorWidth/2.
      *
-     * @param normalWidth if the indicator style is {@link com.zhpan.indicator.enums.IndicatorStyle#DASH} the params means unchecked dash width
-     *                    if the indicator style is {@link com.zhpan.indicator.enums.IndicatorStyle#ROUND_RECT}  means unchecked round rectangle width
-     *                    if the indicator style is {@link com.zhpan.indicator.enums.IndicatorStyle#CIRCLE } means unchecked circle diameter
-     * @param checkWidth  if the indicator style is {@link com.zhpan.indicator.enums.IndicatorStyle#DASH} the params means checked dash width
-     *                    if the indicator style is {@link com.zhpan.indicator.enums.IndicatorStyle#ROUND_RECT} the params means checked round rectangle width
-     *                    if the indicator style is {@link com.zhpan.indicator.enums.IndicatorStyle#CIRCLE } means checked circle diameter
+     * @param normalWidth if the indicator style is {@link com.zhpan.bannerview.constants.IndicatorStyle#DASH} the params means unchecked dash width
+     *                    if the indicator style is {@link com.zhpan.bannerview.constants.IndicatorStyle#ROUND_RECT}  means unchecked round rectangle width
+     *                    if the indicator style is {@link com.zhpan.bannerview.constants.IndicatorStyle#CIRCLE } means unchecked circle diameter
+     * @param checkWidth  if the indicator style is {@link com.zhpan.bannerview.constants.IndicatorStyle#DASH} the params means checked dash width
+     *                    if the indicator style is {@link com.zhpan.bannerview.constants.IndicatorStyle#ROUND_RECT} the params means checked round rectangle width
+     *                    if the indicator style is {@link com.zhpan.bannerview.constants.IndicatorStyle#CIRCLE } means checked circle diameter
      */
     public BannerViewPager<T, VH> setIndicatorSliderWidth(int normalWidth, int checkWidth) {
         mBannerManager.bannerOptions().setIndicatorSliderWidth(normalWidth, checkWidth);
@@ -607,11 +598,11 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     }
 
     /**
-     * Set Indicator slide mode，default value is {@link com.zhpan.indicator.enums.IndicatorSlideMode#NORMAL}
+     * Set Indicator slide mode，default value is {@link com.zhpan.bannerview.constants.IndicatorSlideMode#NORMAL}
      *
      * @param slideMode Indicator slide mode
-     * @see com.zhpan.indicator.enums.IndicatorSlideMode#NORMAL
-     * @see com.zhpan.indicator.enums.IndicatorSlideMode#SMOOTH
+     * @see com.zhpan.bannerview.constants.IndicatorSlideMode#NORMAL
+     * @see com.zhpan.bannerview.constants.IndicatorSlideMode#SMOOTH
      */
     public BannerViewPager<T, VH> setIndicatorSlideMode(@AIndicatorSlideMode int slideMode) {
         mBannerManager.bannerOptions().setIndicatorSlideMode(slideMode);
@@ -637,9 +628,9 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
      * Set indicator style
      *
      * @param indicatorStyle indicator style
-     * @see com.zhpan.indicator.enums.IndicatorStyle#CIRCLE
-     * @see com.zhpan.indicator.enums.IndicatorStyle#DASH
-     * @see com.zhpan.indicator.enums.IndicatorStyle#ROUND_RECT
+     * @see com.zhpan.bannerview.constants.IndicatorStyle#CIRCLE
+     * @see com.zhpan.bannerview.constants.IndicatorStyle#DASH
+     * @see com.zhpan.bannerview.constants.IndicatorStyle#ROUND_RECT
      */
     public BannerViewPager<T, VH> setIndicatorStyle(@AIndicatorStyle int indicatorStyle) {
         mBannerManager.bannerOptions().setIndicatorStyle(indicatorStyle);
@@ -769,7 +760,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
      *
      * @param normalRadius  unchecked circle radius
      * @param checkedRadius checked circle radius
-     * @deprecated use {@link #setIndicatorSliderRadius(int,int)} instead
+     * @deprecated use {@link #setIndicatorSliderRadius(int, int)} instead
      */
     @Deprecated
     public BannerViewPager<T, VH> setIndicatorRadius(int normalRadius, int checkedRadius) {
@@ -780,8 +771,8 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     /**
      * set indicator circle radius
      * <p>
-     * if the indicator style is {@link com.zhpan.indicator.enums.IndicatorStyle#DASH}
-     * or {@link com.zhpan.indicator.enums.IndicatorStyle#ROUND_RECT}
+     * if the indicator style is {@link com.zhpan.bannerview.constants.IndicatorStyle#DASH}
+     * or {@link com.zhpan.bannerview.constants.IndicatorStyle#ROUND_RECT}
      * the indicator dash width=2*radius
      *
      * @param radius 指示器圆点半径
@@ -795,7 +786,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
 
 
     /**
-     * Set indicator dash width，if indicator style is {@link com.zhpan.indicator.enums.IndicatorStyle#CIRCLE},
+     * Set indicator dash width，if indicator style is {@link com.zhpan.bannerview.constants.IndicatorStyle#CIRCLE},
      * the indicator circle radius is indicatorWidth/2.
      *
      * @param indicatorWidth indicator dash width.
@@ -809,8 +800,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
 
 
     /**
-     *
-     * @deprecated Use {@link #setIndicatorSliderWidth(int,int)} instead.
+     * @deprecated Use {@link #setIndicatorSliderWidth(int, int)} instead.
      */
     @Deprecated
     public BannerViewPager<T, VH> setIndicatorWidth(int normalWidth, int checkWidth) {
