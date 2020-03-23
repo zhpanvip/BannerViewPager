@@ -75,6 +75,8 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
         }
     };
 
+    private int startX, startY;
+
     public BannerViewPager(Context context) {
         this(context, null);
     }
@@ -112,59 +114,48 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
         startLoop();
     }
 
-    //  触碰控件的时候，翻页应该停止，离开的时候如果之前是开启了翻页的话则重新启动翻页
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         switch (ev.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                setLooping(true);
+                stopLoop();
+                startX = (int) ev.getX();
+                startY = (int) ev.getY();
+                getParent().requestDisallowInterceptTouchEvent(true);
+                break;
+            case MotionEvent.ACTION_MOVE:
+                int endX = (int) ev.getX();
+                int endY = (int) ev.getY();
+                int disX = Math.abs(endX - startX);
+                int disY = Math.abs(endY - startY);
+                if (disX > disY) {
+                    if (!isCanLoop()) {
+                        if (currentPosition == 0 && endX - startX > 0) {
+                            getParent().requestDisallowInterceptTouchEvent(false);
+                        } else if (currentPosition == getList().size() - 1 && endX - startX < 0) {
+                            getParent().requestDisallowInterceptTouchEvent(false);
+                        } else {
+                            getParent().requestDisallowInterceptTouchEvent(true);
+                        }
+                    } else {
+                        getParent().requestDisallowInterceptTouchEvent(true);
+                    }
+                }
+                break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
+                setLooping(false);
+                startLoop();
+                getParent().requestDisallowInterceptTouchEvent(false);
+                break;
             case MotionEvent.ACTION_OUTSIDE:
                 setLooping(false);
                 startLoop();
                 break;
-            case MotionEvent.ACTION_DOWN:
-                setLooping(true);
-                stopLoop();
-                break;
         }
         return super.dispatchTouchEvent(ev);
     }
-
-//    private int startX, startY;
-//    @Override
-//    public boolean dispatchTouchEvent(MotionEvent ev) {
-//        switch (ev.getAction()) {
-//            case MotionEvent.ACTION_DOWN:
-//                setLooping(true);
-//                stopLoop();
-//                startX = (int) ev.getX();
-//                startY = (int) ev.getY();
-//                getParent().requestDisallowInterceptTouchEvent(true);
-//                break;
-//            case MotionEvent.ACTION_MOVE:
-//                int endX = (int) ev.getX();
-//                int endY = (int) ev.getY();
-//                int disX = Math.abs(endX - startX);
-//                int disY = Math.abs(endY - startY);
-//                if (disX > disY) {
-//                    getParent().requestDisallowInterceptTouchEvent(true);
-//                } else {
-//                    getParent().requestDisallowInterceptTouchEvent(false);
-//                }
-//                break;
-//            case MotionEvent.ACTION_UP:
-//            case MotionEvent.ACTION_CANCEL:
-//                setLooping(false);
-//                startLoop();
-//                getParent().requestDisallowInterceptTouchEvent(false);
-//                break;
-//            case MotionEvent.ACTION_OUTSIDE:
-//                setLooping(false);
-//                startLoop();
-//                break;
-//        }
-//        return super.dispatchTouchEvent(ev);
-//    }
 
     @Override
     public void onPageSelected(int position) {
@@ -770,7 +761,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
      *
      * @param normalRadius  unchecked circle radius
      * @param checkedRadius checked circle radius
-     * @deprecated use {@link #setIndicatorSliderRadius(int,int)} instead
+     * @deprecated use {@link #setIndicatorSliderRadius(int, int)} instead
      */
     @Deprecated
     public BannerViewPager<T, VH> setIndicatorRadius(int normalRadius, int checkedRadius) {
@@ -810,8 +801,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
 
 
     /**
-     *
-     * @deprecated Use {@link #setIndicatorSliderWidth(int,int)} instead.
+     * @deprecated Use {@link #setIndicatorSliderWidth(int, int)} instead.
      */
     @Deprecated
     public BannerViewPager<T, VH> setIndicatorWidth(int normalWidth, int checkWidth) {
