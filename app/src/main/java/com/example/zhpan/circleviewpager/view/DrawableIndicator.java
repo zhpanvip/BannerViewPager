@@ -158,8 +158,8 @@ public class DrawableIndicator extends BaseIndicatorView {
         return this;
     }
 
-    public static Bitmap getBitmapFromVectorDrawable(Context context, int drawableId) {
-        Drawable drawable = AppCompatDrawableManager.get().getDrawable(context, drawableId);
+    private static Bitmap getBitmapFromVectorDrawable(Context context, int drawableId) {
+        Drawable drawable = context.getResources().getDrawable(drawableId);
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             drawable = (DrawableCompat.wrap(drawable)).mutate();
         }

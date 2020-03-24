@@ -173,6 +173,9 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
         startActivity(new Intent(getActivity(), PhotoViewActivity.class));
     }
 
+    /**
+     * 注意：在项目中不需要使用该方法
+     */
     private void resetBannerViewPager() {
         try {
             Field mIndicatorView = BannerViewPager.class.getDeclaredField("mIndicatorView");

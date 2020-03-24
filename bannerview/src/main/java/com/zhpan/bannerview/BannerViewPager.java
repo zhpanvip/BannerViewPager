@@ -334,7 +334,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
         mViewPager.setOverlapStyle(overlap);
         mViewPager.setPageMargin(overlap ? -bannerOptions.getPageMargin() : bannerOptions.getPageMargin());
         int offScreenPageLimit = bannerOptions.getOffScreenPageLimit();
-        mViewPager.setOffscreenPageLimit(offScreenPageLimit > 2 ? offScreenPageLimit : 2);
+        mViewPager.setOffscreenPageLimit(Math.max(offScreenPageLimit, 2));
         setPageTransformer(new ScaleInTransformer(scale));
     }
 
