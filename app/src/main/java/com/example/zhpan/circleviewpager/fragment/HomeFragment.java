@@ -60,7 +60,7 @@ public class HomeFragment extends BaseFragment {
     @Override
     public void onPause() {
         super.onPause();
-        LogUtils.e("HomeFragment","onPause");
+        LogUtils.e("HomeFragment", "onPause");
         if (mViewPager != null) {
             mViewPager.stopLoop();
         }
@@ -69,7 +69,7 @@ public class HomeFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        LogUtils.e("HomeFragment","onResume");
+        LogUtils.e("HomeFragment", "onResume");
         if (mViewPager != null) {
             mViewPager.startLoop();
         }
@@ -158,7 +158,7 @@ public class HomeFragment extends BaseFragment {
 
     private void onPageClicked(int position) {
         BannerData bannerData = mViewPager.getList().get(position);
-        Toast.makeText(getMContext(), "position:" + position + " " + bannerData.getTitle(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getMContext(), "position:" + position + " " + bannerData.getTitle() + "currentItem:" + mViewPager.getCurrentItem(), Toast.LENGTH_SHORT).show();
     }
 
     private View getHeaderView() {

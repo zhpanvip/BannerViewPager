@@ -8,7 +8,6 @@ import android.view.View
 import android.view.animation.DecelerateInterpolator
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-
 import com.example.zhpan.circleviewpager.R
 import com.example.zhpan.circleviewpager.bean.CustomBean
 import com.example.zhpan.circleviewpager.viewholder.CustomPageViewHolder
@@ -18,11 +17,8 @@ import com.zhpan.bannerview.constants.TransformerStyle
 import com.zhpan.bannerview.holder.HolderCreator
 import com.zhpan.bannerview.utils.BannerUtils
 import com.zhpan.indicator.enums.IndicatorSlideMode
-
-import java.util.ArrayList
-import java.util.Random
-
 import kotlinx.android.synthetic.main.activity_welcome.*
+import java.util.*
 
 class WelcomeActivity : BaseDataActivity(), HolderCreator<CustomPageViewHolder> {
 
@@ -102,7 +98,9 @@ class WelcomeActivity : BaseDataActivity(), HolderCreator<CustomPageViewHolder> 
 
     override fun createViewHolder(): CustomPageViewHolder {
         val customPageViewHolder = CustomPageViewHolder()
-        customPageViewHolder.setOnSubViewClickListener { _, position -> Toast.makeText(this, "Logo Clicked,Item: $position", Toast.LENGTH_SHORT).show() }
+        customPageViewHolder.setOnSubViewClickListener { _, position ->
+            Toast.makeText(this, "Logo Clicked Item: $position,currentItem:${mViewPager.currentItem}", Toast.LENGTH_SHORT).show()
+        }
         return customPageViewHolder
     }
 

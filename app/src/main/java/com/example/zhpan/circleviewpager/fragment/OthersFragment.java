@@ -15,6 +15,7 @@ import com.example.zhpan.circleviewpager.viewholder.ImageResourceViewHolder;
 import com.zhpan.bannerview.BannerViewPager;
 import com.zhpan.bannerview.constants.IndicatorGravity;
 import com.zhpan.bannerview.utils.BannerUtils;
+import com.zhpan.idea.utils.LogUtils;
 import com.zhpan.idea.utils.ToastUtils;
 import com.zhpan.indicator.IndicatorView;
 import com.zhpan.indicator.base.IIndicator;
@@ -70,7 +71,15 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
         view.findViewById(R.id.btn_refresh).setOnClickListener(v -> updateData());
         mViewPager.setIndicatorSliderGap(BannerUtils.dp2px(6))
                 .setRoundCorner(BannerUtils.dp2px(6))
-                .setOnPageClickListener(position -> ToastUtils.show("Position:" + position))
+                .setOnPageClickListener(new BannerViewPager.OnPageClickListener() {
+                    @Override
+                    public void onPageClick(int position) {
+                        ToastUtils.show("position:" + position);
+                        int currentItem = mViewPager.getCurrentItem();
+                        LogUtils.e("currentItem:", currentItem + "");
+                    }
+                })
+//                .setOnPageClickListener(position -> ToastUtils.show("Position:" + position))
                 .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
                 .setHolderCreator(() -> new ImageResourceViewHolder(0));
         initRadioGroup();
@@ -163,7 +172,7 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
 
     private void updateData() {
         //  生成[-1,3]整数
-        initData(new Random().nextInt(5) - 1);
+        initData(0);
         ToastUtils.show("size=" + getMDrawableList().size());
         mViewPager.create(getMDrawableList());
     }
