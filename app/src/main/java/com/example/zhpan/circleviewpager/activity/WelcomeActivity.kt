@@ -59,11 +59,11 @@ class WelcomeActivity : BaseDataActivity(), HolderCreator<CustomPageViewHolder> 
                 .setPageTransformerStyle(transforms[Random().nextInt(6)])
                 .setScrollDuration(ANIMATION_DURATION)
                 .setIndicatorMargin(0, 0, 0, resources.getDimension(R.dimen.dp_100).toInt())
-                .setIndicatorGap(resources.getDimension(R.dimen.dp_10).toInt())
-                .setIndicatorColor(ContextCompat.getColor(this, R.color.white),
+                .setIndicatorSliderGap(resources.getDimension(R.dimen.dp_10).toInt())
+                .setIndicatorSliderColor(ContextCompat.getColor(this, R.color.white),
                         ContextCompat.getColor(this, R.color.white_alpha_75))
                 .setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
-                .setIndicatorRadius(resources.getDimension(R.dimen.dp_3).toInt(), resources.getDimension(R.dimen.dp_4_5).toInt())
+                .setIndicatorSliderRadius(resources.getDimension(R.dimen.dp_3).toInt(), resources.getDimension(R.dimen.dp_4_5).toInt())
                 .setOnPageChangeListener(object : OnPageChangeListenerAdapter() {
                     override fun onPageSelected(position: Int) {
                         BannerUtils.log("position:$position")
@@ -102,7 +102,9 @@ class WelcomeActivity : BaseDataActivity(), HolderCreator<CustomPageViewHolder> 
 
     override fun createViewHolder(): CustomPageViewHolder {
         val customPageViewHolder = CustomPageViewHolder()
-        customPageViewHolder.setOnSubViewClickListener { _, position -> Toast.makeText(this, "Logo Clicked,Item: $position", Toast.LENGTH_SHORT).show() }
+        customPageViewHolder.setOnSubViewClickListener { _, position ->
+            Toast.makeText(this, "Logo Clicked Item: $position,currentItem:${mViewPager.currentItem}", Toast.LENGTH_SHORT).show()
+        }
         return customPageViewHolder
     }
 

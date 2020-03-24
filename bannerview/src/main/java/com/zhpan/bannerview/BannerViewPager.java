@@ -277,11 +277,10 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
             throw new NullPointerException("You must set HolderCreator for BannerViewPager");
         }
         currentPosition = 0;
-        if (list.size() > 0 && isCanLoop()) {
-            currentPosition = MAX_VALUE / 2 - ((MAX_VALUE / 2) % list.size()) + 1;
-        }
         mViewPager.setAdapter(getPagerAdapter(list));
-        mViewPager.setCurrentItem(currentPosition);
+        if (list.size() > 1 && isCanLoop()) {
+            mViewPager.setCurrentItem(MAX_VALUE / 2 - ((MAX_VALUE / 2) % list.size()) + 1);
+        }
         mViewPager.removeOnPageChangeListener(this);
         mViewPager.addOnPageChangeListener(this);
         BannerOptions bannerOptions = mBannerManager.bannerOptions();
@@ -333,7 +332,7 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
         mViewPager.setOverlapStyle(overlap);
         mViewPager.setPageMargin(overlap ? -bannerOptions.getPageMargin() : bannerOptions.getPageMargin());
         int offScreenPageLimit = bannerOptions.getOffScreenPageLimit();
-        mViewPager.setOffscreenPageLimit(offScreenPageLimit > 2 ? offScreenPageLimit : 2);
+        mViewPager.setOffscreenPageLimit(Math.max(offScreenPageLimit, 2));
         setPageTransformer(new ScaleInTransformer(scale));
     }
 

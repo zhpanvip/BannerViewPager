@@ -18,6 +18,7 @@ import com.zhpan.bannerview.constants.IndicatorSlideMode;
 import com.zhpan.bannerview.indicator.IIndicator;
 import com.zhpan.bannerview.indicator.IndicatorView;
 import com.zhpan.bannerview.utils.BannerUtils;
+import com.zhpan.idea.utils.LogUtils;
 import com.zhpan.idea.utils.ToastUtils;
 
 import java.lang.reflect.Field;
@@ -68,10 +69,18 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
         mIndicatorView = view.findViewById(R.id.indicator_view);
         view.findViewById(R.id.tv_photo_view).setOnClickListener(this);
         view.findViewById(R.id.btn_refresh).setOnClickListener(v -> updateData());
-        mViewPager.setIndicatorGap(BannerUtils.dp2px(6))
+        mViewPager.setIndicatorSliderGap(BannerUtils.dp2px(6))
                 .setRoundCorner(BannerUtils.dp2px(6))
-                .setOnPageClickListener(position -> ToastUtils.show("Position:" + position))
-                .setIndicatorColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
+                .setOnPageClickListener(new BannerViewPager.OnPageClickListener() {
+                    @Override
+                    public void onPageClick(int position) {
+                        ToastUtils.show("position:" + position);
+                        int currentItem = mViewPager.getCurrentItem();
+                        LogUtils.e("currentItem:", currentItem + "");
+                    }
+                })
+//                .setOnPageClickListener(position -> ToastUtils.show("Position:" + position))
+                .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
                 .setHolderCreator(() -> new ImageResourceViewHolder(0));
         initRadioGroup();
     }
@@ -164,6 +173,9 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
         startActivity(new Intent(getActivity(), PhotoViewActivity.class));
     }
 
+    /**
+     * 注意：在项目中不需要使用该方法
+     */
     private void resetBannerViewPager() {
         try {
             Field mIndicatorView = BannerViewPager.class.getDeclaredField("mIndicatorView");
