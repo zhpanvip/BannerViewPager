@@ -141,6 +141,8 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
                     } else {
                         getParent().requestDisallowInterceptTouchEvent(true);
                     }
+                } else if (2 * disX < disY) {
+                    getParent().requestDisallowInterceptTouchEvent(false);
                 }
                 break;
             case MotionEvent.ACTION_UP:
