@@ -41,7 +41,7 @@
                 android:drawableTop="@drawable/tab3_selector"
                 android:gravity="center_horizontal|bottom"
                 android:paddingBottom="@dimen/dp_5"
-                android:text="@string/tab3"
+                android:text="@string/tab2"
                 android:textColor="@drawable/text_color_selector" />
 
             <RadioButton
@@ -54,7 +54,7 @@
                 android:drawableTop="@drawable/tab2_selector"
                 android:gravity="center_horizontal|bottom"
                 android:paddingBottom="@dimen/dp_5"
-                android:text="@string/tab2"
+                android:text="@string/tab3"
                 android:textColor="@drawable/text_color_selector" />
 
             <RadioButton
