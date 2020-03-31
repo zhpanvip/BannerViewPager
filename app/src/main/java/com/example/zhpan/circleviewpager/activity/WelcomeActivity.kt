@@ -6,6 +6,7 @@ import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.view.View
 import android.view.animation.DecelerateInterpolator
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.example.zhpan.circleviewpager.R
@@ -15,12 +16,13 @@ import com.zhpan.bannerview.BannerViewPager
 import com.zhpan.bannerview.adapter.OnPageChangeListenerAdapter
 import com.zhpan.bannerview.constants.TransformerStyle
 import com.zhpan.bannerview.holder.HolderCreator
+import com.zhpan.bannerview.holder.HolderCreator2
 import com.zhpan.bannerview.utils.BannerUtils
 import com.zhpan.indicator.enums.IndicatorSlideMode
 import kotlinx.android.synthetic.main.activity_welcome.*
 import java.util.*
 
-class WelcomeActivity : BaseDataActivity(), HolderCreator<CustomPageViewHolder> {
+class WelcomeActivity : BaseDataActivity(), HolderCreator2<CustomPageViewHolder> {
 
     private lateinit var mViewPager: BannerViewPager<CustomBean, CustomPageViewHolder>
 
@@ -50,8 +52,8 @@ class WelcomeActivity : BaseDataActivity(), HolderCreator<CustomPageViewHolder> 
 
     private fun setupViewPager() {
         mViewPager = findViewById(R.id.viewpager)
-        mViewPager.setAutoPlay(false)
-                .setCanLoop(false)
+        mViewPager.setAutoPlay(true)
+                .setCanLoop(true)
                 .setPageTransformerStyle(transforms[Random().nextInt(6)])
                 .setScrollDuration(ANIMATION_DURATION)
                 .setIndicatorMargin(0, 0, 0, resources.getDimension(R.dimen.dp_100).toInt())
@@ -97,7 +99,8 @@ class WelcomeActivity : BaseDataActivity(), HolderCreator<CustomPageViewHolder> 
     }
 
     override fun createViewHolder(): CustomPageViewHolder {
-        val customPageViewHolder = CustomPageViewHolder()
+        var itemView = layoutInflater.inflate(R.layout.item_custom_view, mViewPager, false)
+        val customPageViewHolder = CustomPageViewHolder(itemView)
         customPageViewHolder.setOnSubViewClickListener { _, position ->
             Toast.makeText(this, "Logo Clicked Item: $position,currentItem:${mViewPager.currentItem}", Toast.LENGTH_SHORT).show()
         }
@@ -107,5 +110,24 @@ class WelcomeActivity : BaseDataActivity(), HolderCreator<CustomPageViewHolder> 
     companion object {
 
         private const val ANIMATION_DURATION = 1300
+    }
+
+    override fun bindViewHolder(holder: CustomPageViewHolder, position: Int) {
+        var imageView =holder.itemView.findViewById<ImageView>(R.id.banner_image);
+        var mImageStar=holder.itemView.findViewById<ImageView>(R.id.iv_logo)
+
+        imageView.setImageResource(R.drawable.bg_card0)
+        //        ImageView mImageView = itemView.findViewById(R.id.banner_image);
+//        ImageView  mImageStart = itemView.findViewById(R.id.iv_logo);
+//
+//        mImageView.setImageResource(data.getImageRes());
+//        mImageStart.setOnClickListener(view -> {
+//            if (null != mOnSubViewClickListener)
+//                mOnSubViewClickListener.onViewClick(view, position);
+//        });
+//        ObjectAnimator alphaAnimator = ObjectAnimator.ofFloat(mImageStart, "alpha", 0, 1);
+//        alphaAnimator.setDuration(1500);
+//        alphaAnimator.start();
+
     }
 }
