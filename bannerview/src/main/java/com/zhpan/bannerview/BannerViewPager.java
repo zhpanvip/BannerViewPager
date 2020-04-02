@@ -27,7 +27,6 @@ import com.zhpan.bannerview.manager.BannerManager;
 import com.zhpan.bannerview.manager.BannerOptions;
 import com.zhpan.bannerview.transform.ScaleInTransformer;
 import com.zhpan.bannerview.utils.BannerUtils;
-import com.zhpan.bannerview.adapter.BannerPagerAdapter;
 import com.zhpan.bannerview.provider.ViewStyleSetter;
 import com.zhpan.indicator.IndicatorView;
 import com.zhpan.indicator.annotation.AIndicatorSlideMode;
@@ -36,7 +35,7 @@ import com.zhpan.indicator.base.IIndicator;
 
 import java.util.List;
 
-import static com.zhpan.bannerview.adapter.BannerPagerAdapter.MAX_VALUE;
+import static com.zhpan.bannerview.adapter.BaseBannerAdapter.MAX_VALUE;
 import static com.zhpan.bannerview.constants.IndicatorGravity.CENTER;
 import static com.zhpan.bannerview.constants.IndicatorGravity.END;
 import static com.zhpan.bannerview.constants.IndicatorGravity.START;
@@ -160,40 +159,48 @@ public class BannerViewPager<T, VH extends RecyclerView.ViewHolder> extends Rela
         return super.dispatchTouchEvent(ev);
     }
 
-    public void onPageSelected(int position) {
-        int size = mBannerPagerAdapter.getListSize();
-        currentPosition = BannerUtils.getRealPosition(isCanLoop(), position, size);
-        if (size > 0 && isCanLoop() && position == 0 || position == MAX_VALUE - 1) {
-            setCurrentItem(currentPosition, false);
-        }
-        if (mOnPageChangeListener != null)
-            mOnPageChangeListener.onPageSelected(currentPosition);
-        if (mIndicatorView != null) {
-            mIndicatorView.onPageSelected(currentPosition);
-        }
-    }
-
-    public void onPageScrollStateChanged(int state) {
-        if (mIndicatorView != null) {
-            mIndicatorView.onPageScrollStateChanged(state);
-        }
-        if (mOnPageChangeListener != null) {
-            mOnPageChangeListener.onPageScrollStateChanged(state);
-        }
-    }
-
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        int listSize = mBannerPagerAdapter.getListSize();
-        int realPosition = BannerUtils.getRealPosition(isCanLoop(), position, listSize);
-        if (listSize > 0) {
-            if (mOnPageChangeListener != null) {
-                mOnPageChangeListener.onPageScrolled(realPosition, positionOffset, positionOffsetPixels);
+    private ViewPager2.OnPageChangeCallback mOnPageChangeCallback = new ViewPager2.OnPageChangeCallback() {
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            super.onPageScrolled(position, positionOffset, positionOffsetPixels);
+            int listSize = mBannerPagerAdapter.getListSize();
+            int realPosition = BannerUtils.getRealPosition(isCanLoop(), position, listSize);
+            if (listSize > 0) {
+                if (onPageChangeCallback != null) {
+                    onPageChangeCallback.onPageScrolled(realPosition, positionOffset, positionOffsetPixels);
+                }
+                if (mIndicatorView != null) {
+                    mIndicatorView.onPageScrolled(realPosition, positionOffset, positionOffsetPixels);
+                }
             }
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+            super.onPageSelected(position);
+            int size = mBannerPagerAdapter.getListSize();
+            currentPosition = BannerUtils.getRealPosition(isCanLoop(), position, size);
+            if (size > 0 && isCanLoop() && position == 0 || position == MAX_VALUE - 1) {
+                setCurrentItem(currentPosition, false);
+            }
+            if (onPageChangeCallback != null)
+                onPageChangeCallback.onPageSelected(currentPosition);
             if (mIndicatorView != null) {
-                mIndicatorView.onPageScrolled(realPosition, positionOffset, positionOffsetPixels);
+                mIndicatorView.onPageSelected(currentPosition);
             }
         }
-    }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+            super.onPageScrollStateChanged(state);
+            if (mIndicatorView != null) {
+                mIndicatorView.onPageScrollStateChanged(state);
+            }
+            if (onPageChangeCallback != null) {
+                onPageChangeCallback.onPageScrollStateChanged(state);
+            }
+        }
+    };
 
     private void handlePosition() {
         if (mBannerPagerAdapter.getListSize() > 1) {
@@ -281,27 +288,8 @@ public class BannerViewPager<T, VH extends RecyclerView.ViewHolder> extends Rela
         if (list.size() > 1 && isCanLoop()) {
             mViewPager.setCurrentItem(MAX_VALUE / 2 - ((MAX_VALUE / 2) % list.size()) + 1);
         }
-        mViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                super.onPageScrolled(position, positionOffset, positionOffsetPixels);
-                BannerViewPager.this.onPageScrolled(position, positionOffset, positionOffsetPixels);
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
-                BannerViewPager.this.onPageSelected(position);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-                super.onPageScrollStateChanged(state);
-                BannerViewPager.this.onPageScrollStateChanged(state);
-            }
-        });
-//        mViewPager.removeOnPageChangeListener(this);
-//        mViewPager.addOnPageChangeListener(this);
+        mViewPager.unregisterOnPageChangeCallback(mOnPageChangeCallback);
+        mViewPager.registerOnPageChangeCallback(mOnPageChangeCallback);
 //        BannerOptions bannerOptions = mBannerManager.bannerOptions();
 //        mViewPager.setScrollDuration(bannerOptions.getScrollDuration());
 //        mViewPager.disableTouchScroll(bannerOptions.isDisableTouchScroll());
@@ -316,7 +304,7 @@ public class BannerViewPager<T, VH extends RecyclerView.ViewHolder> extends Rela
     private RecyclerView.Adapter getAdapter(List<T> list) {
         mBannerPagerAdapter = new BaseBannerAdapter<>(list, holderCreator);
         mBannerPagerAdapter.setCanLoop(isCanLoop());
-        mBannerPagerAdapter.setPageClickListener(new BannerPagerAdapter.PageClickListener() {
+        mBannerPagerAdapter.setPageClickListener(new BaseBannerAdapter.PageClickListener() {
             @Override
             public void onPageClick(int position) {
                 if (mOnPageClickListener != null) {
@@ -790,10 +778,10 @@ public class BannerViewPager<T, VH extends RecyclerView.ViewHolder> extends Rela
         void onPageClick(int position);
     }
 
-    private ViewPager.OnPageChangeListener mOnPageChangeListener;
+    private ViewPager2.OnPageChangeCallback onPageChangeCallback;
 
-    public BannerViewPager<T, VH> setOnPageChangeListener(ViewPager.OnPageChangeListener onPageChangeListener) {
-        mOnPageChangeListener = onPageChangeListener;
+    public BannerViewPager<T, VH> setOnPageChangeCallback(ViewPager2.OnPageChangeCallback onPageChangeCallback) {
+        this.onPageChangeCallback = onPageChangeCallback;
         return this;
     }
 

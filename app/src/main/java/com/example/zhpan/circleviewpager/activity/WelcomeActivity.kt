@@ -9,13 +9,12 @@ import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.viewpager2.widget.ViewPager2
 import com.example.zhpan.circleviewpager.R
 import com.example.zhpan.circleviewpager.bean.CustomBean
 import com.example.zhpan.circleviewpager.viewholder.CustomPageViewHolder
 import com.zhpan.bannerview.BannerViewPager
-import com.zhpan.bannerview.adapter.OnPageChangeListenerAdapter
 import com.zhpan.bannerview.constants.TransformerStyle
-import com.zhpan.bannerview.holder.HolderCreator
 import com.zhpan.bannerview.holder.HolderCreator2
 import com.zhpan.bannerview.utils.BannerUtils
 import com.zhpan.indicator.enums.IndicatorSlideMode
@@ -62,7 +61,7 @@ class WelcomeActivity : BaseDataActivity(), HolderCreator2<CustomPageViewHolder>
                         ContextCompat.getColor(this, R.color.white_alpha_75))
                 .setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
                 .setIndicatorSliderRadius(resources.getDimension(R.dimen.dp_3).toInt(), resources.getDimension(R.dimen.dp_4_5).toInt())
-                .setOnPageChangeListener(object : OnPageChangeListenerAdapter() {
+                .setOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                     override fun onPageSelected(position: Int) {
                         BannerUtils.log("position:$position")
                         updateUI(position)

@@ -21,7 +21,6 @@ import com.example.zhpan.circleviewpager.viewholder.NetViewHolder;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.zhpan.bannerview.BannerViewPager;
-import com.zhpan.bannerview.adapter.OnPageChangeListenerAdapter;
 import com.zhpan.idea.net.common.ResponseObserver;
 import com.zhpan.idea.utils.LogUtils;
 import com.zhpan.idea.utils.RxUtil;

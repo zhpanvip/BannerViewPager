@@ -13,18 +13,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <pre>
- *   Created by zhangpan on 2020/3/31.
- *   Description:
- * </pre>
+ * Created by zhpan on 2017/3/28.
  */
 public class BaseBannerAdapter<T, VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH> {
     private List<T> mList = new ArrayList<>();
     private HolderCreator2<VH> mHolderCreator;
     private boolean isCanLoop;
     public static final int MAX_VALUE = 500;
-    private BannerPagerAdapter.PageClickListener mPageClickListener;
-
+    private PageClickListener mPageClickListener;
     public BaseBannerAdapter(List<T> list, HolderCreator2<VH> holderCreator) {
         mList.addAll(list);
         this.mHolderCreator = holderCreator;
@@ -73,11 +69,15 @@ public class BaseBannerAdapter<T, VH extends RecyclerView.ViewHolder> extends Re
         isCanLoop = canLoop;
     }
 
-    public void setPageClickListener(BannerPagerAdapter.PageClickListener pageClickListener) {
+    public void setPageClickListener(PageClickListener pageClickListener) {
         mPageClickListener = pageClickListener;
     }
 
     public int getListSize() {
         return mList.size();
+    }
+
+    public interface PageClickListener {
+        void onPageClick(int position);
     }
 }
