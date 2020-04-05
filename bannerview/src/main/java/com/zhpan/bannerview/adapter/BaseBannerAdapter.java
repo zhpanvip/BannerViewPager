@@ -1,12 +1,14 @@
 package com.zhpan.bannerview.adapter;
 
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.zhpan.bannerview.holder.HolderCreator2;
+import com.zhpan.bannerview.BannerViewPager;
+import com.zhpan.bannerview.holder.BaseViewHolder;
 import com.zhpan.bannerview.utils.BannerUtils;
 
 import java.util.ArrayList;
@@ -15,28 +17,23 @@ import java.util.List;
 /**
  * Created by zhpan on 2017/3/28.
  */
-public class BaseBannerAdapter<T, VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH> {
+public abstract class BaseBannerAdapter<T, VH extends BaseViewHolder> extends RecyclerView.Adapter<VH> {
     private List<T> mList = new ArrayList<>();
-    private HolderCreator2<VH> mHolderCreator;
     private boolean isCanLoop;
     public static final int MAX_VALUE = 500;
-    private PageClickListener mPageClickListener;
-    public BaseBannerAdapter(List<T> list, HolderCreator2<VH> holderCreator) {
-        mList.addAll(list);
-        this.mHolderCreator = holderCreator;
-    }
-
+    private BannerViewPager.OnItemClickListener mPageClickListener;
 
     @NonNull
     @Override
     public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return mHolderCreator.createViewHolder();
+        View inflate = LayoutInflater.from(parent.getContext()).inflate(getLayoutId(), parent, false);
+        return createViewHolder(inflate);
     }
 
     @Override
     public void onBindViewHolder(@NonNull VH holder, final int position) {
-
-        mHolderCreator.bindViewHolder(holder, BannerUtils.getRealPosition(isCanLoop, position, mList.size()));
+        int realPosition = BannerUtils.getRealPosition(isCanLoop, position, mList.size());
+        onBind(holder, mList.get(realPosition), realPosition, mList.size());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,6 +44,11 @@ public class BaseBannerAdapter<T, VH extends RecyclerView.ViewHolder> extends Re
         });
     }
 
+    protected abstract void onBind(VH holder, T data, int position, int pageSize);
+
+    public abstract VH createViewHolder(View itemView);
+
+    public abstract int getLayoutId();
 
     @Override
     public int getItemCount() {
@@ -62,22 +64,21 @@ public class BaseBannerAdapter<T, VH extends RecyclerView.ViewHolder> extends Re
     }
 
     public void setList(List<T> list) {
-        mList = list;
+        if (null != list) {
+            mList.clear();
+            mList.addAll(list);
+        }
     }
 
     public void setCanLoop(boolean canLoop) {
         isCanLoop = canLoop;
     }
 
-    public void setPageClickListener(PageClickListener pageClickListener) {
+    public void setPageClickListener(BannerViewPager.OnItemClickListener pageClickListener) {
         mPageClickListener = pageClickListener;
     }
 
     public int getListSize() {
         return mList.size();
-    }
-
-    public interface PageClickListener {
-        void onPageClick(int position);
     }
 }

@@ -70,7 +70,7 @@ BannerViewPager目前已支持三种IndicatorViewStyle,以及三种IndicatorSlid
 | BannerViewPager<T, VH> setInterval(int interval) | 自动轮播时间间隔 |单位毫秒，默认值3000  |
 | BannerViewPager<T, VH> setScrollDuration(int scrollDuration) | 设置页面滚动时间 | 设置页面滚动时间 |单位毫秒，默认值500  |
 | BannerViewPager<T, VH> setRoundCorner(int radius) | 设置圆角 |默认无圆角 需要SDK_INT>=LOLLIPOP(API 21)  |
-| BannerViewPager<T, VH> setOnPageClickListener(OnPageClickListener onPageClickListener) | 设置页面点击事件 |  |
+| BannerViewPager<T, VH> setOnPageClickListener(OnPageClickListener onItemClickListener) | 设置页面点击事件 |  |
 | BannerViewPager<T, VH> setHolderCreator(HolderCreator\<VH> holderCreator) |设置HolderCreator  |必须设置HolderCreator，否则会抛出NullPointerException|
 | BannerViewPager<T, VH> setIndicatorVisibility(@Visibility int visibility) | indicator visibility |默认值VISIBLE 2.4.2 新增|
 | BannerViewPager<T, VH> setIndicatorStyle(int indicatorStyle) | 设置指示器样式 | 可选枚举(CIRCLE, DASH、ROUND_RECT) 默认CIRCLE  |

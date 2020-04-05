@@ -4,8 +4,6 @@ package com.example.zhpan.circleviewpager.activity
 import android.os.Bundle
 
 import com.example.zhpan.circleviewpager.R
-import com.example.zhpan.circleviewpager.viewholder.PhotoViewHolder
-import com.zhpan.bannerview.BannerViewPager
 
 class PhotoViewActivity : BaseDataActivity() {
 

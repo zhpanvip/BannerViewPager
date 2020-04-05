@@ -2,9 +2,11 @@ package com.example.zhpan.circleviewpager.viewholder;
 
 import android.view.View;
 
+import androidx.annotation.NonNull;
+
 import com.example.zhpan.circleviewpager.R;
 import com.example.zhpan.circleviewpager.view.CornerImageView;
-import com.zhpan.bannerview.holder.ViewHolder;
+import com.zhpan.bannerview.holder.BaseViewHolder;
 
 /**
  * <pre>
@@ -12,24 +14,22 @@ import com.zhpan.bannerview.holder.ViewHolder;
  *   Description:
  * </pre>
  */
-public class ImageResourceViewHolder implements ViewHolder<Integer> {
+public class ImageResourceViewHolder extends BaseViewHolder<Integer> {
 
     private int roundCorner;
 
-    public ImageResourceViewHolder(int roundCorner) {
-        this.roundCorner = roundCorner;
+    public ImageResourceViewHolder(@NonNull View itemView) {
+        super(itemView);
     }
 
     @Override
-    public int getLayoutId() {
-        return R.layout.item_slide_mode;
-    }
-
-    @Override
-    public void onBind(View itemView, Integer data, int position, int size) {
+    public void bind(Integer data, int position, int pageSize) {
         CornerImageView imageView = itemView.findViewById(R.id.banner_image);
         imageView.setImageResource(data);
         imageView.setRoundCorner(roundCorner);
     }
 
+    public void setRoundCorner(int roundCorner) {
+        this.roundCorner = roundCorner;
+    }
 }

@@ -6,7 +6,6 @@ import android.os.Handler;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -22,7 +21,7 @@ import com.zhpan.bannerview.annotation.APageStyle;
 import com.zhpan.bannerview.annotation.ATransformerStyle;
 import com.zhpan.bannerview.annotation.Visibility;
 import com.zhpan.bannerview.constants.PageStyle;
-import com.zhpan.bannerview.holder.HolderCreator2;
+import com.zhpan.bannerview.holder.BaseViewHolder;
 import com.zhpan.bannerview.manager.BannerManager;
 import com.zhpan.bannerview.manager.BannerOptions;
 import com.zhpan.bannerview.transform.ScaleInTransformer;
@@ -45,13 +44,13 @@ import static com.zhpan.bannerview.transform.ScaleInTransformer.MAX_SCALE;
 /**
  * Created by zhpan on 2017/3/28.
  */
-public class BannerViewPager<T, VH extends RecyclerView.ViewHolder> extends RelativeLayout {
+public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayout {
 
     private int currentPosition;
 
     private boolean isCustomIndicator;
 
-    private OnPageClickListener mOnPageClickListener;
+    private OnItemClickListener mOnItemClickListener;
 
     private IIndicator mIndicatorView;
 
@@ -62,8 +61,6 @@ public class BannerViewPager<T, VH extends RecyclerView.ViewHolder> extends Rela
     private ViewPager2 mViewPager;
 
     private BannerManager mBannerManager;
-
-    private HolderCreator2<VH> holderCreator;
 
     private Handler mHandler = new Handler();
 
@@ -97,8 +94,7 @@ public class BannerViewPager<T, VH extends RecyclerView.ViewHolder> extends Rela
 
     private void initView() {
         inflate(getContext(), R.layout.bvp_layout, this);
-//        mViewPager = findViewById(R.id.vp_main);
-        mViewPager = findViewById(R.id.vp_main2);
+        mViewPager = findViewById(R.id.vp_main);
         mIndicatorLayout = findViewById(R.id.bvp_layout_indicator);
     }
 
@@ -279,58 +275,29 @@ public class BannerViewPager<T, VH extends RecyclerView.ViewHolder> extends Rela
     }
 
     private void setupViewPager(List<T> list) {
-        if (holderCreator == null) {
-            throw new NullPointerException("You must set HolderCreator for BannerViewPager");
+        if (mBannerPagerAdapter == null) {
+            throw new NullPointerException("You must set adapter for BannerViewPager");
         }
         currentPosition = 0;
-        mViewPager.setAdapter(getAdapter(list));
-//        mViewPager.setAdapter(getPagerAdapter(list));
+        mBannerPagerAdapter.setCanLoop(isCanLoop());
+        mBannerPagerAdapter.setPageClickListener(mOnItemClickListener);
+        mViewPager.setAdapter(mBannerPagerAdapter);
         if (list.size() > 1 && isCanLoop()) {
-            mViewPager.setCurrentItem(MAX_VALUE / 2 - ((MAX_VALUE / 2) % list.size()) + 1);
+            mViewPager.setCurrentItem(MAX_VALUE / 2 - ((MAX_VALUE / 2) % list.size()) + 1, false);
         }
         mViewPager.unregisterOnPageChangeCallback(mOnPageChangeCallback);
         mViewPager.registerOnPageChangeCallback(mOnPageChangeCallback);
-//        BannerOptions bannerOptions = mBannerManager.bannerOptions();
+        BannerOptions bannerOptions = mBannerManager.bannerOptions();
+        mViewPager.setUserInputEnabled(!bannerOptions.isUserInputEnabled());
 //        mViewPager.setScrollDuration(bannerOptions.getScrollDuration());
-//        mViewPager.disableTouchScroll(bannerOptions.isDisableTouchScroll());
-//        mViewPager.setFirstLayout(true);
-//        mViewPager.setOffscreenPageLimit(bannerOptions.getOffScreenPageLimit());
+        mViewPager.setOffscreenPageLimit(bannerOptions.getOffScreenPageLimit());
 
         initPageStyle();
         startLoop();
     }
 
 
-    private RecyclerView.Adapter getAdapter(List<T> list) {
-        mBannerPagerAdapter = new BaseBannerAdapter<>(list, holderCreator);
-        mBannerPagerAdapter.setCanLoop(isCanLoop());
-        mBannerPagerAdapter.setPageClickListener(new BaseBannerAdapter.PageClickListener() {
-            @Override
-            public void onPageClick(int position) {
-                if (mOnPageClickListener != null) {
-                    mOnPageClickListener.onPageClick(position);
-                }
-            }
-        });
-        return mBannerPagerAdapter;
-    }
-
     private BaseBannerAdapter<T, VH> mBannerPagerAdapter;
-
-//    private PagerAdapter getPagerAdapter(List<T> list) {
-//        mBannerPagerAdapter =
-//                new BannerPagerAdapter<>(list, holderCreator);
-//        mBannerPagerAdapter.setCanLoop(isCanLoop());
-//        mBannerPagerAdapter.setPageClickListener(new BannerPagerAdapter.PageClickListener() {
-//            @Override
-//            public void onPageClick(int position) {
-//                if (mOnPageClickListener != null) {
-//                    mOnPageClickListener.onPageClick(position);
-//                }
-//            }
-//        });
-//        return mBannerPagerAdapter;
-//    }
 
     private void initPageStyle() {
         switch (mBannerManager.bannerOptions().getPageStyle()) {
@@ -407,22 +374,8 @@ public class BannerViewPager<T, VH extends RecyclerView.ViewHolder> extends Rela
         }
     }
 
-    /**
-     * Must set HolderCreator for BannerViewPager
-     * <p>
-     * In BannerPagerAdapter, the HolderCreator will return custom ViewHolder,then get item layout id by ViewHolder.
-     *
-     * @param holderCreator HolderCreator
-     */
-    public BannerViewPager<T, VH> setHolderCreator(HolderCreator2<VH> holderCreator) {
-        this.holderCreator = holderCreator;
-        return this;
-    }
-
-    private BaseBannerAdapter<T, VH> mAdapter;
-
     public BannerViewPager<T, VH> setAdapter(BaseBannerAdapter<T, VH> adapter) {
-        this.mAdapter = adapter;
+        this.mBannerPagerAdapter = adapter;
         return this;
     }
 
@@ -513,10 +466,10 @@ public class BannerViewPager<T, VH extends RecyclerView.ViewHolder> extends Rela
     /**
      * set item click listener
      *
-     * @param onPageClickListener item click listener
+     * @param onItemClickListener item click listener
      */
-    public BannerViewPager<T, VH> setOnPageClickListener(OnPageClickListener onPageClickListener) {
-        this.mOnPageClickListener = onPageClickListener;
+    public BannerViewPager<T, VH> setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.mOnItemClickListener = onItemClickListener;
         return this;
     }
 
@@ -668,13 +621,34 @@ public class BannerViewPager<T, VH extends RecyclerView.ViewHolder> extends Rela
         return this;
     }
 
+    public void create() {
+        if (mBannerPagerAdapter != null)
+            initBannerData(mBannerPagerAdapter.getList());
+        else {
+            throw new NullPointerException("You must set adapter for BannerViewPager");
+        }
+    }
+
     /**
-     * Create BannerViewPager
+     * Sets the orientation of the ViewPager2.
      *
-     * @param list the data set of Banner
+     * @param orientation {@link ##ORIENTATION_HORIZONTAL} or {@link ##ORIENTATION_VERTICAL}
      */
-    public void create(List<T> list) {
-        initBannerData(list);
+    public BannerViewPager<T, VH> setOrientation(@ViewPager2.Orientation int orientation) {
+        mViewPager.setOrientation(orientation);
+        return this;
+    }
+
+    public void notifyDataSetChanged() {
+        mBannerPagerAdapter.notifyDataSetChanged();
+        initBannerData(mBannerPagerAdapter.getList());
+    }
+
+    public void refresh(List<T> list) {
+        if (list != null && mBannerPagerAdapter != null) {
+            mBannerPagerAdapter.setList(list);
+            initBannerData(mBannerPagerAdapter.getList());
+        }
     }
 
     /**
@@ -769,22 +743,21 @@ public class BannerViewPager<T, VH extends RecyclerView.ViewHolder> extends Rela
         return this;
     }
 
-    public BannerViewPager<T, VH> disableTouchScroll(boolean disableTouchScroll) {
-        mBannerManager.bannerOptions().setDisableTouchScroll(disableTouchScroll);
+    public BannerViewPager<T, VH> setUserInputEnabled(boolean userInputEnabled) {
+        mBannerManager.bannerOptions().setUserInputEnabled(userInputEnabled);
         return this;
     }
 
-    public interface OnPageClickListener {
+    public interface OnItemClickListener {
         void onPageClick(int position);
     }
 
     private ViewPager2.OnPageChangeCallback onPageChangeCallback;
 
-    public BannerViewPager<T, VH> setOnPageChangeCallback(ViewPager2.OnPageChangeCallback onPageChangeCallback) {
+    public BannerViewPager<T, VH> registerOnPageChangeCallback(ViewPager2.OnPageChangeCallback onPageChangeCallback) {
         this.onPageChangeCallback = onPageChangeCallback;
         return this;
     }
-
 
     /**
      * set indicator circle radius
@@ -872,6 +845,26 @@ public class BannerViewPager<T, VH extends RecyclerView.ViewHolder> extends Rela
     @Deprecated
     public BannerViewPager<T, VH> showIndicator(boolean showIndicator) {
         mIndicatorLayout.setVisibility(showIndicator ? VISIBLE : GONE);
+        return this;
+    }
+
+    /**
+     * @deprecated user {@link #setUserInputEnabled(boolean)} instead.
+     */
+    @Deprecated
+    public BannerViewPager<T, VH> disableTouchScroll(boolean disableTouchScroll) {
+        mBannerManager.bannerOptions().setUserInputEnabled(disableTouchScroll);
+        return this;
+    }
+
+    /**
+     * @param onPageClickListener item click listener
+     * @deprecated use {@link #setOnItemClickListener(OnItemClickListener)} instead
+     * set item click listener
+     */
+    @Deprecated
+    public BannerViewPager<T, VH> setOnPageClickListener(OnItemClickListener onPageClickListener) {
+        this.mOnItemClickListener = onPageClickListener;
         return this;
     }
 }

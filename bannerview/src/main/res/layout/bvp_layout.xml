@@ -5,15 +5,8 @@
     android:layout_height="wrap_content"
     tools:parentTag="android.widget.RelativeLayout">
 
-
-    <com.zhpan.bannerview.view.CatchViewPager
-        android:id="@+id/vp_main"
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
     <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/vp_main2"
+        android:id="@+id/vp_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

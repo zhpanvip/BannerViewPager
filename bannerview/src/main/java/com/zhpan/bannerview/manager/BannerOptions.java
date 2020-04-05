@@ -1,5 +1,7 @@
 package com.zhpan.bannerview.manager;
 
+import androidx.viewpager2.widget.ViewPager2;
+
 import com.zhpan.bannerview.constants.PageStyle;
 import com.zhpan.bannerview.utils.BannerUtils;
 import com.zhpan.indicator.option.IndicatorOptions;
@@ -20,7 +22,7 @@ public class BannerOptions {
 
     public static final int DEFAULT_SCROLL_DURATION = 500;
 
-    private int offScreenPageLimit;
+    private int offScreenPageLimit = ViewPager2.OFFSCREEN_PAGE_LIMIT_DEFAULT;
 
     private int interval;
 
@@ -48,7 +50,7 @@ public class BannerOptions {
 
     private int mRoundRadius;
 
-    private boolean disableTouchScroll;
+    private boolean userInputEnabled;
 
     private IndicatorOptions mIndicatorOptions;
 
@@ -113,14 +115,14 @@ public class BannerOptions {
     }
 
 
-
-    public void setIndicatorSliderColor(int normalColor,int checkedColor){
-        mIndicatorOptions.setSliderColor(normalColor,checkedColor);
+    public void setIndicatorSliderColor(int normalColor, int checkedColor) {
+        mIndicatorOptions.setSliderColor(normalColor, checkedColor);
     }
 
-    public void setIndicatorSliderWidth(int normalWidth,int checkedWidth){
-        mIndicatorOptions.setSliderWidth(normalWidth,checkedWidth);
+    public void setIndicatorSliderWidth(int normalWidth, int checkedWidth) {
+        mIndicatorOptions.setSliderWidth(normalWidth, checkedWidth);
     }
+
     public int getCheckedIndicatorWidth() {
         return (int) mIndicatorOptions.getCheckedSliderWidth();
     }
@@ -218,15 +220,15 @@ public class BannerOptions {
         mIndicatorVisibility = indicatorVisibility;
     }
 
-    public boolean isDisableTouchScroll() {
-        return disableTouchScroll;
+    public boolean isUserInputEnabled() {
+        return userInputEnabled;
     }
 
-    public void setDisableTouchScroll(boolean disableTouchScroll) {
-        this.disableTouchScroll = disableTouchScroll;
+    public void setUserInputEnabled(boolean userInputEnabled) {
+        this.userInputEnabled = userInputEnabled;
     }
 
-    public void resetIndicatorOptions(){
+    public void resetIndicatorOptions() {
         mIndicatorOptions.setCurrentPosition(0);
         mIndicatorOptions.setSlideProgress(0);
     }
