@@ -13,6 +13,11 @@ import com.zhpan.bannerview.base.BaseBannerAdapter;
  * </pre>
  */
 public class ImageResourceAdapter extends BaseBannerAdapter<Integer, ImageResourceViewHolder> {
+    private boolean needRoundCorner;
+
+    public ImageResourceAdapter(boolean needRoundCorner) {
+        this.needRoundCorner = needRoundCorner;
+    }
 
     @Override
     protected void onBind(ImageResourceViewHolder holder, Integer data, int position, int pageSize) {
@@ -21,7 +26,10 @@ public class ImageResourceAdapter extends BaseBannerAdapter<Integer, ImageResour
 
     @Override
     public ImageResourceViewHolder createViewHolder(View itemView, int viewType) {
-        return new ImageResourceViewHolder(itemView);
+        ImageResourceViewHolder viewHolder = new ImageResourceViewHolder(itemView);
+        if (needRoundCorner)
+            viewHolder.setRoundCorner(itemView.getResources().getDimensionPixelOffset(R.dimen.dp_6));
+        return viewHolder;
     }
 
     @Override

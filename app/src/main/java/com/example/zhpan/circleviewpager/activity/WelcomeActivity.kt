@@ -75,12 +75,16 @@ class WelcomeActivity : BaseDataActivity() {
     private fun updateUI(position: Int) {
         tv_describe?.text = des[position]
         val translationAnim = ObjectAnimator.ofFloat(tv_describe, "translationX", -120f, 0f)
-        translationAnim.duration = ANIMATION_DURATION.toLong()
-        translationAnim.interpolator = DecelerateInterpolator()
-        val alphaAnimator1 = ObjectAnimator.ofFloat(tv_describe, "alpha", 0f, 1f)
-        alphaAnimator1.duration = ANIMATION_DURATION.toLong()
+        translationAnim.apply {
+            duration = ANIMATION_DURATION.toLong()
+            interpolator = DecelerateInterpolator()
+        }
+        val alphaAnimator = ObjectAnimator.ofFloat(tv_describe, "alpha", 0f, 1f)
+        alphaAnimator.apply {
+            duration = ANIMATION_DURATION.toLong()
+        }
         val animatorSet = AnimatorSet()
-        animatorSet.playTogether(translationAnim, alphaAnimator1)
+        animatorSet.playTogether(translationAnim, alphaAnimator)
         animatorSet.start()
 
         if (position == mViewPager.list.size - 1 && btn_start?.visibility == View.GONE) {

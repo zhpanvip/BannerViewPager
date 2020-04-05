@@ -66,7 +66,7 @@ public class IndicatorFragment extends BaseFragment {
         mRadioGroupMode = view.findViewById(R.id.rg_slide_mode);
         mViewPager = view.findViewById(R.id.banner_view);
         mViewPager.setIndicatorSliderGap(BannerUtils.dp2px(6))
-                .setAdapter(new ImageResourceAdapter().setData(getMDrawableList()))
+                .setAdapter(new ImageResourceAdapter(false).setData(getMDrawableList()))
                 .setRoundCorner(BannerUtils.dp2px(6));
         initRadioGroup();
     }

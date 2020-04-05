@@ -80,7 +80,7 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
                     int currentItem = mViewPager.getCurrentItem();
                     LogUtils.e("currentItem:", currentItem + "");
                 })
-                .setAdapter(new ImageResourceAdapter().setData(getMDrawableList()))
+                .setAdapter(new ImageResourceAdapter(false).setData(getMDrawableList()))
                 .setOnPageClickListener(position -> ToastUtils.show("Position:" + position))
                 .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color));
         initRadioGroup();

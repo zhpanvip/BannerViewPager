@@ -6,6 +6,9 @@ import android.os.Handler;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.CompositePageTransformer;
+import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.util.AttributeSet;
@@ -75,6 +78,53 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
 
     private int startX, startY;
 
+    private CompositePageTransformer mCompositePageTransformer;
+
+    private MarginPageTransformer mMarginPageTransformer;
+
+    private ViewPager2.OnPageChangeCallback mOnPageChangeCallback = new ViewPager2.OnPageChangeCallback() {
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            super.onPageScrolled(position, positionOffset, positionOffsetPixels);
+            int listSize = mBannerPagerAdapter.getListSize();
+            int realPosition = BannerUtils.getRealPosition(isCanLoop(), position, listSize);
+            if (listSize > 0) {
+                if (onPageChangeCallback != null) {
+                    onPageChangeCallback.onPageScrolled(realPosition, positionOffset, positionOffsetPixels);
+                }
+                if (mIndicatorView != null) {
+                    mIndicatorView.onPageScrolled(realPosition, positionOffset, positionOffsetPixels);
+                }
+            }
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+            super.onPageSelected(position);
+            int size = mBannerPagerAdapter.getListSize();
+            currentPosition = BannerUtils.getRealPosition(isCanLoop(), position, size);
+            if (size > 0 && isCanLoop() && position == 0 || position == MAX_VALUE - 1) {
+                setCurrentItem(currentPosition, false);
+            }
+            if (onPageChangeCallback != null)
+                onPageChangeCallback.onPageSelected(currentPosition);
+            if (mIndicatorView != null) {
+                mIndicatorView.onPageSelected(currentPosition);
+            }
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+            super.onPageScrollStateChanged(state);
+            if (mIndicatorView != null) {
+                mIndicatorView.onPageScrollStateChanged(state);
+            }
+            if (onPageChangeCallback != null) {
+                onPageChangeCallback.onPageScrollStateChanged(state);
+            }
+        }
+    };
+
     public BannerViewPager(Context context) {
         this(context, null);
     }
@@ -89,6 +139,7 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
     }
 
     private void init(Context context, AttributeSet attrs) {
+        mCompositePageTransformer = new CompositePageTransformer();
         mBannerManager = new BannerManager();
         mBannerManager.initAttrs(context, attrs);
         initView();
@@ -98,6 +149,7 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
         inflate(getContext(), R.layout.bvp_layout, this);
         mViewPager = findViewById(R.id.vp_main);
         mIndicatorLayout = findViewById(R.id.bvp_layout_indicator);
+        mViewPager.setPageTransformer(mCompositePageTransformer);
     }
 
     @Override
@@ -160,49 +212,6 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
             getParent().requestDisallowInterceptTouchEvent(false);
         }
     }
-
-    private ViewPager2.OnPageChangeCallback mOnPageChangeCallback = new ViewPager2.OnPageChangeCallback() {
-        @Override
-        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            super.onPageScrolled(position, positionOffset, positionOffsetPixels);
-            int listSize = mBannerPagerAdapter.getListSize();
-            int realPosition = BannerUtils.getRealPosition(isCanLoop(), position, listSize);
-            if (listSize > 0) {
-                if (onPageChangeCallback != null) {
-                    onPageChangeCallback.onPageScrolled(realPosition, positionOffset, positionOffsetPixels);
-                }
-                if (mIndicatorView != null) {
-                    mIndicatorView.onPageScrolled(realPosition, positionOffset, positionOffsetPixels);
-                }
-            }
-        }
-
-        @Override
-        public void onPageSelected(int position) {
-            super.onPageSelected(position);
-            int size = mBannerPagerAdapter.getListSize();
-            currentPosition = BannerUtils.getRealPosition(isCanLoop(), position, size);
-            if (size > 0 && isCanLoop() && position == 0 || position == MAX_VALUE - 1) {
-                setCurrentItem(currentPosition, false);
-            }
-            if (onPageChangeCallback != null)
-                onPageChangeCallback.onPageSelected(currentPosition);
-            if (mIndicatorView != null) {
-                mIndicatorView.onPageSelected(currentPosition);
-            }
-        }
-
-        @Override
-        public void onPageScrollStateChanged(int state) {
-            super.onPageScrollStateChanged(state);
-            if (mIndicatorView != null) {
-                mIndicatorView.onPageScrollStateChanged(state);
-            }
-            if (onPageChangeCallback != null) {
-                onPageChangeCallback.onPageScrollStateChanged(state);
-            }
-        }
-    };
 
     private void handlePosition() {
         if (mBannerPagerAdapter.getListSize() > 1) {
@@ -318,16 +327,16 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
     }
 
     private void setMultiPageStyle(boolean overlap, float scale) {
-        setClipChildren(false);
-        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) mViewPager.getLayoutParams();
+        mViewPager.setOffscreenPageLimit(1);
+        RecyclerView recyclerView = (RecyclerView) mViewPager.getChildAt(0);
         BannerOptions bannerOptions = mBannerManager.bannerOptions();
-        params.leftMargin = bannerOptions.getPageMargin() + bannerOptions.getRevealWidth();
-        params.rightMargin = params.leftMargin;
-//        mViewPager.setOverlapStyle(overlap);
-//        mViewPager.setPageMargin(overlap ? -bannerOptions.getPageMargin() : bannerOptions.getPageMargin());
-        int offScreenPageLimit = bannerOptions.getOffScreenPageLimit();
-        mViewPager.setOffscreenPageLimit(Math.max(offScreenPageLimit, 2));
-        setPageTransformer(new ScaleInTransformer(scale));
+        int padding = bannerOptions.getPageMargin() + bannerOptions.getRevealWidth();
+        recyclerView.setPadding(padding, 0, padding, 0);
+        recyclerView.setClipToPadding(false);
+        addPageTransformer(new ScaleInTransformer(scale));
+        if (overlap) {
+            // TODO MULTI_PAGE_OVERLAP style supported
+        }
     }
 
     private int getInterval() {
@@ -469,6 +478,37 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
     public void setPageTransformer(@Nullable ViewPager2.PageTransformer transformer) {
         if (transformer != null)
             mViewPager.setPageTransformer(transformer);
+    }
+
+    /**
+     * @param transformer PageTransformer that will modify each page's animation properties
+     */
+    public void addPageTransformer(@Nullable ViewPager2.PageTransformer transformer) {
+        if (transformer != null) {
+            mCompositePageTransformer.addTransformer(transformer);
+        }
+    }
+
+    public void removeTransformer(@Nullable ViewPager2.PageTransformer transformer) {
+        if (transformer != null) {
+            mCompositePageTransformer.removeTransformer(transformer);
+        }
+    }
+
+
+    /**
+     * set page margin
+     *
+     * @param pageMargin page margin
+     */
+    public BannerViewPager<T, VH> setPageMargin(int pageMargin) {
+        mBannerManager.bannerOptions().setPageMargin(pageMargin);
+        if (mMarginPageTransformer != null) {
+            mCompositePageTransformer.removeTransformer(mMarginPageTransformer);
+        }
+        mMarginPageTransformer = new MarginPageTransformer(pageMargin);
+        mCompositePageTransformer.addTransformer(mMarginPageTransformer);
+        return this;
     }
 
 

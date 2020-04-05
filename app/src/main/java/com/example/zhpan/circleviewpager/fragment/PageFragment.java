@@ -64,7 +64,7 @@ public class PageFragment extends BaseFragment {
                 .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
                 .setIndicatorSliderRadius(getResources().getDimensionPixelOffset(R.dimen.dp_4), getResources().getDimensionPixelOffset(R.dimen.dp_5))
                 .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
-                .setAdapter(new ImageResourceAdapter().setData(getMDrawableList()))
+                .setAdapter(new ImageResourceAdapter(true).setData(getMDrawableList()))
                 .setInterval(5000);
         initRadioGroup();
     }
@@ -91,7 +91,8 @@ public class PageFragment extends BaseFragment {
 
     private void setupBanner(@APageStyle int pageStyle) {
         mViewPager
-                .setRevealWidth(getResources().getDimensionPixelOffset(R.dimen.dp_10))
+                .setPageMargin(getResources().getDimensionPixelOffset(R.dimen.dp_10))
+                .setRevealWidth(getResources().getDimensionPixelOffset(R.dimen.dp_20))
                 .setPageStyle(pageStyle)
                 .create();
     }
@@ -99,6 +100,7 @@ public class PageFragment extends BaseFragment {
     //  仿QQ音乐的Banner
     private void setNetEaseMusicStyle() {
         mViewPager
+                .setPageMargin(getResources().getDimensionPixelOffset(R.dimen.dp_15))
                 .setRevealWidth(BannerUtils.dp2px(0))
                 .setPageStyle(PageStyle.MULTI_PAGE)
                 .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
