@@ -73,17 +73,15 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
         mIndicatorView = view.findViewById(R.id.indicator_view);
         view.findViewById(R.id.tv_photo_view).setOnClickListener(this);
         view.findViewById(R.id.btn_refresh).setOnClickListener(v -> updateData());
-        ImageResourceAdapter adapter = new ImageResourceAdapter();
-        adapter.setList(getMDrawableList());
         mViewPager.setIndicatorSliderGap(BannerUtils.dp2px(6))
                 .setRoundCorner(BannerUtils.dp2px(6))
-                .setOnItemClickListener(position -> {
+                .setOnPageClickListener(position -> {
                     ToastUtils.show("position:" + position);
                     int currentItem = mViewPager.getCurrentItem();
                     LogUtils.e("currentItem:", currentItem + "");
                 })
-                .setAdapter(adapter)
-//                .setOnItemClickListener(position -> ToastUtils.show("Position:" + position))
+                .setAdapter(new ImageResourceAdapter().setData(getMDrawableList()))
+                .setOnPageClickListener(position -> ToastUtils.show("Position:" + position))
                 .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color));
         initRadioGroup();
     }
@@ -153,7 +151,6 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
         mViewPager.setAutoPlay(false).setCanLoop(true)
                 .setIndicatorSlideMode(IndicatorSlideMode.NORMAL)
                 .setIndicatorVisibility(View.VISIBLE)
-                .setPageMargin(BannerUtils.dp2px(20))
                 .setIndicatorGravity(IndicatorGravity.END)
                 .setIndicatorView(setupIndicatorView()).create();
     }

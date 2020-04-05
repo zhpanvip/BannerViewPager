@@ -69,7 +69,7 @@ It's also support to custom indicator style,just need extends BaseIndicatorView 
 | BannerViewPager<T, VH> setInterval(int interval) | set the interval of item switch interval |The unit is millisecond，default value 3000ms  |
 | BannerViewPager<T, VH> setScrollDuration(int scrollDuration) | set page scroll duration | set page scroll duration |unit is millisecond，default is 500ms |
 | BannerViewPager<T, VH> setRoundCorner(int radius) | set Round Rectangle style for Banner | required SDK_INT>=LOLLIPOP(API 21)  |
-| BannerViewPager<T, VH> setOnPageClickListener(OnPageClickListener onItemClickListener) | set item click listener |  |
+| BannerViewPager<T, VH> setOnPageClickListener(OnPageClickListener onPageClickListener) | set item click listener |  |
 | BannerViewPager<T, VH> setHolderCreator(HolderCreator\<VH> holderCreator) |set Holder Creator  |You must set HolderCreator for BannerViewPager，or will throw NullPointerException|
 | BannerViewPager<T, VH> setIndicatorVisibility(@Visibility int visibility) | indicator visibility |default value is VISIBLE，added in version 2.4.2|
 | BannerViewPager<T, VH> setIndicatorStyle(int indicatorStyle) | set indicator style | enum(CIRCLE, DASH、ROUND_RECT) default CIRCLE  |
@@ -391,7 +391,7 @@ public class FigureIndicatorView extends BaseIndicatorView {
  
  - [x] Refactor Indicator again (2.5.0)
  - [x] Fix issue #34 which Indicator smooth slide problem(2.6.1).
- - [ ] Migrate to ViewPager2 （3.0.0）
+ - [x] Migrate to ViewPager2 （3.0.0）
 
 ## FAQ
 
@@ -417,10 +417,6 @@ public class FigureIndicatorView extends BaseIndicatorView {
 [《剖析BannerViewPager中Indicator的设计思想》](https://juejin.im/post/5dda0b6d518825731f569a8c)
 
 ## Thanks
-
-[banner](https://github.com/youth5201314/banner)
-
-[Android-ConvenientBanner](https://github.com/saiwu-bigkoo/Android-ConvenientBanner)
 
 [ViewPagerTransforms](https://github.com/ToxicBakery/ViewPagerTransforms)
 

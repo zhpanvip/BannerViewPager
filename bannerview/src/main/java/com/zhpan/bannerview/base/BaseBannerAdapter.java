@@ -1,4 +1,4 @@
-package com.zhpan.bannerview.adapter;
+package com.zhpan.bannerview.base;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +8,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.zhpan.bannerview.BannerViewPager;
-import com.zhpan.bannerview.holder.BaseViewHolder;
 import com.zhpan.bannerview.utils.BannerUtils;
 
 import java.util.ArrayList;
@@ -21,13 +20,13 @@ public abstract class BaseBannerAdapter<T, VH extends BaseViewHolder> extends Re
     private List<T> mList = new ArrayList<>();
     private boolean isCanLoop;
     public static final int MAX_VALUE = 500;
-    private BannerViewPager.OnItemClickListener mPageClickListener;
+    private BannerViewPager.OnPageClickListener mPageClickListener;
 
     @NonNull
     @Override
     public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View inflate = LayoutInflater.from(parent.getContext()).inflate(getLayoutId(), parent, false);
-        return createViewHolder(inflate);
+        View inflate = LayoutInflater.from(parent.getContext()).inflate(getLayoutId(viewType), parent, false);
+        return createViewHolder(inflate, viewType);
     }
 
     @Override
@@ -44,12 +43,6 @@ public abstract class BaseBannerAdapter<T, VH extends BaseViewHolder> extends Re
         });
     }
 
-    protected abstract void onBind(VH holder, T data, int position, int pageSize);
-
-    public abstract VH createViewHolder(View itemView);
-
-    public abstract int getLayoutId();
-
     @Override
     public int getItemCount() {
         if (isCanLoop && mList.size() > 1) {
@@ -59,26 +52,33 @@ public abstract class BaseBannerAdapter<T, VH extends BaseViewHolder> extends Re
         }
     }
 
-    public List<T> getList() {
+    public List<T> getData() {
         return mList;
     }
 
-    public void setList(List<T> list) {
+    public BaseBannerAdapter<T, VH> setData(List<T> list) {
         if (null != list) {
             mList.clear();
             mList.addAll(list);
         }
+        return this;
     }
 
     public void setCanLoop(boolean canLoop) {
         isCanLoop = canLoop;
     }
 
-    public void setPageClickListener(BannerViewPager.OnItemClickListener pageClickListener) {
+    public void setPageClickListener(BannerViewPager.OnPageClickListener pageClickListener) {
         mPageClickListener = pageClickListener;
     }
 
     public int getListSize() {
         return mList.size();
     }
+
+    protected abstract void onBind(VH holder, T data, int position, int pageSize);
+
+    public abstract VH createViewHolder(View itemView, int viewType);
+
+    public abstract int getLayoutId(int viewType);
 }

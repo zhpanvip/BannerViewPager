@@ -1,11 +1,12 @@
 package com.example.zhpan.circleviewpager.viewholder
 
 import android.view.View
+import android.widget.ImageView
 import android.widget.Toast
 
 import com.example.zhpan.circleviewpager.R
 import com.github.chrisbanes.photoview.PhotoView
-import com.zhpan.bannerview.holder.BaseViewHolder
+import com.zhpan.bannerview.base.BaseViewHolder
 
 /**
  * Created by zhpan on 2017/10/30.
@@ -13,8 +14,10 @@ import com.zhpan.bannerview.holder.BaseViewHolder
  */
 
 class PhotoViewHolder(itemView: View) : BaseViewHolder<Int>(itemView) {
-    override fun bind(data: Int?, position: Int, size: Int) {
-        val imageView = itemView.findViewById<PhotoView>(R.id.banner_image)
+
+    private var imageView: ImageView = itemView.findViewById<PhotoView>(R.id.banner_image)
+
+    override fun onBind(data: Int?, position: Int, size: Int) {
         imageView.setImageResource(data!!)
         imageView.setOnClickListener { v ->
             Toast.makeText(itemView.context, "$adapterPosition  页面数$size", Toast.LENGTH_SHORT).show()

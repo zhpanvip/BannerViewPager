@@ -13,6 +13,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.zhpan.circleviewpager.R;
 import com.example.zhpan.circleviewpager.adapter.ArticleAdapter;
+import com.example.zhpan.circleviewpager.adapter.HomeAdapter;
 import com.example.zhpan.circleviewpager.bean.ArticleWrapper;
 import com.example.zhpan.circleviewpager.bean.DataWrapper;
 import com.example.zhpan.circleviewpager.net.BannerData;
@@ -22,7 +23,7 @@ import com.example.zhpan.circleviewpager.viewholder.NetViewHolder;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.zhpan.bannerview.BannerViewPager;
-import com.zhpan.bannerview.adapter.BaseBannerAdapter;
+import com.zhpan.bannerview.base.BaseBannerAdapter;
 import com.zhpan.idea.net.common.ResponseObserver;
 import com.zhpan.idea.utils.LogUtils;
 import com.zhpan.idea.utils.RxUtil;
@@ -138,7 +139,6 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void initBanner() {
-        createAdapter();
         mViewPager
                 .setAutoPlay(true)
                 .setCanLoop(true)
@@ -148,8 +148,7 @@ public class HomeFragment extends BaseFragment {
                 .setIndicatorSliderRadius(getResources().getDimensionPixelSize(R.dimen.dp_3))
                 .setIndicatorView(mIndicatorView)// 这里为了设置标题故用了自定义Indicator,如果无需标题则没必要添加此行代码
                 .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
-                .setAdapter(mBaseBannerAdapter)
-//                .setHolderCreator(NetViewHolder::new)
+                .setAdapter(new HomeAdapter())
                 .registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
                     @Override
                     public void onPageSelected(int position) {
@@ -158,27 +157,7 @@ public class HomeFragment extends BaseFragment {
                         mTvTitle.setText(bannerData.getTitle());
                     }
                 })
-                .setOnItemClickListener(this::onPageClicked);
-    }
-
-    private void createAdapter() {
-        mBaseBannerAdapter = new BaseBannerAdapter<BannerData, NetViewHolder>() {
-
-            @Override
-            protected void onBind(NetViewHolder holder, BannerData data, int position, int pageSize) {
-                holder.bind(data, position, pageSize);
-            }
-
-            @Override
-            public NetViewHolder createViewHolder(View itemView) {
-                return new NetViewHolder(itemView);
-            }
-
-            @Override
-            public int getLayoutId() {
-                return R.layout.item_net;
-            }
-        };
+                .setOnPageClickListener(this::onPageClicked);
     }
 
     private void onPageClicked(int position) {

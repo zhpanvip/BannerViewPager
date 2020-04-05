@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 
 import com.example.zhpan.circleviewpager.R;
 import com.example.zhpan.circleviewpager.view.CornerImageView;
-import com.zhpan.bannerview.holder.BaseViewHolder;
+import com.zhpan.bannerview.base.BaseViewHolder;
 
 /**
  * <pre>
@@ -17,14 +17,15 @@ import com.zhpan.bannerview.holder.BaseViewHolder;
 public class ImageResourceViewHolder extends BaseViewHolder<Integer> {
 
     private int roundCorner;
+    private CornerImageView imageView;
 
     public ImageResourceViewHolder(@NonNull View itemView) {
         super(itemView);
+        imageView = itemView.findViewById(R.id.banner_image);
     }
 
     @Override
-    public void bind(Integer data, int position, int pageSize) {
-        CornerImageView imageView = itemView.findViewById(R.id.banner_image);
+    public void onBind(Integer data, int position, int pageSize) {
         imageView.setImageResource(data);
         imageView.setRoundCorner(roundCorner);
     }

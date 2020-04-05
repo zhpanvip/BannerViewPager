@@ -59,14 +59,12 @@ public class PageFragment extends BaseFragment {
         mViewPager = view.findViewById(R.id.banner_view);
         mRadioGroupPageStyle = view.findViewById(R.id.rg_page_style);
         radioButton = view.findViewById(R.id.rb_multi_page);
-        ImageResourceAdapter adapter = new ImageResourceAdapter();
-        adapter.setList(getMDrawableList());
         mViewPager
                 .setIndicatorSlideMode(IndicatorSlideMode.NORMAL)
                 .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
                 .setIndicatorSliderRadius(getResources().getDimensionPixelOffset(R.dimen.dp_4), getResources().getDimensionPixelOffset(R.dimen.dp_5))
-                .setOnItemClickListener(position -> ToastUtils.show("position:" + position))
-                .setAdapter(adapter)
+                .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
+                .setAdapter(new ImageResourceAdapter().setData(getMDrawableList()))
                 .setInterval(5000);
         initRadioGroup();
     }
@@ -93,7 +91,6 @@ public class PageFragment extends BaseFragment {
 
     private void setupBanner(@APageStyle int pageStyle) {
         mViewPager
-                .setPageMargin(getResources().getDimensionPixelOffset(R.dimen.dp_10))
                 .setRevealWidth(getResources().getDimensionPixelOffset(R.dimen.dp_10))
                 .setPageStyle(pageStyle)
                 .create();
@@ -102,11 +99,10 @@ public class PageFragment extends BaseFragment {
     //  仿QQ音乐的Banner
     private void setNetEaseMusicStyle() {
         mViewPager
-                .setPageMargin(getResources().getDimensionPixelOffset(R.dimen.dp_15))
                 .setRevealWidth(BannerUtils.dp2px(0))
                 .setPageStyle(PageStyle.MULTI_PAGE)
                 .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
-                .setOnItemClickListener(position -> ToastUtils.show("position:" + position))
+                .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
                 .setInterval(5000).create();
     }
 }

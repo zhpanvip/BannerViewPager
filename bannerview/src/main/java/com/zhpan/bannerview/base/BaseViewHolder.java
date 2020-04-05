@@ -1,4 +1,4 @@
-package com.zhpan.bannerview.holder;
+package com.zhpan.bannerview.base;
 
 import android.view.View;
 
@@ -17,5 +17,5 @@ public abstract class BaseViewHolder<T> extends RecyclerView.ViewHolder {
         super(itemView);
     }
 
-    public abstract void bind(T data, int position, int pageSize);
+    public abstract void onBind(T data, int position, int pageSize);
 }

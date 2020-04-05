@@ -6,7 +6,6 @@ import android.os.Handler;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.Nullable;
-import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.util.AttributeSet;
@@ -15,15 +14,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
-import com.zhpan.bannerview.adapter.BaseBannerAdapter;
+import com.zhpan.bannerview.base.BaseBannerAdapter;
 import com.zhpan.bannerview.annotation.AIndicatorGravity;
 import com.zhpan.bannerview.annotation.APageStyle;
 import com.zhpan.bannerview.annotation.ATransformerStyle;
 import com.zhpan.bannerview.annotation.Visibility;
 import com.zhpan.bannerview.constants.PageStyle;
-import com.zhpan.bannerview.holder.BaseViewHolder;
+import com.zhpan.bannerview.base.BaseViewHolder;
 import com.zhpan.bannerview.manager.BannerManager;
 import com.zhpan.bannerview.manager.BannerOptions;
+import com.zhpan.bannerview.transform.PageTransformerFactory;
 import com.zhpan.bannerview.transform.ScaleInTransformer;
 import com.zhpan.bannerview.utils.BannerUtils;
 import com.zhpan.bannerview.provider.ViewStyleSetter;
@@ -34,7 +34,7 @@ import com.zhpan.indicator.base.IIndicator;
 
 import java.util.List;
 
-import static com.zhpan.bannerview.adapter.BaseBannerAdapter.MAX_VALUE;
+import static com.zhpan.bannerview.base.BaseBannerAdapter.MAX_VALUE;
 import static com.zhpan.bannerview.constants.IndicatorGravity.CENTER;
 import static com.zhpan.bannerview.constants.IndicatorGravity.END;
 import static com.zhpan.bannerview.constants.IndicatorGravity.START;
@@ -50,19 +50,21 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
 
     private boolean isCustomIndicator;
 
-    private OnItemClickListener mOnItemClickListener;
+    private OnPageClickListener mOnPageClickListener;
 
     private IIndicator mIndicatorView;
 
     private RelativeLayout mIndicatorLayout;
-
-//    private CatchViewPager mViewPager;
 
     private ViewPager2 mViewPager;
 
     private BannerManager mBannerManager;
 
     private Handler mHandler = new Handler();
+
+    private BaseBannerAdapter<T, VH> mBannerPagerAdapter;
+
+    private ViewPager2.OnPageChangeCallback onPageChangeCallback;
 
     private Runnable mRunnable = new Runnable() {
         @Override
@@ -121,25 +123,7 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
                 getParent().requestDisallowInterceptTouchEvent(true);
                 break;
             case MotionEvent.ACTION_MOVE:
-                int endX = (int) ev.getX();
-                int endY = (int) ev.getY();
-                int disX = Math.abs(endX - startX);
-                int disY = Math.abs(endY - startY);
-                if (disX > disY) {
-                    if (!isCanLoop()) {
-                        if (currentPosition == 0 && endX - startX > 0) {
-                            getParent().requestDisallowInterceptTouchEvent(false);
-                        } else if (currentPosition == getList().size() - 1 && endX - startX < 0) {
-                            getParent().requestDisallowInterceptTouchEvent(false);
-                        } else {
-                            getParent().requestDisallowInterceptTouchEvent(true);
-                        }
-                    } else {
-                        getParent().requestDisallowInterceptTouchEvent(true);
-                    }
-                } else if (2 * disX < disY) {
-                    getParent().requestDisallowInterceptTouchEvent(false);
-                }
+                onActionMove(ev);
                 break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
@@ -153,6 +137,28 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
                 break;
         }
         return super.dispatchTouchEvent(ev);
+    }
+
+    private void onActionMove(MotionEvent ev) {
+        int endX = (int) ev.getX();
+        int endY = (int) ev.getY();
+        int disX = Math.abs(endX - startX);
+        int disY = Math.abs(endY - startY);
+        if (disX > disY) {
+            if (!isCanLoop()) {
+                if (currentPosition == 0 && endX - startX > 0) {
+                    getParent().requestDisallowInterceptTouchEvent(false);
+                } else if (currentPosition == getList().size() - 1 && endX - startX < 0) {
+                    getParent().requestDisallowInterceptTouchEvent(false);
+                } else {
+                    getParent().requestDisallowInterceptTouchEvent(true);
+                }
+            } else {
+                getParent().requestDisallowInterceptTouchEvent(true);
+            }
+        } else if (2 * disX < disY) {
+            getParent().requestDisallowInterceptTouchEvent(false);
+        }
     }
 
     private ViewPager2.OnPageChangeCallback mOnPageChangeCallback = new ViewPager2.OnPageChangeCallback() {
@@ -206,7 +212,8 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
         }
     }
 
-    private void initBannerData(List<T> list) {
+    private void initBannerData() {
+        List<T> list = mBannerPagerAdapter.getData();
         if (list != null) {
             setIndicatorValues(list);
             setupViewPager(list);
@@ -280,7 +287,7 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
         }
         currentPosition = 0;
         mBannerPagerAdapter.setCanLoop(isCanLoop());
-        mBannerPagerAdapter.setPageClickListener(mOnItemClickListener);
+        mBannerPagerAdapter.setPageClickListener(mOnPageClickListener);
         mViewPager.setAdapter(mBannerPagerAdapter);
         if (list.size() > 1 && isCanLoop()) {
             mViewPager.setCurrentItem(MAX_VALUE / 2 - ((MAX_VALUE / 2) % list.size()) + 1, false);
@@ -295,9 +302,6 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
         initPageStyle();
         startLoop();
     }
-
-
-    private BaseBannerAdapter<T, VH> mBannerPagerAdapter;
 
     private void initPageStyle() {
         switch (mBannerManager.bannerOptions().getPageStyle()) {
@@ -350,7 +354,7 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
      * @return BannerViewPager data set
      */
     public List<T> getList() {
-        return mBannerPagerAdapter.getList();
+        return mBannerPagerAdapter.getData();
     }
 
     /**
@@ -377,6 +381,10 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
     public BannerViewPager<T, VH> setAdapter(BaseBannerAdapter<T, VH> adapter) {
         this.mBannerPagerAdapter = adapter;
         return this;
+    }
+
+    public BaseBannerAdapter<T, VH> getAdapter() {
+        return mBannerPagerAdapter;
     }
 
     /**
@@ -451,25 +459,26 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
      * @see com.zhpan.bannerview.constants.TransformerStyle#ACCORDION
      */
     public BannerViewPager<T, VH> setPageTransformerStyle(@ATransformerStyle int style) {
-//        mViewPager.setPageTransformer(true, new PageTransformerFactory().createPageTransformer(style));
+        mViewPager.setPageTransformer(new PageTransformerFactory().createPageTransformer(style));
         return this;
     }
 
     /**
      * @param transformer PageTransformer that will modify each page's animation properties
      */
-    public void setPageTransformer(@Nullable ViewPager.PageTransformer transformer) {
-//        mViewPager.setPageTransformer(true, transformer);
+    public void setPageTransformer(@Nullable ViewPager2.PageTransformer transformer) {
+        if (transformer != null)
+            mViewPager.setPageTransformer(transformer);
     }
 
 
     /**
      * set item click listener
      *
-     * @param onItemClickListener item click listener
+     * @param onPageClickListener item click listener
      */
-    public BannerViewPager<T, VH> setOnItemClickListener(OnItemClickListener onItemClickListener) {
-        this.mOnItemClickListener = onItemClickListener;
+    public BannerViewPager<T, VH> setOnPageClickListener(OnPageClickListener onPageClickListener) {
+        this.mOnPageClickListener = onPageClickListener;
         return this;
     }
 
@@ -622,11 +631,10 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
     }
 
     public void create() {
-        if (mBannerPagerAdapter != null)
-            initBannerData(mBannerPagerAdapter.getList());
-        else {
+        if (mBannerPagerAdapter == null) {
             throw new NullPointerException("You must set adapter for BannerViewPager");
         }
+        initBannerData();
     }
 
     /**
@@ -639,15 +647,10 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
         return this;
     }
 
-    public void notifyDataSetChanged() {
-        mBannerPagerAdapter.notifyDataSetChanged();
-        initBannerData(mBannerPagerAdapter.getList());
-    }
-
     public void refresh(List<T> list) {
         if (list != null && mBannerPagerAdapter != null) {
-            mBannerPagerAdapter.setList(list);
-            initBannerData(mBannerPagerAdapter.getList());
+            mBannerPagerAdapter.setData(list);
+            initBannerData();
         }
     }
 
@@ -699,16 +702,6 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
         return this;
     }
 
-    /**
-     * set page margin
-     *
-     * @param pageMargin page margin
-     */
-    public BannerViewPager<T, VH> setPageMargin(int pageMargin) {
-        mBannerManager.bannerOptions().setPageMargin(pageMargin);
-//        mViewPager.setPageMargin(pageMargin);
-        return this;
-    }
 
     /**
      * @param revealWidth 一屏多页模式下两边页面显露出来的宽度
@@ -748,11 +741,9 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
         return this;
     }
 
-    public interface OnItemClickListener {
+    public interface OnPageClickListener {
         void onPageClick(int position);
     }
-
-    private ViewPager2.OnPageChangeCallback onPageChangeCallback;
 
     public BannerViewPager<T, VH> registerOnPageChangeCallback(ViewPager2.OnPageChangeCallback onPageChangeCallback) {
         this.onPageChangeCallback = onPageChangeCallback;
@@ -857,14 +848,4 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
         return this;
     }
 
-    /**
-     * @param onPageClickListener item click listener
-     * @deprecated use {@link #setOnItemClickListener(OnItemClickListener)} instead
-     * set item click listener
-     */
-    @Deprecated
-    public BannerViewPager<T, VH> setOnPageClickListener(OnItemClickListener onPageClickListener) {
-        this.mOnItemClickListener = onPageClickListener;
-        return this;
-    }
 }

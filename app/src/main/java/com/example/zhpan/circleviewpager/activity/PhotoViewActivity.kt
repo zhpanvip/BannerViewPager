@@ -4,6 +4,9 @@ package com.example.zhpan.circleviewpager.activity
 import android.os.Bundle
 
 import com.example.zhpan.circleviewpager.R
+import com.example.zhpan.circleviewpager.adapter.PhotoAdapter
+import com.example.zhpan.circleviewpager.viewholder.PhotoViewHolder
+import com.zhpan.bannerview.BannerViewPager
 
 class PhotoViewActivity : BaseDataActivity() {
 
@@ -15,11 +18,11 @@ class PhotoViewActivity : BaseDataActivity() {
     }
 
     private fun initViewPager() {
-//        val bannerViewPager = findViewById<BannerViewPager<Int, PhotoViewHolder>>(R.id.viewpager)
-//        bannerViewPager.setAutoPlay(false)
-//                .setCanLoop(false)
-//                .setHolderCreator { PhotoViewHolder() }
-//                .create(mDrawableList)
-//        bannerViewPager.currentItem = 1
+        val bannerViewPager = findViewById<BannerViewPager<Int, PhotoViewHolder>>(R.id.viewpager)
+        bannerViewPager.setAutoPlay(false)
+                .setCanLoop(false)
+                .setAdapter(PhotoAdapter().setData(mDrawableList))
+                .create()
+        bannerViewPager.currentItem = 1
     }
 }
