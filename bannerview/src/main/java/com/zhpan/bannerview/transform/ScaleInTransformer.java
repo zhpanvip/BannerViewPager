@@ -2,9 +2,9 @@ package com.zhpan.bannerview.transform;
 
 import android.view.View;
 
-import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
-public class ScaleInTransformer implements ViewPager.PageTransformer {
+public class ScaleInTransformer implements ViewPager2.PageTransformer {
 
     private static final float DEFAULT_CENTER = 0.5f;
     public static final float DEFAULT_MIN_SCALE = 0.85f;

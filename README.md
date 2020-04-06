@@ -391,7 +391,7 @@ public class FigureIndicatorView extends BaseIndicatorView {
  
  - [x] Refactor Indicator again (2.5.0)
  - [x] Fix issue #34 which Indicator smooth slide problem(2.6.1).
- - [ ] Migrate to ViewPager2 （3.0.0）
+ - [x] Migrate to ViewPager2 （3.0.0）
 
 ## FAQ
 
@@ -417,10 +417,6 @@ public class FigureIndicatorView extends BaseIndicatorView {
 [《剖析BannerViewPager中Indicator的设计思想》](https://juejin.im/post/5dda0b6d518825731f569a8c)
 
 ## Thanks
-
-[banner](https://github.com/youth5201314/banner)
-
-[Android-ConvenientBanner](https://github.com/saiwu-bigkoo/Android-ConvenientBanner)
 
 [ViewPagerTransforms](https://github.com/ToxicBakery/ViewPagerTransforms)
 

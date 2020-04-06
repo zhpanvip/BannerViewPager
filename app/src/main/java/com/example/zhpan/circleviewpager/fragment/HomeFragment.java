@@ -9,9 +9,11 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.zhpan.circleviewpager.R;
 import com.example.zhpan.circleviewpager.adapter.ArticleAdapter;
+import com.example.zhpan.circleviewpager.adapter.HomeAdapter;
 import com.example.zhpan.circleviewpager.bean.ArticleWrapper;
 import com.example.zhpan.circleviewpager.bean.DataWrapper;
 import com.example.zhpan.circleviewpager.net.BannerData;
@@ -21,7 +23,6 @@ import com.example.zhpan.circleviewpager.viewholder.NetViewHolder;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.zhpan.bannerview.BannerViewPager;
-import com.zhpan.bannerview.adapter.OnPageChangeListenerAdapter;
 import com.zhpan.idea.net.common.ResponseObserver;
 import com.zhpan.idea.utils.LogUtils;
 import com.zhpan.idea.utils.RxUtil;
@@ -38,6 +39,7 @@ import io.reactivex.schedulers.Schedulers;
  * Created by zhpan on 2018/7/24.
  */
 public class HomeFragment extends BaseFragment {
+
 
     private BannerViewPager<BannerData, NetViewHolder> mViewPager;
     private CustomRecyclerView recyclerView;
@@ -110,7 +112,7 @@ public class HomeFragment extends BaseFragment {
                 .subscribe(new ResponseObserver<DataWrapper>() {
                     @Override
                     public void onSuccess(DataWrapper response) {
-                        mViewPager.create(response.getDataBeanList());
+                        mViewPager.setData(response.getDataBeanList());
                         articleAdapter.setData(response.getArticleList());
                         if (response.getDataBeanList().size() > 0) {
                             mTvTitle.setText(response.getDataBeanList().get(0).getTitle());
@@ -136,20 +138,18 @@ public class HomeFragment extends BaseFragment {
 
     private void initBanner() {
         mViewPager
-                .setAutoPlay(true)
-                .setCanLoop(true)
                 .setIndicatorSlideMode(IndicatorSlideMode.WORM)
                 .setInterval(5000)
                 .setScrollDuration(1200)
                 .setIndicatorSliderRadius(getResources().getDimensionPixelSize(R.dimen.dp_3))
                 .setIndicatorView(mIndicatorView)// 这里为了设置标题故用了自定义Indicator,如果无需标题则没必要添加此行代码
                 .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
-                .setHolderCreator(NetViewHolder::new)
-                .setOnPageChangeListener(new OnPageChangeListenerAdapter() {
+                .setAdapter(new HomeAdapter())
+                .registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
                     @Override
                     public void onPageSelected(int position) {
                         super.onPageSelected(position);
-                        BannerData bannerData = mViewPager.getList().get(position);
+                        BannerData bannerData = mViewPager.getData().get(position);
                         mTvTitle.setText(bannerData.getTitle());
                     }
                 })
@@ -157,7 +157,7 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void onPageClicked(int position) {
-        BannerData bannerData = mViewPager.getList().get(position);
+        BannerData bannerData = mViewPager.getData().get(position);
         Toast.makeText(getMContext(), "position:" + position + " " + bannerData.getTitle() + "currentItem:" + mViewPager.getCurrentItem(), Toast.LENGTH_SHORT).show();
     }
 

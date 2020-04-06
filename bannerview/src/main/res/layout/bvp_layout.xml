@@ -5,8 +5,7 @@
     android:layout_height="wrap_content"
     tools:parentTag="android.widget.RelativeLayout">
 
-
-    <com.zhpan.bannerview.view.CatchViewPager
+    <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/vp_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
@@ -15,5 +14,5 @@
         android:id="@+id/bvp_layout_indicator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true" />
 </merge>

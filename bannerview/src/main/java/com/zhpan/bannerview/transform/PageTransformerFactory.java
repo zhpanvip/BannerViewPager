@@ -1,6 +1,6 @@
 package com.zhpan.bannerview.transform;
 
-import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import static com.zhpan.bannerview.constants.TransformerStyle.ACCORDION;
 import static com.zhpan.bannerview.constants.TransformerStyle.DEPTH;
@@ -11,8 +11,8 @@ import static com.zhpan.bannerview.constants.TransformerStyle.STACK;
 
 public class PageTransformerFactory {
 
-    public ViewPager.PageTransformer createPageTransformer(int transformerStyle) {
-        ViewPager.PageTransformer transformer = null;
+    public ViewPager2.PageTransformer createPageTransformer(int transformerStyle) {
+        ViewPager2.PageTransformer transformer = null;
         switch (transformerStyle) {
             case DEPTH:
                 transformer = new DepthPageTransformer();

@@ -16,10 +16,11 @@
 
 package com.zhpan.bannerview.transform;
 
-import androidx.viewpager.widget.ViewPager.PageTransformer;
+import androidx.viewpager2.widget.ViewPager2;
+
 import android.view.View;
 
-public abstract class BaseTransformer implements PageTransformer {
+public abstract class BaseTransformer implements ViewPager2.PageTransformer {
 
     /**
      * Called each {@link #transformPage(View, float)}.

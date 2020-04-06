@@ -4,6 +4,7 @@ package com.example.zhpan.circleviewpager.activity
 import android.os.Bundle
 
 import com.example.zhpan.circleviewpager.R
+import com.example.zhpan.circleviewpager.adapter.PhotoAdapter
 import com.example.zhpan.circleviewpager.viewholder.PhotoViewHolder
 import com.zhpan.bannerview.BannerViewPager
 
@@ -20,7 +21,7 @@ class PhotoViewActivity : BaseDataActivity() {
         val bannerViewPager = findViewById<BannerViewPager<Int, PhotoViewHolder>>(R.id.viewpager)
         bannerViewPager.setAutoPlay(false)
                 .setCanLoop(false)
-                .setHolderCreator { PhotoViewHolder() }
+                .setAdapter(PhotoAdapter())
                 .create(mDrawableList)
         bannerViewPager.currentItem = 1
     }

@@ -13,6 +13,7 @@ import com.zhpan.indicator.base.BaseIndicatorView;
  *
  * @deprecated Use {@link com.zhpan.indicator.IndicatorView} instead.
  */
+@Deprecated
 public class CircleIndicatorView extends BaseIndicatorView {
 
     private float mNormalRadius;

@@ -6,6 +6,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.example.zhpan.circleviewpager.R;
+import com.example.zhpan.circleviewpager.adapter.ImageResourceAdapter;
 import com.example.zhpan.circleviewpager.viewholder.ImageResourceViewHolder;
 import com.zhpan.bannerview.BannerViewPager;
 import com.zhpan.bannerview.annotation.APageStyle;
@@ -18,7 +19,6 @@ import com.zhpan.indicator.enums.IndicatorSlideMode;
  * Created by zhpan on 2018/7/24.
  */
 public class PageFragment extends BaseFragment {
-
     private BannerViewPager<Integer, ImageResourceViewHolder> mViewPager;
     private RadioGroup mRadioGroupPageStyle;
     private RadioButton radioButton;
@@ -26,6 +26,11 @@ public class PageFragment extends BaseFragment {
     @Override
     protected int getLayout() {
         return R.layout.fragment_find;
+    }
+
+
+    public static PageFragment getInstance() {
+        return new PageFragment();
     }
 
     @Override
@@ -56,19 +61,13 @@ public class PageFragment extends BaseFragment {
         radioButton = view.findViewById(R.id.rb_multi_page);
         mViewPager
                 .setIndicatorSlideMode(IndicatorSlideMode.NORMAL)
-                .setHolderCreator(() -> new ImageResourceViewHolder(getResources().getDimensionPixelOffset(R.dimen.dp_5)))
                 .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
-                .setIndicatorSliderRadius(getResources().getDimensionPixelOffset(R.dimen.dp_4),getResources().getDimensionPixelOffset(R.dimen.dp_5))
+                .setIndicatorSliderRadius(getResources().getDimensionPixelOffset(R.dimen.dp_4), getResources().getDimensionPixelOffset(R.dimen.dp_5))
                 .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
+                .setAdapter(new ImageResourceAdapter(getResources().getDimensionPixelOffset(R.dimen.dp_6)))
                 .setInterval(5000);
         initRadioGroup();
     }
-
-
-    public static PageFragment getInstance() {
-        return new PageFragment();
-    }
-
 
     private void initRadioGroup() {
         mRadioGroupPageStyle.setOnCheckedChangeListener((group, checkedId) -> {
@@ -93,7 +92,7 @@ public class PageFragment extends BaseFragment {
     private void setupBanner(@APageStyle int pageStyle) {
         mViewPager
                 .setPageMargin(getResources().getDimensionPixelOffset(R.dimen.dp_10))
-                .setRevealWidth(getResources().getDimensionPixelOffset(R.dimen.dp_10))
+                .setRevealWidth(getResources().getDimensionPixelOffset(R.dimen.dp_20))
                 .setPageStyle(pageStyle)
                 .create(getMDrawableList());
     }
@@ -104,7 +103,6 @@ public class PageFragment extends BaseFragment {
                 .setPageMargin(getResources().getDimensionPixelOffset(R.dimen.dp_15))
                 .setRevealWidth(BannerUtils.dp2px(0))
                 .setPageStyle(PageStyle.MULTI_PAGE)
-                .setHolderCreator(() -> new ImageResourceViewHolder(getResources().getDimensionPixelOffset(R.dimen.dp_5)))
                 .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
                 .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
                 .setInterval(5000).create(getMDrawableList());

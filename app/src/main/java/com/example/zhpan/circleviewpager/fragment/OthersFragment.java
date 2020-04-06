@@ -9,6 +9,7 @@ import android.widget.RadioGroup;
 
 import com.example.zhpan.circleviewpager.R;
 import com.example.zhpan.circleviewpager.activity.PhotoViewActivity;
+import com.example.zhpan.circleviewpager.adapter.ImageResourceAdapter;
 import com.example.zhpan.circleviewpager.view.DrawableIndicator;
 import com.example.zhpan.circleviewpager.view.FigureIndicatorView;
 import com.example.zhpan.circleviewpager.viewholder.ImageResourceViewHolder;
@@ -24,7 +25,6 @@ import com.zhpan.indicator.enums.IndicatorSlideMode;
 import java.lang.reflect.Field;
 import java.util.Random;
 
-
 /**
  * Created by zhpan on 2018/7/24.
  */
@@ -34,6 +34,10 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
     private RadioGroup radioGroupStyle;
     private RadioButton radioButton;
     private IndicatorView mIndicatorView;
+
+    public static OthersFragment getInstance() {
+        return new OthersFragment();
+    }
 
     @Override
     protected int getLayout() {
@@ -71,23 +75,17 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
         view.findViewById(R.id.btn_refresh).setOnClickListener(v -> updateData());
         mViewPager.setIndicatorSliderGap(BannerUtils.dp2px(6))
                 .setRoundCorner(BannerUtils.dp2px(6))
-                .setOnPageClickListener(new BannerViewPager.OnPageClickListener() {
-                    @Override
-                    public void onPageClick(int position) {
-                        ToastUtils.show("position:" + position);
-                        int currentItem = mViewPager.getCurrentItem();
-                        LogUtils.e("currentItem:", currentItem + "");
-                    }
+                .setOnPageClickListener(position -> {
+                    ToastUtils.show("position:" + position);
+                    int currentItem = mViewPager.getCurrentItem();
+                    LogUtils.e("currentItem:", currentItem + "");
                 })
-//                .setOnPageClickListener(position -> ToastUtils.show("Position:" + position))
-                .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
-                .setHolderCreator(() -> new ImageResourceViewHolder(0));
+                .setAdapter(new ImageResourceAdapter(0))
+                .setOnPageClickListener(position -> ToastUtils.show("Position:" + position))
+                .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color));
         initRadioGroup();
     }
 
-    public static OthersFragment getInstance() {
-        return new OthersFragment();
-    }
 
     private void initRadioGroup() {
         radioGroupStyle.setVisibility(View.VISIBLE);
@@ -153,10 +151,8 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
         mViewPager.setAutoPlay(false).setCanLoop(true)
                 .setIndicatorSlideMode(IndicatorSlideMode.NORMAL)
                 .setIndicatorVisibility(View.VISIBLE)
-                .setPageMargin(BannerUtils.dp2px(20))
                 .setIndicatorGravity(IndicatorGravity.END)
-                .setIndicatorView(setupIndicatorView())
-                .setHolderCreator(() -> new ImageResourceViewHolder(0)).create(getMDrawableList());
+                .setIndicatorView(setupIndicatorView()).create(getMDrawableList());
     }
 
     /**
@@ -172,9 +168,9 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
 
     private void updateData() {
         //  生成[-1,3]整数
-        initData(0);
+        initData(new Random().nextInt(5) - 1);
         ToastUtils.show("size=" + getMDrawableList().size());
-        mViewPager.create(getMDrawableList());
+        mViewPager.setData(getMDrawableList());
     }
 
     @Override
@@ -197,4 +193,5 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
             e.printStackTrace();
         }
     }
+
 }

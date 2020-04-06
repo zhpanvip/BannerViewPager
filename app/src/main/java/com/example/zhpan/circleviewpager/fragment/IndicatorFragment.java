@@ -6,6 +6,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.example.zhpan.circleviewpager.R;
+import com.example.zhpan.circleviewpager.adapter.ImageResourceAdapter;
 import com.example.zhpan.circleviewpager.viewholder.ImageResourceViewHolder;
 import com.zhpan.bannerview.BannerViewPager;
 import com.zhpan.bannerview.constants.IndicatorGravity;
@@ -31,6 +32,10 @@ public class IndicatorFragment extends BaseFragment {
     @Override
     protected int getLayout() {
         return R.layout.fragment_indicator;
+    }
+
+    public static IndicatorFragment getInstance() {
+        return new IndicatorFragment();
     }
 
     @Override
@@ -61,14 +66,11 @@ public class IndicatorFragment extends BaseFragment {
         mRadioGroupMode = view.findViewById(R.id.rg_slide_mode);
         mViewPager = view.findViewById(R.id.banner_view);
         mViewPager.setIndicatorSliderGap(BannerUtils.dp2px(6))
-                .setRoundCorner(BannerUtils.dp2px(6))
-                .setHolderCreator(() -> new ImageResourceViewHolder(0));
+                .setAdapter(new ImageResourceAdapter(0))
+                .setRoundCorner(BannerUtils.dp2px(6));
         initRadioGroup();
     }
 
-    public static IndicatorFragment getInstance() {
-        return new IndicatorFragment();
-    }
 
     private void initRadioGroup() {
         mRadioGroupStyle.setOnCheckedChangeListener((group, checkedId) -> checkedChange(mCheckId = checkedId));
@@ -123,7 +125,6 @@ public class IndicatorFragment extends BaseFragment {
         mViewPager.setIndicatorStyle(IndicatorStyle.ROUND_RECT)
                 .setIndicatorGravity(IndicatorGravity.CENTER)
                 .setIndicatorSliderGap(BannerUtils.dp2px(4))
-                .setPageMargin(0)
                 .setIndicatorSlideMode(mSlideMode)
                 .setIndicatorHeight(getResources().getDimensionPixelOffset(R.dimen.dp_4))
                 .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
@@ -137,7 +138,6 @@ public class IndicatorFragment extends BaseFragment {
                 .setIndicatorGravity(IndicatorGravity.CENTER)
                 .setIndicatorSliderGap(getResources().getDimensionPixelOffset(R.dimen.dp_6))
                 .setIndicatorHeight(getResources().getDimensionPixelOffset(R.dimen.dp_4))
-                .setPageMargin(0)
                 .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
                 .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
                 .setIndicatorSliderRadius(getResources().getDimensionPixelOffset(R.dimen.dp_4)).create(getMDrawableList());
@@ -151,7 +151,6 @@ public class IndicatorFragment extends BaseFragment {
                 .setIndicatorGravity(IndicatorGravity.CENTER)
                 .setIndicatorSlideMode(mSlideMode)
                 .setIndicatorSliderGap(getResources().getDimensionPixelOffset(R.dimen.dp_3))
-                .setPageMargin(0)
                 .setIndicatorSliderWidth(normalWidth, checkedWidth)
                 .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
                 .create(getMDrawableList());
