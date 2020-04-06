@@ -50,7 +50,7 @@ public class BannerOptions {
 
     private int mRoundRadius;
 
-    private boolean userInputEnabled;
+    private boolean userInputEnabled = true;
 
     private int orientation = ViewPager2.ORIENTATION_HORIZONTAL;
 

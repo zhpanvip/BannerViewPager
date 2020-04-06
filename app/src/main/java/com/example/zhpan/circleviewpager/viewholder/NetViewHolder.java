@@ -18,16 +18,16 @@ import com.zhpan.bannerview.utils.BannerUtils;
  * </pre>
  */
 public class NetViewHolder extends BaseViewHolder<BannerData> {
-    private CornerImageView imageView;
 
     public NetViewHolder(@NonNull View itemView) {
         super(itemView);
-        imageView = itemView.findViewById(R.id.banner_image);
+        CornerImageView imageView = findView(R.id.banner_image);
+        imageView.setRoundCorner(BannerUtils.dp2px(0));
     }
 
     @Override
     public void bindData(BannerData data, int position, int pageSize) {
-        imageView.setRoundCorner(BannerUtils.dp2px(0));
+        CornerImageView imageView = findView(R.id.banner_image);
         Glide.with(imageView).load(data.getImagePath()).placeholder(R.drawable.placeholder).into(imageView);
     }
 }

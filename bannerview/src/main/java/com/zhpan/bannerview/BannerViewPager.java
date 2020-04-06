@@ -24,7 +24,7 @@ import com.zhpan.bannerview.annotation.Visibility;
 import com.zhpan.bannerview.constants.PageStyle;
 import com.zhpan.bannerview.manager.BannerManager;
 import com.zhpan.bannerview.manager.BannerOptions;
-import com.zhpan.bannerview.transform.OverlapSliderTransformer;
+import com.zhpan.bannerview.transform.OverlapPageTransformer;
 import com.zhpan.bannerview.transform.PageTransformerFactory;
 import com.zhpan.bannerview.transform.ScaleInTransformer;
 import com.zhpan.bannerview.utils.BannerUtils;
@@ -198,8 +198,6 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
     private void dispatchHorizontalTouchEvent(MotionEvent ev) {
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                startX = (int) ev.getX();
-                startY = (int) ev.getY();
                 getParent().requestDisallowInterceptTouchEvent(true);
                 break;
             case MotionEvent.ACTION_MOVE:
@@ -217,8 +215,6 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
     private void dispatchVerticalTouchEvent(MotionEvent ev) {
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                startX = (int) ev.getX();
-                startY = (int) ev.getY();
                 getParent().requestDisallowInterceptTouchEvent(false);
                 break;
             case MotionEvent.ACTION_MOVE:
@@ -226,9 +222,9 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
                 int endY = (int) ev.getY();
                 int disX = Math.abs(endX - startX);
                 int disY = Math.abs(endY - startY);
-                if(disX>disY){
+                if (disX > disY) {
                     getParent().requestDisallowInterceptTouchEvent(false);
-                }else {
+                } else {
                     getParent().requestDisallowInterceptTouchEvent(true);
                 }
                 break;
@@ -355,7 +351,8 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
         mViewPager.registerOnPageChangeCallback(mOnPageChangeCallback);
         BannerOptions bannerOptions = mBannerManager.bannerOptions();
         mViewPager.setOrientation(bannerOptions.getOrientation());
-        mViewPager.setUserInputEnabled(!bannerOptions.isUserInputEnabled());
+        mViewPager.setUserInputEnabled(bannerOptions.isUserInputEnabled());
+        //  TODO Support Scroll Duration
 //        mViewPager.setScrollDuration(bannerOptions.getScrollDuration());
         mViewPager.setOffscreenPageLimit(bannerOptions.getOffScreenPageLimit());
         initPageStyle();
@@ -377,7 +374,6 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
     }
 
     private void setMultiPageStyle(boolean overlap, float scale) {
-//        mViewPager.setOffscreenPageLimit(1);
         RecyclerView recyclerView = (RecyclerView) mViewPager.getChildAt(0);
         BannerOptions bannerOptions = mBannerManager.bannerOptions();
         int orientation = bannerOptions.getOrientation();
@@ -392,7 +388,7 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
             mCompositePageTransformer.removeTransformer(mPageTransformer);
         }
         if (overlap && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mPageTransformer = new OverlapSliderTransformer(orientation, scale, scale, 0, 0);
+            mPageTransformer = new OverlapPageTransformer(orientation, scale, scale, 0, 0);
         } else {
             mPageTransformer = new ScaleInTransformer(scale);
         }
@@ -741,7 +737,8 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
     /**
      * Sets the orientation of the ViewPager2.
      *
-     * @param orientation {@link ##ORIENTATION_HORIZONTAL} or {@link ##ORIENTATION_VERTICAL}
+     * @param orientation {@link androidx.viewpager2.widget.ViewPager2#ORIENTATION_HORIZONTAL} or
+     *                    {@link androidx.viewpager2.widget.ViewPager2#ORIENTATION_VERTICAL}
      */
     public BannerViewPager<T, VH> setOrientation(@ViewPager2.Orientation int orientation) {
         mBannerManager.bannerOptions().setOrientation(orientation);
@@ -812,20 +809,6 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
         return this;
     }
 
-    /**
-     * 获取BannerViewPager中封装的ViewPager，用于设置BannerViewPager未暴露出来的接口，
-     * 比如setCurrentItem等。
-     * <p>
-     * 通过该方法调用getCurrentItem等方法可能会有问题
-     * 2.4.1已废弃，可直接调用BannerViewPager中相关方法替代
-     *
-     * @return BannerViewPager中封装的ViewPager
-     */
-    @Deprecated
-    public ViewPager2 getViewPager() {
-        return mViewPager;
-    }
-
     public BannerViewPager<T, VH> setOffScreenPageLimit(int offScreenPageLimit) {
         mBannerManager.bannerOptions().setOffScreenPageLimit(offScreenPageLimit);
         return this;
@@ -852,85 +835,6 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
     }
 
     /**
-     * set indicator circle radius
-     *
-     * @param normalRadius  unchecked circle radius
-     * @param checkedRadius checked circle radius
-     * @deprecated use {@link #setIndicatorSliderRadius(int, int)} instead
-     */
-    @Deprecated
-    public BannerViewPager<T, VH> setIndicatorRadius(int normalRadius, int checkedRadius) {
-        mBannerManager.bannerOptions().setIndicatorSliderWidth(normalRadius * 2, checkedRadius * 2);
-        return this;
-    }
-
-    /**
-     * set indicator circle radius
-     * <p>
-     * if the indicator style is {@link com.zhpan.indicator.enums.IndicatorStyle#DASH}
-     * or {@link com.zhpan.indicator.enums.IndicatorStyle#ROUND_RECT}
-     * the indicator dash width=2*radius
-     *
-     * @param radius 指示器圆点半径
-     * @deprecated use {@link #setIndicatorSliderRadius(int)} instead
-     */
-    @Deprecated
-    public BannerViewPager<T, VH> setIndicatorRadius(int radius) {
-        setIndicatorSliderRadius(radius, radius);
-        return this;
-    }
-
-
-    /**
-     * Set indicator dash width，if indicator style is {@link com.zhpan.indicator.enums.IndicatorStyle#CIRCLE},
-     * the indicator circle radius is indicatorWidth/2.
-     *
-     * @param indicatorWidth indicator dash width.
-     * @deprecated Use {@link #setIndicatorSliderWidth(int)} instead.
-     */
-    @Deprecated
-    public BannerViewPager<T, VH> setIndicatorWidth(int indicatorWidth) {
-        setIndicatorSliderWidth(indicatorWidth, indicatorWidth);
-        return this;
-    }
-
-
-    /**
-     * @deprecated Use {@link #setIndicatorSliderWidth(int, int)} instead.
-     */
-    @Deprecated
-    public BannerViewPager<T, VH> setIndicatorWidth(int normalWidth, int checkWidth) {
-        mBannerManager.bannerOptions().setIndicatorSliderWidth(normalWidth, checkWidth);
-        return this;
-    }
-
-    /**
-     * set indicator color
-     *
-     * @param checkedColor checked color of indicator
-     * @param normalColor  unchecked color of indicator
-     * @deprecated use {@link #setIndicatorSliderColor(int, int)} instead
-     */
-    @Deprecated
-    public BannerViewPager<T, VH> setIndicatorColor(@ColorInt int normalColor,
-                                                    @ColorInt int checkedColor) {
-        mBannerManager.bannerOptions().setIndicatorSliderColor(normalColor, checkedColor);
-        return this;
-    }
-
-
-    /**
-     * Set Indicator gap of dash/circle
-     *
-     * @param indicatorGap indicator gap
-     * @deprecated Use {@link #setIndicatorSliderGap(int)} instead.
-     */
-    public BannerViewPager<T, VH> setIndicatorGap(int indicatorGap) {
-        mBannerManager.bannerOptions().setIndicatorGap(indicatorGap);
-        return this;
-    }
-
-    /**
      * @param showIndicator is show indicator
      * @deprecated Use {@link #setIndicatorVisibility(int)} instead.
      */
@@ -945,7 +849,7 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
      */
     @Deprecated
     public BannerViewPager<T, VH> disableTouchScroll(boolean disableTouchScroll) {
-        mBannerManager.bannerOptions().setUserInputEnabled(disableTouchScroll);
+        mBannerManager.bannerOptions().setUserInputEnabled(!disableTouchScroll);
         return this;
     }
 

@@ -13,19 +13,16 @@ import com.zhpan.bannerview.BaseViewHolder;
 public class CustomPageViewHolder extends BaseViewHolder<CustomBean> {
 
     private OnSubViewClickListener mOnSubViewClickListener;
-    private ImageView imageView;
-    private ImageView imageStart;
 
     public CustomPageViewHolder(@NonNull View itemView) {
         super(itemView);
-        imageView = itemView.findViewById(R.id.banner_image);
-        imageStart = itemView.findViewById(R.id.iv_logo);
     }
 
     @Override
     public void bindData(CustomBean data, int position, int pageSize) {
-        imageView.setImageResource(data.getImageRes());
-        imageStart.setOnClickListener(view -> {
+        ImageView imageStart = findView(R.id.iv_logo);
+        setImageResource(R.id.banner_image, data.getImageRes());
+        setOnClickListener(R.id.iv_logo, view -> {
             if (null != mOnSubViewClickListener)
                 mOnSubViewClickListener.onViewClick(view, getAdapterPosition());
         });

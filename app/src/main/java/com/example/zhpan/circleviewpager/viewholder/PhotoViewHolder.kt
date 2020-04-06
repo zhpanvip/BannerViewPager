@@ -15,11 +15,9 @@ import com.zhpan.bannerview.BaseViewHolder
 
 class PhotoViewHolder(itemView: View) : BaseViewHolder<Int>(itemView) {
 
-    private var imageView: ImageView = itemView.findViewById<PhotoView>(R.id.banner_image)
-
     override fun bindData(data: Int?, position: Int, size: Int) {
-        imageView.setImageResource(data!!)
-        imageView.setOnClickListener { v ->
+        setImageResource(R.id.banner_image, data!!)
+        setOnClickListener(R.id.banner_image) {
             Toast.makeText(itemView.context, "$adapterPosition  页面数$size", Toast.LENGTH_SHORT).show()
         }
     }

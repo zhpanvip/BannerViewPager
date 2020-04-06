@@ -138,8 +138,6 @@ public class HomeFragment extends BaseFragment {
 
     private void initBanner() {
         mViewPager
-                .setAutoPlay(true)
-                .setCanLoop(true)
                 .setIndicatorSlideMode(IndicatorSlideMode.WORM)
                 .setInterval(5000)
                 .setScrollDuration(1200)

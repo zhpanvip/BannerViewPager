@@ -55,7 +55,7 @@ dependencies {
     implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0'
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0-beta-2'
     implementation project(path: ':ideahttp')
-    implementation 'androidx.core:core-ktx:1.1.0'
+    implementation 'androidx.core:core-ktx:1.2.0'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
 }

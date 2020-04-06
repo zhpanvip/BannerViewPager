@@ -17,17 +17,16 @@ import com.zhpan.bannerview.BaseViewHolder;
 public class ImageResourceViewHolder extends BaseViewHolder<Integer> {
 
     private int roundCorner;
-    private CornerImageView imageView;
 
     public ImageResourceViewHolder(@NonNull View itemView) {
         super(itemView);
-        imageView = itemView.findViewById(R.id.banner_image);
+        CornerImageView imageView = findView(R.id.banner_image);
+        imageView.setRoundCorner(roundCorner);
     }
 
     @Override
     public void bindData(Integer data, int position, int pageSize) {
-        imageView.setImageResource(data);
-        imageView.setRoundCorner(roundCorner);
+        setImageResource(R.id.banner_image, data);
     }
 
     public void setRoundCorner(int roundCorner) {
