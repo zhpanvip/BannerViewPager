@@ -8,7 +8,7 @@ import com.bumptech.glide.Glide;
 import com.example.zhpan.circleviewpager.R;
 import com.example.zhpan.circleviewpager.net.BannerData;
 import com.example.zhpan.circleviewpager.view.CornerImageView;
-import com.zhpan.bannerview.base.BaseViewHolder;
+import com.zhpan.bannerview.BaseViewHolder;
 import com.zhpan.bannerview.utils.BannerUtils;
 
 /**
@@ -26,7 +26,7 @@ public class NetViewHolder extends BaseViewHolder<BannerData> {
     }
 
     @Override
-    public void onBind(BannerData data, int position, int pageSize) {
+    public void bindData(BannerData data, int position, int pageSize) {
         imageView.setRoundCorner(BannerUtils.dp2px(0));
         Glide.with(imageView).load(data.getImagePath()).placeholder(R.drawable.placeholder).into(imageView);
     }

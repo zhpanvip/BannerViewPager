@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 
 import com.example.zhpan.circleviewpager.R;
 import com.example.zhpan.circleviewpager.bean.CustomBean;
-import com.zhpan.bannerview.base.BaseViewHolder;
+import com.zhpan.bannerview.BaseViewHolder;
 
 public class CustomPageViewHolder extends BaseViewHolder<CustomBean> {
 
@@ -23,7 +23,7 @@ public class CustomPageViewHolder extends BaseViewHolder<CustomBean> {
     }
 
     @Override
-    public void onBind(CustomBean data, int position, int pageSize) {
+    public void bindData(CustomBean data, int position, int pageSize) {
         imageView.setImageResource(data.getImageRes());
         imageStart.setOnClickListener(view -> {
             if (null != mOnSubViewClickListener)

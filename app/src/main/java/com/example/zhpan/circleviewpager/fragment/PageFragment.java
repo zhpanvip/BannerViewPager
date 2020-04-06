@@ -64,7 +64,7 @@ public class PageFragment extends BaseFragment {
                 .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
                 .setIndicatorSliderRadius(getResources().getDimensionPixelOffset(R.dimen.dp_4), getResources().getDimensionPixelOffset(R.dimen.dp_5))
                 .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
-                .setAdapter(new ImageResourceAdapter(true).setData(getMDrawableList()))
+                .setAdapter(new ImageResourceAdapter(getResources().getDimensionPixelOffset(R.dimen.dp_6)))
                 .setInterval(5000);
         initRadioGroup();
     }
@@ -94,7 +94,7 @@ public class PageFragment extends BaseFragment {
                 .setPageMargin(getResources().getDimensionPixelOffset(R.dimen.dp_10))
                 .setRevealWidth(getResources().getDimensionPixelOffset(R.dimen.dp_20))
                 .setPageStyle(pageStyle)
-                .create();
+                .create(getMDrawableList());
     }
 
     //  仿QQ音乐的Banner
@@ -105,6 +105,6 @@ public class PageFragment extends BaseFragment {
                 .setPageStyle(PageStyle.MULTI_PAGE)
                 .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
                 .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
-                .setInterval(5000).create();
+                .setInterval(5000).create(getMDrawableList());
     }
 }

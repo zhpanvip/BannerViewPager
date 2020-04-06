@@ -1,11 +1,13 @@
 package com.example.zhpan.circleviewpager.adapter
 
 import android.view.View
+import android.widget.ImageView
+import androidx.recyclerview.widget.RecyclerView
 import com.example.zhpan.circleviewpager.R
 
 import com.example.zhpan.circleviewpager.bean.CustomBean
 import com.example.zhpan.circleviewpager.viewholder.CustomPageViewHolder
-import com.zhpan.bannerview.base.BaseBannerAdapter
+import com.zhpan.bannerview.BaseBannerAdapter
 
 /**
  * <pre>
@@ -15,12 +17,16 @@ import com.zhpan.bannerview.base.BaseBannerAdapter
  */
 class WelcomeAdapter : BaseBannerAdapter<CustomBean, CustomPageViewHolder>() {
 
+    var mOnSubViewClickListener: CustomPageViewHolder.OnSubViewClickListener? = null
+
     override fun onBind(holder: CustomPageViewHolder, data: CustomBean, position: Int, pageSize: Int) {
-        holder.onBind(data, position, pageSize)
+        holder.bindData(data, position, pageSize)
     }
 
     override fun createViewHolder(itemView: View, viewType: Int): CustomPageViewHolder? {
-        return CustomPageViewHolder(itemView)
+        val customPageViewHolder = CustomPageViewHolder(itemView)
+        customPageViewHolder.setOnSubViewClickListener(mOnSubViewClickListener)
+        return customPageViewHolder
     }
 
     override fun getLayoutId(viewType: Int): Int {

@@ -17,13 +17,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
-import com.zhpan.bannerview.base.BaseBannerAdapter;
 import com.zhpan.bannerview.annotation.AIndicatorGravity;
 import com.zhpan.bannerview.annotation.APageStyle;
 import com.zhpan.bannerview.annotation.ATransformerStyle;
 import com.zhpan.bannerview.annotation.Visibility;
 import com.zhpan.bannerview.constants.PageStyle;
-import com.zhpan.bannerview.base.BaseViewHolder;
 import com.zhpan.bannerview.manager.BannerManager;
 import com.zhpan.bannerview.manager.BannerOptions;
 import com.zhpan.bannerview.transform.PageTransformerFactory;
@@ -37,7 +35,7 @@ import com.zhpan.indicator.base.IIndicator;
 
 import java.util.List;
 
-import static com.zhpan.bannerview.base.BaseBannerAdapter.MAX_VALUE;
+import static com.zhpan.bannerview.BaseBannerAdapter.MAX_VALUE;
 import static com.zhpan.bannerview.constants.IndicatorGravity.CENTER;
 import static com.zhpan.bannerview.constants.IndicatorGravity.END;
 import static com.zhpan.bannerview.constants.IndicatorGravity.START;
@@ -200,7 +198,7 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
             if (!isCanLoop()) {
                 if (currentPosition == 0 && endX - startX > 0) {
                     getParent().requestDisallowInterceptTouchEvent(false);
-                } else if (currentPosition == getList().size() - 1 && endX - startX < 0) {
+                } else if (currentPosition == getData().size() - 1 && endX - startX < 0) {
                     getParent().requestDisallowInterceptTouchEvent(false);
                 } else {
                     getParent().requestDisallowInterceptTouchEvent(true);
@@ -362,7 +360,7 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
     /**
      * @return BannerViewPager data set
      */
-    public List<T> getList() {
+    public List<T> getData() {
         return mBannerPagerAdapter.getData();
     }
 
@@ -670,10 +668,11 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
         return this;
     }
 
-    public void create() {
+    public void create(List<T> data) {
         if (mBannerPagerAdapter == null) {
             throw new NullPointerException("You must set adapter for BannerViewPager");
         }
+        mBannerPagerAdapter.setData(data);
         initBannerData();
     }
 
@@ -687,7 +686,7 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
         return this;
     }
 
-    public void refresh(List<T> list) {
+    public void setData(List<T> list) {
         if (list != null && mBannerPagerAdapter != null) {
             mBannerPagerAdapter.setData(list);
             initBannerData();

@@ -21,8 +21,8 @@ class PhotoViewActivity : BaseDataActivity() {
         val bannerViewPager = findViewById<BannerViewPager<Int, PhotoViewHolder>>(R.id.viewpager)
         bannerViewPager.setAutoPlay(false)
                 .setCanLoop(false)
-                .setAdapter(PhotoAdapter().setData(mDrawableList))
-                .create()
+                .setAdapter(PhotoAdapter())
+                .create(mDrawableList)
         bannerViewPager.currentItem = 1
     }
 }

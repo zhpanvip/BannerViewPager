@@ -23,7 +23,6 @@ import com.example.zhpan.circleviewpager.viewholder.NetViewHolder;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.zhpan.bannerview.BannerViewPager;
-import com.zhpan.bannerview.base.BaseBannerAdapter;
 import com.zhpan.idea.net.common.ResponseObserver;
 import com.zhpan.idea.utils.LogUtils;
 import com.zhpan.idea.utils.RxUtil;
@@ -49,7 +48,6 @@ public class HomeFragment extends BaseFragment {
     private IndicatorView mIndicatorView;
     private TextView mTvTitle;
     private RelativeLayout mRlIndicator;
-    private BaseBannerAdapter<BannerData, NetViewHolder> mBaseBannerAdapter;
 
     @Override
     protected int getLayout() {
@@ -114,7 +112,7 @@ public class HomeFragment extends BaseFragment {
                 .subscribe(new ResponseObserver<DataWrapper>() {
                     @Override
                     public void onSuccess(DataWrapper response) {
-                        mViewPager.refresh(response.getDataBeanList());
+                        mViewPager.setData(response.getDataBeanList());
                         articleAdapter.setData(response.getArticleList());
                         if (response.getDataBeanList().size() > 0) {
                             mTvTitle.setText(response.getDataBeanList().get(0).getTitle());
@@ -149,12 +147,11 @@ public class HomeFragment extends BaseFragment {
                 .setIndicatorView(mIndicatorView)// 这里为了设置标题故用了自定义Indicator,如果无需标题则没必要添加此行代码
                 .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
                 .setAdapter(new HomeAdapter())
-                .setPageMargin(getResources().getDimensionPixelOffset(R.dimen.dp_15))
                 .registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
                     @Override
                     public void onPageSelected(int position) {
                         super.onPageSelected(position);
-                        BannerData bannerData = mViewPager.getList().get(position);
+                        BannerData bannerData = mViewPager.getData().get(position);
                         mTvTitle.setText(bannerData.getTitle());
                     }
                 })
@@ -162,7 +159,7 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void onPageClicked(int position) {
-        BannerData bannerData = mViewPager.getList().get(position);
+        BannerData bannerData = mViewPager.getData().get(position);
         Toast.makeText(getMContext(), "position:" + position + " " + bannerData.getTitle() + "currentItem:" + mViewPager.getCurrentItem(), Toast.LENGTH_SHORT).show();
     }
 

@@ -5,7 +5,7 @@ import android.view.View;
 import com.example.zhpan.circleviewpager.R;
 import com.example.zhpan.circleviewpager.net.BannerData;
 import com.example.zhpan.circleviewpager.viewholder.NetViewHolder;
-import com.zhpan.bannerview.base.BaseBannerAdapter;
+import com.zhpan.bannerview.BaseBannerAdapter;
 
 /**
  * <pre>
@@ -16,7 +16,7 @@ import com.zhpan.bannerview.base.BaseBannerAdapter;
 public class HomeAdapter extends BaseBannerAdapter<BannerData, NetViewHolder> {
     @Override
     protected void onBind(NetViewHolder holder, BannerData data, int position, int pageSize) {
-        holder.onBind(data, position, pageSize);
+        holder.bindData(data, position, pageSize);
     }
 
     @Override

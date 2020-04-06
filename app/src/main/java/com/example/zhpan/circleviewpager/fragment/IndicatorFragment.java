@@ -66,7 +66,7 @@ public class IndicatorFragment extends BaseFragment {
         mRadioGroupMode = view.findViewById(R.id.rg_slide_mode);
         mViewPager = view.findViewById(R.id.banner_view);
         mViewPager.setIndicatorSliderGap(BannerUtils.dp2px(6))
-                .setAdapter(new ImageResourceAdapter(false).setData(getMDrawableList()))
+                .setAdapter(new ImageResourceAdapter(0))
                 .setRoundCorner(BannerUtils.dp2px(6));
         initRadioGroup();
     }
@@ -116,7 +116,7 @@ public class IndicatorFragment extends BaseFragment {
                 .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
                 .setIndicatorSliderWidth(getResources().getDimensionPixelOffset(R.dimen.dp_15))
                 .setIndicatorHeight(getResources().getDimensionPixelOffset(R.dimen.dp_3))
-                .create();
+                .create(getMDrawableList());
     }
 
     private void setupRoundRectIndicator() {
@@ -129,7 +129,7 @@ public class IndicatorFragment extends BaseFragment {
                 .setIndicatorHeight(getResources().getDimensionPixelOffset(R.dimen.dp_4))
                 .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
                 .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
-                .setIndicatorSliderWidth(normalWidth, checkedWidth).create();
+                .setIndicatorSliderWidth(normalWidth, checkedWidth).create(getMDrawableList());
     }
 
     private void setupCircleIndicator() {
@@ -140,7 +140,7 @@ public class IndicatorFragment extends BaseFragment {
                 .setIndicatorHeight(getResources().getDimensionPixelOffset(R.dimen.dp_4))
                 .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
                 .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
-                .setIndicatorSliderRadius(getResources().getDimensionPixelOffset(R.dimen.dp_4)).create();
+                .setIndicatorSliderRadius(getResources().getDimensionPixelOffset(R.dimen.dp_4)).create(getMDrawableList());
     }
 
     private void setupDashIndicator() {
@@ -153,7 +153,7 @@ public class IndicatorFragment extends BaseFragment {
                 .setIndicatorSliderGap(getResources().getDimensionPixelOffset(R.dimen.dp_3))
                 .setIndicatorSliderWidth(normalWidth, checkedWidth)
                 .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
-                .create();
+                .create(getMDrawableList());
     }
 
     private int getNormalWidth() {

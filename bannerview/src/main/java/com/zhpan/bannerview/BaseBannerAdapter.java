@@ -1,4 +1,4 @@
-package com.zhpan.bannerview.base;
+package com.zhpan.bannerview;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.zhpan.bannerview.BannerViewPager;
 import com.zhpan.bannerview.utils.BannerUtils;
 
 import java.util.ArrayList;
@@ -19,7 +18,7 @@ import java.util.List;
 public abstract class BaseBannerAdapter<T, VH extends BaseViewHolder> extends RecyclerView.Adapter<VH> {
     private List<T> mList = new ArrayList<>();
     private boolean isCanLoop;
-    public static final int MAX_VALUE = 500;
+    static final int MAX_VALUE = 500;
     private BannerViewPager.OnPageClickListener mPageClickListener;
 
     @NonNull
@@ -52,27 +51,26 @@ public abstract class BaseBannerAdapter<T, VH extends BaseViewHolder> extends Re
         }
     }
 
-    public List<T> getData() {
+    List<T> getData() {
         return mList;
     }
 
-    public BaseBannerAdapter<T, VH> setData(List<T> list) {
+    void setData(List<T> list) {
         if (null != list) {
             mList.clear();
             mList.addAll(list);
         }
-        return this;
     }
 
-    public void setCanLoop(boolean canLoop) {
+    void setCanLoop(boolean canLoop) {
         isCanLoop = canLoop;
     }
 
-    public void setPageClickListener(BannerViewPager.OnPageClickListener pageClickListener) {
+    void setPageClickListener(BannerViewPager.OnPageClickListener pageClickListener) {
         mPageClickListener = pageClickListener;
     }
 
-    public int getListSize() {
+    int getListSize() {
         return mList.size();
     }
 

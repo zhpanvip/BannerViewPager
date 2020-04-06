@@ -14,6 +14,7 @@ import com.example.zhpan.circleviewpager.viewholder.CustomPageViewHolder
 import com.zhpan.bannerview.BannerViewPager
 import com.zhpan.bannerview.constants.TransformerStyle
 import com.zhpan.bannerview.utils.BannerUtils
+import com.zhpan.idea.utils.ToastUtils
 import com.zhpan.indicator.enums.IndicatorSlideMode
 import kotlinx.android.synthetic.main.activity_welcome.*
 import java.util.*
@@ -47,6 +48,8 @@ class WelcomeActivity : BaseDataActivity() {
 
     private fun setupViewPager() {
         mViewPager = findViewById(R.id.viewpager)
+        val welcomeAdapter = WelcomeAdapter()
+        welcomeAdapter.mOnSubViewClickListener = CustomPageViewHolder.OnSubViewClickListener { _, position -> ToastUtils.show("Logo Clicked,position:$position") }
         mViewPager.setAutoPlay(false)
                 .setCanLoop(false)
                 .setPageTransformerStyle(transforms[Random().nextInt(6)])
@@ -57,14 +60,14 @@ class WelcomeActivity : BaseDataActivity() {
                         ContextCompat.getColor(this, R.color.white_alpha_75))
                 .setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
                 .setIndicatorSliderRadius(resources.getDimension(R.dimen.dp_3).toInt(), resources.getDimension(R.dimen.dp_4_5).toInt())
-                .setAdapter(WelcomeAdapter().setData(data))
+                .setAdapter(welcomeAdapter)
                 .registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                     override fun onPageSelected(position: Int) {
                         BannerUtils.log("position:$position")
                         updateUI(position)
                     }
                 })
-                .create()
+                .create(data)
     }
 
     fun onClick(view: View) {
@@ -87,7 +90,7 @@ class WelcomeActivity : BaseDataActivity() {
         animatorSet.playTogether(translationAnim, alphaAnimator)
         animatorSet.start()
 
-        if (position == mViewPager.list.size - 1 && btn_start?.visibility == View.GONE) {
+        if (position == mViewPager.data.size - 1 && btn_start?.visibility == View.GONE) {
             btn_start?.visibility = View.VISIBLE
             ObjectAnimator
                     .ofFloat(btn_start, "alpha", 0f, 1f)

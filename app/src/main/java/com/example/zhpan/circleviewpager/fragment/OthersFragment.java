@@ -80,7 +80,7 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
                     int currentItem = mViewPager.getCurrentItem();
                     LogUtils.e("currentItem:", currentItem + "");
                 })
-                .setAdapter(new ImageResourceAdapter(false).setData(getMDrawableList()))
+                .setAdapter(new ImageResourceAdapter(0))
                 .setOnPageClickListener(position -> ToastUtils.show("Position:" + position))
                 .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color));
         initRadioGroup();
@@ -117,7 +117,7 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
                 .setIndicatorSlideMode(IndicatorSlideMode.NORMAL)
                 .setIndicatorVisibility(View.VISIBLE)
                 .setIndicatorGravity(IndicatorGravity.CENTER)
-                .create();
+                .create(getMDrawableList());
     }
 
     private IIndicator getDrawableIndicator() {
@@ -142,7 +142,7 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
                 .setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
                 .setIndicatorVisibility(View.GONE)
                 .setIndicatorView(mIndicatorView)
-                .create();
+                .create(getMDrawableList());
     }
 
 
@@ -152,7 +152,7 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
                 .setIndicatorSlideMode(IndicatorSlideMode.NORMAL)
                 .setIndicatorVisibility(View.VISIBLE)
                 .setIndicatorGravity(IndicatorGravity.END)
-                .setIndicatorView(setupIndicatorView()).create();
+                .setIndicatorView(setupIndicatorView()).create(getMDrawableList());
     }
 
     /**
@@ -170,7 +170,7 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
         //  生成[-1,3]整数
         initData(new Random().nextInt(5) - 1);
         ToastUtils.show("size=" + getMDrawableList().size());
-        mViewPager.refresh(getMDrawableList());
+        mViewPager.setData(getMDrawableList());
     }
 
     @Override
