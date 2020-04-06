@@ -24,6 +24,7 @@ import com.zhpan.bannerview.annotation.Visibility;
 import com.zhpan.bannerview.constants.PageStyle;
 import com.zhpan.bannerview.manager.BannerManager;
 import com.zhpan.bannerview.manager.BannerOptions;
+import com.zhpan.bannerview.transform.OverlapSliderTransformer;
 import com.zhpan.bannerview.transform.PageTransformerFactory;
 import com.zhpan.bannerview.transform.ScaleInTransformer;
 import com.zhpan.bannerview.utils.BannerUtils;
@@ -79,6 +80,8 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
     private CompositePageTransformer mCompositePageTransformer;
 
     private MarginPageTransformer mMarginPageTransformer;
+
+    private ViewPager2.PageTransformer mPageTransformer;
 
     private ViewPager2.OnPageChangeCallback mOnPageChangeCallback = new ViewPager2.OnPageChangeCallback() {
         @Override
@@ -331,10 +334,15 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
         int padding = bannerOptions.getPageMargin() + bannerOptions.getRevealWidth();
         recyclerView.setPadding(padding, 0, padding, 0);
         recyclerView.setClipToPadding(false);
-        addPageTransformer(new ScaleInTransformer(scale));
-        if (overlap) {
-            // TODO MULTI_PAGE_OVERLAP style supported
+        if (mPageTransformer != null) {
+            mCompositePageTransformer.removeTransformer(mPageTransformer);
         }
+        if (overlap && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mPageTransformer = new OverlapSliderTransformer(ViewPager2.ORIENTATION_HORIZONTAL, scale, scale, 0, 0);
+        } else {
+            mPageTransformer = new ScaleInTransformer(scale);
+        }
+        addPageTransformer(mPageTransformer);
     }
 
     private int getInterval() {

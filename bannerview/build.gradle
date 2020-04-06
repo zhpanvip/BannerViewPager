@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
-apply plugin: 'com.jfrog.bintray'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 28
 
@@ -32,4 +33,5 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0'
     api 'com.github.zhpanvip:viewpagerindicator:1.0.0'
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
+    implementation 'androidx.core:core-ktx:1.1.0'
 }
