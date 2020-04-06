@@ -52,6 +52,8 @@ public class BannerOptions {
 
     private boolean userInputEnabled;
 
+    private int orientation = ViewPager2.ORIENTATION_HORIZONTAL;
+
     private IndicatorOptions mIndicatorOptions;
 
     public int getInterval() {
@@ -218,6 +220,14 @@ public class BannerOptions {
 
     public void setIndicatorVisibility(int indicatorVisibility) {
         mIndicatorVisibility = indicatorVisibility;
+    }
+
+    public int getOrientation() {
+        return orientation;
+    }
+
+    public void setOrientation(int orientation) {
+        this.orientation = orientation;
     }
 
     public boolean isUserInputEnabled() {

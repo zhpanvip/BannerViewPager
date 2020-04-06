@@ -175,9 +175,6 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
                 startY = (int) ev.getY();
                 getParent().requestDisallowInterceptTouchEvent(true);
                 break;
-            case MotionEvent.ACTION_MOVE:
-                onActionMove(ev);
-                break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
                 setLooping(false);
@@ -189,7 +186,59 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
                 startLoop();
                 break;
         }
+        int orientation = mBannerManager.bannerOptions().getOrientation();
+        if (orientation == ViewPager2.ORIENTATION_VERTICAL) {
+            dispatchVerticalTouchEvent(ev);
+        } else if (orientation == ViewPager2.ORIENTATION_HORIZONTAL) {
+            dispatchHorizontalTouchEvent(ev);
+        }
         return super.dispatchTouchEvent(ev);
+    }
+
+    private void dispatchHorizontalTouchEvent(MotionEvent ev) {
+        switch (ev.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                startX = (int) ev.getX();
+                startY = (int) ev.getY();
+                getParent().requestDisallowInterceptTouchEvent(true);
+                break;
+            case MotionEvent.ACTION_MOVE:
+                onActionMove(ev);
+                break;
+            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_CANCEL:
+                getParent().requestDisallowInterceptTouchEvent(false);
+                break;
+            case MotionEvent.ACTION_OUTSIDE:
+                break;
+        }
+    }
+
+    private void dispatchVerticalTouchEvent(MotionEvent ev) {
+        switch (ev.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                startX = (int) ev.getX();
+                startY = (int) ev.getY();
+                getParent().requestDisallowInterceptTouchEvent(false);
+                break;
+            case MotionEvent.ACTION_MOVE:
+                int endX = (int) ev.getX();
+                int endY = (int) ev.getY();
+                int disX = Math.abs(endX - startX);
+                int disY = Math.abs(endY - startY);
+                if(disX>disY){
+                    getParent().requestDisallowInterceptTouchEvent(false);
+                }else {
+                    getParent().requestDisallowInterceptTouchEvent(true);
+                }
+                break;
+            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_CANCEL:
+                getParent().requestDisallowInterceptTouchEvent(true);
+                break;
+            case MotionEvent.ACTION_OUTSIDE:
+                break;
+        }
     }
 
     private void onActionMove(MotionEvent ev) {
@@ -305,10 +354,10 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
         mViewPager.unregisterOnPageChangeCallback(mOnPageChangeCallback);
         mViewPager.registerOnPageChangeCallback(mOnPageChangeCallback);
         BannerOptions bannerOptions = mBannerManager.bannerOptions();
+        mViewPager.setOrientation(bannerOptions.getOrientation());
         mViewPager.setUserInputEnabled(!bannerOptions.isUserInputEnabled());
 //        mViewPager.setScrollDuration(bannerOptions.getScrollDuration());
         mViewPager.setOffscreenPageLimit(bannerOptions.getOffScreenPageLimit());
-
         initPageStyle();
         startLoop();
     }
@@ -328,17 +377,22 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
     }
 
     private void setMultiPageStyle(boolean overlap, float scale) {
-        mViewPager.setOffscreenPageLimit(1);
+//        mViewPager.setOffscreenPageLimit(1);
         RecyclerView recyclerView = (RecyclerView) mViewPager.getChildAt(0);
         BannerOptions bannerOptions = mBannerManager.bannerOptions();
+        int orientation = bannerOptions.getOrientation();
         int padding = bannerOptions.getPageMargin() + bannerOptions.getRevealWidth();
-        recyclerView.setPadding(padding, 0, padding, 0);
+        if (orientation == ViewPager2.ORIENTATION_HORIZONTAL)
+            recyclerView.setPadding(padding, 0, padding, 0);
+        else if (orientation == ViewPager2.ORIENTATION_VERTICAL) {
+            recyclerView.setPadding(0, padding, 0, padding);
+        }
         recyclerView.setClipToPadding(false);
         if (mPageTransformer != null) {
             mCompositePageTransformer.removeTransformer(mPageTransformer);
         }
         if (overlap && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mPageTransformer = new OverlapSliderTransformer(ViewPager2.ORIENTATION_HORIZONTAL, scale, scale, 0, 0);
+            mPageTransformer = new OverlapSliderTransformer(orientation, scale, scale, 0, 0);
         } else {
             mPageTransformer = new ScaleInTransformer(scale);
         }
@@ -690,7 +744,7 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
      * @param orientation {@link ##ORIENTATION_HORIZONTAL} or {@link ##ORIENTATION_VERTICAL}
      */
     public BannerViewPager<T, VH> setOrientation(@ViewPager2.Orientation int orientation) {
-        mViewPager.setOrientation(orientation);
+        mBannerManager.bannerOptions().setOrientation(orientation);
         return this;
     }
 
