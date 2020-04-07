@@ -23,6 +23,6 @@ class PhotoViewActivity : BaseDataActivity() {
                 .setCanLoop(false)
                 .setAdapter(PhotoAdapter())
                 .create(mDrawableList)
-        bannerViewPager.currentItem = 1
+        bannerViewPager.setCurrentItem(1,false);
     }
 }

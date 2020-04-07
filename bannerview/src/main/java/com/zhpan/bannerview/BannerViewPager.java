@@ -24,6 +24,7 @@ import com.zhpan.bannerview.annotation.Visibility;
 import com.zhpan.bannerview.constants.PageStyle;
 import com.zhpan.bannerview.manager.BannerManager;
 import com.zhpan.bannerview.manager.BannerOptions;
+import com.zhpan.bannerview.provider.ProxyLayoutManger;
 import com.zhpan.bannerview.transform.OverlapPageTransformer;
 import com.zhpan.bannerview.transform.PageTransformerFactory;
 import com.zhpan.bannerview.transform.ScaleInTransformer;
@@ -340,6 +341,8 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
         if (mBannerPagerAdapter == null) {
             throw new NullPointerException("You must set adapter for BannerViewPager");
         }
+        BannerOptions bannerOptions = mBannerManager.bannerOptions();
+        ProxyLayoutManger.setScrollProxy(mViewPager, bannerOptions.getScrollDuration());
         currentPosition = 0;
         mBannerPagerAdapter.setCanLoop(isCanLoop());
         mBannerPagerAdapter.setPageClickListener(mOnPageClickListener);
@@ -349,11 +352,8 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
         }
         mViewPager.unregisterOnPageChangeCallback(mOnPageChangeCallback);
         mViewPager.registerOnPageChangeCallback(mOnPageChangeCallback);
-        BannerOptions bannerOptions = mBannerManager.bannerOptions();
         mViewPager.setOrientation(bannerOptions.getOrientation());
         mViewPager.setUserInputEnabled(bannerOptions.isUserInputEnabled());
-        //  TODO Support Scroll Duration
-//        mViewPager.setScrollDuration(bannerOptions.getScrollDuration());
         mViewPager.setOffscreenPageLimit(bannerOptions.getOffScreenPageLimit());
         initPageStyle();
         startLoop();

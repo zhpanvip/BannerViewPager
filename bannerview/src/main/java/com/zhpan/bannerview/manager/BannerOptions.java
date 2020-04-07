@@ -16,11 +16,11 @@ public class BannerOptions {
 
     public BannerOptions() {
         mIndicatorOptions = new IndicatorOptions();
-        mPageMargin = BannerUtils.dp2px(20);
-        mRevealWidth = BannerUtils.dp2px(20);
+        pageMargin = BannerUtils.dp2px(20);
+        revealWidth = BannerUtils.dp2px(20);
     }
 
-    public static final int DEFAULT_SCROLL_DURATION = 500;
+    static final int DEFAULT_SCROLL_DURATION = 800;
 
     private int offScreenPageLimit = ViewPager2.OFFSCREEN_PAGE_LIMIT_DEFAULT;
 
@@ -36,19 +36,19 @@ public class BannerOptions {
 
     private int indicatorGravity;
 
-    private int mPageMargin;
+    private int pageMargin;
 
-    private int mRevealWidth;
+    private int revealWidth;
 
-    private int mPageStyle = PageStyle.NORMAL;
+    private int pageStyle = PageStyle.NORMAL;
 
     private IndicatorMargin mIndicatorMargin;
 
     private int mIndicatorVisibility;
 
-    private int mScrollDuration;
+    private int scrollDuration;
 
-    private int mRoundRadius;
+    private int roundRadius;
 
     private boolean userInputEnabled = true;
 
@@ -135,19 +135,19 @@ public class BannerOptions {
     }
 
     public int getPageMargin() {
-        return mPageMargin;
+        return pageMargin;
     }
 
     public void setPageMargin(int pageMargin) {
-        mPageMargin = pageMargin;
+        this.pageMargin = pageMargin;
     }
 
     public int getRevealWidth() {
-        return mRevealWidth;
+        return revealWidth;
     }
 
     public void setRevealWidth(int revealWidth) {
-        mRevealWidth = revealWidth;
+        this.revealWidth = revealWidth;
     }
 
     public int getIndicatorStyle() {
@@ -183,11 +183,11 @@ public class BannerOptions {
     }
 
     public int getPageStyle() {
-        return mPageStyle;
+        return pageStyle;
     }
 
     public void setPageStyle(int pageStyle) {
-        mPageStyle = pageStyle;
+        this.pageStyle = pageStyle;
     }
 
     public IndicatorMargin getIndicatorMargin() {
@@ -199,19 +199,19 @@ public class BannerOptions {
     }
 
     public int getRoundRectRadius() {
-        return mRoundRadius;
+        return roundRadius;
     }
 
     public void setRoundRectRadius(int roundRadius) {
-        this.mRoundRadius = roundRadius;
+        this.roundRadius = roundRadius;
     }
 
     public int getScrollDuration() {
-        return mScrollDuration;
+        return scrollDuration;
     }
 
     public void setScrollDuration(int scrollDuration) {
-        this.mScrollDuration = scrollDuration;
+        this.scrollDuration = scrollDuration;
     }
 
     public int getIndicatorVisibility() {
