@@ -16,9 +16,7 @@ import com.zhpan.bannerview.BaseViewHolder;
  */
 public class ImageResourceViewHolder extends BaseViewHolder<Integer> {
 
-    private int roundCorner;
-
-    public ImageResourceViewHolder(@NonNull View itemView) {
+    public ImageResourceViewHolder(@NonNull View itemView,int roundCorner) {
         super(itemView);
         CornerImageView imageView = findView(R.id.banner_image);
         imageView.setRoundCorner(roundCorner);
@@ -27,9 +25,5 @@ public class ImageResourceViewHolder extends BaseViewHolder<Integer> {
     @Override
     public void bindData(Integer data, int position, int pageSize) {
         setImageResource(R.id.banner_image, data);
-    }
-
-    public void setRoundCorner(int roundCorner) {
-        this.roundCorner = roundCorner;
     }
 }

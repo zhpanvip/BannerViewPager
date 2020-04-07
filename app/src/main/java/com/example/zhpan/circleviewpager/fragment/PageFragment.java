@@ -64,7 +64,7 @@ public class PageFragment extends BaseFragment {
                 .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
                 .setIndicatorSliderRadius(getResources().getDimensionPixelOffset(R.dimen.dp_4), getResources().getDimensionPixelOffset(R.dimen.dp_5))
                 .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
-                .setAdapter(new ImageResourceAdapter(getResources().getDimensionPixelOffset(R.dimen.dp_6)))
+                .setAdapter(new ImageResourceAdapter(getResources().getDimensionPixelOffset(R.dimen.dp_8)))
                 .setInterval(5000);
         initRadioGroup();
     }
@@ -91,8 +91,8 @@ public class PageFragment extends BaseFragment {
 
     private void setupBanner(@APageStyle int pageStyle) {
         mViewPager
-                .setPageMargin(getResources().getDimensionPixelOffset(R.dimen.dp_10))
-                .setRevealWidth(getResources().getDimensionPixelOffset(R.dimen.dp_20))
+                .setPageMargin(getResources().getDimensionPixelOffset(R.dimen.dp_20))
+                .setRevealWidth(getResources().getDimensionPixelOffset(R.dimen.dp_10))
                 .setPageStyle(pageStyle)
                 .create(getMDrawableList());
     }

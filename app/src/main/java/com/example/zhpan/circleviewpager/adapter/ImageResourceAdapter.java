@@ -13,6 +13,7 @@ import com.zhpan.bannerview.BaseBannerAdapter;
  * </pre>
  */
 public class ImageResourceAdapter extends BaseBannerAdapter<Integer, ImageResourceViewHolder> {
+
     private int roundCorner;
 
     public ImageResourceAdapter(int roundCorner) {
@@ -27,9 +28,7 @@ public class ImageResourceAdapter extends BaseBannerAdapter<Integer, ImageResour
 
     @Override
     public ImageResourceViewHolder createViewHolder(View itemView, int viewType) {
-        ImageResourceViewHolder viewHolder = new ImageResourceViewHolder(itemView);
-        viewHolder.setRoundCorner(roundCorner);
-        return viewHolder;
+        return new ImageResourceViewHolder(itemView, roundCorner);
     }
 
     @Override
