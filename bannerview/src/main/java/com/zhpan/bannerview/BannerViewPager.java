@@ -175,8 +175,6 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
                 break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
-                setLooping(false);
-                startLoop();
             case MotionEvent.ACTION_OUTSIDE:
                 setLooping(false);
                 startLoop();
