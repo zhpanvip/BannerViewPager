@@ -21,6 +21,8 @@ abstract class BaseFragment : RxFragment() {
     protected var mDrawableList: MutableList<Int> = ArrayList()
     protected lateinit var mContext: Context
 
+    protected var mPictureList: MutableList<Int> = ArrayList()
+
     /**
      * 获取当前Activity的UI布局
      *
@@ -36,9 +38,18 @@ abstract class BaseFragment : RxFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(layout, container, false)
         initData(3)
+        initPicture()
         initTitle()
         initView(savedInstanceState, view)
         return view
+    }
+
+    private fun initPicture() {
+        mPictureList.clear()
+        for (i in 0..3) {
+            val drawable = resources.getIdentifier("advertise$i", "drawable", mContext.packageName)
+            mPictureList.add(drawable)
+        }
     }
 
     protected fun initData(j: Int) {
@@ -51,7 +62,7 @@ abstract class BaseFragment : RxFragment() {
 
     @ColorInt
     protected fun getColor(@ColorRes colorRes: Int): Int {
-        return ContextCompat.getColor(context!!,colorRes)
+        return ContextCompat.getColor(context!!, colorRes)
     }
 
     /**

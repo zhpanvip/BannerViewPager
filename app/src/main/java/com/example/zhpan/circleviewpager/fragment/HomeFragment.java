@@ -14,15 +14,18 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.example.zhpan.circleviewpager.R;
 import com.example.zhpan.circleviewpager.adapter.ArticleAdapter;
 import com.example.zhpan.circleviewpager.adapter.HomeAdapter;
+import com.example.zhpan.circleviewpager.adapter.ImageResourceAdapter;
 import com.example.zhpan.circleviewpager.bean.ArticleWrapper;
 import com.example.zhpan.circleviewpager.bean.DataWrapper;
 import com.example.zhpan.circleviewpager.net.BannerData;
 import com.example.zhpan.circleviewpager.net.RetrofitGnerator;
 import com.example.zhpan.circleviewpager.recyclerview.ui.CustomRecyclerView;
+import com.example.zhpan.circleviewpager.viewholder.ImageResourceViewHolder;
 import com.example.zhpan.circleviewpager.viewholder.NetViewHolder;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.zhpan.bannerview.BannerViewPager;
+import com.zhpan.bannerview.constants.IndicatorGravity;
 import com.zhpan.idea.net.common.ResponseObserver;
 import com.zhpan.idea.utils.LogUtils;
 import com.zhpan.idea.utils.RxUtil;
@@ -43,14 +46,14 @@ public class HomeFragment extends BaseFragment {
 
 
     private BannerViewPager<BannerData, NetViewHolder> mViewPagerHorizontal;
-    private BannerViewPager<BannerData, NetViewHolder> mViewPagerVertical;
+    private BannerViewPager<Integer, ImageResourceViewHolder> mViewPagerVertical;
+    private BannerViewPager<Integer, ImageResourceViewHolder> mViewPager;
     private CustomRecyclerView recyclerView;
     private ArticleAdapter articleAdapter;
     private SmartRefreshLayout mSmartRefreshLayout;
     private IndicatorView mIndicatorView;
     private TextView mTvTitle;
     private RelativeLayout mRlIndicator;
-    private IndicatorView mIndicatorView2;
 
     @Override
     protected int getLayout() {
@@ -116,7 +119,6 @@ public class HomeFragment extends BaseFragment {
                     @Override
                     public void onSuccess(DataWrapper response) {
                         mViewPagerHorizontal.setData(response.getDataBeanList());
-                        mViewPagerVertical.setData(response.getDataBeanList());
                         articleAdapter.setData(response.getArticleList());
                         if (response.getDataBeanList().size() > 0) {
                             mTvTitle.setText(response.getDataBeanList().get(0).getTitle());
@@ -143,8 +145,9 @@ public class HomeFragment extends BaseFragment {
     private void initBanner() {
         mViewPagerHorizontal
                 .setIndicatorSlideMode(IndicatorSlideMode.WORM)
-                .setInterval(5000)
-                .setScrollDuration(1200)
+                .setInterval(3000)
+                .setScrollDuration(1000)
+                .setIndicatorGravity(IndicatorGravity.END)
                 .setIndicatorSliderRadius(getResources().getDimensionPixelSize(R.dimen.dp_3))
                 .setIndicatorView(mIndicatorView)// 这里为了设置标题故用了自定义Indicator,如果无需标题则没必要添加此行代码
                 .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
@@ -161,7 +164,6 @@ public class HomeFragment extends BaseFragment {
 
         mViewPagerVertical
                 .setAutoPlay(true)
-                .setIndicatorView(mIndicatorView2)
                 .setIndicatorStyle(IndicatorStyle.ROUND_RECT)
                 .setIndicatorSliderGap(getResources().getDimensionPixelOffset(R.dimen.dp_4))
                 .setIndicatorSliderWidth(getResources().getDimensionPixelOffset(R.dimen.dp_4), getResources().getDimensionPixelOffset(R.dimen.dp_10))
@@ -169,8 +171,17 @@ public class HomeFragment extends BaseFragment {
                 .setOrientation(ViewPager2.ORIENTATION_VERTICAL)
                 .setInterval(2000)
                 .setScrollDuration(500)
-                .setAdapter(new HomeAdapter())
-                .setOnPageClickListener(this::onPageClicked);
+                .setAdapter(new ImageResourceAdapter(0)).create(getMPictureList());
+        mViewPager
+                .setCanLoop(false)
+                .setIndicatorStyle(IndicatorStyle.ROUND_RECT)
+                .setIndicatorSliderGap(getResources().getDimensionPixelOffset(R.dimen.dp_4))
+                .setIndicatorSliderWidth(getResources().getDimensionPixelOffset(R.dimen.dp_4), getResources().getDimensionPixelOffset(R.dimen.dp_10))
+                .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
+                .setOrientation(ViewPager2.ORIENTATION_VERTICAL)
+                .setInterval(2000)
+                .setScrollDuration(500)
+                .setAdapter(new ImageResourceAdapter(0)).create(getMPictureList());
     }
 
     private void onPageClicked(int position) {
@@ -183,9 +194,9 @@ public class HomeFragment extends BaseFragment {
         mRlIndicator = view.findViewById(R.id.layout_indicator);
         mViewPagerHorizontal = view.findViewById(R.id.banner_view);
         mViewPagerVertical = view.findViewById(R.id.banner_view2);
+        mViewPager = view.findViewById(R.id.banner_view3);
         mTvTitle = view.findViewById(R.id.tv_title);
         mIndicatorView = view.findViewById(R.id.indicator_view);
-        mIndicatorView2 = view.findViewById(R.id.indicator_view2);
         return view;
     }
 }

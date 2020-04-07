@@ -226,8 +226,8 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
             } else {
                 getParent().requestDisallowInterceptTouchEvent(true);
             }
-        } else {
-            getParent().requestDisallowInterceptTouchEvent(true);
+        } else if (disX > disY) {
+            getParent().requestDisallowInterceptTouchEvent(false);
         }
     }
 
@@ -244,6 +244,8 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
             } else {
                 getParent().requestDisallowInterceptTouchEvent(true);
             }
+        } else if (disY > disX) {
+            getParent().requestDisallowInterceptTouchEvent(false);
         }
     }
 
