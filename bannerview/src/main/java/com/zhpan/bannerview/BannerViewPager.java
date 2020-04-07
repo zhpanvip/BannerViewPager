@@ -172,77 +172,68 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
             case MotionEvent.ACTION_DOWN:
                 setLooping(true);
                 stopLoop();
-                startX = (int) ev.getX();
-                startY = (int) ev.getY();
-                getParent().requestDisallowInterceptTouchEvent(true);
                 break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
                 setLooping(false);
                 startLoop();
-                getParent().requestDisallowInterceptTouchEvent(false);
-                break;
             case MotionEvent.ACTION_OUTSIDE:
                 setLooping(false);
                 startLoop();
                 break;
-        }
-        int orientation = mBannerManager.bannerOptions().getOrientation();
-        if (orientation == ViewPager2.ORIENTATION_VERTICAL) {
-            dispatchVerticalTouchEvent(ev);
-        } else if (orientation == ViewPager2.ORIENTATION_HORIZONTAL) {
-            dispatchHorizontalTouchEvent(ev);
         }
         return super.dispatchTouchEvent(ev);
     }
 
-    private void dispatchHorizontalTouchEvent(MotionEvent ev) {
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
+                startX = (int) ev.getX();
+                startY = (int) ev.getY();
                 getParent().requestDisallowInterceptTouchEvent(true);
-                break;
-            case MotionEvent.ACTION_MOVE:
-                onActionMove(ev);
-                break;
-            case MotionEvent.ACTION_UP:
-            case MotionEvent.ACTION_CANCEL:
-                getParent().requestDisallowInterceptTouchEvent(false);
-                break;
-            case MotionEvent.ACTION_OUTSIDE:
-                break;
-        }
-    }
-
-    private void dispatchVerticalTouchEvent(MotionEvent ev) {
-        switch (ev.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                getParent().requestDisallowInterceptTouchEvent(false);
                 break;
             case MotionEvent.ACTION_MOVE:
                 int endX = (int) ev.getX();
                 int endY = (int) ev.getY();
                 int disX = Math.abs(endX - startX);
                 int disY = Math.abs(endY - startY);
-                if (disX > disY) {
-                    getParent().requestDisallowInterceptTouchEvent(false);
-                } else {
-                    getParent().requestDisallowInterceptTouchEvent(true);
+                int orientation = mBannerManager.bannerOptions().getOrientation();
+                if (orientation == ViewPager2.ORIENTATION_VERTICAL) {
+                    onVerticalActionMove(endY, disX, disY);
+                } else if (orientation == ViewPager2.ORIENTATION_HORIZONTAL) {
+                    onHorizontalActionMove(endX, disX, disY);
                 }
                 break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
-                getParent().requestDisallowInterceptTouchEvent(true);
+                getParent().requestDisallowInterceptTouchEvent(false);
                 break;
             case MotionEvent.ACTION_OUTSIDE:
                 break;
         }
+        return super.onInterceptTouchEvent(ev);
     }
 
-    private void onActionMove(MotionEvent ev) {
-        int endX = (int) ev.getX();
-        int endY = (int) ev.getY();
-        int disX = Math.abs(endX - startX);
-        int disY = Math.abs(endY - startY);
+    private void onVerticalActionMove(int endY, int disX, int disY) {
+        if (disY > disX) {
+            if (!isCanLoop()) {
+                if (currentPosition == 0 && endY - startY > 0) {
+                    getParent().requestDisallowInterceptTouchEvent(false);
+                } else if (currentPosition == getData().size() - 1 && endY - startY < 0) {
+                    getParent().requestDisallowInterceptTouchEvent(false);
+                } else {
+                    getParent().requestDisallowInterceptTouchEvent(true);
+                }
+            } else {
+                getParent().requestDisallowInterceptTouchEvent(true);
+            }
+        } else {
+            getParent().requestDisallowInterceptTouchEvent(true);
+        }
+    }
+
+    private void onHorizontalActionMove(int endX, int disX, int disY) {
         if (disX > disY) {
             if (!isCanLoop()) {
                 if (currentPosition == 0 && endX - startX > 0) {
@@ -255,8 +246,6 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
             } else {
                 getParent().requestDisallowInterceptTouchEvent(true);
             }
-        } else if (2 * disX < disY) {
-            getParent().requestDisallowInterceptTouchEvent(false);
         }
     }
 
