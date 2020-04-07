@@ -20,8 +20,6 @@ public class BannerOptions {
         revealWidth = BannerUtils.dp2px(20);
     }
 
-    static final int DEFAULT_SCROLL_DURATION = 800;
-
     private int offScreenPageLimit = ViewPager2.OFFSCREEN_PAGE_LIMIT_DEFAULT;
 
     private int interval;

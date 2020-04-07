@@ -331,7 +331,8 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
             throw new NullPointerException("You must set adapter for BannerViewPager");
         }
         BannerOptions bannerOptions = mBannerManager.bannerOptions();
-        ProxyLayoutManger.setScrollProxy(mViewPager, bannerOptions.getScrollDuration());
+        if (bannerOptions.getScrollDuration() != 0)
+            ProxyLayoutManger.setScrollProxy(mViewPager, bannerOptions.getScrollDuration());
         currentPosition = 0;
         mBannerPagerAdapter.setCanLoop(isCanLoop());
         mBannerPagerAdapter.setPageClickListener(mOnPageClickListener);

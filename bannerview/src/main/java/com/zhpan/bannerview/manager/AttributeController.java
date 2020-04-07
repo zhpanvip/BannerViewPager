@@ -11,8 +11,6 @@ import androidx.annotation.Nullable;
 import com.zhpan.bannerview.R;
 import com.zhpan.bannerview.utils.BannerUtils;
 
-import static com.zhpan.bannerview.manager.BannerOptions.DEFAULT_SCROLL_DURATION;
-
 /**
  * <pre>
  *   Created by zhpan on 2019/11/20.
@@ -44,8 +42,8 @@ public class AttributeController {
         int indicatorStyle = typedArray.getInt(R.styleable.BannerViewPager_bvp_indicator_style, 0);
         int indicatorSlideMode = typedArray.getInt(R.styleable.BannerViewPager_bvp_indicator_slide_mode, 0);
         int indicatorVisibility = typedArray.getInt(R.styleable.BannerViewPager_bvp_indicator_visibility, 0);
-        mBannerOptions.setIndicatorSliderColor(indicatorNormalColor,indicatorCheckedColor);
-        mBannerOptions.setIndicatorSliderWidth(normalIndicatorWidth,normalIndicatorWidth);
+        mBannerOptions.setIndicatorSliderColor(indicatorNormalColor, indicatorCheckedColor);
+        mBannerOptions.setIndicatorSliderWidth(normalIndicatorWidth, normalIndicatorWidth);
         mBannerOptions.setIndicatorGravity(indicatorGravity);
         mBannerOptions.setIndicatorStyle(indicatorStyle);
         mBannerOptions.setIndicatorSlideMode(indicatorSlideMode);
@@ -62,7 +60,7 @@ public class AttributeController {
         int roundCorner = (int) typedArray.getDimension(R.styleable.BannerViewPager_bvp_round_corner, 0);
         int revealWidth = (int) typedArray.getDimension(R.styleable.BannerViewPager_bvp_reveal_width, 0);
         int pageStyle = typedArray.getInt(R.styleable.BannerViewPager_bvp_page_style, 0);
-        int scrollDuration = typedArray.getInt(R.styleable.BannerViewPager_bvp_scroll_duration, DEFAULT_SCROLL_DURATION);
+        int scrollDuration = typedArray.getInt(R.styleable.BannerViewPager_bvp_scroll_duration, 0);
         mBannerOptions.setInterval(interval);
         mBannerOptions.setAutoPlay(isAutoPlay);
         mBannerOptions.setCanLoop(isCanLoop);
