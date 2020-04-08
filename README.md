@@ -13,17 +13,20 @@
 
 ## What's new in version 3.0
 
-    - 基于ViewPager2实现
-    - 支持多类型Item
-    - 内存大幅优化，性能大幅提升
-    - 新增setOrientation，支持竖直滑动
-    - 新增addPageTransformer与removeTransformer
-    - setAdapter替换setHolderCreator
-    - registerOnPageChangeCallback替换setOnPageChangeListener
-    - setUserInputEnabled取代disableTouchScroll
-    - 移除setPageTransformerStyle
-    - 移除部分2.x版本已废弃的方法
-    - 不再支持android support.
+- Migrate to ViewPager2
+- Muti-type supported
+- Optimize memory，improve perfermance.
+- add setOrientation，support vertical orientation
+- add addPageTransformer method and removeTransformer method
+- setAdapter replaced setHolderCreator
+- registerOnPageChangeCallback replaced setOnPageChangeListener
+- setUserInputEnabled replaced disableTouchScroll
+- remove setPageTransformerStyle
+- remvoe some deprecate methods in 2.x
+
+## Preview
+
+ ### [Click here or scan the QR code to download demo apk](https://github.com/zhpanvip/BannerViewPager/raw/master/app/release/app-release.apk)
 
 ![QRCode](https://github.com/zhpanvip/BannerViewPager/blob/master/image/qrcode.png)
 
@@ -60,12 +63,12 @@ It's also support to custom indicator style,just need extends BaseIndicatorView 
 
 | Figure Indicator | Drawable Indicator | Indicator below of Banner |
 |--|--|--|
-| ![CIRCLE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_custom.gif) | ![DASH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_custom1.gif) | ![NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_custom2.gif) |
+| ![CIRCLE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_custum.gif) | ![DASH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_custom1.gif) | ![NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_custom2.gif) |
 
 
-## 开放API
+## API
 
-| 方法名 | 方法描述 | 说明 |
+| Methods | Description | Default |
 |--|--|--|
 | BannerViewPager<T, VH> setCanLoop(boolean) | 是否开启循环 | 默认值true|
 | BannerViewPager<T, VH> setAutoPlay(boolean) | 是否开启自动轮播 | 默认值true|
@@ -103,7 +106,8 @@ It's also support to custom indicator style,just need extends BaseIndicatorView 
 | List\<T> getData() | 获取Banner中的集合数据 |  |
 | void create(List<T> list) |初始化并构造BannerViewPager  |必须调用，否则前面设置的参数无效  |
 
-### xml支持的attrs
+### Attributes
+
 | Attributes | format | description |
 |--|--|--|
 | bvp_interval | integer | 自动轮播时间间隔 |
@@ -125,7 +129,7 @@ It's also support to custom indicator style,just need extends BaseIndicatorView 
 
 ## Useage
 
-由于ViewPager2不支持Android support，因此BannerViewPager 3.0不再支持Android support，如果你仍在使用Android support请使用，请移步[BannerViewPager 2.x版本](https://github.com/zhpanvip/BannerViewPager/blob/master/README_v2.x.md)
+Since Viewpager2 does not support android support, BannerViewPager 3.0 no longer supports android support. If you are still using Android support, please use [BannerViewPager V2.x](https://github.com/zhpanvip/BannerViewPager/tree/v_2.x)
 
 ### 1.Gradle dependency
 
@@ -240,24 +244,24 @@ public class HomeAdapter extends BaseBannerAdapter<BannerData, NetViewHolder> {
     ...
 	private void initViewPager() {
              mBannerViewPager = findViewById(R.id.banner_view);
-             mBannerViewPager
-                             .setAutoPlay(true)
-                             .setIndicatorStyle(IndicatorStyle.ROUND_RECT)
-                             .setIndicatorSliderGap(getResources().getDimensionPixelOffset(R.dimen.dp_4))
-                             .setIndicatorSliderWidth(getResources().getDimensionPixelOffset(R.dimen.dp_4), getResources().getDimensionPixelOffset(R.dimen.dp_10))
-                             .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
-                             .setOrientation(ViewPager2.ORIENTATION_VERTICAL)
-                             .setInterval(2000)
-                             .setScrollDuration(500)
-                             .setAdapter(new HomeAdapter())
-                                             .registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-                                                 @Override
-                                                 public void onPageSelected(int position) {
-                                                     super.onPageSelected(position);
-                                                     BannerData bannerData = mViewPagerHorizontal.getData().get(position);
-                                                     mTvTitle.setText(bannerData.getTitle());
-                                                 }
-                                             }).create(getPicList(4));
+             mViewPager
+                                    .setAutoPlay(true)
+                                    .setIndicatorStyle(IndicatorStyle.ROUND_RECT)
+                                    .setIndicatorSliderGap(getResources().getDimensionPixelOffset(R.dimen.dp_4))
+                                    .setIndicatorSliderWidth(getResources().getDimensionPixelOffset(R.dimen.dp_4), getResources().getDimensionPixelOffset(R.dimen.dp_10))
+                                    .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
+                                    .setOrientation(ViewPager2.ORIENTATION_VERTICAL)
+                                    .setInterval(2000)
+                                    .setScrollDuration(500)
+                                    .setAdapter(new HomeAdapter())
+                                    .registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+                                        @Override
+                                        public void onPageSelected(int position) {
+                                            super.onPageSelected(position);
+                                            BannerData bannerData = mViewPagerHorizontal.getData().get(position);
+                                            mTvTitle.setText(bannerData.getTitle());
+                                        }
+                                    }).create(getPicList(4));
         }
 ```
 ### 6.startLoop and stopLoop

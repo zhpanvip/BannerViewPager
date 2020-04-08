@@ -13,17 +13,17 @@
 
 ## 3.0版本新特性
 
-    - 基于ViewPager2实现
-    - 支持多类型Item
-    - 内存大幅优化，性能大幅提升
-    - 新增setOrientation，支持竖直滑动
-    - 新增addPageTransformer与removeTransformer
-    - setAdapter替换setHolderCreator
-    - registerOnPageChangeCallback替换setOnPageChangeListener
-    - setUserInputEnabled取代disableTouchScroll
-    - 移除setPageTransformerStyle
-    - 移除部分2.x版本已废弃的方法
-    - 不再支持android support.
+- 基于ViewPager2实现
+- 支持多类型Item
+- 内存大幅优化，性能大幅提升
+- 新增setOrientation，支持竖直滑动
+- 新增addPageTransformer与removeTransformer
+- setAdapter替换setHolderCreator
+- registerOnPageChangeCallback替换setOnPageChangeListener
+- setUserInputEnabled取代disableTouchScroll
+- 移除setPageTransformerStyle
+- 移除部分2.x版本已废弃的方法
+- 不再支持android support.
 
 ## 效果预览
 
@@ -62,7 +62,7 @@ BannerViewPager目前已支持三种IndicatorViewStyle,以及三种IndicatorSlid
 
 | Figure Indicator | Drawable Indicator | Indicator below of Banner |
 |--|--|--|
-| ![CIRCLE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_custom.gif) | ![DASH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_custom1.gif) | ![NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_custom2.gif) |
+| ![CIRCLE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_custum.gif) | ![DASH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_custom1.gif) | ![NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_custom2.gif) |
 
 
 ## 开放API
@@ -127,7 +127,7 @@ BannerViewPager目前已支持三种IndicatorViewStyle,以及三种IndicatorSlid
 
 ## 如何使用
 
-由于ViewPager2不支持Android support，因此BannerViewPager 3.0不再支持Android support，如果你仍在使用Android support请使用，请移步[BannerViewPager 2.x版本](https://github.com/zhpanvip/BannerViewPager/blob/v_2.x/README.md)
+由于ViewPager2不支持Android support，因此BannerViewPager 3.0不再支持Android support，如果你仍在使用Android support请使用，请移步[BannerViewPager 2.x版本](https://github.com/zhpanvip/BannerViewPager/tree/v_2.x)
 
 ### 1.gradle中添加依赖
    
@@ -244,23 +244,23 @@ public class HomeAdapter extends BaseBannerAdapter<BannerData, NetViewHolder> {
 	private void initViewPager() {
              mViewPager = findViewById(R.id.banner_view);
              mViewPager
-                             .setAutoPlay(true)
-                             .setIndicatorStyle(IndicatorStyle.ROUND_RECT)
-                             .setIndicatorSliderGap(getResources().getDimensionPixelOffset(R.dimen.dp_4))
-                             .setIndicatorSliderWidth(getResources().getDimensionPixelOffset(R.dimen.dp_4), getResources().getDimensionPixelOffset(R.dimen.dp_10))
-                             .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
-                             .setOrientation(ViewPager2.ORIENTATION_VERTICAL)
-                             .setInterval(2000)
-                             .setScrollDuration(500)
-                             .setAdapter(new HomeAdapter())
-                                             .registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-                                                 @Override
-                                                 public void onPageSelected(int position) {
-                                                     super.onPageSelected(position);
-                                                     BannerData bannerData = mViewPagerHorizontal.getData().get(position);
-                                                     mTvTitle.setText(bannerData.getTitle());
-                                                 }
-                                             }).create(getPicList(4));
+                       .setAutoPlay(true)
+                       .setIndicatorStyle(IndicatorStyle.ROUND_RECT)
+                       .setIndicatorSliderGap(getResources().getDimensionPixelOffset(R.dimen.dp_4))
+                       .setIndicatorSliderWidth(getResources().getDimensionPixelOffset(R.dimen.dp_4), getResources().getDimensionPixelOffset(R.dimen.dp_10))
+                       .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
+                       .setOrientation(ViewPager2.ORIENTATION_VERTICAL)
+                       .setInterval(2000)
+                       .setScrollDuration(500)
+                       .setAdapter(new HomeAdapter())
+                       .registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+                           @Override
+                           public void onPageSelected(int position) {
+                               super.onPageSelected(position);
+                               BannerData bannerData = mViewPagerHorizontal.getData().get(position);
+                               mTvTitle.setText(bannerData.getTitle());
+                           }
+                       }).create(getPicList(4));
         }
 ```
 ### 6.开启与停止轮播
