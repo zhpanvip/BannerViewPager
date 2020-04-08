@@ -38,18 +38,18 @@ abstract class BaseFragment : RxFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(layout, container, false)
         initData(3)
-        initPicture()
         initTitle()
         initView(savedInstanceState, view)
         return view
     }
 
-    private fun initPicture() {
+    protected fun getPicList(count:Int): MutableList<Int> {
         mPictureList.clear()
-        for (i in 0..3) {
+        for (i in 0..count) {
             val drawable = resources.getIdentifier("advertise$i", "drawable", mContext.packageName)
             mPictureList.add(drawable)
         }
+        return mPictureList;
     }
 
     protected fun initData(j: Int) {

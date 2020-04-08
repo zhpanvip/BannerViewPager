@@ -171,7 +171,7 @@ public class HomeFragment extends BaseFragment {
                 .setOrientation(ViewPager2.ORIENTATION_VERTICAL)
                 .setInterval(2000)
                 .setScrollDuration(500)
-                .setAdapter(new ImageResourceAdapter(0)).create(getMPictureList());
+                .setAdapter(new ImageResourceAdapter(0)).create(getPicList(4));
         mViewPager
                 .setCanLoop(false)
                 .setIndicatorStyle(IndicatorStyle.ROUND_RECT)
@@ -181,7 +181,7 @@ public class HomeFragment extends BaseFragment {
                 .setOrientation(ViewPager2.ORIENTATION_VERTICAL)
                 .setInterval(2000)
                 .setScrollDuration(500)
-                .setAdapter(new ImageResourceAdapter(0)).create(getMPictureList());
+                .setAdapter(new ImageResourceAdapter(0)).create(getPicList(3));
     }
 
     private void onPageClicked(int position) {
