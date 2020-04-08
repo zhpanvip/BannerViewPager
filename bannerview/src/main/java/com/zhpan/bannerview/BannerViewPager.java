@@ -19,14 +19,12 @@ import android.widget.RelativeLayout;
 
 import com.zhpan.bannerview.annotation.AIndicatorGravity;
 import com.zhpan.bannerview.annotation.APageStyle;
-import com.zhpan.bannerview.annotation.ATransformerStyle;
 import com.zhpan.bannerview.annotation.Visibility;
 import com.zhpan.bannerview.constants.PageStyle;
 import com.zhpan.bannerview.manager.BannerManager;
 import com.zhpan.bannerview.manager.BannerOptions;
 import com.zhpan.bannerview.provider.ProxyLayoutManger;
 import com.zhpan.bannerview.transform.OverlapPageTransformer;
-import com.zhpan.bannerview.transform.PageTransformerFactory;
 import com.zhpan.bannerview.transform.ScaleInTransformer;
 import com.zhpan.bannerview.utils.BannerUtils;
 import com.zhpan.bannerview.provider.ViewStyleSetter;
@@ -503,27 +501,12 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
     }
 
     /**
-     * PageTransformer Style.
-     *
-     * @param style PageTransformerStyle
-     * @see com.zhpan.bannerview.constants.TransformerStyle#NONE
-     * @see com.zhpan.bannerview.constants.TransformerStyle#DEPTH
-     * @see com.zhpan.bannerview.constants.TransformerStyle#SCALE_IN
-     * @see com.zhpan.bannerview.constants.TransformerStyle#STACK
-     * @see com.zhpan.bannerview.constants.TransformerStyle#ROTATE
-     * @see com.zhpan.bannerview.constants.TransformerStyle#ACCORDION
-     */
-    public BannerViewPager<T, VH> setPageTransformerStyle(@ATransformerStyle int style) {
-        mViewPager.setPageTransformer(new PageTransformerFactory().createPageTransformer(style));
-        return this;
-    }
-
-    /**
      * @param transformer PageTransformer that will modify each page's animation properties
      */
-    public void setPageTransformer(@Nullable ViewPager2.PageTransformer transformer) {
+    public BannerViewPager<T, VH> setPageTransformer(@Nullable ViewPager2.PageTransformer transformer) {
         if (transformer != null)
             mViewPager.setPageTransformer(transformer);
+        return this;
     }
 
     /**

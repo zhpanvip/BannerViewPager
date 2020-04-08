@@ -1,17 +1,18 @@
-package com.zhpan.bannerview.transform;
+package com.example.zhpan.circleviewpager.transform;
 
 import androidx.viewpager2.widget.ViewPager2;
 
-import static com.zhpan.bannerview.constants.TransformerStyle.ACCORDION;
-import static com.zhpan.bannerview.constants.TransformerStyle.DEPTH;
-import static com.zhpan.bannerview.constants.TransformerStyle.ROTATE;
-import static com.zhpan.bannerview.constants.TransformerStyle.SCALE_IN;
-import static com.zhpan.bannerview.constants.TransformerStyle.STACK;
+import com.zhpan.bannerview.transform.ScaleInTransformer;
 
+import static com.example.zhpan.circleviewpager.transform.TransformerStyle.ACCORDION;
+import static com.example.zhpan.circleviewpager.transform.TransformerStyle.DEPTH;
+import static com.example.zhpan.circleviewpager.transform.TransformerStyle.ROTATE;
+import static com.example.zhpan.circleviewpager.transform.TransformerStyle.SCALE_IN;
+import static com.example.zhpan.circleviewpager.transform.TransformerStyle.STACK;
 
 public class PageTransformerFactory {
 
-    public ViewPager2.PageTransformer createPageTransformer(int transformerStyle) {
+    public static ViewPager2.PageTransformer createPageTransformer(int transformerStyle) {
         ViewPager2.PageTransformer transformer = null;
         switch (transformerStyle) {
             case DEPTH:
