@@ -116,7 +116,7 @@ public class IndicatorFragment extends BaseFragment {
                 .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
                 .setIndicatorSliderWidth(getResources().getDimensionPixelOffset(R.dimen.dp_15))
                 .setIndicatorHeight(getResources().getDimensionPixelOffset(R.dimen.dp_3))
-                .create(getMDrawableList());
+                .create(getPicList(4));
     }
 
     private void setupRoundRectIndicator() {
@@ -129,7 +129,7 @@ public class IndicatorFragment extends BaseFragment {
                 .setIndicatorHeight(getResources().getDimensionPixelOffset(R.dimen.dp_4))
                 .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
                 .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
-                .setIndicatorSliderWidth(normalWidth, checkedWidth).create(getMDrawableList());
+                .setIndicatorSliderWidth(normalWidth, checkedWidth).create(getPicList(4));
     }
 
     private void setupCircleIndicator() {
@@ -140,7 +140,7 @@ public class IndicatorFragment extends BaseFragment {
                 .setIndicatorHeight(getResources().getDimensionPixelOffset(R.dimen.dp_4))
                 .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
                 .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
-                .setIndicatorSliderRadius(getResources().getDimensionPixelOffset(R.dimen.dp_4)).create(getMDrawableList());
+                .setIndicatorSliderRadius(getResources().getDimensionPixelOffset(R.dimen.dp_4)).create(getPicList(4));
     }
 
     private void setupDashIndicator() {
@@ -153,7 +153,7 @@ public class IndicatorFragment extends BaseFragment {
                 .setIndicatorSliderGap(getResources().getDimensionPixelOffset(R.dimen.dp_3))
                 .setIndicatorSliderWidth(normalWidth, checkedWidth)
                 .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
-                .create(getMDrawableList());
+                .create(getPicList(4));
     }
 
     private int getNormalWidth() {

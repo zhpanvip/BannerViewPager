@@ -117,7 +117,7 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
                 .setIndicatorSlideMode(IndicatorSlideMode.NORMAL)
                 .setIndicatorVisibility(View.VISIBLE)
                 .setIndicatorGravity(IndicatorGravity.CENTER)
-                .create(getMDrawableList());
+                .create(getPicList(4));
     }
 
     private IIndicator getDrawableIndicator() {
@@ -142,7 +142,7 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
                 .setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
                 .setIndicatorVisibility(View.GONE)
                 .setIndicatorView(mIndicatorView)
-                .create(getMDrawableList());
+                .create(getPicList(4));
     }
 
 
@@ -152,7 +152,7 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
                 .setIndicatorSlideMode(IndicatorSlideMode.NORMAL)
                 .setIndicatorVisibility(View.VISIBLE)
                 .setIndicatorGravity(IndicatorGravity.END)
-                .setIndicatorView(setupIndicatorView()).create(getMDrawableList());
+                .setIndicatorView(setupIndicatorView()).create(getPicList(4));
     }
 
     /**
@@ -168,9 +168,11 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
 
     private void updateData() {
         //  生成[-1,3]整数
-        initData(new Random().nextInt(5) - 1);
-        ToastUtils.show("size=" + getMDrawableList().size());
-        mViewPager.setData(getMDrawableList());
+//        initData(new Random().nextInt(5) - 1);
+        int size = new Random().nextInt(5) - 1;
+        mViewPager.setData(getPicList(size));
+        ToastUtils.show("size=" + size);
+
     }
 
     @Override

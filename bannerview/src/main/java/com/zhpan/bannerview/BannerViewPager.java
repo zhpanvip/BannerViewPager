@@ -436,10 +436,6 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
         return this;
     }
 
-    public BaseBannerAdapter<T, VH> getAdapter() {
-        return mBannerPagerAdapter;
-    }
-
     /**
      * Set round rectangle effect for BannerViewPager.
      * <p>
@@ -783,6 +779,9 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
         return this;
     }
 
+    /**
+     * 建议使用默认的offScreenPageLimit
+     */
     public BannerViewPager<T, VH> setOffScreenPageLimit(int offScreenPageLimit) {
         mBannerManager.bannerOptions().setOffScreenPageLimit(offScreenPageLimit);
         return this;

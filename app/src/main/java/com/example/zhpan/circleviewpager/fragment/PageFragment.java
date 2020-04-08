@@ -105,6 +105,6 @@ public class PageFragment extends BaseFragment {
                 .setPageStyle(PageStyle.MULTI_PAGE)
                 .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
                 .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
-                .setInterval(5000).create(getMDrawableList());
+                .setInterval(5000).create(getPicList(4));
     }
 }

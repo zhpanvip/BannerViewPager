@@ -35,13 +35,6 @@
             <enum name="multi_page_overlap" value="4" />
             <enum name="multi_page_scale" value="8" />
         </attr>
-        <attr name="bvp_transformer_style" format="enum">
-            <enum name="normal" value="0" />
-            <enum name="depth" value="2" />
-            <enum name="stack" value="4" />
-            <enum name="accordion" value="8" />
-            <enum name="scale_in" value="16" />
-        </attr>
 
         <attr name="bvp_indicator_visibility" format="enum">
             <enum name="visible" value="0" />
