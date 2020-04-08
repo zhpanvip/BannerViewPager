@@ -512,10 +512,11 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
     /**
      * @param transformer PageTransformer that will modify each page's animation properties
      */
-    public void addPageTransformer(@Nullable ViewPager2.PageTransformer transformer) {
+    public BannerViewPager<T, VH> addPageTransformer(@Nullable ViewPager2.PageTransformer transformer) {
         if (transformer != null) {
             mCompositePageTransformer.addTransformer(transformer);
         }
+        return this;
     }
 
     public void removeTransformer(@Nullable ViewPager2.PageTransformer transformer) {
