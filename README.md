@@ -14,11 +14,12 @@
 ## What's new in version 3.0
 
 - Migrate to ViewPager2
-- Muti-type supported
+- Mutiple item type supported
 - Optimize memory，improve perfermance.
-- add setOrientation，support vertical orientation
+- add setOrientation method，support vertical orientation
 - add addPageTransformer method and removeTransformer method
 - setAdapter replaced setHolderCreator
+- getData replaced getList
 - registerOnPageChangeCallback replaced setOnPageChangeListener
 - setUserInputEnabled replaced disableTouchScroll
 - remove setPageTransformerStyle
@@ -133,7 +134,8 @@ Since Viewpager2 does not support android support, BannerViewPager 3.0 no longer
 
 ### 1.Gradle dependency
 
-在项目的root build.gradle中添加如下配置：
+Add it in your root build.gradle at the end of repositories:
+
 ```
 allprojects {
 		repositories {
@@ -143,7 +145,7 @@ allprojects {
 	}
 
 ```
-Then add the dependency in your app build.gradle
+Then Add the dependency
 
 ```
 implementation 'com.github.zhpanvip:BannerViewPager:latestVersion'
@@ -237,7 +239,7 @@ public class HomeAdapter extends BaseBannerAdapter<BannerData, NetViewHolder> {
 
 ```
 
-### 5.BannerViewPager参数配置
+### 5.Use in Activity or Fragment:
 
 ```
     private BannerViewPager<CustomBean, NetViewHolder> mBannerViewPager;
@@ -245,30 +247,29 @@ public class HomeAdapter extends BaseBannerAdapter<BannerData, NetViewHolder> {
 	private void initViewPager() {
              mBannerViewPager = findViewById(R.id.banner_view);
              mViewPager
-                                    .setAutoPlay(true)
-                                    .setIndicatorStyle(IndicatorStyle.ROUND_RECT)
-                                    .setIndicatorSliderGap(getResources().getDimensionPixelOffset(R.dimen.dp_4))
-                                    .setIndicatorSliderWidth(getResources().getDimensionPixelOffset(R.dimen.dp_4), getResources().getDimensionPixelOffset(R.dimen.dp_10))
-                                    .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
-                                    .setOrientation(ViewPager2.ORIENTATION_VERTICAL)
-                                    .setInterval(2000)
-                                    .setScrollDuration(500)
-                                    .setAdapter(new HomeAdapter())
-                                    .registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-                                        @Override
-                                        public void onPageSelected(int position) {
-                                            super.onPageSelected(position);
-                                            BannerData bannerData = mViewPagerHorizontal.getData().get(position);
-                                            mTvTitle.setText(bannerData.getTitle());
-                                        }
-                                    }).create(getPicList(4));
+                      .setAutoPlay(true)
+                      .setIndicatorStyle(IndicatorStyle.ROUND_RECT)
+                      .setIndicatorSliderGap(getResources().getDimensionPixelOffset(R.dimen.dp_4))
+                      .setIndicatorSliderWidth(getResources().getDimensionPixelOffset(R.dimen.dp_4), getResources().getDimensionPixelOffset(R.dimen.dp_10))
+                      .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
+                      .setOrientation(ViewPager2.ORIENTATION_VERTICAL)
+                      .setInterval(2000)
+                      .setAdapter(new HomeAdapter())
+                      .registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+                          @Override
+                          public void onPageSelected(int position) {
+                              super.onPageSelected(position);
+                              BannerData bannerData = mViewPagerHorizontal.getData().get(position);
+                              mTvTitle.setText(bannerData.getTitle());
+                          }
+                      }).create(getPicList(4));
         }
 ```
 ### 6.startLoop and stopLoop
 
 ***If the version you used is later than 2.5.0,you don't need care of startLoop and stopLoop in Activity or Fragment. But the two methods is still public.***
 
-但是为了节省性能建议在onPause中停止轮播，在onResume中开启轮播：
+Recommend call stopLoop in onPause() and startLoop in onResume() to improve performance：
 
 ```
     @Override
@@ -374,7 +375,7 @@ public class FigureIndicatorView extends BaseIndicatorView {
 
 ## 8. Proguard config
 
-If you called setScrollDuration in your project,you must add proguard config as following:
+you must add proguard rules，If you have called setScrollDuration method in your project:
 
 ```
     -keep class androidx.recyclerview.widget.**{*;}
@@ -432,7 +433,7 @@ If you called setScrollDuration in your project,you must add proguard config as 
 License
 -------
 
-    Copyright 2019 zhpanvip
+    Copyright 2017-2020 zhpanvip
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.

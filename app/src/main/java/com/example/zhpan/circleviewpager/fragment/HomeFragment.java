@@ -170,7 +170,6 @@ public class HomeFragment extends BaseFragment {
                 .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
                 .setOrientation(ViewPager2.ORIENTATION_VERTICAL)
                 .setInterval(2000)
-                .setScrollDuration(500)
                 .setAdapter(new ImageResourceAdapter(0)).create(getPicList(4));
         mViewPager
                 .setCanLoop(false)
@@ -180,7 +179,6 @@ public class HomeFragment extends BaseFragment {
                 .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
                 .setOrientation(ViewPager2.ORIENTATION_VERTICAL)
                 .setInterval(2000)
-                .setScrollDuration(500)
                 .setAdapter(new ImageResourceAdapter(0)).create(getPicList(3));
     }
 

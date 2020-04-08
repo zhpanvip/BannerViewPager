@@ -19,6 +19,7 @@
 - 新增setOrientation，支持竖直滑动
 - 新增addPageTransformer与removeTransformer
 - setAdapter替换setHolderCreator
+- getData替换了getList方法
 - registerOnPageChangeCallback替换setOnPageChangeListener
 - setUserInputEnabled取代disableTouchScroll
 - 移除setPageTransformerStyle
@@ -251,7 +252,6 @@ public class HomeAdapter extends BaseBannerAdapter<BannerData, NetViewHolder> {
                        .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
                        .setOrientation(ViewPager2.ORIENTATION_VERTICAL)
                        .setInterval(2000)
-                       .setScrollDuration(500)
                        .setAdapter(new HomeAdapter())
                        .registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
                            @Override
@@ -423,7 +423,7 @@ public class FigureIndicatorView extends BaseIndicatorView {
 License
 -------
 
-    Copyright 2019 zhpanvip
+    Copyright 2017-2020 zhpanvip
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.

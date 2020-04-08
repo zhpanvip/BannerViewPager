@@ -54,7 +54,6 @@ class WelcomeActivity : BaseDataActivity() {
         mViewPager.setAutoPlay(false)
                 .setCanLoop(false)
                 .setPageTransformer(PageTransformerFactory.createPageTransformer(Random().nextInt(6)))
-                .setScrollDuration(ANIMATION_DURATION)
                 .setIndicatorMargin(0, 0, 0, resources.getDimension(R.dimen.dp_100).toInt())
                 .setIndicatorSliderGap(resources.getDimension(R.dimen.dp_10).toInt())
                 .setIndicatorSliderColor(ContextCompat.getColor(this, R.color.white),
