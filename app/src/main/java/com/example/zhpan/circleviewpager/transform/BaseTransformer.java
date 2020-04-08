@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package com.zhpan.bannerview.transform;
-
-import androidx.viewpager2.widget.ViewPager2;
+package com.example.zhpan.circleviewpager.transform;
 
 import android.view.View;
+
+import androidx.viewpager2.widget.ViewPager2;
 
 public abstract class BaseTransformer implements ViewPager2.PageTransformer {
 

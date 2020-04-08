@@ -2,40 +2,59 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/dp_200"
+    android:layout_height="@dimen/dp_435"
     android:orientation="vertical">
 
-    <com.zhpan.bannerview.BannerViewPager
-        android:id="@+id/banner_view"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_200" />
-
-    <!--这里为了设置标题故用了自定义Indicator,如果无需标题则没必要将Indicator定义在此处-->
     <RelativeLayout
-        android:id="@+id/layout_indicator"
+        android:id="@+id/rl_banner1"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_35"
-        android:visibility="gone"
-        android:layout_alignParentBottom="true"
-        android:background="#77000000">
+        android:layout_height="@dimen/dp_180">
 
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="@dimen/dp_15"
-            android:textColor="@color/white"
-            android:textSize="@dimen/sp_14"
-            tools:text="This is Title" />
+        <com.zhpan.bannerview.BannerViewPager
+            android:id="@+id/banner_view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_180" />
 
-        <com.zhpan.indicator.IndicatorView
-            android:id="@+id/indicator_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="@dimen/dp_15" />
+        <!--这里为了设置标题故用了自定义Indicator,如果无需标题则没必要将Indicator定义在此处-->
+        <RelativeLayout
+            android:id="@+id/layout_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_35"
+            android:layout_alignParentBottom="true"
+            android:background="#77000000"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/dp_15"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_14"
+                tools:text="This is Title" />
+
+            <com.zhpan.indicator.IndicatorView
+                android:id="@+id/indicator_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/dp_15" />
+        </RelativeLayout>
     </RelativeLayout>
 
+    <com.zhpan.bannerview.BannerViewPager
+        android:id="@+id/banner_view2"
+        android:layout_width="match_parent"
+        android:layout_below="@id/rl_banner1"
+        android:layout_marginTop="@dimen/dp_5"
+        android:layout_height="@dimen/dp_120" />
+
+    <com.zhpan.bannerview.BannerViewPager
+        android:id="@+id/banner_view3"
+        android:layout_width="match_parent"
+        android:layout_below="@id/banner_view2"
+        android:layout_marginTop="@dimen/dp_5"
+        android:layout_height="@dimen/dp_120" />
 </RelativeLayout>

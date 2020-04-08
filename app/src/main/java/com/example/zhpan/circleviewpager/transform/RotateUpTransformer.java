@@ -14,16 +14,28 @@
  * limitations under the License.
  */
 
-package com.zhpan.bannerview.transform;
+package com.example.zhpan.circleviewpager.transform;
 
 import android.view.View;
 
-public class AccordionTransformer extends BaseTransformer {
+public class RotateUpTransformer extends BaseTransformer {
+
+	private static final float ROT_MOD = -15f;
 
 	@Override
 	protected void onTransform(View view, float position) {
-		view.setPivotX(position < 0 ? 0 : view.getWidth());
-		view.setScaleX(position < 0 ? 1f + position : 1f - position);
+		final float width = view.getWidth();
+		final float rotation = ROT_MOD * position;
+
+		view.setPivotX(width * 0.5f);
+		view.setPivotY(0f);
+		view.setTranslationX(0f);
+		view.setRotation(rotation);
+	}
+	
+	@Override
+	protected boolean isPagingEnabled() {
+		return true;
 	}
 
 }

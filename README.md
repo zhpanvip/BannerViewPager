@@ -371,6 +371,15 @@ public class FigureIndicatorView extends BaseIndicatorView {
               .create(mDrawableList);
 ```
 
+## 8. Proguard config
+
+If you called setScrollDuration in your project,you must add proguard config as following:
+
+```
+    -keep class androidx.recyclerview.widget.**{*;}
+    -keep class androidx.viewpager2.widget.**{*;}
+```
+
 ## TODO 
 
  - [x] Optimization and Refactoring IndicatorView（2.0.1）

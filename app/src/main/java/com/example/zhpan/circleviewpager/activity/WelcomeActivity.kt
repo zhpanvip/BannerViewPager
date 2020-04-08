@@ -10,9 +10,10 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.zhpan.circleviewpager.R
 import com.example.zhpan.circleviewpager.adapter.WelcomeAdapter
 import com.example.zhpan.circleviewpager.bean.CustomBean
+import com.example.zhpan.circleviewpager.transform.PageTransformerFactory
 import com.example.zhpan.circleviewpager.viewholder.CustomPageViewHolder
 import com.zhpan.bannerview.BannerViewPager
-import com.zhpan.bannerview.constants.TransformerStyle
+import com.example.zhpan.circleviewpager.transform.TransformerStyle
 import com.zhpan.bannerview.utils.BannerUtils
 import com.zhpan.idea.utils.ToastUtils
 import com.zhpan.indicator.enums.IndicatorSlideMode
@@ -52,7 +53,7 @@ class WelcomeActivity : BaseDataActivity() {
         welcomeAdapter.mOnSubViewClickListener = CustomPageViewHolder.OnSubViewClickListener { _, position -> ToastUtils.show("Logo Clicked,position:$position") }
         mViewPager.setAutoPlay(false)
                 .setCanLoop(false)
-                .setPageTransformerStyle(transforms[Random().nextInt(6)])
+                .setPageTransformer(PageTransformerFactory.createPageTransformer(Random().nextInt(6)))
                 .setScrollDuration(ANIMATION_DURATION)
                 .setIndicatorMargin(0, 0, 0, resources.getDimension(R.dimen.dp_100).toInt())
                 .setIndicatorSliderGap(resources.getDimension(R.dimen.dp_10).toInt())

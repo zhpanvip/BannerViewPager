@@ -14,20 +14,24 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.example.zhpan.circleviewpager.R;
 import com.example.zhpan.circleviewpager.adapter.ArticleAdapter;
 import com.example.zhpan.circleviewpager.adapter.HomeAdapter;
+import com.example.zhpan.circleviewpager.adapter.ImageResourceAdapter;
 import com.example.zhpan.circleviewpager.bean.ArticleWrapper;
 import com.example.zhpan.circleviewpager.bean.DataWrapper;
 import com.example.zhpan.circleviewpager.net.BannerData;
 import com.example.zhpan.circleviewpager.net.RetrofitGnerator;
 import com.example.zhpan.circleviewpager.recyclerview.ui.CustomRecyclerView;
+import com.example.zhpan.circleviewpager.viewholder.ImageResourceViewHolder;
 import com.example.zhpan.circleviewpager.viewholder.NetViewHolder;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.zhpan.bannerview.BannerViewPager;
+import com.zhpan.bannerview.constants.IndicatorGravity;
 import com.zhpan.idea.net.common.ResponseObserver;
 import com.zhpan.idea.utils.LogUtils;
 import com.zhpan.idea.utils.RxUtil;
 import com.zhpan.indicator.IndicatorView;
 import com.zhpan.indicator.enums.IndicatorSlideMode;
+import com.zhpan.indicator.enums.IndicatorStyle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +45,9 @@ import io.reactivex.schedulers.Schedulers;
 public class HomeFragment extends BaseFragment {
 
 
-    private BannerViewPager<BannerData, NetViewHolder> mViewPager;
+    private BannerViewPager<BannerData, NetViewHolder> mViewPagerHorizontal;
+    private BannerViewPager<Integer, ImageResourceViewHolder> mViewPagerVertical;
+    private BannerViewPager<Integer, ImageResourceViewHolder> mViewPager;
     private CustomRecyclerView recyclerView;
     private ArticleAdapter articleAdapter;
     private SmartRefreshLayout mSmartRefreshLayout;
@@ -63,8 +69,8 @@ public class HomeFragment extends BaseFragment {
     public void onPause() {
         super.onPause();
         LogUtils.e("HomeFragment", "onPause");
-        if (mViewPager != null) {
-            mViewPager.stopLoop();
+        if (mViewPagerHorizontal != null) {
+            mViewPagerHorizontal.stopLoop();
         }
     }
 
@@ -72,8 +78,8 @@ public class HomeFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         LogUtils.e("HomeFragment", "onResume");
-        if (mViewPager != null) {
-            mViewPager.startLoop();
+        if (mViewPagerHorizontal != null) {
+            mViewPagerHorizontal.startLoop();
         }
     }
 
@@ -112,7 +118,7 @@ public class HomeFragment extends BaseFragment {
                 .subscribe(new ResponseObserver<DataWrapper>() {
                     @Override
                     public void onSuccess(DataWrapper response) {
-                        mViewPager.setData(response.getDataBeanList());
+                        mViewPagerHorizontal.setData(response.getDataBeanList());
                         articleAdapter.setData(response.getArticleList());
                         if (response.getDataBeanList().size() > 0) {
                             mTvTitle.setText(response.getDataBeanList().get(0).getTitle());
@@ -137,10 +143,11 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void initBanner() {
-        mViewPager
+        mViewPagerHorizontal
                 .setIndicatorSlideMode(IndicatorSlideMode.WORM)
-                .setInterval(5000)
-                .setScrollDuration(1200)
+                .setInterval(3000)
+                .setScrollDuration(1000)
+                .setIndicatorGravity(IndicatorGravity.END)
                 .setIndicatorSliderRadius(getResources().getDimensionPixelSize(R.dimen.dp_3))
                 .setIndicatorView(mIndicatorView)// 这里为了设置标题故用了自定义Indicator,如果无需标题则没必要添加此行代码
                 .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
@@ -149,22 +156,45 @@ public class HomeFragment extends BaseFragment {
                     @Override
                     public void onPageSelected(int position) {
                         super.onPageSelected(position);
-                        BannerData bannerData = mViewPager.getData().get(position);
+                        BannerData bannerData = mViewPagerHorizontal.getData().get(position);
                         mTvTitle.setText(bannerData.getTitle());
                     }
                 })
                 .setOnPageClickListener(this::onPageClicked);
+
+        mViewPagerVertical
+                .setAutoPlay(true)
+                .setIndicatorStyle(IndicatorStyle.ROUND_RECT)
+                .setIndicatorSliderGap(getResources().getDimensionPixelOffset(R.dimen.dp_4))
+                .setIndicatorSliderWidth(getResources().getDimensionPixelOffset(R.dimen.dp_4), getResources().getDimensionPixelOffset(R.dimen.dp_10))
+                .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
+                .setOrientation(ViewPager2.ORIENTATION_VERTICAL)
+                .setInterval(2000)
+                .setScrollDuration(500)
+                .setAdapter(new ImageResourceAdapter(0)).create(getPicList(4));
+        mViewPager
+                .setCanLoop(false)
+                .setIndicatorStyle(IndicatorStyle.ROUND_RECT)
+                .setIndicatorSliderGap(getResources().getDimensionPixelOffset(R.dimen.dp_4))
+                .setIndicatorSliderWidth(getResources().getDimensionPixelOffset(R.dimen.dp_4), getResources().getDimensionPixelOffset(R.dimen.dp_10))
+                .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
+                .setOrientation(ViewPager2.ORIENTATION_VERTICAL)
+                .setInterval(2000)
+                .setScrollDuration(500)
+                .setAdapter(new ImageResourceAdapter(0)).create(getPicList(3));
     }
 
     private void onPageClicked(int position) {
-        BannerData bannerData = mViewPager.getData().get(position);
-        Toast.makeText(getMContext(), "position:" + position + " " + bannerData.getTitle() + "currentItem:" + mViewPager.getCurrentItem(), Toast.LENGTH_SHORT).show();
+        BannerData bannerData = mViewPagerHorizontal.getData().get(position);
+        Toast.makeText(getMContext(), "position:" + position + " " + bannerData.getTitle() + "currentItem:" + mViewPagerHorizontal.getCurrentItem(), Toast.LENGTH_SHORT).show();
     }
 
     private View getHeaderView() {
         View view = LayoutInflater.from(getMContext()).inflate(R.layout.item_header_view, recyclerView, false);
         mRlIndicator = view.findViewById(R.id.layout_indicator);
-        mViewPager = view.findViewById(R.id.banner_view);
+        mViewPagerHorizontal = view.findViewById(R.id.banner_view);
+        mViewPagerVertical = view.findViewById(R.id.banner_view2);
+        mViewPager = view.findViewById(R.id.banner_view3);
         mTvTitle = view.findViewById(R.id.tv_title);
         mIndicatorView = view.findViewById(R.id.indicator_view);
         return view;

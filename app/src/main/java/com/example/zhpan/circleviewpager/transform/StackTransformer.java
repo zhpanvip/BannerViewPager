@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.zhpan.bannerview.transform;
+package com.example.zhpan.circleviewpager.transform;
 
 import android.view.View;
 

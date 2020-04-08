@@ -1,4 +1,4 @@
-package com.zhpan.bannerview.constants;
+package com.example.zhpan.circleviewpager.transform;
 
 public interface TransformerStyle {
     int NONE = 0;

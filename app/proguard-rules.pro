@@ -26,3 +26,6 @@
 -keep class com.example.zhpan.circleviewpager.bean.** { *; }
 -keep class com.example.zhpan.circleviewpager.net.** { *; }
 -keep class com.zhpan.idea.** { *; }
+
+-keep class androidx.recyclerview.widget.**{*;}
+-keep class androidx.viewpager2.widget.**{*;}
