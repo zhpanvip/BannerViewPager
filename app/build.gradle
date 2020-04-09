@@ -58,4 +58,5 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.2.0'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
+    implementation 'cn.jzvd:jiaozivideoplayer:7.2.3'
 }

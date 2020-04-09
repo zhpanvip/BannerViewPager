@@ -17,7 +17,7 @@ import com.zhpan.bannerview.utils.BannerUtils;
  *   Description:
  * </pre>
  */
-public class NetViewHolder extends BaseViewHolder<BannerData> {
+public class NetViewHolder extends BaseNetViewHolder {
 
     public NetViewHolder(@NonNull View itemView) {
         super(itemView);
