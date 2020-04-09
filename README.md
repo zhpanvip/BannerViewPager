@@ -407,7 +407,8 @@ you must add proguard rules，If you have called setScrollDuration method in you
 ## FAQ
 
  **If you have any question regard to BannerViewPager, please scan the QR code and join the QQ group to communicate.**
-
+ 
+![QQ交流群60902509](https://github.com/zhpanvip/BannerViewPager/blob/master/image/qq_group.png)
 
 ## <span id="Sponsor"> Sponsor </span>
 
