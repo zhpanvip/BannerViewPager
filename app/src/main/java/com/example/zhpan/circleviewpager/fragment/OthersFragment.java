@@ -167,11 +167,8 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
     }
 
     private void updateData() {
-        //  生成[-1,3]整数
-//        initData(new Random().nextInt(5) - 1);
-        int size = new Random().nextInt(5) - 1;
-        mViewPager.setData(getPicList(size));
-        ToastUtils.show("size=" + size);
+        mViewPager.setData(getPicList(new Random().nextInt(5)));
+        ToastUtils.show("size=" + mViewPager.getData().size());
 
     }
 

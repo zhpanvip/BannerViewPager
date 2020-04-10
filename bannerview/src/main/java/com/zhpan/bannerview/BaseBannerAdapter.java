@@ -31,7 +31,6 @@ public abstract class BaseBannerAdapter<T, VH extends BaseViewHolder> extends Re
     @Override
     public final void onBindViewHolder(@NonNull VH holder, final int position) {
         int realPosition = BannerUtils.getRealPosition(isCanLoop, position, mList.size());
-        onBind(holder, mList.get(realPosition), realPosition, mList.size());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,6 +39,7 @@ public abstract class BaseBannerAdapter<T, VH extends BaseViewHolder> extends Re
                 }
             }
         });
+        onBind(holder, mList.get(realPosition), realPosition, mList.size());
     }
 
     @Override
