@@ -8,7 +8,6 @@ import com.bumptech.glide.Glide;
 import com.example.zhpan.circleviewpager.R;
 import com.example.zhpan.circleviewpager.net.BannerData;
 import com.example.zhpan.circleviewpager.view.CornerImageView;
-import com.zhpan.bannerview.BaseViewHolder;
 import com.zhpan.bannerview.utils.BannerUtils;
 
 /**
