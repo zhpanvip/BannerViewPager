@@ -26,10 +26,6 @@ public class BannerOptions {
 
     private int interval;
 
-    private int currentPosition;
-
-    private boolean isLooping;
-
     private boolean isCanLoop;
 
     private boolean isAutoPlay = false;
@@ -64,22 +60,6 @@ public class BannerOptions {
 
     public void setInterval(int interval) {
         this.interval = interval;
-    }
-
-    public int getCurrentPosition() {
-        return currentPosition;
-    }
-
-    public void setCurrentPosition(int currentPosition) {
-        this.currentPosition = currentPosition;
-    }
-
-    public boolean isLooping() {
-        return isLooping;
-    }
-
-    public void setLooping(boolean looping) {
-        isLooping = looping;
     }
 
     public boolean isCanLoop() {

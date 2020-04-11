@@ -51,6 +51,8 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
 
     private boolean isCustomIndicator;
 
+    private boolean isLooping;
+
     private OnPageClickListener mOnPageClickListener;
 
     private IIndicator mIndicatorView;
@@ -168,13 +170,13 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
     public boolean dispatchTouchEvent(MotionEvent ev) {
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                setLooping(true);
+                isLooping = true;
                 stopLoop();
                 break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
             case MotionEvent.ACTION_OUTSIDE:
-                setLooping(false);
+                isLooping = false;
                 startLoop();
                 break;
         }
@@ -391,14 +393,6 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
         return mBannerManager.bannerOptions().isAutoPlay();
     }
 
-    private boolean isLooping() {
-        return mBannerManager.bannerOptions().isLooping();
-    }
-
-    private void setLooping(boolean looping) {
-        mBannerManager.bannerOptions().setLooping(looping);
-    }
-
     private boolean isCanLoop() {
         return mBannerManager.bannerOptions().isCanLoop();
     }
@@ -414,10 +408,10 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
      * Start loop
      */
     public void startLoop() {
-        if (!isLooping() && isAutoPlay() && mBannerPagerAdapter != null &&
+        if (!isLooping && isAutoPlay() && mBannerPagerAdapter != null &&
                 mBannerPagerAdapter.getListSize() > 1) {
             mHandler.postDelayed(mRunnable, getInterval());
-            setLooping(true);
+            isLooping = true;
         }
     }
 
@@ -425,9 +419,9 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
      * stoop loop
      */
     public void stopLoop() {
-        if (isLooping()) {
+        if (isLooping) {
             mHandler.removeCallbacks(mRunnable);
-            setLooping(false);
+            isLooping = false;
         }
     }
 

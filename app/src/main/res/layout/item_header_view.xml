@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/dp_435"
+    android:layout_height="match_parent"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -47,14 +47,20 @@
     <com.zhpan.bannerview.BannerViewPager
         android:id="@+id/banner_view2"
         android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_120"
         android:layout_below="@id/rl_banner1"
-        android:layout_marginTop="@dimen/dp_5"
-        android:layout_height="@dimen/dp_120" />
+        android:layout_marginTop="@dimen/dp_5" />
 
     <com.zhpan.bannerview.BannerViewPager
         android:id="@+id/banner_view3"
         android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_120"
         android:layout_below="@id/banner_view2"
-        android:layout_marginTop="@dimen/dp_5"
-        android:layout_height="@dimen/dp_120" />
+        android:layout_marginTop="@dimen/dp_5" />
+
+    <cn.jzvd.JzvdStd
+        android:id="@+id/jz_home"
+        android:layout_below="@id/banner_view3"
+        android:layout_width="match_parent"
+        android:layout_height="220dp" />
 </RelativeLayout>

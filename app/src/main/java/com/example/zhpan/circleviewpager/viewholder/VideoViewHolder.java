@@ -20,13 +20,12 @@ public class VideoViewHolder extends BaseNetViewHolder {
 
     public VideoViewHolder(@NonNull View itemView) {
         super(itemView);
-        jzvdStd = findView(R.id.banner_video);
-
     }
 
     @Override
     public void bindData(BannerData data, int position, int pageSize) {
-        super.bindData(data, position, pageSize);
+        jzvdStd = findView(R.id.banner_video);
+        jzvdStd.setUp(data.getUrl(), data.getTitle());
     }
 
     public JzvdStd getJzvdStd() {
