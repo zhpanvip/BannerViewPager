@@ -19,6 +19,8 @@ public class BannerData {
      * url : https://flutter.cn/
      */
 
+    public static final int TYPE_VIDEO = 10000;
+
     private String desc;
     private int id;
     private String imagePath;

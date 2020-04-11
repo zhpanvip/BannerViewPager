@@ -23,7 +23,7 @@ import com.zhpan.bannerview.annotation.Visibility;
 import com.zhpan.bannerview.constants.PageStyle;
 import com.zhpan.bannerview.manager.BannerManager;
 import com.zhpan.bannerview.manager.BannerOptions;
-import com.zhpan.bannerview.provider.ProxyLayoutManger;
+import com.zhpan.bannerview.provider.ScrollDurationManger;
 import com.zhpan.bannerview.transform.OverlapPageTransformer;
 import com.zhpan.bannerview.transform.ScaleInTransformer;
 import com.zhpan.bannerview.utils.BannerUtils;
@@ -330,7 +330,7 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
         }
         BannerOptions bannerOptions = mBannerManager.bannerOptions();
         if (bannerOptions.getScrollDuration() != 0)
-            ProxyLayoutManger.setScrollProxy(mViewPager, bannerOptions.getScrollDuration());
+            ScrollDurationManger.reflectLayoutManager(mViewPager, bannerOptions.getScrollDuration());
         currentPosition = 0;
         mBannerPagerAdapter.setCanLoop(isCanLoop());
         mBannerPagerAdapter.setPageClickListener(mOnPageClickListener);
@@ -434,6 +434,10 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
     public BannerViewPager<T, VH> setAdapter(BaseBannerAdapter<T, VH> adapter) {
         this.mBannerPagerAdapter = adapter;
         return this;
+    }
+
+    public BaseBannerAdapter<T, VH> getAdapter() {
+        return mBannerPagerAdapter;
     }
 
     /**

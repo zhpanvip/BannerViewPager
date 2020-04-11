@@ -61,18 +61,15 @@ public abstract class BaseViewHolder<T> extends RecyclerView.ViewHolder {
     }
 
     protected void setOnClickListener(int viewId, View.OnClickListener clickListener) {
-        View view = findView(viewId);
-        view.setOnClickListener(clickListener);
+        findView(viewId).setOnClickListener(clickListener);
     }
 
     protected void setBackgroundResource(int viewId, @DrawableRes int resId) {
-        View view = findView(viewId);
-        view.setBackgroundResource(resId);
+        findView(viewId).setBackgroundResource(resId);
     }
 
     protected void setBackgroundColor(int viewId, @ColorInt int colorId) {
-        View view = findView(viewId);
-        view.setBackgroundColor(colorId);
+        findView(viewId).setBackgroundColor(colorId);
     }
 
     protected void setImageResource(@IdRes int viewId, @DrawableRes int resId) {

@@ -20,8 +20,8 @@ import com.example.zhpan.circleviewpager.bean.DataWrapper;
 import com.example.zhpan.circleviewpager.net.BannerData;
 import com.example.zhpan.circleviewpager.net.RetrofitGnerator;
 import com.example.zhpan.circleviewpager.recyclerview.ui.CustomRecyclerView;
+import com.example.zhpan.circleviewpager.viewholder.BaseNetViewHolder;
 import com.example.zhpan.circleviewpager.viewholder.ImageResourceViewHolder;
-import com.example.zhpan.circleviewpager.viewholder.NetViewHolder;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.zhpan.bannerview.BannerViewPager;
@@ -44,8 +44,7 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class HomeFragment extends BaseFragment {
 
-
-    private BannerViewPager<BannerData, NetViewHolder> mViewPagerHorizontal;
+    private BannerViewPager<BannerData, BaseNetViewHolder> mViewPagerHorizontal;
     private BannerViewPager<Integer, ImageResourceViewHolder> mViewPagerVertical;
     private BannerViewPager<Integer, ImageResourceViewHolder> mViewPager;
     private CustomRecyclerView recyclerView;
@@ -118,7 +117,12 @@ public class HomeFragment extends BaseFragment {
                 .subscribe(new ResponseObserver<DataWrapper>() {
                     @Override
                     public void onSuccess(DataWrapper response) {
-                        mViewPagerHorizontal.setData(response.getDataBeanList());
+                        List<BannerData> dataList = response.getDataBeanList();
+//                        BannerData bannerData = new BannerData();
+//                        bannerData.setUrl("http://jzvd.nathen.cn/c6e3dc12a1154626b3476d9bf3bd7266/6b56c5f0dc31428083757a45764763b0-5287d2089db37e62345123a1be272f8b.mp4");
+//                        bannerData.setType(BannerData.TYPE_VIDEO);
+//                        dataList.add(0, bannerData);
+                        mViewPagerHorizontal.setData(dataList);
                         articleAdapter.setData(response.getArticleList());
                         if (response.getDataBeanList().size() > 0) {
                             mTvTitle.setText(response.getDataBeanList().get(0).getTitle());
@@ -146,7 +150,6 @@ public class HomeFragment extends BaseFragment {
         mViewPagerHorizontal
                 .setIndicatorSlideMode(IndicatorSlideMode.WORM)
                 .setInterval(3000)
-                .setScrollDuration(1000)
                 .setIndicatorGravity(IndicatorGravity.END)
                 .setIndicatorSliderRadius(getResources().getDimensionPixelSize(R.dimen.dp_3))
                 .setIndicatorView(mIndicatorView)// 这里为了设置标题故用了自定义Indicator,如果无需标题则没必要添加此行代码
