@@ -9,6 +9,9 @@
 
 > Tencent Video,QQ Music,KuGou,AliPay,Tmall,TaoBao,YouKu,Himalaya,NetEase Music,Bilibili ect. All of above App's Banner can be implements By BannerViewPager.
 
+## Attention：v2.x is depreacted now,please migrate to v3.x.
+
+
 ## Preview
 
  ### [Click here or scan the QR code to download demo apk](https://github.com/zhpanvip/BannerViewPager/raw/master/app/release/app-release.apk)
