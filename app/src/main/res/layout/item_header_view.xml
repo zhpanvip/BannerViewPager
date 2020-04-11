@@ -8,12 +8,12 @@
     <RelativeLayout
         android:id="@+id/rl_banner1"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_180">
+        android:layout_height="@dimen/dp_200">
 
         <com.zhpan.bannerview.BannerViewPager
             android:id="@+id/banner_view"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_180" />
+            android:layout_height="@dimen/dp_200" />
 
         <!--这里为了设置标题故用了自定义Indicator,如果无需标题则没必要将Indicator定义在此处-->
         <RelativeLayout

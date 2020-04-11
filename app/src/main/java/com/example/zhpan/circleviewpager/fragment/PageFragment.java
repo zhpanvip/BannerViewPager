@@ -94,7 +94,7 @@ public class PageFragment extends BaseFragment {
                 .setPageMargin(getResources().getDimensionPixelOffset(R.dimen.dp_20))
                 .setRevealWidth(getResources().getDimensionPixelOffset(R.dimen.dp_10))
                 .setPageStyle(pageStyle)
-                .create(getMDrawableList());
+                .create(getPicList(4));
     }
 
     //  仿QQ音乐的Banner

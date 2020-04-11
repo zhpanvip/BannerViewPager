@@ -71,6 +71,13 @@ public class HomeFragment extends BaseFragment {
         if (mViewPagerHorizontal != null) {
             mViewPagerHorizontal.stopLoop();
         }
+        if (mViewPagerVertical != null) {
+            mViewPagerVertical.stopLoop();
+        }
+        if (mViewPager != null) {
+            mViewPager.stopLoop();
+        }
+
     }
 
     @Override
@@ -79,6 +86,12 @@ public class HomeFragment extends BaseFragment {
         LogUtils.e("HomeFragment", "onResume");
         if (mViewPagerHorizontal != null) {
             mViewPagerHorizontal.startLoop();
+        }
+        if (mViewPagerVertical != null) {
+            mViewPagerVertical.startLoop();
+        }
+        if (mViewPager != null) {
+            mViewPager.startLoop();
         }
     }
 

@@ -353,10 +353,10 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
                 setMultiPageStyle(false, MAX_SCALE);
                 break;
             case PageStyle.MULTI_PAGE_OVERLAP:
-                setMultiPageStyle(true, DEFAULT_MIN_SCALE);
+                setMultiPageStyle(true, mBannerManager.bannerOptions().getPageScale());
                 break;
             case PageStyle.MULTI_PAGE_SCALE:
-                setMultiPageStyle(false, DEFAULT_MIN_SCALE);
+                setMultiPageStyle(false, mBannerManager.bannerOptions().getPageScale());
                 break;
         }
     }
@@ -376,7 +376,7 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
             mCompositePageTransformer.removeTransformer(mPageTransformer);
         }
         if (overlap && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mPageTransformer = new OverlapPageTransformer(orientation, scale, scale, 0, 0);
+            mPageTransformer = new OverlapPageTransformer(orientation, scale, 0f, 1, 0);
         } else {
             mPageTransformer = new ScaleInTransformer(scale);
         }
@@ -770,7 +770,12 @@ public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayou
      * @return BannerViewPager
      */
     public BannerViewPager<T, VH> setPageStyle(@APageStyle int pageStyle) {
+        return setPageStyle(pageStyle, DEFAULT_MIN_SCALE);
+    }
+
+    public BannerViewPager<T, VH> setPageStyle(@APageStyle int pageStyle, float pageScale) {
         mBannerManager.bannerOptions().setPageStyle(pageStyle);
+        mBannerManager.bannerOptions().setPageScale(pageScale);
         return this;
     }
 

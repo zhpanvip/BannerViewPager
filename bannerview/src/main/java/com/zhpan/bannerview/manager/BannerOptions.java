@@ -6,6 +6,8 @@ import com.zhpan.bannerview.constants.PageStyle;
 import com.zhpan.bannerview.utils.BannerUtils;
 import com.zhpan.indicator.option.IndicatorOptions;
 
+import static com.zhpan.bannerview.transform.ScaleInTransformer.DEFAULT_MIN_SCALE;
+
 /**
  * <pre>
  *   Created by zhpan on 2019/11/20.
@@ -39,6 +41,8 @@ public class BannerOptions {
     private int revealWidth;
 
     private int pageStyle = PageStyle.NORMAL;
+
+    private float pageScale = DEFAULT_MIN_SCALE;
 
     private IndicatorMargin mIndicatorMargin;
 
@@ -186,6 +190,14 @@ public class BannerOptions {
 
     public void setPageStyle(int pageStyle) {
         this.pageStyle = pageStyle;
+    }
+
+    public float getPageScale() {
+        return pageScale;
+    }
+
+    public void setPageScale(float pageScale) {
+        this.pageScale = pageScale;
     }
 
     public IndicatorMargin getIndicatorMargin() {
