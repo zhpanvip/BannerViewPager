@@ -168,7 +168,7 @@ public class HomeFragment extends BaseFragment {
         HomeAdapter homeAdapter = new HomeAdapter();
         homeAdapter.setMediaController(new MediaController(getActivity()));
         mViewPagerHorizontal
-                .setAutoPlay(false)
+                .setAutoPlay(true)
                 .setIndicatorSlideMode(IndicatorSlideMode.WORM)
                 .setInterval(3000)
                 .setIndicatorGravity(IndicatorGravity.END)
