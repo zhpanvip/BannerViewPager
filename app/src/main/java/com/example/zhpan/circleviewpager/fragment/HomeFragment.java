@@ -122,10 +122,10 @@ public class HomeFragment extends BaseFragment {
                     @Override
                     public void onSuccess(DataWrapper response) {
                         List<BannerData> dataList = response.getDataBeanList();
-                        BannerData bannerData = new BannerData();
-                        bannerData.setUrl("http://jzvd.nathen.cn/c6e3dc12a1154626b3476d9bf3bd7266/6b56c5f0dc31428083757a45764763b0-5287d2089db37e62345123a1be272f8b.mp4");
-                        bannerData.setType(BannerData.TYPE_VIDEO);
-                        dataList.add(0, bannerData);
+//                        BannerData bannerData = new BannerData();
+//                        bannerData.setUrl("http://jzvd.nathen.cn/c6e3dc12a1154626b3476d9bf3bd7266/6b56c5f0dc31428083757a45764763b0-5287d2089db37e62345123a1be272f8b.mp4");
+//                        bannerData.setType(BannerData.TYPE_VIDEO);
+//                        dataList.add(0, bannerData);
                         mViewPagerHorizontal.setData(dataList);
                         articleAdapter.setData(response.getArticleList());
                         if (response.getDataBeanList().size() > 0) {
