@@ -22,8 +22,6 @@ import com.example.zhpan.circleviewpager.net.RetrofitGnerator;
 import com.example.zhpan.circleviewpager.recyclerview.ui.CustomRecyclerView;
 import com.example.zhpan.circleviewpager.viewholder.BaseNetViewHolder;
 import com.example.zhpan.circleviewpager.viewholder.ImageResourceViewHolder;
-import com.example.zhpan.circleviewpager.viewholder.NetViewHolder;
-import com.example.zhpan.circleviewpager.viewholder.VideoViewHolder;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.zhpan.bannerview.BannerViewPager;
@@ -38,8 +36,6 @@ import com.zhpan.indicator.enums.IndicatorStyle;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.jzvd.Jzvd;
-import cn.jzvd.JzvdStd;
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
 
@@ -154,7 +150,6 @@ public class HomeFragment extends BaseFragment {
         mViewPagerHorizontal
                 .setIndicatorSlideMode(IndicatorSlideMode.WORM)
                 .setInterval(3000)
-                .setScrollDuration(1000)
                 .setIndicatorGravity(IndicatorGravity.END)
                 .setIndicatorSliderRadius(getResources().getDimensionPixelSize(R.dimen.dp_3))
                 .setIndicatorView(mIndicatorView)// 这里为了设置标题故用了自定义Indicator,如果无需标题则没必要添加此行代码
