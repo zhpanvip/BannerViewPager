@@ -1,16 +1,16 @@
 package com.example.zhpan.circleviewpager.fragment;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.MediaController;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.zhpan.circleviewpager.R;
@@ -22,11 +22,11 @@ import com.example.zhpan.circleviewpager.bean.DataWrapper;
 import com.example.zhpan.circleviewpager.net.BannerData;
 import com.example.zhpan.circleviewpager.net.RetrofitGnerator;
 import com.example.zhpan.circleviewpager.recyclerview.ui.CustomRecyclerView;
-import com.example.zhpan.circleviewpager.viewholder.BaseNetViewHolder;
 import com.example.zhpan.circleviewpager.viewholder.ImageResourceViewHolder;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.zhpan.bannerview.BannerViewPager;
+import com.zhpan.bannerview.BaseViewHolder;
 import com.zhpan.bannerview.constants.IndicatorGravity;
 import com.zhpan.idea.net.common.ResponseObserver;
 import com.zhpan.idea.utils.LogUtils;
@@ -38,8 +38,6 @@ import com.zhpan.indicator.enums.IndicatorStyle;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.jzvd.Jzvd;
-import cn.jzvd.JzvdStd;
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
 
@@ -48,7 +46,7 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class HomeFragment extends BaseFragment {
 
-    private BannerViewPager<BannerData, BaseNetViewHolder> mViewPagerHorizontal;
+    private BannerViewPager<BannerData, BaseViewHolder<BannerData>> mViewPagerHorizontal;
     private BannerViewPager<Integer, ImageResourceViewHolder> mViewPagerVertical;
     private BannerViewPager<Integer, ImageResourceViewHolder> mViewPager;
     private CustomRecyclerView recyclerView;
@@ -136,17 +134,17 @@ public class HomeFragment extends BaseFragment {
                     @Override
                     public void onSuccess(DataWrapper response) {
                         List<BannerData> dataList = response.getDataBeanList();
-//                        BannerData bannerData = new BannerData();
-//                        bannerData.setUrl("http://jzvd.nathen.cn/c6e3dc12a1154626b3476d9bf3bd7266/6b56c5f0dc31428083757a45764763b0-5287d2089db37e62345123a1be272f8b.mp4");
-//                        bannerData.setType(BannerData.TYPE_VIDEO);
-//                        dataList.add(0, bannerData);
+                        BannerData bannerData = new BannerData();
+                        bannerData.setDrawable(R.drawable.advertise4);
+                        bannerData.setType(BannerData.TYPE_NEW);
+                        bannerData.setTitle("这是一个自定义类型");
+                        dataList.add(1, bannerData);
                         mViewPagerHorizontal.setData(dataList);
                         articleAdapter.setData(response.getArticleList());
                         if (response.getDataBeanList().size() > 0) {
                             mTvTitle.setText(response.getDataBeanList().get(0).getTitle());
                             mRlIndicator.setVisibility(View.VISIBLE);
                         }
-//                        jzVideo.setUp(bannerData.getUrl(), bannerData.getTitle());
                     }
 
                     @Override
@@ -165,15 +163,19 @@ public class HomeFragment extends BaseFragment {
         return RetrofitGnerator.getApiSerVice().getBannerData().subscribeOn(Schedulers.io());
     }
 
+
     private void initBanner() {
+        HomeAdapter homeAdapter = new HomeAdapter();
+        homeAdapter.setMediaController(new MediaController(getActivity()));
         mViewPagerHorizontal
+                .setAutoPlay(false)
                 .setIndicatorSlideMode(IndicatorSlideMode.WORM)
                 .setInterval(3000)
                 .setIndicatorGravity(IndicatorGravity.END)
                 .setIndicatorSliderRadius(getResources().getDimensionPixelSize(R.dimen.dp_3))
                 .setIndicatorView(mIndicatorView)// 这里为了设置标题故用了自定义Indicator,如果无需标题则没必要添加此行代码
                 .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
-                .setAdapter(new HomeAdapter())
+                .setAdapter(homeAdapter)
                 .registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
                     @Override
                     public void onPageSelected(int position) {
@@ -205,8 +207,10 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void onPageClicked(int position) {
-        BannerData bannerData = mViewPagerHorizontal.getData().get(position);
-        Toast.makeText(getMContext(), "position:" + position + " " + bannerData.getTitle() + "currentItem:" + mViewPagerHorizontal.getCurrentItem(), Toast.LENGTH_SHORT).show();
+        if (position != 0) {
+            BannerData bannerData = mViewPagerHorizontal.getData().get(position);
+            Toast.makeText(getMContext(), "position:" + position + " " + bannerData.getTitle() + "currentItem:" + mViewPagerHorizontal.getCurrentItem(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     private View getHeaderView() {

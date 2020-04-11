@@ -1,9 +1,13 @@
 package com.example.zhpan.circleviewpager.fragment;
 
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.MediaController;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.VideoView;
 
 import com.example.zhpan.circleviewpager.R;
 import com.example.zhpan.circleviewpager.adapter.ImageResourceAdapter;
@@ -22,6 +26,7 @@ public class PageFragment extends BaseFragment {
     private BannerViewPager<Integer, ImageResourceViewHolder> mViewPager;
     private RadioGroup mRadioGroupPageStyle;
     private RadioButton radioButton;
+    private VideoView mVideoView;
 
     @Override
     protected int getLayout() {

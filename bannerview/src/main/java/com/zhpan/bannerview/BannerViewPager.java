@@ -45,7 +45,7 @@ import static com.zhpan.bannerview.transform.ScaleInTransformer.MAX_SCALE;
 /**
  * Created by zhpan on 2017/3/28.
  */
-public class BannerViewPager<T, VH extends BaseViewHolder> extends RelativeLayout {
+public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLayout {
 
     private int currentPosition;
 

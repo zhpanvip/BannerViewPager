@@ -1,13 +1,14 @@
 package com.example.zhpan.circleviewpager.viewholder;
 
 import android.view.View;
+import android.widget.MediaController;
+import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 
 import com.example.zhpan.circleviewpager.R;
 import com.example.zhpan.circleviewpager.net.BannerData;
-
-import cn.jzvd.JzvdStd;
+import com.zhpan.bannerview.BaseViewHolder;
 
 /**
  * <pre>
@@ -15,20 +16,14 @@ import cn.jzvd.JzvdStd;
  *   Description:
  * </pre>
  */
-public class VideoViewHolder extends BaseNetViewHolder {
-    private JzvdStd jzvdStd;
+public class NewTypeViewHolder extends BaseViewHolder<BannerData> {
 
-    public VideoViewHolder(@NonNull View itemView) {
+    public NewTypeViewHolder(@NonNull View itemView) {
         super(itemView);
     }
 
     @Override
     public void bindData(BannerData data, int position, int pageSize) {
-        jzvdStd = findView(R.id.banner_video);
-        jzvdStd.setUp(data.getUrl(), data.getTitle());
-    }
-
-    public JzvdStd getJzvdStd() {
-        return jzvdStd;
+        setImageResource(R.id.image_view, data.getDrawable());
     }
 }
