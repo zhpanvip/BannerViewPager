@@ -57,7 +57,6 @@ public class HomeFragment extends BaseFragment {
     private IndicatorView mIndicatorView;
     private TextView mTvTitle;
     private RelativeLayout mRlIndicator;
-    private JzvdStd jzVideo;
 
     @Override
     protected int getLayout() {
@@ -115,39 +114,12 @@ public class HomeFragment extends BaseFragment {
     private void initRecyclerView(View view) {
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getMContext()));
-        View headerView = getHeaderView();
-        recyclerView.addHeadView(headerView);
+        recyclerView.addHeadView(getHeaderView());
         recyclerView.addItemDecoration(new DividerItemDecoration(getMContext(),
                 DividerItemDecoration.VERTICAL));
         articleAdapter = new ArticleAdapter(getMContext(), new ArrayList<>());
         recyclerView.setAdapter(articleAdapter);
         recyclerView.getHeadAndFootAdapter();
-
-        mRlIndicator = headerView.findViewById(R.id.layout_indicator);
-        mViewPagerHorizontal = headerView.findViewById(R.id.banner_view);
-        mViewPagerVertical = headerView.findViewById(R.id.banner_view2);
-        mViewPager = headerView.findViewById(R.id.banner_view3);
-        mTvTitle = headerView.findViewById(R.id.tv_title);
-        mIndicatorView = headerView.findViewById(R.id.indicator_view);
-
-        recyclerView.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
-            @Override
-            public void onChildViewAttachedToWindow(@NonNull View view) {
-                jzVideo = view.findViewById(R.id.jz_home);
-                if (jzVideo != null && Jzvd.CURRENT_JZVD != null &&
-                        jzVideo.jzDataSource.containsTheUrl(Jzvd.CURRENT_JZVD.jzDataSource.getCurrentUrl())) {
-                    jzVideo.setUp("http://jzvd.nathen.cn/c6e3dc12a1154626b3476d9bf3bd7266/6b56c5f0dc31428083757a45764763b0-5287d2089db37e62345123a1be272f8b.mp4","");
-                    if (Jzvd.CURRENT_JZVD != null && Jzvd.CURRENT_JZVD.screen != Jzvd.SCREEN_FULLSCREEN) {
-                        Jzvd.releaseAllVideos();
-                    }
-                }
-            }
-
-            @Override
-            public void onChildViewDetachedFromWindow(@NonNull View view) {
-
-            }
-        });
     }
 
     private void initRefreshLayout(View view) {
@@ -164,10 +136,10 @@ public class HomeFragment extends BaseFragment {
                     @Override
                     public void onSuccess(DataWrapper response) {
                         List<BannerData> dataList = response.getDataBeanList();
-                        BannerData bannerData = new BannerData();
-                        bannerData.setUrl("http://jzvd.nathen.cn/c6e3dc12a1154626b3476d9bf3bd7266/6b56c5f0dc31428083757a45764763b0-5287d2089db37e62345123a1be272f8b.mp4");
-                        bannerData.setType(BannerData.TYPE_VIDEO);
-                        dataList.add(0, bannerData);
+//                        BannerData bannerData = new BannerData();
+//                        bannerData.setUrl("http://jzvd.nathen.cn/c6e3dc12a1154626b3476d9bf3bd7266/6b56c5f0dc31428083757a45764763b0-5287d2089db37e62345123a1be272f8b.mp4");
+//                        bannerData.setType(BannerData.TYPE_VIDEO);
+//                        dataList.add(0, bannerData);
                         mViewPagerHorizontal.setData(dataList);
                         articleAdapter.setData(response.getArticleList());
                         if (response.getDataBeanList().size() > 0) {
@@ -238,7 +210,13 @@ public class HomeFragment extends BaseFragment {
     }
 
     private View getHeaderView() {
-        View view = LayoutInflater.from(getMContext()).inflate(R.layout.item_header_view, recyclerView, false);
-        return view;
+        View headerView = LayoutInflater.from(getMContext()).inflate(R.layout.item_header_view, recyclerView, false);
+        mRlIndicator = headerView.findViewById(R.id.layout_indicator);
+        mViewPagerHorizontal = headerView.findViewById(R.id.banner_view);
+        mViewPagerVertical = headerView.findViewById(R.id.banner_view2);
+        mViewPager = headerView.findViewById(R.id.banner_view3);
+        mTvTitle = headerView.findViewById(R.id.tv_title);
+        mIndicatorView = headerView.findViewById(R.id.indicator_view);
+        return headerView;
     }
 }

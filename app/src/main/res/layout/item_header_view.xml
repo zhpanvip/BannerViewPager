@@ -57,10 +57,4 @@
         android:layout_height="@dimen/dp_120"
         android:layout_below="@id/banner_view2"
         android:layout_marginTop="@dimen/dp_5" />
-
-    <cn.jzvd.JzvdStd
-        android:id="@+id/jz_home"
-        android:layout_below="@id/banner_view3"
-        android:layout_width="match_parent"
-        android:layout_height="220dp" />
 </RelativeLayout>
