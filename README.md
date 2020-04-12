@@ -416,7 +416,7 @@ you must add proguard rules，If you have called setScrollDuration method in you
 
 | Alipay | WeChat |
 |--|--|
-| ![Alipay](https://github.com/zhpanvip/Resource/tree/master/image/pay/pay_alipay.jpg) |  ![WeChat](https://github.com/zhpanvip/Resource/blob/master/image/pay/pay_wechat.png) |
+| ![Alipay](https://github.com/zhpanvip/Resource/blob/master/image/pay/pay_alipay.jpg) |  ![WeChat](https://github.com/zhpanvip/Resource/blob/master/image/pay/pay_wechat.png) |
 
 ##  More details
 
