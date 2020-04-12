@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Created by zhpan on 2017/3/28.
  */
-public abstract class BaseBannerAdapter<T, VH extends BaseViewHolder> extends RecyclerView.Adapter<VH> {
+public abstract class BaseBannerAdapter<T, VH extends BaseViewHolder<T>> extends RecyclerView.Adapter<VH> {
     protected List<T> mList = new ArrayList<>();
     private boolean isCanLoop;
     static final int MAX_VALUE = 500;

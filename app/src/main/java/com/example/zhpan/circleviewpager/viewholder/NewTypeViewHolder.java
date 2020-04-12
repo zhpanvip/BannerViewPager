@@ -1,9 +1,12 @@
 package com.example.zhpan.circleviewpager.viewholder;
 
 import android.view.View;
+import android.widget.MediaController;
+import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 
+import com.example.zhpan.circleviewpager.R;
 import com.example.zhpan.circleviewpager.net.BannerData;
 import com.zhpan.bannerview.BaseViewHolder;
 
@@ -13,14 +16,14 @@ import com.zhpan.bannerview.BaseViewHolder;
  *   Description:
  * </pre>
  */
-public class BaseNetViewHolder extends BaseViewHolder<BannerData> {
+public class NewTypeViewHolder extends BaseViewHolder<BannerData> {
 
-    public BaseNetViewHolder(@NonNull View itemView) {
+    public NewTypeViewHolder(@NonNull View itemView) {
         super(itemView);
     }
 
     @Override
     public void bindData(BannerData data, int position, int pageSize) {
-
+        setImageResource(R.id.image_view, data.getDrawable());
     }
 }

@@ -18,10 +18,10 @@
 - Optimize memory，improve perfermance.
 - add setOrientation method，support vertical orientation
 - add addPageTransformer method and removeTransformer method
-- setAdapter replaced setHolderCreator
-- getData replaced getList
-- registerOnPageChangeCallback replaced setOnPageChangeListener
-- setUserInputEnabled replaced disableTouchScroll
+- setAdapter replaces setHolderCreator
+- getData replaces getList
+- registerOnPageChangeCallback replaces setOnPageChangeListener
+- setUserInputEnabled replaces disableTouchScroll
 - remove setPageTransformerStyle
 - remvoe some deprecate methods in 2.x
 
@@ -416,7 +416,7 @@ you must add proguard rules，If you have called setScrollDuration method in you
 
 | Alipay | WeChat |
 |--|--|
-| ![Alipay](https://github.com/zhpanvip/Resource/tree/master/image/pay/pay_alipay.jpg) |  ![WeChat](https://github.com/zhpanvip/Resource/blob/master/image/pay/pay_wechat.png) |
+| ![Alipay](https://github.com/zhpanvip/Resource/blob/master/image/pay/pay_alipay.jpg) |  ![WeChat](https://github.com/zhpanvip/Resource/blob/master/image/pay/pay_wechat.png) |
 
 ##  More details
 

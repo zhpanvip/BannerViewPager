@@ -8,7 +8,7 @@
     android:width="0.5dp"
     android:color="#e35d5e" />-->
 <!-- 圆角 -->
-<corners android:radius="5dp" />
+<corners android:radius="95dp" />
 <!-- 边距 -->
 <padding
     android:bottom="0dp"
