@@ -1,7 +1,6 @@
 package com.example.zhpan.circleviewpager.adapter;
 
 import android.view.View;
-import android.widget.MediaController;
 
 import com.example.zhpan.circleviewpager.R;
 import com.example.zhpan.circleviewpager.net.BannerData;
@@ -17,8 +16,6 @@ import com.zhpan.bannerview.BaseViewHolder;
  * </pre>
  */
 public class HomeAdapter extends BaseBannerAdapter<BannerData, BaseViewHolder<BannerData>> {
-    private MediaController mMediaController;
-    private BaseViewHolder<BannerData> mViewHolder;
 
     @Override
     protected void onBind(BaseViewHolder<BannerData> holder, BannerData data, int position, int pageSize) {
@@ -30,8 +27,7 @@ public class HomeAdapter extends BaseBannerAdapter<BannerData, BaseViewHolder<Ba
         if (viewType == BannerData.TYPE_NEW) {
             return new NewTypeViewHolder(itemView);
         }
-        mViewHolder = new NetViewHolder(itemView);
-        return mViewHolder;
+        return new NetViewHolder(itemView);
     }
 
     @Override
@@ -45,18 +41,6 @@ public class HomeAdapter extends BaseBannerAdapter<BannerData, BaseViewHolder<Ba
             return R.layout.item_new_type;
         }
         return R.layout.item_net;
-    }
-
-    public void setMediaController(MediaController mediaController) {
-        mMediaController = mediaController;
-    }
-
-    public BaseViewHolder<BannerData> getViewHolder() {
-        return mViewHolder;
-    }
-
-    public void setViewHolder(BaseViewHolder<BannerData> viewHolder) {
-        mViewHolder = viewHolder;
     }
 }
 

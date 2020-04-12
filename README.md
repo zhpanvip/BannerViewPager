@@ -18,10 +18,10 @@
 - Optimize memory，improve perfermance.
 - add setOrientation method，support vertical orientation
 - add addPageTransformer method and removeTransformer method
-- setAdapter replaced setHolderCreator
-- getData replaced getList
-- registerOnPageChangeCallback replaced setOnPageChangeListener
-- setUserInputEnabled replaced disableTouchScroll
+- setAdapter replaces setHolderCreator
+- getData replaces getList
+- registerOnPageChangeCallback replaces setOnPageChangeListener
+- setUserInputEnabled replaces disableTouchScroll
 - remove setPageTransformerStyle
 - remvoe some deprecate methods in 2.x
 
