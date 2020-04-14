@@ -12,6 +12,10 @@ class ArticleWrapper {
         var author: String? = null
 
         var publishTime: Long = 0
+
+        var type: Int = 0
+
+        var pagers: List<Int>? = null
     }
 
 

@@ -15,9 +15,8 @@
 
 - Migrate to ViewPager2
 - Mutiple item type supported
-- Optimize memory，improve perfermance.
-- add setOrientation method，support vertical orientation
-- add addPageTransformer method and removeTransformer method
+- setOrientation supported
+- addPageTransformer and removeTransformer supported
 - setAdapter replaces setHolderCreator
 - getData replaces getList
 - registerOnPageChangeCallback replaces setOnPageChangeListener
@@ -42,7 +41,7 @@
 
 ### 2.Indicator
 
-The IndicatorView was split from BannerViewPager,the new repo is [ViewPagerIndicator](https://github.com/zhpanvip/viewpagerindicator)，Click the link to see more information about [ViewPagerIndicator](https://github.com/zhpanvip/viewpagerindicator)
+The Indicator library was split from BannerViewPager,the new repo is [ViewPagerIndicator](https://github.com/zhpanvip/viewpagerindicator)，Click the link to see more information about [ViewPagerIndicator](https://github.com/zhpanvip/viewpagerindicator)
 
 #### (1)setIndicatorStyle and setIndicatorSlideMode
 
@@ -64,7 +63,7 @@ It's also support to custom indicator style,just need extends BaseIndicatorView 
 
 | Figure Indicator | Drawable Indicator | Indicator below of Banner |
 |--|--|--|
-| ![CIRCLE](https://github.com/zhpanvip/Resource/blob/master/image/banner/style_custum.gif) | ![DASH](https://github.com/zhpanvip/Resource/blob/master/image/banner/style_custom1.gif) | ![NORMAL](https://github.com/zhpanvip/Resource/blob/master/image/banner/style_custom2.gif) |
+| ![CIRCLE](https://github.com/zhpanvip/Resource/blob/master/image/banner/style_custum.gif) | ![DASH](https://github.com/zhpanvip/Resource/blob/master/image/banner/style_custom2.gif) | ![NORMAL](https://github.com/zhpanvip/Resource/blob/master/image/banner/style_custom1.gif) |
 
 
 ## API
@@ -130,7 +129,7 @@ It's also support to custom indicator style,just need extends BaseIndicatorView 
 
 ## Useage
 
-Since Viewpager2 does not support android support, BannerViewPager 3.0 no longer supports android support. If you are still using Android support, please use [BannerViewPager V2.x](https://github.com/zhpanvip/BannerViewPager/tree/v_2.x)
+Since Viewpager2 does not support android support library, So since the version 3.0 is no longer supports android support library too. If you are still using android support, please use [BannerViewPager v2.x](https://github.com/zhpanvip/BannerViewPager/tree/v_2.x)
 
 ### 1.Gradle dependency
 
@@ -364,16 +363,17 @@ public class FigureIndicatorView extends BaseIndicatorView {
 ```
     FigureIndicatorView indicatorView = new FigureIndicatorView(mContext);
     indicatorView.setRadius(getResources().getDimensionPixelOffset(R.dimen.dp_18));
-    indicatorView.setTextSize(getResources().getDimensionPixelOffset(R.dimen.dp_13));
+    indicatorView.setTextSize(getResources().getDimensionPixelSize(R.dimen.sp_13));
     indicatorView.setBackgroundColor(Color.parseColor("#aa118EEA"));
 
-    mViewPager.setIndicatorGravity(IndicatorGravity.END)
-              .setIndicatorView(indicatorView)
-              .setHolderCreator(() -> new ImageResourceViewHolder(0))
-              .create(mDrawableList);
+    mViewPager.setAutoPlay(false).setCanLoop(true)
+               .setIndicatorSlideMode(IndicatorSlideMode.NORMAL)
+               .setIndicatorVisibility(View.VISIBLE)
+               .setIndicatorGravity(IndicatorGravity.END)
+               .setIndicatorView(indicatorView).create(getPicList(4));
 ```
 
-## 8. Proguard config
+## 8. Proguard
 
 you must add proguard rules，If you have called setScrollDuration method in your project:
 

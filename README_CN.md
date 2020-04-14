@@ -63,7 +63,7 @@ BannerViewPager目前已支持三种IndicatorViewStyle,以及三种IndicatorSlid
 
 | Figure Indicator | Drawable Indicator | Indicator below of Banner |
 |--|--|--|
-| ![CIRCLE](https://github.com/zhpanvip/Resource/blob/master/image/banner/style_custum.gif) | ![DASH](https://github.com/zhpanvip/Resource/blob/master/image/banner/style_custom1.gif) | ![NORMAL](https://github.com/zhpanvip/Resource/blob/master/image/banner/style_custom2.gif) |
+| ![CIRCLE](https://github.com/zhpanvip/Resource/blob/master/image/banner/style_custum.gif) | ![DASH](https://github.com/zhpanvip/Resource/blob/master/image/banner/style_custom2.gif) | ![NORMAL](https://github.com/zhpanvip/Resource/blob/master/image/banner/style_custom1.gif) |
 
 
 ## 开放API
@@ -362,14 +362,15 @@ public class FigureIndicatorView extends BaseIndicatorView {
 
 ```
     FigureIndicatorView indicatorView = new FigureIndicatorView(mContext);
-    indicatorView.setRadius(BannerUtils.dp2px(18));
-    indicatorView.setTextSize(BannerUtils.dp2px(13));
+    indicatorView.setRadius(getResources().getDimensionPixelOffset(R.dimen.dp_18));
+    indicatorView.setTextSize(getResources().getDimensionPixelSize(R.dimen.sp_13));
     indicatorView.setBackgroundColor(Color.parseColor("#aa118EEA"));
 
-    mViewPager.setIndicatorGravity(IndicatorGravity.END)
-              .setIndicatorView(indicatorView)
-              .setHolderCreator(() -> new ImageResourceViewHolder(0))
-              .create(mDrawableList);
+   mViewPager.setAutoPlay(false).setCanLoop(true)
+               .setIndicatorSlideMode(IndicatorSlideMode.NORMAL)
+               .setIndicatorVisibility(View.VISIBLE)
+               .setIndicatorGravity(IndicatorGravity.END)
+               .setIndicatorView(indicatorView).create(getPicList(4));
 ```
 
 ## 8. 混淆

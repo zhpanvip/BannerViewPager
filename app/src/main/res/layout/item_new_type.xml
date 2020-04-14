@@ -13,14 +13,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/dp_10"
         android:background="@drawable/bg_start"
         android:gravity="center"
         android:paddingStart="@dimen/dp_10"
         android:paddingTop="@dimen/dp_5"
         android:paddingEnd="@dimen/dp_10"
+        android:layout_centerInParent="true"
         android:paddingBottom="@dimen/dp_5"
-        android:text="多类型Item"
+        android:text="多类型Item示例"
         android:textColor="#fff"
         android:textSize="16sp" />
 

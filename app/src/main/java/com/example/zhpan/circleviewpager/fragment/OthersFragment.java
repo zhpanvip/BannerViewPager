@@ -160,8 +160,8 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
      */
     private IIndicator setupIndicatorView() {
         FigureIndicatorView indicatorView = new FigureIndicatorView(getMContext());
-        indicatorView.setRadius(BannerUtils.dp2px(18));
-        indicatorView.setTextSize(BannerUtils.dp2px(13));
+        indicatorView.setRadius(getResources().getDimensionPixelOffset(R.dimen.dp_18));
+        indicatorView.setTextSize(getResources().getDimensionPixelSize(R.dimen.sp_13));
         indicatorView.setBackgroundColor(Color.parseColor("#aa118EEA"));
         return indicatorView;
     }

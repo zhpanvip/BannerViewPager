@@ -1,10 +1,8 @@
 package com.example.zhpan.circleviewpager.fragment;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.MediaController;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -135,7 +133,7 @@ public class HomeFragment extends BaseFragment {
                     public void onSuccess(DataWrapper response) {
                         List<BannerData> dataList = response.getDataBeanList();
                         BannerData bannerData = new BannerData();
-                        bannerData.setDrawable(R.drawable.advertise4);
+                        bannerData.setDrawable(R.drawable.bg_card0);
                         bannerData.setType(BannerData.TYPE_NEW);
                         bannerData.setTitle("这是一个自定义类型");
                         dataList.add(1, bannerData);
@@ -206,10 +204,8 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void onPageClicked(int position) {
-        if (position != 0) {
-            BannerData bannerData = mViewPagerHorizontal.getData().get(position);
-            Toast.makeText(getMContext(), "position:" + position + " " + bannerData.getTitle() + "currentItem:" + mViewPagerHorizontal.getCurrentItem(), Toast.LENGTH_SHORT).show();
-        }
+        BannerData bannerData = mViewPagerHorizontal.getData().get(position);
+        Toast.makeText(getMContext(), "position:" + position + " " + bannerData.getTitle() + "currentItem:" + mViewPagerHorizontal.getCurrentItem(), Toast.LENGTH_SHORT).show();
     }
 
     private View getHeaderView() {
