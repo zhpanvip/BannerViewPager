@@ -135,7 +135,7 @@ public class HomeFragment extends BaseFragment {
                         ArticleWrapper.Article article = new ArticleWrapper.Article();
                         article.setType(1001);
                         article.setPagers(getPicList(3));
-                        articleList.add(4,article);
+                        articleList.add(4, article);
                         articleAdapter.setData(articleList);
                         if (response.getDataBeanList().size() > 0) {
                             mTvTitle.setText(response.getDataBeanList().get(0).getTitle());
@@ -163,7 +163,8 @@ public class HomeFragment extends BaseFragment {
     private void initBanner() {
         HomeAdapter homeAdapter = new HomeAdapter();
         mViewPagerHorizontal
-                .setAutoPlay(false)
+                .setAutoPlay(true)
+                .setScrollDuration(1000)
                 .setIndicatorSlideMode(IndicatorSlideMode.WORM)
                 .setInterval(3000)
                 .setIndicatorGravity(IndicatorGravity.END)
@@ -182,7 +183,8 @@ public class HomeFragment extends BaseFragment {
                 .setOnPageClickListener(this::onPageClicked);
 
         mViewPagerVertical
-                .setAutoPlay(false)
+                .setAutoPlay(true)
+                .setScrollDuration(600)
                 .setIndicatorStyle(IndicatorStyle.ROUND_RECT)
                 .setIndicatorSliderGap(getResources().getDimensionPixelOffset(R.dimen.dp_4))
                 .setIndicatorSliderWidth(getResources().getDimensionPixelOffset(R.dimen.dp_4), getResources().getDimensionPixelOffset(R.dimen.dp_10))
