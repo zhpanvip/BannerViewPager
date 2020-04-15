@@ -7,13 +7,13 @@
         android:id="@+id/image_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:src="@drawable/bg_card3"
         android:scaleType="centerCrop" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/bg_start"
         android:gravity="center"
         android:paddingStart="@dimen/dp_10"
         android:paddingTop="@dimen/dp_5"
@@ -22,6 +22,6 @@
         android:paddingBottom="@dimen/dp_5"
         android:text="多类型Item示例"
         android:textColor="#fff"
-        android:textSize="16sp" />
+        android:textSize="@dimen/sp_26" />
 
 </RelativeLayout>

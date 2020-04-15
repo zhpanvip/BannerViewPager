@@ -15,7 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 /**
  * <pre>
  *   Created by zhpan on 2020/4/5.
- *   Description:
+ *   Attention:Don't use {@link RecyclerView.ViewHolder#getAdapterPosition}
+ *   method to get position,this method will return a fake position.
  * </pre>
  */
 public abstract class BaseViewHolder<T> extends RecyclerView.ViewHolder {

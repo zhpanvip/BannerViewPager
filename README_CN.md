@@ -161,7 +161,7 @@ implementation 'com.github.zhpanvip:BannerViewPager:latestVersion'
 ```
 
 ### 3.Banner的Item页面布局
-
+**注意：Item的布局必须是"match_parent",否则ViewPager2会抛出一个IllegalStateException.
 ```
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -197,6 +197,8 @@ implementation 'com.github.zhpanvip:BannerViewPager:latestVersion'
 ```
 
 ### 4.继承BaseViewHolder,并重写相关方法
+
+**注意:在ViewHolder中不要用{@link RecyclerView.ViewHolder#getAdapterPosition} 方法获取position，这个方法会返回一个不正确的position**
 
 ```
     public class NetViewHolder extends BaseViewHolder<BannerData> {

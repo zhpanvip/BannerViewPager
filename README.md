@@ -163,7 +163,7 @@ implementation 'com.github.zhpanvip:BannerViewPager:latestVersion'
 ```
 
 ### 3.The item layout of banner:
-
+ **Attention:The layout width and height required "match_parent".Otherwise,the ViewPager2 will throws a IllegalStateException.**
 ```
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -199,6 +199,8 @@ implementation 'com.github.zhpanvip:BannerViewPager:latestVersion'
 ```
 
 ### 4.Extends BaseViewHolder,and override methods.
+
+ **Attention:Don't use {@link RecyclerView.ViewHolder#getAdapterPosition} method to get position in ViewHolder，this method will return a fake position.**
 
 ```
     public class NetViewHolder extends BaseViewHolder<BannerData> {
