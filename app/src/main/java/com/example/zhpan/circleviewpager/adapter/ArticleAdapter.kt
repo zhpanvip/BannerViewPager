@@ -58,6 +58,10 @@ class ArticleAdapter(context: Context, data: List<ArticleWrapper.Article>) : Rec
         notifyDataSetChanged()
     }
 
+    override fun getItemViewType(position: Int): Int {
+        return mList[position].type
+    }
+
     override fun getItemCount(): Int {
         return mList.size
     }

@@ -2,11 +2,13 @@ package com.example.zhpan.circleviewpager.recyclerview.ui;
 
 import android.content.Context;
 import android.os.Build;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -190,7 +192,7 @@ public final class CustomAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         } else if (position >= headSize + mAdapter.getItemCount() && position < adapterCount) {
             return ViewConfig.FOOTVIEW_TYPE;
         }
-        return -1;
+        return mAdapter.getItemViewType(position-headSize);
     }
 
     public int getHeadSize() {

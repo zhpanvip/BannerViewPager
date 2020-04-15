@@ -46,7 +46,6 @@ public class HomeFragment extends BaseFragment {
 
     private BannerViewPager<BannerData, BaseViewHolder<BannerData>> mViewPagerHorizontal;
     private BannerViewPager<Integer, ImageResourceViewHolder> mViewPagerVertical;
-    private BannerViewPager<Integer, ImageResourceViewHolder> mViewPager;
     private CustomRecyclerView recyclerView;
     private ArticleAdapter articleAdapter;
     private SmartRefreshLayout mSmartRefreshLayout;
@@ -74,9 +73,6 @@ public class HomeFragment extends BaseFragment {
         if (mViewPagerVertical != null) {
             mViewPagerVertical.stopLoop();
         }
-        if (mViewPager != null) {
-            mViewPager.stopLoop();
-        }
 
     }
 
@@ -89,9 +85,6 @@ public class HomeFragment extends BaseFragment {
         }
         if (mViewPagerVertical != null) {
             mViewPagerVertical.startLoop();
-        }
-        if (mViewPager != null) {
-            mViewPager.startLoop();
         }
     }
 
@@ -138,7 +131,12 @@ public class HomeFragment extends BaseFragment {
                         bannerData.setTitle("这是一个自定义类型");
                         dataList.add(1, bannerData);
                         mViewPagerHorizontal.setData(dataList);
-                        articleAdapter.setData(response.getArticleList());
+                        List<ArticleWrapper.Article> articleList = response.getArticleList();
+                        ArticleWrapper.Article article = new ArticleWrapper.Article();
+                        article.setType(1001);
+                        article.setPagers(getPicList(3));
+                        articleList.add(4,article);
+                        articleAdapter.setData(articleList);
                         if (response.getDataBeanList().size() > 0) {
                             mTvTitle.setText(response.getDataBeanList().get(0).getTitle());
                             mRlIndicator.setVisibility(View.VISIBLE);
@@ -165,7 +163,7 @@ public class HomeFragment extends BaseFragment {
     private void initBanner() {
         HomeAdapter homeAdapter = new HomeAdapter();
         mViewPagerHorizontal
-                .setAutoPlay(true)
+                .setAutoPlay(false)
                 .setIndicatorSlideMode(IndicatorSlideMode.WORM)
                 .setInterval(3000)
                 .setIndicatorGravity(IndicatorGravity.END)
@@ -184,7 +182,7 @@ public class HomeFragment extends BaseFragment {
                 .setOnPageClickListener(this::onPageClicked);
 
         mViewPagerVertical
-                .setAutoPlay(true)
+                .setAutoPlay(false)
                 .setIndicatorStyle(IndicatorStyle.ROUND_RECT)
                 .setIndicatorSliderGap(getResources().getDimensionPixelOffset(R.dimen.dp_4))
                 .setIndicatorSliderWidth(getResources().getDimensionPixelOffset(R.dimen.dp_4), getResources().getDimensionPixelOffset(R.dimen.dp_10))
@@ -192,15 +190,6 @@ public class HomeFragment extends BaseFragment {
                 .setOrientation(ViewPager2.ORIENTATION_VERTICAL)
                 .setInterval(2000)
                 .setAdapter(new ImageResourceAdapter(0)).create(getPicList(4));
-        mViewPager
-                .setCanLoop(false)
-                .setIndicatorStyle(IndicatorStyle.ROUND_RECT)
-                .setIndicatorSliderGap(getResources().getDimensionPixelOffset(R.dimen.dp_4))
-                .setIndicatorSliderWidth(getResources().getDimensionPixelOffset(R.dimen.dp_4), getResources().getDimensionPixelOffset(R.dimen.dp_10))
-                .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
-                .setOrientation(ViewPager2.ORIENTATION_VERTICAL)
-                .setInterval(2000)
-                .setAdapter(new ImageResourceAdapter(0)).create(getPicList(3));
     }
 
     private void onPageClicked(int position) {
@@ -213,7 +202,6 @@ public class HomeFragment extends BaseFragment {
         mRlIndicator = headerView.findViewById(R.id.layout_indicator);
         mViewPagerHorizontal = headerView.findViewById(R.id.banner_view);
         mViewPagerVertical = headerView.findViewById(R.id.banner_view2);
-        mViewPager = headerView.findViewById(R.id.banner_view3);
         mTvTitle = headerView.findViewById(R.id.tv_title);
         mIndicatorView = headerView.findViewById(R.id.indicator_view);
         return headerView;
