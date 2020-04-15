@@ -5,6 +5,5 @@
     <com.zhpan.bannerview.BannerViewPager
         android:id="@+id/banner_view3"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_120"
-        android:layout_marginTop="@dimen/dp_5" />
+        android:layout_height="@dimen/dp_120"/>
 </LinearLayout>

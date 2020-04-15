@@ -103,7 +103,7 @@ public class HomeFragment extends BaseFragment {
     private void initRecyclerView(View view) {
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getMContext()));
-        recyclerView.addHeadView(getHeaderView());
+        recyclerView.addHeadView(getHeaderView(),true);
         recyclerView.addItemDecoration(new DividerItemDecoration(getMContext(),
                 DividerItemDecoration.VERTICAL));
         articleAdapter = new ArticleAdapter(getMContext(), new ArrayList<>());
@@ -164,7 +164,7 @@ public class HomeFragment extends BaseFragment {
         HomeAdapter homeAdapter = new HomeAdapter();
         mViewPagerHorizontal
                 .setAutoPlay(true)
-                .setScrollDuration(1000)
+                .setScrollDuration(600)
                 .setIndicatorSlideMode(IndicatorSlideMode.WORM)
                 .setInterval(3000)
                 .setIndicatorGravity(IndicatorGravity.END)
@@ -184,7 +184,7 @@ public class HomeFragment extends BaseFragment {
 
         mViewPagerVertical
                 .setAutoPlay(true)
-                .setScrollDuration(600)
+                .setScrollDuration(500)
                 .setIndicatorStyle(IndicatorStyle.ROUND_RECT)
                 .setIndicatorSliderGap(getResources().getDimensionPixelOffset(R.dimen.dp_4))
                 .setIndicatorSliderWidth(getResources().getDimensionPixelOffset(R.dimen.dp_4), getResources().getDimensionPixelOffset(R.dimen.dp_10))
