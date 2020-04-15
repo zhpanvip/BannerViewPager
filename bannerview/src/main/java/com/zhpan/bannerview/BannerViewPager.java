@@ -170,7 +170,6 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
     public boolean dispatchTouchEvent(MotionEvent ev) {
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                getParent().requestDisallowInterceptTouchEvent(true);
                 isLooping = true;
                 stopLoop();
                 break;
