@@ -67,15 +67,6 @@
                     android:text="ROUND_RECT"
                     android:textSize="@dimen/sp_16" />
 
-                <RadioButton
-                    android:id="@+id/rb_tmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginBottom="@dimen/dp_10"
-                    android:text="Tmall Indicator Style"
-                    android:textSize="@dimen/sp_16" />
-
 
             </RadioGroup>
 
@@ -116,6 +107,23 @@
                     android:text="WORM"
                     android:textSize="@dimen/sp_16" />
 
+                <RadioButton
+                    android:id="@+id/rb_color"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="@dimen/dp_10"
+                    android:text="COLOR"
+                    android:textSize="@dimen/sp_16" />
+
+                <RadioButton
+                    android:id="@+id/rb_scale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="@dimen/dp_10"
+                    android:text="SCALE"
+                    android:textSize="@dimen/sp_16" />
 
                 <RadioButton
                     android:id="@+id/rb_normal"
@@ -126,15 +134,6 @@
                     android:text="NORMAL"
                     android:textSize="@dimen/sp_16" />
 
-                <RadioButton
-                    android:id="@+id/rb_scale"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginBottom="@dimen/dp_10"
-                    android:text="SCALE"
-                    android:textSize="@dimen/sp_16"
-                    android:visibility="gone" />
 
             </RadioGroup>
 

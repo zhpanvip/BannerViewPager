@@ -52,6 +52,7 @@ public class HomeFragment extends BaseFragment {
     private IndicatorView mIndicatorView;
     private TextView mTvTitle;
     private RelativeLayout mRlIndicator;
+    private View headerView;
 
     @Override
     protected int getLayout() {
@@ -103,7 +104,7 @@ public class HomeFragment extends BaseFragment {
     private void initRecyclerView(View view) {
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getMContext()));
-        recyclerView.addHeadView(getHeaderView(),true);
+        recyclerView.addHeadView(getHeaderView(), true);
         recyclerView.addItemDecoration(new DividerItemDecoration(getMContext(),
                 DividerItemDecoration.VERTICAL));
         articleAdapter = new ArticleAdapter(getMContext(), new ArrayList<>());
@@ -124,6 +125,7 @@ public class HomeFragment extends BaseFragment {
                 .subscribe(new ResponseObserver<DataWrapper>() {
                     @Override
                     public void onSuccess(DataWrapper response) {
+                        headerView.setVisibility(View.VISIBLE);
                         List<BannerData> dataList = response.getDataBeanList();
                         BannerData bannerData = new BannerData();
                         bannerData.setDrawable(R.drawable.bg_card0);
@@ -165,6 +167,7 @@ public class HomeFragment extends BaseFragment {
         mViewPagerHorizontal
                 .setAutoPlay(true)
                 .setScrollDuration(600)
+                .setIndicatorStyle(IndicatorStyle.CIRCLE)
                 .setIndicatorSlideMode(IndicatorSlideMode.WORM)
                 .setInterval(3000)
                 .setIndicatorGravity(IndicatorGravity.END)
@@ -186,6 +189,7 @@ public class HomeFragment extends BaseFragment {
                 .setAutoPlay(true)
                 .setScrollDuration(500)
                 .setIndicatorStyle(IndicatorStyle.ROUND_RECT)
+                .setIndicatorSlideMode(IndicatorSlideMode.SCALE)
                 .setIndicatorSliderGap(getResources().getDimensionPixelOffset(R.dimen.dp_4))
                 .setIndicatorSliderWidth(getResources().getDimensionPixelOffset(R.dimen.dp_4), getResources().getDimensionPixelOffset(R.dimen.dp_10))
                 .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
@@ -200,7 +204,7 @@ public class HomeFragment extends BaseFragment {
     }
 
     private View getHeaderView() {
-        View headerView = LayoutInflater.from(getMContext()).inflate(R.layout.item_header_view, recyclerView, false);
+        headerView = LayoutInflater.from(getMContext()).inflate(R.layout.item_header_view, recyclerView, false);
         mRlIndicator = headerView.findViewById(R.id.layout_indicator);
         mViewPagerHorizontal = headerView.findViewById(R.id.banner_view);
         mViewPagerVertical = headerView.findViewById(R.id.banner_view2);

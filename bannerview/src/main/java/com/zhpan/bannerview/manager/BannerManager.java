@@ -20,7 +20,7 @@ public class BannerManager {
         mAttributeController = new AttributeController(mBannerOptions);
     }
 
-    public BannerOptions bannerOptions() {
+    public BannerOptions getBannerOptions() {
         if (mBannerOptions == null) {
             mBannerOptions = new BannerOptions();
         }

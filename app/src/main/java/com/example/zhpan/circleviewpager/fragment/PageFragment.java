@@ -60,7 +60,7 @@ public class PageFragment extends BaseFragment {
         mRadioGroupPageStyle = view.findViewById(R.id.rg_page_style);
         radioButton = view.findViewById(R.id.rb_multi_page);
         mViewPager
-                .setIndicatorSlideMode(IndicatorSlideMode.NORMAL)
+                .setIndicatorSlideMode(IndicatorSlideMode.SCALE)
                 .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
                 .setIndicatorSliderRadius(getResources().getDimensionPixelOffset(R.dimen.dp_4), getResources().getDimensionPixelOffset(R.dimen.dp_5))
                 .setOnPageClickListener(position -> ToastUtils.show("position:" + position))

@@ -66,6 +66,7 @@ public class IndicatorFragment extends BaseFragment {
         mRadioGroupMode = view.findViewById(R.id.rg_slide_mode);
         mViewPager = view.findViewById(R.id.banner_view);
         mViewPager.setIndicatorSliderGap(BannerUtils.dp2px(6))
+                .setScrollDuration(800)
                 .setAdapter(new ImageResourceAdapter(0))
                 .setRoundCorner(BannerUtils.dp2px(6));
         initRadioGroup();
@@ -86,6 +87,12 @@ public class IndicatorFragment extends BaseFragment {
                 case R.id.rb_smooth:
                     mSlideMode = IndicatorSlideMode.SMOOTH;
                     break;
+                case R.id.rb_color:
+                    mSlideMode = IndicatorSlideMode.COLOR;
+                    break;
+                case R.id.rb_scale:
+                    mSlideMode = IndicatorSlideMode.SCALE;
+                    break;
             }
             checkedChange(mCheckId);
         });
@@ -102,21 +109,7 @@ public class IndicatorFragment extends BaseFragment {
             case R.id.rb_round_rect:
                 setupRoundRectIndicator();
                 break;
-            case R.id.rb_tmall:
-                setupTMallIndicator();
-                break;
         }
-    }
-
-    private void setupTMallIndicator() {
-        mViewPager
-                .setIndicatorStyle(IndicatorStyle.DASH)
-                .setIndicatorSliderGap(0)
-                .setIndicatorSlideMode(mSlideMode)
-                .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
-                .setIndicatorSliderWidth(getResources().getDimensionPixelOffset(R.dimen.dp_15))
-                .setIndicatorHeight(getResources().getDimensionPixelOffset(R.dimen.dp_3))
-                .create(getPicList(4));
     }
 
     private void setupRoundRectIndicator() {
@@ -133,14 +126,23 @@ public class IndicatorFragment extends BaseFragment {
     }
 
     private void setupCircleIndicator() {
+        int checkedWidth;
+        int normalWidth;
+        if (mSlideMode == IndicatorSlideMode.SCALE) {
+            checkedWidth = getResources().getDimensionPixelOffset(R.dimen.dp_5);
+            normalWidth = getResources().getDimensionPixelOffset(R.dimen.dp_3);
+        } else {
+            checkedWidth = getResources().getDimensionPixelOffset(R.dimen.dp_4);
+            normalWidth = checkedWidth;
+        }
+
         mViewPager.setIndicatorStyle(IndicatorStyle.CIRCLE)
                 .setIndicatorSlideMode(mSlideMode)
                 .setIndicatorGravity(IndicatorGravity.CENTER)
                 .setIndicatorSliderGap(getResources().getDimensionPixelOffset(R.dimen.dp_6))
-                .setIndicatorHeight(getResources().getDimensionPixelOffset(R.dimen.dp_4))
+                .setIndicatorSliderRadius(normalWidth, checkedWidth)
                 .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
-                .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
-                .setIndicatorSliderRadius(getResources().getDimensionPixelOffset(R.dimen.dp_4)).create(getPicList(4));
+                .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color)).create(getPicList(4));
     }
 
     private void setupDashIndicator() {
@@ -157,7 +159,8 @@ public class IndicatorFragment extends BaseFragment {
     }
 
     private int getNormalWidth() {
-        if (mSlideMode == IndicatorSlideMode.SMOOTH || mSlideMode == IndicatorSlideMode.WORM) {
+        if (mSlideMode == IndicatorSlideMode.SMOOTH || mSlideMode == IndicatorSlideMode.WORM
+                || mSlideMode == IndicatorSlideMode.COLOR) {
             return getResources().getDimensionPixelOffset(R.dimen.dp_10);
         } else {
             return getResources().getDimensionPixelOffset(R.dimen.dp_4);

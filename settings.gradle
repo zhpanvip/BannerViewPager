@@ -1,1 +1,3 @@
 include ':app', ':bannerview', ':ideahttp'
+//include "indicator"
+//project(':indicator').projectDir = file('../viewpagerindicator/indicator')

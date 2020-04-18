@@ -117,7 +117,7 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
                 .setIndicatorSlideMode(IndicatorSlideMode.NORMAL)
                 .setIndicatorVisibility(View.VISIBLE)
                 .setIndicatorGravity(IndicatorGravity.CENTER)
-                .create(getPicList(4));
+                .create(getMDrawableList());
     }
 
     private IIndicator getDrawableIndicator() {

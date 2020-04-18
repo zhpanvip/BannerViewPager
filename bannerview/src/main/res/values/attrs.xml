@@ -6,14 +6,12 @@
         <attr name="bvp_scroll_duration" format="integer" />
         <attr name="bvp_can_loop" format="boolean" />
         <attr name="bvp_auto_play" format="boolean" />
-        <!--<attr name="indicator_gravity" format="integer"/>-->
         <attr name="bvp_indicator_checked_color" format="color" />
         <attr name="bvp_indicator_normal_color" format="color" />
         <attr name="bvp_indicator_radius" format="dimension" />
         <attr name="bvp_round_corner" format="dimension" />
         <attr name="bvp_page_margin" format="dimension" />
         <attr name="bvp_reveal_width" format="dimension" />
-
         <attr name="bvp_indicator_style" format="enum">
             <enum name="circle" value="0" />
             <enum name="dash" value="2" />
@@ -23,6 +21,8 @@
             <enum name="normal" value="0" />
             <enum name="smooth" value="2" />
             <enum name="worm" value="3" />
+            <enum name="scale" value="4" />
+            <enum name="color" value="5" />
         </attr>
         <attr name="bvp_indicator_gravity" format="enum">
             <enum name="center" value="0" />
@@ -35,7 +35,6 @@
             <enum name="multi_page_overlap" value="4" />
             <enum name="multi_page_scale" value="8" />
         </attr>
-
         <attr name="bvp_indicator_visibility" format="enum">
             <enum name="visible" value="0" />
             <enum name="invisible" value="4" />
