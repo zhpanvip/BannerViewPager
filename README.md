@@ -5,7 +5,7 @@
 [ ![JCenter](https://api.bintray.com/packages/zhpanvip/CircleViewPager/bannerview/images/download.svg) ](https://bintray.com/zhpanvip/CircleViewPager/bannerview/_latestVersion)
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-BannerViewPager-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/7961)
 
-## English | [中文](https://github.com/zhpanvip/BannerViewPager/blob/master/README_CN.md)
+## English | [中文](https://github.com/zhpanvip/BannerViewPager/blob/v_2.x/README_CN.md)
 
 > Tencent Video,QQ Music,KuGou,AliPay,Tmall,TaoBao,YouKu,Himalaya,NetEase Music,Bilibili ect. All of above App's Banner can be implements By BannerViewPager.
 
