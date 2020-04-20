@@ -242,10 +242,11 @@ public class HomeAdapter extends BaseBannerAdapter<BannerData, NetViewHolder> {
 
 ### 5.BannerViewPager参数配置
 
+#### Java code
 ```
     private BannerViewPager<CustomBean, NetViewHolder> mViewPager;
     ...
-	private void initViewPager() {
+	private void setupViewPager() {
              mViewPager = findViewById(R.id.banner_view);
              mViewPager
                        .setAutoPlay(true)
@@ -266,6 +267,34 @@ public class HomeAdapter extends BaseBannerAdapter<BannerData, NetViewHolder> {
                            }
                        }).create(getPicList(4));
         }
+```
+
+#### Kotlin Code
+
+```
+    private lateinit var mViewPager: BannerViewPager<CustomBean, NetViewHolder>
+    ...
+
+    private fun setupViewPager() {
+            mViewPager = findViewById(R.id.banner_view)
+            mViewPager.apply {
+                adapter = HomeAdapter()
+                setAutoPlay(true)
+                setIndicatorStyle(IndicatorStyle.ROUND_RECT)
+                setIndicatorSliderGap(getResources().getDimensionPixelOffset(R.dimen.dp_4))
+                setIndicatorMargin(0, 0, 0, resources.getDimension(R.dimen.dp_100).toInt())
+                setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
+                setIndicatorSliderRadius(resources.getDimension(R.dimen.dp_3).toInt(), resources.getDimension(R.dimen.dp_4_5).toInt())
+                setIndicatorSliderColor(ContextCompat.getColor(this@WelcomeActivity, R.color.white),
+                        ContextCompat.getColor(this@WelcomeActivity, R.color.white_alpha_75))
+                registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                    override fun onPageSelected(position: Int) {
+                        BannerUtils.log("position:$position")
+                    }
+                })
+            }.create(data)
+        }
+
 ```
 ### 6.开启与停止轮播
 

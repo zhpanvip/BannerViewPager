@@ -243,10 +243,11 @@ public class HomeAdapter extends BaseBannerAdapter<BannerData, NetViewHolder> {
 
 ### 5.Use in Activity or Fragment:
 
+ #### Java code
 ```
-    private BannerViewPager<CustomBean, NetViewHolder> mBannerViewPager;
+    private BannerViewPager<CustomBean, NetViewHolder> mViewPager;
     ...
-	private void initViewPager() {
+	private void setupViewPager() {
              mBannerViewPager = findViewById(R.id.banner_view);
              mViewPager
                       .setAutoPlay(true)
@@ -261,13 +262,39 @@ public class HomeAdapter extends BaseBannerAdapter<BannerData, NetViewHolder> {
                       .registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
                           @Override
                           public void onPageSelected(int position) {
-                              super.onPageSelected(position);
-                              BannerData bannerData = mViewPagerHorizontal.getData().get(position);
-                              mTvTitle.setText(bannerData.getTitle());
+                              BannerUtils.log("position:$position");
                           }
                       }).create(getPicList(4));
         }
 ```
+#### Kotlin Code
+
+```
+    private lateinit var mViewPager: BannerViewPager<CustomBean, NetViewHolder>
+    ...
+
+    private fun setupViewPager() {
+            mViewPager = findViewById(R.id.banner_view)
+            mViewPager.apply {
+                adapter = HomeAdapter()
+                setAutoPlay(true)
+                setIndicatorStyle(IndicatorStyle.ROUND_RECT)
+                setIndicatorSliderGap(getResources().getDimensionPixelOffset(R.dimen.dp_4))
+                setIndicatorMargin(0, 0, 0, resources.getDimension(R.dimen.dp_100).toInt())
+                setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
+                setIndicatorSliderRadius(resources.getDimension(R.dimen.dp_3).toInt(), resources.getDimension(R.dimen.dp_4_5).toInt())
+                setIndicatorSliderColor(ContextCompat.getColor(this@WelcomeActivity, R.color.white),
+                        ContextCompat.getColor(this@WelcomeActivity, R.color.white_alpha_75))
+                registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                                     override fun onPageSelected(position: Int) {
+                                         BannerUtils.log("position:$position")
+                                     }
+                                 })
+            }.create(data)
+        }
+
+```
+
 ### 6.startLoop and stopLoop
 
 ***If the version you used is later than 2.5.0,you don't need care of startLoop and stopLoop in Activity or Fragment. But the two methods is still public.***

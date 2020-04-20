@@ -19,10 +19,12 @@ class PhotoViewActivity : BaseDataActivity() {
 
     private fun initViewPager() {
         val bannerViewPager = findViewById<BannerViewPager<Int, PhotoViewHolder>>(R.id.viewpager)
-        bannerViewPager.setAutoPlay(false)
-                .setCanLoop(false)
-                .setAdapter(PhotoAdapter())
-                .create(mDrawableList)
-        bannerViewPager.setCurrentItem(1,false);
+
+        bannerViewPager.apply {
+            adapter = PhotoAdapter()
+            setCanLoop(false)
+        }.create(mDrawableList)
+
+        bannerViewPager.setCurrentItem(1, false)
     }
 }
