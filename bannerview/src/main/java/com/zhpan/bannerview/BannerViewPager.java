@@ -705,6 +705,7 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
 
     /**
      * Create BannerViewPager with data.
+     * If data has fetched while you setup BannerViewPager,you can call this method.
      */
     public void create(List<T> data) {
         if (mBannerPagerAdapter == null) {
@@ -716,6 +717,8 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
 
     /**
      * Create BannerViewPager with no data
+     * If there is no data while you setup BannerViewPager(for example,The data is from remote server)，you can call this method.
+     * Then,while you fetch data successfully,just need call {@link #refreshData(List)} method to refresh.
      */
     public void create() {
         create(new ArrayList<T>());
@@ -814,7 +817,7 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
     }
 
     /**
-     * 建议使用默认的offScreenPageLimit
+     * Suggest to use default offScreenPageLimit.
      */
     public BannerViewPager<T, VH> setOffScreenPageLimit(int offScreenPageLimit) {
         mBannerManager.getBannerOptions().setOffScreenPageLimit(offScreenPageLimit);
@@ -827,6 +830,9 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
         return this;
     }
 
+    /**
+     * Enable or disable user initiated scrolling
+     */
     public BannerViewPager<T, VH> setUserInputEnabled(boolean userInputEnabled) {
         mBannerManager.getBannerOptions().setUserInputEnabled(userInputEnabled);
         return this;
