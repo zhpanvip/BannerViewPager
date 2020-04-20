@@ -272,10 +272,10 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
 
     private void setIndicatorValues(List<T> list) {
         int indicatorVisibility = mBannerManager.getBannerOptions().getIndicatorVisibility();
-        mIndicatorLayout.setVisibility(indicatorVisibility);
         if (indicatorVisibility == View.GONE || indicatorVisibility == View.INVISIBLE) {
             return;
         }
+        mIndicatorLayout.setVisibility(indicatorVisibility);
         BannerOptions bannerOptions = mBannerManager.getBannerOptions();
         bannerOptions.resetIndicatorOptions();
         if (isCustomIndicator && null != mIndicatorView) {
@@ -704,7 +704,7 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
 
     /**
      * Create BannerViewPager with data.
-     * If data has fetched while you setup BannerViewPager,you can call this method.
+     * If data has fetched when create BannerViewPager,you can call this method.
      */
     public void create(List<T> data) {
         if (mBannerPagerAdapter == null) {
@@ -716,7 +716,7 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
 
     /**
      * Create BannerViewPager with no data
-     * If there is no data while you setup BannerViewPager(for example,The data is from remote server)，you can call this method.
+     * If there is no data while you create BannerViewPager(for example,The data is from remote server)，you can call this method.
      * Then,while you fetch data successfully,just need call {@link #refreshData(List)} method to refresh.
      */
     public void create() {
@@ -741,10 +741,8 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
      */
     public void refreshData(List<T> list) {
         if (list != null && mBannerPagerAdapter != null) {
-            stopLoop();
             mBannerPagerAdapter.setData(list);
             mBannerPagerAdapter.notifyDataSetChanged();
-            startLoop();
             setCurrentItem(getCurrentItem(), false);
             if (mIndicatorView != null) {
                 IndicatorOptions indicatorOptions = mBannerManager.getBannerOptions().getIndicatorOptions();
@@ -752,6 +750,7 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
                 indicatorOptions.setCurrentPosition(BannerUtils.getRealPosition(isCanLoop(), mViewPager.getCurrentItem(), list.size()));
                 mIndicatorView.notifyDataChanged();
             }
+            startLoop();
         }
     }
 

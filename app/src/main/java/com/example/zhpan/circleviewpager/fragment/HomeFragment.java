@@ -93,7 +93,7 @@ public class HomeFragment extends BaseFragment {
         initRecyclerView(view);
         initRefreshLayout(view);
         initBanner();
-        fetchData(true, false);
+        fetchData(true);
     }
 
     public static HomeFragment getInstance() {
@@ -114,10 +114,10 @@ public class HomeFragment extends BaseFragment {
     private void initRefreshLayout(View view) {
         mSmartRefreshLayout = view.findViewById(R.id.refresh_layout);
         mSmartRefreshLayout.setRefreshHeader(new MaterialHeader(getMContext()));
-        mSmartRefreshLayout.setOnRefreshListener(refreshLayout -> fetchData(false, true));
+        mSmartRefreshLayout.setOnRefreshListener(refreshLayout -> fetchData(false));
     }
 
-    private void fetchData(boolean showLoading, boolean isRefresh) {
+    private void fetchData(boolean showLoading) {
         Observable.zip(getBannerObserver(), getArticleObserver(), (bannerData, articles) ->
                 new DataWrapper(articles.getDatas(), bannerData))
                 .compose(RxUtil.rxSchedulerHelper(this, showLoading))
