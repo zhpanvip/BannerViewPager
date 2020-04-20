@@ -139,7 +139,6 @@ public class HomeFragment extends BaseFragment {
                         articleList.add(4, article);
                         articleAdapter.setData(articleList);
                         if (response.getDataBeanList().size() > 0) {
-                            mTvTitle.setText(response.getDataBeanList().get(0).getTitle());
                             mRlIndicator.setVisibility(View.VISIBLE);
                         }
                     }

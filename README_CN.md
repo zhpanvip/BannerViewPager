@@ -26,6 +26,8 @@
 - 移除setPageTransformerStyle
 - 移除部分2.x版本已废弃的方法
 - 不再支持android support.
+- 新增Indicator SCALE与COLOR滑动样式（V3.1.0）
+- 支持刷新通过refreshData()方法刷新数据（V3.1.0）
 
 ## 效果预览
 

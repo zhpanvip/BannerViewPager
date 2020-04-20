@@ -7,11 +7,15 @@ import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import androidx.annotation.NonNull;
+
 import com.example.zhpan.circleviewpager.R;
 import com.example.zhpan.circleviewpager.activity.PhotoViewActivity;
 import com.example.zhpan.circleviewpager.adapter.ImageResourceAdapter;
 import com.example.zhpan.circleviewpager.view.FigureIndicatorView;
 import com.example.zhpan.circleviewpager.viewholder.ImageResourceViewHolder;
+import com.scwang.smartrefresh.header.MaterialHeader;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.zhpan.bannerview.BannerViewPager;
 import com.zhpan.bannerview.constants.IndicatorGravity;
 import com.zhpan.bannerview.utils.BannerUtils;
@@ -34,6 +38,7 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
     private RadioGroup radioGroupStyle;
     private RadioButton radioButton;
     private IndicatorView mIndicatorView;
+    private SmartRefreshLayout mSmartRefreshLayout;
 
     public static OthersFragment getInstance() {
         return new OthersFragment();
@@ -47,6 +52,15 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
     @Override
     protected void initTitle() {
 
+    }
+
+    private void initRefreshLayout(View view) {
+        mSmartRefreshLayout = view.findViewById(R.id.refresh_layout);
+        mSmartRefreshLayout.setRefreshHeader(new MaterialHeader(getMContext()));
+        mSmartRefreshLayout.setOnRefreshListener(refreshLayout -> {
+            updateData();
+            mSmartRefreshLayout.finishRefresh();
+        });
     }
 
     @Override
@@ -66,13 +80,13 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
     }
 
     @Override
-    protected void initView(Bundle savedInstanceState, View view) {
+    protected void initView(Bundle savedInstanceState, @NonNull View view) {
+        initRefreshLayout(view);
         radioButton = view.findViewById(R.id.rb_indicator_below);
         radioGroupStyle = view.findViewById(R.id.rg_indicator_style);
         mViewPager = view.findViewById(R.id.banner_view);
         mIndicatorView = view.findViewById(R.id.indicator_view);
         view.findViewById(R.id.tv_photo_view).setOnClickListener(this);
-        view.findViewById(R.id.btn_refresh).setOnClickListener(v -> updateData());
         mViewPager.setIndicatorSliderGap(BannerUtils.dp2px(6))
                 .setRoundCorner(BannerUtils.dp2px(6))
                 .setOnPageClickListener(position -> {

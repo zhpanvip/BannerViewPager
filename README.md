@@ -24,6 +24,9 @@
 - setUserInputEnabled replaces disableTouchScroll
 - remove setPageTransformerStyle
 - remvoe some deprecate methods in 2.x
+- no longer support Android support library
+- SCALE slide mode and COLOR slide mode supported(V3.1.0)
+- refreshData() supported (V3.1.0)
 
 ## Preview
 
