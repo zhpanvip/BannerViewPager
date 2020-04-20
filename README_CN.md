@@ -121,8 +121,8 @@ BannerViewPager目前已支持三种IndicatorViewStyle,以及三种IndicatorSlid
 | bvp_round_corner| dimension  | Banner圆角大小 |
 | bvp_page_margin | dimension | 页面item间距 |
 | bvp_reveal_width | dimension | 一屏多页模式下两边item漏出的宽度 |
-| bvp_indicator_style | enum | indicator样式(circle/dash)  |
-| bvp_indicator_slide_mode | enum | indicator滑动模式(normal;smooth;worm) |
+| bvp_indicator_style | enum | indicator样式(circle/dash/round_rect)  |
+| bvp_indicator_slide_mode | enum | indicator滑动模式(normal;smooth;worm;color;scale) |
 | bvp_indicator_gravity | enum | indicator位置(center/start/end) |
 | bvp_page_style | enum | page样式(normal/multi_page/multi_page_overlap/multi_page_scale) |
 | bvp_indicator_visibility| enum | indicator visibility(visible/gone/invisible) |

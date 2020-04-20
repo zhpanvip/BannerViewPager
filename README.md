@@ -122,7 +122,7 @@ It's also support to custom indicator style,just need extends BaseIndicatorView 
 | bvp_round_corner| dimension  | set round corner for BVP |
 | bvp_page_margin | dimension | set item margin |
 | bvp_reveal_width | dimension | it's only used when the page style is MULTI_PAGE/MULTI_PAGE_SCALE/MULTI_PAGE_OVERLAP,the value is two side item reveal width  |
-| bvp_indicator_style | enum | indicator样式(circle/dash)  |
+| bvp_indicator_style | enum | indicator样式(circle/dash/round_rect)  |
 | bvp_indicator_slide_mode | enum | indicator slide mode(normal;smooth;worm;color;scale) |
 | bvp_indicator_gravity | enum | indicator位置(center/start/end) |
 | bvp_page_style | enum | page style(normal/multi_page/multi_page_overlap/multi_page_scale) |
