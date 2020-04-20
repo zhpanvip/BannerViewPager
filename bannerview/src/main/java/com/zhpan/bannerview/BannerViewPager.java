@@ -741,6 +741,7 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
      */
     public void refreshData(List<T> list) {
         if (list != null && mBannerPagerAdapter != null) {
+            stopLoop();
             mBannerPagerAdapter.setData(list);
             mBannerPagerAdapter.notifyDataSetChanged();
             startLoop();
