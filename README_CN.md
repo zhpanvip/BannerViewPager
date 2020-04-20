@@ -5,6 +5,7 @@
 [![JitPack](https://jitpack.io/v/zhpanvip/BannerViewPager.svg)](https://jitpack.io/#zhpanvip/BannerViewPager)
 [ ![JCenter](https://api.bintray.com/packages/zhpanvip/CircleViewPager/bannerview/images/download.svg) ](https://bintray.com/zhpanvip/CircleViewPager/bannerview/_latestVersion)
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-BannerViewPager-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/7961)
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-ViewPagerIndicator-brightgreen.svg?style=flat)](https://github.com/zhpanvip/viewpagerindicator)
 
 ## [English](https://github.com/zhpanvip/BannerViewPager) | 中文
 
@@ -25,6 +26,8 @@
 - 移除setPageTransformerStyle
 - 移除部分2.x版本已废弃的方法
 - 不再支持android support.
+- 新增Indicator SCALE与COLOR滑动样式（V3.1.0）
+- 支持刷新通过refreshData()方法刷新数据（V3.1.0）
 
 ## 效果预览
 
@@ -41,7 +44,7 @@
 |--|--|--|
 | ![MULTI_PAGE](https://github.com/zhpanvip/Resource/blob/master/image/banner/page_style_multi.gif) |![MULTI_PAGE](https://github.com/zhpanvip/Resource/blob/master/image/banner/page_style_multi_scale.gif) |![MULTI_PAGE](https://github.com/zhpanvip/Resource/blob/master/image/banner/page_style_multi_overlay.gif) |
 
-### 2.Indicator 
+### 2.[Indicator](https://github.com/zhpanvip/viewpagerindicator)
 
 目前指示器已经从BannerViewPager中分离出来，现在单独为一个仓库，新的仓库地址为[ViewPagerIndicator](https://github.com/zhpanvip/viewpagerindicator)，你可以点击连接了解更多关于[ViewPagerIndicator](https://github.com/zhpanvip/viewpagerindicator)的信息。
 
@@ -83,7 +86,7 @@ BannerViewPager目前已支持三种IndicatorViewStyle,以及三种IndicatorSlid
 | BannerViewPager<T, VH> setIndicatorStyle(int) | 设置指示器样式 | 可选枚举(CIRCLE, DASH、ROUND_RECT) 默认CIRCLE  |
 | BannerViewPager<T, VH> setIndicatorGravity(int) | 指示器位置 |可选值(CENTER、START、END)默认值CENTER |
 | BannerViewPager<T, VH> setIndicatorColor(int,int) | 指示器圆点颜色 |normalColor：未选中时颜色默认"#8C6C6D72"， checkedColor：选中时颜色 默认"#8C18171C" |
-| BannerViewPager<T, VH> setIndicatorSlideMode(int slideMode)  | 设置Indicator滑动模式 | 可选（NORMAL、SMOOTH、WORM），默认值NORMAL  |
+| BannerViewPager<T, VH> setIndicatorSlideMode(int slideMode)  | 设置Indicator滑动模式 | 可选（NORMAL、SMOOTH、WORM、COLOR、SCALE），默认值NORMAL  |
 | BannerViewPager<T, VH> setIndicatorSliderRadius(int radius) | 设置指示器圆点半径 | 默认值4dp|
 | BannerViewPager<T, VH> setIndicatorSliderRadius(int normalRadius,int checkRadius)  |设置指示器圆点半径  |  normalRadius:未选中时半径  checkedRadius:选中时的半径,默认值4dp |
 | BannerViewPager<T, VH> setIndicatorSliderWidth(int) | 设置指示器宽度，如果是圆形指示器，则为直径 |  默认值8dp|
@@ -106,8 +109,8 @@ BannerViewPager目前已支持三种IndicatorViewStyle,以及三种IndicatorSlid
 | void startLoop() |开启自动轮播 | 初始化BannerViewPager时不必调用该方法,设置setAutoPlay后会调用startLoop() |
 | void stopLoop() | 停止自动轮播 | |
 | List\<T> getData() | 获取Banner中的集合数据 |  |
-| void create(List<T> list) |初始化并构造BannerViewPager  |必须调用，否则前面设置的参数无效  |
-
+| void create(List<T> list) |初始化并构造BannerViewPager  |如果创建BannerViewPager时已经有数据可以调用此方法  |
+| void create() |创建没有数据的BannerViewPager  | 如果创建BannerViewPager时还没有数据，比如数据是来自服务器，可以调用此方法，等到成功获取数据后调用refreshData()刷新数据  |
 ### xml支持的attrs
 | Attributes | format | description |
 |--|--|--|
@@ -121,8 +124,8 @@ BannerViewPager目前已支持三种IndicatorViewStyle,以及三种IndicatorSlid
 | bvp_round_corner| dimension  | Banner圆角大小 |
 | bvp_page_margin | dimension | 页面item间距 |
 | bvp_reveal_width | dimension | 一屏多页模式下两边item漏出的宽度 |
-| bvp_indicator_style | enum | indicator样式(circle/dash)  |
-| bvp_indicator_slide_mode | enum | indicator滑动模式(normal;smooth;worm) |
+| bvp_indicator_style | enum | indicator样式(circle/dash/round_rect)  |
+| bvp_indicator_slide_mode | enum | indicator滑动模式(normal;smooth;worm;color;scale) |
 | bvp_indicator_gravity | enum | indicator位置(center/start/end) |
 | bvp_page_style | enum | page样式(normal/multi_page/multi_page_overlap/multi_page_scale) |
 | bvp_indicator_visibility| enum | indicator visibility(visible/gone/invisible) |
@@ -242,10 +245,11 @@ public class HomeAdapter extends BaseBannerAdapter<BannerData, NetViewHolder> {
 
 ### 5.BannerViewPager参数配置
 
+#### Java code
 ```
     private BannerViewPager<CustomBean, NetViewHolder> mViewPager;
     ...
-	private void initViewPager() {
+	private void setupViewPager() {
              mViewPager = findViewById(R.id.banner_view);
              mViewPager
                        .setAutoPlay(true)
@@ -267,6 +271,69 @@ public class HomeAdapter extends BaseBannerAdapter<BannerData, NetViewHolder> {
                        }).create(getPicList(4));
         }
 ```
+
+#### Kotlin Code
+
+```
+    private lateinit var mViewPager: BannerViewPager<CustomBean, NetViewHolder>
+    ...
+
+    private fun setupViewPager() {
+            mViewPager = findViewById(R.id.banner_view)
+            mViewPager.apply {
+                adapter = HomeAdapter()
+                setAutoPlay(true)
+                setIndicatorStyle(IndicatorStyle.ROUND_RECT)
+                setIndicatorSliderGap(getResources().getDimensionPixelOffset(R.dimen.dp_4))
+                setIndicatorMargin(0, 0, 0, resources.getDimension(R.dimen.dp_100).toInt())
+                setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
+                setIndicatorSliderRadius(resources.getDimension(R.dimen.dp_3).toInt(), resources.getDimension(R.dimen.dp_4_5).toInt())
+                setIndicatorSliderColor(ContextCompat.getColor(this@WelcomeActivity, R.color.white),
+                        ContextCompat.getColor(this@WelcomeActivity, R.color.white_alpha_75))
+                registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                    override fun onPageSelected(position: Int) {
+                        BannerUtils.log("position:$position")
+                    }
+                })
+            }.create(data)
+        }
+
+```
+
+如果在创建BannerViewPager时不能拿到数据(例如数据是来自远程服务器),则可以调用不带参数的create()方法。代码如下：
+
+```
+    private lateinit var mViewPager: BannerViewPager<CustomBean, NetViewHolder>
+    ...
+
+    private fun setupViewPager() {
+            mViewPager = findViewById(R.id.banner_view)
+            mViewPager.apply {
+                adapter = HomeAdapter()
+                setAutoPlay(true)
+                setIndicatorStyle(IndicatorStyle.ROUND_RECT)
+                setIndicatorSliderGap(getResources().getDimensionPixelOffset(R.dimen.dp_4))
+                setIndicatorMargin(0, 0, 0, resources.getDimension(R.dimen.dp_100).toInt())
+                setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
+                setIndicatorSliderRadius(resources.getDimension(R.dimen.dp_3).toInt(), resources.getDimension(R.dimen.dp_4_5).toInt())
+                setIndicatorSliderColor(ContextCompat.getColor(this@WelcomeActivity, R.color.white),
+                        ContextCompat.getColor(this@WelcomeActivity, R.color.white_alpha_75))
+                registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                    override fun onPageSelected(position: Int) {
+                        BannerUtils.log("position:$position")
+                    }
+                })
+            }.create()
+        }
+
+```
+
+当成功拿到数据后再调用refreshData()方法刷新数据：
+
+```
+    mViewPager.refreshData(data)
+```
+
 ### 6.开启与停止轮播
 
 ***2.5.0之后版本无需自行在Activity或Fragment中管理stopLoop和startLoop方法，但这两个方法依旧保留对外开放***

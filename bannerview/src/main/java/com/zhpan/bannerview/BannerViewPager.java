@@ -32,7 +32,9 @@ import com.zhpan.indicator.IndicatorView;
 import com.zhpan.indicator.annotation.AIndicatorSlideMode;
 import com.zhpan.indicator.annotation.AIndicatorStyle;
 import com.zhpan.indicator.base.IIndicator;
+import com.zhpan.indicator.option.IndicatorOptions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.zhpan.bannerview.BaseBannerAdapter.MAX_VALUE;
@@ -185,7 +187,7 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        if (!mViewPager.isUserInputEnabled()) {
+        if (!mViewPager.isUserInputEnabled() || mBannerPagerAdapter.getData().size() <= 1) {
             return super.onInterceptTouchEvent(ev);
         }
         switch (ev.getAction()) {
@@ -254,8 +256,7 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
 
     private void handlePosition() {
         if (mBannerPagerAdapter.getListSize() > 1) {
-            currentPosition = mViewPager.getCurrentItem() + 1;
-            mViewPager.setCurrentItem(currentPosition);
+            mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
             mHandler.postDelayed(mRunnable, getInterval());
         }
     }
@@ -270,6 +271,11 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
     }
 
     private void setIndicatorValues(List<T> list) {
+        int indicatorVisibility = mBannerManager.getBannerOptions().getIndicatorVisibility();
+        if (indicatorVisibility == View.GONE || indicatorVisibility == View.INVISIBLE) {
+            return;
+        }
+        mIndicatorLayout.setVisibility(indicatorVisibility);
         BannerOptions bannerOptions = mBannerManager.getBannerOptions();
         bannerOptions.resetIndicatorOptions();
         if (isCustomIndicator && null != mIndicatorView) {
@@ -283,7 +289,6 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
     }
 
     private void initIndicator(IIndicator indicatorView) {
-        mIndicatorLayout.setVisibility(mBannerManager.getBannerOptions().getIndicatorVisibility());
         mIndicatorView = indicatorView;
         if (((View) mIndicatorView).getParent() == null) {
             mIndicatorLayout.removeAllViews();
@@ -697,12 +702,25 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
         return this;
     }
 
+    /**
+     * Create BannerViewPager with data.
+     * If data has fetched when create BannerViewPager,you can call this method.
+     */
     public void create(List<T> data) {
         if (mBannerPagerAdapter == null) {
             throw new NullPointerException("You must set adapter for BannerViewPager");
         }
         mBannerPagerAdapter.setData(data);
         initBannerData();
+    }
+
+    /**
+     * Create BannerViewPager with no data
+     * If there is no data while you create BannerViewPager(for example,The data is from remote server)，you can call this method.
+     * Then,while you fetch data successfully,just need call {@link #refreshData(List)} method to refresh.
+     */
+    public void create() {
+        create(new ArrayList<T>());
     }
 
     /**
@@ -716,10 +734,23 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
         return this;
     }
 
-    public void setData(List<T> list) {
+    /**
+     * Refresh data.
+     * Confirm the {@link #create()} or {@link #create(List)} method has been called,
+     * else the data won't be shown.
+     */
+    public void refreshData(List<T> list) {
         if (list != null && mBannerPagerAdapter != null) {
             mBannerPagerAdapter.setData(list);
-            initBannerData();
+            mBannerPagerAdapter.notifyDataSetChanged();
+            setCurrentItem(getCurrentItem(), false);
+            if (mIndicatorView != null) {
+                IndicatorOptions indicatorOptions = mBannerManager.getBannerOptions().getIndicatorOptions();
+                indicatorOptions.setPageSize(list.size());
+                indicatorOptions.setCurrentPosition(BannerUtils.getRealPosition(isCanLoop(), mViewPager.getCurrentItem(), list.size()));
+                mIndicatorView.notifyDataChanged();
+            }
+            startLoop();
         }
     }
 
@@ -786,7 +817,7 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
     }
 
     /**
-     * 建议使用默认的offScreenPageLimit
+     * Suggest to use default offScreenPageLimit.
      */
     public BannerViewPager<T, VH> setOffScreenPageLimit(int offScreenPageLimit) {
         mBannerManager.getBannerOptions().setOffScreenPageLimit(offScreenPageLimit);
@@ -799,6 +830,9 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
         return this;
     }
 
+    /**
+     * Enable or disable user initiated scrolling
+     */
     public BannerViewPager<T, VH> setUserInputEnabled(boolean userInputEnabled) {
         mBannerManager.getBannerOptions().setUserInputEnabled(userInputEnabled);
         return this;

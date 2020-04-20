@@ -74,7 +74,6 @@ public class HomeFragment extends BaseFragment {
         if (mViewPagerVertical != null) {
             mViewPagerVertical.stopLoop();
         }
-
     }
 
     @Override
@@ -132,7 +131,7 @@ public class HomeFragment extends BaseFragment {
                         bannerData.setType(BannerData.TYPE_NEW);
                         bannerData.setTitle("这是一个自定义类型");
                         dataList.add(1, bannerData);
-                        mViewPagerHorizontal.setData(dataList);
+                        mViewPagerHorizontal.refreshData(dataList);
                         List<ArticleWrapper.Article> articleList = response.getArticleList();
                         ArticleWrapper.Article article = new ArticleWrapper.Article();
                         article.setType(1001);
@@ -140,7 +139,6 @@ public class HomeFragment extends BaseFragment {
                         articleList.add(4, article);
                         articleAdapter.setData(articleList);
                         if (response.getDataBeanList().size() > 0) {
-                            mTvTitle.setText(response.getDataBeanList().get(0).getTitle());
                             mRlIndicator.setVisibility(View.VISIBLE);
                         }
                     }
@@ -165,7 +163,6 @@ public class HomeFragment extends BaseFragment {
     private void initBanner() {
         HomeAdapter homeAdapter = new HomeAdapter();
         mViewPagerHorizontal
-                .setAutoPlay(true)
                 .setScrollDuration(600)
                 .setIndicatorStyle(IndicatorStyle.CIRCLE)
                 .setIndicatorSlideMode(IndicatorSlideMode.WORM)
@@ -183,7 +180,7 @@ public class HomeFragment extends BaseFragment {
                         mTvTitle.setText(bannerData.getTitle());
                     }
                 })
-                .setOnPageClickListener(this::onPageClicked);
+                .setOnPageClickListener(this::onPageClicked).create();
 
         mViewPagerVertical
                 .setAutoPlay(true)
