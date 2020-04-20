@@ -703,6 +703,9 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
         return this;
     }
 
+    /**
+     * Create BannerViewPager with data.
+     */
     public void create(List<T> data) {
         if (mBannerPagerAdapter == null) {
             throw new NullPointerException("You must set adapter for BannerViewPager");
@@ -711,12 +714,11 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
         initBannerData();
     }
 
+    /**
+     * Create BannerViewPager with no data
+     */
     public void create() {
-        if (mBannerPagerAdapter == null) {
-            throw new NullPointerException("You must set adapter for BannerViewPager");
-        }
-        mBannerPagerAdapter.setData(new ArrayList<T>());
-        initBannerData();
+        create(new ArrayList<T>());
     }
 
     /**
@@ -730,6 +732,11 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
         return this;
     }
 
+    /**
+     * Refresh data.
+     * Confirm the {@link #create()} or {@link #create(List)} method has been called,
+     * else the data won't be shown.
+     */
     public void refreshData(List<T> list) {
         if (list != null && mBannerPagerAdapter != null) {
             mBannerPagerAdapter.setData(list);

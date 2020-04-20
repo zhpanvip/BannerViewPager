@@ -106,8 +106,8 @@ It's also support to custom indicator style,just need extends BaseIndicatorView 
 | void startLoop() |开启自动轮播 | 初始化BannerViewPager时不必调用该方法,设置setAutoPlay后会调用startLoop() |
 | void stopLoop() | 停止自动轮播 | |
 | List\<T> getData() | 获取Banner中的集合数据 |  |
-| void create(List<T> list) |初始化并构造BannerViewPager  |必须调用，否则前面设置的参数无效  |
-
+| void create(List<T> list) |Create BannerViewPager with data  | If data has fetched while you setup BannerViewPager,you can call this method |
+| void create() |Create BannerViewPager with no data  | If there is no data while you setup BannerViewPager(for example,The data is form remote server)，you can call this method.Then,while you get data successfully,just need call refreData() method to refresh |
 ### Attributes
 
 | Attributes | format | description |
@@ -294,6 +294,41 @@ public class HomeAdapter extends BaseBannerAdapter<BannerData, NetViewHolder> {
         }
 
 ```
+
+If there is no data while you setup BannerViewPager(for example,The data is form remote server)，you can call create() method with no parameters:
+
+```
+    private lateinit var mViewPager: BannerViewPager<CustomBean, NetViewHolder>
+    ...
+
+    private fun setupViewPager() {
+            mViewPager = findViewById(R.id.banner_view)
+            mViewPager.apply {
+                adapter = HomeAdapter()
+                setAutoPlay(true)
+                setIndicatorStyle(IndicatorStyle.ROUND_RECT)
+                setIndicatorSliderGap(getResources().getDimensionPixelOffset(R.dimen.dp_4))
+                setIndicatorMargin(0, 0, 0, resources.getDimension(R.dimen.dp_100).toInt())
+                setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
+                setIndicatorSliderRadius(resources.getDimension(R.dimen.dp_3).toInt(), resources.getDimension(R.dimen.dp_4_5).toInt())
+                setIndicatorSliderColor(ContextCompat.getColor(this@WelcomeActivity, R.color.white),
+                        ContextCompat.getColor(this@WelcomeActivity, R.color.white_alpha_75))
+                registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                                     override fun onPageSelected(position: Int) {
+                                         BannerUtils.log("position:$position")
+                                     }
+                                 })
+            }.create()
+        }
+
+```
+
+Then,while you get data successfully,just need call refreData() method to refresh:
+
+```
+    mViewPager.refreshData(data)
+```
+
 
 ### 6.startLoop and stopLoop
 

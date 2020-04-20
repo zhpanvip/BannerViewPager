@@ -106,8 +106,8 @@ BannerViewPager目前已支持三种IndicatorViewStyle,以及三种IndicatorSlid
 | void startLoop() |开启自动轮播 | 初始化BannerViewPager时不必调用该方法,设置setAutoPlay后会调用startLoop() |
 | void stopLoop() | 停止自动轮播 | |
 | List\<T> getData() | 获取Banner中的集合数据 |  |
-| void create(List<T> list) |初始化并构造BannerViewPager  |必须调用，否则前面设置的参数无效  |
-
+| void create(List<T> list) |初始化并构造BannerViewPager  |如果创建BannerViewPager时已经有数据可以调用此方法  |
+| void create() |创建没有数据的BannerViewPager  | 如果创建BannerViewPager时还没有数据，比如数据是来自服务器，可以调用此方法，等到成功获取数据后调用refreshData()刷新数据  |
 ### xml支持的attrs
 | Attributes | format | description |
 |--|--|--|
@@ -296,6 +296,41 @@ public class HomeAdapter extends BaseBannerAdapter<BannerData, NetViewHolder> {
         }
 
 ```
+
+如果在创建BannerViewPager时不能拿到数据(例如数据是来自远程服务器),则可以调用不带参数的create()方法。代码如下：
+
+```
+    private lateinit var mViewPager: BannerViewPager<CustomBean, NetViewHolder>
+    ...
+
+    private fun setupViewPager() {
+            mViewPager = findViewById(R.id.banner_view)
+            mViewPager.apply {
+                adapter = HomeAdapter()
+                setAutoPlay(true)
+                setIndicatorStyle(IndicatorStyle.ROUND_RECT)
+                setIndicatorSliderGap(getResources().getDimensionPixelOffset(R.dimen.dp_4))
+                setIndicatorMargin(0, 0, 0, resources.getDimension(R.dimen.dp_100).toInt())
+                setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
+                setIndicatorSliderRadius(resources.getDimension(R.dimen.dp_3).toInt(), resources.getDimension(R.dimen.dp_4_5).toInt())
+                setIndicatorSliderColor(ContextCompat.getColor(this@WelcomeActivity, R.color.white),
+                        ContextCompat.getColor(this@WelcomeActivity, R.color.white_alpha_75))
+                registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                    override fun onPageSelected(position: Int) {
+                        BannerUtils.log("position:$position")
+                    }
+                })
+            }.create()
+        }
+
+```
+
+当成功拿到数据后再调用refreshData()方法刷新数据：
+
+```
+    mViewPager.refreshData(data)
+```
+
 ### 6.开启与停止轮播
 
 ***2.5.0之后版本无需自行在Activity或Fragment中管理stopLoop和startLoop方法，但这两个方法依旧保留对外开放***
