@@ -74,7 +74,6 @@ public class HomeFragment extends BaseFragment {
         if (mViewPagerVertical != null) {
             mViewPagerVertical.stopLoop();
         }
-
     }
 
     @Override
@@ -94,7 +93,7 @@ public class HomeFragment extends BaseFragment {
         initRecyclerView(view);
         initRefreshLayout(view);
         initBanner();
-        fetchData(true);
+        fetchData(true, false);
     }
 
     public static HomeFragment getInstance() {
@@ -115,10 +114,10 @@ public class HomeFragment extends BaseFragment {
     private void initRefreshLayout(View view) {
         mSmartRefreshLayout = view.findViewById(R.id.refresh_layout);
         mSmartRefreshLayout.setRefreshHeader(new MaterialHeader(getMContext()));
-        mSmartRefreshLayout.setOnRefreshListener(refreshLayout -> fetchData(false));
+        mSmartRefreshLayout.setOnRefreshListener(refreshLayout -> fetchData(false, true));
     }
 
-    private void fetchData(boolean showLoading) {
+    private void fetchData(boolean showLoading, boolean isRefresh) {
         Observable.zip(getBannerObserver(), getArticleObserver(), (bannerData, articles) ->
                 new DataWrapper(articles.getDatas(), bannerData))
                 .compose(RxUtil.rxSchedulerHelper(this, showLoading))
@@ -132,7 +131,7 @@ public class HomeFragment extends BaseFragment {
                         bannerData.setType(BannerData.TYPE_NEW);
                         bannerData.setTitle("这是一个自定义类型");
                         dataList.add(1, bannerData);
-                        mViewPagerHorizontal.setData(dataList);
+                        mViewPagerHorizontal.refreshData(dataList);
                         List<ArticleWrapper.Article> articleList = response.getArticleList();
                         ArticleWrapper.Article article = new ArticleWrapper.Article();
                         article.setType(1001);
@@ -183,7 +182,7 @@ public class HomeFragment extends BaseFragment {
                         mTvTitle.setText(bannerData.getTitle());
                     }
                 })
-                .setOnPageClickListener(this::onPageClicked);
+                .setOnPageClickListener(this::onPageClicked).create();
 
         mViewPagerVertical
                 .setAutoPlay(true)

@@ -32,7 +32,9 @@ import com.zhpan.indicator.IndicatorView;
 import com.zhpan.indicator.annotation.AIndicatorSlideMode;
 import com.zhpan.indicator.annotation.AIndicatorStyle;
 import com.zhpan.indicator.base.IIndicator;
+import com.zhpan.indicator.option.IndicatorOptions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.zhpan.bannerview.BaseBannerAdapter.MAX_VALUE;
@@ -709,6 +711,14 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
         initBannerData();
     }
 
+    public void create() {
+        if (mBannerPagerAdapter == null) {
+            throw new NullPointerException("You must set adapter for BannerViewPager");
+        }
+        mBannerPagerAdapter.setData(new ArrayList<T>());
+        initBannerData();
+    }
+
     /**
      * Sets the orientation of the ViewPager2.
      *
@@ -720,10 +730,17 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
         return this;
     }
 
-    public void setData(List<T> list) {
+    public void refreshData(List<T> list) {
         if (list != null && mBannerPagerAdapter != null) {
             mBannerPagerAdapter.setData(list);
-            initBannerData();
+            mBannerPagerAdapter.notifyDataSetChanged();
+            setCurrentItem(0, false);
+            if (mIndicatorView != null) {
+                IndicatorOptions indicatorOptions = mBannerManager.getBannerOptions().getIndicatorOptions();
+                indicatorOptions.setPageSize(list.size());
+                indicatorOptions.setCurrentPosition(BannerUtils.getRealPosition(isCanLoop(), mViewPager.getCurrentItem(), list.size()));
+                mIndicatorView.notifyDataChanged();
+            }
         }
     }
 

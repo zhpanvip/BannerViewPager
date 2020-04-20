@@ -166,9 +166,8 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
     }
 
     private void updateData() {
-        mViewPager.setData(getPicList(new Random().nextInt(5)));
+        mViewPager.refreshData(getPicList(new Random().nextInt(5) - 1));
         ToastUtils.show("size=" + mViewPager.getData().size());
-
     }
 
     @Override
