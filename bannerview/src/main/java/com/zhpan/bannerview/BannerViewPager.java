@@ -256,8 +256,7 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
 
     private void handlePosition() {
         if (mBannerPagerAdapter.getListSize() > 1) {
-            currentPosition = mViewPager.getCurrentItem() + 1;
-            mViewPager.setCurrentItem(currentPosition);
+            mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
             mHandler.postDelayed(mRunnable, getInterval());
         }
     }
