@@ -140,7 +140,6 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
         mIndicatorView.setVisibility(View.VISIBLE);
         mViewPager
                 .setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
-                .setIndicatorVisibility(View.GONE)
                 .setIndicatorView(mIndicatorView)
                 .create(getPicList(4));
     }

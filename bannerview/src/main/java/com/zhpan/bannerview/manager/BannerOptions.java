@@ -1,5 +1,7 @@
 package com.zhpan.bannerview.manager;
 
+import android.view.View;
+
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.zhpan.bannerview.constants.PageStyle;
@@ -42,7 +44,7 @@ public class BannerOptions {
 
     private IndicatorMargin mIndicatorMargin;
 
-    private int mIndicatorVisibility;
+    private int mIndicatorVisibility= View.VISIBLE;
 
     private int scrollDuration;
 

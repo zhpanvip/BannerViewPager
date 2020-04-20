@@ -270,6 +270,11 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
     }
 
     private void setIndicatorValues(List<T> list) {
+        int indicatorVisibility = mBannerManager.getBannerOptions().getIndicatorVisibility();
+        mIndicatorLayout.setVisibility(indicatorVisibility);
+        if (indicatorVisibility == View.GONE || indicatorVisibility == View.INVISIBLE) {
+            return;
+        }
         BannerOptions bannerOptions = mBannerManager.getBannerOptions();
         bannerOptions.resetIndicatorOptions();
         if (isCustomIndicator && null != mIndicatorView) {
@@ -283,7 +288,6 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
     }
 
     private void initIndicator(IIndicator indicatorView) {
-        mIndicatorLayout.setVisibility(mBannerManager.getBannerOptions().getIndicatorVisibility());
         mIndicatorView = indicatorView;
         if (((View) mIndicatorView).getParent() == null) {
             mIndicatorLayout.removeAllViews();
