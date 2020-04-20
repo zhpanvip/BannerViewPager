@@ -164,7 +164,6 @@ public class HomeFragment extends BaseFragment {
     private void initBanner() {
         HomeAdapter homeAdapter = new HomeAdapter();
         mViewPagerHorizontal
-                .setAutoPlay(true)
                 .setScrollDuration(600)
                 .setIndicatorStyle(IndicatorStyle.CIRCLE)
                 .setIndicatorSlideMode(IndicatorSlideMode.WORM)
