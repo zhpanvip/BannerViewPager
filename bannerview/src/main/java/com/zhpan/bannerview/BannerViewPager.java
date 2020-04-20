@@ -741,7 +741,7 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
         if (list != null && mBannerPagerAdapter != null) {
             mBannerPagerAdapter.setData(list);
             mBannerPagerAdapter.notifyDataSetChanged();
-            setCurrentItem(0, false);
+            setCurrentItem(getCurrentItem(), false);
             if (mIndicatorView != null) {
                 IndicatorOptions indicatorOptions = mBannerManager.getBannerOptions().getIndicatorOptions();
                 indicatorOptions.setPageSize(list.size());

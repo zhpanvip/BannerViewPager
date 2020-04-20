@@ -20,8 +20,8 @@ public class ScaleInTransformer implements ViewPager2.PageTransformer {
         int pageWidth = view.getWidth();
         int pageHeight = view.getHeight();
 
-        view.setPivotY(pageHeight / 2);
-        view.setPivotX(pageWidth / 2);
+        view.setPivotY(pageHeight / 2f);
+        view.setPivotX(pageWidth / 2f);
         if (position < -1) {
             // This page is way off-screen to the left.
             view.setScaleX(mMinScale);
