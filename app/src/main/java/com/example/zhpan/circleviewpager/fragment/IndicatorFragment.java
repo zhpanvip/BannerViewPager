@@ -67,8 +67,10 @@ public class IndicatorFragment extends BaseFragment {
         mViewPager = view.findViewById(R.id.banner_view);
         mViewPager.setIndicatorSliderGap(BannerUtils.dp2px(6))
                 .setScrollDuration(800)
+                .setIndicatorGravity(IndicatorGravity.CENTER)
+                .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
                 .setAdapter(new ImageResourceAdapter(0))
-                .setRoundCorner(BannerUtils.dp2px(6));
+                .setRoundCorner(BannerUtils.dp2px(6)).create();
         initRadioGroup();
     }
 
@@ -116,13 +118,11 @@ public class IndicatorFragment extends BaseFragment {
         int checkedWidth = getResources().getDimensionPixelOffset(R.dimen.dp_10);
         int normalWidth = getNormalWidth();
         mViewPager.setIndicatorStyle(IndicatorStyle.ROUND_RECT)
-                .setIndicatorGravity(IndicatorGravity.CENTER)
                 .setIndicatorSliderGap(BannerUtils.dp2px(4))
                 .setIndicatorSlideMode(mSlideMode)
                 .setIndicatorHeight(getResources().getDimensionPixelOffset(R.dimen.dp_4))
-                .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
                 .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
-                .setIndicatorSliderWidth(normalWidth, checkedWidth).create(getPicList(4));
+                .setIndicatorSliderWidth(normalWidth, checkedWidth).refreshData(getPicList(4));
     }
 
     private void setupCircleIndicator() {
@@ -138,11 +138,9 @@ public class IndicatorFragment extends BaseFragment {
 
         mViewPager.setIndicatorStyle(IndicatorStyle.CIRCLE)
                 .setIndicatorSlideMode(mSlideMode)
-                .setIndicatorGravity(IndicatorGravity.CENTER)
                 .setIndicatorSliderGap(getResources().getDimensionPixelOffset(R.dimen.dp_6))
                 .setIndicatorSliderRadius(normalWidth, checkedWidth)
-                .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
-                .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color)).create(getPicList(4));
+                .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color)).refreshData(getPicList(4));
     }
 
     private void setupDashIndicator() {
@@ -150,12 +148,11 @@ public class IndicatorFragment extends BaseFragment {
         int normalWidth = getNormalWidth();
         mViewPager.setIndicatorStyle(IndicatorStyle.DASH)
                 .setIndicatorHeight(getResources().getDimensionPixelOffset(R.dimen.dp_3))
-                .setIndicatorGravity(IndicatorGravity.CENTER)
                 .setIndicatorSlideMode(mSlideMode)
                 .setIndicatorSliderGap(getResources().getDimensionPixelOffset(R.dimen.dp_3))
                 .setIndicatorSliderWidth(normalWidth, checkedWidth)
                 .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
-                .create(getPicList(4));
+                .refreshData(getPicList(4));
     }
 
     private int getNormalWidth() {

@@ -49,7 +49,7 @@ The Indicator library was split from BannerViewPager,the new repo is [ViewPagerI
 
 #### (1)setIndicatorStyle and setIndicatorSlideMode
 
-BannerViewPager supports three Indicator Styles and three Indicator Slide mode now. 
+BannerViewPager supports three Indicator Styles and five Indicator Slide mode now.
 
 [Sample Click Here](https://github.com/zhpanvip/BannerViewPager/blob/master/app/src/main/java/com/example/zhpan/circleviewpager/fragment/IndicatorFragment.java)
 
@@ -135,7 +135,7 @@ It's also support to custom indicator style,just need extends BaseIndicatorView 
 
 ## Useage
 
-Since Viewpager2 does not support android support library, So since the version 3.0 is no longer supports android support library too. If you are still using android support, please use [BannerViewPager v2.x](https://github.com/zhpanvip/BannerViewPager/tree/v_2.x)
+Because Viewpager2 is not supported in android.support library, So BannerViewPager V3.0 is no longer support android support.library. If you are still using android.support library, please use [BannerViewPager v2.x](https://github.com/zhpanvip/BannerViewPager/tree/v_2.x)
 
 ### 1.Gradle dependency
 
@@ -247,92 +247,98 @@ public class HomeAdapter extends BaseBannerAdapter<BannerData, NetViewHolder> {
 
 ### 5.Use in Activity or Fragment:
 
-  If data has fetched when create BannerViewPager,you can call create(List) method with parameter.
+  You can call create() method with no parameter，If fetching data asynchronously(for example,The data is from remote server or database):
+
  #### Java code
-```
-    private BannerViewPager<CustomBean, NetViewHolder> mViewPager;
-    ...
-	private void setupViewPager() {
-             mBannerViewPager = findViewById(R.id.banner_view);
-             mViewPager
-                      .setAutoPlay(true)
-                      .setScrollDuration(800)
-                      .setIndicatorStyle(IndicatorStyle.ROUND_RECT)
-                      .setIndicatorSliderGap(getResources().getDimensionPixelOffset(R.dimen.dp_4))
-                      .setIndicatorSliderWidth(getResources().getDimensionPixelOffset(R.dimen.dp_4), getResources().getDimensionPixelOffset(R.dimen.dp_10))
-                      .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
-                      .setOrientation(ViewPager2.ORIENTATION_VERTICAL)
-                      .setInterval(2000)
-                      .setAdapter(new HomeAdapter())
-                      .registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-                          @Override
-                          public void onPageSelected(int position) {
-                              BannerUtils.log("position:$position");
-                          }
-                      }).create(getPicList(4));
-        }
-```
-#### Kotlin Code
 
-```
-    private lateinit var mViewPager: BannerViewPager<CustomBean, NetViewHolder>
-    ...
+  ```
+      private lateinit var mViewPager: BannerViewPager<CustomBean, NetViewHolder>
+      ...
 
-    private fun setupViewPager() {
-            mViewPager = findViewById(R.id.banner_view)
-            mViewPager.apply {
-                adapter = HomeAdapter()
-                setAutoPlay(true)
-                setIndicatorStyle(IndicatorStyle.ROUND_RECT)
-                setIndicatorSliderGap(getResources().getDimensionPixelOffset(R.dimen.dp_4))
-                setIndicatorMargin(0, 0, 0, resources.getDimension(R.dimen.dp_100).toInt())
-                setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
-                setIndicatorSliderRadius(resources.getDimension(R.dimen.dp_3).toInt(), resources.getDimension(R.dimen.dp_4_5).toInt())
-                setIndicatorSliderColor(ContextCompat.getColor(this@WelcomeActivity, R.color.white),
-                        ContextCompat.getColor(this@WelcomeActivity, R.color.white_alpha_75))
-                registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-                                     override fun onPageSelected(position: Int) {
-                                         BannerUtils.log("position:$position")
-                                     }
-                                 })
-            }.create(data)
-        }
+      private fun setupViewPager() {
+              mViewPager = findViewById(R.id.banner_view)
+              mViewPager.apply {
+                  adapter = HomeAdapter()
+                  setAutoPlay(true)
+                  setIndicatorStyle(IndicatorStyle.ROUND_RECT)
+                  setIndicatorSliderGap(getResources().getDimensionPixelOffset(R.dimen.dp_4))
+                  setIndicatorMargin(0, 0, 0, resources.getDimension(R.dimen.dp_100).toInt())
+                  setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
+                  setIndicatorSliderRadius(resources.getDimension(R.dimen.dp_3).toInt(), resources.getDimension(R.dimen.dp_4_5).toInt())
+                  setIndicatorSliderColor(ContextCompat.getColor(this@WelcomeActivity, R.color.white),
+                          ContextCompat.getColor(this@WelcomeActivity, R.color.white_alpha_75))
+                  registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                                       override fun onPageSelected(position: Int) {
+                                           BannerUtils.log("position:$position")
+                                       }
+                                   })
+              }.create()
+          }
 
-```
+  ```
 
-If there is no data while create BannerViewPager(for example,The data is from remote server)，you can call create() method with no parameters:
+  #### Kotlin Code
 
-```
-    private lateinit var mViewPager: BannerViewPager<CustomBean, NetViewHolder>
-    ...
+  ```
+      private lateinit var mViewPager: BannerViewPager<CustomBean, NetViewHolder>
+      ...
 
-    private fun setupViewPager() {
-            mViewPager = findViewById(R.id.banner_view)
-            mViewPager.apply {
-                adapter = HomeAdapter()
-                setAutoPlay(true)
-                setIndicatorStyle(IndicatorStyle.ROUND_RECT)
-                setIndicatorSliderGap(getResources().getDimensionPixelOffset(R.dimen.dp_4))
-                setIndicatorMargin(0, 0, 0, resources.getDimension(R.dimen.dp_100).toInt())
-                setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
-                setIndicatorSliderRadius(resources.getDimension(R.dimen.dp_3).toInt(), resources.getDimension(R.dimen.dp_4_5).toInt())
-                setIndicatorSliderColor(ContextCompat.getColor(this@WelcomeActivity, R.color.white),
-                        ContextCompat.getColor(this@WelcomeActivity, R.color.white_alpha_75))
-                registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-                                     override fun onPageSelected(position: Int) {
-                                         BannerUtils.log("position:$position")
-                                     }
-                                 })
-            }.create()
-        }
+      private fun setupViewPager() {
+              mViewPager = findViewById(R.id.banner_view)
+              mViewPager.apply {
+                  adapter = HomeAdapter()
+                  setAutoPlay(true)
+                  setIndicatorStyle(IndicatorStyle.ROUND_RECT)
+                  setIndicatorSliderGap(getResources().getDimensionPixelOffset(R.dimen.dp_4))
+                  setIndicatorMargin(0, 0, 0, resources.getDimension(R.dimen.dp_100).toInt())
+                  setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
+                  setIndicatorSliderRadius(resources.getDimension(R.dimen.dp_3).toInt(), resources.getDimension(R.dimen.dp_4_5).toInt())
+                  setIndicatorSliderColor(ContextCompat.getColor(this@WelcomeActivity, R.color.white),
+                          ContextCompat.getColor(this@WelcomeActivity, R.color.white_alpha_75))
+                  registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                                       override fun onPageSelected(position: Int) {
+                                           BannerUtils.log("position:$position")
+                                       }
+                                   })
+              }.create()
+          }
 
-```
+  ```
 
-Then,while you get data successfully,just need call refreData() method to refresh:
+  While fetch data successfully,just need call refreData() method to refresh:
 
-```
-    mViewPager.refreshData(data)
-```
+  ```
+      mViewPager.refreshData(data)
+  ```
+
+
+If fetching data synchronously，you can call create(List<T>) method with parameters.
+
+ ```
+      private lateinit var mViewPager: BannerViewPager<CustomBean, NetViewHolder>
+      ...
+
+      private fun setupViewPager() {
+              mViewPager = findViewById(R.id.banner_view)
+              mViewPager.apply {
+                  adapter = HomeAdapter()
+                  setAutoPlay(true)
+                  setIndicatorStyle(IndicatorStyle.ROUND_RECT)
+                  setIndicatorSliderGap(getResources().getDimensionPixelOffset(R.dimen.dp_4))
+                  setIndicatorMargin(0, 0, 0, resources.getDimension(R.dimen.dp_100).toInt())
+                  setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
+                  setIndicatorSliderRadius(resources.getDimension(R.dimen.dp_3).toInt(), resources.getDimension(R.dimen.dp_4_5).toInt())
+                  setIndicatorSliderColor(ContextCompat.getColor(this@WelcomeActivity, R.color.white),
+                          ContextCompat.getColor(this@WelcomeActivity, R.color.white_alpha_75))
+                  registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                                       override fun onPageSelected(position: Int) {
+                                           BannerUtils.log("position:$position")
+                                       }
+                                   })
+              }.create(data)
+          }
+
+  ```
 
 
 ### 6.startLoop and stopLoop
@@ -357,7 +363,7 @@ Recommend call stopLoop in onPause() and startLoop in onResume() to improve perf
     }
 ```
 
-### 7.Custom IndicatorView
+### 7.Advanced Features---Custom IndicatorView
 
 The example will implement an custom IndicatorView as the follow gif.
 

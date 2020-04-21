@@ -50,7 +50,7 @@
 
 #### (1)IndicatorStyle 与 IndicatorSlideMode
 
-BannerViewPager目前已支持三种IndicatorViewStyle,以及三种IndicatorSlideMode,分别如下：
+BannerViewPager目前已支持三种IndicatorViewStyle,以及五种IndicatorSlideMode,分别如下：
 
 | 属性 | CIRCLE | DASH | ROUND_RECT |
 |--|--|--|--|
@@ -245,35 +245,9 @@ public class HomeAdapter extends BaseBannerAdapter<BannerData, NetViewHolder> {
 
 ### 5.BannerViewPager参数配置
 
+如果是异步获取数据（例如从服务器或数据库获取数据），可以调用不带参数的create()方法：
+
 #### Java code
-```
-    private BannerViewPager<CustomBean, NetViewHolder> mViewPager;
-    ...
-	private void setupViewPager() {
-             mViewPager = findViewById(R.id.banner_view);
-             mViewPager
-                       .setAutoPlay(true)
-                       .setScrollDuration(800)
-                       .setIndicatorStyle(IndicatorStyle.ROUND_RECT)
-                       .setIndicatorSliderGap(getResources().getDimensionPixelOffset(R.dimen.dp_4))
-                       .setIndicatorSliderWidth(getResources().getDimensionPixelOffset(R.dimen.dp_4), getResources().getDimensionPixelOffset(R.dimen.dp_10))
-                       .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
-                       .setOrientation(ViewPager2.ORIENTATION_VERTICAL)
-                       .setInterval(2000)
-                       .setAdapter(new HomeAdapter())
-                       .registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-                           @Override
-                           public void onPageSelected(int position) {
-                               super.onPageSelected(position);
-                               BannerData bannerData = mViewPagerHorizontal.getData().get(position);
-                               mTvTitle.setText(bannerData.getTitle());
-                           }
-                       }).create(getPicList(4));
-        }
-```
-
-#### Kotlin Code
-
 ```
     private lateinit var mViewPager: BannerViewPager<CustomBean, NetViewHolder>
     ...
@@ -295,12 +269,12 @@ public class HomeAdapter extends BaseBannerAdapter<BannerData, NetViewHolder> {
                         BannerUtils.log("position:$position")
                     }
                 })
-            }.create(data)
+            }.create()
         }
 
 ```
 
-如果在创建BannerViewPager时不能拿到数据(例如数据是来自远程服务器),则可以调用不带参数的create()方法。代码如下：
+#### Kotlin Code
 
 ```
     private lateinit var mViewPager: BannerViewPager<CustomBean, NetViewHolder>
@@ -333,6 +307,35 @@ public class HomeAdapter extends BaseBannerAdapter<BannerData, NetViewHolder> {
 ```
     mViewPager.refreshData(data)
 ```
+
+如果是同步获取数据，则可以调用带参数的create方法，如下：
+
+```
+    private BannerViewPager<CustomBean, NetViewHolder> mViewPager;
+    ...
+	private void setupViewPager() {
+             mViewPager = findViewById(R.id.banner_view);
+             mViewPager
+                       .setAutoPlay(true)
+                       .setScrollDuration(800)
+                       .setIndicatorStyle(IndicatorStyle.ROUND_RECT)
+                       .setIndicatorSliderGap(getResources().getDimensionPixelOffset(R.dimen.dp_4))
+                       .setIndicatorSliderWidth(getResources().getDimensionPixelOffset(R.dimen.dp_4), getResources().getDimensionPixelOffset(R.dimen.dp_10))
+                       .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
+                       .setOrientation(ViewPager2.ORIENTATION_VERTICAL)
+                       .setInterval(2000)
+                       .setAdapter(new HomeAdapter())
+                       .registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+                           @Override
+                           public void onPageSelected(int position) {
+                               super.onPageSelected(position);
+                               BannerData bannerData = mViewPagerHorizontal.getData().get(position);
+                               mTvTitle.setText(bannerData.getTitle());
+                           }
+                       }).create(getPicList(4));
+        }
+```
+
 
 ### 6.开启与停止轮播
 

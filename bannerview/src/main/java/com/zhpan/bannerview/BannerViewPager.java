@@ -255,7 +255,7 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
     }
 
     private void handlePosition() {
-        if (mBannerPagerAdapter.getListSize() > 1) {
+        if (mBannerPagerAdapter.getListSize() > 1 && isAutoPlay()) {
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
             mHandler.postDelayed(mRunnable, getInterval());
         }
@@ -271,11 +271,7 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
     }
 
     private void setIndicatorValues(List<T> list) {
-        int indicatorVisibility = mBannerManager.getBannerOptions().getIndicatorVisibility();
-        if (indicatorVisibility == View.GONE || indicatorVisibility == View.INVISIBLE) {
-            return;
-        }
-        mIndicatorLayout.setVisibility(indicatorVisibility);
+        mIndicatorLayout.setVisibility(mBannerManager.getBannerOptions().getIndicatorVisibility());
         BannerOptions bannerOptions = mBannerManager.getBannerOptions();
         bannerOptions.resetIndicatorOptions();
         if (isCustomIndicator && null != mIndicatorView) {
@@ -741,15 +737,15 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
      */
     public void refreshData(List<T> list) {
         if (list != null && mBannerPagerAdapter != null) {
+            stopLoop();
             mBannerPagerAdapter.setData(list);
             mBannerPagerAdapter.notifyDataSetChanged();
             setCurrentItem(getCurrentItem(), false);
-            if (mIndicatorView != null) {
-                IndicatorOptions indicatorOptions = mBannerManager.getBannerOptions().getIndicatorOptions();
-                indicatorOptions.setPageSize(list.size());
-                indicatorOptions.setCurrentPosition(BannerUtils.getRealPosition(isCanLoop(), mViewPager.getCurrentItem(), list.size()));
-                mIndicatorView.notifyDataChanged();
-            }
+            setIndicatorValues(list);
+            mBannerManager.getBannerOptions().getIndicatorOptions()
+                    .setCurrentPosition(BannerUtils.getRealPosition(isCanLoop(),
+                            mViewPager.getCurrentItem(), list.size()));
+            mIndicatorView.notifyDataChanged();
             startLoop();
         }
     }

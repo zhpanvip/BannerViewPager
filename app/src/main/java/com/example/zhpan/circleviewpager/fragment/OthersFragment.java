@@ -26,7 +26,6 @@ import com.zhpan.indicator.IndicatorView;
 import com.zhpan.indicator.base.IIndicator;
 import com.zhpan.indicator.enums.IndicatorSlideMode;
 
-import java.lang.reflect.Field;
 import java.util.Random;
 
 /**
@@ -88,6 +87,7 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
         mIndicatorView = view.findViewById(R.id.indicator_view);
         view.findViewById(R.id.tv_photo_view).setOnClickListener(this);
         mViewPager.setIndicatorSliderGap(BannerUtils.dp2px(6))
+                .setIndicatorView(mIndicatorView)
                 .setRoundCorner(BannerUtils.dp2px(6))
                 .setOnPageClickListener(position -> {
                     ToastUtils.show("position:" + position);
@@ -96,16 +96,14 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
                 })
                 .setAdapter(new ImageResourceAdapter(0))
                 .setOnPageClickListener(position -> ToastUtils.show("Position:" + position))
-                .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color));
+                .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color)).create();
         initRadioGroup();
     }
 
 
     private void initRadioGroup() {
         radioGroupStyle.setVisibility(View.VISIBLE);
-        radioGroupStyle.setVisibility(View.VISIBLE);
         radioGroupStyle.setOnCheckedChangeListener((group, checkedId) -> {
-            resetBannerViewPager();
             switch (checkedId) {
                 case R.id.rb_indicator_below:
                     setIndicatorBelowOfBanner();
@@ -131,8 +129,27 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
                 .setIndicatorSlideMode(IndicatorSlideMode.NORMAL)
                 .setIndicatorVisibility(View.VISIBLE)
                 .setIndicatorGravity(IndicatorGravity.CENTER)
-                .create(getMDrawableList());
+                .refreshData(getMDrawableList());
     }
+
+    private void setIndicatorBelowOfBanner() {
+        mIndicatorView.setVisibility(View.VISIBLE);
+        mViewPager
+                .setIndicatorVisibility(View.GONE)
+                .setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
+                .setIndicatorView(mIndicatorView)
+                .refreshData(getPicList(4));
+    }
+
+    private void setupCustomIndicator() {
+        mIndicatorView.setVisibility(View.INVISIBLE);
+        mViewPager.setAutoPlay(true).setCanLoop(true)
+                .setIndicatorSlideMode(IndicatorSlideMode.NORMAL)
+                .setIndicatorVisibility(View.VISIBLE)
+                .setIndicatorGravity(IndicatorGravity.END)
+                .setIndicatorView(setupIndicatorView()).refreshData(getPicList(4));
+    }
+
 
     private IIndicator getDrawableIndicator() {
         int dp10 = getResources().getDimensionPixelOffset(R.dimen.dp_10);
@@ -148,24 +165,6 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
                 .setIndicatorGap(getResources().getDimensionPixelOffset(R.dimen.dp_2_5))
                 .setIndicatorDrawable(R.drawable.banner_indicator_nornal, R.drawable.banner_indicator_focus)
                 .setIndicatorSize(dp6, dp6, getResources().getDimensionPixelOffset(R.dimen.dp_13), dp6);
-    }
-
-    private void setIndicatorBelowOfBanner() {
-        mIndicatorView.setVisibility(View.VISIBLE);
-        mViewPager
-                .setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
-                .setIndicatorView(mIndicatorView)
-                .create(getPicList(4));
-    }
-
-
-    private void setupCustomIndicator() {
-        mIndicatorView.setVisibility(View.INVISIBLE);
-        mViewPager.setAutoPlay(false).setCanLoop(true)
-                .setIndicatorSlideMode(IndicatorSlideMode.NORMAL)
-                .setIndicatorVisibility(View.VISIBLE)
-                .setIndicatorGravity(IndicatorGravity.END)
-                .setIndicatorView(setupIndicatorView()).create(getPicList(4));
     }
 
     /**
@@ -188,21 +187,4 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
     public void onClick(View view) {
         startActivity(new Intent(getActivity(), PhotoViewActivity.class));
     }
-
-    /**
-     * 注意：在项目中不需要使用该方法
-     */
-    private void resetBannerViewPager() {
-        try {
-            Field mIndicatorView = BannerViewPager.class.getDeclaredField("mIndicatorView");
-            mIndicatorView.setAccessible(true);
-            mIndicatorView.set(mViewPager, null);
-            Field isCustomIndicator = BannerViewPager.class.getDeclaredField("isCustomIndicator");
-            isCustomIndicator.setAccessible(true);
-            isCustomIndicator.set(mViewPager, false);
-        } catch (IllegalAccessException | NoSuchFieldException e) {
-            e.printStackTrace();
-        }
-    }
-
 }
