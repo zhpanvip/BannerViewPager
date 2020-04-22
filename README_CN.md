@@ -249,29 +249,29 @@ public class HomeAdapter extends BaseBannerAdapter<BannerData, NetViewHolder> {
 
 #### Java code
 ```
-    private lateinit var mViewPager: BannerViewPager<CustomBean, NetViewHolder>
+    private BannerViewPager<CustomBean, NetViewHolder> mViewPager;
     ...
-
-    private fun setupViewPager() {
-            mViewPager = findViewById(R.id.banner_view)
-            mViewPager.apply {
-                adapter = HomeAdapter()
-                setAutoPlay(true)
-                setIndicatorStyle(IndicatorStyle.ROUND_RECT)
-                setIndicatorSliderGap(getResources().getDimensionPixelOffset(R.dimen.dp_4))
-                setIndicatorMargin(0, 0, 0, resources.getDimension(R.dimen.dp_100).toInt())
-                setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
-                setIndicatorSliderRadius(resources.getDimension(R.dimen.dp_3).toInt(), resources.getDimension(R.dimen.dp_4_5).toInt())
-                setIndicatorSliderColor(ContextCompat.getColor(this@WelcomeActivity, R.color.white),
-                        ContextCompat.getColor(this@WelcomeActivity, R.color.white_alpha_75))
-                registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-                    override fun onPageSelected(position: Int) {
-                        BannerUtils.log("position:$position")
-                    }
-                })
-            }.create()
+	private void setupViewPager() {
+             mViewPager = findViewById(R.id.banner_view);
+             mViewPager
+                       .setAutoPlay(true)
+                       .setScrollDuration(800)
+                       .setIndicatorStyle(IndicatorStyle.ROUND_RECT)
+                       .setIndicatorSliderGap(getResources().getDimensionPixelOffset(R.dimen.dp_4))
+                       .setIndicatorSliderWidth(getResources().getDimensionPixelOffset(R.dimen.dp_4), getResources().getDimensionPixelOffset(R.dimen.dp_10))
+                       .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
+                       .setOrientation(ViewPager2.ORIENTATION_VERTICAL)
+                       .setInterval(2000)
+                       .setAdapter(new HomeAdapter())
+                       .registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+                           @Override
+                           public void onPageSelected(int position) {
+                               super.onPageSelected(position);
+                               BannerData bannerData = mViewPagerHorizontal.getData().get(position);
+                               mTvTitle.setText(bannerData.getTitle());
+                           }
+                       }).create();
         }
-
 ```
 
 #### Kotlin Code
