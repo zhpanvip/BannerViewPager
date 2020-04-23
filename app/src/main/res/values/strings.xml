@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">BannerViewPager</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="wrapper_photo_view">With PhotoView</string>
     <string name="start_now">Start Now</string>
     <string name="guide">guide</string>
@@ -14,4 +16,9 @@
     <string name="text_indicator_style">Indicator Style:</string>
     <string name="custom_style">Custom Style</string>
     <string name="text_slide_mode">Indicator Slide Mode</string>
+    <string name="pager_indicator">About ViewPagerIndicator</string>
+    <string name="qq_group">60902509</string>
+    <string name="about_banner">About BannerViewPager</string>
+    <string name="indicator_name">ViewPagerIndicator</string>
+    <string name="email">zhpanvip@outlook.com</string>
 </resources>

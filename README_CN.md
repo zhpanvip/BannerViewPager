@@ -220,6 +220,14 @@ implementation 'com.github.zhpanvip:BannerViewPager:latestVersion'
         }
     }
 ```
+
+**如果你需要通过getAdapterPosition()方法获取position，可参考如下代码:**
+
+```
+     int adapterPosition = getAdapterPosition();
+     int realPosition = BannerUtils.getRealPosition(isCanLoop, adapterPosition, mList.size());
+```
+
 ### 5.继承BaseBannerAdapter,并重写相关方法
 
 ```

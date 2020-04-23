@@ -43,7 +43,7 @@
 |--|--|--|
 | ![MULTI_PAGE](https://github.com/zhpanvip/Resource/blob/master/image/banner/page_style_multi.gif) |![MULTI_PAGE](https://github.com/zhpanvip/Resource/blob/master/image/banner/page_style_multi_scale.gif) |![MULTI_PAGE](https://github.com/zhpanvip/Resource/blob/master/image/banner/page_style_multi_overlay.gif) |
 
-### 2.[Indicator](https://github.com/zhpanvip/viewpagerindicator)
+### [2.Indicator](https://github.com/zhpanvip/viewpagerindicator)
 
 The Indicator library was split from BannerViewPager,the new repo is [ViewPagerIndicator](https://github.com/zhpanvip/viewpagerindicator)，Click the link to see more information about [ViewPagerIndicator](https://github.com/zhpanvip/viewpagerindicator)
 
@@ -222,6 +222,12 @@ implementation 'com.github.zhpanvip:BannerViewPager:latestVersion'
             Glide.with(imageView).load(data.getImagePath()).placeholder(R.drawable.placeholder).into(imageView);
         }
     }
+```
+**If you need get position with getAdapterPosition() method,you can do like the following code to get real position:**
+
+```
+     int adapterPosition = getAdapterPosition();
+     int realPosition = BannerUtils.getRealPosition(isCanLoop, adapterPosition, mList.size());
 ```
 ### 5.Extends BaseBannerAdapter,and override methods
 

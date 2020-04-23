@@ -6,7 +6,7 @@ android {
     buildToolsVersion '28.0.3'
     defaultConfig {
         applicationId "com.example.zhpan.bannerviewpager"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -59,4 +59,7 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.2'
+    implementation 'com.google.android.material:material:1.1.0'
+    implementation "androidx.navigation:navigation-fragment:2.2.2"
+    implementation "androidx.navigation:navigation-ui:2.2.2"
 }

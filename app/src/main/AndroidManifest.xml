@@ -12,6 +12,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activity.BaseCompatActivity"></activity>
         <activity
             android:name=".activity.WelcomeActivity"
             android:theme="@style/FullScreenTheme">
@@ -26,6 +27,7 @@
             android:name=".activity.PhotoViewActivity"
             android:theme="@style/FullScreenTheme" />
         <activity android:name=".activity.MainActivity" />
+        <activity android:name=".activity.WebViewActivity" />
     </application>
 
 </manifest>

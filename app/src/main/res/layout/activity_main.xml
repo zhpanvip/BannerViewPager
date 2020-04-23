@@ -1,94 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
 
     <RelativeLayout
+
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <RadioGroup
-            android:id="@+id/rg_tab"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar_layout"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_55"
-            android:layout_alignParentBottom="true"
-            android:layout_centerInParent="true"
-            android:background="@color/white"
-            android:padding="@dimen/dp_5"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            app:elevation="0dp">
 
-            <RadioButton
-                android:id="@+id/rb_home"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="bottom"
-                android:layout_weight="1"
-                android:button="@null"
-                android:checked="true"
-                android:drawableTop="@drawable/tab1_selector"
-                android:gravity="center_horizontal|bottom"
-                android:paddingBottom="@dimen/dp_5"
-                android:text="@string/tab1"
-                android:textColor="@drawable/text_color_selector" />
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:popupTheme="@style/AppTheme.PopupOverlay">
 
-            <RadioButton
-                android:id="@+id/rb_add"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="bottom"
-                android:layout_weight="1"
-                android:button="@null"
-                android:drawableTop="@drawable/tab3_selector"
-                android:gravity="center_horizontal|bottom"
-                android:paddingBottom="@dimen/dp_5"
-                android:text="@string/tab2"
-                android:textColor="@drawable/text_color_selector" />
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="marquee"
+                    android:singleLine="true"
+                    android:text="@string/app_name"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp_18" />
 
-            <RadioButton
-                android:id="@+id/rb_find"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="bottom"
-                android:layout_weight="1"
-                android:button="@null"
-                android:drawableTop="@drawable/tab2_selector"
-                android:gravity="center_horizontal|bottom"
-                android:paddingBottom="@dimen/dp_5"
-                android:text="@string/tab3"
-                android:textColor="@drawable/text_color_selector" />
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.AppBarLayout>
 
-            <RadioButton
-                android:id="@+id/rb_others"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="bottom"
-                android:layout_weight="1"
-                android:button="@null"
-                android:drawableTop="@drawable/tab4_selector"
-                android:gravity="center_horizontal|bottom"
-                android:paddingBottom="@dimen/dp_5"
-                android:text="@string/tab4"
-                android:textColor="@drawable/text_color_selector" />
-
-
-        </RadioGroup>
-
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/vp_fragment"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@id/rg_tab" />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_0_5"
-            android:background="@color/line_color"
-            android:layout_below="@id/vp_fragment"/>
+            android:layout_below="@id/app_bar_layout">
+
+            <RadioGroup
+                android:id="@+id/rg_tab"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_55"
+                android:layout_alignParentBottom="true"
+                android:layout_centerInParent="true"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:padding="@dimen/dp_5">
+
+                <RadioButton
+                    android:id="@+id/rb_home"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="bottom"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:checked="true"
+                    android:drawableTop="@drawable/tab1_selector"
+                    android:gravity="center_horizontal|bottom"
+                    android:paddingBottom="@dimen/dp_5"
+                    android:text="@string/tab1"
+                    android:textColor="@drawable/text_color_selector" />
+
+                <RadioButton
+                    android:id="@+id/rb_add"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="bottom"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:drawableTop="@drawable/tab3_selector"
+                    android:gravity="center_horizontal|bottom"
+                    android:paddingBottom="@dimen/dp_5"
+                    android:text="@string/tab2"
+                    android:textColor="@drawable/text_color_selector" />
+
+                <RadioButton
+                    android:id="@+id/rb_find"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="bottom"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:drawableTop="@drawable/tab2_selector"
+                    android:gravity="center_horizontal|bottom"
+                    android:paddingBottom="@dimen/dp_5"
+                    android:text="@string/tab3"
+                    android:textColor="@drawable/text_color_selector" />
+
+                <RadioButton
+                    android:id="@+id/rb_others"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="bottom"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:drawableTop="@drawable/tab4_selector"
+                    android:gravity="center_horizontal|bottom"
+                    android:paddingBottom="@dimen/dp_5"
+                    android:text="@string/tab4"
+                    android:textColor="@drawable/text_color_selector" />
+
+
+            </RadioGroup>
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/vp_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@id/rg_tab" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_0_5"
+                android:layout_below="@id/vp_fragment"
+                android:background="@color/line_color" />
+
+        </RelativeLayout>
+
 
     </RelativeLayout>
-    <!--<ImageView
+
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header_main"
+        app:itemTextColor="#19191B"
+        app:menu="@menu/nav_menu" />
+
+
+</androidx.drawerlayout.widget.DrawerLayout><!--<ImageView
         android:id="@+id/iv_add"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/add_bg"/>-->
-</FrameLayout>
 
