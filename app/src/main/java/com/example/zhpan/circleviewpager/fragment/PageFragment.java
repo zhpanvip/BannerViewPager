@@ -11,7 +11,6 @@ import com.example.zhpan.circleviewpager.viewholder.ImageResourceViewHolder;
 import com.zhpan.bannerview.BannerViewPager;
 import com.zhpan.bannerview.annotation.APageStyle;
 import com.zhpan.bannerview.constants.PageStyle;
-import com.zhpan.bannerview.utils.BannerUtils;
 import com.zhpan.idea.utils.ToastUtils;
 import com.zhpan.indicator.enums.IndicatorSlideMode;
 
@@ -21,7 +20,6 @@ import com.zhpan.indicator.enums.IndicatorSlideMode;
 public class PageFragment extends BaseFragment {
     private BannerViewPager<Integer, ImageResourceViewHolder> mViewPager;
     private RadioGroup mRadioGroupPageStyle;
-    private RadioButton radioButton;
 
     @Override
     protected int getLayout() {
@@ -58,7 +56,6 @@ public class PageFragment extends BaseFragment {
     protected void initView(Bundle savedInstanceState, View view) {
         mViewPager = view.findViewById(R.id.banner_view);
         mRadioGroupPageStyle = view.findViewById(R.id.rg_page_style);
-        radioButton = view.findViewById(R.id.rb_multi_page);
         mViewPager
                 .setIndicatorSlideMode(IndicatorSlideMode.SCALE)
                 .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
@@ -67,13 +64,17 @@ public class PageFragment extends BaseFragment {
                 .setAdapter(new ImageResourceAdapter(getResources().getDimensionPixelOffset(R.dimen.dp_8)))
                 .setInterval(5000);
         initRadioGroup();
+        view.findViewById(R.id.rb_multi_page_overlap).performClick();
     }
 
     private void initRadioGroup() {
         mRadioGroupPageStyle.setOnCheckedChangeListener((group, checkedId) -> {
             switch (checkedId) {
                 case R.id.rb_multi_page:
-                    setupBanner(PageStyle.MULTI_PAGE);
+                    setupMultiPageBanner();
+                    break;
+                case R.id.rb_right_page_reveal:
+                    setupRightPageReveal();
                     break;
                 case R.id.rb_multi_page_scale:
                     setupBanner(PageStyle.MULTI_PAGE_SCALE);
@@ -81,12 +82,25 @@ public class PageFragment extends BaseFragment {
                 case R.id.rb_multi_page_overlap:
                     setupBanner(PageStyle.MULTI_PAGE_OVERLAP);
                     break;
-                case R.id.rb_qq_music_style:
-                    setNetEaseMusicStyle();
-                    break;
             }
         });
-        radioButton.performClick();
+    }
+
+    private void setupMultiPageBanner() {
+        mViewPager
+                .setPageMargin(getResources().getDimensionPixelOffset(R.dimen.dp_10))
+                .setRevealWidth(getResources().getDimensionPixelOffset(R.dimen.dp_10))
+                .create(getPicList(4));
+        mViewPager.removeDefaultPageTransformer();
+    }
+
+    private void setupRightPageReveal() {
+        mViewPager
+                .setPageMargin(getResources().getDimensionPixelOffset(R.dimen.dp_10))
+                .setRevealWidth(0, getResources().getDimensionPixelOffset(R.dimen.dp_30))
+                .create(getPicList(4));
+
+        mViewPager.removeDefaultPageTransformer();
     }
 
     private void setupBanner(@APageStyle int pageStyle) {
@@ -97,14 +111,4 @@ public class PageFragment extends BaseFragment {
                 .create(getPicList(4));
     }
 
-    //  仿QQ音乐的Banner
-    private void setNetEaseMusicStyle() {
-        mViewPager
-                .setPageMargin(getResources().getDimensionPixelOffset(R.dimen.dp_15))
-                .setRevealWidth(BannerUtils.dp2px(0))
-                .setPageStyle(PageStyle.MULTI_PAGE)
-                .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
-                .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
-                .setInterval(5000).create(getPicList(4));
-    }
 }

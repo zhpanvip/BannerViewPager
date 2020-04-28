@@ -66,7 +66,7 @@ public class AttributeController {
         mBannerOptions.setCanLoop(isCanLoop);
         mBannerOptions.setPageMargin(pageMargin);
         mBannerOptions.setRoundRectRadius(roundCorner);
-        mBannerOptions.setRevealWidth(revealWidth);
+        mBannerOptions.setRightRevealWidth(revealWidth);
         mBannerOptions.setPageStyle(pageStyle);
         mBannerOptions.setScrollDuration(scrollDuration);
     }

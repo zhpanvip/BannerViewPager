@@ -9,7 +9,10 @@ package com.zhpan.bannerview.constants;
 public interface PageStyle {
 
     int NORMAL = 0;
-
+    /**
+     * @deprecated please use {@link com.zhpan.bannerview.BannerViewPager#setRevealWidth(int)} instead.
+     */
+    @Deprecated
     int MULTI_PAGE = 1 << 1;
     /**
      * Requires Api Version >= 21

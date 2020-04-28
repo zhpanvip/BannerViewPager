@@ -32,7 +32,6 @@ import com.zhpan.indicator.IndicatorView;
 import com.zhpan.indicator.annotation.AIndicatorSlideMode;
 import com.zhpan.indicator.annotation.AIndicatorStyle;
 import com.zhpan.indicator.base.IIndicator;
-import com.zhpan.indicator.option.IndicatorOptions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +41,6 @@ import static com.zhpan.bannerview.constants.IndicatorGravity.CENTER;
 import static com.zhpan.bannerview.constants.IndicatorGravity.END;
 import static com.zhpan.bannerview.constants.IndicatorGravity.START;
 import static com.zhpan.bannerview.transform.ScaleInTransformer.DEFAULT_MIN_SCALE;
-import static com.zhpan.bannerview.transform.ScaleInTransformer.MAX_SCALE;
 
 /**
  * Created by zhpan on 2017/3/28.
@@ -84,7 +82,7 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
 
     private MarginPageTransformer mMarginPageTransformer;
 
-    private ViewPager2.PageTransformer mPageTransformer;
+    private ViewPager2.PageTransformer mDefaultPageTransformer;
 
     private ViewPager2.OnPageChangeCallback mOnPageChangeCallback = new ViewPager2.OnPageChangeCallback() {
         @Override
@@ -337,6 +335,18 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
         BannerOptions bannerOptions = mBannerManager.getBannerOptions();
         if (bannerOptions.getScrollDuration() != 0)
             ScrollDurationManger.reflectLayoutManager(mViewPager, bannerOptions.getScrollDuration());
+        if (bannerOptions.getRightRevealWidth() > 0 || bannerOptions.getLeftRevealWidth() > 0) {
+            RecyclerView recyclerView = (RecyclerView) mViewPager.getChildAt(0);
+            int orientation = bannerOptions.getOrientation();
+            int padding2 = bannerOptions.getPageMargin() + bannerOptions.getRightRevealWidth();
+            int padding1 = bannerOptions.getPageMargin() + bannerOptions.getLeftRevealWidth();
+            if (orientation == ViewPager2.ORIENTATION_HORIZONTAL)
+                recyclerView.setPadding(padding1, 0, padding2, 0);
+            else if (orientation == ViewPager2.ORIENTATION_VERTICAL) {
+                recyclerView.setPadding(0, padding1, 0, padding2);
+            }
+            recyclerView.setClipToPadding(false);
+        }
         currentPosition = 0;
         mBannerPagerAdapter.setCanLoop(isCanLoop());
         mBannerPagerAdapter.setPageClickListener(mOnPageClickListener);
@@ -355,9 +365,6 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
 
     private void initPageStyle() {
         switch (mBannerManager.getBannerOptions().getPageStyle()) {
-            case PageStyle.MULTI_PAGE:
-                setMultiPageStyle(false, MAX_SCALE);
-                break;
             case PageStyle.MULTI_PAGE_OVERLAP:
                 setMultiPageStyle(true, mBannerManager.getBannerOptions().getPageScale());
                 break;
@@ -368,25 +375,15 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
     }
 
     private void setMultiPageStyle(boolean overlap, float scale) {
-        RecyclerView recyclerView = (RecyclerView) mViewPager.getChildAt(0);
-        BannerOptions bannerOptions = mBannerManager.getBannerOptions();
-        int orientation = bannerOptions.getOrientation();
-        int padding = bannerOptions.getPageMargin() + bannerOptions.getRevealWidth();
-        if (orientation == ViewPager2.ORIENTATION_HORIZONTAL)
-            recyclerView.setPadding(padding, 0, padding, 0);
-        else if (orientation == ViewPager2.ORIENTATION_VERTICAL) {
-            recyclerView.setPadding(0, padding, 0, padding);
-        }
-        recyclerView.setClipToPadding(false);
-        if (mPageTransformer != null) {
-            mCompositePageTransformer.removeTransformer(mPageTransformer);
+        if (mDefaultPageTransformer != null) {
+            mCompositePageTransformer.removeTransformer(mDefaultPageTransformer);
         }
         if (overlap && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mPageTransformer = new OverlapPageTransformer(orientation, scale, 0f, 1, 0);
+            mDefaultPageTransformer = new OverlapPageTransformer(mBannerManager.getBannerOptions().getOrientation(), scale, 0f, 1, 0);
         } else {
-            mPageTransformer = new ScaleInTransformer(scale);
+            mDefaultPageTransformer = new ScaleInTransformer(scale);
         }
-        addPageTransformer(mPageTransformer);
+        addPageTransformer(mDefaultPageTransformer);
     }
 
     private int getInterval() {
@@ -520,6 +517,18 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
     public void removeTransformer(@Nullable ViewPager2.PageTransformer transformer) {
         if (transformer != null) {
             mCompositePageTransformer.removeTransformer(transformer);
+        }
+    }
+
+    public void removeDefaultPageTransformer() {
+        if (mDefaultPageTransformer != null) {
+            mCompositePageTransformer.removeTransformer(mDefaultPageTransformer);
+        }
+    }
+
+    public void removeMarginPageTransformer() {
+        if (mMarginPageTransformer != null) {
+            mCompositePageTransformer.removeTransformer(mMarginPageTransformer);
         }
     }
 
@@ -808,7 +817,17 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
      * @param revealWidth 一屏多页模式下两边页面显露出来的宽度
      */
     public BannerViewPager<T, VH> setRevealWidth(int revealWidth) {
-        mBannerManager.getBannerOptions().setRevealWidth(revealWidth);
+        setRevealWidth(revealWidth, revealWidth);
+        return this;
+    }
+
+    /**
+     * @param leftRevealWidth  left page item  reveal width
+     * @param rightRevealWidth right page item reveal width
+     */
+    public BannerViewPager<T, VH> setRevealWidth(int leftRevealWidth, int rightRevealWidth) {
+        mBannerManager.getBannerOptions().setRightRevealWidth(rightRevealWidth);
+        mBannerManager.getBannerOptions().setLeftRevealWidth(leftRevealWidth);
         return this;
     }
 

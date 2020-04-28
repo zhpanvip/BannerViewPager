@@ -21,7 +21,7 @@ public class BannerOptions {
     public BannerOptions() {
         mIndicatorOptions = new IndicatorOptions();
         pageMargin = BannerUtils.dp2px(20);
-        revealWidth = BannerUtils.dp2px(20);
+        rightRevealWidth = BannerUtils.dp2px(20);
     }
 
     private int offScreenPageLimit = ViewPager2.OFFSCREEN_PAGE_LIMIT_DEFAULT;
@@ -36,7 +36,9 @@ public class BannerOptions {
 
     private int pageMargin;
 
-    private int revealWidth;
+    private int rightRevealWidth;
+
+    private int leftRevealWidth;
 
     private int pageStyle = PageStyle.NORMAL;
 
@@ -44,7 +46,7 @@ public class BannerOptions {
 
     private IndicatorMargin mIndicatorMargin;
 
-    private int mIndicatorVisibility= View.VISIBLE;
+    private int mIndicatorVisibility = View.VISIBLE;
 
     private int scrollDuration;
 
@@ -126,12 +128,20 @@ public class BannerOptions {
         this.pageMargin = pageMargin;
     }
 
-    public int getRevealWidth() {
-        return revealWidth;
+    public int getRightRevealWidth() {
+        return rightRevealWidth;
     }
 
-    public void setRevealWidth(int revealWidth) {
-        this.revealWidth = revealWidth;
+    public void setRightRevealWidth(int rightRevealWidth) {
+        this.rightRevealWidth = rightRevealWidth;
+    }
+
+    public int getLeftRevealWidth() {
+        return leftRevealWidth;
+    }
+
+    public void setLeftRevealWidth(int leftRevealWidth) {
+        this.leftRevealWidth = leftRevealWidth;
     }
 
     public int getIndicatorStyle() {

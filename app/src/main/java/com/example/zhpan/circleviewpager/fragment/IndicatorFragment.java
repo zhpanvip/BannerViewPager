@@ -6,7 +6,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.example.zhpan.circleviewpager.R;
-import com.example.zhpan.circleviewpager.adapter.ImageResourceAdapter;
+import com.example.zhpan.circleviewpager.adapter.IndicatorAdapter;
 import com.example.zhpan.circleviewpager.viewholder.ImageResourceViewHolder;
 import com.zhpan.bannerview.BannerViewPager;
 import com.zhpan.bannerview.constants.IndicatorGravity;
@@ -69,7 +69,7 @@ public class IndicatorFragment extends BaseFragment {
                 .setScrollDuration(800)
                 .setIndicatorGravity(IndicatorGravity.CENTER)
                 .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
-                .setAdapter(new ImageResourceAdapter(0))
+                .setAdapter(new IndicatorAdapter(getResources().getDimensionPixelOffset(R.dimen.dp_8)))
                 .setRoundCorner(BannerUtils.dp2px(6)).create();
         initRadioGroup();
     }
