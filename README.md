@@ -512,7 +512,8 @@ you must add proguard rules，If you have called setScrollDuration method in you
 ## Thanks
 
 [玩Android](https://wanandroid.com/)
-
+[finite-cover-flow](https://github.com/KoderLabs/finite-cover-flow)
+[zguop-banner](https://github.com/zguop/banner)
 
 License
 -------
