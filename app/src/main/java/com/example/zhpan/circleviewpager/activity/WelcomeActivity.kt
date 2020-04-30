@@ -26,7 +26,7 @@ class WelcomeActivity : BaseDataActivity() {
 
     private val des = arrayOf("在这里\n你可以听到周围人的心声", "在这里\nTA会在下一秒遇见你", "在这里\n不再错过可以改变你一生的人")
 
-    private val transforms = intArrayOf(TransformerStyle.NONE, TransformerStyle.ACCORDION, TransformerStyle.STACK, TransformerStyle.DEPTH, TransformerStyle.ROTATE, TransformerStyle.SCALE_IN)
+    private val transforms = intArrayOf(TransformerStyle.NONE, TransformerStyle.ACCORDION,  TransformerStyle.DEPTH, TransformerStyle.ROTATE, TransformerStyle.SCALE_IN)
 
     private val data: List<CustomBean>
         get() {
@@ -51,7 +51,7 @@ class WelcomeActivity : BaseDataActivity() {
         mViewPager = findViewById(R.id.viewpager)
         mViewPager.apply {
             setCanLoop(false)
-            setPageTransformer(PageTransformerFactory.createPageTransformer(transforms[Random().nextInt(6)]))
+            setPageTransformer(PageTransformerFactory.createPageTransformer(transforms[Random().nextInt(5)]))
             setIndicatorMargin(0, 0, 0, resources.getDimension(R.dimen.dp_100).toInt())
             setIndicatorSliderGap(resources.getDimension(R.dimen.dp_10).toInt())
             setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)

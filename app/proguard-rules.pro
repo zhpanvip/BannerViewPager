@@ -29,3 +29,5 @@
 
 -keep class androidx.recyclerview.widget.**{*;}
 -keep class androidx.viewpager2.widget.**{*;}
+-dontwarn com.tencent.bugly.**
+-keep public class com.tencent.bugly.**{*;}

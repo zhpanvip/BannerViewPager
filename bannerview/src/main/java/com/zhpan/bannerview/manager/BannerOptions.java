@@ -21,8 +21,11 @@ public class BannerOptions {
     public BannerOptions() {
         mIndicatorOptions = new IndicatorOptions();
         pageMargin = BannerUtils.dp2px(20);
-        rightRevealWidth = BannerUtils.dp2px(20);
+        rightRevealWidth = DEFAULT_REVEAL_WIDTH;
+        leftRevealWidth = DEFAULT_REVEAL_WIDTH;
     }
+
+    public static final int DEFAULT_REVEAL_WIDTH = -1000;
 
     private int offScreenPageLimit = ViewPager2.OFFSCREEN_PAGE_LIMIT_DEFAULT;
 

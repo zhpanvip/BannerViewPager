@@ -2,6 +2,7 @@ package com.example.zhpan.circleviewpager;
 
 import android.app.Application;
 
+import com.tencent.bugly.crashreport.CrashReport;
 import com.zhpan.bannerview.utils.BannerUtils;
 import com.zhpan.idea.utils.Utils;
 
@@ -18,5 +19,6 @@ public class App extends Application {
         super.onCreate();
         Utils.init(getApplicationContext());
         BannerUtils.setDebugMode(true);
+        CrashReport.initCrashReport(getApplicationContext(), "69b176a2b6", true);
     }
 }

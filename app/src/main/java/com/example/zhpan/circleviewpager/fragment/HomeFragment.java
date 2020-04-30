@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.zhpan.circleviewpager.R;
+import com.example.zhpan.circleviewpager.activity.WebViewActivity;
 import com.example.zhpan.circleviewpager.adapter.ArticleAdapter;
 import com.example.zhpan.circleviewpager.adapter.HomeAdapter;
 import com.example.zhpan.circleviewpager.adapter.ImageResourceAdapter;
@@ -38,6 +39,8 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
+
+import static com.example.zhpan.circleviewpager.net.BannerData.TYPE_NEW;
 
 /**
  * Created by zhpan on 2018/7/24.
@@ -128,7 +131,7 @@ public class HomeFragment extends BaseFragment {
                         List<BannerData> dataList = response.getDataBeanList();
                         BannerData bannerData = new BannerData();
                         bannerData.setDrawable(R.drawable.bg_card0);
-                        bannerData.setType(BannerData.TYPE_NEW);
+                        bannerData.setType(TYPE_NEW);
                         bannerData.setTitle("这是一个自定义类型");
                         dataList.add(1, bannerData);
                         mViewPagerHorizontal.refreshData(dataList);
@@ -197,7 +200,13 @@ public class HomeFragment extends BaseFragment {
 
     private void onPageClicked(int position) {
         BannerData bannerData = mViewPagerHorizontal.getData().get(position);
-        Toast.makeText(getMContext(), "position:" + position + " " + bannerData.getTitle() + "currentItem:" + mViewPagerHorizontal.getCurrentItem(), Toast.LENGTH_SHORT).show();
+        if (bannerData.getType() != TYPE_NEW) {
+            if (getActivity() != null) {
+                WebViewActivity.start(getActivity(), bannerData.getTitle(), bannerData.getUrl());
+            }
+        } else {
+            Toast.makeText(getMContext(), "position:" + position + " " + bannerData.getTitle() + "currentItem:" + mViewPagerHorizontal.getCurrentItem(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     private View getHeaderView() {

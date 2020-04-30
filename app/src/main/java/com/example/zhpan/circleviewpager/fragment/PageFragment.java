@@ -11,6 +11,7 @@ import com.example.zhpan.circleviewpager.viewholder.ImageResourceViewHolder;
 import com.zhpan.bannerview.BannerViewPager;
 import com.zhpan.bannerview.annotation.APageStyle;
 import com.zhpan.bannerview.constants.PageStyle;
+import com.zhpan.bannerview.utils.BannerUtils;
 import com.zhpan.idea.utils.ToastUtils;
 import com.zhpan.indicator.enums.IndicatorSlideMode;
 
@@ -82,6 +83,12 @@ public class PageFragment extends BaseFragment {
                 case R.id.rb_multi_page_overlap:
                     setupBanner(PageStyle.MULTI_PAGE_OVERLAP);
                     break;
+                case R.id.rb_qq_music_style:
+                    setQQMusicStyle();
+                    break;
+                case R.id.rb_netease_music_style:
+                    setNetEaseMusicStyle();
+                    break;
             }
         });
     }
@@ -109,6 +116,28 @@ public class PageFragment extends BaseFragment {
                 .setRevealWidth(getResources().getDimensionPixelOffset(R.dimen.dp_10))
                 .setPageStyle(pageStyle)
                 .create(getPicList(4));
+    }
+
+    // 网易云音乐样式
+    private void setNetEaseMusicStyle() {
+        mViewPager
+                .setPageMargin(getResources().getDimensionPixelOffset(R.dimen.dp_20))
+                .setRevealWidth(getResources().getDimensionPixelOffset(R.dimen.dp_m_10))
+                .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
+                .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
+                .setInterval(5000).create(getPicList(4));
+        mViewPager.removeDefaultPageTransformer();
+    }
+
+    //  仿QQ音乐的Banner
+    private void setQQMusicStyle() {
+        mViewPager
+                .setPageMargin(getResources().getDimensionPixelOffset(R.dimen.dp_15))
+                .setRevealWidth(BannerUtils.dp2px(0))
+                .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
+                .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
+                .setInterval(5000).create(getPicList(4));
+        mViewPager.removeDefaultPageTransformer();
     }
 
 }

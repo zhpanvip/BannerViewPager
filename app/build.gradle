@@ -9,11 +9,12 @@ android {
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
-        versionName "1.0"
+        versionName "3.1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
+            debuggable false
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -62,4 +63,5 @@ dependencies {
     implementation 'com.google.android.material:material:1.1.0'
     implementation "androidx.navigation:navigation-fragment:2.2.2"
     implementation "androidx.navigation:navigation-ui:2.2.2"
+    implementation 'com.tencent.bugly:crashreport:3.2.1'
 }

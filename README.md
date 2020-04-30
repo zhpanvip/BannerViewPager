@@ -100,7 +100,7 @@ It's also support to custom indicator style,just need extends BaseIndicatorView 
 | BannerViewPager<T, VH> removeTransformer(ViewPager2.PageTransformer) | Remvoe page transformer | supported v3.0.0 |
 | BannerViewPager<T, VH> setCurrentItem(int) | Set the currently selected page. | supported v2.3.5|
 | int getCurrentItem() | return current position | Supported v2.3.5 |
-| BannerViewPager<T, VH> setPageStyle(PageStyle) | set page style for BVP | supported v2.4.0 enum(MULTI_PAGE、MULTI_PAGE_SCALE、MULTI_PAGE_OVERLAP)|
+| BannerViewPager<T, VH> setPageStyle(PageStyle) | set page style for BVP | supported v2.4.0 enum(MULTI_PAGE_SCALE;MULTI_PAGE_OVERLAP)|
 | BannerViewPager<T, VH> setPageMargin(int) |  | supported v2.4.0 |
 | BannerViewPager<T, VH> setIndicatorMargin(int left, int top, int right, int bottom) | set margin for indicator | supported v2.4.1 |
 | BannerViewPager<T, VH> registerOnPageChangeCallback(OnPageChangeListener) | Set a callback that will be invoked whenever the page changes or is incrementally scrolled. |  |
@@ -125,7 +125,7 @@ It's also support to custom indicator style,just need extends BaseIndicatorView 
 | bvp_indicator_radius | dimension | if it's circle style the value is radius of circle,if the indicator style is DASH or ROUND_RECT the value is width/2   |
 | bvp_round_corner| dimension  | set round corner for BVP |
 | bvp_page_margin | dimension | set item margin |
-| bvp_reveal_width | dimension | it's only used when the page style is MULTI_PAGE/MULTI_PAGE_SCALE/MULTI_PAGE_OVERLAP,the value is two side item reveal width  |
+| bvp_reveal_width | dimension | it's only used when the page style is MULTI_PAGE_SCALE/MULTI_PAGE_OVERLAP,the value is two side item reveal width  |
 | bvp_indicator_style | enum | indicator style(circle/dash/round_rect)  |
 | bvp_indicator_slide_mode | enum | indicator slide mode(normal;smooth;worm;color;scale) |
 | bvp_indicator_gravity | enum | indicator gravity(center/start/end) |
@@ -495,24 +495,19 @@ you must add proguard rules，If you have called setScrollDuration method in you
 
 ## <span id="Sponsor"> Sponsor </span>
 
-**开源不易 随心赞赏**
+**如果您觉得BannerViewPager库还不错，帮您省了不少时间，可以点击Star表示对作者的支持，也可以扫描二维码请作者喝杯咖啡。**
 
 | Alipay | WeChat |
 |--|--|
 | ![Alipay](https://github.com/zhpanvip/Resource/blob/master/image/pay/pay_alipay.jpg) |  ![WeChat](https://github.com/zhpanvip/Resource/blob/master/image/pay/pay_wechat.png) |
 
-##  More details
-
-[《打造一个丝滑般自动轮播无限循环Android库》](https://juejin.im/post/5d6bce24f265da03db0790d1)
-
-[《BannerViewPager源码解析》](https://juejin.im/post/5d74d3faf265da03b5747015)
-
-[《剖析BannerViewPager中Indicator的设计思想》](https://juejin.im/post/5dda0b6d518825731f569a8c)
 
 ## Thanks
 
 [玩Android](https://wanandroid.com/)
+
 [finite-cover-flow](https://github.com/KoderLabs/finite-cover-flow)
+
 [zguop-banner](https://github.com/zguop/banner)
 
 License

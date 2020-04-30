@@ -40,6 +40,7 @@ import static com.zhpan.bannerview.BaseBannerAdapter.MAX_VALUE;
 import static com.zhpan.bannerview.constants.IndicatorGravity.CENTER;
 import static com.zhpan.bannerview.constants.IndicatorGravity.END;
 import static com.zhpan.bannerview.constants.IndicatorGravity.START;
+import static com.zhpan.bannerview.manager.BannerOptions.DEFAULT_REVEAL_WIDTH;
 import static com.zhpan.bannerview.transform.ScaleInTransformer.DEFAULT_MIN_SCALE;
 
 /**
@@ -335,7 +336,7 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
         BannerOptions bannerOptions = mBannerManager.getBannerOptions();
         if (bannerOptions.getScrollDuration() != 0)
             ScrollDurationManger.reflectLayoutManager(mViewPager, bannerOptions.getScrollDuration());
-        if (bannerOptions.getRightRevealWidth() > 0 || bannerOptions.getLeftRevealWidth() > 0) {
+        if (bannerOptions.getRightRevealWidth() != DEFAULT_REVEAL_WIDTH || bannerOptions.getLeftRevealWidth() != DEFAULT_REVEAL_WIDTH) {
             RecyclerView recyclerView = (RecyclerView) mViewPager.getChildAt(0);
             int orientation = bannerOptions.getOrientation();
             int padding2 = bannerOptions.getPageMargin() + bannerOptions.getRightRevealWidth();

@@ -99,7 +99,7 @@ BannerViewPager目前已支持三种IndicatorViewStyle,以及五种IndicatorSlid
 | BannerViewPager<T, VH> removeTransformer(ViewPager2.PageTransformer) | 3.0.0新增，移除页面Transformer |  |
 | BannerViewPager<T, VH> setCurrentItem(int) | Set the currently selected page. | 2.3.5新增 |
 | int getCurrentItem() | 获取当前position | 2.3.5新增 |
-| BannerViewPager<T, VH> setPageStyle(PageStyle) | 设置页面样式 | 2.4.0新增 可选（MULTI_PAGE、MULTI_PAGE_SCALE、MULTI_PAGE_OVERLAP）|
+| BannerViewPager<T, VH> setPageStyle(PageStyle) | 设置页面样式 | 2.4.0新增 可选（MULTI_PAGE_SCALE、MULTI_PAGE_OVERLAP）|
 | BannerViewPager<T, VH> setPageMargin(int) | 设置页面间隔 | 2.4.0新增 |
 | BannerViewPager<T, VH> setIndicatorMargin(int left, int top, int right, int bottom) | 设置Indicator边距 | 2.4.1新增 |
 | BannerViewPager<T, VH> registerOnPageChangeCallback(OnPageChangeListener) | 页面改变的监听事件 | 2.4.3新增 |
@@ -492,25 +492,21 @@ public class FigureIndicatorView extends BaseIndicatorView {
 
 ## <span id="Sponsor"> Sponsor </span>
 
-**开源不易 随心赞赏**
+
+**如果您觉得BannerViewPager库还不错，帮您省了不少时间，可以点击Star表示对作者的支持，也可以扫描二维码请作者喝杯咖啡。**
 
 | 支付宝 | 微信支付 |
 |--|--|
 | ![NORMAL](https://github.com/zhpanvip/Resource/blob/master/image/pay/pay_alipay.jpg) |  ![SMOOTH](https://github.com/zhpanvip/Resource/blob/master/image/pay/pay_wechat.png) |
 
 
-##  更多详情请参看以下链接
-
-[《打造一个丝滑般自动轮播无限循环Android库》](https://juejin.im/post/5d6bce24f265da03db0790d1)
-
-[《BannerViewPager源码解析》](https://juejin.im/post/5d74d3faf265da03b5747015)
-
-[《剖析BannerViewPager中Indicator的设计思想》](https://juejin.im/post/5dda0b6d518825731f569a8c)
-
 ## 感谢
 
 [玩Android](https://wanandroid.com/)
 
+[finite-cover-flow](https://github.com/KoderLabs/finite-cover-flow)
+
+[zguop-banner](https://github.com/zguop/banner)
 
 License
 -------

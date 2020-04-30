@@ -11,6 +11,8 @@ import androidx.annotation.Nullable;
 import com.zhpan.bannerview.R;
 import com.zhpan.bannerview.utils.BannerUtils;
 
+import static com.zhpan.bannerview.manager.BannerOptions.DEFAULT_REVEAL_WIDTH;
+
 /**
  * <pre>
  *   Created by zhpan on 2019/11/20.
@@ -58,7 +60,7 @@ public class AttributeController {
         boolean isCanLoop = typedArray.getBoolean(R.styleable.BannerViewPager_bvp_can_loop, true);
         int pageMargin = (int) typedArray.getDimension(R.styleable.BannerViewPager_bvp_page_margin, 0);
         int roundCorner = (int) typedArray.getDimension(R.styleable.BannerViewPager_bvp_round_corner, 0);
-        int revealWidth = (int) typedArray.getDimension(R.styleable.BannerViewPager_bvp_reveal_width, 0);
+        int revealWidth = (int) typedArray.getDimension(R.styleable.BannerViewPager_bvp_reveal_width, DEFAULT_REVEAL_WIDTH);
         int pageStyle = typedArray.getInt(R.styleable.BannerViewPager_bvp_page_style, 0);
         int scrollDuration = typedArray.getInt(R.styleable.BannerViewPager_bvp_scroll_duration, 0);
         mBannerOptions.setInterval(interval);
