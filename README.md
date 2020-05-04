@@ -3,7 +3,7 @@
 [![License](https://img.shields.io/badge/License%20-Apache%202-337ab7.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 ![MinSdk](https://img.shields.io/badge/API-16%2B-brightgreen.svg?style=flat)
 [![JitPack](https://jitpack.io/v/zhpanvip/BannerViewPager.svg)](https://jitpack.io/#zhpanvip/BannerViewPager)
-[ ![JCenter](https://api.bintray.com/packages/zhpanvip/CircleViewPager/bannerview/images/download.svg) ](https://bintray.com/zhpanvip/CircleViewPager/bannerview/_latestVersion)
+[![JCenter](https://api.bintray.com/packages/zhpanvip/CircleViewPager/bannerview/images/download.svg) ](https://bintray.com/zhpanvip/CircleViewPager/bannerview/_latestVersion)
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-BannerViewPager-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/7961)
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-ViewPagerIndicator-brightgreen.svg?style=flat)](https://github.com/zhpanvip/viewpagerindicator)
 
@@ -12,10 +12,10 @@
 > Tencent Video,QQ Music,KuGou,AliPay,Tmall,TaoBao,YouKu,Himalaya,NetEase Music,Bilibili ect. All of above App's Banner can be implements By BannerViewPager.
 
 
-## What's new in version 3.0
+## What's new in version 3.x
 
 - Migrate to ViewPager2
-- Mutiple item type supported
+- Multiple item type supported
 - setOrientation supported
 - addPageTransformer and removeTransformer supported
 - setAdapter replaces setHolderCreator
@@ -23,8 +23,8 @@
 - registerOnPageChangeCallback replaces setOnPageChangeListener
 - setUserInputEnabled replaces disableTouchScroll
 - remove setPageTransformerStyle
-- remvoe some deprecate methods in 2.x
-- no longer support Android support library
+- remove some deprecate methods in v2.x
+- no longer support android.support library
 - SCALE slide mode and COLOR slide mode supported(V3.1.0)
 - refreshData() supported (V3.1.0)
 
@@ -111,7 +111,8 @@ It's also support to custom indicator style,just need extends BaseIndicatorView 
 | void stopLoop() | Stop loop | |
 | List\<T> getData() | return data in BVP |  |
 | void create(List<T> list) |Create BannerViewPager with data  | If data has fetched while you setup BannerViewPager,you can call this method |
-| void create() |Create BannerViewPager with no data  | If there is no data while you setup BannerViewPager(for example,The data is from remote server)，you can call this method.Then,while you get data successfully,just need call refreData() method to refresh |
+| void create() |Create BannerViewPager with no data  | You can call this，If fetching data asynchronously(for example,The data is from remote server or database).While fetch data successfully,just need call refreshData() method to refresh |、
+| void refreshData(List<T>) | Refresh if data is update  | Supported in v3.1.0 |
 ### Attributes
 
 | Attributes | format | description |
@@ -133,7 +134,7 @@ It's also support to custom indicator style,just need extends BaseIndicatorView 
 | bvp_indicator_visibility| enum | indicator visibility(visible/gone/invisible) |
 
 
-## Useage
+## Usage
 
 Because Viewpager2 is not supported in android.support library, So BannerViewPager V3.0 is no longer support android support.library. If you are still using android.support library, please use [BannerViewPager v2.x](https://github.com/zhpanvip/BannerViewPager/tree/v_2.x)
 
@@ -311,7 +312,7 @@ public class HomeAdapter extends BaseBannerAdapter<BannerData, NetViewHolder> {
 
   ```
 
-  While fetch data successfully,just need call refreData() method to refresh:
+  While fetch data successfully,just need call refreshData() method to refresh:
 
   ```
       mViewPager.refreshData(data)
@@ -497,9 +498,9 @@ you must add proguard rules，If you have called setScrollDuration method in you
 
 **如果您觉得BannerViewPager库还不错，帮您省了不少时间，可以点击Star表示对作者的支持，也可以扫描二维码请作者喝杯咖啡。**
 
-| Alipay | WeChat |
+| AliPay | WeChat |
 |--|--|
-| ![Alipay](https://github.com/zhpanvip/Resource/blob/master/image/pay/pay_alipay.jpg) |  ![WeChat](https://github.com/zhpanvip/Resource/blob/master/image/pay/pay_wechat.png) |
+| ![AliPay](https://github.com/zhpanvip/Resource/blob/master/image/pay/pay_alipay.jpg) |  ![WeChat](https://github.com/zhpanvip/Resource/blob/master/image/pay/pay_wechat.png) |
 
 
 ## Thanks
