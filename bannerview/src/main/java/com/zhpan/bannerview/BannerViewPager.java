@@ -186,7 +186,7 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        if (!mViewPager.isUserInputEnabled() || mBannerPagerAdapter.getData().size() <= 1) {
+        if (!mViewPager.isUserInputEnabled() || mBannerPagerAdapter != null && mBannerPagerAdapter.getData().size() <= 1) {
             return super.onInterceptTouchEvent(ev);
         }
         switch (ev.getAction()) {
