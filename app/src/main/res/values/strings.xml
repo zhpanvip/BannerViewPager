@@ -2,7 +2,7 @@
     <string name="app_name">BannerViewPager</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="wrapper_photo_view">With PhotoView</string>
+    <string name="wrapper_photo_view">Jump to random position smoothly</string>
     <string name="start_now">Start Now</string>
     <string name="guide">guide</string>
     <string name="normal">NORMAL</string>

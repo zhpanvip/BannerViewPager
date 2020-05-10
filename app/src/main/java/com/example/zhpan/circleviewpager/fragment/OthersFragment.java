@@ -185,6 +185,8 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
 
     @Override
     public void onClick(View view) {
-        startActivity(new Intent(getActivity(), PhotoViewActivity.class));
+        int position = new Random().nextInt(5);
+        mViewPager.setCurrentItem(position, true);
+        ToastUtils.show("Jump to position:" + position);
     }
 }
