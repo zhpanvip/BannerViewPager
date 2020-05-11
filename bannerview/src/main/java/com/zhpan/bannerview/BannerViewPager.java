@@ -107,7 +107,7 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
             int size = mBannerPagerAdapter.getListSize();
             currentPosition = BannerUtils.getRealPosition(isCanLoop(), position, size);
             if (size > 0 && isCanLoop() && position == 0 || position == MAX_VALUE - 1) {
-                setCurrentItem(currentPosition, false);
+                resetCurrentItem(currentPosition);
             }
             if (onPageChangeCallback != null)
                 onPageChangeCallback.onPageSelected(currentPosition);
@@ -385,6 +385,15 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
             mDefaultPageTransformer = new ScaleInTransformer(scale);
         }
         addPageTransformer(mDefaultPageTransformer);
+    }
+
+
+    private void resetCurrentItem(int item) {
+        if (isCanLoop() && mBannerPagerAdapter.getListSize() > 1) {
+            mViewPager.setCurrentItem(MAX_VALUE / 2 - ((MAX_VALUE / 2) % mBannerPagerAdapter.getListSize()) + 1 + item, false);
+        } else {
+            mViewPager.setCurrentItem(item, false);
+        }
     }
 
     private int getInterval() {
@@ -750,7 +759,7 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
             stopLoop();
             mBannerPagerAdapter.setData(list);
             mBannerPagerAdapter.notifyDataSetChanged();
-            setCurrentItem(getCurrentItem(), false);
+            resetCurrentItem(getCurrentItem());
             setIndicatorValues(list);
             mBannerManager.getBannerOptions().getIndicatorOptions()
                     .setCurrentPosition(BannerUtils.getRealPosition(isCanLoop(),
@@ -776,7 +785,19 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
      */
     public void setCurrentItem(int item) {
         if (isCanLoop() && mBannerPagerAdapter.getListSize() > 1) {
-            mViewPager.setCurrentItem(MAX_VALUE / 2 - ((MAX_VALUE / 2) % mBannerPagerAdapter.getListSize()) + 1 + item);
+            int currentItem = mViewPager.getCurrentItem();
+            int pageSize = mBannerPagerAdapter.getListSize();
+            int realPosition = BannerUtils.getRealPosition(isCanLoop(), currentItem, mBannerPagerAdapter.getListSize());
+            if (currentItem != item) {
+                if (item == 0 && realPosition == pageSize - 1) {
+                    mViewPager.setCurrentItem(currentItem + 1);
+                } else if (realPosition == 0 && item == pageSize - 1) {
+                    mViewPager.setCurrentItem(currentItem - 1);
+                } else {
+                    mViewPager.setCurrentItem(currentItem + (item - realPosition));
+                }
+                mViewPager.setCurrentItem(currentItem + (item - realPosition));
+            }
         } else {
             mViewPager.setCurrentItem(item);
         }
@@ -790,7 +811,18 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
      */
     public void setCurrentItem(int item, boolean smoothScroll) {
         if (isCanLoop() && mBannerPagerAdapter.getListSize() > 1) {
-            mViewPager.setCurrentItem(MAX_VALUE / 2 - ((MAX_VALUE / 2) % mBannerPagerAdapter.getListSize()) + 1 + item, smoothScroll);
+            int pageSize = mBannerPagerAdapter.getListSize();
+            int currentItem = mViewPager.getCurrentItem();
+            int realPosition = BannerUtils.getRealPosition(isCanLoop(), currentItem, pageSize);
+            if (currentItem != item) {
+                if (item == 0 && realPosition == pageSize - 1) {
+                    mViewPager.setCurrentItem(currentItem + 1, smoothScroll);
+                } else if (realPosition == 0 && item == pageSize - 1) {
+                    mViewPager.setCurrentItem(currentItem - 1, smoothScroll);
+                } else {
+                    mViewPager.setCurrentItem(currentItem + (item - realPosition), smoothScroll);
+                }
+            }
         } else {
             mViewPager.setCurrentItem(item, smoothScroll);
         }
