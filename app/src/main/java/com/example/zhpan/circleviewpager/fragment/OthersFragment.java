@@ -1,6 +1,5 @@
 package com.example.zhpan.circleviewpager.fragment;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -10,7 +9,6 @@ import android.widget.RadioGroup;
 import androidx.annotation.NonNull;
 
 import com.example.zhpan.circleviewpager.R;
-import com.example.zhpan.circleviewpager.activity.PhotoViewActivity;
 import com.example.zhpan.circleviewpager.adapter.ImageResourceAdapter;
 import com.example.zhpan.circleviewpager.view.FigureIndicatorView;
 import com.example.zhpan.circleviewpager.viewholder.ImageResourceViewHolder;
