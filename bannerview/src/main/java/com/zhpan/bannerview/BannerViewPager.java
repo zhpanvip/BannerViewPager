@@ -109,8 +109,9 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
             if (size > 0 && isCanLoop() && position == 0 || position == MAX_VALUE - 1) {
                 resetCurrentItem(currentPosition);
             }
-            if (onPageChangeCallback != null)
+            if (onPageChangeCallback != null) {
                 onPageChangeCallback.onPageSelected(currentPosition);
+            }
             if (mIndicatorView != null) {
                 mIndicatorView.onPageSelected(currentPosition);
             }
@@ -180,13 +181,16 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
                 isLooping = false;
                 startLoop();
                 break;
+            default:
+                break;
         }
         return super.dispatchTouchEvent(ev);
     }
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        if (!mViewPager.isUserInputEnabled() || mBannerPagerAdapter != null && mBannerPagerAdapter.getData().size() <= 1) {
+        boolean canIntercept = mViewPager.isUserInputEnabled() || mBannerPagerAdapter != null && mBannerPagerAdapter.getData().size() <= 1;
+        if (!canIntercept) {
             return super.onInterceptTouchEvent(ev);
         }
         switch (ev.getAction()) {
@@ -212,6 +216,7 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
                 getParent().requestDisallowInterceptTouchEvent(false);
                 break;
             case MotionEvent.ACTION_OUTSIDE:
+            default:
                 break;
         }
         return super.onInterceptTouchEvent(ev);
@@ -306,6 +311,8 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
             case END:
                 layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
                 break;
+            default:
+                break;
         }
     }
 
@@ -334,16 +341,17 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
             throw new NullPointerException("You must set adapter for BannerViewPager");
         }
         BannerOptions bannerOptions = mBannerManager.getBannerOptions();
-        if (bannerOptions.getScrollDuration() != 0)
+        if (bannerOptions.getScrollDuration() != 0) {
             ScrollDurationManger.reflectLayoutManager(mViewPager, bannerOptions.getScrollDuration());
+        }
         if (bannerOptions.getRightRevealWidth() != DEFAULT_REVEAL_WIDTH || bannerOptions.getLeftRevealWidth() != DEFAULT_REVEAL_WIDTH) {
             RecyclerView recyclerView = (RecyclerView) mViewPager.getChildAt(0);
             int orientation = bannerOptions.getOrientation();
             int padding2 = bannerOptions.getPageMargin() + bannerOptions.getRightRevealWidth();
             int padding1 = bannerOptions.getPageMargin() + bannerOptions.getLeftRevealWidth();
-            if (orientation == ViewPager2.ORIENTATION_HORIZONTAL)
+            if (orientation == ViewPager2.ORIENTATION_HORIZONTAL) {
                 recyclerView.setPadding(padding1, 0, padding2, 0);
-            else if (orientation == ViewPager2.ORIENTATION_VERTICAL) {
+            } else if (orientation == ViewPager2.ORIENTATION_VERTICAL) {
                 recyclerView.setPadding(0, padding1, 0, padding2);
             }
             recyclerView.setClipToPadding(false);
@@ -510,8 +518,9 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
      * @param transformer PageTransformer that will modify each page's animation properties
      */
     public BannerViewPager<T, VH> setPageTransformer(@Nullable ViewPager2.PageTransformer transformer) {
-        if (transformer != null)
+        if (transformer != null) {
             mViewPager.setPageTransformer(transformer);
+        }
         return this;
     }
 

@@ -18,8 +18,10 @@ import android.view.ViewOutlineProvider;
 
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 public class RoundViewOutlineProvider extends ViewOutlineProvider {
-
-    private float mRadius;//圆角弧度
+    /**
+     * 圆角弧度
+     */
+    private float mRadius;
 
     public RoundViewOutlineProvider(float radius) {
         this.mRadius = radius;
@@ -27,7 +29,8 @@ public class RoundViewOutlineProvider extends ViewOutlineProvider {
 
     @Override
     public void getOutline(View view, Outline outline) {
-        Rect selfRect = new Rect(0, 0, view.getWidth(), view.getHeight());// 绘制区域
+        // 绘制区域
+        Rect selfRect = new Rect(0, 0, view.getWidth(), view.getHeight());
         outline.setRoundRect(selfRect, mRadius);
     }
 }

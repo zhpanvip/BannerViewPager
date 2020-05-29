@@ -28,7 +28,7 @@ public class ViewStyleSetter {
      */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void setRoundRect(float radius) {
-        this.mView.setClipToOutline(true);// 用outline裁剪内容区域
+        this.mView.setClipToOutline(true);
         this.mView.setOutlineProvider(new RoundViewOutlineProvider(radius));
     }
 
@@ -37,7 +37,7 @@ public class ViewStyleSetter {
      */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void setOvalView() {
-        this.mView.setClipToOutline(true);// 用outline裁剪内容区域
+        this.mView.setClipToOutline(true);
         this.mView.setOutlineProvider(new OvalViewOutlineProvider());
     }
 

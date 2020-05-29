@@ -44,9 +44,9 @@ public class ScrollDurationManger extends LinearLayoutManager {
             mRecyclerView.setAccessible(true);
             mRecyclerView.set(linearLayoutManager, recyclerView);
 
-            Field LayoutMangerField = ViewPager2.class.getDeclaredField("mLayoutManager");
-            LayoutMangerField.setAccessible(true);
-            LayoutMangerField.set(viewPager2, speedManger);
+            Field layoutMangerField = ViewPager2.class.getDeclaredField("mLayoutManager");
+            layoutMangerField.setAccessible(true);
+            layoutMangerField.set(viewPager2, speedManger);
 
             Field pageTransformerAdapterField = ViewPager2.class.getDeclaredField("mPageTransformerAdapter");
             pageTransformerAdapterField.setAccessible(true);
