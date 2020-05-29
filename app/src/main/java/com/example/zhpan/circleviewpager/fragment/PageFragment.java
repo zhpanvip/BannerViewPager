@@ -61,7 +61,7 @@ public class PageFragment extends BaseFragment {
                 .setIndicatorSlideMode(IndicatorSlideMode.SCALE)
                 .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
                 .setIndicatorSliderRadius(getResources().getDimensionPixelOffset(R.dimen.dp_4), getResources().getDimensionPixelOffset(R.dimen.dp_5))
-                .setOnPageClickListener(position -> pageClick(position))
+                .setOnPageClickListener(this::pageClick)
                 .setAdapter(new ImageResourceAdapter(getResources().getDimensionPixelOffset(R.dimen.dp_8)))
                 .setInterval(5000);
         initRadioGroup();
@@ -69,8 +69,8 @@ public class PageFragment extends BaseFragment {
     }
 
     private void pageClick(int position) {
-        if(position!=mViewPager.getCurrentItem()){
-            mViewPager.setCurrentItem(position,true);
+        if (position != mViewPager.getCurrentItem()) {
+            mViewPager.setCurrentItem(position, true);
         }
         ToastUtils.show("position:" + position);
     }
@@ -95,6 +95,8 @@ public class PageFragment extends BaseFragment {
                     break;
                 case R.id.rb_netease_music_style:
                     setNetEaseMusicStyle();
+                    break;
+                default:
                     break;
             }
         });

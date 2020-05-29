@@ -358,7 +358,6 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
         mViewPager.unregisterOnPageChangeCallback(mOnPageChangeCallback);
         mViewPager.registerOnPageChangeCallback(mOnPageChangeCallback);
         mViewPager.setOrientation(bannerOptions.getOrientation());
-        mViewPager.setUserInputEnabled(bannerOptions.isUserInputEnabled());
         mViewPager.setOffscreenPageLimit(bannerOptions.getOffScreenPageLimit());
         initPageStyle();
         startLoop();
@@ -371,6 +370,8 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
                 break;
             case PageStyle.MULTI_PAGE_SCALE:
                 setMultiPageStyle(false, mBannerManager.getBannerOptions().getPageScale());
+                break;
+            default:
                 break;
         }
     }
@@ -883,6 +884,7 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
      */
     public BannerViewPager<T, VH> setUserInputEnabled(boolean userInputEnabled) {
         mBannerManager.getBannerOptions().setUserInputEnabled(userInputEnabled);
+        mViewPager.setUserInputEnabled(userInputEnabled);
         return this;
     }
 

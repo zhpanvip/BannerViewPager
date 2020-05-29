@@ -87,6 +87,7 @@ public class IndicatorFragment extends BaseFragment {
                 })
                 .setRoundCorner(BannerUtils.dp2px(6)).create();
         initRadioGroup();
+        mViewPager.setUserInputEnabled(true);
     }
 
 
@@ -110,6 +111,8 @@ public class IndicatorFragment extends BaseFragment {
                 case R.id.rb_scale:
                     mSlideMode = IndicatorSlideMode.SCALE;
                     break;
+                default:
+                    break;
             }
             checkedChange(mCheckId);
         });
@@ -125,6 +128,8 @@ public class IndicatorFragment extends BaseFragment {
                 break;
             case R.id.rb_round_rect:
                 setupRoundRectIndicator();
+                break;
+            default:
                 break;
         }
     }
@@ -145,7 +150,7 @@ public class IndicatorFragment extends BaseFragment {
         int normalWidth;
         if (mSlideMode == IndicatorSlideMode.SCALE) {
             checkedWidth = getResources().getDimensionPixelOffset(R.dimen.dp_5);
-            normalWidth = getResources().getDimensionPixelOffset(R.dimen.dp_3);
+            normalWidth = getResources().getDimensionPixelOffset(R.dimen.dp_4);
         } else {
             checkedWidth = getResources().getDimensionPixelOffset(R.dimen.dp_4);
             normalWidth = checkedWidth;
