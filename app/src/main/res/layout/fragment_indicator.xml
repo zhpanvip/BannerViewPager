@@ -10,8 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_180"
         android:layout_marginTop="@dimen/dp_16"
-        app:bvp_indicator_visibility="visible"
-        app:bvp_round_corner="@dimen/dp_8" />
+        app:bvp_indicator_visibility="visible" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"

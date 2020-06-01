@@ -84,8 +84,7 @@ public class IndicatorFragment extends BaseFragment {
                     public int getLayoutId(int viewType) {
                         return R.layout.item_page_indicator;
                     }
-                })
-                .setRoundCorner(BannerUtils.dp2px(6)).create();
+                }).create();
         initRadioGroup();
         mViewPager.setUserInputEnabled(true);
     }
