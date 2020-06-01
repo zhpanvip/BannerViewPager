@@ -21,13 +21,6 @@ class AdapterFragmentPager(fragmentActivity: FragmentActivity) : FragmentStateAd
 
     private val fragments: SparseArray<BaseFragment> = SparseArray()
 
-    init {
-        fragments.put(PAGE_HOME, HomeFragment.getInstance())
-        fragments.put(PAGE_FIND, PageFragment.getInstance())
-        fragments.put(PAGE_INDICATOR, IndicatorFragment.getInstance())
-        fragments.put(PAGE_OTHERS, OthersFragment.getInstance())
-    }
-
     override fun createFragment(position: Int): Fragment {
         var fragment: Fragment
         when (position) {
@@ -78,7 +71,7 @@ class AdapterFragmentPager(fragmentActivity: FragmentActivity) : FragmentStateAd
     }
 
     override fun getItemCount(): Int {
-        return fragments.size()
+        return 4
     }
 
     companion object {
