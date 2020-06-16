@@ -490,10 +490,10 @@ public class FigureIndicatorView extends BaseIndicatorView {
 
 
 
-## <span id="Sponsor"> Sponsor </span>
+## <span id="Sponsor"> 赞赏 </span>
 
 
-**如果您觉得BannerViewPager库还不错，帮您省了不少时间，可以点击Star表示对作者的支持，也可以扫描二维码请作者喝杯咖啡。**
+**如果您觉得BVP库还不错，您可以对BVP打赏哦，您的支持将是我持续维护的动力。**
 
 | 支付宝 | 微信支付 |
 |--|--|
