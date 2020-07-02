@@ -2,8 +2,7 @@
 
 [![License](https://img.shields.io/badge/License%20-Apache%202-337ab7.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 ![MinSdk](https://img.shields.io/badge/API-16%2B-brightgreen.svg?style=flat)
-[![JitPack](https://jitpack.io/v/zhpanvip/BannerViewPager.svg)](https://jitpack.io/#zhpanvip/BannerViewPager)
-[ ![JCenter](https://api.bintray.com/packages/zhpanvip/CircleViewPager/bannerview/images/download.svg) ](https://bintray.com/zhpanvip/CircleViewPager/bannerview/_latestVersion)
+![JCenter](https://api.bintray.com/packages/zhpanvip/CircleViewPager/bannerview/images/download.svg) (https://bintray.com/zhpanvip/CircleViewPager/bannerview/_latestVersion)
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-BannerViewPager-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/7961)
 
 ## [English](https://github.com/zhpanvip/BannerViewPager) | 中文
@@ -122,27 +121,6 @@ BannerViewPager目前已支持三种IndicatorViewStyle,以及三种IndicatorSlid
 
 ### 1.gradle中添加依赖
    
-
-如果您已迁移到AndroidX，请在项目的root build.gradle中添加如下配置：
-```
-allprojects {
-		repositories {
-			...
-			maven { url 'https://jitpack.io' }
-		}
-	}
-	
-```
-Add the dependency
-
-```
-implementation 'com.github.zhpanvip:BannerViewPager:latestVersion'
-
-```
-
-Androidx latestVersion:[![latestVersion](https://jitpack.io/v/zhpanvip/BannerViewPager.svg)](https://jitpack.io/#zhpanvip/BannerViewPager)
-
-如果你仍在使用Android support请使用（非Androidx的包托管在JCenter上）：
 ```
 implementation 'com.zhpan.library:bannerview:latestVersion'
 ```
