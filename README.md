@@ -2,7 +2,7 @@
 
 [![License](https://img.shields.io/badge/License%20-Apache%202-337ab7.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 ![MinSdk](https://img.shields.io/badge/API-16%2B-brightgreen.svg?style=flat)
-[ ![JCenter](https://api.bintray.com/packages/zhpanvip/CircleViewPager/bannerview/images/download.svg) ](https://bintray.com/zhpanvip/CircleViewPager/bannerview/_latestVersion)
+![JCenter](https://api.bintray.com/packages/zhpanvip/CircleViewPager/bannerview/images/download.svg)
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-BannerViewPager-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/7961)
 
 ## English | [中文](https://github.com/zhpanvip/BannerViewPager/blob/v_2.x/README_CN.md)
@@ -122,25 +122,12 @@ It's also support to custom indicator style,just need extends BaseIndicatorView 
 
 ### 1.Gradle dependency
    
-
-If you have migrated to Androidx，please add it in your root build.gradle at the end of repositories:
-
-```
-allprojects {
-		repositories {
-			...
-			maven { url 'https://jitpack.io' }
-		}
-	}
-	
-```
-Then add the dependency in your app build.gradle
+add the dependency in your app build.gradle
 
 ```
 implementation 'com.zhpan.library:bannerview:latestVersion'
 ```
-
-Android support latestVersion: [ ![latestVersion](https://api.bintray.com/packages/zhpanvip/CircleViewPager/bannerview/images/download.svg) ](https://bintray.com/zhpanvip/CircleViewPager/bannerview/_latestVersion)
+latestVersion: [ ![latestVersion](https://api.bintray.com/packages/zhpanvip/CircleViewPager/bannerview/images/download.svg) ](https://bintray.com/zhpanvip/CircleViewPager/bannerview/_latestVersion)
 
 ### 2.Add BannerViewPager in layout.xml
 
