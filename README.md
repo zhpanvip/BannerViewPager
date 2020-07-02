@@ -137,12 +137,6 @@ allprojects {
 Then add the dependency in your app build.gradle
 
 ```
-implementation 'com.github.zhpanvip:BannerViewPager:2.7.4'
-
-```
-
-If you are still using android support library,you can add the dependency in your app build.gradle：
-```
 implementation 'com.zhpan.library:bannerview:latestVersion'
 ```
 
