@@ -7,19 +7,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 
 import com.example.zhpan.circleviewpager.R
 import com.example.zhpan.circleviewpager.bean.ArticleWrapper
-import com.example.zhpan.circleviewpager.bean.CustomBean
-import com.example.zhpan.circleviewpager.viewholder.CustomPageViewHolder
 import com.example.zhpan.circleviewpager.viewholder.ImageResourceViewHolder
 import com.zhpan.bannerview.BannerViewPager
 import com.zhpan.indicator.enums.IndicatorStyle
 
 import java.util.ArrayList
 
-class ArticleAdapter(context: Context, data: List<ArticleWrapper.Article>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ArticleAdapter(val context: Context, data: List<ArticleWrapper.Article>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val mList = ArrayList<ArticleWrapper.Article>()
     private val inflater: LayoutInflater
 
@@ -45,7 +44,7 @@ class ArticleAdapter(context: Context, data: List<ArticleWrapper.Article>) : Rec
                     .setIndicatorSliderColor(holder.resources.getColor(R.color.red_normal_color), holder.resources.getColor(R.color.red_checked_color))
                     .setOrientation(ViewPager2.ORIENTATION_VERTICAL)
                     .setInterval(2000)
-                    .setAdapter(ImageResourceAdapter(0)).create(article.pagers);
+                    .setAdapter(ImageResourceAdapter(0)).create(article.pagers)
         } else if (holder is ArticleViewHolder) {
             holder.tvAuthor.text = article.author
             holder.tvTitle.text = article.title
@@ -76,6 +75,10 @@ class ArticleAdapter(context: Context, data: List<ArticleWrapper.Article>) : Rec
         var bannerViewPager: BannerViewPager<Int, ImageResourceViewHolder> = itemView.findViewById(R.id.banner_view3)
         var resources: Resources = itemView.context.resources
 
+        init {
+            if (context is AppCompatActivity)
+                bannerViewPager.setLifecycleRegistry(context.lifecycle)
+        }
     }
 
 }

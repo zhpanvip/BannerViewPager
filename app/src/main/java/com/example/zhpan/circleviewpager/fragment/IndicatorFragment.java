@@ -43,21 +43,6 @@ public class IndicatorFragment extends BaseFragment {
 
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        if (mViewPager != null) {
-            mViewPager.stopLoop();
-        }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (mViewPager != null) {
-            mViewPager.startLoop();
-        }
-    }
 
     @Override
     protected void initView(Bundle savedInstanceState, View view) {
@@ -67,6 +52,7 @@ public class IndicatorFragment extends BaseFragment {
         mViewPager = view.findViewById(R.id.banner_view);
         mViewPager.setIndicatorSliderGap(BannerUtils.dp2px(6))
                 .setScrollDuration(800)
+                .setLifecycleRegistry(getLifecycle())
                 .setIndicatorGravity(IndicatorGravity.CENTER)
                 .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
                 .setAdapter(new BaseBannerAdapter<Integer, ImageResourceViewHolder>() {

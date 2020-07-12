@@ -6,6 +6,10 @@ import android.os.Handler;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleObserver;
+import androidx.lifecycle.LifecycleRegistry;
+import androidx.lifecycle.OnLifecycleEvent;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
@@ -46,7 +50,7 @@ import static com.zhpan.bannerview.transform.ScaleInTransformer.DEFAULT_MIN_SCAL
 /**
  * Created by zhpan on 2017/3/28.
  */
-public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLayout {
+public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLayout implements LifecycleObserver {
 
     private int currentPosition;
 
@@ -197,7 +201,6 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
             case MotionEvent.ACTION_DOWN:
                 startX = (int) ev.getX();
                 startY = (int) ev.getY();
-                getParent().requestDisallowInterceptTouchEvent(true);
                 break;
             case MotionEvent.ACTION_MOVE:
                 int endX = (int) ev.getX();
@@ -923,6 +926,21 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
     public BannerViewPager<T, VH> disableTouchScroll(boolean disableTouchScroll) {
         mBannerManager.getBannerOptions().setUserInputEnabled(!disableTouchScroll);
         return this;
+    }
+
+    public BannerViewPager<T, VH> setLifecycleRegistry(Lifecycle lifecycleRegistry) {
+        lifecycleRegistry.addObserver(this);
+        return this;
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+    public void onPause() {
+        stopLoop();
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    public void onResume() {
+        startLoop();
     }
 
 }

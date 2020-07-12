@@ -106,6 +106,7 @@ BannerViewPager目前已支持三种IndicatorViewStyle,以及五种IndicatorSlid
 | BannerViewPager<T, VH> setRoundRect(int) | 设置页面滑动方向|为BannerViewPager设置圆角 |
 | BannerViewPager<T, VH> setOrientation(int) | 设置页面滑动方向| 3.0.0新增 支持水平和竖直滑动 |
 | BannerViewPager<T, VH> setUserInputEnabled(int) | 是否开启用户输入 | |
+| BannerViewPager<T, VH> setLifecycleRegistry(Lifecycle) | 为BVP设置Lifecycle | |
 | void startLoop() |开启自动轮播 | 初始化BannerViewPager时不必调用该方法,设置setAutoPlay后会调用startLoop() |
 | void stopLoop() | 停止自动轮播 | |
 | List\<T> getData() | 获取Banner中的集合数据 |  |
@@ -265,6 +266,7 @@ public class HomeAdapter extends BaseBannerAdapter<BannerData, NetViewHolder> {
                        .setAutoPlay(true)
                        .setScrollDuration(800)
                        .setIndicatorStyle(IndicatorStyle.ROUND_RECT)
+                       .setLifecycleRegistry(getLifecycle())
                        .setIndicatorSliderGap(getResources().getDimensionPixelOffset(R.dimen.dp_4))
                        .setIndicatorSliderWidth(getResources().getDimensionPixelOffset(R.dimen.dp_4), getResources().getDimensionPixelOffset(R.dimen.dp_10))
                        .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
@@ -293,6 +295,7 @@ public class HomeAdapter extends BaseBannerAdapter<BannerData, NetViewHolder> {
             mViewPager.apply {
                 adapter = HomeAdapter()
                 setAutoPlay(true)
+                setLifecycleRegistry(lifecycle)
                 setIndicatorStyle(IndicatorStyle.ROUND_RECT)
                 setIndicatorSliderGap(getResources().getDimensionPixelOffset(R.dimen.dp_4))
                 setIndicatorMargin(0, 0, 0, resources.getDimension(R.dimen.dp_100).toInt())
@@ -344,21 +347,20 @@ public class HomeAdapter extends BaseBannerAdapter<BannerData, NetViewHolder> {
         }
 ```
 
-
 ### 6.开启与停止轮播
 
-***2.5.0之后版本无需自行在Activity或Fragment中管理stopLoop和startLoop方法，但这两个方法依旧保留对外开放***
-
-但是为了节省性能建议在onPause中停止轮播，在onResume中开启轮播：
+***使用setLifecycleRegistry(getLifecycle())方法替代在Activity或Fragment中调用startLoop和stopLoop***
 
 ```
-     @Override
-      public void onPause() {
-          super.onPause();
-          if (mViewPager != null) {
-              mViewPager.stopLoop();
-          }
-      }
+    mViewPager.setLifecycleRegistry(getLifecycle())
+
+    // 下边代码已过时
+    @Override
+    protected void onPause() {
+        if (mBannerViewPager != null)
+                mBannerViewPager.stopLoop();
+        super.onPause();
+    }
 
     @Override
     protected void onResume() {
