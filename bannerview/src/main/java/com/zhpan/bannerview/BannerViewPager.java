@@ -162,14 +162,14 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
 
     @Override
     protected void onDetachedFromWindow() {
-//        stopLoop();
+        stopLoop();
         super.onDetachedFromWindow();
     }
 
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-//        startLoop();
+        startLoop();
     }
 
     @Override
