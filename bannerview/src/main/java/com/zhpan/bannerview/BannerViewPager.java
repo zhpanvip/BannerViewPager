@@ -197,7 +197,7 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
             case MotionEvent.ACTION_DOWN:
                 startX = (int) ev.getX();
                 startY = (int) ev.getY();
-                getParent().requestDisallowInterceptTouchEvent(true);
+//                getParent().requestDisallowInterceptTouchEvent(true);
                 break;
             case MotionEvent.ACTION_MOVE:
                 int endX = (int) ev.getX();
