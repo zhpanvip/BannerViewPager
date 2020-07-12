@@ -61,22 +61,6 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-        if (mViewPager != null) {
-            mViewPager.stopLoop();
-        }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (mViewPager != null) {
-            mViewPager.startLoop();
-        }
-    }
-
-    @Override
     protected void initView(Bundle savedInstanceState, @NonNull View view) {
         initRefreshLayout(view);
         radioButton = view.findViewById(R.id.rb_indicator_below);
@@ -86,6 +70,7 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
         view.findViewById(R.id.tv_photo_view).setOnClickListener(this);
         mViewPager.setIndicatorSliderGap(BannerUtils.dp2px(6))
                 .setIndicatorView(mIndicatorView)
+                .setLifecycleRegistry(getLifecycle())
                 .setRoundCorner(BannerUtils.dp2px(6))
                 .setOnPageClickListener(position -> {
                     ToastUtils.show("position:" + position);

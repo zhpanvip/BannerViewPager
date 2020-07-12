@@ -71,24 +71,12 @@ public class HomeFragment extends BaseFragment {
     public void onPause() {
         super.onPause();
         LogUtils.e("HomeFragment", "onPause");
-        if (mViewPagerHorizontal != null) {
-            mViewPagerHorizontal.stopLoop();
-        }
-        if (mViewPagerVertical != null) {
-            mViewPagerVertical.stopLoop();
-        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
         LogUtils.e("HomeFragment", "onResume");
-        if (mViewPagerHorizontal != null) {
-            mViewPagerHorizontal.startLoop();
-        }
-        if (mViewPagerVertical != null) {
-            mViewPagerVertical.startLoop();
-        }
     }
 
     @Override
@@ -109,7 +97,7 @@ public class HomeFragment extends BaseFragment {
         recyclerView.addHeadView(getHeaderView(), true);
         recyclerView.addItemDecoration(new DividerItemDecoration(getMContext(),
                 DividerItemDecoration.VERTICAL));
-        articleAdapter = new ArticleAdapter(getMContext(), new ArrayList<>());
+        articleAdapter = new ArticleAdapter(getActivity(), new ArrayList<>());
         recyclerView.setAdapter(articleAdapter);
         recyclerView.getHeadAndFootAdapter();
     }
@@ -167,6 +155,7 @@ public class HomeFragment extends BaseFragment {
         HomeAdapter homeAdapter = new HomeAdapter();
         mViewPagerHorizontal
                 .setScrollDuration(600)
+                .setLifecycleRegistry(getLifecycle())
                 .setIndicatorStyle(IndicatorStyle.CIRCLE)
                 .setIndicatorSlideMode(IndicatorSlideMode.WORM)
                 .setInterval(3000)
@@ -188,6 +177,7 @@ public class HomeFragment extends BaseFragment {
         mViewPagerVertical
                 .setAutoPlay(true)
                 .setScrollDuration(500)
+                .setLifecycleRegistry(getLifecycle())
                 .setIndicatorStyle(IndicatorStyle.ROUND_RECT)
                 .setIndicatorSlideMode(IndicatorSlideMode.SCALE)
                 .setIndicatorSliderGap(getResources().getDimensionPixelOffset(R.dimen.dp_4))

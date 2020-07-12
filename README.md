@@ -107,6 +107,7 @@ It's also support to custom indicator style,just need extends BaseIndicatorView 
 | BannerViewPager<T, VH> setRoundRect(int) | set round corner for BVP| Require SDK_INT>=LOLLIPOP |
 | BannerViewPager<T, VH> setOrientation(int) | Sets the orientation of the BVP| support in v3.0.0 {@link #ORIENTATION_HORIZONTAL} or {@link #ORIENTATION_VERTICAL} |
 | BannerViewPager<T, VH> setUserInputEnabled(int) | Enable or disable user initiated scrolling | |
+| BannerViewPager<T, VH> setLifecycleRegistry(Lifecycle) | Add lifecycle for BVP, | |
 | void startLoop() |start loop | Don't need call this method while init BVP |
 | void stopLoop() | Stop loop | |
 | List\<T> getData() | return data in BVP |  |
@@ -266,6 +267,7 @@ public class HomeAdapter extends BaseBannerAdapter<BannerData, NetViewHolder> {
              mViewPager
                        .setAutoPlay(true)
                        .setScrollDuration(800)
+                       .setLifecycleRegistry(getLifecycle())
                        .setIndicatorStyle(IndicatorStyle.ROUND_RECT)
                        .setIndicatorSliderGap(getResources().getDimensionPixelOffset(R.dimen.dp_4))
                        .setIndicatorSliderWidth(getResources().getDimensionPixelOffset(R.dimen.dp_4), getResources().getDimensionPixelOffset(R.dimen.dp_10))
@@ -295,6 +297,7 @@ public class HomeAdapter extends BaseBannerAdapter<BannerData, NetViewHolder> {
               mViewPager.apply {
                   adapter = HomeAdapter()
                   setAutoPlay(true)
+                  setLifecycleRegistry(lifecycle)
                   setIndicatorStyle(IndicatorStyle.ROUND_RECT)
                   setIndicatorSliderGap(getResources().getDimensionPixelOffset(R.dimen.dp_4))
                   setIndicatorMargin(0, 0, 0, resources.getDimension(R.dimen.dp_100).toInt())
@@ -350,11 +353,14 @@ If fetching data synchronously，you can call create(List<T>) method with parame
 
 ### 6.startLoop and stopLoop
 
-***If the version you used is later than 2.5.0,you don't need care of startLoop and stopLoop in Activity or Fragment. But the two methods is still public.***
-
-Recommend call stopLoop in onPause() and startLoop in onResume() to improve performance：
+***You can user setLifecycleRegistry(Lifecycle) method to instead of call stopLoop and startLoop in Activity or Fragment***
 
 ```
+
+    mViewPager.setLifecycleRegistry(getLifecycle())
+
+    // the follwoing code is deprecated.
+
     @Override
     protected void onPause() {
         if (mBannerViewPager != null)

@@ -38,22 +38,6 @@ public class PageFragment extends BaseFragment {
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-        if (mViewPager != null) {
-            mViewPager.stopLoop();
-        }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (mViewPager != null) {
-            mViewPager.startLoop();
-        }
-    }
-
-    @Override
     protected void initView(Bundle savedInstanceState, View view) {
         mViewPager = view.findViewById(R.id.banner_view);
         mRadioGroupPageStyle = view.findViewById(R.id.rg_page_style);
@@ -61,6 +45,7 @@ public class PageFragment extends BaseFragment {
                 .setIndicatorSlideMode(IndicatorSlideMode.SCALE)
                 .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
                 .setIndicatorSliderRadius(getResources().getDimensionPixelOffset(R.dimen.dp_4), getResources().getDimensionPixelOffset(R.dimen.dp_5))
+                .setLifecycleRegistry(getLifecycle())
                 .setOnPageClickListener(this::pageClick)
                 .setAdapter(new ImageResourceAdapter(getResources().getDimensionPixelOffset(R.dimen.dp_8)))
                 .setInterval(5000);
