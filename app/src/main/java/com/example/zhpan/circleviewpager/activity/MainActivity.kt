@@ -45,10 +45,11 @@ class MainActivity : AppCompatActivity() {
     private fun initData() {
         with(vp_fragment) {
             adapter = AdapterFragmentPager(this@MainActivity)
-            isUserInputEnabled = true
+            isUserInputEnabled = false
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
+                    vp_fragment.isUserInputEnabled = true
                     rg_tab?.check(getCheckedId(position))
                 }
             })
@@ -57,7 +58,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun getCheckedId(position: Int): Int {
         return when (position) {
-            0 -> R.id.rb_home
+            0 -> {
+                vp_fragment.isUserInputEnabled = false
+                R.id.rb_home
+            }
             1 -> R.id.rb_add
             2 -> R.id.rb_find
             3 -> R.id.rb_others
@@ -67,8 +71,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun setListener() {
         rg_tab?.setOnCheckedChangeListener { _, checkedId ->
+            vp_fragment.isUserInputEnabled = true
             when (checkedId) {
-                R.id.rb_home -> vp_fragment.setCurrentItem(AdapterFragmentPager.PAGE_HOME, true)
+                R.id.rb_home -> {
+                    vp_fragment.isUserInputEnabled = false
+                    vp_fragment.setCurrentItem(AdapterFragmentPager.PAGE_HOME, true)
+                }
                 R.id.rb_add -> vp_fragment.setCurrentItem(AdapterFragmentPager.PAGE_FIND, true)
                 R.id.rb_find -> vp_fragment.setCurrentItem(AdapterFragmentPager.PAGE_INDICATOR, true)
                 R.id.rb_others -> vp_fragment.setCurrentItem(AdapterFragmentPager.PAGE_OTHERS, true)

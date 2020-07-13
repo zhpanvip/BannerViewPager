@@ -92,6 +92,10 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void initRecyclerView(View view) {
+        mViewPagerHorizontal = view.findViewById(R.id.banner_view);
+        mRlIndicator = view.findViewById(R.id.layout_indicator);
+        mTvTitle = view.findViewById(R.id.tv_title);
+        mIndicatorView = view.findViewById(R.id.indicator_view);
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getMContext()));
         recyclerView.addHeadView(getHeaderView(), true);
@@ -173,7 +177,7 @@ public class HomeFragment extends BaseFragment {
                     }
                 })
                 .setOnPageClickListener(this::onPageClicked).create();
-
+        mViewPagerHorizontal.disallowInterceptTouchEvent(true);
         mViewPagerVertical
                 .setAutoPlay(true)
                 .setScrollDuration(500)
@@ -201,11 +205,7 @@ public class HomeFragment extends BaseFragment {
 
     private View getHeaderView() {
         headerView = LayoutInflater.from(getMContext()).inflate(R.layout.item_header_view, recyclerView, false);
-        mRlIndicator = headerView.findViewById(R.id.layout_indicator);
-        mViewPagerHorizontal = headerView.findViewById(R.id.banner_view);
         mViewPagerVertical = headerView.findViewById(R.id.banner_view2);
-        mTvTitle = headerView.findViewById(R.id.tv_title);
-        mIndicatorView = headerView.findViewById(R.id.indicator_view);
         return headerView;
     }
 }

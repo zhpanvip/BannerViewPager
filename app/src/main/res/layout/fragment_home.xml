@@ -1,18 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+            app:statusBarScrim="@android:color/transparent">
+
+            <RelativeLayout
+                android:id="@+id/rl_banner1"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_200">
+
+                <com.zhpan.bannerview.BannerViewPager
+                    android:id="@+id/banner_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_200" />
+
+                <!--这里为了设置标题故用了自定义Indicator,如果无需标题则没必要将Indicator定义在此处-->
+                <RelativeLayout
+                    android:id="@+id/layout_indicator"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_35"
+                    android:layout_alignParentBottom="true"
+                    android:background="#77000000"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/tv_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/dp_15"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sp_14"
+                        tools:text="This is Title" />
+
+                    <com.zhpan.indicator.IndicatorView
+                        android:id="@+id/indicator_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="@dimen/dp_15" />
+                </RelativeLayout>
+            </RelativeLayout>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:overScrollMode="never">
+        android:overScrollMode="never"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <com.example.zhpan.circleviewpager.recyclerview.ui.CustomRecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-</LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
