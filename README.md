@@ -27,7 +27,7 @@
 - no longer support android.support library
 - SCALE slide mode and COLOR slide mode supported(V3.1.0)
 - refreshData() supported (V3.1.0)
-
+- setLifecycleRegistry(Lifecycle) supported (v3.1.4)
 ## Preview
 
  ### [Click here or scan the QR code to download demo apk](https://github.com/zhpanvip/BannerViewPager/raw/master/app/release/app-release.apk)
