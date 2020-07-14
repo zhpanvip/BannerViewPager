@@ -133,6 +133,7 @@ public class HomeFragment extends BaseFragment {
                         article.setPagers(getPicList(3));
                         articleList.add(4, article);
                         articleAdapter.setData(articleList);
+                        recyclerView.getAdapter().notifyDataSetChanged();
                         if (response.getDataBeanList().size() > 0) {
                             mRlIndicator.setVisibility(View.VISIBLE);
                         }
@@ -165,7 +166,8 @@ public class HomeFragment extends BaseFragment {
                 .setInterval(3000)
                 .setIndicatorGravity(IndicatorGravity.END)
                 .setIndicatorSliderRadius(getResources().getDimensionPixelSize(R.dimen.dp_3))
-                .setIndicatorView(mIndicatorView)// 这里为了设置标题故用了自定义Indicator,如果无需标题则没必要添加此行代码
+                .disallowInterceptTouchEvent(true)
+                .setIndicatorView(mIndicatorView)   // 这里为了设置标题故用了自定义Indicator,如果无需标题则没必要添加此行代码
                 .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
                 .setAdapter(homeAdapter)
                 .registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
@@ -177,7 +179,6 @@ public class HomeFragment extends BaseFragment {
                     }
                 })
                 .setOnPageClickListener(this::onPageClicked).create();
-        mViewPagerHorizontal.disallowInterceptTouchEvent(true);
         mViewPagerVertical
                 .setAutoPlay(true)
                 .setScrollDuration(500)

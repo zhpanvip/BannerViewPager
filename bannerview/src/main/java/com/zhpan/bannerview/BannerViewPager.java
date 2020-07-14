@@ -89,6 +89,9 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
 
     private ViewPager2.PageTransformer mDefaultPageTransformer;
 
+    private boolean disallowIntercept;
+
+
     private ViewPager2.OnPageChangeCallback mOnPageChangeCallback = new ViewPager2.OnPageChangeCallback() {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -194,14 +197,16 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         boolean canIntercept = mViewPager.isUserInputEnabled() || mBannerPagerAdapter != null && mBannerPagerAdapter.getData().size() <= 1;
-        if (!canIntercept || disallowIntercept) {
+        if (!canIntercept) {
             return super.onInterceptTouchEvent(ev);
         }
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 startX = (int) ev.getX();
                 startY = (int) ev.getY();
-                getParent().requestDisallowInterceptTouchEvent(true);
+                if (!disallowIntercept) {
+                    getParent().requestDisallowInterceptTouchEvent(true);
+                }
                 break;
             case MotionEvent.ACTION_MOVE:
                 int endX = (int) ev.getX();
@@ -225,9 +230,6 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
         }
         return super.onInterceptTouchEvent(ev);
     }
-
-    private boolean disallowIntercept;
-
 
     private void onVerticalActionMove(int endY, int disX, int disY) {
         if (disY > disX) {
@@ -954,7 +956,7 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
      * 对事件进行了处理导致CoordinatorLayout+CollapsingToolbarLayout的布局中滑动BVP的事件无效。
      * 对于这种情况可以调用该方法来禁止BVP对事件进行拦截。
      *
-     * @param disallowIntercept 是否允许BVP拦截触摸事件
+     * @param disallowIntercept true 禁止BVP拦截事件，false 允许BVP拦截事件
      */
     public BannerViewPager<T, VH> disallowInterceptTouchEvent(boolean disallowIntercept) {
         this.disallowIntercept = disallowIntercept;
