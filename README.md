@@ -30,7 +30,7 @@
 - setLifecycleRegistry(Lifecycle) supported (v3.1.4)
 ## Preview
 
- ### [Click here or scan the QR code to download demo apk](https://github.com/zhpanvip/BannerViewPager/raw/master/app/release/app-release.apk)
+ ### [Click here or scan the QR code to download demo apk](https://www.pgyer.com/bannerviewpager)
 
 ![QRCode](https://github.com/zhpanvip/Resource/blob/master/image/banner/qrcode.png)
 
