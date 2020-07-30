@@ -122,7 +122,9 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
                 stopLoop();
                 startX = (int) ev.getX();
                 startY = (int) ev.getY();
-                getParent().requestDisallowInterceptTouchEvent(true);
+                if (!disallowIntercept) {
+                    getParent().requestDisallowInterceptTouchEvent(true);
+                }
                 break;
             case MotionEvent.ACTION_MOVE:
                 int endX = (int) ev.getX();
@@ -154,6 +156,8 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
             case MotionEvent.ACTION_OUTSIDE:
                 setLooping(false);
                 startLoop();
+                break;
+            default:
                 break;
         }
         return super.dispatchTouchEvent(ev);
@@ -843,6 +847,13 @@ public class BannerViewPager<T, VH extends ViewHolder> extends RelativeLayout im
     @Deprecated
     public BannerViewPager<T, VH> showIndicator(boolean showIndicator) {
         mIndicatorLayout.setVisibility(showIndicator ? VISIBLE : GONE);
+        return this;
+    }
+
+    private boolean disallowIntercept;
+
+    public BannerViewPager<T, VH> disallowInterceptTouchEvent(boolean disallowIntercept) {
+        this.disallowIntercept = disallowIntercept;
         return this;
     }
 }
