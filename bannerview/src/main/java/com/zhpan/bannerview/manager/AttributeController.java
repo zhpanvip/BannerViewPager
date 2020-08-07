@@ -69,6 +69,7 @@ public class AttributeController {
         mBannerOptions.setPageMargin(pageMargin);
         mBannerOptions.setRoundRectRadius(roundCorner);
         mBannerOptions.setRightRevealWidth(revealWidth);
+        mBannerOptions.setLeftRevealWidth(revealWidth);
         mBannerOptions.setPageStyle(pageStyle);
         mBannerOptions.setScrollDuration(scrollDuration);
     }
