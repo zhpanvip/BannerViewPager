@@ -3,6 +3,10 @@ package com.zhpan.bannerview.utils;
 import android.content.res.Resources;
 import android.util.Log;
 
+import com.zhpan.bannerview.BaseBannerAdapter;
+
+import static com.zhpan.bannerview.BaseBannerAdapter.MAX_VALUE;
+
 /**
  * <pre>
  *   Created by zhangpan on 2019-08-14.
@@ -12,6 +16,8 @@ import android.util.Log;
 public class BannerUtils {
 
     private static boolean debugMode = false;
+
+    private static final String TAG = "BVP";
 
     public static void setDebugMode(boolean isDebug) {
         debugMode = isDebug;
@@ -33,12 +39,32 @@ public class BannerUtils {
 
     public static void log(String msg) {
         if (isDebugMode()) {
-            Log.e("BannerView", msg);
+            Log.e(TAG, msg);
         }
     }
 
+    /**
+     * 在循环模式下{@link com.zhpan.bannerview.BannerViewPager}会初始化一个item为
+     * {@link BaseBannerAdapter#MAX_VALUE}的ViewPager2,并将当前position设置为ViewPager2
+     * 的中间位置，因此，此时的position需要通过该方法进行转换为真实的position。
+     *
+     * @param isCanLoop 是否开启了循环轮播
+     * @param position  当前position
+     * @param pageSize  轮播图页面数
+     * @return 真实的position
+     */
     public static int getRealPosition(boolean isCanLoop, int position, int pageSize) {
-        if (pageSize == 0) return 0;
+        if (pageSize == 0) {
+            return 0;
+        }
         return isCanLoop ? (position - 1 + pageSize) % pageSize : (position + pageSize) % pageSize;
+    }
+
+    /**
+     * @param pageSize 轮播图页面数
+     * @return 轮播图初始位置
+     */
+    public static int getOriginalPosition(int pageSize) {
+        return MAX_VALUE / 2 - ((MAX_VALUE / 2) % pageSize) + 1;
     }
 }

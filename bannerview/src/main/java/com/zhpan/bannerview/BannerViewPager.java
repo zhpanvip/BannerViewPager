@@ -46,6 +46,7 @@ import static com.zhpan.bannerview.constants.IndicatorGravity.END;
 import static com.zhpan.bannerview.constants.IndicatorGravity.START;
 import static com.zhpan.bannerview.manager.BannerOptions.DEFAULT_REVEAL_WIDTH;
 import static com.zhpan.bannerview.transform.ScaleInTransformer.DEFAULT_MIN_SCALE;
+import static com.zhpan.bannerview.utils.BannerUtils.getOriginalPosition;
 
 /**
  * Created by zhpan on 2017/3/28.
@@ -113,7 +114,8 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
             super.onPageSelected(position);
             int size = mBannerPagerAdapter.getListSize();
             currentPosition = BannerUtils.getRealPosition(isCanLoop(), position, size);
-            if (size > 0 && isCanLoop() && position == 0 || position == MAX_VALUE - 1) {
+            boolean needResetCurrentItem = size > 0 && isCanLoop() && (position == 0 || position == MAX_VALUE - 1);
+            if (needResetCurrentItem) {
                 resetCurrentItem(currentPosition);
             }
             if (onPageChangeCallback != null) {
@@ -353,11 +355,13 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
         if (bannerOptions.getScrollDuration() != 0) {
             ScrollDurationManger.reflectLayoutManager(mViewPager, bannerOptions.getScrollDuration());
         }
-        if (bannerOptions.getRightRevealWidth() != DEFAULT_REVEAL_WIDTH || bannerOptions.getLeftRevealWidth() != DEFAULT_REVEAL_WIDTH) {
+        int rightRevealWidth = bannerOptions.getRightRevealWidth();
+        int leftRevealWidth = bannerOptions.getLeftRevealWidth();
+        if (leftRevealWidth != DEFAULT_REVEAL_WIDTH || rightRevealWidth != DEFAULT_REVEAL_WIDTH) {
             RecyclerView recyclerView = (RecyclerView) mViewPager.getChildAt(0);
             int orientation = bannerOptions.getOrientation();
-            int padding2 = bannerOptions.getPageMargin() + bannerOptions.getRightRevealWidth();
-            int padding1 = bannerOptions.getPageMargin() + bannerOptions.getLeftRevealWidth();
+            int padding2 = bannerOptions.getPageMargin() + rightRevealWidth;
+            int padding1 = bannerOptions.getPageMargin() + leftRevealWidth;
             if (orientation == ViewPager2.ORIENTATION_HORIZONTAL) {
                 recyclerView.setPadding(padding1, 0, padding2, 0);
             } else if (orientation == ViewPager2.ORIENTATION_VERTICAL) {
@@ -370,7 +374,7 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
         mBannerPagerAdapter.setPageClickListener(mOnPageClickListener);
         mViewPager.setAdapter(mBannerPagerAdapter);
         if (list.size() > 1 && isCanLoop()) {
-            mViewPager.setCurrentItem(MAX_VALUE / 2 - ((MAX_VALUE / 2) % list.size()) + 1, false);
+            mViewPager.setCurrentItem(getOriginalPosition(list.size()), false);
         }
         mViewPager.unregisterOnPageChangeCallback(mOnPageChangeCallback);
         mViewPager.registerOnPageChangeCallback(mOnPageChangeCallback);
@@ -408,7 +412,7 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
 
     private void resetCurrentItem(int item) {
         if (isCanLoop() && mBannerPagerAdapter.getListSize() > 1) {
-            mViewPager.setCurrentItem(MAX_VALUE / 2 - ((MAX_VALUE / 2) % mBannerPagerAdapter.getListSize()) + 1 + item, false);
+            mViewPager.setCurrentItem(getOriginalPosition(mBannerPagerAdapter.getListSize()) + item, false);
         } else {
             mViewPager.setCurrentItem(item, false);
         }

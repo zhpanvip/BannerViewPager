@@ -100,6 +100,8 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
                 case R.id.rb_vector_drawable:
                     setDrawableIndicator(getVectorDrawableIndicator());
                     break;
+                default:
+                    break;
             }
         });
         radioButton.performClick();
