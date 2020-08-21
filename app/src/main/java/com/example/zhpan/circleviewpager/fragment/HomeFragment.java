@@ -125,7 +125,7 @@ public class HomeFragment extends BaseFragment {
                         bannerData.setDrawable(R.drawable.bg_card0);
                         bannerData.setType(TYPE_NEW);
                         bannerData.setTitle("这是一个自定义类型");
-                        dataList.add(1, bannerData);
+//                        dataList.add(1, bannerData);
                         mViewPagerHorizontal.refreshData(dataList);
                         List<ArticleWrapper.Article> articleList = response.getArticleList();
                         ArticleWrapper.Article article = new ArticleWrapper.Article();
@@ -160,6 +160,7 @@ public class HomeFragment extends BaseFragment {
         HomeAdapter homeAdapter = new HomeAdapter();
         mViewPagerHorizontal
                 .setScrollDuration(600)
+                .setOffScreenPageLimit(2)
                 .setLifecycleRegistry(getLifecycle())
                 .setIndicatorStyle(IndicatorStyle.CIRCLE)
                 .setIndicatorSlideMode(IndicatorSlideMode.WORM)
@@ -182,6 +183,7 @@ public class HomeFragment extends BaseFragment {
         mViewPagerVertical
                 .setAutoPlay(true)
                 .setScrollDuration(500)
+
                 .setLifecycleRegistry(getLifecycle())
                 .setIndicatorStyle(IndicatorStyle.ROUND_RECT)
                 .setIndicatorSlideMode(IndicatorSlideMode.SCALE)

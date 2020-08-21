@@ -31,5 +31,6 @@ public class NetViewHolder extends BaseViewHolder<BannerData> {
     public void bindData(BannerData data, int position, int pageSize) {
         CornerImageView imageView = findView(R.id.banner_image);
         Glide.with(imageView).load(data.getImagePath()).placeholder(R.drawable.placeholder).into(imageView);
+        BannerUtils.log("NetViewHolder", "position:" + position);
     }
 }
