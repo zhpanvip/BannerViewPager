@@ -27,6 +27,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.zhpan.bannerview.BannerViewPager;
 import com.zhpan.bannerview.BaseViewHolder;
 import com.zhpan.bannerview.constants.IndicatorGravity;
+import com.zhpan.bannerview.utils.BannerUtils;
 import com.zhpan.idea.net.common.ResponseObserver;
 import com.zhpan.idea.utils.LogUtils;
 import com.zhpan.idea.utils.RxUtil;
@@ -177,6 +178,7 @@ public class HomeFragment extends BaseFragment {
                         super.onPageSelected(position);
                         BannerData bannerData = mViewPagerHorizontal.getData().get(position);
                         mTvTitle.setText(bannerData.getTitle());
+                        BannerUtils.log("position:" + mViewPagerHorizontal.getCurrentItem());
                     }
                 })
                 .setOnPageClickListener(this::onPageClicked).create();
