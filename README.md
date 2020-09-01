@@ -32,7 +32,7 @@
 
  ### [Click here or scan the QR code to download demo apk](https://www.pgyer.com/bannerviewpager)
 
-![QRCode](https://github.com/zhpanvip/Resource/blob/master/image/banner/qrcode.png)
+![QRCode](https://gitee.com/zhpanvip/images/raw/master/project/banner/qrcode.png)
 
 
 ### 1.PageStyle
@@ -41,7 +41,7 @@
 
 | MULTI_PAGE |MULTI_PAGE_SCALE | MULTI_PAGE_OVERLAP |
 |--|--|--|
-| ![MULTI_PAGE](https://github.com/zhpanvip/Resource/blob/master/image/banner/page_style_multi.gif) |![MULTI_PAGE](https://github.com/zhpanvip/Resource/blob/master/image/banner/page_style_multi_scale.gif) |![MULTI_PAGE](https://github.com/zhpanvip/Resource/blob/master/image/banner/page_style_multi_overlay.gif) |
+| ![MULTI_PAGE](https://gitee.com/zhpanvip/images/raw/master/project/banner/page_style_multi.gif) |![MULTI_PAGE](https://gitee.com/zhpanvip/images/raw/master/project/banner/page_style_multi_scale.gif) |![MULTI_PAGE](https://gitee.com/zhpanvip/images/raw/master/project/banner/page_style_multi_overlay.gif) |
 
 ### [2.Indicator](https://github.com/zhpanvip/viewpagerindicator)
 
@@ -55,12 +55,11 @@ BannerViewPager supports three Indicator Styles and five Indicator Slide mode no
 
 | Attrs | CIRCLE | DASH | ROUND_RECT |
 |--|--|--|--|
-| NORMAL| ![CIRCLE_NORMAL](https://github.com/zhpanvip/Resource/blob/master/image/indicator/slide_circle_normal.gif) | ![DASH_NORMAL](https://github.com/zhpanvip/Resource/blob/master/image/indicator/style_dash_normal.gif) | ![ROUND_RECT_NORMAL](https://github.com/zhpanvip/Resource/blob/master/image/indicator/style_round_rect_normal.gif) |
-| SMOOTH| ![CIRCLE_SMOOTH](https://github.com/zhpanvip/Resource/blob/master/image/indicator/slide_circle_smooth.gif) | ![DASH_SMOOTH](https://github.com/zhpanvip/Resource/blob/master/image/indicator/style_dash_smooth.gif) | ![ROUND_RECT_SMOOTH](https://github.com/zhpanvip/Resource/blob/master/image/indicator/style_round_rect_smooth.gif) |
-| WORM| ![CIRCLE_WORM](https://github.com/zhpanvip/Resource/blob/master/image/indicator/slide_circle_worm.gif) | ![DASH_WORM](https://github.com/zhpanvip/Resource/blob/master/image/indicator/style_dash_worm.gif) | ![ROUND_WORM](https://github.com/zhpanvip/Resource/blob/master/image/indicator/style_round_rect_worm.gif) |
-| COLOR| ![CIRCLE_COLOR](https://github.com/zhpanvip/Resource/blob/master/image/indicator/slide_circle_color.gif) | ![DASH_COLOR](https://github.com/zhpanvip/Resource/blob/master/image/indicator/style_dash_color.gif) | ![ROUND_COLOR](https://github.com/zhpanvip/Resource/blob/master/image/indicator/style_round_rect_color.gif) |
-| SCALE| ![CIRCLE_SCALE](https://github.com/zhpanvip/Resource/blob/master/image/indicator/slide_circle_scale.gif) | ![DASH_SCALE](https://github.com/zhpanvip/Resource/blob/master/image/indicator/style_dash_scale.gif) | ![ROUND_SCALE](https://github.com/zhpanvip/Resource/blob/master/image/indicator/style_round_rect_scale.gif) |
-
+| NORMAL| ![CIRCLE_NORMAL](https://gitee.com/zhpanvip/images/raw/master/project/indicator/slide_circle_normal.gif) | ![DASH_NORMAL](https://gitee.com/zhpanvip/images/raw/master/project/indicator/style_dash_normal.gif) | ![ROUND_RECT_NORMAL](https://gitee.com/zhpanvip/images/raw/master/project/indicator/style_round_rect_normal.gif) |
+| SMOOTH| ![CIRCLE_SMOOTH](https://gitee.com/zhpanvip/images/raw/master/project/indicator/slide_circle_smooth.gif) | ![DASH_SMOOTH](https://gitee.com/zhpanvip/images/raw/master/project/indicator/style_dash_smooth.gif) | ![ROUND_RECT_SMOOTH](https://gitee.com/zhpanvip/images/raw/master/project/indicator/style_round_rect_smooth.gif) |
+| WORM| ![CIRCLE_WORM](https://gitee.com/zhpanvip/images/raw/master/project/indicator/slide_circle_worm.gif) | ![DASH_WORM](https://gitee.com/zhpanvip/images/raw/master/project/indicator/style_dash_worm.gif) | ![ROUND_WORM](https://gitee.com/zhpanvip/images/raw/master/project/indicator/style_round_rect_worm.gif) |
+| COLOR| ![CIRCLE_COLOR](https://gitee.com/zhpanvip/images/raw/master/project/indicator/slide_circle_color.gif) | ![DASH_COLOR](https://gitee.com/zhpanvip/images/raw/master/project/indicator/style_dash_color.gif) | ![ROUND_COLOR](https://gitee.com/zhpanvip/images/raw/master/project/indicator/style_round_rect_color.gif) |
+| SCALE| ![CIRCLE_SCALE](https://gitee.com/zhpanvip/images/raw/master/project/indicator/slide_circle_scale.gif) | ![DASH_SCALE](https://gitee.com/zhpanvip/images/raw/master/project/indicator/style_dash_scale.gif) | ![ROUND_SCALE](https://gitee.com/zhpanvip/images/raw/master/project/indicator/style_round_rect_scale.gif) |
 #### (2)Custom Indicator
 
 It's also support to custom indicator style,just need extends BaseIndicatorView or implement the IIndicator and override methods, then you can draw Indicators for whatever you want.
@@ -69,7 +68,7 @@ It's also support to custom indicator style,just need extends BaseIndicatorView 
 
 | Figure Indicator | Drawable Indicator | Indicator below of Banner |
 |--|--|--|
-| ![CIRCLE](https://github.com/zhpanvip/Resource/blob/master/image/banner/style_custum.gif) | ![DASH](https://github.com/zhpanvip/Resource/blob/master/image/banner/style_custom2.gif) | ![NORMAL](https://github.com/zhpanvip/Resource/blob/master/image/banner/style_custom1.gif) |
+| ![CIRCLE](https://gitee.com/zhpanvip/images/raw/master/project/banner/style_custum.gif) | ![DASH](https://gitee.com/zhpanvip/images/raw/master/project/banner/style_custom2.gif) | ![NORMAL](https://gitee.com/zhpanvip/images/raw/master/project/banner/style_custom1.gif) |
 
 
 ## API
@@ -382,7 +381,7 @@ The example will implement an custom IndicatorView as the follow gif.
 
 | Custom IndicatorView Style|
 |--|
-| ![NORMAL](https://github.com/zhpanvip/Resource/blob/master/image/banner/style_custum.gif) |
+| ![NORMAL](https://gitee.com/zhpanvip/images/raw/master/project/banner/style_custum.gif) |
 
 **(1)Custom View and extends BaseIndicatorView**
 
@@ -498,7 +497,7 @@ you must add proguard rules，If you have called setScrollDuration method in you
 
  **If you have any question regard to BannerViewPager, please scan the QR code and join the QQ group to communicate.**
  
-![QQ交流群60902509](https://github.com/zhpanvip/Resource/blob/master/image/group/qq_group.png)
+![QQ交流群60902509](https://gitee.com/zhpanvip/images/raw/master/project/group/qq_group.png)
 
 ## <span id="Sponsor"> Donation </span>
 
@@ -506,7 +505,7 @@ you must add proguard rules，If you have called setScrollDuration method in you
 
 | AliPay | WeChat |
 |--|--|
-| ![AliPay](https://github.com/zhpanvip/Resource/blob/master/image/pay/pay_alipay.jpg) |  ![WeChat](https://github.com/zhpanvip/Resource/blob/master/image/pay/pay_wechat.png) |
+| ![AliPay](https://gitee.com/zhpanvip/images/raw/master/project/pay/pay_alipay.jpg) |  ![WeChat](https://gitee.com/zhpanvip/images/raw/master/project/pay/pay_wechat.png) |
 
 
 ## Thanks
