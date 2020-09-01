@@ -39,7 +39,7 @@ public class BannerUtils {
 
     public static void log(String msg) {
         if (isDebugMode()) {
-            Log.e(TAG, msg);
+            log(TAG, msg);
         }
     }
 
@@ -57,7 +57,7 @@ public class BannerUtils {
         if (pageSize == 0) {
             return 0;
         }
-        return isCanLoop ? (position - 1 + pageSize) % pageSize : (position + pageSize) % pageSize;
+        return isCanLoop ? (position + pageSize) % pageSize : (position + pageSize) % pageSize;
     }
 
     /**
@@ -65,6 +65,6 @@ public class BannerUtils {
      * @return 轮播图初始位置
      */
     public static int getOriginalPosition(int pageSize) {
-        return MAX_VALUE / 2 - ((MAX_VALUE / 2) % pageSize) + 1;
+        return MAX_VALUE / 2 - ((MAX_VALUE / 2) % pageSize);
     }
 }

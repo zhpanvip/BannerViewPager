@@ -27,6 +27,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.zhpan.bannerview.BannerViewPager;
 import com.zhpan.bannerview.BaseViewHolder;
 import com.zhpan.bannerview.constants.IndicatorGravity;
+import com.zhpan.bannerview.utils.BannerUtils;
 import com.zhpan.idea.net.common.ResponseObserver;
 import com.zhpan.idea.utils.LogUtils;
 import com.zhpan.idea.utils.RxUtil;
@@ -125,7 +126,7 @@ public class HomeFragment extends BaseFragment {
                         bannerData.setDrawable(R.drawable.bg_card0);
                         bannerData.setType(TYPE_NEW);
                         bannerData.setTitle("这是一个自定义类型");
-                        dataList.add(1, bannerData);
+//                        dataList.add(1, bannerData);
                         mViewPagerHorizontal.refreshData(dataList);
                         List<ArticleWrapper.Article> articleList = response.getArticleList();
                         ArticleWrapper.Article article = new ArticleWrapper.Article();
@@ -160,6 +161,7 @@ public class HomeFragment extends BaseFragment {
         HomeAdapter homeAdapter = new HomeAdapter();
         mViewPagerHorizontal
                 .setScrollDuration(600)
+                .setOffScreenPageLimit(2)
                 .setLifecycleRegistry(getLifecycle())
                 .setIndicatorStyle(IndicatorStyle.CIRCLE)
                 .setIndicatorSlideMode(IndicatorSlideMode.WORM)
@@ -176,12 +178,14 @@ public class HomeFragment extends BaseFragment {
                         super.onPageSelected(position);
                         BannerData bannerData = mViewPagerHorizontal.getData().get(position);
                         mTvTitle.setText(bannerData.getTitle());
+                        BannerUtils.log("position:" + mViewPagerHorizontal.getCurrentItem());
                     }
                 })
                 .setOnPageClickListener(this::onPageClicked).create();
         mViewPagerVertical
                 .setAutoPlay(true)
                 .setScrollDuration(500)
+
                 .setLifecycleRegistry(getLifecycle())
                 .setIndicatorStyle(IndicatorStyle.ROUND_RECT)
                 .setIndicatorSlideMode(IndicatorSlideMode.SCALE)
