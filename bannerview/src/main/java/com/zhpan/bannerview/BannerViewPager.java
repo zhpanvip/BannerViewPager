@@ -284,7 +284,7 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
         }
     }
 
-    private void setIndicatorValues(List<T> list) {
+    private void setIndicatorValues(List<? extends T> list) {
         mIndicatorLayout.setVisibility(mBannerManager.getBannerOptions().getIndicatorVisibility());
         BannerOptions bannerOptions = mBannerManager.getBannerOptions();
         bannerOptions.resetIndicatorOptions();
@@ -776,7 +776,7 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
      * Confirm the {@link #create()} or {@link #create(List)} method has been called,
      * else the data won't be shown.
      */
-    public void refreshData(List<T> list) {
+    public void refreshData(List<? extends T> list) {
         if (list != null && mBannerPagerAdapter != null) {
             stopLoop();
             mBannerPagerAdapter.setData(list);
