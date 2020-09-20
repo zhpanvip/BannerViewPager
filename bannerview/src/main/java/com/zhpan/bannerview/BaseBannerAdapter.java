@@ -61,7 +61,7 @@ public abstract class BaseBannerAdapter<T, VH extends BaseViewHolder<T>> extends
         return mList;
     }
 
-    void setData(List<T> list) {
+    void setData(List<? extends T> list) {
         if (null != list) {
             mList.clear();
             mList.addAll(list);
