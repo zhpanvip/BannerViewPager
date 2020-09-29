@@ -1,6 +1,7 @@
 package com.example.zhpan.circleviewpager.adapter;
 
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.example.zhpan.circleviewpager.R;
 import com.example.zhpan.circleviewpager.viewholder.ImageResourceViewHolder;
@@ -27,7 +28,7 @@ public class ImageResourceAdapter extends BaseBannerAdapter<Integer, ImageResour
     }
 
     @Override
-    public ImageResourceViewHolder createViewHolder(View itemView, int viewType) {
+    public ImageResourceViewHolder createViewHolder(ViewGroup parent, View itemView, int viewType) {
         return new ImageResourceViewHolder(itemView, roundCorner);
     }
 

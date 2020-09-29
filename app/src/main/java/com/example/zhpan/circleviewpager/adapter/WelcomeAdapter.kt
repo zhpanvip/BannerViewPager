@@ -1,6 +1,7 @@
 package com.example.zhpan.circleviewpager.adapter
 
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.zhpan.circleviewpager.R
@@ -23,7 +24,7 @@ class WelcomeAdapter : BaseBannerAdapter<CustomBean, CustomPageViewHolder>() {
         holder.bindData(data, position, pageSize)
     }
 
-    override fun createViewHolder(itemView: View, viewType: Int): CustomPageViewHolder? {
+    override fun createViewHolder(parent: ViewGroup, itemView: View, viewType: Int): CustomPageViewHolder? {
         val customPageViewHolder = CustomPageViewHolder(itemView)
         customPageViewHolder.setOnSubViewClickListener(mOnSubViewClickListener)
         return customPageViewHolder

@@ -2,6 +2,7 @@ package com.example.zhpan.circleviewpager.fragment;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -62,7 +63,7 @@ public class IndicatorFragment extends BaseFragment {
                     }
 
                     @Override
-                    public ImageResourceViewHolder createViewHolder(View itemView, int viewType) {
+                    public ImageResourceViewHolder createViewHolder(ViewGroup parent, View itemView, int viewType) {
                         return new ImageResourceViewHolder(itemView, getResources().getDimensionPixelOffset(R.dimen.dp_8));
                     }
 

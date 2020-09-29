@@ -25,7 +25,7 @@ public abstract class BaseBannerAdapter<T, VH extends BaseViewHolder<T>> extends
     @Override
     public final VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View inflate = LayoutInflater.from(parent.getContext()).inflate(getLayoutId(viewType), parent, false);
-        return createViewHolder(inflate, viewType);
+        return createViewHolder(parent, inflate, viewType);
     }
 
     @Override
@@ -86,7 +86,7 @@ public abstract class BaseBannerAdapter<T, VH extends BaseViewHolder<T>> extends
 
     protected abstract void onBind(VH holder, T data, int position, int pageSize);
 
-    public abstract VH createViewHolder(View itemView, int viewType);
+    public abstract VH createViewHolder(ViewGroup parent, View itemView, int viewType);
 
     public abstract int getLayoutId(int viewType);
 }
