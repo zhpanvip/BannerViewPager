@@ -7,12 +7,6 @@ android {
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
     }
 
     buildTypes {
@@ -21,11 +15,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
 }
 
 dependencies {
-    api 'com.github.zhpanvip:viewpagerindicator:1.0.4'
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
+    api 'com.github.zhpanvip:viewpagerindicator:1.0.5'
 //    api project(path: ':indicator')
 }

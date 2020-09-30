@@ -86,7 +86,7 @@ public abstract class BaseBannerAdapter<T, VH extends BaseViewHolder<T>> extends
 
     protected abstract void onBind(VH holder, T data, int position, int pageSize);
 
-    public abstract VH createViewHolder(ViewGroup parent, View itemView, int viewType);
+    public abstract VH createViewHolder(@NonNull ViewGroup parent, View itemView, int viewType);
 
     public abstract int getLayoutId(int viewType);
 }

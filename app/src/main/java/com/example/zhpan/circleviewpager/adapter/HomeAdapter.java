@@ -10,6 +10,8 @@ import com.example.zhpan.circleviewpager.viewholder.NewTypeViewHolder;
 import com.zhpan.bannerview.BaseBannerAdapter;
 import com.zhpan.bannerview.BaseViewHolder;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * <pre>
  *   Created by zhpan on 2020/4/6.
@@ -24,7 +26,7 @@ public class HomeAdapter extends BaseBannerAdapter<BannerData, BaseViewHolder<Ba
     }
 
     @Override
-    public BaseViewHolder<BannerData> createViewHolder(ViewGroup parent, View itemView, int viewType) {
+    public BaseViewHolder<BannerData> createViewHolder(@NotNull ViewGroup parent, View itemView, int viewType) {
         if (viewType == BannerData.TYPE_NEW) {
             return new NewTypeViewHolder(itemView);
         }

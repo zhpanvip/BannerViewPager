@@ -7,6 +7,8 @@ import com.example.zhpan.circleviewpager.R;
 import com.example.zhpan.circleviewpager.viewholder.ImageResourceViewHolder;
 import com.zhpan.bannerview.BaseBannerAdapter;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * <pre>
  *   Created by zhpan on 2020/4/5.
@@ -28,7 +30,7 @@ public class ImageResourceAdapter extends BaseBannerAdapter<Integer, ImageResour
     }
 
     @Override
-    public ImageResourceViewHolder createViewHolder(ViewGroup parent, View itemView, int viewType) {
+    public ImageResourceViewHolder createViewHolder(@NotNull ViewGroup parent, View itemView, int viewType) {
         return new ImageResourceViewHolder(itemView, roundCorner);
     }
 

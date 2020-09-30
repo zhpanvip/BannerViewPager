@@ -17,6 +17,8 @@ import com.zhpan.indicator.annotation.AIndicatorSlideMode;
 import com.zhpan.indicator.enums.IndicatorSlideMode;
 import com.zhpan.indicator.enums.IndicatorStyle;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * Created by zhpan on 2018/7/24.
  */
@@ -63,7 +65,7 @@ public class IndicatorFragment extends BaseFragment {
                     }
 
                     @Override
-                    public ImageResourceViewHolder createViewHolder(ViewGroup parent, View itemView, int viewType) {
+                    public ImageResourceViewHolder createViewHolder(@NotNull ViewGroup parent, View itemView, int viewType) {
                         return new ImageResourceViewHolder(itemView, getResources().getDimensionPixelOffset(R.dimen.dp_8));
                     }
 
