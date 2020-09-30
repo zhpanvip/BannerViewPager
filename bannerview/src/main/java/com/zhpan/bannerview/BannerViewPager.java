@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Handler;
 
 import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
@@ -771,6 +772,29 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
         return this;
     }
 
+    public void addItemDecoration(@NonNull RecyclerView.ItemDecoration decor, int index) {
+        if (isCanLoop() && mBannerPagerAdapter.getListSize() > 1) {
+            int pageSize = mBannerPagerAdapter.getListSize();
+            int currentItem = mViewPager.getCurrentItem();
+            int realPosition = BannerUtils.getRealPosition(isCanLoop(), currentItem, pageSize);
+            if (currentItem != index) {
+                if (index == 0 && realPosition == pageSize - 1) {
+                    mViewPager.addItemDecoration(decor, currentItem + 1);
+                } else if (realPosition == 0 && index == pageSize - 1) {
+                    mViewPager.addItemDecoration(decor, currentItem - 1);
+                } else {
+                    mViewPager.addItemDecoration(decor, currentItem + (index - realPosition));
+                }
+            }
+        } else {
+            mViewPager.addItemDecoration(decor, index);
+        }
+    }
+
+    public void addItemDecoration(@NonNull RecyclerView.ItemDecoration decor) {
+        mViewPager.addItemDecoration(decor);
+    }
+
     /**
      * Refresh data.
      * Confirm the {@link #create()} or {@link #create(List)} method has been called,
@@ -818,7 +842,6 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
                 } else {
                     mViewPager.setCurrentItem(currentItem + (item - realPosition));
                 }
-                mViewPager.setCurrentItem(currentItem + (item - realPosition));
             }
         } else {
             mViewPager.setCurrentItem(item);
