@@ -66,6 +66,8 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
         radioButton = view.findViewById(R.id.rb_indicator_below);
         radioGroupStyle = view.findViewById(R.id.rg_indicator_style);
         mViewPager = view.findViewById(R.id.banner_view);
+        view.findViewById(R.id.tv_add_data).setOnClickListener(this);
+        view.findViewById(R.id.tv_remove_item).setOnClickListener(this);
         mIndicatorView = view.findViewById(R.id.indicator_view);
         view.findViewById(R.id.tv_photo_view).setOnClickListener(this);
         mViewPager.setIndicatorSliderGap(BannerUtils.dp2px(6))
@@ -168,10 +170,29 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
         ToastUtils.show("size=" + mViewPager.getData().size());
     }
 
+    private void addData() {
+        mViewPager.addData(getPicList(0));
+        ToastUtils.show("size=" + mViewPager.getData().size());
+    }
+
     @Override
     public void onClick(View view) {
-        int position = new Random().nextInt(5);
-        mViewPager.setCurrentItem(position, true);
-        ToastUtils.show("Jump to position:" + position);
+        switch (view.getId()) {
+            case R.id.tv_add_data:
+                addData();
+                break;
+            case R.id.tv_remove_item:
+                removeItem();
+                break;
+            default:
+                int position = new Random().nextInt(5);
+                mViewPager.setCurrentItem(position, true);
+                ToastUtils.show("Jump to position:" + position);
+                break;
+        }
+    }
+
+    private void removeItem() {
+        mViewPager.removeItem(0);
     }
 }

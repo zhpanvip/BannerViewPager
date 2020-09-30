@@ -21,4 +21,6 @@
     <string name="about_banner">About BannerViewPager</string>
     <string name="indicator_name">ViewPagerIndicator</string>
     <string name="email">zhpanvip@outlook.com</string>
+    <string name="add_data">Add Data</string>
+    <string name="remove_item">Remove first Item</string>
 </resources>

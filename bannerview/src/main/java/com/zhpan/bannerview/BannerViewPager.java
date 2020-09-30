@@ -806,14 +806,40 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
             mBannerPagerAdapter.setData(list);
             mBannerPagerAdapter.notifyDataSetChanged();
             resetCurrentItem(getCurrentItem());
-            setIndicatorValues(list);
-            mBannerManager.getBannerOptions().getIndicatorOptions()
-                    .setCurrentPosition(BannerUtils.getRealPosition(isCanLoop(),
-                            mViewPager.getCurrentItem(), list.size()));
-            mIndicatorView.notifyDataChanged();
+            refreshIndicator(list);
             startLoop();
         }
     }
+
+    public void addData(List<? extends T> list) {
+        if (list != null && mBannerPagerAdapter != null) {
+            List<T> data = mBannerPagerAdapter.getData();
+            data.addAll(list);
+            mBannerPagerAdapter.notifyDataSetChanged();
+            resetCurrentItem(getCurrentItem());
+            refreshIndicator(data);
+        }
+    }
+
+    public void removeItem(int index) {
+        List<T> data = mBannerPagerAdapter.getData();
+        if (data.size() > index) {
+            data.remove(index);
+            mBannerPagerAdapter.notifyDataSetChanged();
+            resetCurrentItem(getCurrentItem());
+            refreshIndicator(data);
+        }
+    }
+
+
+    public void refreshIndicator(List<? extends T> data) {
+        setIndicatorValues(data);
+        mBannerManager.getBannerOptions().getIndicatorOptions()
+                .setCurrentPosition(BannerUtils.getRealPosition(isCanLoop(),
+                        mViewPager.getCurrentItem(), data.size()));
+        mIndicatorView.notifyDataChanged();
+    }
+
 
     /**
      * @return the currently selected page position.
