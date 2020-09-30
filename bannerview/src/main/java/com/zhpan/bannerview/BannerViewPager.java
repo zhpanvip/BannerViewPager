@@ -418,6 +418,14 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
         }
     }
 
+    private void refreshIndicator(List<? extends T> data) {
+        setIndicatorValues(data);
+        mBannerManager.getBannerOptions().getIndicatorOptions()
+                .setCurrentPosition(BannerUtils.getRealPosition(isCanLoop(),
+                        mViewPager.getCurrentItem(), data.size()));
+        mIndicatorView.notifyDataChanged();
+    }
+
     private int getInterval() {
         return mBannerManager.getBannerOptions().getInterval();
     }
@@ -831,13 +839,14 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
         }
     }
 
-
-    public void refreshIndicator(List<? extends T> data) {
-        setIndicatorValues(data);
-        mBannerManager.getBannerOptions().getIndicatorOptions()
-                .setCurrentPosition(BannerUtils.getRealPosition(isCanLoop(),
-                        mViewPager.getCurrentItem(), data.size()));
-        mIndicatorView.notifyDataChanged();
+    public void insertItem(T item, int index) {
+        List<T> data = mBannerPagerAdapter.getData();
+        if (data.size() > index) {
+            data.add(index, item);
+            mBannerPagerAdapter.notifyDataSetChanged();
+            resetCurrentItem(getCurrentItem());
+            refreshIndicator(data);
+        }
     }
 
 
