@@ -36,7 +36,7 @@
 
 ## 效果预览
 
- ### [点击或扫描二维码下载apk](https://www.pgyer.com/bannerviewpager)
+ ### [点击或扫描二维码下载apk](https://www.pgyer.com/472da9094cdc6175afdb36d99292de94)
 
 ![扫描下载Demo](https://gitee.com/zhpanvip/images/raw/master/project/banner/qrcode.png)
 

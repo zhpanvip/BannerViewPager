@@ -35,7 +35,7 @@
 
 ## Preview
 
- ### [Click here or scan the QR code to download demo apk](https://www.pgyer.com/bannerviewpager)
+ ### [Click here or scan the QR code to download demo apk](https://www.pgyer.com/472da9094cdc6175afdb36d99292de94)
 
 ![QRCode](https://gitee.com/zhpanvip/images/raw/master/project/banner/qrcode.png)
 
