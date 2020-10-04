@@ -22,5 +22,6 @@
     <string name="indicator_name">ViewPagerIndicator</string>
     <string name="email">zhpanvip@outlook.com</string>
     <string name="add_data">Add Data</string>
-    <string name="remove_item">Remove first Item</string>
+    <string name="remove_item">Remove Item</string>
+    <string name="insert_item">Insert Item</string>
 </resources>

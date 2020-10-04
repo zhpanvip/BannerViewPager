@@ -829,9 +829,14 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
         }
     }
 
+    /**
+     * Removes the item at the specified position in this list.
+     *
+     * @param index the index of the item to be removed
+     */
     public void removeItem(int index) {
         List<T> data = mBannerPagerAdapter.getData();
-        if (data.size() > index) {
+        if (index >= 0 && index < data.size()) {
             data.remove(index);
             mBannerPagerAdapter.notifyDataSetChanged();
             resetCurrentItem(getCurrentItem());
@@ -839,9 +844,15 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
         }
     }
 
-    public void insertItem(T item, int index) {
+    /**
+     * Inserts the specified element at the specified position in this list
+     *
+     * @param index index at which the specified element is to be inserted
+     * @param item item element to be inserted
+     */
+    public void insertItem(int index,T item) {
         List<T> data = mBannerPagerAdapter.getData();
-        if (data.size() > index) {
+        if (index >= 0 && index <= data.size()) {
             data.add(index, item);
             mBannerPagerAdapter.notifyDataSetChanged();
             resetCurrentItem(getCurrentItem());

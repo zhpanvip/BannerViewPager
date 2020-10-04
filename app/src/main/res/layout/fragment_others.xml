@@ -114,17 +114,28 @@
                 android:textSize="@dimen/sp_16" />
 
             <TextView
-                android:id="@+id/tv_remove_item"
+                android:id="@+id/tv_insert_item"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_45"
                 android:layout_below="@id/tv_add_data"
                 android:layout_marginTop="@dimen/dp_10"
                 android:background="@color/white"
                 android:gravity="center"
-                android:text="@string/remove_item"
+                android:text="@string/insert_item"
                 android:textColor="#000000"
                 android:textSize="@dimen/sp_16" />
 
+            <TextView
+                android:id="@+id/tv_remove_item"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_45"
+                android:layout_below="@id/tv_insert_item"
+                android:layout_marginTop="@dimen/dp_10"
+                android:background="@color/white"
+                android:gravity="center"
+                android:text="@string/remove_item"
+                android:textColor="#000000"
+                android:textSize="@dimen/sp_16" />
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
 </com.scwang.smartrefresh.layout.SmartRefreshLayout>

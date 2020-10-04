@@ -3,7 +3,6 @@
 [![License](https://img.shields.io/github/license/zhpanvip/BannerViewPager)](https://github.com/zhpanvip/BannerViewPager/blob/master/LICENSE)
 ![MinSdk](https://img.shields.io/badge/API-16%2B-brightgreen.svg?style=flat)
 [![JitPack](https://jitpack.io/v/zhpanvip/BannerViewPager.svg)](https://jitpack.io/#zhpanvip/BannerViewPager)
-[![JCenter](https://api.bintray.com/packages/zhpanvip/CircleViewPager/bannerview/images/download.svg) ](https://bintray.com/zhpanvip/CircleViewPager/bannerview/_latestVersion)
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-BannerViewPager-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/7961)
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-ViewPagerIndicator-brightgreen.svg?style=flat)](https://github.com/zhpanvip/viewpagerindicator)
 [![Stars](https://img.shields.io/github/stars/zhpanvip/BannerViewPager)](https://github.com/zhpanvip/BannerViewPager/stargazers)
@@ -30,10 +29,14 @@
 - 不再支持android support.
 - 新增Indicator SCALE与COLOR滑动样式（V3.1.0）
 - 支持刷新通过refreshData()方法刷新数据（V3.1.0）
+- 支持通过setLifecycleRegistry(Lifecycle)管理BVP生命周期（3.1.4）
+- 支持addData(List<T>) （3.2.0）
+- 支持insertItem and removeItem（3.2.0）
+- 支持addItemDecoration（3.2.0）
 
 ## 效果预览
 
- ### [点击或扫描二维码下载apk](https://github.com/zhpanvip/BannerViewPager/raw/master/download/app.apk)
+ ### [点击或扫描二维码下载apk](https://www.pgyer.com/bannerviewpager)
 
 ![扫描下载Demo](https://gitee.com/zhpanvip/images/raw/master/project/banner/qrcode.png)
 
@@ -136,7 +139,7 @@ BannerViewPager目前已支持三种IndicatorViewStyle,以及五种IndicatorSlid
 
 ## 如何使用
 
-由于ViewPager2不支持Android support，因此BannerViewPager 3.0不再支持Android support，如果你仍在使用Android support请使用，请移步[BannerViewPager 2.x版本](https://github.com/zhpanvip/BannerViewPager/tree/v_2.x)
+由于ViewPager2不支持Android support，因此BannerViewPager 3.0不再支持Android support，如果你仍在使用Android support，请移步[BannerViewPager 2.x版本](https://github.com/zhpanvip/BannerViewPager/tree/v_2.x)
 
 ### 1.gradle中添加依赖
    
