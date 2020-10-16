@@ -69,13 +69,13 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
 
     private BannerManager mBannerManager;
 
-    private Handler mHandler = new Handler();
+    private final Handler mHandler = new Handler();
 
     private BaseBannerAdapter<T, VH> mBannerPagerAdapter;
 
     private ViewPager2.OnPageChangeCallback onPageChangeCallback;
 
-    private Runnable mRunnable = new Runnable() {
+    private final Runnable mRunnable = new Runnable() {
         @Override
         public void run() {
             handlePosition();
@@ -93,7 +93,7 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
     private boolean disallowIntercept;
 
 
-    private ViewPager2.OnPageChangeCallback mOnPageChangeCallback = new ViewPager2.OnPageChangeCallback() {
+    private final ViewPager2.OnPageChangeCallback mOnPageChangeCallback = new ViewPager2.OnPageChangeCallback() {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
             super.onPageScrolled(position, positionOffset, positionOffsetPixels);
