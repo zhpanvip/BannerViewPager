@@ -15,37 +15,42 @@ import android.view.View;
 
 public class ViewStyleSetter {
 
-    private View mView;
-
-    public ViewStyleSetter(View view) {
-        this.mView = view;
-    }
+    private ViewStyleSetter() {}
 
     /**
      * 为View设置圆角效果
-     * 
+     *
      * @param radius 圆角半径
      */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public void setRoundRect(float radius) {
-        this.mView.setClipToOutline(true);
-        this.mView.setOutlineProvider(new RoundViewOutlineProvider(radius));
+    public static void applyRoundCorner(View target, float radius) {
+        if(target == null) {
+            return;
+        }
+        target.setClipToOutline(true);// 用outline裁剪内容区域
+        target.setOutlineProvider(new RoundViewOutlineProvider(radius));
     }
 
     /**
      * 设置View为圆形
      */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public void setOvalView() {
-        this.mView.setClipToOutline(true);
-        this.mView.setOutlineProvider(new OvalViewOutlineProvider());
+    public static void applyCircle(View target) {
+        if(target == null) {
+            return;
+        }
+        target.setClipToOutline(true);// 用outline裁剪内容区域
+        target.setOutlineProvider(new OvalViewOutlineProvider());
     }
 
     /**
      * 清除View的圆角效果
      */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public void clearShapeStyle() {
-        this.mView.setClipToOutline(false);
+    public static void clearShapeStyle(View target) {
+        if(target == null) {
+            return;
+        }
+        target.setClipToOutline(false);
     }
 }

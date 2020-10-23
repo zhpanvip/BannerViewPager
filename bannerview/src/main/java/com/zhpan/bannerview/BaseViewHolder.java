@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.zhpan.bannerview.utils.BannerUtils;
+
 /**
  * <pre>
  *   Created by zhpan on 2020/4/5.
@@ -21,7 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 public abstract class BaseViewHolder<T> extends RecyclerView.ViewHolder {
 
-    private SparseArray<View> mViews = new SparseArray<>();
+    private final SparseArray<View> mViews = new SparseArray<>();
 
     public BaseViewHolder(@NonNull View itemView) {
         super(itemView);

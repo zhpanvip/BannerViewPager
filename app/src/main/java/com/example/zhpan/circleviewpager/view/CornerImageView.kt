@@ -12,8 +12,7 @@ class CornerImageView @JvmOverloads constructor(context: Context, attrs: Attribu
 
     fun setRoundCorner(radius: Int) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            val viewStyleSetter = ViewStyleSetter(this)
-            viewStyleSetter.setRoundRect(radius.toFloat())
+            ViewStyleSetter.applyRoundCorner(this, radius.toFloat())
         }
     }
 }

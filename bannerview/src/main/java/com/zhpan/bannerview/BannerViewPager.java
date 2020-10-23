@@ -342,8 +342,7 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
     private void initRoundCorner() {
         int roundCorner = mBannerManager.getBannerOptions().getRoundRectRadius();
         if (roundCorner > 0 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            ViewStyleSetter viewStyleSetter = new ViewStyleSetter(this);
-            viewStyleSetter.setRoundRect(roundCorner);
+            ViewStyleSetter.applyRoundCorner(this,roundCorner);
         }
     }
 
