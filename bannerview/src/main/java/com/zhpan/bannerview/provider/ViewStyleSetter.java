@@ -30,27 +30,4 @@ public class ViewStyleSetter {
         target.setClipToOutline(true);// 用outline裁剪内容区域
         target.setOutlineProvider(new RoundViewOutlineProvider(radius));
     }
-
-    /**
-     * 设置View为圆形
-     */
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public static void applyCircle(View target) {
-        if(target == null) {
-            return;
-        }
-        target.setClipToOutline(true);// 用outline裁剪内容区域
-        target.setOutlineProvider(new OvalViewOutlineProvider());
-    }
-
-    /**
-     * 清除View的圆角效果
-     */
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public static void clearShapeStyle(View target) {
-        if(target == null) {
-            return;
-        }
-        target.setClipToOutline(false);
-    }
 }

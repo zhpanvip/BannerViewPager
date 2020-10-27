@@ -21,7 +21,7 @@ import static com.zhpan.bannerview.manager.BannerOptions.DEFAULT_REVEAL_WIDTH;
  */
 public class AttributeController {
 
-    private BannerOptions mBannerOptions;
+    private final BannerOptions mBannerOptions;
 
     public AttributeController(BannerOptions bannerOptions) {
         mBannerOptions = bannerOptions;

@@ -59,7 +59,7 @@ public class BannerOptions {
 
     private int orientation = ViewPager2.ORIENTATION_HORIZONTAL;
 
-    private IndicatorOptions mIndicatorOptions;
+    private final IndicatorOptions mIndicatorOptions;
 
     public int getInterval() {
         return interval;
@@ -258,7 +258,7 @@ public class BannerOptions {
 
     public static class IndicatorMargin {
 
-        private int left, right, top, bottom;
+        private final int left,right,top,bottom;
 
         public IndicatorMargin(int left, int top, int right, int bottom) {
             this.left = left;

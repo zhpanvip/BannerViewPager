@@ -13,7 +13,7 @@ public class BannerManager {
 
     private BannerOptions mBannerOptions;
 
-    private AttributeController mAttributeController;
+    private final AttributeController mAttributeController;
 
     public BannerManager() {
         mBannerOptions = new BannerOptions();
