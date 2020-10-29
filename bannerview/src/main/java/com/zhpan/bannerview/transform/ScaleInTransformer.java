@@ -8,7 +8,7 @@ public class ScaleInTransformer implements ViewPager2.PageTransformer {
 
     private static final float DEFAULT_CENTER = 0.5f;
     public static final float DEFAULT_MIN_SCALE = 0.85f;
-    private float mMinScale;
+    private final float mMinScale;
 
     public ScaleInTransformer(float minScale) {
         mMinScale = minScale;

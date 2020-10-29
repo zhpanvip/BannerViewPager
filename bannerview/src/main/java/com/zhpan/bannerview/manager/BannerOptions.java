@@ -16,6 +16,7 @@ import static com.zhpan.bannerview.transform.ScaleInTransformer.DEFAULT_MIN_SCAL
  *   Description:BannerViewPager的配置参数
  * </pre>
  */
+@SuppressWarnings("unused")
 public class BannerOptions {
 
     public BannerOptions() {

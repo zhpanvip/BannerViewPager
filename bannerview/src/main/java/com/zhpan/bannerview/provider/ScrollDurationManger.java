@@ -24,8 +24,8 @@ import java.lang.reflect.Method;
  * thanks:https://github.com/zguop/banner/blob/master/pager2banner/src/main/java/com/to/aboomy/pager2banner/Banner.java
  */
 public class ScrollDurationManger extends LinearLayoutManager {
-    private LinearLayoutManager mParent;
-    private int scrollDuration;
+    private final LinearLayoutManager mParent;
+    private final int scrollDuration;
 
     public ScrollDurationManger(ViewPager2 viewPager2, int scrollDuration, LinearLayoutManager linearLayoutManager) {
         super(viewPager2.getContext(), linearLayoutManager.getOrientation(), false);

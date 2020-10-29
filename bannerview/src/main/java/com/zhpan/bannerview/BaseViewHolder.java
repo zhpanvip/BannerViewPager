@@ -21,6 +21,7 @@ import com.zhpan.bannerview.utils.BannerUtils;
  *   method to get position,this method will return a fake position.
  * </pre>
  */
+@SuppressWarnings("unused")
 public abstract class BaseViewHolder<T> extends RecyclerView.ViewHolder {
 
     private final SparseArray<View> mViews = new SparseArray<>();

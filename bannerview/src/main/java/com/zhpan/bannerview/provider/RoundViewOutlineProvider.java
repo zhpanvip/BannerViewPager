@@ -21,7 +21,7 @@ public class RoundViewOutlineProvider extends ViewOutlineProvider {
     /**
      * 圆角弧度
      */
-    private float mRadius;
+    private final float mRadius;
 
     public RoundViewOutlineProvider(float radius) {
         this.mRadius = radius;
