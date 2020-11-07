@@ -991,25 +991,6 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
         return this;
     }
 
-    /**
-     * @param showIndicator is show indicator
-     * @deprecated Use {@link #setIndicatorVisibility(int)} instead.
-     */
-    @Deprecated
-    public BannerViewPager<T, VH> showIndicator(boolean showIndicator) {
-        mIndicatorLayout.setVisibility(showIndicator ? VISIBLE : GONE);
-        return this;
-    }
-
-    /**
-     * @deprecated user {@link #setUserInputEnabled(boolean)} instead.
-     */
-    @Deprecated
-    public BannerViewPager<T, VH> disableTouchScroll(boolean disableTouchScroll) {
-        mBannerManager.getBannerOptions().setUserInputEnabled(!disableTouchScroll);
-        return this;
-    }
-
     public BannerViewPager<T, VH> setLifecycleRegistry(Lifecycle lifecycleRegistry) {
         lifecycleRegistry.addObserver(this);
         return this;

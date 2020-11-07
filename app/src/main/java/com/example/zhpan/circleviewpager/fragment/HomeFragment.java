@@ -84,7 +84,8 @@ public class HomeFragment extends BaseFragment {
     protected void initView(Bundle savedInstanceState, View view) {
         initRecyclerView(view);
         initRefreshLayout(view);
-        initBanner();
+        initHorizontalBanner();
+        initVerticalBanner();
         fetchData(true);
     }
 
@@ -156,9 +157,7 @@ public class HomeFragment extends BaseFragment {
         return RetrofitGnerator.getApiSerVice().getBannerData().subscribeOn(Schedulers.io());
     }
 
-
-    private void initBanner() {
-        HomeAdapter homeAdapter = new HomeAdapter();
+    private void initHorizontalBanner() {
         mViewPagerHorizontal
                 .setScrollDuration(600)
                 .setOffScreenPageLimit(2)
@@ -171,7 +170,7 @@ public class HomeFragment extends BaseFragment {
                 .disallowInterceptTouchEvent(true)
                 .setIndicatorView(mIndicatorView)   // 这里为了设置标题故用了自定义Indicator,如果无需标题则没必要添加此行代码
                 .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
-                .setAdapter(homeAdapter)
+                .setAdapter(new HomeAdapter())
                 .registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
                     @Override
                     public void onPageSelected(int position) {
@@ -182,10 +181,12 @@ public class HomeFragment extends BaseFragment {
                     }
                 })
                 .setOnPageClickListener(this::onPageClicked).create();
+    }
+
+    private void initVerticalBanner() {
         mViewPagerVertical
                 .setAutoPlay(true)
                 .setScrollDuration(500)
-
                 .setLifecycleRegistry(getLifecycle())
                 .setIndicatorStyle(IndicatorStyle.ROUND_RECT)
                 .setIndicatorSlideMode(IndicatorSlideMode.SCALE)

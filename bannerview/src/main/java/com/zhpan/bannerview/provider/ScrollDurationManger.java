@@ -20,7 +20,6 @@ import java.lang.reflect.Method;
 
 
 /**
- * source from:https://github.com/youth5201314/banner/blob/master/banner/src/main/java/com/youth/banner/util/ScrollSpeedManger.java
  * thanks:https://github.com/zguop/banner/blob/master/pager2banner/src/main/java/com/to/aboomy/pager2banner/Banner.java
  */
 public class ScrollDurationManger extends LinearLayoutManager {
