@@ -401,9 +401,9 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
 
     private void initPageStyle(@APageStyle int pageStyle) {
         if (pageStyle == PageStyle.MULTI_PAGE_OVERLAP) {
-            setMultiPageStyle(true, pageStyle);
+            setMultiPageStyle(true, mBannerManager.getBannerOptions().getPageScale());
         } else if (pageStyle == PageStyle.MULTI_PAGE_SCALE) {
-            setMultiPageStyle(false, pageStyle);
+            setMultiPageStyle(false, mBannerManager.getBannerOptions().getPageScale());
         }
     }
 
