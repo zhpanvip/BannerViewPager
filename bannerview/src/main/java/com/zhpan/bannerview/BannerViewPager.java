@@ -11,8 +11,6 @@ import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager2.widget.CompositePageTransformer;
-import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.util.AttributeSet;
@@ -28,8 +26,6 @@ import com.zhpan.bannerview.constants.PageStyle;
 import com.zhpan.bannerview.manager.BannerManager;
 import com.zhpan.bannerview.manager.BannerOptions;
 import com.zhpan.bannerview.provider.ScrollDurationManger;
-import com.zhpan.bannerview.transform.OverlapPageTransformer;
-import com.zhpan.bannerview.transform.ScaleInTransformer;
 import com.zhpan.bannerview.utils.BannerUtils;
 import com.zhpan.bannerview.provider.ViewStyleSetter;
 import com.zhpan.indicator.IndicatorView;
@@ -86,14 +82,6 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
 
     private int startX, startY;
 
-    private CompositePageTransformer mCompositePageTransformer;
-
-    private MarginPageTransformer mMarginPageTransformer;
-
-    private ViewPager2.PageTransformer mDefaultPageTransformer;
-
-    private boolean disallowIntercept;
-
     private final ViewPager2.OnPageChangeCallback mOnPageChangeCallback = new ViewPager2.OnPageChangeCallback() {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -128,7 +116,6 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
     }
 
     private void init(Context context, AttributeSet attrs) {
-        mCompositePageTransformer = new CompositePageTransformer();
         mBannerManager = new BannerManager();
         mBannerManager.initAttrs(context, attrs);
         initView();
@@ -138,7 +125,7 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
         inflate(getContext(), R.layout.bvp_layout, this);
         mViewPager = findViewById(R.id.vp_main);
         mIndicatorLayout = findViewById(R.id.bvp_layout_indicator);
-        mViewPager.setPageTransformer(mCompositePageTransformer);
+        mViewPager.setPageTransformer(mBannerManager.getCompositePageTransformer());
     }
 
     @Override
@@ -184,7 +171,7 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
             case MotionEvent.ACTION_DOWN:
                 startX = (int) ev.getX();
                 startY = (int) ev.getY();
-                if (!disallowIntercept) {
+                if (!mBannerManager.getBannerOptions().isDisallowIntercept()) {
                     getParent().requestDisallowInterceptTouchEvent(true);
                 }
                 break;
@@ -408,16 +395,7 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
     }
 
     private void setMultiPageStyle(boolean overlap, float scale) {
-        if (mDefaultPageTransformer != null) {
-            mCompositePageTransformer.removeTransformer(mDefaultPageTransformer);
-        }
-        if (overlap && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mDefaultPageTransformer = new OverlapPageTransformer(mBannerManager.getBannerOptions()
-                    .getOrientation(), scale, 0f, 1, 0);
-        } else {
-            mDefaultPageTransformer = new ScaleInTransformer(scale);
-        }
-        addPageTransformer(mDefaultPageTransformer);
+        mBannerManager.setMultiPageStyle(overlap,scale);
     }
 
 
@@ -561,27 +539,23 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
      */
     public BannerViewPager<T, VH> addPageTransformer(@Nullable ViewPager2.PageTransformer transformer) {
         if (transformer != null) {
-            mCompositePageTransformer.addTransformer(transformer);
+            mBannerManager.addTransformer(transformer);
         }
         return this;
     }
 
     public void removeTransformer(@Nullable ViewPager2.PageTransformer transformer) {
         if (transformer != null) {
-            mCompositePageTransformer.removeTransformer(transformer);
+            mBannerManager.removeTransformer(transformer);
         }
     }
 
     public void removeDefaultPageTransformer() {
-        if (mDefaultPageTransformer != null) {
-            mCompositePageTransformer.removeTransformer(mDefaultPageTransformer);
-        }
+        mBannerManager.removeDefaultPageTransformer();
     }
 
     public void removeMarginPageTransformer() {
-        if (mMarginPageTransformer != null) {
-            mCompositePageTransformer.removeTransformer(mMarginPageTransformer);
-        }
+        mBannerManager.removeMarginPageTransformer();
     }
 
     /**
@@ -590,12 +564,7 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
      * @param pageMargin page margin
      */
     public BannerViewPager<T, VH> setPageMargin(int pageMargin) {
-        mBannerManager.getBannerOptions().setPageMargin(pageMargin);
-        if (mMarginPageTransformer != null) {
-            mCompositePageTransformer.removeTransformer(mMarginPageTransformer);
-        }
-        mMarginPageTransformer = new MarginPageTransformer(pageMargin);
-        mCompositePageTransformer.addTransformer(mMarginPageTransformer);
+        mBannerManager.setPageMargin(pageMargin);
         return this;
     }
 
@@ -1016,7 +985,7 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
      * @param disallowIntercept true 禁止BVP拦截事件，false 允许BVP拦截事件
      */
     public BannerViewPager<T, VH> disallowInterceptTouchEvent(boolean disallowIntercept) {
-        this.disallowIntercept = disallowIntercept;
+        mBannerManager.getBannerOptions().setDisallowIntercept(disallowIntercept);
         return this;
     }
 
