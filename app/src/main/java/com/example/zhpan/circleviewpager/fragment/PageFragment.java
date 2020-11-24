@@ -2,9 +2,9 @@ package com.example.zhpan.circleviewpager.fragment;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.example.zhpan.circleviewpager.R;
 import com.example.zhpan.circleviewpager.adapter.ImageResourceAdapter;
 import com.example.zhpan.circleviewpager.viewholder.ImageResourceViewHolder;
@@ -12,7 +12,6 @@ import com.zhpan.bannerview.BannerViewPager;
 import com.zhpan.bannerview.annotation.APageStyle;
 import com.zhpan.bannerview.constants.PageStyle;
 import com.zhpan.bannerview.utils.BannerUtils;
-import com.zhpan.idea.utils.ToastUtils;
 import com.zhpan.indicator.enums.IndicatorSlideMode;
 
 /**
@@ -57,7 +56,7 @@ public class PageFragment extends BaseFragment {
         if (position != mViewPager.getCurrentItem()) {
             mViewPager.setCurrentItem(position, true);
         }
-        ToastUtils.show("position:" + position);
+        ToastUtils.showShort("position:" + position);
     }
 
     private void initRadioGroup() {
@@ -118,7 +117,7 @@ public class PageFragment extends BaseFragment {
                 .setPageMargin(getResources().getDimensionPixelOffset(R.dimen.dp_20))
                 .setRevealWidth(getResources().getDimensionPixelOffset(R.dimen.dp_m_10))
                 .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
-                .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
+                .setOnPageClickListener(position -> ToastUtils.showShort("position:" + position))
                 .setInterval(5000).create(getPicList(4));
         mViewPager.removeDefaultPageTransformer();
     }
@@ -129,7 +128,7 @@ public class PageFragment extends BaseFragment {
                 .setPageMargin(getResources().getDimensionPixelOffset(R.dimen.dp_15))
                 .setRevealWidth(BannerUtils.dp2px(0))
                 .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
-                .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
+                .setOnPageClickListener(position -> ToastUtils.showShort("position:" + position))
                 .setInterval(5000).create(getPicList(4));
         mViewPager.removeDefaultPageTransformer();
     }

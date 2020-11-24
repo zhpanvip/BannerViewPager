@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.example.zhpan.circleviewpager.R;
 import com.example.zhpan.circleviewpager.activity.WebViewActivity;
 import com.example.zhpan.circleviewpager.adapter.ArticleAdapter;
@@ -20,6 +21,7 @@ import com.example.zhpan.circleviewpager.bean.ArticleWrapper;
 import com.example.zhpan.circleviewpager.bean.DataWrapper;
 import com.example.zhpan.circleviewpager.net.BannerData;
 import com.example.zhpan.circleviewpager.net.RetrofitGnerator;
+import com.example.zhpan.circleviewpager.net.RxUtil;
 import com.example.zhpan.circleviewpager.recyclerview.ui.CustomRecyclerView;
 import com.example.zhpan.circleviewpager.viewholder.ImageResourceViewHolder;
 import com.scwang.smartrefresh.header.MaterialHeader;
@@ -28,15 +30,14 @@ import com.zhpan.bannerview.BannerViewPager;
 import com.zhpan.bannerview.BaseViewHolder;
 import com.zhpan.bannerview.constants.IndicatorGravity;
 import com.zhpan.bannerview.utils.BannerUtils;
-import com.zhpan.idea.net.common.ResponseObserver;
-import com.zhpan.idea.utils.LogUtils;
-import com.zhpan.idea.utils.RxUtil;
+import com.example.zhpan.circleviewpager.net.common.ResponseObserver;
 import com.zhpan.indicator.IndicatorView;
 import com.zhpan.indicator.enums.IndicatorSlideMode;
 import com.zhpan.indicator.enums.IndicatorStyle;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;

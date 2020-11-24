@@ -7,6 +7,7 @@ import android.view.View
 import android.view.animation.DecelerateInterpolator
 import androidx.core.content.ContextCompat
 import androidx.viewpager2.widget.ViewPager2
+import com.blankj.utilcode.util.ToastUtils
 import com.example.zhpan.circleviewpager.R
 import com.example.zhpan.circleviewpager.adapter.WelcomeAdapter
 import com.example.zhpan.circleviewpager.bean.CustomBean
@@ -15,7 +16,6 @@ import com.example.zhpan.circleviewpager.viewholder.CustomPageViewHolder
 import com.zhpan.bannerview.BannerViewPager
 import com.example.zhpan.circleviewpager.transform.TransformerStyle
 import com.zhpan.bannerview.utils.BannerUtils
-import com.zhpan.idea.utils.ToastUtils
 import com.zhpan.indicator.enums.IndicatorSlideMode
 import kotlinx.android.synthetic.main.activity_welcome.*
 import java.util.*
@@ -63,7 +63,7 @@ class WelcomeActivity : BaseDataActivity() {
                 }
             })
             adapter = WelcomeAdapter().apply {
-                mOnSubViewClickListener = CustomPageViewHolder.OnSubViewClickListener { _, position -> ToastUtils.show("Logo Clicked,position:$position") }
+                mOnSubViewClickListener = CustomPageViewHolder.OnSubViewClickListener { _, position -> ToastUtils.showShort("Logo Clicked,position:$position") }
             }
             setIndicatorSliderColor(ContextCompat.getColor(this@WelcomeActivity, R.color.white),
                     ContextCompat.getColor(this@WelcomeActivity, R.color.white_alpha_75))

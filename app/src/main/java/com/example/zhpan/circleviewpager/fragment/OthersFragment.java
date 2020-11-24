@@ -8,6 +8,8 @@ import android.widget.RadioGroup;
 
 import androidx.annotation.NonNull;
 
+import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.example.zhpan.circleviewpager.R;
 import com.example.zhpan.circleviewpager.adapter.ImageResourceAdapter;
 import com.example.zhpan.circleviewpager.view.FigureIndicatorView;
@@ -17,14 +19,11 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.zhpan.bannerview.BannerViewPager;
 import com.zhpan.bannerview.constants.IndicatorGravity;
 import com.zhpan.bannerview.utils.BannerUtils;
-import com.zhpan.idea.utils.LogUtils;
-import com.zhpan.idea.utils.ToastUtils;
 import com.zhpan.indicator.DrawableIndicator;
 import com.zhpan.indicator.IndicatorView;
 import com.zhpan.indicator.base.IIndicator;
 import com.zhpan.indicator.enums.IndicatorSlideMode;
 
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -77,12 +76,12 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
                 .setLifecycleRegistry(getLifecycle())
                 .setRoundCorner(BannerUtils.dp2px(6))
                 .setOnPageClickListener(position -> {
-                    ToastUtils.show("position:" + position);
+                    ToastUtils.showShort("position:" + position);
                     int currentItem = mViewPager.getCurrentItem();
                     LogUtils.e("currentItem:", currentItem + "");
                 })
                 .setAdapter(new ImageResourceAdapter(0))
-                .setOnPageClickListener(position -> ToastUtils.show("Position:" + position))
+                .setOnPageClickListener(position -> ToastUtils.showShort("Position:" + position))
                 .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color)).create();
         initRadioGroup();
     }
@@ -169,7 +168,7 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
 
     private void updateData() {
         mViewPager.refreshData(getPicList(new Random().nextInt(5) - 1));
-        ToastUtils.show("size=" + mViewPager.getData().size());
+        ToastUtils.showShort("size=" + mViewPager.getData().size());
     }
 
     @Override
@@ -187,14 +186,14 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
             default:
                 int position = new Random().nextInt(5);
                 mViewPager.setCurrentItem(position, true);
-                ToastUtils.show("Jump to position:" + position);
+                ToastUtils.showShort("Jump to position:" + position);
                 break;
         }
     }
 
     private void addData() {
         mViewPager.addData(getPicList(2));
-        ToastUtils.show("size=" + mViewPager.getData().size());
+        ToastUtils.showShort("size=" + mViewPager.getData().size());
     }
 
     private void insertItem() {

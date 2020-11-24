@@ -1,6 +1,6 @@
 package com.example.zhpan.circleviewpager.net;
 
-import com.zhpan.idea.net.common.IdeaApi;
+import com.example.zhpan.circleviewpager.net.common.IdeaApi;
 
 /**
  * <pre>

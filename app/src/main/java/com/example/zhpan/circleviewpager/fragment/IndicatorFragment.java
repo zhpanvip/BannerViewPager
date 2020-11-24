@@ -6,13 +6,13 @@ import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.example.zhpan.circleviewpager.R;
 import com.example.zhpan.circleviewpager.viewholder.ImageResourceViewHolder;
 import com.zhpan.bannerview.BannerViewPager;
 import com.zhpan.bannerview.BaseBannerAdapter;
 import com.zhpan.bannerview.constants.IndicatorGravity;
 import com.zhpan.bannerview.utils.BannerUtils;
-import com.zhpan.idea.utils.ToastUtils;
 import com.zhpan.indicator.annotation.AIndicatorSlideMode;
 import com.zhpan.indicator.enums.IndicatorSlideMode;
 import com.zhpan.indicator.enums.IndicatorStyle;
@@ -57,7 +57,7 @@ public class IndicatorFragment extends BaseFragment {
                 .setScrollDuration(800)
                 .setLifecycleRegistry(getLifecycle())
                 .setIndicatorGravity(IndicatorGravity.CENTER)
-                .setOnPageClickListener(position -> ToastUtils.show("position:" + position))
+                .setOnPageClickListener(position -> ToastUtils.showShort("position:" + position))
                 .setAdapter(new BaseBannerAdapter<Integer, ImageResourceViewHolder>() {
                     @Override
                     protected void onBind(ImageResourceViewHolder holder, Integer data, int position, int pageSize) {
