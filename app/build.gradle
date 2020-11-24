@@ -45,22 +45,20 @@ dependencies {
     androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    api "io.reactivex.rxjava2:rxjava:$rootProject.ext.rxjava2Version"
-    api "com.squareup.retrofit2:retrofit:$rootProject.ext.retrofit2Version"
-    api "com.squareup.retrofit2:converter-scalars:$rootProject.ext.retrofit2Version"
-    api "com.squareup.retrofit2:converter-gson:$rootProject.ext.retrofit2Version"
-    api "com.squareup.retrofit2:adapter-rxjava2:$rootProject.ext.retrofit2Version"
-    api "com.trello.rxlifecycle2:rxlifecycle:$rootProject.ext.rxlifecycle"
-    //compile "com.trello.rxlifecycle2:rxlifecycle-android:$rootProject.ext.rxlifecycle"
-    api "com.trello.rxlifecycle2:rxlifecycle-components:$rootProject.ext.rxlifecycle"
-    api 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
-    api 'io.reactivex.rxjava2:rxandroid:2.1.1'
-    api 'com.squareup.okhttp3:logging-interceptor:3.10.0'
+    implementation "io.reactivex.rxjava2:rxjava:$rootProject.ext.rxjava2Version"
+    implementation "com.squareup.retrofit2:retrofit:$rootProject.ext.retrofit2Version"
+    implementation "com.squareup.retrofit2:converter-scalars:$rootProject.ext.retrofit2Version"
+    implementation "com.squareup.retrofit2:converter-gson:$rootProject.ext.retrofit2Version"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$rootProject.ext.retrofit2Version"
+    implementation "com.trello.rxlifecycle2:rxlifecycle:$rootProject.ext.rxlifecycle"
+    implementation "com.trello.rxlifecycle2:rxlifecycle-components:$rootProject.ext.rxlifecycle"
+    implementation 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.8.1'
 
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'com.github.bumptech.glide:glide:4.11.0'
-    implementation 'com.github.chrisbanes:PhotoView:2.3.0'
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0'
     implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0'
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.3'
@@ -74,5 +72,7 @@ dependencies {
     implementation 'com.tencent.bugly:crashreport:3.2.1'
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'com.blankj:utilcodex:1.30.5'
+    implementation 'com.airbnb.android:lottie:3.4.1'
+//    implementation 'com.github.zhpanvip:BannerViewPager:3.2.0'
     implementation project(path: ':bannerview')
 }

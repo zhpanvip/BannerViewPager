@@ -68,7 +68,7 @@
         android:overScrollMode="never"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <com.example.zhpan.circleviewpager.recyclerview.ui.CustomRecyclerView
+        <com.example.zhpan.banner.recyclerview.ui.CustomRecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

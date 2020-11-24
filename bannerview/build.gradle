@@ -19,6 +19,6 @@ android {
 
 dependencies {
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
-    api 'com.github.zhpanvip:viewpagerindicator:1.0.5'
+    api 'com.github.zhpanvip:viewpagerindicator:1.0.7'
 //    api project(path: ':indicator')
 }

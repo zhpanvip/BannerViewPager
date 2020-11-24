@@ -23,8 +23,8 @@
     public void onPause();
 }
 -keep public class * extends android.app.Activity
--keep class com.example.zhpan.circleviewpager.bean.** { *; }
--keep class com.example.zhpan.circleviewpager.net.** { *; }
+-keep class com.example.zhpan.banner.bean.** { *; }
+-keep class com.example.zhpan.banner.net.** { *; }
 -keep class com.zhpan.idea.** { *; }
 
 -keep class androidx.recyclerview.widget.**{*;}
