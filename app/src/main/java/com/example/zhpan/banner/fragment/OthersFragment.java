@@ -75,13 +75,13 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
                 .setIndicatorView(mIndicatorView)
                 .setLifecycleRegistry(getLifecycle())
                 .setRoundCorner(BannerUtils.dp2px(6))
-                .setOnPageClickListener(position -> {
+                .setOnPageClickListener((clickView, position) -> {
                     ToastUtils.showShort("position:" + position);
                     int currentItem = mViewPager.getCurrentItem();
                     LogUtils.e("currentItem:", currentItem + "");
                 })
                 .setAdapter(new ImageResourceAdapter(0))
-                .setOnPageClickListener(position -> ToastUtils.showShort("Position:" + position))
+                .setOnPageClickListener((clickView, position) -> ToastUtils.showShort("Position:" + position))
                 .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color)).create();
         initRadioGroup();
     }

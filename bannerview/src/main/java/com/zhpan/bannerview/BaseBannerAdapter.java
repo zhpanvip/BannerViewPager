@@ -33,9 +33,9 @@ public abstract class BaseBannerAdapter<T, VH extends BaseViewHolder<T>> extends
         int realPosition = BannerUtils.getRealPosition(isCanLoop, position, mList.size());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View clickView) {
                 if (mPageClickListener != null) {
-                    mPageClickListener.onPageClick(BannerUtils.getRealPosition(isCanLoop, position, mList.size()));
+                    mPageClickListener.onPageClick(clickView, BannerUtils.getRealPosition(isCanLoop, position, mList.size()));
                 }
             }
         });

@@ -48,7 +48,7 @@ import static com.zhpan.bannerview.utils.BannerUtils.getOriginalPosition;
 /**
  * Created by zhpan on 2017/3/28.
  */
-@SuppressWarnings({"unused","UnusedReturnValue"})
+@SuppressWarnings({"unused", "UnusedReturnValue"})
 public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLayout implements LifecycleObserver {
 
     private int currentPosition;
@@ -395,7 +395,7 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
     }
 
     private void setMultiPageStyle(boolean overlap, float scale) {
-        mBannerManager.setMultiPageStyle(overlap,scale);
+        mBannerManager.setMultiPageStyle(overlap, scale);
     }
 
 
@@ -952,7 +952,7 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
     }
 
     public interface OnPageClickListener {
-        void onPageClick(int position);
+        void onPageClick(View clickView, int position);
     }
 
     public BannerViewPager<T, VH> registerOnPageChangeCallback(ViewPager2.OnPageChangeCallback onPageChangeCallback) {

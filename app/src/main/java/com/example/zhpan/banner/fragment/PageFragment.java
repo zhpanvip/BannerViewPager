@@ -52,7 +52,7 @@ public class PageFragment extends BaseFragment {
         view.findViewById(R.id.rb_multi_page_overlap).performClick();
     }
 
-    private void pageClick(int position) {
+    private void pageClick(View view, int position) {
         if (position != mViewPager.getCurrentItem()) {
             mViewPager.setCurrentItem(position, true);
         }
@@ -117,7 +117,7 @@ public class PageFragment extends BaseFragment {
                 .setPageMargin(getResources().getDimensionPixelOffset(R.dimen.dp_20))
                 .setRevealWidth(getResources().getDimensionPixelOffset(R.dimen.dp_m_10))
                 .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
-                .setOnPageClickListener(position -> ToastUtils.showShort("position:" + position))
+                .setOnPageClickListener((view, position) -> ToastUtils.showShort("position:" + position))
                 .setInterval(5000).create(getPicList(4));
         mViewPager.removeDefaultPageTransformer();
     }
@@ -128,7 +128,7 @@ public class PageFragment extends BaseFragment {
                 .setPageMargin(getResources().getDimensionPixelOffset(R.dimen.dp_15))
                 .setRevealWidth(BannerUtils.dp2px(0))
                 .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
-                .setOnPageClickListener(position -> ToastUtils.showShort("position:" + position))
+                .setOnPageClickListener((view, position) -> ToastUtils.showShort("position:" + position))
                 .setInterval(5000).create(getPicList(4));
         mViewPager.removeDefaultPageTransformer();
     }

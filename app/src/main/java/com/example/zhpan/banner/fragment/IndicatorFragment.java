@@ -57,7 +57,7 @@ public class IndicatorFragment extends BaseFragment {
                 .setScrollDuration(800)
                 .setLifecycleRegistry(getLifecycle())
                 .setIndicatorGravity(IndicatorGravity.CENTER)
-                .setOnPageClickListener(position -> ToastUtils.showShort("position:" + position))
+                .setOnPageClickListener((clickView, position) -> ToastUtils.showShort("position:" + position))
                 .setAdapter(new BaseBannerAdapter<Integer, ImageResourceViewHolder>() {
                     @Override
                     protected void onBind(ImageResourceViewHolder holder, Integer data, int position, int pageSize) {
