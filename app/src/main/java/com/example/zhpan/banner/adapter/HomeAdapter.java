@@ -5,7 +5,7 @@ import android.view.ViewGroup;
 
 import com.example.zhpan.banner.R;
 import com.example.zhpan.banner.net.BannerData;
-import com.example.zhpan.banner.viewholder.NetViewHolder;
+import com.example.zhpan.banner.viewholder.ServerImageViewHolder;
 import com.example.zhpan.banner.viewholder.NewTypeViewHolder;
 import com.zhpan.bannerview.BaseBannerAdapter;
 import com.zhpan.bannerview.BaseViewHolder;
@@ -30,7 +30,7 @@ public class HomeAdapter extends BaseBannerAdapter<BannerData, BaseViewHolder<Ba
         if (viewType == BannerData.TYPE_NEW) {
             return new NewTypeViewHolder(itemView);
         }
-        return new NetViewHolder(itemView);
+        return new ServerImageViewHolder(itemView);
     }
 
     @Override

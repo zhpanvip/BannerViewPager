@@ -17,9 +17,9 @@ import com.zhpan.bannerview.utils.BannerUtils;
  *   Description:
  * </pre>
  */
-public class NetViewHolder extends BaseViewHolder<BannerData> {
+public class ServerImageViewHolder extends BaseViewHolder<BannerData> {
 
-    public NetViewHolder(@NonNull View itemView) {
+    public ServerImageViewHolder(@NonNull View itemView) {
         super(itemView);
         CornerImageView imageView = findView(R.id.banner_image);
         imageView.setRoundCorner(BannerUtils.dp2px(0));
@@ -29,6 +29,6 @@ public class NetViewHolder extends BaseViewHolder<BannerData> {
     public void bindData(BannerData data, int position, int pageSize) {
         CornerImageView imageView = findView(R.id.banner_image);
         Glide.with(imageView).load(data.getImagePath()).placeholder(R.drawable.placeholder).into(imageView);
-        BannerUtils.log("NetViewHolder", "position:" + position);
+        BannerUtils.log("ServerImageViewHolder", "position:" + position);
     }
 }
