@@ -952,7 +952,7 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
     }
 
     public interface OnPageClickListener {
-        void onPageClick(View clickView, int position);
+        void onPageClick(View clickedView, int position);
     }
 
     public BannerViewPager<T, VH> registerOnPageChangeCallback(ViewPager2.OnPageChangeCallback onPageChangeCallback) {

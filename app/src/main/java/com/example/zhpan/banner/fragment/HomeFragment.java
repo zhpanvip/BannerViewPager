@@ -199,7 +199,7 @@ public class HomeFragment extends BaseFragment {
                 .setAdapter(new ImageResourceAdapter(0)).create(getPicList(4));
     }
 
-    private void onPageClicked(View clickView,int position) {
+    private void onPageClicked(View clickedView,int position) {
         BannerData bannerData = mViewPagerHorizontal.getData().get(position);
         if (bannerData.getType() != TYPE_NEW) {
             if (getActivity() != null) {
