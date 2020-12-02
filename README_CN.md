@@ -36,7 +36,8 @@
 
 ## 效果预览
 
- ### [点击或扫描二维码下载apk](https://www.pgyer.com/472da9094cdc6175afdb36d99292de94)
+ ### [点击或扫描二维码下载apk](https://www.pgyer.com/bannerviewpager) 
+ 由于平台限制，每个版本最多只能下载10次。其他版本下载链接：[下载V3.2.0](https://www.pgyer.com/24463b9b840a6317f3c98f6f3082685c),[下载V3.1.4](https://www.pgyer.com/472da9094cdc6175afdb36d99292de94)
 
 ![扫描下载Demo](https://gitee.com/zhpanvip/images/raw/master/project/banner/qrcode.png)
 

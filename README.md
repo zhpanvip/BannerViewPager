@@ -35,7 +35,9 @@
 
 ## Preview
 
- ### [Click here or scan the QR code to download demo apk](https://www.pgyer.com/472da9094cdc6175afdb36d99292de94)
+ ### [Click here or scan the QR code to download demo apk](https://www.pgyer.com/bannerviewpager). 
+ 
+ Due to the download platform restrictions, each version can only be downloaded up to 10 times. Download links for other versions:：[Download V3.2.0](https://www.pgyer.com/24463b9b840a6317f3c98f6f3082685c),[Download V3.1.4](https://www.pgyer.com/472da9094cdc6175afdb36d99292de94)
 
 ![QRCode](https://gitee.com/zhpanvip/images/raw/master/project/banner/qrcode.png)
 
