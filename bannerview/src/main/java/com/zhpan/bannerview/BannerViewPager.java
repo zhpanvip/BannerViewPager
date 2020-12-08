@@ -2,6 +2,7 @@ package com.zhpan.bannerview;
 
 import android.content.Context;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 
 import androidx.annotation.ColorInt;
@@ -13,6 +14,7 @@ import androidx.lifecycle.OnLifecycleEvent;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -413,6 +415,31 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
                 .setCurrentPosition(BannerUtils.getRealPosition(isCanLoop(),
                         mViewPager.getCurrentItem(), data.size()));
         mIndicatorView.notifyDataChanged();
+    }
+
+    private static final String KEY_SUPER_STATE = "SUPER_STATE";
+    private static final String KEY_CURRENT_POSITION = "CURRENT_POSITION";
+    private static final String KEY_IS_CUSTOM_INDICATOR = "IS_CUSTOM_INDICATOR";
+
+    @Nullable
+    @Override
+    protected Parcelable onSaveInstanceState() {
+        Parcelable superState = super.onSaveInstanceState();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(KEY_SUPER_STATE, superState);
+        bundle.putInt(KEY_CURRENT_POSITION, currentPosition);
+        bundle.putBoolean(KEY_IS_CUSTOM_INDICATOR, isCustomIndicator);
+        return bundle;
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Parcelable state) {
+        Bundle bundle = (Bundle) state;
+        Parcelable superState = bundle.getParcelable(KEY_SUPER_STATE);
+        super.onRestoreInstanceState(superState);
+        currentPosition = bundle.getInt(KEY_CURRENT_POSITION);
+        isCustomIndicator = bundle.getBoolean(KEY_IS_CUSTOM_INDICATOR);
+        setCurrentItem(currentPosition);
     }
 
     private int getInterval() {
