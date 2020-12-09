@@ -61,27 +61,18 @@ public class PageFragment extends BaseFragment {
 
     private void initRadioGroup() {
         mRadioGroupPageStyle.setOnCheckedChangeListener((group, checkedId) -> {
-            switch (checkedId) {
-                case R.id.rb_multi_page:
-                    setupMultiPageBanner();
-                    break;
-                case R.id.rb_right_page_reveal:
-                    setupRightPageReveal();
-                    break;
-                case R.id.rb_multi_page_scale:
-                    setupBanner(PageStyle.MULTI_PAGE_SCALE);
-                    break;
-                case R.id.rb_multi_page_overlap:
-                    setupBanner(PageStyle.MULTI_PAGE_OVERLAP);
-                    break;
-                case R.id.rb_qq_music_style:
-                    setQQMusicStyle();
-                    break;
-                case R.id.rb_netease_music_style:
-                    setNetEaseMusicStyle();
-                    break;
-                default:
-                    break;
+            if (checkedId == R.id.rb_multi_page) {
+                setupMultiPageBanner();
+            } else if (checkedId == R.id.rb_right_page_reveal) {
+                setupRightPageReveal();
+            } else if (checkedId == R.id.rb_multi_page_scale) {
+                setupBanner(PageStyle.MULTI_PAGE_SCALE);
+            } else if (checkedId == R.id.rb_multi_page_overlap) {
+                setupBanner(PageStyle.MULTI_PAGE_OVERLAP);
+            } else if (checkedId == R.id.rb_netease_music_style) {
+                setNetEaseMusicStyle();
+            } else if (checkedId == R.id.rb_qq_music_style) {
+                setQQMusicStyle();
             }
         });
     }

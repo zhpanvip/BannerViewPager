@@ -90,21 +90,14 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
     private void initRadioGroup() {
         radioGroupStyle.setVisibility(View.VISIBLE);
         radioGroupStyle.setOnCheckedChangeListener((group, checkedId) -> {
-            switch (checkedId) {
-                case R.id.rb_indicator_below:
-                    setIndicatorBelowOfBanner();
-                    break;
-                case R.id.rb_dash:
-                    setupCustomIndicator();
-                    break;
-                case R.id.rb_drawable:
-                    setDrawableIndicator(getDrawableIndicator());
-                    break;
-                case R.id.rb_vector_drawable:
-                    setDrawableIndicator(getVectorDrawableIndicator());
-                    break;
-                default:
-                    break;
+            if (checkedId == R.id.rb_indicator_below) {
+                setIndicatorBelowOfBanner();
+            } else if (checkedId == R.id.rb_dash) {
+                setupCustomIndicator();
+            } else if (checkedId == R.id.rb_drawable) {
+                setDrawableIndicator(getDrawableIndicator());
+            } else if (checkedId == R.id.rb_vector_drawable) {
+                setDrawableIndicator(getVectorDrawableIndicator());
             }
         });
         radioButton.performClick();
@@ -173,21 +166,16 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.tv_add_data:
-                addData();
-                break;
-            case R.id.tv_remove_item:
-                removeItem();
-                break;
-            case R.id.tv_insert_item:
-                insertItem();
-                break;
-            default:
-                int position = new Random().nextInt(5);
-                mViewPager.setCurrentItem(position, true);
-                ToastUtils.showShort("Jump to position:" + position);
-                break;
+        if (view.getId() == R.id.tv_add_data) {
+            addData();
+        } else if (view.getId() == R.id.tv_remove_item) {
+            removeItem();
+        } else if (view.getId() == R.id.tv_insert_item) {
+            insertItem();
+        } else {
+            int position = new Random().nextInt(5);
+            mViewPager.setCurrentItem(position, true);
+            ToastUtils.showShort("Jump to position:" + position);
         }
     }
 

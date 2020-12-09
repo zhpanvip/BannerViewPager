@@ -4,12 +4,7 @@ import android.util.SparseArray
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-
-import com.example.zhpan.banner.fragment.BaseFragment
-import com.example.zhpan.banner.fragment.HomeFragment
-import com.example.zhpan.banner.fragment.IndicatorFragment
-import com.example.zhpan.banner.fragment.OthersFragment
-import com.example.zhpan.banner.fragment.PageFragment
+import com.example.zhpan.banner.fragment.*
 
 /**
  * <pre>
@@ -60,7 +55,7 @@ class AdapterFragmentPager(fragmentActivity: FragmentActivity) : FragmentStateAd
             }
             else -> {
                 if (fragments.get(PAGE_HOME) == null) {
-                    fragment = HomeFragment.getInstance();
+                    fragment = EmptyFragment.getInstance();
                     fragments.put(PAGE_HOME, fragment)
                 } else {
                     fragment = fragments.get(PAGE_HOME)

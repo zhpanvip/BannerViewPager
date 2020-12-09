@@ -994,12 +994,17 @@ public class BannerViewPager<T, VH extends BaseViewHolder<T>> extends RelativeLa
 
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
     public void onPause() {
-        stopLoop();
+            stopLoop();
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     public void onResume() {
         startLoop();
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    public void onDestroy() {
+        stopLoop();
     }
 
     /**

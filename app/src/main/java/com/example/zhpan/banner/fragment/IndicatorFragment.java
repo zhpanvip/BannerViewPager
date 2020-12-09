@@ -83,42 +83,28 @@ public class IndicatorFragment extends BaseFragment {
         mRadioGroupStyle.setOnCheckedChangeListener((group, checkedId) -> checkedChange(mCheckId = checkedId));
         radioButton.performClick();
         mRadioGroupMode.setOnCheckedChangeListener((group, checkedId) -> {
-            switch (checkedId) {
-                case R.id.rb_normal:
-                    mSlideMode = IndicatorSlideMode.NORMAL;
-                    break;
-                case R.id.rb_worm:
-                    mSlideMode = IndicatorSlideMode.WORM;
-                    break;
-                case R.id.rb_smooth:
-                    mSlideMode = IndicatorSlideMode.SMOOTH;
-                    break;
-                case R.id.rb_color:
-                    mSlideMode = IndicatorSlideMode.COLOR;
-                    break;
-                case R.id.rb_scale:
-                    mSlideMode = IndicatorSlideMode.SCALE;
-                    break;
-                default:
-                    break;
+            if (checkedId == R.id.rb_normal) {
+                mSlideMode = IndicatorSlideMode.NORMAL;
+            } else if (checkedId == R.id.rb_worm) {
+                mSlideMode = IndicatorSlideMode.WORM;
+            } else if (checkedId == R.id.rb_smooth) {
+                mSlideMode = IndicatorSlideMode.SMOOTH;
+            } else if (checkedId == R.id.rb_color) {
+                mSlideMode = IndicatorSlideMode.COLOR;
+            } else if (checkedId == R.id.rb_scale) {
+                mSlideMode = IndicatorSlideMode.SCALE;
             }
             checkedChange(mCheckId);
         });
     }
 
     private void checkedChange(int checkedId) {
-        switch (checkedId) {
-            case R.id.rb_circle:
-                setupCircleIndicator();
-                break;
-            case R.id.rb_dash:
-                setupDashIndicator();
-                break;
-            case R.id.rb_round_rect:
-                setupRoundRectIndicator();
-                break;
-            default:
-                break;
+        if (checkedId == R.id.rb_circle) {
+            setupCircleIndicator();
+        } else if (checkedId == R.id.rb_dash) {
+            setupDashIndicator();
+        } else if (checkedId == R.id.rb_round_rect) {
+            setupRoundRectIndicator();
         }
     }
 

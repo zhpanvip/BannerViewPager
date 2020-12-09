@@ -106,7 +106,6 @@ public class HomeFragment extends BaseFragment {
                 DividerItemDecoration.VERTICAL));
         articleAdapter = new ArticleAdapter(getActivity(), new ArrayList<>());
         recyclerView.setAdapter(articleAdapter);
-        recyclerView.getHeadAndFootAdapter();
     }
 
     private void initRefreshLayout(View view) {
