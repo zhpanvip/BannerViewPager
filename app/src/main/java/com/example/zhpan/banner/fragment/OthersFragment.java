@@ -11,9 +11,8 @@ import androidx.annotation.NonNull;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.example.zhpan.banner.R;
-import com.example.zhpan.banner.adapter.ImageResourceAdapter;
+import com.example.zhpan.banner.adapter.SimpleBannerAdapter;
 import com.example.zhpan.banner.view.FigureIndicatorView;
-import com.example.zhpan.banner.viewholder.ImageResourceViewHolder;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.zhpan.bannerview.BannerViewPager;
@@ -31,7 +30,7 @@ import java.util.Random;
  */
 public class OthersFragment extends BaseFragment implements View.OnClickListener {
 
-    private BannerViewPager<Integer, ImageResourceViewHolder> mViewPager;
+    private BannerViewPager<Integer> mViewPager;
     private RadioGroup radioGroupStyle;
     private RadioButton radioButton;
     private IndicatorView mIndicatorView;
@@ -80,7 +79,7 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
                     int currentItem = mViewPager.getCurrentItem();
                     LogUtils.e("currentItem:", currentItem + "");
                 })
-                .setAdapter(new ImageResourceAdapter(0))
+                .setAdapter(new SimpleBannerAdapter(0))
                 .setOnPageClickListener((clickedView, position) -> ToastUtils.showShort("Position:" + position))
                 .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color)).create();
         initRadioGroup();

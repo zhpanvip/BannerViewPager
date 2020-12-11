@@ -16,28 +16,25 @@ import com.example.zhpan.banner.R;
 import com.example.zhpan.banner.activity.WebViewActivity;
 import com.example.zhpan.banner.adapter.ArticleAdapter;
 import com.example.zhpan.banner.adapter.HomeAdapter;
-import com.example.zhpan.banner.adapter.ImageResourceAdapter;
+import com.example.zhpan.banner.adapter.SimpleBannerAdapter;
 import com.example.zhpan.banner.bean.ArticleWrapper;
 import com.example.zhpan.banner.bean.DataWrapper;
 import com.example.zhpan.banner.net.BannerData;
 import com.example.zhpan.banner.net.RetrofitGnerator;
 import com.example.zhpan.banner.net.RxUtil;
+import com.example.zhpan.banner.net.common.ResponseObserver;
 import com.example.zhpan.banner.recyclerview.ui.CustomRecyclerView;
-import com.example.zhpan.banner.viewholder.ImageResourceViewHolder;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.zhpan.bannerview.BannerViewPager;
-import com.zhpan.bannerview.BaseViewHolder;
 import com.zhpan.bannerview.constants.IndicatorGravity;
 import com.zhpan.bannerview.utils.BannerUtils;
-import com.example.zhpan.banner.net.common.ResponseObserver;
 import com.zhpan.indicator.IndicatorView;
 import com.zhpan.indicator.enums.IndicatorSlideMode;
 import com.zhpan.indicator.enums.IndicatorStyle;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
@@ -49,8 +46,8 @@ import static com.example.zhpan.banner.net.BannerData.TYPE_NEW;
  */
 public class HomeFragment extends BaseFragment {
 
-    private BannerViewPager<BannerData, BaseViewHolder<BannerData>> mViewPagerHorizontal;
-    private BannerViewPager<Integer, ImageResourceViewHolder> mViewPagerVertical;
+    private BannerViewPager<BannerData> mViewPagerHorizontal;
+    private BannerViewPager<Integer> mViewPagerVertical;
     private CustomRecyclerView recyclerView;
     private ArticleAdapter articleAdapter;
     private SmartRefreshLayout mSmartRefreshLayout;
@@ -195,7 +192,7 @@ public class HomeFragment extends BaseFragment {
                 .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
                 .setOrientation(ViewPager2.ORIENTATION_VERTICAL)
                 .setInterval(2000)
-                .setAdapter(new ImageResourceAdapter(0)).create(getPicList(4));
+                .setAdapter(new SimpleBannerAdapter(0)).create(getPicList(4));
     }
 
     private void onPageClicked(View clickedView,int position) {

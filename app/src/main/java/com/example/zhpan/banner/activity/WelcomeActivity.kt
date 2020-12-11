@@ -22,7 +22,7 @@ import java.util.*
 
 class WelcomeActivity : BaseDataActivity() {
 
-    private lateinit var mViewPager: BannerViewPager<CustomBean, CustomPageViewHolder>
+    private lateinit var mViewPager: BannerViewPager<CustomBean>
 
     private val des = arrayOf("在这里\n你可以听到周围人的心声", "在这里\nTA会在下一秒遇见你", "在这里\n不再错过可以改变你一生的人")
 
@@ -62,9 +62,9 @@ class WelcomeActivity : BaseDataActivity() {
                     updateUI(position)
                 }
             })
-            adapter = WelcomeAdapter().apply {
+            setAdapter(WelcomeAdapter().apply {
                 mOnSubViewClickListener = CustomPageViewHolder.OnSubViewClickListener { _, position -> ToastUtils.showShort("Logo Clicked,position:$position") }
-            }
+            })
             setIndicatorSliderColor(ContextCompat.getColor(this@WelcomeActivity, R.color.white),
                     ContextCompat.getColor(this@WelcomeActivity, R.color.white_alpha_75))
         }.create(data)
