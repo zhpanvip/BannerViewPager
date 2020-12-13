@@ -6,7 +6,7 @@ import android.widget.RadioGroup;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.example.zhpan.banner.R;
-import com.example.zhpan.banner.adapter.SimpleBannerAdapter;
+import com.example.zhpan.banner.adapter.ViewBindingSampleAdapter;
 import com.zhpan.bannerview.BannerViewPager;
 import com.zhpan.bannerview.annotation.APageStyle;
 import com.zhpan.bannerview.constants.PageStyle;
@@ -45,7 +45,7 @@ public class PageFragment extends BaseFragment {
                 .setIndicatorSliderRadius(getResources().getDimensionPixelOffset(R.dimen.dp_4), getResources().getDimensionPixelOffset(R.dimen.dp_5))
                 .setLifecycleRegistry(getLifecycle())
                 .setOnPageClickListener(this::pageClick)
-                .setAdapter(new SimpleBannerAdapter(getResources().getDimensionPixelOffset(R.dimen.dp_8)))
+                .setAdapter(new ViewBindingSampleAdapter(getResources().getDimensionPixelOffset(R.dimen.dp_8)))
                 .setInterval(5000);
         initRadioGroup();
         view.findViewById(R.id.rb_multi_page_overlap).performClick();

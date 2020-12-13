@@ -1,4 +1,4 @@
-package com.example.zhpan.banner.adapter
+package com.example.zhpan.banner.adapter.others
 
 import android.util.SparseArray
 import androidx.fragment.app.Fragment
@@ -9,7 +9,7 @@ import com.example.zhpan.banner.fragment.*
 /**
  * <pre>
  * Created by zhangpan on 2019-12-05.
- * Description:
+ * Description: MainActivity Fragment Adapter.
 </pre> *
  */
 class AdapterFragmentPager(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {

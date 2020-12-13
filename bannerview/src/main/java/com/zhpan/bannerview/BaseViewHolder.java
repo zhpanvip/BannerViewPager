@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * </pre>
  */
 @SuppressWarnings("unused")
-public abstract class BaseViewHolder<T> extends RecyclerView.ViewHolder {
+public class BaseViewHolder<T> extends RecyclerView.ViewHolder {
 
     private final SparseArray<View> mViews = new SparseArray<>();
 
@@ -28,10 +28,15 @@ public abstract class BaseViewHolder<T> extends RecyclerView.ViewHolder {
         super(itemView);
     }
 
-    public abstract void bindData(T data, int position, int pageSize);
+    /**
+     * @deprecated bind data in adapter please.
+     */
+    @Deprecated
+    public void bindData(T data, int position, int pageSize){
+    }
 
     @SuppressWarnings("unchecked")
-    public  <V extends View> V findView(int viewId) {
+    public <V extends View> V findView(int viewId) {
         View view = mViews.get(viewId);
         if (view == null) {
             view = itemView.findViewById(viewId);

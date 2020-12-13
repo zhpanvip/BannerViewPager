@@ -9,10 +9,9 @@ import androidx.core.content.ContextCompat
 import androidx.viewpager2.widget.ViewPager2
 import com.blankj.utilcode.util.ToastUtils
 import com.example.zhpan.banner.R
-import com.example.zhpan.banner.adapter.WelcomeAdapter
+import com.example.zhpan.banner.adapter.SimpleAdapter
 import com.example.zhpan.banner.bean.CustomBean
 import com.example.zhpan.banner.transform.PageTransformerFactory
-import com.example.zhpan.banner.viewholder.CustomPageViewHolder
 import com.zhpan.bannerview.BannerViewPager
 import com.example.zhpan.banner.transform.TransformerStyle
 import com.zhpan.bannerview.utils.BannerUtils
@@ -26,7 +25,7 @@ class WelcomeActivity : BaseDataActivity() {
 
     private val des = arrayOf("在这里\n你可以听到周围人的心声", "在这里\nTA会在下一秒遇见你", "在这里\n不再错过可以改变你一生的人")
 
-    private val transforms = intArrayOf(TransformerStyle.NONE, TransformerStyle.ACCORDION,  TransformerStyle.DEPTH, TransformerStyle.ROTATE, TransformerStyle.SCALE_IN)
+    private val transforms = intArrayOf(TransformerStyle.NONE, TransformerStyle.ACCORDION, TransformerStyle.DEPTH, TransformerStyle.ROTATE, TransformerStyle.SCALE_IN)
 
     private val data: List<CustomBean>
         get() {
@@ -62,8 +61,12 @@ class WelcomeActivity : BaseDataActivity() {
                     updateUI(position)
                 }
             })
-            setAdapter(WelcomeAdapter().apply {
-                mOnSubViewClickListener = CustomPageViewHolder.OnSubViewClickListener { _, position -> ToastUtils.showShort("Logo Clicked,position:$position") }
+            setAdapter(SimpleAdapter().apply {
+                mOnSubViewClickListener = object : SimpleAdapter.OnSubViewClickListener {
+                    override fun onViewClick(view: View?, position: Int) {
+                        ToastUtils.showShort("Logo Clicked,position:$position")
+                    }
+                }
             })
             setIndicatorSliderColor(ContextCompat.getColor(this@WelcomeActivity, R.color.white),
                     ContextCompat.getColor(this@WelcomeActivity, R.color.white_alpha_75))

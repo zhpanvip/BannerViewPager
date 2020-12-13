@@ -24,11 +24,4 @@ public class ServerImageViewHolder extends BaseViewHolder<BannerData> {
         CornerImageView imageView = findView(R.id.banner_image);
         imageView.setRoundCorner(BannerUtils.dp2px(0));
     }
-
-    @Override
-    public void bindData(BannerData data, int position, int pageSize) {
-        CornerImageView imageView = findView(R.id.banner_image);
-        Glide.with(imageView).load(data.getImagePath()).placeholder(R.drawable.placeholder).into(imageView);
-        BannerUtils.log("ServerImageViewHolder", "position:" + position);
-    }
 }

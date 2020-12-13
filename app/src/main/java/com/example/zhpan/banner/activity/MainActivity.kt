@@ -7,7 +7,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.example.zhpan.banner.R
-import com.example.zhpan.banner.adapter.AdapterFragmentPager
+import com.example.zhpan.banner.adapter.others.AdapterFragmentPager
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 

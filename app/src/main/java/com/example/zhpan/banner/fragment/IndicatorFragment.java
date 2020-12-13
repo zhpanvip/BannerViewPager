@@ -2,22 +2,18 @@ package com.example.zhpan.banner.fragment;
 
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.example.zhpan.banner.R;
-import com.example.zhpan.banner.viewholder.ImageResourceViewHolder;
+import com.example.zhpan.banner.adapter.ViewBindingSampleAdapter;
 import com.zhpan.bannerview.BannerViewPager;
-import com.zhpan.bannerview.BaseBannerAdapter;
 import com.zhpan.bannerview.constants.IndicatorGravity;
 import com.zhpan.bannerview.utils.BannerUtils;
 import com.zhpan.indicator.annotation.AIndicatorSlideMode;
 import com.zhpan.indicator.enums.IndicatorSlideMode;
 import com.zhpan.indicator.enums.IndicatorStyle;
-
-import org.jetbrains.annotations.NotNull;
 
 /**
  * Created by zhpan on 2018/7/24.
@@ -58,22 +54,7 @@ public class IndicatorFragment extends BaseFragment {
                 .setLifecycleRegistry(getLifecycle())
                 .setIndicatorGravity(IndicatorGravity.CENTER)
                 .setOnPageClickListener((clickedView, position) -> ToastUtils.showShort("position:" + position))
-                .setAdapter(new BaseBannerAdapter<Integer, ImageResourceViewHolder>() {
-                    @Override
-                    protected void onBind(ImageResourceViewHolder holder, Integer data, int position, int pageSize) {
-                        holder.bindData(data, position, pageSize);
-                    }
-
-                    @Override
-                    public ImageResourceViewHolder createViewHolder(@NotNull ViewGroup parent, View itemView, int viewType) {
-                        return new ImageResourceViewHolder(itemView, getResources().getDimensionPixelOffset(R.dimen.dp_8));
-                    }
-
-                    @Override
-                    public int getLayoutId(int viewType) {
-                        return R.layout.item_page_indicator;
-                    }
-                }).create();
+                .setAdapter(new ViewBindingSampleAdapter(getResources().getDimensionPixelOffset(R.dimen.dp_8))).create();
         initRadioGroup();
         mViewPager.setUserInputEnabled(true);
     }

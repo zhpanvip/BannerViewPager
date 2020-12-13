@@ -1,7 +1,5 @@
 package com.zhpan.bannerview;
 
-import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -15,6 +13,8 @@ import java.util.List;
 
 /**
  * Created by zhpan on 2017/3/28.
+ * Base Adapter of BVP，Multiple view types can extends this class.
+ * For single view type,Please use {@link BaseSimpleAdapter<T>}
  */
 public abstract class BaseBannerAdapter<T, VH extends BaseViewHolder<T>> extends RecyclerView.Adapter<VH> {
 
@@ -23,43 +23,13 @@ public abstract class BaseBannerAdapter<T, VH extends BaseViewHolder<T>> extends
     protected List<T> mList = new ArrayList<>();
 
     private boolean isCanLoop;
-    /**
-     * 页面点击回调
-     */
-    private BannerViewPager.OnPageClickListener mPageClickListener;
-    /**
-     * 上下问
-     */
-    protected Context mContext;
 
-    @Override
-    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
-        super.onAttachedToRecyclerView(recyclerView);
-        mContext = recyclerView.getContext();
-    }
+    private BannerViewPager.OnPageClickListener mPageClickListener;
 
     @NonNull
     @Override
     public final VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View inflate;
-        int layoutId = getLayoutId(viewType);
-        if (layoutId <= 0) {
-            inflate = createBindingView(getContext(), parent, viewType);
-        } else {
-            inflate = LayoutInflater.from(parent.getContext()).inflate(layoutId, parent, false);
-        }
-        return createViewHolder(parent, inflate, viewType);
-    }
-
-    /**
-     * 创建ViewHolder中的根View,重写此方法创建View;使用此方法后{@link #getLayoutId(int)}失效
-     */
-    protected View createBindingView(Context context, ViewGroup parent, int viewType) {
-        return null;
-    }
-
-    public Context getContext() {
-        return mContext;
+        return createViewHolder(parent, createItemView(parent, viewType), viewType);
     }
 
     @Override
@@ -73,7 +43,7 @@ public abstract class BaseBannerAdapter<T, VH extends BaseViewHolder<T>> extends
                 }
             }
         });
-        onBind(holder, mList.get(realPosition), realPosition, mList.size());
+        bindData(holder, mList.get(realPosition), realPosition, mList.size());
     }
 
     @Override
@@ -118,9 +88,10 @@ public abstract class BaseBannerAdapter<T, VH extends BaseViewHolder<T>> extends
         return 0;
     }
 
-    protected abstract void onBind(VH holder, T data, int position, int pageSize);
+    protected abstract void bindData(VH holder, T data, int position, int pageSize);
+
+    protected abstract View createItemView(ViewGroup parent, int viewType);
 
     public abstract VH createViewHolder(@NonNull ViewGroup parent, View itemView, int viewType);
 
-    public abstract int getLayoutId(int viewType);
 }

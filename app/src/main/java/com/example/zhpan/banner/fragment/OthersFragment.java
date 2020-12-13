@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.example.zhpan.banner.R;
-import com.example.zhpan.banner.adapter.SimpleBannerAdapter;
+import com.example.zhpan.banner.adapter.ViewBindingSampleAdapter;
 import com.example.zhpan.banner.view.FigureIndicatorView;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -79,7 +79,7 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
                     int currentItem = mViewPager.getCurrentItem();
                     LogUtils.e("currentItem:", currentItem + "");
                 })
-                .setAdapter(new SimpleBannerAdapter(0))
+                .setAdapter(new ViewBindingSampleAdapter(0))
                 .setOnPageClickListener((clickedView, position) -> ToastUtils.showShort("Position:" + position))
                 .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color)).create();
         initRadioGroup();

@@ -19,9 +19,4 @@ public class NewTypeViewHolder extends BaseViewHolder<BannerData> {
     public NewTypeViewHolder(@NonNull View itemView) {
         super(itemView);
     }
-
-    @Override
-    public void bindData(BannerData data, int position, int pageSize) {
-        setImageResource(R.id.image_view, data.getDrawable());
-    }
 }

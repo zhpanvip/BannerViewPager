@@ -14,9 +14,9 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.blankj.utilcode.util.LogUtils;
 import com.example.zhpan.banner.R;
 import com.example.zhpan.banner.activity.WebViewActivity;
-import com.example.zhpan.banner.adapter.ArticleAdapter;
-import com.example.zhpan.banner.adapter.HomeAdapter;
-import com.example.zhpan.banner.adapter.SimpleBannerAdapter;
+import com.example.zhpan.banner.adapter.others.ArticleAdapter;
+import com.example.zhpan.banner.adapter.MultiViewTypesAdapter;
+import com.example.zhpan.banner.adapter.ViewBindingSampleAdapter;
 import com.example.zhpan.banner.bean.ArticleWrapper;
 import com.example.zhpan.banner.bean.DataWrapper;
 import com.example.zhpan.banner.net.BannerData;
@@ -167,7 +167,7 @@ public class HomeFragment extends BaseFragment {
                 .disallowInterceptTouchEvent(true)
                 .setIndicatorView(mIndicatorView)   // 这里为了设置标题故用了自定义Indicator,如果无需标题则没必要添加此行代码
                 .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
-                .setAdapter(new HomeAdapter())
+                .setAdapter(new MultiViewTypesAdapter())
                 .registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
                     @Override
                     public void onPageSelected(int position) {
@@ -192,7 +192,7 @@ public class HomeFragment extends BaseFragment {
                 .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
                 .setOrientation(ViewPager2.ORIENTATION_VERTICAL)
                 .setInterval(2000)
-                .setAdapter(new SimpleBannerAdapter(0)).create(getPicList(4));
+                .setAdapter(new ViewBindingSampleAdapter(0)).create(getPicList(4));
     }
 
     private void onPageClicked(View clickedView,int position) {
