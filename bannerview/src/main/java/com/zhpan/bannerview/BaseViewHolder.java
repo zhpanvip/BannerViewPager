@@ -12,8 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.zhpan.bannerview.utils.BannerUtils;
-
 /**
  * <pre>
  *   Created by zhpan on 2020/4/5.
@@ -33,7 +31,7 @@ public abstract class BaseViewHolder<T> extends RecyclerView.ViewHolder {
     public abstract void bindData(T data, int position, int pageSize);
 
     @SuppressWarnings("unchecked")
-    protected <V extends View> V findView(int viewId) {
+    public  <V extends View> V findView(int viewId) {
         View view = mViews.get(viewId);
         if (view == null) {
             view = itemView.findViewById(viewId);
@@ -43,40 +41,40 @@ public abstract class BaseViewHolder<T> extends RecyclerView.ViewHolder {
     }
 
 
-    protected void setText(int viewId, String text) {
+    public void setText(int viewId, String text) {
         View view = findView(viewId);
         if (view instanceof TextView) {
             ((TextView) view).setText(text);
         }
     }
 
-    protected void setText(int viewId, @StringRes int textId) {
+    public void setText(int viewId, @StringRes int textId) {
         View view = findView(viewId);
         if (view instanceof TextView) {
             ((TextView) view).setText(textId);
         }
     }
 
-    protected void setTextColor(int viewId, @ColorInt int colorId) {
+    public void setTextColor(int viewId, @ColorInt int colorId) {
         View view = findView(viewId);
         if (view instanceof TextView) {
             ((TextView) view).setTextColor(colorId);
         }
     }
 
-    protected void setOnClickListener(int viewId, View.OnClickListener clickListener) {
+    public void setOnClickListener(int viewId, View.OnClickListener clickListener) {
         findView(viewId).setOnClickListener(clickListener);
     }
 
-    protected void setBackgroundResource(int viewId, @DrawableRes int resId) {
+    public void setBackgroundResource(int viewId, @DrawableRes int resId) {
         findView(viewId).setBackgroundResource(resId);
     }
 
-    protected void setBackgroundColor(int viewId, @ColorInt int colorId) {
+    public void setBackgroundColor(int viewId, @ColorInt int colorId) {
         findView(viewId).setBackgroundColor(colorId);
     }
 
-    protected void setImageResource(@IdRes int viewId, @DrawableRes int resId) {
+    public void setImageResource(@IdRes int viewId, @DrawableRes int resId) {
         View view = findView(viewId);
         if (view instanceof ImageView) {
             ((ImageView) view).setImageResource(resId);

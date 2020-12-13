@@ -44,7 +44,7 @@ class ArticleAdapter(val context: Context, data: List<ArticleWrapper.Article>) :
                     .setIndicatorSliderColor(holder.resources.getColor(R.color.red_normal_color), holder.resources.getColor(R.color.red_checked_color))
                     .setOrientation(ViewPager2.ORIENTATION_VERTICAL)
                     .setInterval(2000)
-                    .setAdapter(ImageResourceAdapter(0)).create(article.pagers)
+                    .setAdapter(SimpleBannerAdapter(0)).create(article.pagers)
         } else if (holder is ArticleViewHolder) {
             holder.tvAuthor.text = article.author
             holder.tvTitle.text = article.title
@@ -72,7 +72,7 @@ class ArticleAdapter(val context: Context, data: List<ArticleWrapper.Article>) :
     }
 
     inner class BannerItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var bannerViewPager: BannerViewPager<Int, ImageResourceViewHolder> = itemView.findViewById(R.id.banner_view3)
+        var bannerViewPager: BannerViewPager<Int> = itemView.findViewById(R.id.banner_view3)
         var resources: Resources = itemView.context.resources
 
         init {

@@ -24,7 +24,7 @@ import org.jetbrains.annotations.NotNull;
  */
 public class IndicatorFragment extends BaseFragment {
 
-    private BannerViewPager<Integer, ImageResourceViewHolder> mViewPager;
+    private BannerViewPager<Integer> mViewPager;
     private RadioGroup mRadioGroupStyle;
     private RadioGroup mRadioGroupMode;
     private RadioButton radioButton;
