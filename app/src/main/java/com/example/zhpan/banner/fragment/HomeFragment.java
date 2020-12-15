@@ -7,6 +7,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.viewpager2.widget.ViewPager2;
@@ -79,7 +80,7 @@ public class HomeFragment extends BaseFragment {
     }
 
     @Override
-    protected void initView(Bundle savedInstanceState, View view) {
+    protected void initView(Bundle savedInstanceState, @NonNull View view) {
         initRecyclerView(view);
         initRefreshLayout(view);
         initHorizontalBanner();

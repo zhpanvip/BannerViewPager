@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
  * @date 2020/12/11
  * Description : A simple and easy to use adapter for BVP,
  * only single view type supported with this adapter.
+ * Multiple view types need extends {@link BaseBannerAdapter}.
  */
 public abstract class BaseSimpleAdapter<T> extends BaseBannerAdapter<T, BaseViewHolder<T>> {
     @Override

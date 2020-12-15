@@ -10,7 +10,7 @@ import kotlin.math.max
 
 /**
  * @param: gives veiwpager2 orientation
- * Source from：https://github.com/KoderLabs/finite-cover-flow/blob/dev/lib/src/main/java/com/saeed/finiteflow/lib/OverlapPageTransformert
+ * Source from：https://github.com/KoderLabs/finite-cover-flow/blob/dev/lib/src/main/java/com/saeed/finiteflow/lib/OverlapSliderTransformer.kt
  */
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 class OverlapPageTransformer(
