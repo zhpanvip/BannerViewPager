@@ -12,112 +12,6 @@
 ## Attention：v2.x is depreacted now,please migrate to v3.x.
 
 
-## Preview
-
- ### [Click here or scan the QR code to download demo apk](https://github.com/zhpanvip/BannerViewPager/raw/master/app/release/app-release.apk)
-
-![QRCode](https://github.com/zhpanvip/BannerViewPager/blob/master/image/qrcode.png)
-
-
-### 1.PageStyle
-
-[Sample Click Here](https://github.com/zhpanvip/BannerViewPager/blob/master/app/src/main/java/com/example/zhpan/circleviewpager/fragment/PageFragment.java)
-
-| MULTI_PAGE |MULTI_PAGE_SCALE | MULTI_PAGE_OVERLAP |
-|--|--|--|
-| ![MULTI_PAGE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/page_style_multi.gif) |![MULTI_PAGE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/page_style_multi_scale.gif) |![MULTI_PAGE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/page_style_multi_overlay.gif) |
-
-### 2.Indicator
-
-The IndicatorView was split from BannerViewPager,the new repo is [ViewPagerIndicator](https://github.com/zhpanvip/viewpagerindicator)，Click the link to see more information about [ViewPagerIndicator](https://github.com/zhpanvip/viewpagerindicator)
-
-#### (1)setIndicatorStyle and setIndicatorSlideMode
-
-BannerViewPager supports three Indicator Styles and three Indicator Slide mode now. 
-
-[Sample Click Here](https://github.com/zhpanvip/BannerViewPager/blob/master/app/src/main/java/com/example/zhpan/circleviewpager/fragment/IndicatorFragment.java)
-
-| Attrs | CIRCLE | DASH | ROUND_RECT |
-|--|--|--|--|
-| NORMAL| ![CIRCLE_NORMAL](https://github.com/zhpanvip/viewpagerindicator/blob/master/image/slide_circle_normal.gif) | ![DASH_NORMAL](https://github.com/zhpanvip/viewpagerindicator/blob/master/image/style_dash_normal.gif) | ![ROUND_RECT_NORMAL](https://github.com/zhpanvip/viewpagerindicator/blob/master/image/style_round_rect_normal.gif) |
-| SMOOTH| ![CIRCLE_SMOOTH](https://github.com/zhpanvip/viewpagerindicator/blob/master/image/slide_circle_smooth.gif) | ![DASH_SMOOTH](https://github.com/zhpanvip/viewpagerindicator/blob/master/image/style_dash_smooth.gif) | ![ROUND_RECT_SMOOTH](https://github.com/zhpanvip/viewpagerindicator/blob/master/image/style_round_rect_smooth.gif) |
-| WORM| ![CIRCLE_WORM](https://github.com/zhpanvip/viewpagerindicator/blob/master/image/slide_circle_worm.gif) | ![DASH_WORM](https://github.com/zhpanvip/viewpagerindicator/blob/master/image/style_dash_worm.gif) | ![ROUND_WORM](https://github.com/zhpanvip/viewpagerindicator/blob/master/image/style_round_rect_worm.gif) |
-
-#### (2)Custom Indicator
-
-It's also support to custom indicator style,just need extends BaseIndicatorView or implement the IIndicator and override methods, then you can draw Indicators for whatever you want.
-
-[Sample Click Here](https://github.com/zhpanvip/BannerViewPager/blob/master/app/src/main/java/com/example/zhpan/circleviewpager/fragment/OthersFragment.java)
-
-| Figure Indicator | Drawable Indicator | Indicator below of Banner |
-|--|--|--|
-| ![CIRCLE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_custum.gif) | ![DASH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_custom2.gif) | ![NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_custom1.gif) |
-
-
-### 3.PageTransformerStyle
-
-[Sample Click Here](https://github.com/zhpanvip/BannerViewPager/blob/master/app/src/main/java/com/example/zhpan/circleviewpager/activity/WelcomeActivity.java)
-
-| parameters | STACK | ROTATE | DEPTH | ACCORDION |
-|--|--|--|--|--|
-| Preview | ![STACK](https://github.com/zhpanvip/BannerViewPager/blob/master/image/transform_stack.gif) | ![ROTATE_DOWN](https://github.com/zhpanvip/BannerViewPager/blob/master/image/transform_rotate.gif) | ![DEPTH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/transform_depth.gif)  |![ACCORDION](https://github.com/zhpanvip/BannerViewPager/blob/master/image/transform_accordion.gif)  |
-
-## API
-
-| Method | Description | Default |
-|--|--|--|
-| BannerViewPager<T, VH> setCanLoop(boolean canLoop) | set is can loop | default value is true|
-| BannerViewPager<T, VH> setAutoPlay(boolean autoPlay) | set is atuo play | default value true|
-| BannerViewPager<T, VH> setInterval(int interval) | set the interval of item switch interval |The unit is millisecond，default value 3000ms  |
-| BannerViewPager<T, VH> setScrollDuration(int scrollDuration) | set page scroll duration | set page scroll duration |unit is millisecond，default is 500ms |
-| BannerViewPager<T, VH> setRoundCorner(int radius) | set Round Rectangle style for Banner | required SDK_INT>=LOLLIPOP(API 21)  |
-| BannerViewPager<T, VH> setOnPageClickListener(OnPageClickListener onPageClickListener) | set item click listener |  |
-| BannerViewPager<T, VH> setHolderCreator(HolderCreator\<VH> holderCreator) |set Holder Creator  |You must set HolderCreator for BannerViewPager，or will throw NullPointerException|
-| BannerViewPager<T, VH> setIndicatorVisibility(@Visibility int visibility) | indicator visibility |default value is VISIBLE，added in version 2.4.2|
-| BannerViewPager<T, VH> setIndicatorStyle(int indicatorStyle) | set indicator style | enum(CIRCLE, DASH、ROUND_RECT) default CIRCLE  |
-| BannerViewPager<T, VH> setIndicatorGravity(int gravity) | set indicator gravity |enum(CENTER、START、END) default value CENTER |
-| BannerViewPager<T, VH> setIndicatorColor(int normalColor,int checkedColor) | set indicator color |normalColor：color of indicator dot not selected, default value  "#8C6C6D72"， checkedColor：color of indicator selected default value is "#8C18171C" |
-| BannerViewPager<T, VH> setIndicatorSlideMode(int slideMode)  | set indicator slide mode | enum（NORMAL;SMOOTH;WORM），default value NORMAL  |
-| BannerViewPager<T, VH> setIndicatorSliderRadius(int radius) | set indicator dot radius | default value is 4dp|
-| BannerViewPager<T, VH> setIndicatorSliderRadius(int normalRadius,int checkRadius)  |set indicator dot radius  |  normalRadius:normal radius of indicator dot,  checkedRadius:checked radius of indicator dot,default value is 4dp |
-| BannerViewPager<T, VH> setIndicatorSliderWidth(int indicatorWidth) | set indicator dot width，if it's Circle indicator the parameter is diameter of circle | default value is 8dp|
-| BannerViewPager<T, VH> setIndicatorSliderWidth(int normalWidth, int checkWidth) | set indicator dot width，if is circle style，the width is diameter of circle | default is 8dp |
-| BannerViewPager<T, VH> setIndicatorHeight(int indicatorHeight) | set indicator hight，it's only used when the indicator style is dash | default value is normalIndicatorWidth/2 |
-| BannerViewPager<T, VH> setIndicatorSliderGap(int indicatorMargin) | set the gap of indicator dot| default value is indicator dot width（or the diameter of circle）|
-| BannerViewPager<T, VH> setIndicatorView(IIndicator indicatorView) | set custom indicator|The custom indicator must extends BaseIndicatorView or implements IIndicator |
-| BannerViewPager<T, VH> setPageTransformerStyle(int style) | set transform style |  |
-| BannerViewPager<T, VH> setCurrentItem(int item) | Set the currently selected page. |  add in v2.3.5 |
-| int getCurrentItem() | get the current page position | added in v2.3.5 |
-| BannerViewPager<T, VH> setPageStyle(PageStyle pageStyle) | setPageStyle | support in v2.4.0. enum（MULTI_PAGE、MULTI_PAGE_SCALE、MULTI_PAGE_OVERLAP）|
-| BannerViewPager<T, VH> setPageMargin(int pageMargin) | set item margin | added in v2.4.0 |
-| BannerViewPager<T, VH> setIndicatorMargin(int left, int top, int right, int bottom) | set margin for indicator | added in v2.4.1 |
-| BannerViewPager<T, VH> setOnPageChangeListener(OnPageChangeListener l) | set page change listener for BannerViewPager | added in v2.4.3 |
-| void startLoop() |start loop | the method will be called when BannerViewPager was initialized |
-| void stopLoop() | stop loop | |
-| List\<T> getList() | get data in BannerViewPager |  |
-| void create(List<T> list) |initialize BannerViewPager  |You must call this method when data is set |
-
-### Attributes in xml
-| Attributes | format | description |
-|--|--|--|
-| bvp_interval | integer | set page switch interval |
-| bvp_scroll_duration | integer | set page scroll duration|
-| bvp_can_loop | boolean|set is can loop |
-| bvp_auto_play | boolean | set is can auto play  |
-| bvp_indicator_checked_color | color | set checked color for indicator |
-| bvp_indicator_normal_color | color | set normal color for indicator |
-| bvp_indicator_radius | dimension | if it's circle style the value is radius of circle,if the indicator style is DASH or ROUND_RECT the value is width/2  |
-| bvp_round_corner| dimension  | set round corner for banner |
-| bvp_page_margin | dimension | set item margin |
-| bvp_reveal_width | dimension | it's only used when the page style is MULTI_PAGE/MULTI_PAGE_SCALE/MULTI_PAGE_OVERLAP,the value is two side item reveal width |
-| bvp_indicator_style | enum | indicator style. enum(circle/dash)  |
-| bvp_indicator_slide_mode | enum | indicator slide mode.enum(normal;smooth;worm) |
-| bvp_indicator_gravity | enum | indicator gravity. enum(center/start/end) |
-| bvp_page_style | enum | page style. enum(normal/multi_page/multi_page_overlap/multi_page_scale) |
-| bvp_transformer_style | enum | transform style. enum(normal/depth/stack/accordion) |
-| bvp_indicator_visibility| enum | indicator visibility(visible/gone/invisible) |
-
-
 ## Usage
 
 ### 1.Gradle dependency
@@ -351,6 +245,63 @@ public class FigureIndicatorView extends BaseIndicatorView {
               .setHolderCreator(() -> new ImageResourceViewHolder(0))
               .create(mDrawableList);
 ```
+
+
+
+## API
+
+| Method | Description | Default |
+|--|--|--|
+| BannerViewPager<T, VH> setCanLoop(boolean canLoop) | set is can loop | default value is true|
+| BannerViewPager<T, VH> setAutoPlay(boolean autoPlay) | set is atuo play | default value true|
+| BannerViewPager<T, VH> setInterval(int interval) | set the interval of item switch interval |The unit is millisecond，default value 3000ms  |
+| BannerViewPager<T, VH> setScrollDuration(int scrollDuration) | set page scroll duration | set page scroll duration |unit is millisecond，default is 500ms |
+| BannerViewPager<T, VH> setRoundCorner(int radius) | set Round Rectangle style for Banner | required SDK_INT>=LOLLIPOP(API 21)  |
+| BannerViewPager<T, VH> setOnPageClickListener(OnPageClickListener onPageClickListener) | set item click listener |  |
+| BannerViewPager<T, VH> setHolderCreator(HolderCreator\<VH> holderCreator) |set Holder Creator  |You must set HolderCreator for BannerViewPager，or will throw NullPointerException|
+| BannerViewPager<T, VH> setIndicatorVisibility(@Visibility int visibility) | indicator visibility |default value is VISIBLE，added in version 2.4.2|
+| BannerViewPager<T, VH> setIndicatorStyle(int indicatorStyle) | set indicator style | enum(CIRCLE, DASH、ROUND_RECT) default CIRCLE  |
+| BannerViewPager<T, VH> setIndicatorGravity(int gravity) | set indicator gravity |enum(CENTER、START、END) default value CENTER |
+| BannerViewPager<T, VH> setIndicatorColor(int normalColor,int checkedColor) | set indicator color |normalColor：color of indicator dot not selected, default value  "#8C6C6D72"， checkedColor：color of indicator selected default value is "#8C18171C" |
+| BannerViewPager<T, VH> setIndicatorSlideMode(int slideMode)  | set indicator slide mode | enum（NORMAL;SMOOTH;WORM），default value NORMAL  |
+| BannerViewPager<T, VH> setIndicatorSliderRadius(int radius) | set indicator dot radius | default value is 4dp|
+| BannerViewPager<T, VH> setIndicatorSliderRadius(int normalRadius,int checkRadius)  |set indicator dot radius  |  normalRadius:normal radius of indicator dot,  checkedRadius:checked radius of indicator dot,default value is 4dp |
+| BannerViewPager<T, VH> setIndicatorSliderWidth(int indicatorWidth) | set indicator dot width，if it's Circle indicator the parameter is diameter of circle | default value is 8dp|
+| BannerViewPager<T, VH> setIndicatorSliderWidth(int normalWidth, int checkWidth) | set indicator dot width，if is circle style，the width is diameter of circle | default is 8dp |
+| BannerViewPager<T, VH> setIndicatorHeight(int indicatorHeight) | set indicator hight，it's only used when the indicator style is dash | default value is normalIndicatorWidth/2 |
+| BannerViewPager<T, VH> setIndicatorSliderGap(int indicatorMargin) | set the gap of indicator dot| default value is indicator dot width（or the diameter of circle）|
+| BannerViewPager<T, VH> setIndicatorView(IIndicator indicatorView) | set custom indicator|The custom indicator must extends BaseIndicatorView or implements IIndicator |
+| BannerViewPager<T, VH> setPageTransformerStyle(int style) | set transform style |  |
+| BannerViewPager<T, VH> setCurrentItem(int item) | Set the currently selected page. |  add in v2.3.5 |
+| int getCurrentItem() | get the current page position | added in v2.3.5 |
+| BannerViewPager<T, VH> setPageStyle(PageStyle pageStyle) | setPageStyle | support in v2.4.0. enum（MULTI_PAGE、MULTI_PAGE_SCALE、MULTI_PAGE_OVERLAP）|
+| BannerViewPager<T, VH> setPageMargin(int pageMargin) | set item margin | added in v2.4.0 |
+| BannerViewPager<T, VH> setIndicatorMargin(int left, int top, int right, int bottom) | set margin for indicator | added in v2.4.1 |
+| BannerViewPager<T, VH> setOnPageChangeListener(OnPageChangeListener l) | set page change listener for BannerViewPager | added in v2.4.3 |
+| void startLoop() |start loop | the method will be called when BannerViewPager was initialized |
+| void stopLoop() | stop loop | |
+| List\<T> getList() | get data in BannerViewPager |  |
+| void create(List<T> list) |initialize BannerViewPager  |You must call this method when data is set |
+
+### Attributes in xml
+| Attributes | format | description |
+|--|--|--|
+| bvp_interval | integer | set page switch interval |
+| bvp_scroll_duration | integer | set page scroll duration|
+| bvp_can_loop | boolean|set is can loop |
+| bvp_auto_play | boolean | set is can auto play  |
+| bvp_indicator_checked_color | color | set checked color for indicator |
+| bvp_indicator_normal_color | color | set normal color for indicator |
+| bvp_indicator_radius | dimension | if it's circle style the value is radius of circle,if the indicator style is DASH or ROUND_RECT the value is width/2  |
+| bvp_round_corner| dimension  | set round corner for banner |
+| bvp_page_margin | dimension | set item margin |
+| bvp_reveal_width | dimension | it's only used when the page style is MULTI_PAGE/MULTI_PAGE_SCALE/MULTI_PAGE_OVERLAP,the value is two side item reveal width |
+| bvp_indicator_style | enum | indicator style. enum(circle/dash)  |
+| bvp_indicator_slide_mode | enum | indicator slide mode.enum(normal;smooth;worm) |
+| bvp_indicator_gravity | enum | indicator gravity. enum(center/start/end) |
+| bvp_page_style | enum | page style. enum(normal/multi_page/multi_page_overlap/multi_page_scale) |
+| bvp_transformer_style | enum | transform style. enum(normal/depth/stack/accordion) |
+| bvp_indicator_visibility| enum | indicator visibility(visible/gone/invisible) |
 
 ## TODO 
 
