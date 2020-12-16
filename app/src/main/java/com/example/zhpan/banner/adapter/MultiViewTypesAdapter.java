@@ -44,16 +44,16 @@ public class MultiViewTypesAdapter extends BaseBannerAdapter<BannerData, BaseVie
     }
 
     @Override
-    public int getViewType(int position) {
-        return mList.get(position).getType();
+    public int getLayoutId(int viewType) {
+        if (viewType == BannerData.TYPE_NEW) {
+            return R.layout.item_new_type;
+        }
+        return R.layout.item_net_image;
     }
 
     @Override
-    protected View createItemView(ViewGroup parent, int viewType) {
-        if (viewType == BannerData.TYPE_NEW) {
-            return LayoutInflater.from(parent.getContext()).inflate(R.layout.item_new_type, parent, false);
-        }
-        return LayoutInflater.from(parent.getContext()).inflate(R.layout.item_net_image, parent, false);
+    public int getViewType(int position) {
+        return mList.get(position).getType();
     }
 }
 

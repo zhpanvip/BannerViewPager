@@ -31,11 +31,11 @@ class SimpleAdapter : BaseSimpleAdapter<CustomBean>() {
         alphaAnimator.start()
     }
 
-    override fun createItemView(parent: ViewGroup, viewType: Int): View {
-        return LayoutInflater.from(parent.context).inflate(R.layout.item_custom_view, parent, false)
-    }
-
     interface OnSubViewClickListener {
         fun onViewClick(view: View?, position: Int)
+    }
+
+    override fun getLayoutId(viewType: Int): Int {
+        return R.layout.item_custom_view;
     }
 }

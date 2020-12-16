@@ -1,5 +1,6 @@
 package com.zhpan.bannerview;
 
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -13,23 +14,18 @@ import java.util.List;
 
 /**
  * Created by zhpan on 2017/3/28.
- * Base Adapter of BVP，Multiple view types can extends this class.
- * For single view type,Please use {@link BaseSimpleAdapter<T>}
  */
 public abstract class BaseBannerAdapter<T, VH extends BaseViewHolder<T>> extends RecyclerView.Adapter<VH> {
-
-    public static final int MAX_VALUE = 500;
-
     protected List<T> mList = new ArrayList<>();
-
     private boolean isCanLoop;
-
+    public static final int MAX_VALUE = 500;
     private BannerViewPager.OnPageClickListener mPageClickListener;
 
     @NonNull
     @Override
     public final VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return createViewHolder(parent, createItemView(parent, viewType), viewType);
+        View inflate = LayoutInflater.from(parent.getContext()).inflate(getLayoutId(viewType), parent, false);
+        return createViewHolder(parent, inflate, viewType);
     }
 
     @Override
@@ -90,8 +86,7 @@ public abstract class BaseBannerAdapter<T, VH extends BaseViewHolder<T>> extends
 
     protected abstract void bindData(VH holder, T data, int position, int pageSize);
 
-    protected abstract View createItemView(ViewGroup parent, int viewType);
-
     public abstract VH createViewHolder(@NonNull ViewGroup parent, View itemView, int viewType);
 
+    public abstract int getLayoutId(int viewType);
 }

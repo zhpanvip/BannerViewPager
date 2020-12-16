@@ -1,9 +1,5 @@
 package com.example.zhpan.banner.adapter;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import androidx.databinding.DataBindingUtil;
 
 import com.example.zhpan.banner.R;
@@ -20,17 +16,14 @@ import com.zhpan.bannerview.BaseViewHolder;
  */
 public class DataBindingSampleAdapter extends BaseSimpleAdapter<Integer> {
 
-    private ItemSlideModelDataBindingBinding mItemViewDataBinding;
-
     @Override
     protected void bindData(BaseViewHolder<Integer> holder, Integer data, int position, int pageSize) {
+        ItemSlideModelDataBindingBinding mItemViewDataBinding = DataBindingUtil.bind(holder.itemView);
         mItemViewDataBinding.bannerImage.setImageResource(data);
     }
 
     @Override
-    protected View createItemView(ViewGroup parent, int viewType) {
-        mItemViewDataBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
-                R.layout.item_slide_model_data_binding, parent, false);
-        return mItemViewDataBinding.getRoot();
+    public int getLayoutId(int viewType) {
+        return R.layout.item_slide_model_data_binding;
     }
 }
