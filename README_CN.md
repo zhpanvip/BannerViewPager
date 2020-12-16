@@ -12,109 +12,6 @@
 
 ## 注意：如无重大bug,2.x版本将不再维护，有条件可以迁移3.x版本。
 
-## 效果预览
-
- ### [点击或扫描二维码下载apk](https://github.com/zhpanvip/BannerViewPager/raw/master/download/app.apk)
-
-![扫描下载Demo](https://github.com/zhpanvip/BannerViewPager/blob/master/image/qrcode.png)
-
-
-### 1.PageStyle
-
-[一屏多页Demo](https://github.com/zhpanvip/BannerViewPager/blob/master/app/src/main/java/com/example/zhpan/circleviewpager/fragment/PageFragment.java)
-
-| MULTI_PAGE |MULTI_PAGE_SCALE | MULTI_PAGE_OVERLAP |
-|--|--|--|
-| ![MULTI_PAGE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/page_style_multi.gif) |![MULTI_PAGE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/page_style_multi_scale.gif) |![MULTI_PAGE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/page_style_multi_overlay.gif) |
-
-### 2.Indicator 
-
-目前指示器已经从BannerViewPager中分离出来，现在单独为一个仓库，新的仓库地址为[ViewPagerIndicator](https://github.com/zhpanvip/viewpagerindicator)，你可以点击连接了解更多关于[ViewPagerIndicator](https://github.com/zhpanvip/viewpagerindicator)的信息。
-
-#### (1)IndicatorStyle 与 IndicatorSlideMode
-
-BannerViewPager目前已支持三种IndicatorViewStyle,以及三种IndicatorSlideMode,分别如下：
-
-| 属性 | CIRCLE | DASH | ROUND_RECT |
-|--|--|--|--|
-| NORMAL| ![CIRCLE_NORMAL](https://github.com/zhpanvip/viewpagerindicator/blob/master/image/slide_circle_normal.gif) | ![DASH_NORMAL](https://github.com/zhpanvip/viewpagerindicator/blob/master/image/style_dash_normal.gif) | ![ROUND_RECT_NORMAL](https://github.com/zhpanvip/viewpagerindicator/blob/master/image/style_round_rect_normal.gif) |
-| SMOOTH| ![CIRCLE_SMOOTH](https://github.com/zhpanvip/viewpagerindicator/blob/master/image/slide_circle_smooth.gif) | ![DASH_SMOOTH](https://github.com/zhpanvip/viewpagerindicator/blob/master/image/style_dash_smooth.gif) | ![ROUND_RECT_SMOOTH](https://github.com/zhpanvip/viewpagerindicator/blob/master/image/style_round_rect_smooth.gif) |
-| WORM| ![CIRCLE_WORM](https://github.com/zhpanvip/viewpagerindicator/blob/master/image/slide_circle_worm.gif) | ![DASH_WORM](https://github.com/zhpanvip/viewpagerindicator/blob/master/image/style_dash_worm.gif) | ![ROUND_WORM](https://github.com/zhpanvip/viewpagerindicator/blob/master/image/style_round_rect_worm.gif) |
-
-#### (2)Custom Indicator
-
-同时BannerViewPager还提供了自定义IndicatorView的功能。只要继承BaseIndicatorView或者实现IIndicator接口，并重写相应方法，就可以为所欲为的打造任意的Indicator了。
-
-[Sample Click Here](https://github.com/zhpanvip/BannerViewPager/blob/master/app/src/main/java/com/example/zhpan/circleviewpager/fragment/OthersFragment.java)
-
-| Figure Indicator | Drawable Indicator | Indicator below of Banner |
-|--|--|--|
-| ![CIRCLE](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_custom.gif) | ![DASH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_custom1.gif) | ![NORMAL](https://github.com/zhpanvip/BannerViewPager/blob/master/image/style_custom2.gif) |
-
-
-### 3.PageTransformerStyle
-
-[TransformStyle Demo](https://github.com/zhpanvip/BannerViewPager/blob/master/app/src/main/java/com/example/zhpan/circleviewpager/activity/WelcomeActivity.java)
-
-| 参数 | STACK | ROTATE | DEPTH | ACCORDION |
-|--|--|--|--|--|
-| 预览 | ![STACK](https://github.com/zhpanvip/BannerViewPager/blob/master/image/transform_stack.gif) | ![ROTATE_DOWN](https://github.com/zhpanvip/BannerViewPager/blob/master/image/transform_rotate.gif) | ![DEPTH](https://github.com/zhpanvip/BannerViewPager/blob/master/image/transform_depth.gif)  |![ACCORDION](https://github.com/zhpanvip/BannerViewPager/blob/master/image/transform_accordion.gif)  |
-
-
-## 开放API
-
-| 方法名 | 方法描述 | 说明 |
-|--|--|--|
-| BannerViewPager<T, VH> setCanLoop(boolean canLoop) | 是否开启循环 | 默认值true|
-| BannerViewPager<T, VH> setAutoPlay(boolean autoPlay) | 是否开启自动轮播 | 默认值true|
-| BannerViewPager<T, VH> setInterval(int interval) | 自动轮播时间间隔 |单位毫秒，默认值3000  |
-| BannerViewPager<T, VH> setScrollDuration(int scrollDuration) | 设置页面滚动时间 | 设置页面滚动时间 |单位毫秒，默认值500  |
-| BannerViewPager<T, VH> setRoundCorner(int radius) | 设置圆角 |默认无圆角 需要SDK_INT>=LOLLIPOP(API 21)  |
-| BannerViewPager<T, VH> setOnPageClickListener(OnPageClickListener onPageClickListener) | 设置页面点击事件 |  |
-| BannerViewPager<T, VH> setHolderCreator(HolderCreator\<VH> holderCreator) |设置HolderCreator  |必须设置HolderCreator，否则会抛出NullPointerException|
-| BannerViewPager<T, VH> setIndicatorVisibility(@Visibility int visibility) | indicator visibility |默认值VISIBLE 2.4.2 新增|
-| BannerViewPager<T, VH> setIndicatorStyle(int indicatorStyle) | 设置指示器样式 | 可选枚举(CIRCLE, DASH、ROUND_RECT) 默认CIRCLE  |
-| BannerViewPager<T, VH> setIndicatorGravity(int gravity) | 指示器位置 |可选值(CENTER、START、END)默认值CENTER |
-| BannerViewPager<T, VH> setIndicatorColor(int normalColor,int checkedColor) | 指示器圆点颜色 |normalColor：未选中时颜色默认"#8C6C6D72"， checkedColor：选中时颜色 默认"#8C18171C" |
-| BannerViewPager<T, VH> setIndicatorSlideMode(int slideMode)  | 设置Indicator滑动模式 | 可选（NORMAL、SMOOTH、WORM），默认值NORMAL  |
-| BannerViewPager<T, VH> setIndicatorSliderRadius(int radius) | 设置指示器圆点半径 | 默认值4dp|
-| BannerViewPager<T, VH> setIndicatorSliderRadius(int normalRadius,int checkRadius)  |设置指示器圆点半径  |  normalRadius:未选中时半径  checkedRadius:选中时的半径,默认值4dp |
-| BannerViewPager<T, VH> setIndicatorSliderWidth(int indicatorWidth) | 设置指示器宽度，如果是圆形指示器，则为直径 |  默认值8dp|
-| BannerViewPager<T, VH> setIndicatorSliderWidth(int normalWidth, int checkWidth) | 设置指示器宽度，如果是圆形指示器，则为直径 | 默认值8dp |
-| BannerViewPager<T, VH> setIndicatorHeight(int indicatorHeight) | 设置指示器高度，仅在Indicator样式为DASH时有效 | 默认值normalIndicatorWidth/2 |
-| BannerViewPager<T, VH> setIndicatorSliderGap(int indicatorMargin) | 指示器圆点间距| 默认值为指示器宽度（或者是圆的直径）|
-| BannerViewPager<T, VH> setIndicatorView(IIndicator indicatorView) | 设置自定义指示器|自定义View需要继承BaseIndicatorView或实现IIndicator |
-| BannerViewPager<T, VH> setPageTransformerStyle(int style) | 设置页面Transformer内置样式 |  |
-| BannerViewPager<T, VH> setCurrentItem(int item) | Set the currently selected page. | 2.3.5新增 |
-| int getCurrentItem() | 获取当前position | 2.3.5新增 |
-| BannerViewPager<T, VH> setPageStyle(PageStyle pageStyle) | 设置页面样式 | 2.4.0新增 可选（MULTI_PAGE、MULTI_PAGE_SCALE、MULTI_PAGE_OVERLAP）|
-| BannerViewPager<T, VH> setPageMargin(int pageMargin) | 设置页面间隔 | 2.4.0新增 |
-| BannerViewPager<T, VH> setIndicatorMargin(int left, int top, int right, int bottom) | 设置Indicator边距 | 2.4.1新增 |
-| BannerViewPager<T, VH> setOnPageChangeListener(OnPageChangeListener l) | 页面改变的监听事件 | 2.4.3新增 |
-| void startLoop() |开启自动轮播 | 初始化BannerViewPager时不必调用该方法,设置setAutoPlay后会调用startLoop() |
-| void stopLoop() | 停止自动轮播 | |
-| List\<T> getList() | 获取Banner中的集合数据 |  |
-| void create(List<T> list) |初始化并构造BannerViewPager  |必须调用，否则前面设置的参数无效  |
-
-### xml支持的attrs
-| Attributes | format | description |
-|--|--|--|
-| bvp_interval | integer | 自动轮播时间间隔 |
-| bvp_scroll_duration | integer | 页面切换时滑动时间|
-| bvp_can_loop | boolean| 是否循环 |
-| bvp_auto_play | boolean | 是否自动播放  |
-| bvp_indicator_checked_color | color | indicator选中时颜色 |
-| bvp_indicator_normal_color | color | indicator未选中时颜色 |
-| bvp_indicator_radius | dimension | indicator圆点半径或者Dash模式的1/2宽度  |
-| bvp_round_corner| dimension  | Banner圆角大小 |
-| bvp_page_margin | dimension | 页面item间距 |
-| bvp_reveal_width | dimension | 一屏多页模式下两边item漏出的宽度 |
-| bvp_indicator_style | enum | indicator样式(circle/dash)  |
-| bvp_indicator_slide_mode | enum | indicator滑动模式(normal;smooth;worm) |
-| bvp_indicator_gravity | enum | indicator位置(center/start/end) |
-| bvp_page_style | enum | page样式(normal/multi_page/multi_page_overlap/multi_page_scale) |
-| bvp_transformer_style | enum | transform样式(normal/depth/stack/accordion) |
-| bvp_indicator_visibility| enum | indicator visibility(visible/gone/invisible) |
 
 
 ## 如何使用
@@ -351,6 +248,61 @@ public class FigureIndicatorView extends BaseIndicatorView {
               .setHolderCreator(() -> new ImageResourceViewHolder(0))
               .create(mDrawableList);
 ```
+
+## 开放API
+
+| 方法名 | 方法描述 | 说明 |
+|--|--|--|
+| BannerViewPager<T, VH> setCanLoop(boolean canLoop) | 是否开启循环 | 默认值true|
+| BannerViewPager<T, VH> setAutoPlay(boolean autoPlay) | 是否开启自动轮播 | 默认值true|
+| BannerViewPager<T, VH> setInterval(int interval) | 自动轮播时间间隔 |单位毫秒，默认值3000  |
+| BannerViewPager<T, VH> setScrollDuration(int scrollDuration) | 设置页面滚动时间 | 设置页面滚动时间 |单位毫秒，默认值500  |
+| BannerViewPager<T, VH> setRoundCorner(int radius) | 设置圆角 |默认无圆角 需要SDK_INT>=LOLLIPOP(API 21)  |
+| BannerViewPager<T, VH> setOnPageClickListener(OnPageClickListener onPageClickListener) | 设置页面点击事件 |  |
+| BannerViewPager<T, VH> setHolderCreator(HolderCreator\<VH> holderCreator) |设置HolderCreator  |必须设置HolderCreator，否则会抛出NullPointerException|
+| BannerViewPager<T, VH> setIndicatorVisibility(@Visibility int visibility) | indicator visibility |默认值VISIBLE 2.4.2 新增|
+| BannerViewPager<T, VH> setIndicatorStyle(int indicatorStyle) | 设置指示器样式 | 可选枚举(CIRCLE, DASH、ROUND_RECT) 默认CIRCLE  |
+| BannerViewPager<T, VH> setIndicatorGravity(int gravity) | 指示器位置 |可选值(CENTER、START、END)默认值CENTER |
+| BannerViewPager<T, VH> setIndicatorColor(int normalColor,int checkedColor) | 指示器圆点颜色 |normalColor：未选中时颜色默认"#8C6C6D72"， checkedColor：选中时颜色 默认"#8C18171C" |
+| BannerViewPager<T, VH> setIndicatorSlideMode(int slideMode)  | 设置Indicator滑动模式 | 可选（NORMAL、SMOOTH、WORM），默认值NORMAL  |
+| BannerViewPager<T, VH> setIndicatorSliderRadius(int radius) | 设置指示器圆点半径 | 默认值4dp|
+| BannerViewPager<T, VH> setIndicatorSliderRadius(int normalRadius,int checkRadius)  |设置指示器圆点半径  |  normalRadius:未选中时半径  checkedRadius:选中时的半径,默认值4dp |
+| BannerViewPager<T, VH> setIndicatorSliderWidth(int indicatorWidth) | 设置指示器宽度，如果是圆形指示器，则为直径 |  默认值8dp|
+| BannerViewPager<T, VH> setIndicatorSliderWidth(int normalWidth, int checkWidth) | 设置指示器宽度，如果是圆形指示器，则为直径 | 默认值8dp |
+| BannerViewPager<T, VH> setIndicatorHeight(int indicatorHeight) | 设置指示器高度，仅在Indicator样式为DASH时有效 | 默认值normalIndicatorWidth/2 |
+| BannerViewPager<T, VH> setIndicatorSliderGap(int indicatorMargin) | 指示器圆点间距| 默认值为指示器宽度（或者是圆的直径）|
+| BannerViewPager<T, VH> setIndicatorView(IIndicator indicatorView) | 设置自定义指示器|自定义View需要继承BaseIndicatorView或实现IIndicator |
+| BannerViewPager<T, VH> setPageTransformerStyle(int style) | 设置页面Transformer内置样式 |  |
+| BannerViewPager<T, VH> setCurrentItem(int item) | Set the currently selected page. | 2.3.5新增 |
+| int getCurrentItem() | 获取当前position | 2.3.5新增 |
+| BannerViewPager<T, VH> setPageStyle(PageStyle pageStyle) | 设置页面样式 | 2.4.0新增 可选（MULTI_PAGE、MULTI_PAGE_SCALE、MULTI_PAGE_OVERLAP）|
+| BannerViewPager<T, VH> setPageMargin(int pageMargin) | 设置页面间隔 | 2.4.0新增 |
+| BannerViewPager<T, VH> setIndicatorMargin(int left, int top, int right, int bottom) | 设置Indicator边距 | 2.4.1新增 |
+| BannerViewPager<T, VH> setOnPageChangeListener(OnPageChangeListener l) | 页面改变的监听事件 | 2.4.3新增 |
+| void startLoop() |开启自动轮播 | 初始化BannerViewPager时不必调用该方法,设置setAutoPlay后会调用startLoop() |
+| void stopLoop() | 停止自动轮播 | |
+| List\<T> getList() | 获取Banner中的集合数据 |  |
+| void create(List<T> list) |初始化并构造BannerViewPager  |必须调用，否则前面设置的参数无效  |
+
+### xml支持的attrs
+| Attributes | format | description |
+|--|--|--|
+| bvp_interval | integer | 自动轮播时间间隔 |
+| bvp_scroll_duration | integer | 页面切换时滑动时间|
+| bvp_can_loop | boolean| 是否循环 |
+| bvp_auto_play | boolean | 是否自动播放  |
+| bvp_indicator_checked_color | color | indicator选中时颜色 |
+| bvp_indicator_normal_color | color | indicator未选中时颜色 |
+| bvp_indicator_radius | dimension | indicator圆点半径或者Dash模式的1/2宽度  |
+| bvp_round_corner| dimension  | Banner圆角大小 |
+| bvp_page_margin | dimension | 页面item间距 |
+| bvp_reveal_width | dimension | 一屏多页模式下两边item漏出的宽度 |
+| bvp_indicator_style | enum | indicator样式(circle/dash)  |
+| bvp_indicator_slide_mode | enum | indicator滑动模式(normal;smooth;worm) |
+| bvp_indicator_gravity | enum | indicator位置(center/start/end) |
+| bvp_page_style | enum | page样式(normal/multi_page/multi_page_overlap/multi_page_scale) |
+| bvp_transformer_style | enum | transform样式(normal/depth/stack/accordion) |
+| bvp_indicator_visibility| enum | indicator visibility(visible/gone/invisible) |
 
 ## TODO 版本计划
 
