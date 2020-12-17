@@ -4,7 +4,8 @@ import androidx.databinding.DataBindingUtil;
 
 import com.example.zhpan.banner.R;
 import com.example.zhpan.banner.databinding.ItemSlideModelDataBindingBinding;
-import com.zhpan.bannerview.BaseSimpleAdapter;
+import com.example.zhpan.banner.net.BannerData;
+import com.zhpan.bannerview.BaseBannerAdapter;
 import com.zhpan.bannerview.BaseViewHolder;
 
 
@@ -14,12 +15,12 @@ import com.zhpan.bannerview.BaseViewHolder;
  *   Description:使用DataBinding示例
  * </pre>
  */
-public class DataBindingSampleAdapter extends BaseSimpleAdapter<Integer> {
+public class DataBindingSampleAdapter extends BaseBannerAdapter<BannerData> {
 
     @Override
-    protected void bindData(BaseViewHolder<Integer> holder, Integer data, int position, int pageSize) {
-        ItemSlideModelDataBindingBinding mItemViewDataBinding = DataBindingUtil.bind(holder.itemView);
-        mItemViewDataBinding.bannerImage.setImageResource(data);
+    protected void bindData(BaseViewHolder<BannerData> holder, BannerData data, int position, int pageSize) {
+        ItemSlideModelDataBindingBinding dataBinding = DataBindingUtil.bind(holder.itemView);
+        dataBinding.setBannerData(data);
     }
 
     @Override

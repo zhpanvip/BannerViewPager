@@ -1,5 +1,9 @@
 package com.example.zhpan.banner.net;
 
+import androidx.annotation.DrawableRes;
+
+import com.example.zhpan.banner.R;
+
 /**
  * <pre>
  *   Created by zhangpan on 2019-08-14.
@@ -30,6 +34,8 @@ public class BannerData {
     private int type;
     private String url;
     private int drawable;
+    private @DrawableRes
+    final int placeHolder = R.drawable.placeholder;
 
     public int getDrawable() {
         return drawable;
@@ -101,5 +107,10 @@ public class BannerData {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public @DrawableRes
+    int getPlaceHolder() {
+        return placeHolder;
     }
 }

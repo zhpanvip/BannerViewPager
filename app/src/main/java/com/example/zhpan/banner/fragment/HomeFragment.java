@@ -119,6 +119,9 @@ public class HomeFragment extends BaseFragment {
                 .subscribe(new ResponseObserver<DataWrapper>() {
                     @Override
                     public void onSuccess(DataWrapper response) {
+                        ArticleWrapper.Article article = new ArticleWrapper.Article();
+                        article.setType(1001);
+                        article.setBannerData(new ArrayList<>(response.getDataBeanList()));
                         headerView.setVisibility(View.VISIBLE);
                         List<BannerData> dataList = response.getDataBeanList();
                         BannerData bannerData = new BannerData();
@@ -128,9 +131,7 @@ public class HomeFragment extends BaseFragment {
                         dataList.add(1, bannerData);
                         mViewPagerHorizontal.refreshData(dataList);
                         List<ArticleWrapper.Article> articleList = response.getArticleList();
-                        ArticleWrapper.Article article = new ArticleWrapper.Article();
-                        article.setType(1001);
-                        article.setPagers(getPicList(3));
+
                         articleList.add(4, article);
                         articleAdapter.setData(articleList);
                         recyclerView.getAdapter().notifyDataSetChanged();
@@ -196,7 +197,7 @@ public class HomeFragment extends BaseFragment {
                 .setAdapter(new ViewBindingSampleAdapter(0)).create(getPicList(4));
     }
 
-    private void onPageClicked(View clickedView,int position) {
+    private void onPageClicked(View clickedView, int position) {
         BannerData bannerData = mViewPagerHorizontal.getData().get(position);
         if (bannerData.getType() != TYPE_NEW) {
             if (getActivity() != null) {

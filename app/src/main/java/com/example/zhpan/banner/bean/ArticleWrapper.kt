@@ -1,5 +1,7 @@
 package com.example.zhpan.banner.bean
 
+import com.example.zhpan.banner.net.BannerData
+
 class ArticleWrapper {
 
     var datas: List<Article>? = null
@@ -15,8 +17,6 @@ class ArticleWrapper {
 
         var type: Int = 0
 
-        var pagers: List<Int>? = null
+        var bannerData: List<BannerData>? = null
     }
-
-
 }

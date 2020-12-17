@@ -14,7 +14,9 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.zhpan.banner.R
 import com.example.zhpan.banner.adapter.DataBindingSampleAdapter
 import com.example.zhpan.banner.bean.ArticleWrapper
+import com.example.zhpan.banner.net.BannerData
 import com.zhpan.bannerview.BannerViewPager
+import com.zhpan.bannerview.BaseViewHolder
 import com.zhpan.indicator.enums.IndicatorStyle
 
 import java.util.ArrayList
@@ -49,7 +51,8 @@ class ArticleAdapter(val context: Context, data: List<ArticleWrapper.Article>) :
                             ContextCompat.getColor(holder.itemView.context, R.color.red_checked_color))
                     .setOrientation(ViewPager2.ORIENTATION_VERTICAL)
                     .setInterval(2000)
-                    .setAdapter(DataBindingSampleAdapter()).create(article.pagers)
+                    .setAdapter(DataBindingSampleAdapter())
+                    .create(article.bannerData)
         } else if (holder is ArticleViewHolder) {
             holder.tvAuthor.text = article.author
             holder.tvTitle.text = article.title
@@ -77,7 +80,7 @@ class ArticleAdapter(val context: Context, data: List<ArticleWrapper.Article>) :
     }
 
     inner class BannerItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var bannerViewPager: BannerViewPager<Int> = itemView.findViewById(R.id.banner_view3)
+        var bannerViewPager: BannerViewPager<BannerData> = itemView.findViewById(R.id.banner_view3)
         var resources: Resources = itemView.context.resources
 
         init {

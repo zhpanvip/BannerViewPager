@@ -69,7 +69,7 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
 
     private final Handler mHandler = new Handler();
 
-    private BaseBannerAdapter<T, BaseViewHolder<T>> mBannerPagerAdapter;
+    private BaseBannerAdapter<T> mBannerPagerAdapter;
 
     private ViewPager2.OnPageChangeCallback onPageChangeCallback;
 
@@ -488,15 +488,13 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
         }
     }
 
-    @SuppressWarnings("unchecked")
-    public <VH extends BaseViewHolder<T>> BannerViewPager<T> setAdapter(BaseBannerAdapter<T, VH> adapter) {
-        this.mBannerPagerAdapter = (BaseBannerAdapter<T, BaseViewHolder<T>>) adapter;
+    public BannerViewPager<T> setAdapter(BaseBannerAdapter<T> adapter) {
+        this.mBannerPagerAdapter = adapter;
         return this;
     }
 
-    @SuppressWarnings("unchecked")
-    public <VH extends BaseViewHolder<T>> BaseBannerAdapter<T, VH> getAdapter() {
-        return (BaseBannerAdapter<T, VH>) mBannerPagerAdapter;
+    public BaseBannerAdapter<T> getAdapter() {
+        return mBannerPagerAdapter;
     }
 
     /**

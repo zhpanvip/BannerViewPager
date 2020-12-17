@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,7 +16,7 @@ import java.util.List;
 /**
  * Created by zhpan on 2017/3/28.
  */
-public abstract class BaseBannerAdapter<T, VH extends BaseViewHolder<T>> extends RecyclerView.Adapter<VH> {
+public abstract class BaseBannerAdapter<T> extends RecyclerView.Adapter<BaseViewHolder<T>> {
     protected List<T> mList = new ArrayList<>();
     private boolean isCanLoop;
     public static final int MAX_VALUE = 500;
@@ -23,37 +24,37 @@ public abstract class BaseBannerAdapter<T, VH extends BaseViewHolder<T>> extends
 
     @NonNull
     @Override
-    public final VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View inflate = LayoutInflater.from(parent.getContext()).inflate(getLayoutId(viewType), parent, false);
-        return createViewHolder(parent, inflate, viewType);
+    public final BaseViewHolder<T> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(getLayoutId(viewType), parent, false);
+        return createViewHolder(parent, itemView, viewType);
     }
 
     @Override
-    public final void onBindViewHolder(@NonNull VH holder, final int position) {
-        int realPosition = BannerUtils.getRealPosition(isCanLoop, position, mList.size());
+    public final void onBindViewHolder(@NonNull BaseViewHolder<T> holder, final int position) {
+        int realPosition = BannerUtils.getRealPosition(isCanLoop, position, getListSize());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View clickedView) {
                 if (mPageClickListener != null) {
-                    mPageClickListener.onPageClick(clickedView, BannerUtils.getRealPosition(isCanLoop, position, mList.size()));
+                    mPageClickListener.onPageClick(clickedView, BannerUtils.getRealPosition(isCanLoop, position, getListSize()));
                 }
             }
         });
-        bindData(holder, mList.get(realPosition), realPosition, mList.size());
+        bindData(holder, mList.get(realPosition), realPosition, getListSize());
     }
 
     @Override
     public final int getItemViewType(int position) {
-        int realPosition = BannerUtils.getRealPosition(isCanLoop, position, mList.size());
+        int realPosition = BannerUtils.getRealPosition(isCanLoop, position, getListSize());
         return getViewType(realPosition);
     }
 
     @Override
     public final int getItemCount() {
-        if (isCanLoop && mList.size() > 1) {
+        if (isCanLoop && getListSize() > 1) {
             return MAX_VALUE;
         } else {
-            return mList.size();
+            return getListSize();
         }
     }
 
@@ -84,9 +85,37 @@ public abstract class BaseBannerAdapter<T, VH extends BaseViewHolder<T>> extends
         return 0;
     }
 
-    protected abstract void bindData(VH holder, T data, int position, int pageSize);
+    public boolean isCanLoop() {
+        return isCanLoop;
+    }
 
-    public abstract VH createViewHolder(@NonNull ViewGroup parent, View itemView, int viewType);
+    /**
+     * Don't need override this method in subclass.
+     * This method calls {@link #onCreateViewHolder(ViewGroup, int)} to create a new{@link BaseViewHolder}
+     *
+     * @param parent   The ViewGroup into which the new View will be added after it is bound to
+     *                 an adapter position.
+     * @param itemView Item View.
+     * @param viewType The view type of the new View.
+     * @return ViewHolder extends {@link BaseViewHolder}.
+     */
+    public BaseViewHolder<T> createViewHolder(@NonNull ViewGroup parent, View itemView, int viewType) {
+        return new BaseViewHolder<>(itemView);
+    }
 
-    public abstract int getLayoutId(int viewType);
+    /**
+     * @param holder   The ViewHolder which should be updated to represent the contents of the
+     *                 item at the given position in the data set.
+     * @param data     Current item data.
+     * @param position Current item position.
+     * @param pageSize Page size of BVP,equals {@link BaseBannerAdapter#getListSize()}.
+     */
+    protected abstract void bindData(BaseViewHolder<T> holder, T data, int position, int pageSize);
+
+    /**
+     * @param viewType The view type of the new View.
+     * @return The item view layout.
+     */
+    public abstract @LayoutRes
+    int getLayoutId(int viewType);
 }

@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:binding="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="bannerData"
+            type="com.example.zhpan.banner.net.BannerData" />
     </data>
 
-    <RelativeLayout
+    <com.example.zhpan.banner.view.CornerImageView
+        android:id="@+id/banner_image"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:contentDescription="@string/image_description"
+        android:scaleType="centerCrop"
+        binding:placeholder="@{bannerData.getPlaceHolder()}"
+        binding:url="@{bannerData.getImagePath()}" />
 
-        <com.example.zhpan.banner.view.CornerImageView
-            android:id="@+id/banner_image"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:contentDescription="@string/image_description"
-            android:scaleType="centerCrop" />
-
-    </RelativeLayout>
 </layout>
