@@ -17,7 +17,7 @@
 
 ## [1.Quick Starts](https://github.com/zhpanvip/BannerViewPager/wiki/01.Quick-Starts)
 
-## [2.Docment API](https://github.com/zhpanvip/BannerViewPager/wiki/02.Docment)
+## [2.Document API](https://github.com/zhpanvip/BannerViewPager/wiki/02.Docment)
 
 ## [3.Multiple View Types](https://github.com/zhpanvip/BannerViewPager/wiki/03.Multiple-View-Types)
 
