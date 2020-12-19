@@ -1,16 +1,22 @@
 package com.zhpan.bannerview;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.zhpan.bannerview.annotation.Visibility;
 
 /**
  * <pre>
@@ -32,7 +38,7 @@ public class BaseViewHolder<T> extends RecyclerView.ViewHolder {
      * @deprecated bind data in adapter please.
      */
     @Deprecated
-    public void bindData(T data, int position, int pageSize){
+    public void bindData(T data, int position, int pageSize) {
     }
 
     @SuppressWarnings("unchecked")
@@ -44,7 +50,6 @@ public class BaseViewHolder<T> extends RecyclerView.ViewHolder {
         }
         return (V) view;
     }
-
 
     public void setText(int viewId, CharSequence text) {
         View view = findViewById(viewId);
@@ -67,6 +72,13 @@ public class BaseViewHolder<T> extends RecyclerView.ViewHolder {
         }
     }
 
+    public void setTextColorRes(@IdRes int viewId, @ColorRes int colorRes) {
+        View view = findViewById(viewId);
+        if (view instanceof TextView) {
+            ((TextView) view).setTextColor(ContextCompat.getColor(itemView.getContext(), colorRes));
+        }
+    }
+
     public void setOnClickListener(int viewId, View.OnClickListener clickListener) {
         findViewById(viewId).setOnClickListener(clickListener);
     }
@@ -84,5 +96,21 @@ public class BaseViewHolder<T> extends RecyclerView.ViewHolder {
         if (view instanceof ImageView) {
             ((ImageView) view).setImageResource(resId);
         }
+    }
+
+    public void setImageDrawable(@IdRes int viewId, Drawable drawable) {
+        View view = findViewById(viewId);
+        if (view instanceof ImageView) {
+            ((ImageView) view).setImageDrawable(drawable);
+        }
+    }
+
+    public void setImageBitmap(@IdRes int viewId, Bitmap bitmap) {
+        ImageView view = findViewById(viewId);
+        view.setImageBitmap(bitmap);
+    }
+
+    public void setVisibility(@IdRes int resId, @Visibility int visibility) {
+        findViewById(resId).setVisibility(visibility);
     }
 }

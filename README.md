@@ -77,7 +77,7 @@ It's also support to custom indicator style,just need extends BaseIndicatorView 
  
 ![QQ交流群60902509](https://gitee.com/zhpanvip/images/raw/master/project/group/qq_group.png)
 
-## <span id="Sponsor"> Donation </span>
+## <span id="Sponsor"> Donate </span>
 
 **如果您觉得BVP库还不错，您可以对BVP打赏哦，您的支持将是我持续维护的动力。**
 
