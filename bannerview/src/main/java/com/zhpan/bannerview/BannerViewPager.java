@@ -25,6 +25,7 @@ import com.zhpan.bannerview.annotation.Visibility;
 import com.zhpan.bannerview.constants.PageStyle;
 import com.zhpan.bannerview.manager.BannerManager;
 import com.zhpan.bannerview.manager.BannerOptions;
+import com.zhpan.bannerview.provider.ReflectLayoutManager;
 import com.zhpan.bannerview.provider.ScrollDurationManger;
 import com.zhpan.bannerview.provider.ViewStyleSetter;
 import com.zhpan.bannerview.utils.BannerUtils;
@@ -355,7 +356,7 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
         }
         BannerOptions bannerOptions = mBannerManager.getBannerOptions();
         if (bannerOptions.getScrollDuration() != 0) {
-            ScrollDurationManger.reflectLayoutManager(mViewPager, bannerOptions.getScrollDuration());
+            ReflectLayoutManager.reflectLayoutManager(mViewPager, bannerOptions.getScrollDuration());
         }
         currentPosition = 0;
         mBannerPagerAdapter.setCanLoop(bannerOptions.isCanLoop());
