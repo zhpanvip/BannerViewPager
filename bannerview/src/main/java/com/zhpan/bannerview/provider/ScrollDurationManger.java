@@ -18,9 +18,9 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-
 /**
- * Thanks:https://github.com/zguop/banner/blob/master/pager2banner/src/main/java/com/to/aboomy/pager2banner/Banner.java
+ * @author zhangpan
+ * @date 2020/12/21
  */
 public class ScrollDurationManger extends LinearLayoutManager {
     private final LinearLayoutManager mParent;
