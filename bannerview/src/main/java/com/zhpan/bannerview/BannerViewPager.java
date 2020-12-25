@@ -1018,13 +1018,23 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
     }
 
     /**
-     * 设置是否允许BVP对事件进行拦截，用于解决CoordinatorLayout+CollapsingToolbarLayout
-     * 在嵌套BVP时引起的滑动冲突问题。
-     * BVP在处理ViewPager2嵌套滑动冲突时，在{@link #onInterceptTouchEvent(MotionEvent)}方法中
-     * 对事件进行了处理导致CoordinatorLayout+CollapsingToolbarLayout的布局中滑动BVP的事件无效。
-     * 对于这种情况可以调用该方法来禁止BVP对事件进行拦截。
+     * 设置是否允许在BVP的{@link MotionEvent#ACTION_DOWN}事件中禁止父View对事件的拦截，该方法
+     * 用于解决CoordinatorLayout+CollapsingToolbarLayout在嵌套BVP时引起的滑动冲突问题。
+     * <p>
+     * BVP在处理ViewPager2嵌套滑动冲突时，在{@link #onInterceptTouchEvent(MotionEvent)}
+     * 方法的{@link MotionEvent#ACTION_DOWN}事件中禁止了BVP的父View对触摸事件的拦截，
+     * 导致CollapsingToolbarLayout的布局无法获取{@link MotionEvent#ACTION_DOWN}事件，
+     * 致使CollapsingToolbarLayout无法处理down事件后的一系列事件而无法滑动。
+     * 对于这种情况可以调用该方法不允许在BVP在{@link MotionEvent#ACTION_DOWN}事件中禁止父View的事件拦截。
+     * </p>
+     * 调用该方法将disallowIntercept设置为true后虽然解决了滑动冲突，但也会造成一定的不良影响，即如果BVP设置
+     * 水平滑动，同时BVP外部也是可以水平滑动的ViewPager，则存在较小概率的滑动冲突，即滑动BVP的同时可能会触发
+     * 外部ViewPager的滑动。但这一问题到目前为止似乎没有好的解决方案。
      *
-     * @param disallowIntercept true 禁止BVP拦截事件，false 允许BVP拦截事件
+     * @param disallowIntercept 是否允许BVP在{@link MotionEvent#ACTION_DOWN}事件中禁止父View拦截事件，默认值为false
+     *                          true 不允许BVP在{@link MotionEvent#ACTION_DOWN}时间中禁止父View的时间拦截，
+     *                          设置disallowIntercept为true可以解决CoordinatorLayout+CollapsingToolbarLayout的滑动冲突
+     *                          false 允许BVP在{@link MotionEvent#ACTION_DOWN}时间中禁止父View的时间拦截，
      */
     public BannerViewPager<T> disallowInterceptTouchEvent(boolean disallowIntercept) {
         mBannerManager.getBannerOptions().setDisallowIntercept(disallowIntercept);
