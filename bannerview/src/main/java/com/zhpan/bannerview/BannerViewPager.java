@@ -161,10 +161,10 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        boolean canIntercept = mViewPager.isUserInputEnabled()
+        boolean doNotNeedIntercept = !mViewPager.isUserInputEnabled()
                 || mBannerPagerAdapter != null
                 && mBannerPagerAdapter.getData().size() <= 1;
-        if (!canIntercept) {
+        if (doNotNeedIntercept) {
             return super.onInterceptTouchEvent(ev);
         }
         switch (ev.getAction()) {
@@ -504,7 +504,7 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
      *
      * @param radius round radius
      */
-    public <VH extends BaseViewHolder<T>> BannerViewPager<T> setRoundCorner(int radius) {
+    public BannerViewPager<T> setRoundCorner(int radius) {
         mBannerManager.getBannerOptions().setRoundRectRadius(radius);
         return this;
     }

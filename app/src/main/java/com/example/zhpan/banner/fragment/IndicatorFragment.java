@@ -56,7 +56,6 @@ public class IndicatorFragment extends BaseFragment {
                 .setOnPageClickListener((clickedView, position) -> ToastUtils.showShort("position:" + position))
                 .setAdapter(new ViewBindingSampleAdapter(getResources().getDimensionPixelOffset(R.dimen.dp_8))).create();
         initRadioGroup();
-        mViewPager.setUserInputEnabled(true);
     }
 
 
