@@ -18,9 +18,9 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-
 /**
- * thanks:https://github.com/zguop/banner/blob/master/pager2banner/src/main/java/com/to/aboomy/pager2banner/Banner.java
+ * @author zhangpan
+ * @date 2020/12/21
  */
 public class ScrollDurationManger extends LinearLayoutManager {
     private final LinearLayoutManager mParent;
@@ -80,49 +80,5 @@ public class ScrollDurationManger extends LinearLayoutManager {
                                                  @NonNull View child, @NonNull Rect rect, boolean immediate,
                                                  boolean focusedChildVisible) {
         return false; // users should use setCurrentItem instead
-    }
-
-    public static void reflectLayoutManager(ViewPager2 viewPager2, int scrollDuration) {
-        try {
-            RecyclerView recyclerView = (RecyclerView) viewPager2.getChildAt(0);
-            recyclerView.setOverScrollMode(RecyclerView.OVER_SCROLL_NEVER);
-            LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-            if (linearLayoutManager == null) {
-                return;
-            }
-            ScrollDurationManger speedManger = new ScrollDurationManger(viewPager2, scrollDuration, linearLayoutManager);
-            recyclerView.setLayoutManager(speedManger);
-
-            Field mRecyclerView = RecyclerView.LayoutManager.class.getDeclaredField("mRecyclerView");
-            mRecyclerView.setAccessible(true);
-            mRecyclerView.set(linearLayoutManager, recyclerView);
-
-            Field layoutMangerField = ViewPager2.class.getDeclaredField("mLayoutManager");
-            layoutMangerField.setAccessible(true);
-            layoutMangerField.set(viewPager2, speedManger);
-
-            Field pageTransformerAdapterField = ViewPager2.class.getDeclaredField("mPageTransformerAdapter");
-            pageTransformerAdapterField.setAccessible(true);
-            Object mPageTransformerAdapter = pageTransformerAdapterField.get(viewPager2);
-            if (mPageTransformerAdapter != null) {
-                Class<?> aClass = mPageTransformerAdapter.getClass();
-                Field layoutManager = aClass.getDeclaredField("mLayoutManager");
-                layoutManager.setAccessible(true);
-                layoutManager.set(mPageTransformerAdapter, speedManger);
-            }
-            Field scrollEventAdapterField = ViewPager2.class.getDeclaredField("mScrollEventAdapter");
-            scrollEventAdapterField.setAccessible(true);
-            Object mScrollEventAdapter = scrollEventAdapterField.get(viewPager2);
-            if (mScrollEventAdapter != null) {
-                Class<?> aClass = mScrollEventAdapter.getClass();
-                Field layoutManager = aClass.getDeclaredField("mLayoutManager");
-                layoutManager.setAccessible(true);
-                layoutManager.set(mScrollEventAdapter, speedManger);
-            }
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
     }
 }
