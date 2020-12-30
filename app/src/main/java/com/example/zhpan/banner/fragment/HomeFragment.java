@@ -166,7 +166,7 @@ public class HomeFragment extends BaseFragment {
                 .setInterval(3000)
                 .setIndicatorGravity(IndicatorGravity.END)
                 .setIndicatorSliderRadius(getResources().getDimensionPixelSize(R.dimen.dp_3))
-                .disallowInterceptTouchEvent(true)
+                .disallowParentInterceptDownEvent(true)
                 .setIndicatorView(mIndicatorView)   // 这里为了设置标题故用了自定义Indicator,如果无需标题则没必要添加此行代码
                 .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
                 .setAdapter(new MultiViewTypesAdapter())

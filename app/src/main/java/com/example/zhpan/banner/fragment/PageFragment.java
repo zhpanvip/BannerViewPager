@@ -98,7 +98,7 @@ public class PageFragment extends BaseFragment {
                 .setPageMargin(getResources().getDimensionPixelOffset(R.dimen.dp_15))
                 .setRevealWidth(getResources().getDimensionPixelOffset(R.dimen.dp_10))
                 .setPageStyle(pageStyle)
-                .create(getPicList(0));
+                .create(getPicList(4));
     }
 
     // 网易云音乐样式

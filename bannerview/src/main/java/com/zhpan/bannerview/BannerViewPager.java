@@ -26,7 +26,6 @@ import com.zhpan.bannerview.constants.PageStyle;
 import com.zhpan.bannerview.manager.BannerManager;
 import com.zhpan.bannerview.manager.BannerOptions;
 import com.zhpan.bannerview.provider.ReflectLayoutManager;
-import com.zhpan.bannerview.provider.ScrollDurationManger;
 import com.zhpan.bannerview.provider.ViewStyleSetter;
 import com.zhpan.bannerview.utils.BannerUtils;
 import com.zhpan.indicator.IndicatorView;
@@ -172,9 +171,8 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
             case MotionEvent.ACTION_DOWN:
                 startX = (int) ev.getX();
                 startY = (int) ev.getY();
-                if (!mBannerManager.getBannerOptions().isDisallowIntercept()) {
-                    getParent().requestDisallowInterceptTouchEvent(true);
-                }
+                getParent().requestDisallowInterceptTouchEvent(!mBannerManager
+                        .getBannerOptions().isDisallowParentInterceptDownEvent());
                 break;
             case MotionEvent.ACTION_MOVE:
                 int endX = (int) ev.getX();
@@ -1039,13 +1037,23 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
      * 水平滑动，同时BVP外部也是可以水平滑动的ViewPager，则存在较小概率的滑动冲突，即滑动BVP的同时可能会触发
      * 外部ViewPager的滑动。但这一问题到目前为止似乎没有好的解决方案。
      *
-     * @param disallowIntercept 是否允许BVP在{@link MotionEvent#ACTION_DOWN}事件中禁止父View拦截事件，默认值为false
-     *                          true 不允许BVP在{@link MotionEvent#ACTION_DOWN}时间中禁止父View的时间拦截，
-     *                          设置disallowIntercept为true可以解决CoordinatorLayout+CollapsingToolbarLayout的滑动冲突
-     *                          false 允许BVP在{@link MotionEvent#ACTION_DOWN}时间中禁止父View的时间拦截，
+     * @param disallowParentInterceptDownEvent 是否允许BVP在{@link MotionEvent#ACTION_DOWN}事件中禁止父View拦截事件，默认值为false
+     *                                         true 不允许BVP在{@link MotionEvent#ACTION_DOWN}时间中禁止父View的时间拦截，
+     *                                         设置disallowIntercept为true可以解决CoordinatorLayout+CollapsingToolbarLayout的滑动冲突
+     *                                         false 允许BVP在{@link MotionEvent#ACTION_DOWN}时间中禁止父View的时间拦截，
      */
+
+    public BannerViewPager<T> disallowParentInterceptDownEvent(boolean disallowParentInterceptDownEvent) {
+        mBannerManager.getBannerOptions().setDisallowParentInterceptDownEvent(disallowParentInterceptDownEvent);
+        return this;
+    }
+
+    /**
+     * @deprecated Use {@link BannerViewPager#disallowParentInterceptDownEvent(boolean)} instead.
+     */
+    @Deprecated
     public BannerViewPager<T> disallowInterceptTouchEvent(boolean disallowIntercept) {
-        mBannerManager.getBannerOptions().setDisallowIntercept(disallowIntercept);
+        mBannerManager.getBannerOptions().setDisallowParentInterceptDownEvent(disallowIntercept);
         return this;
     }
 
