@@ -60,7 +60,7 @@ public class BannerOptions {
 
     private int orientation = ViewPager2.ORIENTATION_HORIZONTAL;
 
-    private boolean disallowIntercept;
+    private boolean disallowParentInterceptDownEvent;
 
     private final IndicatorOptions mIndicatorOptions;
 
@@ -251,12 +251,12 @@ public class BannerOptions {
         mIndicatorOptions.setSlideProgress(0);
     }
 
-    public boolean isDisallowIntercept() {
-        return disallowIntercept;
+    public boolean isDisallowParentInterceptDownEvent() {
+        return disallowParentInterceptDownEvent;
     }
 
-    public void setDisallowIntercept(boolean disallowIntercept) {
-        this.disallowIntercept = disallowIntercept;
+    public void setDisallowParentInterceptDownEvent(boolean disallowParentInterceptDownEvent) {
+        this.disallowParentInterceptDownEvent = disallowParentInterceptDownEvent;
     }
 
     public int getOffScreenPageLimit() {
