@@ -9,6 +9,8 @@
         android:id="@+id/banner_view"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_180"
+        app:bvp_page_margin="@dimen/dp_16"
+        app:bvp_reveal_width="@dimen/dp_0"
         android:layout_marginTop="@dimen/dp_16"
         app:bvp_indicator_visibility="visible" />
 
