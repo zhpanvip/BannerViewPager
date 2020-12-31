@@ -387,20 +387,17 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
             }
             recyclerView.setClipToPadding(false);
         }
+        mBannerManager.createMarginTransformer();
     }
 
     private void initPageStyle(@APageStyle int pageStyle) {
+        float pageScale = mBannerManager.getBannerOptions().getPageScale();
         if (pageStyle == PageStyle.MULTI_PAGE_OVERLAP) {
-            setMultiPageStyle(true, mBannerManager.getBannerOptions().getPageScale());
+            mBannerManager.setMultiPageStyle(true, pageScale);
         } else if (pageStyle == PageStyle.MULTI_PAGE_SCALE) {
-            setMultiPageStyle(false, mBannerManager.getBannerOptions().getPageScale());
+            mBannerManager.setMultiPageStyle(false, pageScale);
         }
     }
-
-    private void setMultiPageStyle(boolean overlap, float scale) {
-        mBannerManager.setMultiPageStyle(overlap, scale);
-    }
-
 
     private void resetCurrentItem(int item) {
         if (isCanLoopSafely()) {

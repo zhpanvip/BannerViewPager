@@ -82,8 +82,12 @@ public class BannerManager {
 
     public void setPageMargin(int pageMargin) {
         mBannerOptions.setPageMargin(pageMargin);
+
+    }
+
+    public void createMarginTransformer() {
         removeMarginPageTransformer();
-        mMarginPageTransformer = new MarginPageTransformer(pageMargin);
+        mMarginPageTransformer = new MarginPageTransformer(mBannerOptions.getPageMargin());
         mCompositePageTransformer.addTransformer(mMarginPageTransformer);
     }
 
