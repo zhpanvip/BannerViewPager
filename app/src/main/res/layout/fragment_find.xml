@@ -7,8 +7,8 @@
     <com.zhpan.bannerview.BannerViewPager
         android:id="@+id/banner_view"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_180"
-        android:layout_marginTop="@dimen/dp_20"
+        android:layout_height="@dimen/dp_185"
+        android:layout_marginTop="@dimen/dp_16"
         app:bvp_indicator_slide_mode="worm"
         app:bvp_page_style="multi_page" />
 

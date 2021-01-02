@@ -109,7 +109,7 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
                 .setIndicatorSlideMode(IndicatorSlideMode.NORMAL)
                 .setIndicatorVisibility(View.VISIBLE)
                 .setIndicatorGravity(IndicatorGravity.CENTER)
-                .refreshData(getMDrawableList());
+                .refreshData(getPicList(4));
     }
 
     private void setIndicatorBelowOfBanner() {

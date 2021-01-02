@@ -2,4 +2,4 @@
 <com.zhpan.bannerview.BannerViewPager xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/banner_view3"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/dp_120" />
+    android:layout_height="@dimen/dp_180" />
