@@ -246,7 +246,7 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
     private void pageSelected(int position) {
         int size = mBannerPagerAdapter.getListSize();
         boolean canLoop = mBannerManager.getBannerOptions().isCanLoop();
-        currentPosition = BannerUtils.getRealPosition(canLoop, position, size);
+        currentPosition = BannerUtils.getRealPosition(position, size);
         boolean needResetCurrentItem = size > 0 && canLoop && (position == 0 || position == MAX_VALUE - 1);
         if (needResetCurrentItem) {
             resetCurrentItem(currentPosition);
@@ -262,7 +262,7 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
     private void pageScrolled(int position, float positionOffset, int positionOffsetPixels) {
         int listSize = mBannerPagerAdapter.getListSize();
         boolean canLoop = mBannerManager.getBannerOptions().isCanLoop();
-        int realPosition = BannerUtils.getRealPosition(canLoop, position, listSize);
+        int realPosition = BannerUtils.getRealPosition(position, listSize);
         if (listSize > 0) {
             if (onPageChangeCallback != null) {
                 onPageChangeCallback.onPageScrolled(realPosition, positionOffset, positionOffsetPixels);
@@ -411,8 +411,7 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
         setIndicatorValues(data);
         boolean canLoop = mBannerManager.getBannerOptions().isCanLoop();
         mBannerManager.getBannerOptions().getIndicatorOptions()
-                .setCurrentPosition(BannerUtils.getRealPosition(canLoop,
-                        mViewPager.getCurrentItem(), data.size()));
+                .setCurrentPosition(BannerUtils.getRealPosition(mViewPager.getCurrentItem(), data.size()));
         mIndicatorView.notifyDataChanged();
     }
 
@@ -789,7 +788,7 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
             int pageSize = mBannerPagerAdapter.getListSize();
             int currentItem = mViewPager.getCurrentItem();
             boolean canLoop = mBannerManager.getBannerOptions().isCanLoop();
-            int realPosition = BannerUtils.getRealPosition(canLoop, currentItem, pageSize);
+            int realPosition = BannerUtils.getRealPosition(currentItem, pageSize);
             if (currentItem != index) {
                 if (index == 0 && realPosition == pageSize - 1) {
                     mViewPager.addItemDecoration(decor, currentItem + 1);
@@ -885,7 +884,7 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
             int currentItem = mViewPager.getCurrentItem();
             int pageSize = mBannerPagerAdapter.getListSize();
             boolean canLoop = mBannerManager.getBannerOptions().isCanLoop();
-            int realPosition = BannerUtils.getRealPosition(canLoop, currentItem, mBannerPagerAdapter.getListSize());
+            int realPosition = BannerUtils.getRealPosition(currentItem, mBannerPagerAdapter.getListSize());
             if (currentItem != item) {
                 if (item == 0 && realPosition == pageSize - 1) {
                     mViewPager.setCurrentItem(currentItem + 1);
@@ -911,7 +910,7 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
             int pageSize = mBannerPagerAdapter.getListSize();
             int currentItem = mViewPager.getCurrentItem();
             boolean canLoop = mBannerManager.getBannerOptions().isCanLoop();
-            int realPosition = BannerUtils.getRealPosition(canLoop, currentItem, pageSize);
+            int realPosition = BannerUtils.getRealPosition(currentItem, pageSize);
             if (currentItem != item) {
                 if (item == 0 && realPosition == pageSize - 1) {
                     mViewPager.setCurrentItem(currentItem + 1, smoothScroll);
