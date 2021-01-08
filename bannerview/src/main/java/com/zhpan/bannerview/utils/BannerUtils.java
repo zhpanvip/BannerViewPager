@@ -48,16 +48,15 @@ public class BannerUtils {
      * {@link BaseBannerAdapter#MAX_VALUE}的ViewPager2,并将当前position设置为ViewPager2
      * 的中间位置，因此，此时的position需要通过该方法进行转换为真实的position。
      *
-     * @param isCanLoop 是否开启了循环轮播
      * @param position  当前position
      * @param pageSize  轮播图页面数
      * @return 真实的position
      */
-    public static int getRealPosition(boolean isCanLoop, int position, int pageSize) {
+    public static int getRealPosition(int position, int pageSize) {
         if (pageSize == 0) {
             return 0;
         }
-        return isCanLoop ? (position + pageSize) % pageSize : (position + pageSize) % pageSize;
+        return (position + pageSize) % pageSize;
     }
 
     /**

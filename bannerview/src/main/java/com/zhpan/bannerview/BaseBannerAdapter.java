@@ -31,12 +31,12 @@ public abstract class BaseBannerAdapter<T> extends RecyclerView.Adapter<BaseView
 
     @Override
     public final void onBindViewHolder(@NonNull BaseViewHolder<T> holder, final int position) {
-        int realPosition = BannerUtils.getRealPosition(isCanLoop, position, getListSize());
+        int realPosition = BannerUtils.getRealPosition(position, getListSize());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View clickedView) {
                 if (mPageClickListener != null) {
-                    mPageClickListener.onPageClick(clickedView, BannerUtils.getRealPosition(isCanLoop, position, getListSize()));
+                    mPageClickListener.onPageClick(clickedView, BannerUtils.getRealPosition(position, getListSize()));
                 }
             }
         });
@@ -45,7 +45,7 @@ public abstract class BaseBannerAdapter<T> extends RecyclerView.Adapter<BaseView
 
     @Override
     public final int getItemViewType(int position) {
-        int realPosition = BannerUtils.getRealPosition(isCanLoop, position, getListSize());
+        int realPosition = BannerUtils.getRealPosition(position, getListSize());
         return getViewType(realPosition);
     }
 
