@@ -51,6 +51,7 @@ class ArticleAdapter(val context: Context, data: List<ArticleWrapper.Article>) :
                             ContextCompat.getColor(holder.itemView.context, R.color.red_checked_color))
                     .setOrientation(ViewPager2.ORIENTATION_VERTICAL)
                     .setInterval(2000)
+                    .setIndicatorVisibility(View.GONE)
                     .setAdapter(DataBindingSampleAdapter())
                     .create(article.bannerData)
         } else if (holder is ArticleViewHolder) {

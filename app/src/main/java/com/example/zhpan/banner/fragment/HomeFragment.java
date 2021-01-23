@@ -183,6 +183,8 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void initVerticalBanner() {
+        int dp16 = getResources().getDimensionPixelOffset(R.dimen.dp_16);
+        int dp40 = getResources().getDimensionPixelOffset(R.dimen.dp_50);
         mViewPagerVertical
                 .setAutoPlay(true)
                 .setScrollDuration(500)
@@ -190,6 +192,8 @@ public class HomeFragment extends BaseFragment {
                 .setIndicatorStyle(IndicatorStyle.ROUND_RECT)
                 .setIndicatorSlideMode(IndicatorSlideMode.SCALE)
                 .setIndicatorSliderGap(getResources().getDimensionPixelOffset(R.dimen.dp_4))
+                .setIndicatorMargin(dp16, dp16, dp16, dp40)
+                .setIndicatorGravity(IndicatorGravity.START)
                 .setIndicatorSliderWidth(getResources().getDimensionPixelOffset(R.dimen.dp_4), getResources().getDimensionPixelOffset(R.dimen.dp_10))
                 .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
                 .setOrientation(ViewPager2.ORIENTATION_VERTICAL)

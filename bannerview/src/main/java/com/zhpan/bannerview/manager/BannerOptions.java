@@ -236,6 +236,7 @@ public class BannerOptions {
 
     public void setOrientation(int orientation) {
         this.orientation = orientation;
+        mIndicatorOptions.setOrientation(orientation);
     }
 
     public boolean isUserInputEnabled() {
