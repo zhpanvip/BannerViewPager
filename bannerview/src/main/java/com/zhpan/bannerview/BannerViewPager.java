@@ -948,6 +948,14 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
     }
 
     /**
+     * 应用已经设置号的banner配置信息
+     */
+    public BannerViewPager<T> applyBannerOption(BannerOptions options) {
+        mBannerManager.applyBannerOptions(options);
+        return this;
+    }
+
+    /**
      * @param revealWidth 一屏多页模式下两边页面显露出来的宽度
      */
     public BannerViewPager<T> setRevealWidth(int revealWidth) {

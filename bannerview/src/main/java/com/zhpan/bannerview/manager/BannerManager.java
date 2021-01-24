@@ -43,6 +43,15 @@ public class BannerManager {
         return mBannerOptions;
     }
 
+    /**
+     * 应用Banner设置
+     *
+     * @param options 设置信息
+     */
+    public void applyBannerOptions(BannerOptions options) {
+        mBannerOptions = options;
+    }
+
     public void initAttrs(Context context, AttributeSet attrs) {
         mAttributeController.init(context, attrs);
     }

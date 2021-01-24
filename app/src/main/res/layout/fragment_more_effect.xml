@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <com.zhpan.bannerview.BannerViewPager
+            android:id="@+id/banner_more_one"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_180"
+            tools:background="#00ACC1" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_10" />
+
+        <com.zhpan.bannerview.BannerViewPager
+            android:id="@+id/banner_more_two"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_180"
+            tools:background="#0097A7" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_10" />
+
+
+        <com.zhpan.bannerview.BannerViewPager
+            android:id="@+id/banner_more_three"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_180"
+            tools:background="#558B2F" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_10" />
+
+        <com.zhpan.bannerview.BannerViewPager
+            android:id="@+id/banner_more_four"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_180"
+            tools:background="#558B2F" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_10" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.core.widget.NestedScrollView>
