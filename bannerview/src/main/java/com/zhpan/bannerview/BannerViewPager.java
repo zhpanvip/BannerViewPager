@@ -37,6 +37,7 @@ import com.zhpan.indicator.option.IndicatorOptions;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.os.Build.VERSION_CODES.JELLY_BEAN_MR1;
 import static com.zhpan.bannerview.BaseBannerAdapter.MAX_VALUE;
 import static com.zhpan.bannerview.constants.IndicatorGravity.CENTER;
 import static com.zhpan.bannerview.constants.IndicatorGravity.END;
@@ -1033,6 +1034,14 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
 
     public BannerViewPager<T> disallowParentInterceptDownEvent(boolean disallowParentInterceptDownEvent) {
         mBannerManager.getBannerOptions().setDisallowParentInterceptDownEvent(disallowParentInterceptDownEvent);
+        return this;
+    }
+
+    public BannerViewPager<T> setRTLMode(boolean rtlMode) {
+        if (Build.VERSION.SDK_INT >= JELLY_BEAN_MR1) {
+            mViewPager.setLayoutDirection(rtlMode ? View.LAYOUT_DIRECTION_RTL : View.LAYOUT_DIRECTION_LTR);
+            // TODO set indicator RTL mode.
+        }
         return this;
     }
 
