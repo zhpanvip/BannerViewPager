@@ -60,6 +60,7 @@ class MainActivity : AppCompatActivity() {
             1 -> R.id.rb_add
             2 -> R.id.rb_find
             3 -> R.id.rb_others
+            4 -> R.id.rb_more
             else -> R.id.rb_home
         }
     }
@@ -71,6 +72,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.rb_add -> vp_fragment.setCurrentItem(AdapterFragmentPager.PAGE_FIND, true)
                 R.id.rb_find -> vp_fragment.setCurrentItem(AdapterFragmentPager.PAGE_INDICATOR, true)
                 R.id.rb_others -> vp_fragment.setCurrentItem(AdapterFragmentPager.PAGE_OTHERS, true)
+                R.id.rb_more->vp_fragment.setCurrentItem(AdapterFragmentPager.PAGE_MORE, true)
             }
         }
     }

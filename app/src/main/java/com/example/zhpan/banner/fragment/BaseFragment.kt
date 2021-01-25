@@ -5,14 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
-
 import com.trello.rxlifecycle2.components.support.RxFragment
-
-import java.util.ArrayList
+import java.util.*
 
 /**
  * MVC模式的Base fragment
@@ -43,13 +40,13 @@ abstract class BaseFragment : RxFragment() {
         return view
     }
 
-    protected fun getPicList(count:Int): MutableList<Int> {
+    protected fun getPicList(count: Int = 4): MutableList<Int> {
         mPictureList.clear()
         for (i in 0..count) {
             val drawable = resources.getIdentifier("advertise$i", "drawable", mContext.packageName)
             mPictureList.add(drawable)
         }
-        return mPictureList;
+        return mPictureList
     }
 
     protected fun initData(j: Int) {

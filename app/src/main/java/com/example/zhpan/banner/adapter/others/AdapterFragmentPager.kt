@@ -53,6 +53,14 @@ class AdapterFragmentPager(fragmentActivity: FragmentActivity) : FragmentStateAd
                     fragment = fragments.get(PAGE_OTHERS)
                 }
             }
+            PAGE_MORE->{
+                if (fragments.get(PAGE_MORE) == null) {
+                    fragment = MoreEffectFragment.getInstance();
+                    fragments.put(PAGE_MORE, fragment)
+                } else {
+                    fragment = fragments.get(PAGE_MORE)
+                }
+            }
             else -> {
                 if (fragments.get(PAGE_HOME) == null) {
                     fragment = EmptyFragment.getInstance();
@@ -66,7 +74,7 @@ class AdapterFragmentPager(fragmentActivity: FragmentActivity) : FragmentStateAd
     }
 
     override fun getItemCount(): Int {
-        return 4
+        return 5
     }
 
     companion object {
@@ -78,6 +86,8 @@ class AdapterFragmentPager(fragmentActivity: FragmentActivity) : FragmentStateAd
         const val PAGE_INDICATOR = 2
 
         const val PAGE_OTHERS = 3
+
+        const val PAGE_MORE = 4
 
     }
 

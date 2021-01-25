@@ -1045,4 +1045,13 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
         return this;
     }
 
+
+    /**
+     * 应用已经设置号的banner配置信息
+     */
+    public BannerViewPager<T> applyBannerOption(BannerOptions options) {
+        mBannerManager.applyBannerOptions(options);
+        return this;
+    }
+
 }
