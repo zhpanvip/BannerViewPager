@@ -6,7 +6,7 @@ android {
     compileSdkVersion 28
 
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion 19
     }
 
     buildTypes {
@@ -19,6 +19,6 @@ android {
 
 dependencies {
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
-    api 'com.github.zhpanvip:viewpagerindicator:1.1.0'
+    api 'com.github.zhpanvip:viewpagerindicator:1.2.0'
 //    api project(path: ':indicator')
 }

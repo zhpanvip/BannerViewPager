@@ -6,6 +6,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.zhpan.bannerview.constants.PageStyle;
 import com.zhpan.bannerview.utils.BannerUtils;
+import com.zhpan.indicator.enums.IndicatorOrientation;
 import com.zhpan.indicator.option.IndicatorOptions;
 
 import static com.zhpan.bannerview.transform.ScaleInTransformer.DEFAULT_MIN_SCALE;
@@ -24,6 +25,7 @@ public class BannerOptions {
         pageMargin = BannerUtils.dp2px(20);
         rightRevealWidth = DEFAULT_REVEAL_WIDTH;
         leftRevealWidth = DEFAULT_REVEAL_WIDTH;
+        rtl = false;
     }
 
     public static final int DEFAULT_REVEAL_WIDTH = -1000;
@@ -59,6 +61,8 @@ public class BannerOptions {
     private boolean userInputEnabled = true;
 
     private int orientation = ViewPager2.ORIENTATION_HORIZONTAL;
+
+    private boolean rtl;
 
     private boolean disallowParentInterceptDownEvent;
 
@@ -266,6 +270,17 @@ public class BannerOptions {
 
     public void setOffScreenPageLimit(int offScreenPageLimit) {
         this.offScreenPageLimit = offScreenPageLimit;
+    }
+
+    public boolean isRtl() {
+        return rtl;
+    }
+
+    public void setRtl(boolean rtl) {
+        this.rtl = rtl;
+        if (rtl) {
+            mIndicatorOptions.setOrientation(IndicatorOrientation.INDICATOR_RTL);
+        }
     }
 
     public static class IndicatorMargin {

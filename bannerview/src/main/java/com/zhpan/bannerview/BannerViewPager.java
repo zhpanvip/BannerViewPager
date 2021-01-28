@@ -32,6 +32,7 @@ import com.zhpan.indicator.IndicatorView;
 import com.zhpan.indicator.annotation.AIndicatorSlideMode;
 import com.zhpan.indicator.annotation.AIndicatorStyle;
 import com.zhpan.indicator.base.IIndicator;
+import com.zhpan.indicator.enums.IndicatorOrientation;
 import com.zhpan.indicator.option.IndicatorOptions;
 
 import java.util.ArrayList;
@@ -1037,11 +1038,15 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
         return this;
     }
 
+    /**
+     * Set right to left mode.
+     *
+     * @param rtlMode true:right to left mode,
+     *                false:right to left mode.
+     */
     public BannerViewPager<T> setRTLMode(boolean rtlMode) {
-        if (Build.VERSION.SDK_INT >= JELLY_BEAN_MR1) {
-            mViewPager.setLayoutDirection(rtlMode ? View.LAYOUT_DIRECTION_RTL : View.LAYOUT_DIRECTION_LTR);
-            // TODO set indicator RTL mode.
-        }
+        mViewPager.setLayoutDirection(rtlMode ? View.LAYOUT_DIRECTION_RTL : View.LAYOUT_DIRECTION_LTR);
+        mBannerManager.getBannerOptions().setRtl(rtlMode);
         return this;
     }
 
