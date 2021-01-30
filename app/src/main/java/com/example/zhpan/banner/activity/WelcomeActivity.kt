@@ -61,13 +61,13 @@ class WelcomeActivity : BaseDataActivity() {
                     updateUI(position)
                 }
             })
-            setAdapter(SimpleAdapter().apply {
+            adapter = SimpleAdapter().apply {
                 mOnSubViewClickListener = object : SimpleAdapter.OnSubViewClickListener {
                     override fun onViewClick(view: View?, position: Int) {
                         ToastUtils.showShort("Logo Clicked,position:$position")
                     }
                 }
-            })
+            }
             setIndicatorSliderColor(ContextCompat.getColor(this@WelcomeActivity, R.color.white),
                     ContextCompat.getColor(this@WelcomeActivity, R.color.white_alpha_75))
         }.create(data)
