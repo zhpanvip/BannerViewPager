@@ -28,9 +28,9 @@
 
 ## Preview
 
- ### [Click here or scan the QR code to download demo apk](https://www.pgyer.com/bannerviewpager). 
+ ### [Click here or scan the QR code to download demo apk](https://oss.pgyer.com/897714a57f869b81c9fbf06c695c4e32.apk?auth_key=1612113481-db41d23f98b45a79df0a4f17c221a314-0-7950d2ad6458ca837d4687c03a505e61&response-content-disposition=attachment%3B+filename%3Dapp-release.apk). 
  
- Due to the download platform restrictions, each version can only be downloaded up to 10 times. Download links for other versions:：[Download V3.2.0](https://www.pgyer.com/24463b9b840a6317f3c98f6f3082685c),[Download V3.1.4](https://www.pgyer.com/472da9094cdc6175afdb36d99292de94)
+ Due to the download platform restrictions, each version can only be downloaded up to 10 times. Download links for other versions: [Download V3.4.0](https://oss.pgyer.com/6fcaeef41306bfa593aa4ad3dcc03302.apk?auth_key=1612113481-a4743e9042a138f4e690a68a11418570-0-44800e0e340193fa3021dbfb847521a9&response-content-disposition=attachment%3B+filename%3Dapp-release.apk),[Download V3.1.4](https://oss.pgyer.com/d679c49e67f8d17a34bfbf8462a8ad7e.apk?auth_key=1612113481-43f94663c061279f6e57b1166686eb68-0-238007a8ecbb6c7248ce5df9d767dcd1&response-content-disposition=attachment%3B+filename%3Dapp-release.apk)
 
 ![QRCode](https://gitee.com/zhpanvip/images/raw/master/project/banner/qrcode.png)
 
