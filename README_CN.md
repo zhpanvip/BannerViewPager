@@ -28,8 +28,8 @@
 
 ## 效果预览
 
- ### [点击或扫描二维码下载apk](https://www.pgyer.com/bannerviewpager) 
- 由于蒲公英平台限制，每个版本最多只能下载10次。其他版本下载链接：[下载V3.2.0](https://www.pgyer.com/24463b9b840a6317f3c98f6f3082685c),[下载V3.1.4](https://www.pgyer.com/472da9094cdc6175afdb36d99292de94)
+ ### [点击或扫描二维码下载apk](https://oss.pgyer.com/897714a57f869b81c9fbf06c695c4e32.apk?auth_key=1612114117-9e090627d79640f7db877dee2bf9c4f5-0-2aac46487fb89208426d5c48b6eb83b5&response-content-disposition=attachment%3B+filename%3Dapp-release.apk) 
+ 由于蒲公英平台限制，每个版本最多只能下载10次。其他版本下载链接：[V3.4.0下载](https://oss.pgyer.com/6fcaeef41306bfa593aa4ad3dcc03302.apk?auth_key=1612113481-a4743e9042a138f4e690a68a11418570-0-44800e0e340193fa3021dbfb847521a9&response-content-disposition=attachment%3B+filename%3Dapp-release.apk),[V3.1.4下载](https://oss.pgyer.com/d679c49e67f8d17a34bfbf8462a8ad7e.apk?auth_key=1612113481-43f94663c061279f6e57b1166686eb68-0-238007a8ecbb6c7248ce5df9d767dcd1&response-content-disposition=attachment%3B+filename%3Dapp-release.apk)
 
 ![扫描下载Demo](https://gitee.com/zhpanvip/images/raw/master/project/banner/qrcode.png)
 
