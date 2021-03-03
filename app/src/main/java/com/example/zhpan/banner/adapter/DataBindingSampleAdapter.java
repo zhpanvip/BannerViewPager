@@ -20,7 +20,9 @@ public class DataBindingSampleAdapter extends BaseBannerAdapter<BannerData> {
     @Override
     protected void bindData(BaseViewHolder<BannerData> holder, BannerData data, int position, int pageSize) {
         ItemSlideModelDataBindingBinding dataBinding = DataBindingUtil.bind(holder.itemView);
-        dataBinding.setBannerData(data);
+        if (dataBinding != null) {
+            dataBinding.setBannerData(data);
+        }
     }
 
     @Override

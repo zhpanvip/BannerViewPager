@@ -99,7 +99,7 @@ public class HomeFragment extends BaseFragment {
         mIndicatorView = view.findViewById(R.id.indicator_view);
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getMContext()));
-        recyclerView.addHeadView(getHeaderView(), true);
+        recyclerView.addHeaderView(getHeaderView(), true);
         recyclerView.addItemDecoration(new DividerItemDecoration(getMContext(),
                 DividerItemDecoration.VERTICAL));
         articleAdapter = new ArticleAdapter(getActivity(), new ArrayList<>());

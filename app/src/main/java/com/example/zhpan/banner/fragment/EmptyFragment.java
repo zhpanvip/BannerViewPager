@@ -1,6 +1,7 @@
 package com.example.zhpan.banner.fragment;
 
 import android.os.Bundle;
+import android.os.Message;
 import android.view.View;
 
 import com.example.zhpan.banner.R;
@@ -13,7 +14,7 @@ import org.jetbrains.annotations.Nullable;
  * @date 2020/12/9
  */
 public class EmptyFragment extends BaseFragment {
-
+    Message msg;
     @Override
     protected int getLayout() {
         return R.layout.fragment_empty;

@@ -278,9 +278,7 @@ public class BannerOptions {
 
     public void setRtl(boolean rtl) {
         this.rtl = rtl;
-        if (rtl) {
-            mIndicatorOptions.setOrientation(IndicatorOrientation.INDICATOR_RTL);
-        }
+        mIndicatorOptions.setOrientation(rtl ? IndicatorOrientation.INDICATOR_RTL : IndicatorOrientation.INDICATOR_HORIZONTAL);
     }
 
     public static class IndicatorMargin {
