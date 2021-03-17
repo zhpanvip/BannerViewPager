@@ -23,11 +23,6 @@ class MainActivity : AppCompatActivity() {
         setListener()
     }
 
-    override fun onWindowFocusChanged(hasFocus: Boolean) {
-        super.onWindowFocusChanged(hasFocus)
-//        Debug.stopMethodTracing()
-    }
-
     private fun initView() {
         toolbar.apply {
             title = getString(R.string.app_name)
