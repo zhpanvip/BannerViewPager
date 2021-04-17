@@ -60,16 +60,12 @@ public class ScrollDurationManger extends LinearLayoutManager {
     protected void calculateExtraLayoutSpace(@NonNull RecyclerView.State state,
                                              @NonNull int[] extraLayoutSpace) {
         try {
-            Method method = mParent.getClass().getDeclaredMethod("calculateExtraLayoutSpace", state.getClass(), extraLayoutSpace.getClass());
+            Method method = mParent.getClass()
+                    .getDeclaredMethod("calculateExtraLayoutSpace",
+                            state.getClass(), extraLayoutSpace.getClass());
             method.setAccessible(true);
             method.invoke(mParent, state, extraLayoutSpace);
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-            BannerUtils.log(e.getMessage());
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-            BannerUtils.log(e.getMessage());
-        } catch (InvocationTargetException e) {
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
             BannerUtils.log(e.getMessage());
         }

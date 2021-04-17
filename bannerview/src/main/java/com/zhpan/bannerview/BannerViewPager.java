@@ -32,13 +32,11 @@ import com.zhpan.indicator.IndicatorView;
 import com.zhpan.indicator.annotation.AIndicatorSlideMode;
 import com.zhpan.indicator.annotation.AIndicatorStyle;
 import com.zhpan.indicator.base.IIndicator;
-import com.zhpan.indicator.enums.IndicatorOrientation;
 import com.zhpan.indicator.option.IndicatorOptions;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.os.Build.VERSION_CODES.JELLY_BEAN_MR1;
 import static com.zhpan.bannerview.BaseBannerAdapter.MAX_VALUE;
 import static com.zhpan.bannerview.constants.IndicatorGravity.CENTER;
 import static com.zhpan.bannerview.constants.IndicatorGravity.END;
@@ -930,7 +928,6 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
     /**
      * Set Page Style for Banner
      * {@link PageStyle#NORMAL}
-     * {@link PageStyle#MULTI_PAGE}
      *
      * @return BannerViewPager
      */
