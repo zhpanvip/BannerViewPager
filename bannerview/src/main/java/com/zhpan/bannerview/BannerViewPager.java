@@ -32,13 +32,12 @@ import com.zhpan.indicator.IndicatorView;
 import com.zhpan.indicator.annotation.AIndicatorSlideMode;
 import com.zhpan.indicator.annotation.AIndicatorStyle;
 import com.zhpan.indicator.base.IIndicator;
-import com.zhpan.indicator.enums.IndicatorOrientation;
 import com.zhpan.indicator.option.IndicatorOptions;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-import static android.os.Build.VERSION_CODES.JELLY_BEAN_MR1;
 import static com.zhpan.bannerview.BaseBannerAdapter.MAX_VALUE;
 import static com.zhpan.bannerview.constants.IndicatorGravity.CENTER;
 import static com.zhpan.bannerview.constants.IndicatorGravity.END;
@@ -276,7 +275,7 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
     }
 
     private void handlePosition() {
-        if (mBannerPagerAdapter.getListSize() > 1 && isAutoPlay()) {
+        if (mBannerPagerAdapter != null && mBannerPagerAdapter.getListSize() > 1 && isAutoPlay()) {
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
             mHandler.postDelayed(mRunnable, getInterval());
         }
@@ -461,7 +460,10 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
      * @return BannerViewPager data set
      */
     public List<T> getData() {
-        return mBannerPagerAdapter.getData();
+        if (mBannerPagerAdapter != null) {
+            return mBannerPagerAdapter.getData();
+        }
+        return Collections.emptyList();
     }
 
     /**
