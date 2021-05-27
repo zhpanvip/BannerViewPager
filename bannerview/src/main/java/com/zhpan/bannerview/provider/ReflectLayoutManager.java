@@ -48,9 +48,7 @@ public class ReflectLayoutManager {
                 layoutManager.setAccessible(true);
                 layoutManager.set(mScrollEventAdapter, scrollDurationManger);
             }
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        } catch (NoSuchFieldException | IllegalAccessException e) {
             e.printStackTrace();
         }
     }

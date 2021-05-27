@@ -932,7 +932,6 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
     /**
      * Set Page Style for Banner
      * {@link PageStyle#NORMAL}
-     * {@link PageStyle#MULTI_PAGE}
      *
      * @return BannerViewPager
      */
