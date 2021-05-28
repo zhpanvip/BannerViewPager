@@ -73,7 +73,7 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
         mViewPager.setIndicatorSliderGap(BannerUtils.dp2px(6))
                 .setIndicatorView(mIndicatorView)
                 .setLifecycleRegistry(getLifecycle())
-                .setRoundCorner(BannerUtils.dp2px(6))
+                .setRoundCorner(BannerUtils.dp2px(36), 0, 0, BannerUtils.dp2px(36))
                 .setOnPageClickListener((clickedView, position) -> {
                     ToastUtils.showShort("position:" + position);
                     int currentItem = mViewPager.getCurrentItem();

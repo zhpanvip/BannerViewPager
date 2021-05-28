@@ -1,5 +1,7 @@
 package com.zhpan.bannerview.manager;
 
+import android.graphics.Path;
+import android.graphics.RectF;
 import android.view.View;
 
 import androidx.viewpager2.widget.ViewPager2;
@@ -8,6 +10,8 @@ import com.zhpan.bannerview.constants.PageStyle;
 import com.zhpan.bannerview.utils.BannerUtils;
 import com.zhpan.indicator.enums.IndicatorOrientation;
 import com.zhpan.indicator.option.IndicatorOptions;
+
+import java.util.Arrays;
 
 import static com.zhpan.bannerview.transform.ScaleInTransformer.DEFAULT_MIN_SCALE;
 
@@ -25,7 +29,7 @@ public class BannerOptions {
         pageMargin = BannerUtils.dp2px(20);
         rightRevealWidth = DEFAULT_REVEAL_WIDTH;
         leftRevealWidth = DEFAULT_REVEAL_WIDTH;
-        rtl = false;
+        roundRadius = new float[8];
     }
 
     public static final int DEFAULT_REVEAL_WIDTH = -1000;
@@ -56,7 +60,7 @@ public class BannerOptions {
 
     private int scrollDuration;
 
-    private int roundRadius;
+    private float[] roundRadius;
 
     private boolean userInputEnabled = true;
 
@@ -210,12 +214,24 @@ public class BannerOptions {
         mIndicatorMargin = new IndicatorMargin(left, top, right, bottom);
     }
 
-    public int getRoundRectRadius() {
+    public float[] getRoundRectRadius() {
         return roundRadius;
     }
 
-    public void setRoundRectRadius(int roundRadius) {
-        this.roundRadius = roundRadius;
+    public void setRoundRectRadius(int radius) {
+        setRoundRectRadius(radius, radius, radius, radius);
+    }
+
+    public void setRoundRectRadius(int topLeftRadius, int topRightRadius, int bottomLeftRadius,
+                                   int bottomRightRadius) {
+        roundRadius[0] = topLeftRadius;
+        roundRadius[1] = topLeftRadius;
+        roundRadius[2] = topRightRadius;
+        roundRadius[3] = topRightRadius;
+        roundRadius[4] = bottomRightRadius;
+        roundRadius[5] = bottomRightRadius;
+        roundRadius[6] = bottomLeftRadius;
+        roundRadius[7] = bottomLeftRadius;
     }
 
     public int getScrollDuration() {

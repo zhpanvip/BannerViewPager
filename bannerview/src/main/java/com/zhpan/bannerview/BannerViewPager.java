@@ -1,7 +1,9 @@
 package com.zhpan.bannerview;
 
 import android.content.Context;
-import android.os.Build;
+import android.graphics.Canvas;
+import android.graphics.Path;
+import android.graphics.RectF;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
@@ -26,7 +28,6 @@ import com.zhpan.bannerview.constants.PageStyle;
 import com.zhpan.bannerview.manager.BannerManager;
 import com.zhpan.bannerview.manager.BannerOptions;
 import com.zhpan.bannerview.provider.ReflectLayoutManager;
-import com.zhpan.bannerview.provider.ViewStyleSetter;
 import com.zhpan.bannerview.utils.BannerUtils;
 import com.zhpan.indicator.IndicatorView;
 import com.zhpan.indicator.annotation.AIndicatorSlideMode;
@@ -80,6 +81,10 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
             handlePosition();
         }
     };
+
+    private RectF mRadiusRectF;
+
+    private Path mRadiusPath;
 
     private int startX, startY;
 
@@ -286,7 +291,6 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
         if (list != null) {
             setIndicatorValues(list);
             setupViewPager(list);
-            initRoundCorner();
         }
     }
 
@@ -342,11 +346,15 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
         }
     }
 
-    private void initRoundCorner() {
-        int roundCorner = mBannerManager.getBannerOptions().getRoundRectRadius();
-        if (roundCorner > 0 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            ViewStyleSetter.applyRoundCorner(this, roundCorner);
+    @Override
+    protected void dispatchDraw(Canvas canvas) {
+        if (mRadiusRectF != null && mRadiusPath != null) {
+            mRadiusRectF.right = this.getWidth();
+            mRadiusRectF.bottom = this.getHeight();
+            mRadiusPath.addRoundRect(mRadiusRectF, mBannerManager.getBannerOptions().getRoundRectRadius(), Path.Direction.CW);
+            canvas.clipPath(mRadiusPath);
         }
+        super.dispatchDraw(canvas);
     }
 
     private void setupViewPager(List<T> list) {
@@ -498,13 +506,27 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
 
     /**
      * Set round rectangle effect for BannerViewPager.
-     * <p>
-     * Require SDK_INT>=LOLLIPOP(API 21)
      *
      * @param radius round radius
      */
     public BannerViewPager<T> setRoundCorner(int radius) {
-        mBannerManager.getBannerOptions().setRoundRectRadius(radius);
+        setRoundCorner(radius, radius, radius, radius);
+        return this;
+    }
+
+    /**
+     * Set round rectangle effect for BannerViewPager.
+     *
+     * @param topLeftRadius     top left round radius
+     * @param topRightRadius    top right round radius
+     * @param bottomLeftRadius  bottom left round radius
+     * @param bottomRightRadius bottom right round radius
+     */
+    public BannerViewPager<T> setRoundCorner(int topLeftRadius, int topRightRadius, int bottomLeftRadius,
+                                             int bottomRightRadius) {
+        mRadiusRectF = new RectF(0, 0, 0, 0);
+        mRadiusPath = new Path();
+        mBannerManager.getBannerOptions().setRoundRectRadius(topLeftRadius, topRightRadius, bottomLeftRadius, bottomRightRadius);
         return this;
     }
 
