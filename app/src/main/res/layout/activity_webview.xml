@@ -6,37 +6,37 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+  <androidx.appcompat.widget.Toolbar
+      android:id="@+id/toolbar"
+      android:layout_width="match_parent"
+      android:layout_height="?attr/actionBarSize"
+      android:background="@color/colorPrimary"
+      android:fitsSystemWindows="true"
+      app:navigationIcon="@drawable/ic_back"
+      app:titleTextColor="@color/white" />
+
+
+  <com.scwang.smartrefresh.layout.SmartRefreshLayout
+      android:id="@+id/swipe_refresh_layout"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      app:srlAccentColor="@android:color/white"
+      app:srlEnableHeaderTranslationContent="false"
+      app:srlEnablePreviewInEditMode="false"
+      app:srlPrimaryColor="@color/colorPrimary">
+
+    <com.scwang.smartrefresh.header.MaterialHeader
+        android:id="@+id/material_header"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimary"
-        android:fitsSystemWindows="true"
-        app:navigationIcon="@drawable/ic_back"
-        app:titleTextColor="@color/white" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_45" />
 
-
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:id="@+id/swipe_refresh_layout"
+    <WebView
+        android:id="@+id/webView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:srlAccentColor="@android:color/white"
-        app:srlEnableHeaderTranslationContent="false"
-        app:srlEnablePreviewInEditMode="false"
-        app:srlPrimaryColor="@color/colorPrimary">
+        android:clipToPadding="false"
+        android:paddingTop="?attr/actionBarSize" />
 
-        <com.scwang.smartrefresh.header.MaterialHeader
-            android:id="@+id/material_header"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_45" />
-
-        <WebView
-            android:id="@+id/webView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:paddingTop="?attr/actionBarSize" />
-
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+  </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 </LinearLayout>

@@ -3,13 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.example.zhpan.banner.view.CornerImageView
-        android:id="@+id/banner_image"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="@dimen/dp_10"
-        android:layout_marginEnd="@dimen/dp_10"
-        android:contentDescription="@string/image_description"
-        android:scaleType="centerCrop" />
+  <com.example.zhpan.banner.view.CornerImageView
+      android:id="@+id/banner_image"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_marginEnd="@dimen/dp_10"
+      android:layout_marginStart="@dimen/dp_10"
+      android:contentDescription="@string/image_description"
+      android:scaleType="centerCrop" />
 
 </RelativeLayout>

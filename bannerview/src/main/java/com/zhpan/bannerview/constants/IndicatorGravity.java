@@ -7,7 +7,7 @@ package com.zhpan.bannerview.constants;
  * </pre>
  */
 public interface IndicatorGravity {
-    int CENTER = 0;
-    int START = 1 << 1;
-    int END = 1 << 2;
+  int CENTER = 0;
+  int START = 1 << 1;
+  int END = 1 << 2;
 }

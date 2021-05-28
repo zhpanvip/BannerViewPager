@@ -101,7 +101,7 @@ public class HomeFragment extends BaseFragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getMContext()));
         recyclerView.addHeaderView(getHeaderView(), true);
         recyclerView.addItemDecoration(new DividerItemDecoration(getMContext(),
-                DividerItemDecoration.VERTICAL));
+            DividerItemDecoration.VERTICAL));
         articleAdapter = new ArticleAdapter(getActivity(), new ArrayList<>());
         recyclerView.setAdapter(articleAdapter);
     }
@@ -114,38 +114,38 @@ public class HomeFragment extends BaseFragment {
 
     private void fetchData(boolean showLoading) {
         Observable.zip(getBannerObserver(), getArticleObserver(), (bannerData, articles) ->
-                new DataWrapper(articles.getDatas(), bannerData))
-                .compose(RxUtil.rxSchedulerHelper(this, showLoading))
-                .subscribe(new ResponseObserver<DataWrapper>() {
-                    @Override
-                    public void onSuccess(DataWrapper response) {
-                        ArticleWrapper.Article article = new ArticleWrapper.Article();
-                        article.setType(1001);
-                        article.setBannerData(new ArrayList<>(response.getDataBeanList()));
-                        headerView.setVisibility(View.VISIBLE);
-                        List<BannerData> dataList = response.getDataBeanList();
-                        BannerData bannerData = new BannerData();
-                        bannerData.setDrawable(R.drawable.bg_card0);
-                        bannerData.setType(TYPE_NEW);
-                        bannerData.setTitle("这是一个自定义类型");
-                        dataList.add(1, bannerData);
-                        mViewPagerHorizontal.refreshData(dataList);
-                        List<ArticleWrapper.Article> articleList = response.getArticleList();
+            new DataWrapper(articles.getDatas(), bannerData))
+            .compose(RxUtil.rxSchedulerHelper(this, showLoading))
+            .subscribe(new ResponseObserver<DataWrapper>() {
+                @Override
+                public void onSuccess(DataWrapper response) {
+                    ArticleWrapper.Article article = new ArticleWrapper.Article();
+                    article.setType(1001);
+                    article.setBannerData(new ArrayList<>(response.getDataBeanList()));
+                    headerView.setVisibility(View.VISIBLE);
+                    List<BannerData> dataList = response.getDataBeanList();
+                    BannerData bannerData = new BannerData();
+                    bannerData.setDrawable(R.drawable.bg_card0);
+                    bannerData.setType(TYPE_NEW);
+                    bannerData.setTitle("这是一个自定义类型");
+                    dataList.add(1, bannerData);
+                    mViewPagerHorizontal.refreshData(dataList);
+                    List<ArticleWrapper.Article> articleList = response.getArticleList();
 
-                        articleList.add(4, article);
-                        articleAdapter.setData(articleList);
-                        recyclerView.getAdapter().notifyDataSetChanged();
-                        if (response.getDataBeanList().size() > 0) {
-                            mRlIndicator.setVisibility(View.VISIBLE);
-                        }
+                    articleList.add(4, article);
+                    articleAdapter.setData(articleList);
+                    recyclerView.getAdapter().notifyDataSetChanged();
+                    if (response.getDataBeanList().size() > 0) {
+                        mRlIndicator.setVisibility(View.VISIBLE);
                     }
+                }
 
-                    @Override
-                    public void onFinish() {
-                        super.onFinish();
-                        mSmartRefreshLayout.finishRefresh();
-                    }
-                });
+                @Override
+                public void onFinish() {
+                    super.onFinish();
+                    mSmartRefreshLayout.finishRefresh();
+                }
+            });
     }
 
     private Observable<ArticleWrapper> getArticleObserver() {
@@ -158,47 +158,50 @@ public class HomeFragment extends BaseFragment {
 
     private void initHorizontalBanner() {
         mViewPagerHorizontal
-                .setScrollDuration(600)
-                .setOffScreenPageLimit(2)
-                .setLifecycleRegistry(getLifecycle())
-                .setIndicatorStyle(IndicatorStyle.CIRCLE)
-                .setIndicatorSlideMode(IndicatorSlideMode.WORM)
-                .setInterval(3000)
-                .setIndicatorGravity(IndicatorGravity.END)
-                .setIndicatorSliderRadius(getResources().getDimensionPixelSize(R.dimen.dp_3))
-                .disallowParentInterceptDownEvent(true)
-                .setIndicatorView(mIndicatorView)   // 这里为了设置标题故用了自定义Indicator,如果无需标题则没必要添加此行代码
-                .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
-                .setAdapter(new MultiViewTypesAdapter())
-                .registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-                    @Override
-                    public void onPageSelected(int position) {
-                        super.onPageSelected(position);
-                        BannerData bannerData = mViewPagerHorizontal.getData().get(position);
-                        mTvTitle.setText(bannerData.getTitle());
-                        BannerUtils.log("position:" + mViewPagerHorizontal.getCurrentItem());
-                    }
-                })
-                .setOnPageClickListener(this::onPageClicked).create();
+            .setScrollDuration(600)
+            .setOffScreenPageLimit(2)
+            .setLifecycleRegistry(getLifecycle())
+            .setIndicatorStyle(IndicatorStyle.CIRCLE)
+            .setIndicatorSlideMode(IndicatorSlideMode.WORM)
+            .setInterval(3000)
+            .setIndicatorGravity(IndicatorGravity.END)
+            .setIndicatorSliderRadius(getResources().getDimensionPixelSize(R.dimen.dp_3))
+            .disallowParentInterceptDownEvent(true)
+            .setIndicatorView(mIndicatorView)   // 这里为了设置标题故用了自定义Indicator,如果无需标题则没必要添加此行代码
+            .setIndicatorSliderColor(getColor(R.color.red_normal_color),
+                getColor(R.color.red_checked_color))
+            .setAdapter(new MultiViewTypesAdapter())
+            .registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+                @Override
+                public void onPageSelected(int position) {
+                    super.onPageSelected(position);
+                    BannerData bannerData = mViewPagerHorizontal.getData().get(position);
+                    mTvTitle.setText(bannerData.getTitle());
+                    BannerUtils.log("position:" + mViewPagerHorizontal.getCurrentItem());
+                }
+            })
+            .setOnPageClickListener(this::onPageClicked).create();
     }
 
     private void initVerticalBanner() {
         int dp16 = getResources().getDimensionPixelOffset(R.dimen.dp_16);
         int dp40 = getResources().getDimensionPixelOffset(R.dimen.dp_50);
         mViewPagerVertical
-                .setAutoPlay(true)
-                .setScrollDuration(500)
-                .setLifecycleRegistry(getLifecycle())
-                .setIndicatorStyle(IndicatorStyle.ROUND_RECT)
-                .setIndicatorSlideMode(IndicatorSlideMode.SCALE)
-                .setIndicatorSliderGap(getResources().getDimensionPixelOffset(R.dimen.dp_4))
-                .setIndicatorMargin(dp16, dp16, dp16, dp40)
-                .setIndicatorGravity(IndicatorGravity.START)
-                .setIndicatorSliderWidth(getResources().getDimensionPixelOffset(R.dimen.dp_4), getResources().getDimensionPixelOffset(R.dimen.dp_10))
-                .setIndicatorSliderColor(getColor(R.color.red_normal_color), getColor(R.color.red_checked_color))
-                .setOrientation(ViewPager2.ORIENTATION_VERTICAL)
-                .setInterval(2000)
-                .setAdapter(new ViewBindingSampleAdapter(0)).create(getPicList(4));
+            .setAutoPlay(true)
+            .setScrollDuration(500)
+            .setLifecycleRegistry(getLifecycle())
+            .setIndicatorStyle(IndicatorStyle.ROUND_RECT)
+            .setIndicatorSlideMode(IndicatorSlideMode.SCALE)
+            .setIndicatorSliderGap(getResources().getDimensionPixelOffset(R.dimen.dp_4))
+            .setIndicatorMargin(dp16, dp16, dp16, dp40)
+            .setIndicatorGravity(IndicatorGravity.START)
+            .setIndicatorSliderWidth(getResources().getDimensionPixelOffset(R.dimen.dp_4),
+                getResources().getDimensionPixelOffset(R.dimen.dp_10))
+            .setIndicatorSliderColor(getColor(R.color.red_normal_color),
+                getColor(R.color.red_checked_color))
+            .setOrientation(ViewPager2.ORIENTATION_VERTICAL)
+            .setInterval(2000)
+            .setAdapter(new ViewBindingSampleAdapter(0)).create(getPicList(4));
     }
 
     private void onPageClicked(View clickedView, int position) {
@@ -208,12 +211,19 @@ public class HomeFragment extends BaseFragment {
                 WebViewActivity.start(getActivity(), bannerData.getTitle(), bannerData.getUrl());
             }
         } else {
-            Toast.makeText(getMContext(), "position:" + position + " " + bannerData.getTitle() + "currentItem:" + mViewPagerHorizontal.getCurrentItem(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getMContext(), "position:"
+                + position
+                + " "
+                + bannerData.getTitle()
+                + "currentItem:"
+                + mViewPagerHorizontal.getCurrentItem(), Toast.LENGTH_SHORT).show();
         }
     }
 
     private View getHeaderView() {
-        headerView = LayoutInflater.from(getMContext()).inflate(R.layout.item_header_view, recyclerView, false);
+        headerView =
+            LayoutInflater.from(getMContext())
+                .inflate(R.layout.item_header_view, recyclerView, false);
         mViewPagerVertical = headerView.findViewById(R.id.banner_view2);
         return headerView;
     }

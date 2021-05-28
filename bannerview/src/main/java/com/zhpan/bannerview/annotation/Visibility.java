@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
  *   Created by zhangpan on 2019-11-12.
  * </pre>
  */
-@IntDef({View.VISIBLE, View.INVISIBLE, View.GONE})
+@IntDef({ View.VISIBLE, View.INVISIBLE, View.GONE })
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.PARAMETER)
 public @interface Visibility {

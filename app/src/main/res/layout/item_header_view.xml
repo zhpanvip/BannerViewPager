@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <com.zhpan.bannerview.BannerViewPager
-        android:id="@+id/banner_view2"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_150" />
+  <com.zhpan.bannerview.BannerViewPager
+      android:id="@+id/banner_view2"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/dp_150" />
 </RelativeLayout>

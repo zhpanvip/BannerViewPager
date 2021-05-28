@@ -14,23 +14,23 @@ import org.jetbrains.annotations.Nullable;
  * @date 2020/12/9
  */
 public class EmptyFragment extends BaseFragment {
-    Message msg;
-    @Override
-    protected int getLayout() {
-        return R.layout.fragment_empty;
-    }
 
-    @Override
-    protected void initTitle() {
+  @Override
+  protected int getLayout() {
+    return R.layout.fragment_empty;
+  }
 
-    }
+  @Override
+  protected void initTitle() {
 
-    @Override
-    protected void initView(@Nullable Bundle savedInstanceState, @NotNull View view) {
+  }
 
-    }
+  @Override
+  protected void initView(@Nullable Bundle savedInstanceState, @NotNull View view) {
 
-    public static EmptyFragment getInstance() {
-        return new EmptyFragment();
-    }
+  }
+
+  public static EmptyFragment getInstance() {
+    return new EmptyFragment();
+  }
 }

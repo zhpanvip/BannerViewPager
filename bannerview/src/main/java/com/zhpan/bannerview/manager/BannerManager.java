@@ -20,76 +20,75 @@ import com.zhpan.bannerview.transform.ScaleInTransformer;
  */
 public class BannerManager {
 
-    private BannerOptions mBannerOptions;
+  private BannerOptions mBannerOptions;
 
-    private final AttributeController mAttributeController;
+  private final AttributeController mAttributeController;
 
-    private final CompositePageTransformer mCompositePageTransformer;
+  private final CompositePageTransformer mCompositePageTransformer;
 
-    private MarginPageTransformer mMarginPageTransformer;
+  private MarginPageTransformer mMarginPageTransformer;
 
-    private ViewPager2.PageTransformer mDefaultPageTransformer;
+  private ViewPager2.PageTransformer mDefaultPageTransformer;
 
-    public BannerManager() {
-        mBannerOptions = new BannerOptions();
-        mAttributeController = new AttributeController(mBannerOptions);
-        mCompositePageTransformer = new CompositePageTransformer();
+  public BannerManager() {
+    mBannerOptions = new BannerOptions();
+    mAttributeController = new AttributeController(mBannerOptions);
+    mCompositePageTransformer = new CompositePageTransformer();
+  }
+
+  public BannerOptions getBannerOptions() {
+    if (mBannerOptions == null) {
+      mBannerOptions = new BannerOptions();
     }
+    return mBannerOptions;
+  }
 
-    public BannerOptions getBannerOptions() {
-        if (mBannerOptions == null) {
-            mBannerOptions = new BannerOptions();
-        }
-        return mBannerOptions;
+  public void initAttrs(Context context, AttributeSet attrs) {
+    mAttributeController.init(context, attrs);
+  }
+
+  public CompositePageTransformer getCompositePageTransformer() {
+    return mCompositePageTransformer;
+  }
+
+  public void addTransformer(@NonNull ViewPager2.PageTransformer transformer) {
+    mCompositePageTransformer.addTransformer(transformer);
+  }
+
+  public void removeTransformer(@NonNull ViewPager2.PageTransformer transformer) {
+    mCompositePageTransformer.removeTransformer(transformer);
+  }
+
+  public void removeMarginPageTransformer() {
+    if (mMarginPageTransformer != null) {
+      mCompositePageTransformer.removeTransformer(mMarginPageTransformer);
     }
+  }
 
-    public void initAttrs(Context context, AttributeSet attrs) {
-        mAttributeController.init(context, attrs);
+  public void removeDefaultPageTransformer() {
+    if (mDefaultPageTransformer != null) {
+      mCompositePageTransformer.removeTransformer(mDefaultPageTransformer);
     }
+  }
 
-    public CompositePageTransformer getCompositePageTransformer() {
-        return mCompositePageTransformer;
+  public void setPageMargin(int pageMargin) {
+    mBannerOptions.setPageMargin(pageMargin);
+  }
+
+  public void createMarginTransformer() {
+    removeMarginPageTransformer();
+    mMarginPageTransformer = new MarginPageTransformer(mBannerOptions.getPageMargin());
+    mCompositePageTransformer.addTransformer(mMarginPageTransformer);
+  }
+
+  public void setMultiPageStyle(boolean overlap, float scale) {
+    removeDefaultPageTransformer();
+    if (overlap && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+      mDefaultPageTransformer = new OverlapPageTransformer(mBannerOptions
+          .getOrientation(), scale, 0f, 1, 0);
+    } else {
+      mDefaultPageTransformer = new ScaleInTransformer(scale);
     }
-
-    public void addTransformer(@NonNull ViewPager2.PageTransformer transformer) {
-        mCompositePageTransformer.addTransformer(transformer);
-    }
-
-    public void removeTransformer(@NonNull ViewPager2.PageTransformer transformer) {
-        mCompositePageTransformer.removeTransformer(transformer);
-    }
-
-    public void removeMarginPageTransformer() {
-        if (mMarginPageTransformer != null) {
-            mCompositePageTransformer.removeTransformer(mMarginPageTransformer);
-        }
-    }
-
-    public void removeDefaultPageTransformer() {
-        if (mDefaultPageTransformer != null) {
-            mCompositePageTransformer.removeTransformer(mDefaultPageTransformer);
-        }
-    }
-
-    public void setPageMargin(int pageMargin) {
-        mBannerOptions.setPageMargin(pageMargin);
-
-    }
-
-    public void createMarginTransformer() {
-        removeMarginPageTransformer();
-        mMarginPageTransformer = new MarginPageTransformer(mBannerOptions.getPageMargin());
-        mCompositePageTransformer.addTransformer(mMarginPageTransformer);
-    }
-
-    public void setMultiPageStyle(boolean overlap, float scale) {
-        removeDefaultPageTransformer();
-        if (overlap && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mDefaultPageTransformer = new OverlapPageTransformer(mBannerOptions
-                    .getOrientation(), scale, 0f, 1, 0);
-        } else {
-            mDefaultPageTransformer = new ScaleInTransformer(scale);
-        }
-        mCompositePageTransformer.addTransformer(mDefaultPageTransformer);
-    }
+    mCompositePageTransformer.addTransformer(mDefaultPageTransformer);
+  }
 }

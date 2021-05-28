@@ -5,32 +5,31 @@ package com.example.zhpan.banner.net.common;
  */
 public class BasicResponse<T> {
 
-    private int errorCode;
-    private String errorMsg;
-    private T data;
+  private int errorCode;
+  private String errorMsg;
+  private T data;
 
-    public T getData() {
-        return data;
-    }
+  public T getData() {
+    return data;
+  }
 
-    public void setData(T results) {
-        this.data = results;
-    }
+  public void setData(T results) {
+    this.data = results;
+  }
 
+  public int getErrorCode() {
+    return errorCode;
+  }
 
-    public int getErrorCode() {
-        return errorCode;
-    }
+  public void setCode(int code) {
+    this.errorCode = code;
+  }
 
-    public void setCode(int code) {
-        this.errorCode = code;
-    }
+  public String getErrorMsg() {
+    return errorMsg;
+  }
 
-    public String getErrorMsg() {
-        return errorMsg;
-    }
-
-    public void setErrorMsg(String message) {
-        this.errorMsg = message;
-    }
+  public void setErrorMsg(String message) {
+    this.errorMsg = message;
+  }
 }

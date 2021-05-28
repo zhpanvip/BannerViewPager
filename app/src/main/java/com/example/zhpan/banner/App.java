@@ -18,11 +18,11 @@ import java.io.File;
  */
 public class App extends Application {
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        BannerUtils.setDebugMode(true);
-        CrashReport.initCrashReport(getApplicationContext(), "69b176a2b6", true);
-//        Debug.startMethodTracing(new File(Environment.getExternalStorageDirectory(), "test").getAbsolutePath());
-    }
+  @Override
+  public void onCreate() {
+    super.onCreate();
+    BannerUtils.setDebugMode(true);
+    CrashReport.initCrashReport(getApplicationContext(), "69b176a2b6", true);
+    // Debug.startMethodTracing(new File(Environment.getExternalStorageDirectory(), "test").getAbsolutePath());
+  }
 }

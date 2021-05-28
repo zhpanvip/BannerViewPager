@@ -7,18 +7,18 @@ import com.example.zhpan.banner.net.common.ErrorCode;
  */
 public class ServerResponseException extends RuntimeException {
 
-    private int errorCode;
+  private int errorCode;
 
-    public ServerResponseException(int errorCode, String cause) {
-        super(ErrorCode.getErrorMessage(errorCode), new Throwable(cause));
-        this.errorCode = errorCode;
-    }
+  public ServerResponseException(int errorCode, String cause) {
+    super(ErrorCode.getErrorMessage(errorCode), new Throwable(cause));
+    this.errorCode = errorCode;
+  }
 
-    public int getErrorCode() {
-        return errorCode;
-    }
+  public int getErrorCode() {
+    return errorCode;
+  }
 
-    public void setErrorCode(int errorCode) {
-        this.errorCode = errorCode;
-    }
+  public void setErrorCode(int errorCode) {
+    this.errorCode = errorCode;
+  }
 }

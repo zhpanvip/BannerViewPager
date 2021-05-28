@@ -8,7 +8,6 @@ import com.example.zhpan.banner.net.BannerData;
 import com.zhpan.bannerview.BaseBannerAdapter;
 import com.zhpan.bannerview.BaseViewHolder;
 
-
 /**
  * <pre>
  *   Created by zhpan on 2020/4/5.
@@ -17,16 +16,17 @@ import com.zhpan.bannerview.BaseViewHolder;
  */
 public class DataBindingSampleAdapter extends BaseBannerAdapter<BannerData> {
 
-    @Override
-    protected void bindData(BaseViewHolder<BannerData> holder, BannerData data, int position, int pageSize) {
-        ItemSlideModelDataBindingBinding dataBinding = DataBindingUtil.bind(holder.itemView);
-        if (dataBinding != null) {
-            dataBinding.setBannerData(data);
-        }
+  @Override
+  protected void bindData(BaseViewHolder<BannerData> holder, BannerData data, int position,
+      int pageSize) {
+    ItemSlideModelDataBindingBinding dataBinding = DataBindingUtil.bind(holder.itemView);
+    if (dataBinding != null) {
+      dataBinding.setBannerData(data);
     }
+  }
 
-    @Override
-    public int getLayoutId(int viewType) {
-        return R.layout.item_slide_model_data_binding;
-    }
+  @Override
+  public int getLayoutId(int viewType) {
+    return R.layout.item_slide_model_data_binding;
+  }
 }

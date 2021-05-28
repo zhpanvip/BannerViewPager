@@ -6,7 +6,6 @@ import androidx.databinding.BindingAdapter;
 
 import com.bumptech.glide.Glide;
 
-
 /**
  * <pre>
  *   Created by zhpan on 2020/7/18.
@@ -14,8 +13,8 @@ import com.bumptech.glide.Glide;
  * </pre>
  */
 public class DataBindingAdapter {
-    @BindingAdapter(value = {"url", "placeholder"}, requireAll = false)
-    public static void bindUrl(ImageView imageView, String url, int placeholder) {
-        Glide.with(imageView).load(url).error(placeholder).placeholder(placeholder).into(imageView);
-    }
+  @BindingAdapter(value = { "url", "placeholder" }, requireAll = false)
+  public static void bindUrl(ImageView imageView, String url, int placeholder) {
+    Glide.with(imageView).load(url).error(placeholder).placeholder(placeholder).into(imageView);
+  }
 }

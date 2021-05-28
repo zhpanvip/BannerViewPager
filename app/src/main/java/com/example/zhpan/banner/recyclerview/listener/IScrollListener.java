@@ -8,13 +8,13 @@ package com.example.zhpan.banner.recyclerview.listener;
  */
 public interface IScrollListener {
 
-    /**
-     * 在此方法内写刷新的逻辑
-     */
-    void refresh();
+  /**
+   * 在此方法内写刷新的逻辑
+   */
+  void refresh();
 
-    /**
-     * 在此方法内写加载的逻辑
-     */
-    void loadMore();
+  /**
+   * 在此方法内写加载的逻辑
+   */
+  void loadMore();
 }

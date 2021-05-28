@@ -9,12 +9,12 @@ import com.example.zhpan.banner.net.common.IdeaApi;
  * </pre>
  */
 public class RetrofitGnerator {
-    private static ApiService mApiservice;
+  private static ApiService mApiservice;
 
-    public static ApiService getApiSerVice() {
-        if (mApiservice == null) {
-            mApiservice = IdeaApi.getApiService(ApiService.class, Constants.BASE_URL);
-        }
-        return mApiservice;
+  public static ApiService getApiSerVice() {
+    if (mApiservice == null) {
+      mApiservice = IdeaApi.getApiService(ApiService.class, Constants.BASE_URL);
     }
+    return mApiservice;
+  }
 }

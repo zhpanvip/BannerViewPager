@@ -5,141 +5,141 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.zhpan.bannerview.BannerViewPager
-        android:id="@+id/banner_view"
+  <com.zhpan.bannerview.BannerViewPager
+      android:id="@+id/banner_view"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/dp_180"
+      android:layout_marginTop="@dimen/dp_16"
+      app:bvp_indicator_visibility="visible"
+      app:bvp_page_margin="@dimen/dp_16"
+      app:bvp_reveal_width="@dimen/dp_0" />
+
+  <androidx.core.widget.NestedScrollView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_180"
-        app:bvp_page_margin="@dimen/dp_16"
-        app:bvp_reveal_width="@dimen/dp_0"
-        android:layout_marginTop="@dimen/dp_16"
-        app:bvp_indicator_visibility="visible" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+      <TextView
+          android:id="@+id/tv_page_style"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/dp_10"
+          android:layout_marginTop="@dimen/dp_10"
+          android:text="@string/text_indicator_style"
+          android:textColor="#000000"
+          android:textSize="@dimen/sp_18"
+          android:textStyle="bold" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+      <RadioGroup
+          android:id="@+id/rg_indicator_style"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          android:padding="@dimen/dp_15">
 
-            <TextView
-                android:id="@+id/tv_page_style"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_10"
-                android:layout_marginTop="@dimen/dp_10"
-                android:text="@string/text_indicator_style"
-                android:textColor="#000000"
-                android:textSize="@dimen/sp_18"
-                android:textStyle="bold" />
+        <RadioButton
+            android:id="@+id/rb_circle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:layout_marginEnd="15dp"
+            android:text="Circle"
+            android:textSize="@dimen/sp_16" />
 
-            <RadioGroup
-                android:id="@+id/rg_indicator_style"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/dp_15">
+        <RadioButton
+            android:id="@+id/rb_dash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:layout_marginEnd="15dp"
+            android:text="Dash"
+            android:textSize="@dimen/sp_16" />
 
-                <RadioButton
-                    android:id="@+id/rb_circle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginBottom="@dimen/dp_10"
-                    android:text="Circle"
-                    android:textSize="@dimen/sp_16" />
-
-                <RadioButton
-                    android:id="@+id/rb_dash"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginBottom="@dimen/dp_10"
-                    android:text="Dash"
-                    android:textSize="@dimen/sp_16" />
-
-                <RadioButton
-                    android:id="@+id/rb_round_rect"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginBottom="@dimen/dp_10"
-                    android:text="ROUND_RECT"
-                    android:textSize="@dimen/sp_16" />
+        <RadioButton
+            android:id="@+id/rb_round_rect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:layout_marginEnd="15dp"
+            android:text="ROUND_RECT"
+            android:textSize="@dimen/sp_16" />
 
 
-            </RadioGroup>
+      </RadioGroup>
 
-            <TextView
-                android:id="@+id/tv_slide_mode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_10"
-                android:layout_marginTop="@dimen/dp_10"
-                android:text="@string/text_slide_mode"
-                android:textColor="#000000"
-                android:textSize="@dimen/sp_18"
-                android:textStyle="bold" />
+      <TextView
+          android:id="@+id/tv_slide_mode"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/dp_10"
+          android:layout_marginTop="@dimen/dp_10"
+          android:text="@string/text_slide_mode"
+          android:textColor="#000000"
+          android:textSize="@dimen/sp_18"
+          android:textStyle="bold" />
 
-            <RadioGroup
-                android:id="@+id/rg_slide_mode"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/dp_15">
+      <RadioGroup
+          android:id="@+id/rg_slide_mode"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          android:padding="@dimen/dp_15">
 
-                <RadioButton
-                    android:id="@+id/rb_smooth"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginBottom="@dimen/dp_10"
-                    android:checked="true"
-                    android:text="SMOOTH"
-                    android:textSize="@dimen/sp_16" />
+        <RadioButton
+            android:id="@+id/rb_smooth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:layout_marginEnd="15dp"
+            android:checked="true"
+            android:text="SMOOTH"
+            android:textSize="@dimen/sp_16" />
 
-                <RadioButton
-                    android:id="@+id/rb_worm"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginBottom="@dimen/dp_10"
-                    android:text="WORM"
-                    android:textSize="@dimen/sp_16" />
+        <RadioButton
+            android:id="@+id/rb_worm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:layout_marginEnd="15dp"
+            android:text="WORM"
+            android:textSize="@dimen/sp_16" />
 
-                <RadioButton
-                    android:id="@+id/rb_color"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginBottom="@dimen/dp_10"
-                    android:text="COLOR"
-                    android:textSize="@dimen/sp_16" />
+        <RadioButton
+            android:id="@+id/rb_color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:layout_marginEnd="15dp"
+            android:text="COLOR"
+            android:textSize="@dimen/sp_16" />
 
-                <RadioButton
-                    android:id="@+id/rb_scale"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginBottom="@dimen/dp_10"
-                    android:text="SCALE"
-                    android:textSize="@dimen/sp_16" />
+        <RadioButton
+            android:id="@+id/rb_scale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:layout_marginEnd="15dp"
+            android:text="SCALE"
+            android:textSize="@dimen/sp_16" />
 
-                <RadioButton
-                    android:id="@+id/rb_normal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginBottom="@dimen/dp_10"
-                    android:text="NORMAL"
-                    android:textSize="@dimen/sp_16" />
+        <RadioButton
+            android:id="@+id/rb_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:layout_marginEnd="15dp"
+            android:text="NORMAL"
+            android:textSize="@dimen/sp_16" />
 
 
-            </RadioGroup>
+      </RadioGroup>
 
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
+  </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>
 

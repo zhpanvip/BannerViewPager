@@ -6,24 +6,23 @@ package com.example.zhpan.banner.recyclerview.listener;
  * 如果不需要使用自定义的刷新View，可使用{@link IScrollListener}
  */
 public interface ICustomScrollListener {
-    /**
-     * 下拉刷新时候的回调
-     * @param state
-     */
-    void scrollRefreshState(int state);
+  /**
+   * 下拉刷新时候的回调
+   */
+  void scrollRefreshState(int state);
 
-    /**
-     * 上拉加载时候的回调
-     * @param state
-     */
-    void scrollLoadMoreState(int state);
+  /**
+   * 上拉加载时候的回调
+   */
+  void scrollLoadMoreState(int state);
 
-    /**
-     * 在此方法内写刷新的逻辑
-     */
-    void refresh();
-    /**
-     * 在此方法内写加载的逻辑
-     */
-    void loadMore();
+  /**
+   * 在此方法内写刷新的逻辑
+   */
+  void refresh();
+
+  /**
+   * 在此方法内写加载的逻辑
+   */
+  void loadMore();
 }

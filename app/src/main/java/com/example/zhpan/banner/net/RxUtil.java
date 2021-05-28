@@ -14,50 +14,51 @@ import io.reactivex.schedulers.Schedulers;
 @SuppressWarnings("unused")
 public class RxUtil {
 
-    /**
-     * 统一线程处理
-     *
-     * @return ObservableTransformer
-     */
-    public static <T> ObservableTransformer<T, T> rxSchedulerHelper(final RxAppCompatActivity activity, final boolean showLoading) {    //compose简化线程
-        return observable -> {
-            Observable<T> compose = observable.subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .compose(activity.bindUntilEvent(ActivityEvent.DESTROY));
-            if (showLoading) {
-                return compose.compose(LoadingTransformerCreator.applyLoading(activity));
-            } else {
-                return compose;
-            }
-        };
-    }
+  /**
+   * 统一线程处理
+   *
+   * @return ObservableTransformer
+   */
+  public static <T> ObservableTransformer<T, T> rxSchedulerHelper(
+      final RxAppCompatActivity activity, final boolean showLoading) {    //compose简化线程
+    return observable -> {
+      Observable<T> compose = observable.subscribeOn(Schedulers.io())
+          .observeOn(AndroidSchedulers.mainThread())
+          .compose(activity.bindUntilEvent(ActivityEvent.DESTROY));
+      if (showLoading) {
+        return compose.compose(LoadingTransformerCreator.applyLoading(activity));
+      } else {
+        return compose;
+      }
+    };
+  }
 
-    /**
-     * 统一线程处理
-     *
-     * @return ObservableTransformer
-     */
-    public static <T> ObservableTransformer<T, T> rxSchedulerHelper(final RxFragment fragment, final boolean showLoading) {
-        return observable -> {
-            Observable<T> compose = observable.subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .compose(fragment.bindUntilEvent(FragmentEvent.DESTROY));
-            if (showLoading) {
-                return compose.compose(LoadingTransformerCreator.applyLoading(fragment.getActivity()));
-            } else {
-                return compose;
-            }
-        };
-    }
+  /**
+   * 统一线程处理
+   *
+   * @return ObservableTransformer
+   */
+  public static <T> ObservableTransformer<T, T> rxSchedulerHelper(final RxFragment fragment,
+      final boolean showLoading) {
+    return observable -> {
+      Observable<T> compose = observable.subscribeOn(Schedulers.io())
+          .observeOn(AndroidSchedulers.mainThread())
+          .compose(fragment.bindUntilEvent(FragmentEvent.DESTROY));
+      if (showLoading) {
+        return compose.compose(LoadingTransformerCreator.applyLoading(fragment.getActivity()));
+      } else {
+        return compose;
+      }
+    };
+  }
 
-
-    /**
-     * 统一线程处理
-     *
-     * @return ObservableTransformer
-     */
-    public static <T> ObservableTransformer<T, T> rxSchedulerHelper() {    //compose简化线程
-        return observable -> observable.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
-    }
+  /**
+   * 统一线程处理
+   *
+   * @return ObservableTransformer
+   */
+  public static <T> ObservableTransformer<T, T> rxSchedulerHelper() {    //compose简化线程
+    return observable -> observable.subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread());
+  }
 }

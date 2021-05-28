@@ -7,5 +7,5 @@ package com.example.zhpan.banner.net;
  * </pre>
  */
 public interface Constants {
-    String BASE_URL = "https://www.wanandroid.com/";
+  String BASE_URL = "https://www.wanandroid.com/";
 }

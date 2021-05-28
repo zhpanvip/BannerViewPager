@@ -24,70 +24,82 @@ import java.util.ArrayList
 /**
  * HomeFragment RecyclerView Adapter
  */
-class ArticleAdapter(val context: Context, data: List<ArticleWrapper.Article>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private val mList = ArrayList<ArticleWrapper.Article>()
-    private val inflater: LayoutInflater
+class ArticleAdapter(
+  val context: Context,
+  data: List<ArticleWrapper.Article>
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+  private val mList = ArrayList<ArticleWrapper.Article>()
+  private val inflater: LayoutInflater
+
+  init {
+    this.mList.addAll(data)
+    this.inflater = LayoutInflater.from(context)
+  }
+
+  override fun onCreateViewHolder(
+    viewGroup: ViewGroup,
+    itemType: Int
+  ): RecyclerView.ViewHolder {
+    if (itemType == 1001) {
+      return BannerItemViewHolder(inflater.inflate(R.layout.item_home_banner, viewGroup, false))
+    }
+    return ArticleViewHolder(inflater.inflate(R.layout.item_article, viewGroup, false))
+  }
+
+  override fun onBindViewHolder(
+    holder: RecyclerView.ViewHolder,
+    i: Int
+  ) {
+    val article = mList[i]
+    if (article.type == 1001 && holder is BannerItemViewHolder) {
+      holder.bannerViewPager.setCanLoop(false)
+          .setIndicatorStyle(IndicatorStyle.ROUND_RECT)
+          .setIndicatorSliderGap(holder.resources.getDimensionPixelOffset(R.dimen.dp_4))
+          .setIndicatorSliderWidth(
+              holder.resources.getDimensionPixelOffset(R.dimen.dp_4),
+              holder.resources.getDimensionPixelOffset(R.dimen.dp_10)
+          )
+          .setIndicatorSliderColor(
+              ContextCompat.getColor(holder.itemView.context, R.color.red_normal_color),
+              ContextCompat.getColor(holder.itemView.context, R.color.red_checked_color)
+          )
+          .setOrientation(ViewPager2.ORIENTATION_VERTICAL)
+          .setInterval(2000)
+          .setIndicatorVisibility(View.GONE)
+          .setAdapter(DataBindingSampleAdapter())
+          .create(article.bannerData)
+    } else if (holder is ArticleViewHolder) {
+      holder.tvAuthor.text = article.author
+      holder.tvTitle.text = article.title
+    }
+  }
+
+  fun setData(list: List<ArticleWrapper.Article>) {
+    mList.clear()
+    mList.addAll(list)
+    notifyDataSetChanged()
+  }
+
+  override fun getItemViewType(position: Int): Int {
+    return mList[position].type
+  }
+
+  override fun getItemCount(): Int {
+    return mList.size
+  }
+
+  inner class ArticleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    internal var tvTitle: TextView = itemView.findViewById(R.id.tv_title)
+    internal var tvAuthor: TextView = itemView.findViewById(R.id.tv_auther)
+  }
+
+  inner class BannerItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    var bannerViewPager: BannerViewPager<BannerData> = itemView.findViewById(R.id.banner_view3)
+    var resources: Resources = itemView.context.resources
 
     init {
-        this.mList.addAll(data)
-        this.inflater = LayoutInflater.from(context)
+      if (context is AppCompatActivity)
+        bannerViewPager.setLifecycleRegistry(context.lifecycle)
     }
-
-    override fun onCreateViewHolder(viewGroup: ViewGroup, itemType: Int): RecyclerView.ViewHolder {
-        if (itemType == 1001) {
-            return BannerItemViewHolder(inflater.inflate(R.layout.item_home_banner, viewGroup, false))
-        }
-        return ArticleViewHolder(inflater.inflate(R.layout.item_article, viewGroup, false))
-    }
-
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, i: Int) {
-        val article = mList[i]
-        if (article.type == 1001 && holder is BannerItemViewHolder) {
-            holder.bannerViewPager.setCanLoop(false)
-                    .setIndicatorStyle(IndicatorStyle.ROUND_RECT)
-                    .setIndicatorSliderGap(holder.resources.getDimensionPixelOffset(R.dimen.dp_4))
-                    .setIndicatorSliderWidth(holder.resources.getDimensionPixelOffset(R.dimen.dp_4), holder.resources.getDimensionPixelOffset(R.dimen.dp_10))
-                    .setIndicatorSliderColor(ContextCompat.getColor(holder.itemView.context, R.color.red_normal_color),
-                            ContextCompat.getColor(holder.itemView.context, R.color.red_checked_color))
-                    .setOrientation(ViewPager2.ORIENTATION_VERTICAL)
-                    .setInterval(2000)
-                    .setIndicatorVisibility(View.GONE)
-                    .setAdapter(DataBindingSampleAdapter())
-                    .create(article.bannerData)
-        } else if (holder is ArticleViewHolder) {
-            holder.tvAuthor.text = article.author
-            holder.tvTitle.text = article.title
-        }
-    }
-
-    fun setData(list: List<ArticleWrapper.Article>) {
-        mList.clear()
-        mList.addAll(list)
-        notifyDataSetChanged()
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        return mList[position].type
-    }
-
-    override fun getItemCount(): Int {
-        return mList.size
-    }
-
-    inner class ArticleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        internal var tvTitle: TextView = itemView.findViewById(R.id.tv_title)
-        internal var tvAuthor: TextView = itemView.findViewById(R.id.tv_auther)
-
-    }
-
-    inner class BannerItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var bannerViewPager: BannerViewPager<BannerData> = itemView.findViewById(R.id.banner_view3)
-        var resources: Resources = itemView.context.resources
-
-        init {
-            if (context is AppCompatActivity)
-                bannerViewPager.setLifecycleRegistry(context.lifecycle)
-        }
-    }
-
+  }
 }

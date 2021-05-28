@@ -18,7 +18,7 @@ import static com.zhpan.bannerview.constants.PageStyle.NORMAL;
  *   Description:
  * </pre>
  */
-@IntDef({NORMAL, MULTI_PAGE, MULTI_PAGE_OVERLAP,MULTI_PAGE_SCALE})
+@IntDef({ NORMAL, MULTI_PAGE, MULTI_PAGE_OVERLAP, MULTI_PAGE_SCALE })
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.PARAMETER)
 public @interface APageStyle {

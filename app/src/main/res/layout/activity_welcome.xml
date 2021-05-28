@@ -4,34 +4,34 @@
     android:layout_height="match_parent"
     android:background="@color/colorAccent">
 
-    <com.zhpan.bannerview.BannerViewPager
-        android:id="@+id/viewpager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+  <com.zhpan.bannerview.BannerViewPager
+      android:id="@+id/viewpager"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent" />
 
-    <TextView
-        android:id="@+id/tv_describe"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="@dimen/dp_50"
-        android:layout_marginBottom="@dimen/dp_150"
-        android:lineSpacingExtra="@dimen/dp_5"
-        android:textColor="#FFFFFF"
-        android:textSize="@dimen/sp_18" />
+  <TextView
+      android:id="@+id/tv_describe"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true"
+      android:layout_marginBottom="@dimen/dp_150"
+      android:layout_marginStart="@dimen/dp_50"
+      android:lineSpacingExtra="@dimen/dp_5"
+      android:textColor="#FFFFFF"
+      android:textSize="@dimen/sp_18" />
 
-    <TextView
-        android:id="@+id/btn_start"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/dp_35"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/dp_20"
-        android:background="@drawable/bg_start"
-        android:gravity="center_vertical"
-        android:text="@string/start_now"
-        android:onClick="onClick"
-        android:textColor="#FFFFFF"
-        android:textSize="@dimen/sp_16"
-        android:visibility="gone" />
+  <TextView
+      android:id="@+id/btn_start"
+      android:layout_width="wrap_content"
+      android:layout_height="@dimen/dp_35"
+      android:layout_alignParentBottom="true"
+      android:layout_centerHorizontal="true"
+      android:layout_marginBottom="@dimen/dp_20"
+      android:background="@drawable/bg_start"
+      android:gravity="center_vertical"
+      android:onClick="onClick"
+      android:text="@string/start_now"
+      android:textColor="#FFFFFF"
+      android:textSize="@dimen/sp_16"
+      android:visibility="gone" />
 </RelativeLayout>

@@ -33,27 +33,27 @@ import static com.example.zhpan.banner.net.common.ErrorCode.SUCCESS;
 
 final class GsonResponseBodyConverter<T> implements Converter<ResponseBody, Object> {
 
-    private final TypeAdapter<T> adapter;
+  private final TypeAdapter<T> adapter;
 
-    GsonResponseBodyConverter(TypeAdapter<T> adapter) {
-        this.adapter = adapter;
-    }
+  GsonResponseBodyConverter(TypeAdapter<T> adapter) {
+    this.adapter = adapter;
+  }
 
-    @Override
-    public Object convert(ResponseBody value) throws IOException {
-        try {
-            BasicResponse response = (BasicResponse) adapter.fromJson(value.charStream());
-            if (response.getErrorCode() == ErrorCode.SUCCESS) {
-                if (response.getData() != null) {
-                    return response.getData();
-                } else {
-                    throw new NoDataExceptionException();
-                }
-            } else if (response.getErrorCode() == REMOTE_LOGIN) {
-                throw new RemoteLoginExpiredException(response.getErrorCode(), response.getErrorMsg());
-            } else if (response.getErrorCode() != SUCCESS) {
-                throw new ServerResponseException(response.getErrorCode(), response.getErrorMsg());
-            }
+  @Override
+  public Object convert(ResponseBody value) throws IOException {
+    try {
+      BasicResponse response = (BasicResponse) adapter.fromJson(value.charStream());
+      if (response.getErrorCode() == ErrorCode.SUCCESS) {
+        if (response.getData() != null) {
+          return response.getData();
+        } else {
+          throw new NoDataExceptionException();
+        }
+      } else if (response.getErrorCode() == REMOTE_LOGIN) {
+        throw new RemoteLoginExpiredException(response.getErrorCode(), response.getErrorMsg());
+      } else if (response.getErrorCode() != SUCCESS) {
+        throw new ServerResponseException(response.getErrorCode(), response.getErrorMsg());
+      }
             /*if (response.isError()) {
                 // 特定 API 的错误，在相应的 DefaultObserver 的 onError 的方法中进行处理
                 throw new ServerResponseException(response.getCode(), response.getMessage());
@@ -62,9 +62,9 @@ final class GsonResponseBodyConverter<T> implements Converter<ResponseBody, Obje
                     return response.getResults();
                 else throw new NoDataExceptionException();
             }*/
-        } finally {
-            value.close();
-        }
-        return null;
+    } finally {
+      value.close();
     }
+    return null;
+  }
 }

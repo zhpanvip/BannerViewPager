@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/image_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/bg_card3"
-        android:scaleType="centerCrop" />
+      android:id="@+id/image_view"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:scaleType="centerCrop"
+      android:src="@drawable/bg_card3" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:paddingStart="@dimen/dp_10"
-        android:paddingTop="@dimen/dp_5"
-        android:paddingEnd="@dimen/dp_10"
-        android:layout_centerInParent="true"
-        android:paddingBottom="@dimen/dp_5"
-        android:text="多类型Item示例"
-        android:textColor="#fff"
-        android:textSize="@dimen/sp_26" />
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerHorizontal="true"
+      android:layout_centerInParent="true"
+      android:gravity="center"
+      android:paddingBottom="@dimen/dp_5"
+      android:paddingEnd="@dimen/dp_10"
+      android:paddingStart="@dimen/dp_10"
+      android:paddingTop="@dimen/dp_5"
+      android:text="多类型Item示例"
+      android:textColor="#fff"
+      android:textSize="@dimen/sp_26" />
 
 </RelativeLayout>

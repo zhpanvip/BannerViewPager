@@ -16,36 +16,34 @@ import io.reactivex.functions.Consumer;
  */
 public class LoadingTransformerCreator {
 
-    public static <T> ObservableTransformer<T, T> applyLoading(
-            @NonNull final Activity activity, String msg) {
-        final LoadingUtils dialogUtils = new LoadingUtils();
-        dialogUtils.showLoading(activity, msg);
-        return upstream -> upstream.doOnSubscribe(disposable -> {
-        }).doOnTerminate(dialogUtils::dismiss)
-                .doOnSubscribe((Consumer<Disposable>) disposable -> {
-                });
-    }
+  public static <T> ObservableTransformer<T, T> applyLoading(
+      @NonNull final Activity activity, String msg) {
+    final LoadingUtils dialogUtils = new LoadingUtils();
+    dialogUtils.showLoading(activity, msg);
+    return upstream -> upstream.doOnSubscribe(disposable -> {
+    }).doOnTerminate(dialogUtils::dismiss)
+        .doOnSubscribe((Consumer<Disposable>) disposable -> {
+        });
+  }
 
-    public static <T> ObservableTransformer<T, T> applyLoading(
-            @NonNull final Activity activity) {
-        return applyLoading(activity, "");
-    }
+  public static <T> ObservableTransformer<T, T> applyLoading(
+      @NonNull final Activity activity) {
+    return applyLoading(activity, "");
+  }
 
+  public static CompletableTransformer applyLoadingForCompletable(
+      @NonNull final Activity activity) {
+    return applyLoadingForCompletable(activity, "");
+  }
 
-    public static CompletableTransformer applyLoadingForCompletable(
-            @NonNull final Activity activity) {
-        return applyLoadingForCompletable(activity, "");
-    }
+  public static CompletableTransformer applyLoadingForCompletable(
+      @NonNull final Activity activity, String msg) {
+    final LoadingUtils dialogUtils = new LoadingUtils();
+    dialogUtils.showLoading(activity, msg);
+    return upstream -> upstream.doOnSubscribe(disposable -> {
 
-    public static CompletableTransformer applyLoadingForCompletable(
-            @NonNull final Activity activity, String msg) {
-        final LoadingUtils dialogUtils = new LoadingUtils();
-        dialogUtils.showLoading(activity, msg);
-        return upstream -> upstream.doOnSubscribe(disposable -> {
-
-        }).doOnTerminate(dialogUtils::dismiss)
-                .doOnSubscribe((Consumer<Disposable>) disposable -> {
-                });
-    }
-
+    }).doOnTerminate(dialogUtils::dismiss)
+        .doOnSubscribe((Consumer<Disposable>) disposable -> {
+        });
+  }
 }

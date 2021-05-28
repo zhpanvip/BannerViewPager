@@ -3,19 +3,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/banner_image"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:contentDescription="@string/guide"
-        android:scaleType="fitXY" />
+  <ImageView
+      android:id="@+id/banner_image"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:contentDescription="@string/guide"
+      android:scaleType="fitXY" />
 
-    <ImageView
-        android:id="@+id/iv_logo"
-        android:layout_width="@dimen/dp_60"
-        android:layout_height="@dimen/dp_60"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/dp_40"
-        android:src="@mipmap/ic_launcher" />
+  <ImageView
+      android:id="@+id/iv_logo"
+      android:layout_width="@dimen/dp_60"
+      android:layout_height="@dimen/dp_60"
+      android:layout_centerHorizontal="true"
+      android:layout_marginTop="@dimen/dp_40"
+      android:src="@mipmap/ic_launcher" />
 
 </RelativeLayout>
