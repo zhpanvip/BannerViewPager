@@ -486,7 +486,7 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
     }
 
     /**
-     * stoop loop
+     * Stop loop
      */
     public void stopLoop() {
         if (isLooping) {
@@ -510,8 +510,7 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
      * @param radius round radius
      */
     public BannerViewPager<T> setRoundCorner(int radius) {
-        setRoundCorner(radius, radius, radius, radius);
-        return this;
+        return setRoundCorner(radius, radius, radius, radius);
     }
 
     /**
@@ -524,7 +523,7 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
      */
     public BannerViewPager<T> setRoundCorner(int topLeftRadius, int topRightRadius, int bottomLeftRadius,
                                              int bottomRightRadius) {
-        mRadiusRectF = new RectF(0, 0, 0, 0);
+        mRadiusRectF = new RectF();
         mRadiusPath = new Path();
         mBannerManager.getBannerOptions().setRoundRectRadius(topLeftRadius, topRightRadius, bottomLeftRadius, bottomRightRadius);
         return this;
@@ -532,14 +531,11 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
 
     /**
      * Set round rectangle effect for BannerViewPager.
-     * <p>
-     * Require SDK_INT>=LOLLIPOP(API 21)
      *
      * @param radius round radius
      */
     public BannerViewPager<T> setRoundRect(int radius) {
-        setRoundCorner(radius);
-        return this;
+        return setRoundCorner(radius);
     }
 
     /**

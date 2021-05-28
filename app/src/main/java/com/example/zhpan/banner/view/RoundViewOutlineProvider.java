@@ -1,6 +1,6 @@
 
 
-package com.zhpan.bannerview.provider;
+package com.example.zhpan.banner.view;
 
 import android.annotation.TargetApi;
 import android.graphics.Outline;
