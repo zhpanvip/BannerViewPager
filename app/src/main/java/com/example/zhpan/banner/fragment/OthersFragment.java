@@ -73,7 +73,7 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
     mViewPager.setIndicatorSliderGap(BannerUtils.dp2px(6))
         .setIndicatorView(mIndicatorView)
         .setLifecycleRegistry(getLifecycle())
-        .setRoundCorner(BannerUtils.dp2px(36), 0, 0, BannerUtils.dp2px(36))
+        .setRoundCorner(getResources().getDimensionPixelOffset(R.dimen.dp_10))
         .setOnPageClickListener((clickedView, position) -> {
           ToastUtils.showShort("position:" + position);
           int currentItem = mViewPager.getCurrentItem();
@@ -98,9 +98,18 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
         setDrawableIndicator(getDrawableIndicator());
       } else if (checkedId == R.id.rb_vector_drawable) {
         setDrawableIndicator(getVectorDrawableIndicator());
+      } else if (checkedId == R.id.rb_round_corner) {
+        setRoundCorner();
       }
     });
     radioButton.performClick();
+  }
+
+  private void setRoundCorner() {
+    int dp36 = getResources().getDimensionPixelOffset(R.dimen.dp_36);
+    mViewPager
+        .setRoundCorner(dp36, 0, 0, dp36)
+        .refreshData(getPicList(4));
   }
 
   private void setDrawableIndicator(IIndicator indicator) {
