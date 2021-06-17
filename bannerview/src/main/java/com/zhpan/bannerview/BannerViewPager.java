@@ -137,14 +137,20 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
 
   @Override
   protected void onDetachedFromWindow() {
-    stopLoop();
+    if (mBannerManager != null && mBannerManager.getBannerOptions()
+        .isStopLoopWhenDetachedFromWindow()) {
+      stopLoop();
+    }
     super.onDetachedFromWindow();
   }
 
   @Override
   protected void onAttachedToWindow() {
     super.onAttachedToWindow();
-    startLoop();
+    if (mBannerManager != null && mBannerManager.getBannerOptions()
+        .isStopLoopWhenDetachedFromWindow()) {
+      startLoop();
+    }
   }
 
   @Override
@@ -1084,6 +1090,17 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
   public BannerViewPager<T> setRTLMode(boolean rtlMode) {
     mViewPager.setLayoutDirection(rtlMode ? View.LAYOUT_DIRECTION_RTL : View.LAYOUT_DIRECTION_LTR);
     mBannerManager.getBannerOptions().setRtl(rtlMode);
+    return this;
+  }
+
+  /**
+   * @param stopLoopWhenDetachedFromWindow 当BVP滑动出屏幕的时候是否要停止轮播，
+   *
+   * true:滑动出屏幕停止自动轮播，false:滑动出屏幕继续自动轮播。默认值为true
+   */
+  public BannerViewPager<T> stopLoopWhenDetachedFromWindow(boolean stopLoopWhenDetachedFromWindow) {
+    mBannerManager.getBannerOptions()
+        .setStopLoopWhenDetachedFromWindow(stopLoopWhenDetachedFromWindow);
     return this;
   }
 

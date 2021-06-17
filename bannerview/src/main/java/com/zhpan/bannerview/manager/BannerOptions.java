@@ -70,6 +70,8 @@ public class BannerOptions {
 
   private boolean disallowParentInterceptDownEvent;
 
+  private boolean stopLoopWhenDetachedFromWindow = true;
+
   private final IndicatorOptions mIndicatorOptions;
 
   public int getInterval() {
@@ -294,6 +296,14 @@ public class BannerOptions {
     this.rtl = rtl;
     mIndicatorOptions.setOrientation(
         rtl ? IndicatorOrientation.INDICATOR_RTL : IndicatorOrientation.INDICATOR_HORIZONTAL);
+  }
+
+  public boolean isStopLoopWhenDetachedFromWindow() {
+    return stopLoopWhenDetachedFromWindow;
+  }
+
+  public void setStopLoopWhenDetachedFromWindow(boolean stopLoopWhenDetachedFromWindow) {
+    this.stopLoopWhenDetachedFromWindow = stopLoopWhenDetachedFromWindow;
   }
 
   public static class IndicatorMargin {
