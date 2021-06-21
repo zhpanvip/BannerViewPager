@@ -79,9 +79,6 @@ class DrawableIndicator @JvmOverloads constructor(
     }
   }
 
-  override fun rotateCanvas(canvas: Canvas) {
-  }
-
   private fun drawIcon(
     canvas: Canvas,
     left: Int,

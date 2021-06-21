@@ -1105,6 +1105,17 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
   }
 
   /**
+   *
+   * @param showIndicatorWhenOneItem 只有一个item时是否显示指示器，
+   * true：显示，false：不显示，默认值false
+   */
+  public BannerViewPager<T> showIndicatorWhenOnItem(boolean showIndicatorWhenOneItem) {
+    mBannerManager.getBannerOptions()
+        .showIndicatorWhenOnItem(showIndicatorWhenOneItem);
+    return this;
+  }
+
+  /**
    * @deprecated Use {@link BannerViewPager#disallowParentInterceptDownEvent(boolean)} instead.
    */
   @Deprecated

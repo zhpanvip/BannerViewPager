@@ -126,6 +126,10 @@ public class BannerOptions {
     mIndicatorOptions.setSliderWidth(normalWidth, checkedWidth);
   }
 
+  public void showIndicatorWhenOnItem(boolean showIndicatorWhenOneItem){
+    mIndicatorOptions.setShowIndicatorOneItem(showIndicatorWhenOneItem);
+  }
+
   public int getCheckedIndicatorWidth() {
     return (int) mIndicatorOptions.getCheckedSliderWidth();
   }
