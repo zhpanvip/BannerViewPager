@@ -2,8 +2,12 @@ package com.zhpan.bannerview;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
@@ -28,6 +32,7 @@ import com.zhpan.bannerview.constants.PageStyle;
 import com.zhpan.bannerview.manager.BannerManager;
 import com.zhpan.bannerview.manager.BannerOptions;
 import com.zhpan.bannerview.provider.ReflectLayoutManager;
+import com.zhpan.bannerview.provider.ViewStyleSetter;
 import com.zhpan.bannerview.utils.BannerUtils;
 import com.zhpan.indicator.IndicatorView;
 import com.zhpan.indicator.annotation.AIndicatorSlideMode;
@@ -83,8 +88,8 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
   };
 
   private RectF mRadiusRectF;
-
   private Path mRadiusPath;
+  private Paint mPaint;
 
   private int startX, startY;
 
@@ -298,6 +303,7 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
     if (list != null) {
       setIndicatorValues(list);
       setupViewPager(list);
+      initRoundCorner();
     }
   }
 
@@ -360,11 +366,25 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
     if (mRadiusRectF != null && mRadiusPath != null) {
       mRadiusRectF.right = this.getWidth();
       mRadiusRectF.bottom = this.getHeight();
-      mRadiusPath.addRoundRect(mRadiusRectF, mBannerManager.getBannerOptions().getRoundRectRadius(),
+      mRadiusPath.addRoundRect(mRadiusRectF,
+          mBannerManager.getBannerOptions().getRoundRectRadiusArray(),
           Path.Direction.CW);
-      canvas.clipPath(mRadiusPath);
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+        canvas.clipPath(mRadiusPath);
+      } else {
+        if (mPaint != null) {
+          canvas.drawPath(mRadiusPath, mPaint);
+        }
+      }
     }
     super.dispatchDraw(canvas);
+  }
+
+  private void initRoundCorner() {
+    int roundCorner = mBannerManager.getBannerOptions().getRoundRectRadius();
+    if (roundCorner > 0 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+      ViewStyleSetter.applyRoundCorner(this, roundCorner);
+    }
   }
 
   private void setupViewPager(List<T> list) {
@@ -521,7 +541,8 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
    * @param radius round radius
    */
   public BannerViewPager<T> setRoundCorner(int radius) {
-    return setRoundCorner(radius, radius, radius, radius);
+    mBannerManager.getBannerOptions().setRoundRectRadius(radius);
+    return this;
   }
 
   /**
@@ -537,6 +558,10 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
       int bottomRightRadius) {
     mRadiusRectF = new RectF();
     mRadiusPath = new Path();
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+      mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+      mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_IN));
+    }
     mBannerManager.getBannerOptions()
         .setRoundRectRadius(topLeftRadius, topRightRadius, bottomLeftRadius, bottomRightRadius);
     return this;
@@ -549,6 +574,20 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
    */
   public BannerViewPager<T> setRoundRect(int radius) {
     return setRoundCorner(radius);
+  }
+
+  /**
+   * Set round rectangle effect for BannerViewPager.
+   *
+   * @param topLeftRadius top left round radius
+   * @param topRightRadius top right round radius
+   * @param bottomLeftRadius bottom left round radius
+   * @param bottomRightRadius bottom right round radius
+   */
+  public BannerViewPager<T> setRoundRect(int topLeftRadius, int topRightRadius,
+      int bottomLeftRadius,
+      int bottomRightRadius) {
+    return setRoundCorner(topLeftRadius, topRightRadius, bottomLeftRadius, bottomRightRadius);
   }
 
   /**
@@ -1105,7 +1144,6 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
   }
 
   /**
-   *
    * @param showIndicatorWhenOneItem 只有一个item时是否显示指示器，
    * true：显示，false：不显示，默认值false
    */

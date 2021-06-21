@@ -99,6 +99,7 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
       } else if (checkedId == R.id.rb_vector_drawable) {
         setDrawableIndicator(getVectorDrawableIndicator());
       } else if (checkedId == R.id.rb_round_corner) {
+        mViewPager.setRoundCorner(1);
         setRoundCorner();
       }
     });
@@ -109,7 +110,7 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
     int dp36 = getResources().getDimensionPixelOffset(R.dimen.dp_36);
     mViewPager
         .setRoundCorner(dp36, 0, 0, dp36)
-        .refreshData(getPicList(4));
+        .create(getPicList(4));
   }
 
   private void setDrawableIndicator(IIndicator indicator) {

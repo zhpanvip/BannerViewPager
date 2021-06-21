@@ -1,7 +1,5 @@
 package com.zhpan.bannerview.manager;
 
-import android.graphics.Path;
-import android.graphics.RectF;
 import android.view.View;
 
 import androidx.viewpager2.widget.ViewPager2;
@@ -10,8 +8,6 @@ import com.zhpan.bannerview.constants.PageStyle;
 import com.zhpan.bannerview.utils.BannerUtils;
 import com.zhpan.indicator.enums.IndicatorOrientation;
 import com.zhpan.indicator.option.IndicatorOptions;
-
-import java.util.Arrays;
 
 import static com.zhpan.bannerview.transform.ScaleInTransformer.DEFAULT_MIN_SCALE;
 
@@ -29,7 +25,6 @@ public class BannerOptions {
     pageMargin = BannerUtils.dp2px(20);
     rightRevealWidth = DEFAULT_REVEAL_WIDTH;
     leftRevealWidth = DEFAULT_REVEAL_WIDTH;
-    roundRadius = new float[8];
   }
 
   public static final int DEFAULT_REVEAL_WIDTH = -1000;
@@ -60,7 +55,9 @@ public class BannerOptions {
 
   private int scrollDuration;
 
-  private float[] roundRadius;
+  private float[] roundRadiusArray;
+
+  private int roundRadius;
 
   private boolean userInputEnabled = true;
 
@@ -126,7 +123,7 @@ public class BannerOptions {
     mIndicatorOptions.setSliderWidth(normalWidth, checkedWidth);
   }
 
-  public void showIndicatorWhenOnItem(boolean showIndicatorWhenOneItem){
+  public void showIndicatorWhenOnItem(boolean showIndicatorWhenOneItem) {
     mIndicatorOptions.setShowIndicatorOneItem(showIndicatorWhenOneItem);
   }
 
@@ -218,24 +215,29 @@ public class BannerOptions {
     mIndicatorMargin = new IndicatorMargin(left, top, right, bottom);
   }
 
-  public float[] getRoundRectRadius() {
+  public float[] getRoundRectRadiusArray() {
+    return roundRadiusArray;
+  }
+
+  public int getRoundRectRadius() {
     return roundRadius;
   }
 
   public void setRoundRectRadius(int radius) {
-    setRoundRectRadius(radius, radius, radius, radius);
+    this.roundRadius = radius;
   }
 
   public void setRoundRectRadius(int topLeftRadius, int topRightRadius, int bottomLeftRadius,
       int bottomRightRadius) {
-    roundRadius[0] = topLeftRadius;
-    roundRadius[1] = topLeftRadius;
-    roundRadius[2] = topRightRadius;
-    roundRadius[3] = topRightRadius;
-    roundRadius[4] = bottomRightRadius;
-    roundRadius[5] = bottomRightRadius;
-    roundRadius[6] = bottomLeftRadius;
-    roundRadius[7] = bottomLeftRadius;
+    roundRadiusArray = new float[8];
+    roundRadiusArray[0] = topLeftRadius;
+    roundRadiusArray[1] = topLeftRadius;
+    roundRadiusArray[2] = topRightRadius;
+    roundRadiusArray[3] = topRightRadius;
+    roundRadiusArray[4] = bottomRightRadius;
+    roundRadiusArray[5] = bottomRightRadius;
+    roundRadiusArray[6] = bottomLeftRadius;
+    roundRadiusArray[7] = bottomLeftRadius;
   }
 
   public int getScrollDuration() {
