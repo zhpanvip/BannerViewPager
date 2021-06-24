@@ -541,7 +541,11 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
    * @param radius round radius
    */
   public BannerViewPager<T> setRoundCorner(int radius) {
-    mBannerManager.getBannerOptions().setRoundRectRadius(radius);
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+      mBannerManager.getBannerOptions().setRoundRectRadius(radius);
+    } else {
+      setRoundCorner(radius, radius, radius, radius);
+    }
     return this;
   }
 

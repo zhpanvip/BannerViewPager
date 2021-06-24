@@ -99,7 +99,6 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
       } else if (checkedId == R.id.rb_vector_drawable) {
         setDrawableIndicator(getVectorDrawableIndicator());
       } else if (checkedId == R.id.rb_round_corner) {
-        mViewPager.setRoundCorner(1);
         setRoundCorner();
       }
     });

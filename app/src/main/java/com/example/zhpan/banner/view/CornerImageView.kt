@@ -5,6 +5,7 @@ import android.os.Build
 import android.util.AttributeSet
 
 import androidx.appcompat.widget.AppCompatImageView
+import com.zhpan.bannerview.provider.ViewStyleSetter
 
 class CornerImageView @JvmOverloads constructor(
   context: Context,
