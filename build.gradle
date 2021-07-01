@@ -4,15 +4,13 @@ buildscript {
     ext.kotlin_version = '1.5.0'
     repositories {
         jcenter()
-//        maven {
-//            url 'https://dl.bintray.com/zhpanvip/CircleViewPager/'
-//        }
+        mavenCentral()
         google()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.2.1'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
+//        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -22,6 +20,7 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        mavenCentral()
         google()
         maven { url "https://www.jitpack.io" }
     }
