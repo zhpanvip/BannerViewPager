@@ -29,7 +29,7 @@
 ## 效果预览
 
  ### [点击或扫描二维码下载apk](https://www.pgyer.com/bannerviewpager)
- 由于蒲公英平台限制，每个版本最多只能下载10次。其他版本下载链接：[V3.4.0下载](https://www.pgyer.com/8c1deb4b38ea81d9c62e639dcdeeba39),[V3.2.0下载](https://www.pgyer.com/1206755b946b8b7d537b4c7c954234b1)
+ 由于蒲公英平台限制，每个版本最多只能下载10次。其他版本下载链接：[[Download V3.5.0](https://www.pgyer.com/6c1abffc266a799fee559f1edc2cf6ff),[Download V3.4.0](https://www.pgyer.com/8c1deb4b38ea81d9c62e639dcdeeba39)
 
 ![扫描下载Demo](https://gitee.com/zhpanvip/images/raw/master/project/banner/qrcode.png)
 
@@ -41,6 +41,14 @@
 | MULTI_PAGE |MULTI_PAGE_SCALE | MULTI_PAGE_OVERLAP |
 |--|--|--|
 | ![MULTI_PAGE](https://gitee.com/zhpanvip/images/raw/master/project/banner/page_style_multi.gif) |![MULTI_PAGE](https://gitee.com/zhpanvip/images/raw/master/project/banner/page_style_multi_scale.gif) |![MULTI_PAGE](https://gitee.com/zhpanvip/images/raw/master/project/banner/page_style_multi_overlay.gif) |
+
+### 更多页面样式
+
+使用setPageStyle() 和 setRevealWidth()方法可以实现多种页面样式。
+
+| Style 1 | Style 2 | Style 3 |
+|--|--|--|
+| ![MULTI_PAGE1](https://gitee.com/zhpanvip/images/raw/master/project/banner/page_style_1.gif) |![MULTI_PAGE2](https://gitee.com/zhpanvip/images/raw/master/project/banner/page_style_2.gif) |![MULTI_PAGE3](https://gitee.com/zhpanvip/images/raw/master/project/banner/page_style_3.gif) |
 
 ### 2.[Indicator](https://github.com/zhpanvip/viewpagerindicator)
 

@@ -30,7 +30,7 @@
 
  ### [Click here or scan the QR code to download demo apk](https://www.pgyer.com/bannerviewpager).
  
- Due to the download platform restrictions, each version can only be downloaded up to 10 times. Download links for other versions: [Download V3.4.0](https://www.pgyer.com/8c1deb4b38ea81d9c62e639dcdeeba39),[Download V3.1.4](https://www.pgyer.com/1206755b946b8b7d537b4c7c954234b1)
+ Download links for other versions: [Download V3.5.0](https://www.pgyer.com/6c1abffc266a799fee559f1edc2cf6ff),[Download V3.4.0](https://www.pgyer.com/8c1deb4b38ea81d9c62e639dcdeeba39)
 
 ![QRCode](https://gitee.com/zhpanvip/images/raw/master/project/banner/qrcode.png)
 
@@ -42,6 +42,14 @@
 | MULTI_PAGE |MULTI_PAGE_SCALE | MULTI_PAGE_OVERLAP |
 |--|--|--|
 | ![MULTI_PAGE](https://gitee.com/zhpanvip/images/raw/master/project/banner/page_style_multi.gif) |![MULTI_PAGE](https://gitee.com/zhpanvip/images/raw/master/project/banner/page_style_multi_scale.gif) |![MULTI_PAGE](https://gitee.com/zhpanvip/images/raw/master/project/banner/page_style_multi_overlay.gif) |
+
+### More Page Style
+
+Many page styles can be implement using the setPageStyle() and setRevealWidth().
+
+| Style 1 | Style 2 | Style 3 |
+|--|--|--|
+| ![MULTI_PAGE1](https://gitee.com/zhpanvip/images/raw/master/project/banner/page_style_1.gif) |![MULTI_PAGE2](https://gitee.com/zhpanvip/images/raw/master/project/banner/page_style_2.gif) |![MULTI_PAGE3](https://gitee.com/zhpanvip/images/raw/master/project/banner/page_style_3.gif) |
 
 ### [2.Indicator](https://github.com/zhpanvip/viewpagerindicator)
 
