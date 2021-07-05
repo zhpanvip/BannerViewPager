@@ -1012,10 +1012,11 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
   }
 
   /**
-   * Set Page Style for Banner
+   * Set the default PageTrans former for {@link ViewPager2}
+   * Option params:
+   * {@link PageStyle#MULTI_PAGE_OVERLAP}
+   * {@link PageStyle#MULTI_PAGE_SCALE}
    * {@link PageStyle#NORMAL}
-   *
-   * @return BannerViewPager
    */
   public BannerViewPager<T> setPageStyle(@APageStyle int pageStyle) {
     return setPageStyle(pageStyle, DEFAULT_MIN_SCALE);
@@ -1028,7 +1029,8 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
   }
 
   /**
-   * @param revealWidth 一屏多页模式下两边页面显露出来的宽度
+   * @param revealWidth In the multi-page mode, The exposed width of the items on the left and right
+   * sides
    */
   public BannerViewPager<T> setRevealWidth(int revealWidth) {
     setRevealWidth(revealWidth, revealWidth);
@@ -1036,8 +1038,10 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
   }
 
   /**
-   * @param leftRevealWidth left page item  reveal width
-   * @param rightRevealWidth right page item reveal width
+   * This method is apply to multi-page mode {@link #setPageStyle(int)}
+   *
+   * @param leftRevealWidth The exposed width of left side
+   * @param rightRevealWidth The exposed width of right side
    */
   public BannerViewPager<T> setRevealWidth(int leftRevealWidth, int rightRevealWidth) {
     mBannerManager.getBannerOptions().setRightRevealWidth(rightRevealWidth);

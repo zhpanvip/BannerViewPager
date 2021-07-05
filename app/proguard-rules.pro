@@ -26,8 +26,10 @@
 -keep class com.example.zhpan.banner.bean.** { *; }
 -keep class com.example.zhpan.banner.net.** { *; }
 -keep class com.zhpan.idea.** { *; }
-
--keep class androidx.recyclerview.widget.**{*;}
--keep class androidx.viewpager2.widget.**{*;}
 -dontwarn com.tencent.bugly.**
 -keep public class com.tencent.bugly.**{*;}
+
+
+# For BannerViewPager
+-keep class androidx.recyclerview.widget.**{*;}
+-keep class androidx.viewpager2.widget.**{*;}

@@ -1,90 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-  <com.zhpan.bannerview.BannerViewPager
-      android:id="@+id/banner_view"
+  <LinearLayout
       android:layout_width="match_parent"
-      android:layout_height="@dimen/dp_185"
-      android:layout_marginTop="@dimen/dp_16"
-      app:bvp_indicator_slide_mode="worm"
-      app:bvp_page_style="multi_page" />
+      android:orientation="vertical"
+      android:layout_height="match_parent">
 
-  <TextView
-      android:id="@+id/tv_page_style"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_below="@id/banner_view"
-      android:layout_marginStart="@dimen/dp_10"
-      android:layout_marginTop="@dimen/dp_10"
-      android:text="@string/text_page_style"
-      android:textColor="#000000"
-      android:textSize="@dimen/sp_18"
-      android:textStyle="bold" />
+    <com.zhpan.bannerview.BannerViewPager
+        android:id="@+id/banner_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_185"
+        android:layout_marginTop="@dimen/dp_16"
+        app:bvp_indicator_slide_mode="worm"
+        app:bvp_page_style="multi_page" />
 
-  <RadioGroup
-      android:id="@+id/rg_page_style"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_below="@id/tv_page_style"
-      android:padding="@dimen/dp_15">
-
-
-    <RadioButton
-        android:id="@+id/rb_multi_page_overlap"
+    <TextView
+        android:id="@+id/tv_page_style"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_15"
-        android:text="MULTI_PAGE_OVERLAP"
-        android:textSize="@dimen/sp_16" />
+        android:layout_below="@id/banner_view"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_10"
+        android:text="@string/text_page_style"
+        android:textColor="#000000"
+        android:textSize="@dimen/sp_18"
+        android:textStyle="bold" />
+
+    <RadioGroup
+        android:id="@+id/rg_page_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_page_style"
+        android:padding="@dimen/dp_15">
 
 
-    <RadioButton
-        android:id="@+id/rb_multi_page_scale"
+      <RadioButton
+          android:id="@+id/rb_multi_page_overlap"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/dp_15"
+          android:text="MULTI_PAGE_OVERLAP Style 1"
+          android:textSize="@dimen/sp_16" />
+
+      <RadioButton
+          android:id="@+id/rb_multi_page_overlap1"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="@dimen/dp_15"
+          android:layout_marginTop="@dimen/dp_15"
+          android:text="MULTI_PAGE_OVERLAP Style 2"
+          android:textSize="@dimen/sp_16" />
+
+      <RadioButton
+          android:id="@+id/rb_multi_page_scale"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/dp_15"
+          android:text="MULTI_PAGE_SCALE Style 1"
+          android:textSize="@dimen/sp_16" />
+
+      <RadioButton
+          android:id="@+id/rb_multi_scale_page2"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="@dimen/dp_15"
+          android:layout_marginTop="@dimen/dp_15"
+          android:text="MULTI_PAGE_SCALE Style 2"
+          android:textSize="@dimen/sp_16" />
+
+      <RadioButton
+          android:id="@+id/rb_multi_scale_page3"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="@dimen/dp_15"
+          android:layout_marginTop="@dimen/dp_15"
+          android:text="MULTI_PAGE_SCALE Style 3"
+          android:textSize="@dimen/sp_16" />
+
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/tv_page_style_more"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_15"
-        android:text="MULTI_PAGE_SCALE"
-        android:textSize="@dimen/sp_16" />
+        android:layout_below="@id/banner_view"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_10"
+        android:text="@string/text_page_style_more"
+        android:textColor="#000000"
+        android:textSize="@dimen/sp_18"
+        android:textStyle="bold" />
 
-    <RadioButton
-        android:id="@+id/rb_multi_page"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/dp_15"
-        android:layout_marginTop="@dimen/dp_15"
-        android:text="Two Sides Page Reveal"
+    <RadioGroup
+        android:id="@+id/rg_more_page_style"
+        android:layout_width="match_parent"
+        android:padding="@dimen/dp_15"
+        android:layout_height="wrap_content">
 
-        android:textSize="@dimen/sp_16" />
+      <RadioButton
+          android:id="@+id/rb_multi_page3"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="@dimen/dp_15"
+          android:layout_marginTop="@dimen/dp_15"
+          android:text="Multi Page Style 1"
+          android:textSize="@dimen/sp_16" />
 
-    <RadioButton
-        android:id="@+id/rb_right_page_reveal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/dp_15"
-        android:layout_marginTop="@dimen/dp_15"
-        android:text="Right Page Reveal"
-        android:textSize="@dimen/sp_16" />
+      <RadioButton
+          android:id="@+id/rb_multi_page4"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="@dimen/dp_15"
+          android:layout_marginTop="@dimen/dp_15"
+          android:text="Multi Page Style 2"
+          android:textSize="@dimen/sp_16" />
 
-    <RadioButton
-        android:id="@+id/rb_qq_music_style"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_15"
-        android:text="QQ Music Banner Style"
-        android:textSize="@dimen/sp_16" />
+      <RadioButton
+          android:id="@+id/rb_qq_music_style"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/dp_15"
+          android:text="QQ Music Banner Style"
+          android:textSize="@dimen/sp_16" />
 
-    <RadioButton
-        android:id="@+id/rb_netease_music_style"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_15"
-        android:text="NetEase Music Banner Style"
-        android:textSize="@dimen/sp_16" />
+      <RadioButton
+          android:id="@+id/rb_netease_music_style"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/dp_15"
+          android:text="NetEase Music Banner Style"
+          android:textSize="@dimen/sp_16" />
 
 
-  </RadioGroup>
+    </RadioGroup>
 
-</RelativeLayout>
+  </LinearLayout>
+</androidx.core.widget.NestedScrollView>

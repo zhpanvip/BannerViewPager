@@ -18,7 +18,7 @@ class AdapterFragmentPager(fragmentActivity: FragmentActivity) : FragmentStateAd
   override fun createFragment(position: Int): Fragment {
     return when (position) {
       PAGE_HOME -> HomeFragment.getInstance();
-      PAGE_FIND -> PageFragment.getInstance();
+      PAGE_FIND -> PageFragment.instance;
       PAGE_INDICATOR -> IndicatorFragment.getInstance();
       PAGE_OTHERS -> OthersFragment.getInstance();
       else -> EmptyFragment.getInstance();

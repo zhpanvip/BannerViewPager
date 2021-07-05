@@ -6,9 +6,10 @@ import com.zhpan.bannerview.transform.ScaleInTransformer;
 
 import static com.example.zhpan.banner.transform.TransformerStyle.ACCORDION;
 import static com.example.zhpan.banner.transform.TransformerStyle.DEPTH;
+import static com.example.zhpan.banner.transform.TransformerStyle.DEPTH_SCALE;
 import static com.example.zhpan.banner.transform.TransformerStyle.ROTATE;
+import static com.example.zhpan.banner.transform.TransformerStyle.ROTATE_UP;
 import static com.example.zhpan.banner.transform.TransformerStyle.SCALE_IN;
-import static com.example.zhpan.banner.transform.TransformerStyle.STACK;
 
 public class PageTransformerFactory {
 
@@ -19,10 +20,13 @@ public class PageTransformerFactory {
         transformer = new DepthPageTransformer();
         break;
       case ROTATE:
+        transformer = new RotateTransformer();
+        break;
+      case ROTATE_UP:
         transformer = new RotateUpTransformer();
         break;
-      case STACK:
-        transformer = new StackTransformer();
+      case DEPTH_SCALE:
+        transformer = new DepthScaleTransformer();
         break;
       case ACCORDION:
         transformer = new AccordionTransformer();
