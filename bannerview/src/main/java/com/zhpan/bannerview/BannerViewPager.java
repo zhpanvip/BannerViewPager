@@ -89,7 +89,6 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
 
   private RectF mRadiusRectF;
   private Path mRadiusPath;
-  private Paint mPaint;
 
   private int startX, startY;
 
@@ -369,13 +368,7 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
       mRadiusPath.addRoundRect(mRadiusRectF,
           mBannerManager.getBannerOptions().getRoundRectRadiusArray(),
           Path.Direction.CW);
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-        canvas.clipPath(mRadiusPath);
-      } else {
-        if (mPaint != null) {
-          canvas.drawPath(mRadiusPath, mPaint);
-        }
-      }
+      canvas.clipPath(mRadiusPath);
     }
     super.dispatchDraw(canvas);
   }
@@ -562,10 +555,6 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
       int bottomRightRadius) {
     mRadiusRectF = new RectF();
     mRadiusPath = new Path();
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-      mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-      mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_IN));
-    }
     mBannerManager.getBannerOptions()
         .setRoundRectRadius(topLeftRadius, topRightRadius, bottomLeftRadius, bottomRightRadius);
     return this;
