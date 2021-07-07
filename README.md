@@ -17,7 +17,7 @@
 
 ## [1.Quick Starts](https://github.com/zhpanvip/BannerViewPager/wiki/01.Quick-Starts)
 
-## [2.Document API](https://github.com/zhpanvip/BannerViewPager/wiki/02.Docment)
+## [2.API](https://github.com/zhpanvip/BannerViewPager/wiki/02.Docment)
 
 ## [3.Multiple View Types](https://github.com/zhpanvip/BannerViewPager/wiki/03.Multiple-View-Types)
 
@@ -43,7 +43,7 @@
 |--|--|--|
 | ![MULTI_PAGE](https://gitee.com/zhpanvip/images/raw/master/project/banner/page_style_multi.gif) |![MULTI_PAGE](https://gitee.com/zhpanvip/images/raw/master/project/banner/page_style_multi_scale.gif) |![MULTI_PAGE](https://gitee.com/zhpanvip/images/raw/master/project/banner/page_style_multi_overlay.gif) |
 
-### More Page Style
+### More Page Styles
 
 Many page styles can be implement using the setPageStyle() and setRevealWidth().
 

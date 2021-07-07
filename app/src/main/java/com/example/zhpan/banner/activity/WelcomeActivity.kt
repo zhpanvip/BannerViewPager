@@ -11,17 +11,18 @@ import com.blankj.utilcode.util.ToastUtils
 import com.example.zhpan.banner.R
 import com.example.zhpan.banner.adapter.SimpleAdapter
 import com.example.zhpan.banner.bean.CustomBean
+import com.example.zhpan.banner.databinding.ActivityWelcomeBinding
 import com.example.zhpan.banner.transform.PageTransformerFactory
 import com.zhpan.bannerview.BannerViewPager
 import com.example.zhpan.banner.transform.TransformerStyle
 import com.zhpan.bannerview.utils.BannerUtils
 import com.zhpan.indicator.enums.IndicatorSlideMode
-import kotlinx.android.synthetic.main.activity_welcome.*
 import java.util.*
 
 class WelcomeActivity : BaseDataActivity() {
 
     private lateinit var mViewPager: BannerViewPager<CustomBean>
+    private lateinit var binding: ActivityWelcomeBinding
 
     private val des = arrayOf("在这里\n你可以听到周围人的心声", "在这里\nTA会在下一秒遇见你", "在这里\n不再错过可以改变你一生的人")
 
@@ -49,7 +50,8 @@ class WelcomeActivity : BaseDataActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_welcome)
+        binding = ActivityWelcomeBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         setupViewPager()
         updateUI(0)
     }
@@ -105,13 +107,13 @@ class WelcomeActivity : BaseDataActivity() {
     }
 
     private fun updateUI(position: Int) {
-        tv_describe?.text = des[position]
-        val translationAnim = ObjectAnimator.ofFloat(tv_describe, "translationX", -120f, 0f)
+        binding.tvDescribe?.text = des[position]
+        val translationAnim = ObjectAnimator.ofFloat(binding.tvDescribe, "translationX", -120f, 0f)
         translationAnim.apply {
             duration = ANIMATION_DURATION.toLong()
             interpolator = DecelerateInterpolator()
         }
-        val alphaAnimator = ObjectAnimator.ofFloat(tv_describe, "alpha", 0f, 1f)
+        val alphaAnimator = ObjectAnimator.ofFloat(binding.tvDescribe, "alpha", 0f, 1f)
         alphaAnimator.apply {
             duration = ANIMATION_DURATION.toLong()
         }
@@ -119,14 +121,14 @@ class WelcomeActivity : BaseDataActivity() {
         animatorSet.playTogether(translationAnim, alphaAnimator)
         animatorSet.start()
 
-        if (position == mViewPager.data.size - 1 && btn_start?.visibility == View.GONE) {
-            btn_start?.visibility = View.VISIBLE
+        if (position == mViewPager.data.size - 1 && binding.btnStart.visibility == View.GONE) {
+            binding.btnStart.visibility = View.VISIBLE
             ObjectAnimator
-                .ofFloat(btn_start, "alpha", 0f, 1f)
+                .ofFloat(binding.btnStart, "alpha", 0f, 1f)
                 .setDuration(ANIMATION_DURATION.toLong())
                 .start()
         } else {
-            btn_start?.visibility = View.GONE
+            binding.btnStart.visibility = View.GONE
         }
     }
 
