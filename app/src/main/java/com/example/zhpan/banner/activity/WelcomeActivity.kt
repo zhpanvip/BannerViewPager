@@ -107,7 +107,7 @@ class WelcomeActivity : BaseDataActivity() {
     }
 
     private fun updateUI(position: Int) {
-        binding.tvDescribe?.text = des[position]
+        binding.tvDescribe.text = des[position]
         val translationAnim = ObjectAnimator.ofFloat(binding.tvDescribe, "translationX", -120f, 0f)
         translationAnim.apply {
             duration = ANIMATION_DURATION.toLong()

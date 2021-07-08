@@ -11,7 +11,7 @@ import com.zhpan.bannerview.BaseViewHolder;
 /**
  * <pre>
  *   Created by zhpan on 2020/4/6.
- *   Description:Multiple view types adapter sample.
+ *   Description:Sample of multiple view types .
  * </pre>
  */
 public class MultiViewTypesAdapter extends BaseBannerAdapter<BannerData> {

@@ -20,7 +20,7 @@
       android:paddingEnd="@dimen/dp_10"
       android:paddingStart="@dimen/dp_10"
       android:paddingTop="@dimen/dp_5"
-      android:text="多类型Item示例"
+      android:text="Multiple View Types "
       android:textColor="#fff"
       android:textSize="@dimen/sp_26" />
 

@@ -80,12 +80,7 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
 
   private ViewPager2.OnPageChangeCallback onPageChangeCallback;
 
-  private final Runnable mRunnable = new Runnable() {
-    @Override
-    public void run() {
-      handlePosition();
-    }
-  };
+  private final Runnable mRunnable = this::handlePosition;
 
   private RectF mRadiusRectF;
   private Path mRadiusPath;
@@ -442,7 +437,6 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
 
   private void refreshIndicator(List<? extends T> data) {
     setIndicatorValues(data);
-    boolean canLoop = mBannerManager.getBannerOptions().isCanLoop();
     mBannerManager.getBannerOptions().getIndicatorOptions()
         .setCurrentPosition(BannerUtils.getRealPosition(mViewPager.getCurrentItem(), data.size()));
     mIndicatorView.notifyDataChanged();
@@ -485,7 +479,7 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
     super.onRestoreInstanceState(superState);
     currentPosition = bundle.getInt(KEY_CURRENT_POSITION);
     isCustomIndicator = bundle.getBoolean(KEY_IS_CUSTOM_INDICATOR);
-    setCurrentItem(currentPosition);
+    setCurrentItem(currentPosition,false);
   }
 
   /**
@@ -558,29 +552,6 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
     mBannerManager.getBannerOptions()
         .setRoundRectRadius(topLeftRadius, topRightRadius, bottomLeftRadius, bottomRightRadius);
     return this;
-  }
-
-  /**
-   * Set round rectangle effect for BannerViewPager.
-   *
-   * @param radius round radius
-   */
-  public BannerViewPager<T> setRoundRect(int radius) {
-    return setRoundCorner(radius);
-  }
-
-  /**
-   * Set round rectangle effect for BannerViewPager.
-   *
-   * @param topLeftRadius top left round radius
-   * @param topRightRadius top right round radius
-   * @param bottomLeftRadius bottom left round radius
-   * @param bottomRightRadius bottom right round radius
-   */
-  public BannerViewPager<T> setRoundRect(int topLeftRadius, int topRightRadius,
-      int bottomLeftRadius,
-      int bottomRightRadius) {
-    return setRoundCorner(topLeftRadius, topRightRadius, bottomLeftRadius, bottomRightRadius);
   }
 
   /**
@@ -1157,5 +1128,32 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
   public BannerViewPager<T> disallowInterceptTouchEvent(boolean disallowIntercept) {
     mBannerManager.getBannerOptions().setDisallowParentInterceptDownEvent(disallowIntercept);
     return this;
+  }
+
+  /**
+   * Set round rectangle effect for BannerViewPager.
+   *
+   * @param radius round radius
+   * @deprecated Use {@link #setRoundCorner(int)} instead.
+   */
+  @Deprecated
+  public BannerViewPager<T> setRoundRect(int radius) {
+    return setRoundCorner(radius);
+  }
+
+  /**
+   * Set round rectangle effect for BannerViewPager.
+   *
+   * @param topLeftRadius top left round radius
+   * @param topRightRadius top right round radius
+   * @param bottomLeftRadius bottom left round radius
+   * @param bottomRightRadius bottom right round radius
+   * @deprecated Use {@link #setRoundCorner(int, int, int, int)} instead.
+   */
+  @Deprecated
+  public BannerViewPager<T> setRoundRect(int topLeftRadius, int topRightRadius,
+      int bottomLeftRadius,
+      int bottomRightRadius) {
+    return setRoundCorner(topLeftRadius, topRightRadius, bottomLeftRadius, bottomRightRadius);
   }
 }

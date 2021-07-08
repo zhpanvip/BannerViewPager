@@ -27,21 +27,21 @@ public abstract class BaseBannerAdapter<T> extends RecyclerView.Adapter<BaseView
   public final BaseViewHolder<T> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
     View itemView =
         LayoutInflater.from(parent.getContext()).inflate(getLayoutId(viewType), parent, false);
-    return createViewHolder(parent, itemView, viewType);
+    BaseViewHolder<T> viewHolder = createViewHolder(parent, itemView, viewType);
+    itemView.setOnClickListener(clickedView -> {
+      int adapterPosition = viewHolder.getAdapterPosition();
+      if (mPageClickListener != null && adapterPosition != RecyclerView.NO_POSITION) {
+        int realPosition =
+            BannerUtils.getRealPosition(viewHolder.getAdapterPosition(), getListSize());
+        mPageClickListener.onPageClick(clickedView, realPosition);
+      }
+    });
+    return viewHolder;
   }
 
   @Override
   public final void onBindViewHolder(@NonNull BaseViewHolder<T> holder, final int position) {
     int realPosition = BannerUtils.getRealPosition(position, getListSize());
-    holder.itemView.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View clickedView) {
-        if (mPageClickListener != null) {
-          mPageClickListener.onPageClick(clickedView,
-              BannerUtils.getRealPosition(position, getListSize()));
-        }
-      }
-    });
     bindData(holder, mList.get(realPosition), realPosition, getListSize());
   }
 
@@ -92,8 +92,9 @@ public abstract class BaseBannerAdapter<T> extends RecyclerView.Adapter<BaseView
   }
 
   /**
-   * Don't need override this method in subclass.
-   * This method calls {@link #onCreateViewHolder(ViewGroup, int)} to create a new{@link
+   * Generally,there is no need to override this method in subclasses.
+   *
+   * This method called by {@link #onCreateViewHolder(ViewGroup, int)} to create a default {@link
    * BaseViewHolder}
    *
    * @param parent The ViewGroup into which the new View will be added after it is bound to

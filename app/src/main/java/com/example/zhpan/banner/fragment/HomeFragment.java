@@ -125,7 +125,7 @@ public class HomeFragment extends BaseFragment {
                     headerView.setVisibility(View.VISIBLE);
                     List<BannerData> dataList = response.getDataBeanList();
                     BannerData bannerData = new BannerData();
-                    bannerData.setDrawable(R.drawable.bg_card0);
+                    bannerData.setDrawable(R.drawable.bg_card3);
                     bannerData.setType(TYPE_NEW);
                     bannerData.setTitle("这是一个自定义类型");
                     dataList.add(1, bannerData);
