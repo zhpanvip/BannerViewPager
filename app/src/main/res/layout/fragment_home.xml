@@ -45,6 +45,7 @@
               android:layout_centerVertical="true"
               android:layout_marginStart="@dimen/dp_15"
               android:textColor="@color/white"
+              android:maxLines="1"
               android:textSize="@dimen/sp_14"
               tools:text="This is Title" />
 

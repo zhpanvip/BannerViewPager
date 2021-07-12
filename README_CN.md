@@ -36,7 +36,7 @@
 
 ### 1.PageStyle
 
-[一屏多页示例](https://github.com/zhpanvip/BannerViewPager/blob/master/app/src/main/java/com/example/zhpan/banner/fragment/PageFragment.java)
+[一屏多页示例](https://github.com/zhpanvip/BannerViewPager/blob/master/app/src/main/java/com/example/zhpan/banner/fragment/PageFragment.kt)
 
 | MULTI_PAGE |MULTI_PAGE_SCALE | MULTI_PAGE_OVERLAP |
 |--|--|--|
@@ -80,9 +80,14 @@ BannerViewPager目前已支持三种IndicatorViewStyle,以及五种IndicatorSlid
 
 
 
-## 有问题可以扫码加QQ群交流
+## 联系
 
- ![QQ交流群60902509](https://gitee.com/zhpanvip/images/raw/master/project/group/qq_group.png)
+ **如果使用中有任何问题可以加群交流:**   <a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=yHQU7OuoIazbu8vXGt1wC37RsPzhnR61&jump_from=webapi"><img border="0" 
+  src="https://pub.idqqimg.com/wpa/images/group.png" alt="QQ群60902509" title="QQ群60902509">
+ </a>
+| QQ群 | 微信群 |
+|--|--|
+| ![QQ Group](https://gitee.com/zhpanvip/images/raw/master/project/group/qq_group.png) |  ![WeChat](https://gitee.com/zhpanvip/images/raw/master/project/group/wechat.png) |
 
 
 

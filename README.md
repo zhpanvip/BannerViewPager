@@ -37,7 +37,7 @@
 
 ### 1.PageStyle
 
-[Sample Click Here](https://github.com/zhpanvip/BannerViewPager/blob/master/app/src/main/java/com/example/zhpan/banner/fragment/PageFragment.java)
+[Sample Click Here](https://github.com/zhpanvip/BannerViewPager/blob/master/app/src/main/java/com/example/zhpan/banner/fragment/PageFragment.kt)
 
 | MULTI_PAGE |MULTI_PAGE_SCALE | MULTI_PAGE_OVERLAP |
 |--|--|--|
@@ -81,9 +81,13 @@ It's also support to custom indicator style,just need extends BaseIndicatorView 
 
 ## Contact
 
- **If you have any question regard to BannerViewPager, please scan the QR code and join the QQ group to communicate.**
+ **If you have any question regard to BannerViewPager, please scan the QR code and join the QQ group to communicate.** <a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=yHQU7OuoIazbu8vXGt1wC37RsPzhnR61&jump_from=webapi"><img border="0" 
+                                                                                                                         src="https://pub.idqqimg.com/wpa/images/group.png" alt="QQ群60902509" title="QQ群60902509">
  
-![QQ交流群60902509](https://gitee.com/zhpanvip/images/raw/master/project/group/qq_group.png)
+ | QQ群 | 微信群 |
+ |--|--|
+ | ![QQ Group](https://gitee.com/zhpanvip/images/raw/master/project/group/qq_group.png) |  ![WeChat](https://gitee.com/zhpanvip/images/raw/master/project/group/wechat.png) |
+ 
 
 ## <span id="Sponsor"> Donate </span>
 
