@@ -2,10 +2,7 @@ package com.zhpan.bannerview;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
 import android.os.Build;
 import android.os.Bundle;
@@ -357,12 +354,11 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
 
   @Override
   protected void dispatchDraw(Canvas canvas) {
-    if (mRadiusRectF != null && mRadiusPath != null) {
+    float[] roundRectRadiusArray = mBannerManager.getBannerOptions().getRoundRectRadiusArray();
+    if (mRadiusRectF != null && mRadiusPath != null && roundRectRadiusArray != null) {
       mRadiusRectF.right = this.getWidth();
       mRadiusRectF.bottom = this.getHeight();
-      mRadiusPath.addRoundRect(mRadiusRectF,
-          mBannerManager.getBannerOptions().getRoundRectRadiusArray(),
-          Path.Direction.CW);
+      mRadiusPath.addRoundRect(mRadiusRectF, roundRectRadiusArray, Path.Direction.CW);
       canvas.clipPath(mRadiusPath);
     }
     super.dispatchDraw(canvas);

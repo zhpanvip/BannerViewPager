@@ -16,22 +16,22 @@ import android.widget.FrameLayout;
 
 import com.example.zhpan.banner.R;
 import com.example.zhpan.banner.recyclerview.listener.ICustomClickListener;
-import com.example.zhpan.banner.recyclerview.module.ViewConfig;
+import com.example.zhpan.banner.recyclerview.module.RecyclerViewConfig;
 
 import java.util.ArrayList;
 import java.util.List;
 
 final class CustomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-  private final List<ViewConfig> headConfig;
-  private final List<ViewConfig> footConfig;
+  private final List<RecyclerViewConfig> headConfig;
+  private final List<RecyclerViewConfig> footConfig;
   private final LayoutInflater inflater;
   private final RecyclerView.Adapter mAdapter;
   private int headCount = 0;
   private int footerCount = 0;
   private ICustomClickListener customClickListener;
 
-  public CustomAdapter(List<ViewConfig> headConfig, List<ViewConfig> footConfig,
-      RecyclerView.Adapter mAdapter, Context mContext, RecyclerView mRecyclerView) {
+  public CustomAdapter(List<RecyclerViewConfig> headConfig, List<RecyclerViewConfig> footConfig,
+      RecyclerView.Adapter mAdapter, Context mContext, RecyclerView recyclerView) {
     this.mAdapter = mAdapter;
     this.inflater = LayoutInflater.from(mContext);
     if (headConfig == null) {
@@ -57,7 +57,7 @@ final class CustomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
   @NonNull
   @Override
   public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int index) {
-    if (index == ViewConfig.HEADVIEW_TYPE) {
+    if (index == RecyclerViewConfig.HEADVIEW_TYPE) {
       FrameLayout contentView =
           (FrameLayout) inflater.inflate(R.layout.item_head_foot_parent, viewGroup, false);
       contentView.setTag(contentView.getClass() + "_head_" + headCount);
@@ -74,7 +74,7 @@ final class CustomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         headCount = 0;
       }
       return customViewHolder;
-    } else if (index == ViewConfig.FOOTVIEW_TYPE) {
+    } else if (index == RecyclerViewConfig.FOOTVIEW_TYPE) {
       FrameLayout contentView =
           (FrameLayout) inflater.inflate(R.layout.item_head_foot_parent, viewGroup, false);
       contentView.setTag(contentView.getClass() + "_foot_" + footerCount);
@@ -96,6 +96,7 @@ final class CustomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
   }
 
+  @SuppressWarnings("unchecked")
   @Override
   public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int position) {
     CustomViewHolder customViewHolder;
@@ -153,9 +154,9 @@ final class CustomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     int headSize = getHeadSize();
     int adapterCount = getItemCount();//获取实际的个数
     if (position < headSize) {
-      return ViewConfig.HEADVIEW_TYPE;
+      return RecyclerViewConfig.HEADVIEW_TYPE;
     } else if (position >= headSize + mAdapter.getItemCount() && position < adapterCount) {
-      return ViewConfig.FOOTVIEW_TYPE;
+      return RecyclerViewConfig.FOOTVIEW_TYPE;
     }
     return mAdapter.getItemViewType(position - headSize);
   }

@@ -9,14 +9,10 @@ import android.view.View;
 /**
  * <pre>
  *   Created by zhangpan on 2018/12/26.
- *   Description:为View设置圆角/圆形效果，支持View及ViewGroup，适用Android 5.1及以上系统。
+ *   Description:为View设置圆角，支持View及ViewGroup，适用Android 5.1及以上系统。
  * </pre>
  */
-
 public class ViewStyleSetter {
-
-  private ViewStyleSetter() {
-  }
 
   /**
    * 为View设置圆角效果

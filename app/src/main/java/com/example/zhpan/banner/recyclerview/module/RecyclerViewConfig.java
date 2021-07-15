@@ -2,7 +2,7 @@ package com.example.zhpan.banner.recyclerview.module;
 
 import android.view.View;
 
-public class ViewConfig {
+public class RecyclerViewConfig {
   public static final String HEADVIEW = "_head_";
   public static final String FOOTVIEW = "_foot_";
   public static final int HEADVIEW_TYPE = 100000;

@@ -14,7 +14,6 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.zhpan.bannerview.utils.BannerUtils;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
