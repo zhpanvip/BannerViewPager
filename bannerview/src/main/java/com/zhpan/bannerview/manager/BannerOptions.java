@@ -123,7 +123,7 @@ public class BannerOptions {
     mIndicatorOptions.setSliderWidth(normalWidth, checkedWidth);
   }
 
-  public void showIndicatorWhenOnItem(boolean showIndicatorWhenOneItem) {
+  public void showIndicatorWhenOneItem(boolean showIndicatorWhenOneItem) {
     mIndicatorOptions.setShowIndicatorOneItem(showIndicatorWhenOneItem);
   }
 
