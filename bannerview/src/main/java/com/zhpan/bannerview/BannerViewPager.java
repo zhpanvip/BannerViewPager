@@ -853,20 +853,26 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
    * Refresh data.
    * Confirm the {@link #create()} or {@link #create(List)} method has been called,
    * else the data won't be shown.
+   *
+   * Fix #209 如果BVP没有 attach 到 Window 上的时候刷新 ViewPager2 就会导致
+   * ViewPager2 的 currentItem 被 reset 为 0，故出现 BVP 的 item 快速滚动问题
+   * 为了避免这一问题，只能在已经attach 到 Window 上的时候去刷新数据。
    */
   public void refreshData(List<? extends T> list) {
-    if (list != null && mBannerPagerAdapter != null) {
-      stopLoop();
-      mBannerPagerAdapter.setData(list);
-      mBannerPagerAdapter.notifyDataSetChanged();
-      resetCurrentItem(getCurrentItem());
-      refreshIndicator(list);
-      startLoop();
-    }
+    post(() -> {
+      if (isAttachedToWindow() && list != null && mBannerPagerAdapter != null) {
+        stopLoop();
+        mBannerPagerAdapter.setData(list);
+        mBannerPagerAdapter.notifyDataSetChanged();
+        resetCurrentItem(getCurrentItem());
+        refreshIndicator(list);
+        startLoop();
+      }
+    });
   }
 
   public void addData(List<? extends T> list) {
-    if (list != null && mBannerPagerAdapter != null) {
+    if (isAttachedToWindow() && list != null && mBannerPagerAdapter != null) {
       List<T> data = mBannerPagerAdapter.getData();
       data.addAll(list);
       mBannerPagerAdapter.notifyDataSetChanged();
@@ -882,7 +888,7 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
    */
   public void removeItem(int index) {
     List<T> data = mBannerPagerAdapter.getData();
-    if (index >= 0 && index < data.size()) {
+    if (isAttachedToWindow() && index >= 0 && index < data.size()) {
       data.remove(index);
       mBannerPagerAdapter.notifyDataSetChanged();
       resetCurrentItem(getCurrentItem());
@@ -898,7 +904,7 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
    */
   public void insertItem(int index, T item) {
     List<T> data = mBannerPagerAdapter.getData();
-    if (index >= 0 && index <= data.size()) {
+    if (isAttachedToWindow() && index >= 0 && index <= data.size()) {
       data.add(index, item);
       mBannerPagerAdapter.notifyDataSetChanged();
       resetCurrentItem(getCurrentItem());
@@ -1093,11 +1099,11 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
 
   /**
    * @param showIndicatorWhenOneItem 只有一个item时是否显示指示器，
-   *                                 true：显示，false：不显示，默认值false
+   * true：显示，false：不显示，默认值false
    */
   public BannerViewPager<T> showIndicatorWhenOneItem(boolean showIndicatorWhenOneItem) {
     mBannerManager.getBannerOptions()
-            .showIndicatorWhenOneItem(showIndicatorWhenOneItem);
+        .showIndicatorWhenOneItem(showIndicatorWhenOneItem);
     return this;
   }
 
