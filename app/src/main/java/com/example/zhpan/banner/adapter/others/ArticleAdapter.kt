@@ -17,6 +17,7 @@ import com.example.zhpan.banner.bean.ArticleWrapper
 import com.example.zhpan.banner.net.BannerData
 import com.zhpan.bannerview.BannerViewPager
 import com.zhpan.bannerview.BaseViewHolder
+import com.zhpan.bannerview.constants.IndicatorGravity
 import com.zhpan.indicator.enums.IndicatorStyle
 
 import java.util.ArrayList
@@ -52,22 +53,8 @@ class ArticleAdapter(
   ) {
     val article = mList[i]
     if (article.type == 1001 && holder is BannerItemViewHolder) {
-      holder.bannerViewPager.setCanLoop(false)
-          .setIndicatorStyle(IndicatorStyle.ROUND_RECT)
-          .setIndicatorSliderGap(holder.resources.getDimensionPixelOffset(R.dimen.dp_4))
-          .setIndicatorSliderWidth(
-              holder.resources.getDimensionPixelOffset(R.dimen.dp_4),
-              holder.resources.getDimensionPixelOffset(R.dimen.dp_10)
-          )
-          .setIndicatorSliderColor(
-              ContextCompat.getColor(holder.itemView.context, R.color.red_normal_color),
-              ContextCompat.getColor(holder.itemView.context, R.color.red_checked_color)
-          )
-          .setOrientation(ViewPager2.ORIENTATION_VERTICAL)
-          .setInterval(2000)
-          .setIndicatorVisibility(View.GONE)
-          .setAdapter(DataBindingSampleAdapter())
-          .create(article.bannerData)
+      holder.bannerViewPager
+        .refreshData(article.bannerData)
     } else if (holder is ArticleViewHolder) {
       holder.tvAuthor.text = article.author
       holder.tvTitle.text = article.title
@@ -99,7 +86,13 @@ class ArticleAdapter(
 
     init {
       if (context is AppCompatActivity)
-        bannerViewPager.setLifecycleRegistry(context.lifecycle)
+        bannerViewPager.setCanLoop(false)
+          .setOrientation(ViewPager2.ORIENTATION_VERTICAL)
+          .setIndicatorGravity(IndicatorGravity.END)
+          .setInterval(2000)
+          .setAdapter(DataBindingSampleAdapter())
+          .setLifecycleRegistry(context.lifecycle)
+          .create()
     }
   }
 }
