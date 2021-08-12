@@ -299,8 +299,8 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
   }
 
   private void setIndicatorValues(List<? extends T> list) {
-    mIndicatorLayout.setVisibility(mBannerManager.getBannerOptions().getIndicatorVisibility());
     BannerOptions bannerOptions = mBannerManager.getBannerOptions();
+    mIndicatorLayout.setVisibility(bannerOptions.getIndicatorVisibility());
     bannerOptions.resetIndicatorOptions();
     if (!isCustomIndicator || null == mIndicatorView) {
       mIndicatorView = new IndicatorView(getContext());
