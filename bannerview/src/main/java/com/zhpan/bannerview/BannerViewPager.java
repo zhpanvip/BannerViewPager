@@ -71,7 +71,7 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
 
   private BannerManager mBannerManager;
 
-  private final Handler mHandler = new Handler();
+  private final Handler mHandler = new Handler(Looper.getMainLooper());
 
   private BaseBannerAdapter<T> mBannerPagerAdapter;
 
