@@ -501,6 +501,17 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
   }
 
   /**
+   * Start loop immediately
+   */
+  public void startLoopNow() {
+    if (!isLooping && isAutoPlay() && mBannerPagerAdapter != null &&
+            mBannerPagerAdapter.getListSize() > 1) {
+      mHandler.post(mRunnable);
+      isLooping = true;
+    }
+  }
+
+  /**
    * Stop loop
    */
   public void stopLoop() {
