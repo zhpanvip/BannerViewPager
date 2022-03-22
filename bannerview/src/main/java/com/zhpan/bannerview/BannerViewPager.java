@@ -58,6 +58,7 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
 
   private int currentPosition;
 
+  private int scrollOffset = 1;
   private boolean isCustomIndicator;
 
   private boolean isLooping;
@@ -285,7 +286,7 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
 
   private void handlePosition() {
     if (mBannerPagerAdapter != null && mBannerPagerAdapter.getListSize() > 1 && isAutoPlay()) {
-      mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
+      mViewPager.setCurrentItem(mViewPager.getCurrentItem() + scrollOffset);
       mHandler.postDelayed(mRunnable, getInterval());
     }
   }
@@ -442,6 +443,7 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
   private static final String KEY_SUPER_STATE = "SUPER_STATE";
   private static final String KEY_CURRENT_POSITION = "CURRENT_POSITION";
   private static final String KEY_IS_CUSTOM_INDICATOR = "IS_CUSTOM_INDICATOR";
+  private static final String KEY_CURRENT_OFFSET = "CURRENT_OFFSET";
 
   private int getInterval() {
     return mBannerManager.getBannerOptions().getInterval();
@@ -465,6 +467,7 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
     Bundle bundle = new Bundle();
     bundle.putParcelable(KEY_SUPER_STATE, superState);
     bundle.putInt(KEY_CURRENT_POSITION, currentPosition);
+    bundle.putInt(KEY_CURRENT_OFFSET, scrollOffset);
     bundle.putBoolean(KEY_IS_CUSTOM_INDICATOR, isCustomIndicator);
     return bundle;
   }
@@ -475,6 +478,7 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
     Parcelable superState = bundle.getParcelable(KEY_SUPER_STATE);
     super.onRestoreInstanceState(superState);
     currentPosition = bundle.getInt(KEY_CURRENT_POSITION);
+    scrollOffset = bundle.getInt(KEY_CURRENT_OFFSET);
     isCustomIndicator = bundle.getBoolean(KEY_IS_CUSTOM_INDICATOR);
     setCurrentItem(currentPosition, false);
   }
@@ -1154,4 +1158,15 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
       int bottomRightRadius) {
     return setRoundCorner(topLeftRadius, topRightRadius, bottomLeftRadius, bottomRightRadius);
   }
+  /**
+   * 自定义方法，设置每次滑动间隔数
+   *
+   * @param offset
+   * @return
+   */
+  public BannerViewPager<T> setScrollOffset(int offset) {
+     this.scrollOffset = offset;
+   return this;
+  }
 }
+
