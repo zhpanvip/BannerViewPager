@@ -31,7 +31,7 @@
  ### [点击或扫描二维码下载apk](https://www.pgyer.com/bannerviewpager)
  由于蒲公英平台限制，每个版本最多只能下载10次。其他版本下载链接：[[Download V3.5.0](https://www.pgyer.com/6c1abffc266a799fee559f1edc2cf6ff),[Download V3.4.0](https://www.pgyer.com/8c1deb4b38ea81d9c62e639dcdeeba39)
 
-![扫描下载Demo](https://gitee.com/zhpanvip/images/raw/master/project/banner/qrcode.png)
+![扫描下载Demo](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/banner/qrcode.png)
 
 
 ### 1.PageStyle
@@ -40,7 +40,7 @@
 
 | MULTI_PAGE |MULTI_PAGE_SCALE | MULTI_PAGE_OVERLAP |
 |--|--|--|
-| ![MULTI_PAGE](https://gitee.com/zhpanvip/images/raw/master/project/banner/page_style_multi.gif) |![MULTI_PAGE](https://gitee.com/zhpanvip/images/raw/master/project/banner/page_style_multi_scale.gif) |![MULTI_PAGE](https://gitee.com/zhpanvip/images/raw/master/project/banner/page_style_multi_overlay.gif) |
+| ![MULTI_PAGE](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/banner/page_style_multi.gif) |![MULTI_PAGE](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/banner/page_style_multi_scale.gif) |![MULTI_PAGE](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/banner/page_style_multi_overlay.gif) |
 
 ### 更多页面样式
 
@@ -48,7 +48,7 @@
 
 | Style 1 | Style 2 | Style 3 |
 |--|--|--|
-| ![MULTI_PAGE1](https://gitee.com/zhpanvip/images/raw/master/project/banner/page_style_1.gif) |![MULTI_PAGE2](https://gitee.com/zhpanvip/images/raw/master/project/banner/page_style_2.gif) |![MULTI_PAGE3](https://gitee.com/zhpanvip/images/raw/master/project/banner/page_style_3.gif) |
+| ![MULTI_PAGE1](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/banner/page_style_1.gif) |![MULTI_PAGE2](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/banner/page_style_2.gif) |![MULTI_PAGE3](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/banner/page_style_3.gif) |
 
 ### 2.[Indicator](https://github.com/zhpanvip/viewpagerindicator)
 
@@ -62,11 +62,11 @@ BannerViewPager目前已支持三种IndicatorViewStyle,以及五种IndicatorSlid
 
 | 属性 | CIRCLE | DASH | ROUND_RECT |
 |--|--|--|--|
-| NORMAL| ![CIRCLE_NORMAL](https://gitee.com/zhpanvip/images/raw/master/project/indicator/slide_circle_normal.gif) | ![DASH_NORMAL](https://gitee.com/zhpanvip/images/raw/master/project/indicator/style_dash_normal.gif) | ![ROUND_RECT_NORMAL](https://gitee.com/zhpanvip/images/raw/master/project/indicator/style_round_rect_normal.gif) |
-| SMOOTH| ![CIRCLE_SMOOTH](https://gitee.com/zhpanvip/images/raw/master/project/indicator/slide_circle_smooth.gif) | ![DASH_SMOOTH](https://gitee.com/zhpanvip/images/raw/master/project/indicator/style_dash_smooth.gif) | ![ROUND_RECT_SMOOTH](https://gitee.com/zhpanvip/images/raw/master/project/indicator/style_round_rect_smooth.gif) |
-| WORM| ![CIRCLE_WORM](https://gitee.com/zhpanvip/images/raw/master/project/indicator/slide_circle_worm.gif) | ![DASH_WORM](https://gitee.com/zhpanvip/images/raw/master/project/indicator/style_dash_worm.gif) | ![ROUND_WORM](https://gitee.com/zhpanvip/images/raw/master/project/indicator/style_round_rect_worm.gif) |
-| COLOR| ![CIRCLE_COLOR](https://gitee.com/zhpanvip/images/raw/master/project/indicator/slide_circle_color.gif) | ![DASH_COLOR](https://gitee.com/zhpanvip/images/raw/master/project/indicator/style_dash_color.gif) | ![ROUND_COLOR](https://gitee.com/zhpanvip/images/raw/master/project/indicator/style_round_rect_color.gif) |
-| SCALE| ![CIRCLE_SCALE](https://gitee.com/zhpanvip/images/raw/master/project/indicator/slide_circle_scale.gif) | ![DASH_SCALE](https://gitee.com/zhpanvip/images/raw/master/project/indicator/style_dash_scale.gif) | ![ROUND_SCALE](https://gitee.com/zhpanvip/images/raw/master/project/indicator/style_round_rect_scale.gif) |
+| NORMAL| ![CIRCLE_NORMAL](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/indicator/slide_circle_normal.gif) | ![DASH_NORMAL](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/indicator/style_dash_normal.gif) | ![ROUND_RECT_NORMAL](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/indicator/style_round_rect_normal.gif) |
+| SMOOTH| ![CIRCLE_SMOOTH](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/indicator/slide_circle_smooth.gif) | ![DASH_SMOOTH](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/indicator/style_dash_smooth.gif) | ![ROUND_RECT_SMOOTH](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/indicator/style_round_rect_smooth.gif) |
+| WORM| ![CIRCLE_WORM](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/indicator/slide_circle_worm.gif) | ![DASH_WORM](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/indicator/style_dash_worm.gif) | ![ROUND_WORM](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/indicator/style_round_rect_worm.gif) |
+| COLOR| ![CIRCLE_COLOR](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/indicator/slide_circle_color.gif) | ![DASH_COLOR](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/indicator/style_dash_color.gif) | ![ROUND_COLOR](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/indicator/style_round_rect_color.gif) |
+| SCALE| ![CIRCLE_SCALE](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/indicator/slide_circle_scale.gif) | ![DASH_SCALE](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/indicator/style_dash_scale.gif) | ![ROUND_SCALE](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/indicator/style_round_rect_scale.gif) |
 
 #### (2)Custom Indicator
 
@@ -76,7 +76,7 @@ BannerViewPager目前已支持三种IndicatorViewStyle,以及五种IndicatorSlid
 
 | Figure Indicator | Drawable Indicator | Indicator below of Banner |
 |--|--|--|
-| ![CIRCLE](https://gitee.com/zhpanvip/images/raw/master/project/banner/style_custum.gif) | ![DASH](https://gitee.com/zhpanvip/images/raw/master/project/banner/style_custom2.gif) | ![NORMAL](https://gitee.com/zhpanvip/images/raw/master/project/banner/style_custom1.gif) |
+| ![CIRCLE](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/banner/style_custum.gif) | ![DASH](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/banner/style_custom2.gif) | ![NORMAL](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/banner/style_custom1.gif) |
 
 
 
@@ -87,7 +87,7 @@ BannerViewPager目前已支持三种IndicatorViewStyle,以及五种IndicatorSlid
  </a>
 | QQ群 | 微信群 |
 |--|--|
-| ![QQ Group](https://gitee.com/zhpanvip/images/raw/master/project/group/qq_group.png) |  ![WeChat](https://gitee.com/zhpanvip/images/raw/master/project/group/wechat.png) |
+| ![QQ Group](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/group/qq_group.png) |  ![WeChat](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/group/wechat.png) |
 
 
 
@@ -98,7 +98,7 @@ BannerViewPager目前已支持三种IndicatorViewStyle,以及五种IndicatorSlid
 
 | 支付宝 | 微信支付 |
 |--|--|
-| ![NORMAL](https://gitee.com/zhpanvip/images/raw/master/project/pay/pay_alipay.jpg) |  ![SMOOTH](https://gitee.com/zhpanvip/images/raw/master/project/pay/pay_wechat.png) |
+| ![NORMAL](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/pay/pay_alipay.jpg) |  ![SMOOTH](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/pay/pay_wechat.png) |
 
 
 ## 感谢
