@@ -7,7 +7,7 @@
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-ViewPagerIndicator-brightgreen.svg?style=flat)](https://github.com/zhpanvip/viewpagerindicator)
 [![Stars](https://img.shields.io/github/stars/zhpanvip/BannerViewPager)](https://github.com/zhpanvip/BannerViewPager/stargazers)
 
-![公众号:玩转安卓Dev](https://gitee.com/zhpanvip/images/raw/master/project/group/wechat_dyh.png)
+![公众号:玩转安卓Dev](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/group/wechat_dyh.png)
 
 
 ## English | [中文](https://github.com/zhpanvip/BannerViewPager/blob/master/README_CN.md)
@@ -31,10 +31,12 @@
 ## Preview
 
  ### [Click here or scan the QR code to download demo apk](https://www.pgyer.com/bannerviewpager).
- 
- Download links for other versions: [Download V3.5.0](https://www.pgyer.com/6c1abffc266a799fee559f1edc2cf6ff),[Download V3.4.0](https://www.pgyer.com/8c1deb4b38ea81d9c62e639dcdeeba39)
 
-![QRCode](https://gitee.com/zhpanvip/images/raw/master/project/banner/qrcode.png)
+Download links for other
+versions: [Download V3.5.0](https://www.pgyer.com/6c1abffc266a799fee559f1edc2cf6ff),[Download
+V3.4.0](https://www.pgyer.com/8c1deb4b38ea81d9c62e639dcdeeba39)
+
+![QRCode](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/banner/qrcode.png)
 
 
 ### 1.PageStyle
@@ -43,7 +45,7 @@
 
 | MULTI_PAGE |MULTI_PAGE_SCALE | MULTI_PAGE_OVERLAP |
 |--|--|--|
-| ![MULTI_PAGE](https://gitee.com/zhpanvip/images/raw/master/project/banner/page_style_multi.gif) |![MULTI_PAGE](https://gitee.com/zhpanvip/images/raw/master/project/banner/page_style_multi_scale.gif) |![MULTI_PAGE](https://gitee.com/zhpanvip/images/raw/master/project/banner/page_style_multi_overlay.gif) |
+| ![MULTI_PAGE](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/banner/page_style_multi.gif) |![MULTI_PAGE](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/banner/page_style_multi_scale.gif) |![MULTI_PAGE](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/banner/page_style_multi_overlay.gif) |
 
 ### More Page Styles
 
@@ -51,7 +53,7 @@ Many page styles can be implement using the setPageStyle() and setRevealWidth().
 
 | Style 1 | Style 2 | Style 3 |
 |--|--|--|
-| ![MULTI_PAGE1](https://gitee.com/zhpanvip/images/raw/master/project/banner/page_style_1.gif) |![MULTI_PAGE2](https://gitee.com/zhpanvip/images/raw/master/project/banner/page_style_2.gif) |![MULTI_PAGE3](https://gitee.com/zhpanvip/images/raw/master/project/banner/page_style_3.gif) |
+| ![MULTI_PAGE1](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/banner/page_style_1.gif) |![MULTI_PAGE2](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/banner/page_style_2.gif) |![MULTI_PAGE3](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/banner/page_style_3.gif) |
 
 ### [2.Indicator](https://github.com/zhpanvip/viewpagerindicator)
 
@@ -65,11 +67,11 @@ BannerViewPager supports three Indicator Styles and five Indicator Slide mode no
 
 | Attrs | CIRCLE | DASH | ROUND_RECT |
 |--|--|--|--|
-| NORMAL| ![CIRCLE_NORMAL](https://gitee.com/zhpanvip/images/raw/master/project/indicator/slide_circle_normal.gif) | ![DASH_NORMAL](https://gitee.com/zhpanvip/images/raw/master/project/indicator/style_dash_normal.gif) | ![ROUND_RECT_NORMAL](https://gitee.com/zhpanvip/images/raw/master/project/indicator/style_round_rect_normal.gif) |
-| SMOOTH| ![CIRCLE_SMOOTH](https://gitee.com/zhpanvip/images/raw/master/project/indicator/slide_circle_smooth.gif) | ![DASH_SMOOTH](https://gitee.com/zhpanvip/images/raw/master/project/indicator/style_dash_smooth.gif) | ![ROUND_RECT_SMOOTH](https://gitee.com/zhpanvip/images/raw/master/project/indicator/style_round_rect_smooth.gif) |
-| WORM| ![CIRCLE_WORM](https://gitee.com/zhpanvip/images/raw/master/project/indicator/slide_circle_worm.gif) | ![DASH_WORM](https://gitee.com/zhpanvip/images/raw/master/project/indicator/style_dash_worm.gif) | ![ROUND_WORM](https://gitee.com/zhpanvip/images/raw/master/project/indicator/style_round_rect_worm.gif) |
-| COLOR| ![CIRCLE_COLOR](https://gitee.com/zhpanvip/images/raw/master/project/indicator/slide_circle_color.gif) | ![DASH_COLOR](https://gitee.com/zhpanvip/images/raw/master/project/indicator/style_dash_color.gif) | ![ROUND_COLOR](https://gitee.com/zhpanvip/images/raw/master/project/indicator/style_round_rect_color.gif) |
-| SCALE| ![CIRCLE_SCALE](https://gitee.com/zhpanvip/images/raw/master/project/indicator/slide_circle_scale.gif) | ![DASH_SCALE](https://gitee.com/zhpanvip/images/raw/master/project/indicator/style_dash_scale.gif) | ![ROUND_SCALE](https://gitee.com/zhpanvip/images/raw/master/project/indicator/style_round_rect_scale.gif) |
+| NORMAL| ![CIRCLE_NORMAL](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/indicator/slide_circle_normal.gif) | ![DASH_NORMAL](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/indicator/style_dash_normal.gif) | ![ROUND_RECT_NORMAL](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/indicator/style_round_rect_normal.gif) |
+| SMOOTH| ![CIRCLE_SMOOTH](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/indicator/slide_circle_smooth.gif) | ![DASH_SMOOTH](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/indicator/style_dash_smooth.gif) | ![ROUND_RECT_SMOOTH](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/indicator/style_round_rect_smooth.gif) |
+| WORM| ![CIRCLE_WORM](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/indicator/slide_circle_worm.gif) | ![DASH_WORM](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/indicator/style_dash_worm.gif) | ![ROUND_WORM](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/indicator/style_round_rect_worm.gif) |
+| COLOR| ![CIRCLE_COLOR](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/indicator/slide_circle_color.gif) | ![DASH_COLOR](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/indicator/style_dash_color.gif) | ![ROUND_COLOR](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/indicator/style_round_rect_color.gif) |
+| SCALE| ![CIRCLE_SCALE](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/indicator/slide_circle_scale.gif) | ![DASH_SCALE](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/indicator/style_dash_scale.gif) | ![ROUND_SCALE](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/indicator/style_round_rect_scale.gif) |
 #### (2)Custom Indicator
 
 It's also support to custom indicator style,just need extends BaseIndicatorView or implement the IIndicator and override methods, then you can draw Indicators for whatever you want.
@@ -78,7 +80,7 @@ It's also support to custom indicator style,just need extends BaseIndicatorView 
 
 | Figure Indicator | Drawable Indicator | Indicator below of Banner |
 |--|--|--|
-| ![CIRCLE](https://gitee.com/zhpanvip/images/raw/master/project/banner/style_custum.gif) | ![DASH](https://gitee.com/zhpanvip/images/raw/master/project/banner/style_custom2.gif) | ![NORMAL](https://gitee.com/zhpanvip/images/raw/master/project/banner/style_custom1.gif) |
+| ![CIRCLE](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/banner/style_custum.gif) | ![DASH](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/banner/style_custom2.gif) | ![NORMAL](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/banner/style_custom1.gif) |
 
 
 ## Contact
@@ -88,7 +90,7 @@ It's also support to custom indicator style,just need extends BaseIndicatorView 
  
  | QQ群 | 微信群 |
  |--|--|
- | ![QQ Group](https://gitee.com/zhpanvip/images/raw/master/project/group/qq_group.png) |  ![WeChat](https://gitee.com/zhpanvip/images/raw/master/project/group/wechat.png) |
+ | ![QQ Group](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/group/qq_group.png) |  ![WeChat](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/group/wechat.png) |
  
 
 ## <span id="Sponsor"> Donate </span>
@@ -97,7 +99,7 @@ It's also support to custom indicator style,just need extends BaseIndicatorView 
 
 | AliPay | WeChat |
 |--|--|
-| ![AliPay](https://gitee.com/zhpanvip/images/raw/master/project/pay/pay_alipay.jpg) |  ![WeChat](https://gitee.com/zhpanvip/images/raw/master/project/pay/pay_wechat.png) |
+| ![AliPay](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/pay/pay_alipay.jpg) |  ![WeChat](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/pay/pay_wechat.png) |
 
 
 ## Thanks
