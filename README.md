@@ -91,15 +91,6 @@ It's also support to custom indicator style,just need extends BaseIndicatorView 
  | QQ群 | 微信群 |
  |--|--|
  | ![QQ Group](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/group/qq_group.png) |  ![WeChat](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/group/wechat.png) |
- 
-
-## <span id="Sponsor"> Donate </span>
-
-**如果您觉得BVP库还不错，您可以对BVP打赏哦，您的支持将是我持续维护的动力。**
-
-| AliPay | WeChat |
-|--|--|
-| ![AliPay](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/pay/pay_alipay.jpg) |  ![WeChat](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/pay/pay_wechat.png) |
 
 
 ## Thanks
