@@ -963,7 +963,11 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
         } else if (realPosition == 0 && item == pageSize - 1) {
           mViewPager.setCurrentItem(currentItem - 1, smoothScroll);
         } else {
-          mViewPager.setCurrentItem(currentItem + (item - realPosition), smoothScroll);
+          if (item > realPosition) {
+            mViewPager.setCurrentItem(currentItem + (item - realPosition), smoothScroll);
+          } else {
+            mViewPager.setCurrentItem(currentItem + Math.abs(item - realPosition) - 1);
+          }
         }
       }
     } else {
