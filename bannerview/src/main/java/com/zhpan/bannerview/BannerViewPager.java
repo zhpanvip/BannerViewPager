@@ -134,8 +134,7 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
 
   @Override
   protected void onDetachedFromWindow() {
-    if (mBannerManager != null && mBannerManager.getBannerOptions()
-        .isStopLoopWhenDetachedFromWindow()) {
+    if (mBannerManager != null && isStopLoopWhenDetachedFromWindow()) {
       stopLoop();
     }
     super.onDetachedFromWindow();
@@ -144,8 +143,7 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
   @Override
   protected void onAttachedToWindow() {
     super.onAttachedToWindow();
-    if (mBannerManager != null && mBannerManager.getBannerOptions()
-        .isStopLoopWhenDetachedFromWindow()) {
+    if (mBannerManager != null && isStopLoopWhenDetachedFromWindow()) {
       startLoop();
     }
   }
@@ -353,6 +351,10 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
     }
   }
 
+  private boolean isStopLoopWhenDetachedFromWindow() {
+    return mBannerManager.getBannerOptions().isStopLoopWhenDetachedFromWindow();
+  }
+
   @Override
   protected void dispatchDraw(Canvas canvas) {
     float[] roundRectRadiusArray = mBannerManager.getBannerOptions().getRoundRectRadiusArray();
@@ -505,7 +507,7 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
    */
   public void startLoopNow() {
     if (!isLooping && isAutoPlay() && mBannerPagerAdapter != null &&
-            mBannerPagerAdapter.getListSize() > 1) {
+        mBannerPagerAdapter.getListSize() > 1) {
       mHandler.post(mRunnable);
       isLooping = true;
     }
@@ -1051,7 +1053,9 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
 
   @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
   public void onResume() {
-    startLoop();
+    if (isAttachedToWindow() || !isStopLoopWhenDetachedFromWindow()) {
+      startLoop();
+    }
   }
 
   @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)

@@ -189,7 +189,7 @@ public class HomeFragment extends BaseFragment {
         mViewPagerVertical
             .setAutoPlay(true)
             .setScrollDuration(500)
-            .stopLoopWhenDetachedFromWindow(false)
+            .stopLoopWhenDetachedFromWindow(true)
             .setLifecycleRegistry(getLifecycle())
             .setIndicatorStyle(IndicatorStyle.ROUND_RECT)
             .setIndicatorSlideMode(IndicatorSlideMode.SCALE)
