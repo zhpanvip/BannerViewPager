@@ -90,17 +90,6 @@ BannerViewPager目前已支持三种IndicatorViewStyle,以及五种IndicatorSlid
 | ![QQ Group](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/group/qq_group.png) |  ![WeChat](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/group/wechat.png) |
 
 
-
-## <span id="Sponsor"> 赞赏 </span>
-
-
-**如果您觉得BVP库还不错，您可以对BVP打赏哦，您的支持将是我持续维护的动力。**
-
-| 支付宝 | 微信支付 |
-|--|--|
-| ![NORMAL](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/pay/pay_alipay.jpg) |  ![SMOOTH](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/pay/pay_wechat.png) |
-
-
 ## 感谢
 
 [玩Android](https://wanandroid.com/)
