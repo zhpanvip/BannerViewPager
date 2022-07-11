@@ -651,6 +651,9 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
    */
   public BannerViewPager<T> setOnPageClickListener(OnPageClickListener onPageClickListener) {
     this.mOnPageClickListener = onPageClickListener;
+    if (mBannerPagerAdapter != null) {
+      mBannerPagerAdapter.setPageClickListener(mOnPageClickListener);
+    }
     return this;
   }
 
