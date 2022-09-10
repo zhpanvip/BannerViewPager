@@ -85,6 +85,8 @@ public class BannerOptions {
 
   private boolean stopLoopWhenDetachedFromWindow = true;
 
+  private boolean autoScrollSmoothly = true;
+
   private final IndicatorOptions mIndicatorOptions;
 
   public int getInterval() {
@@ -229,6 +231,14 @@ public class BannerOptions {
 
   public void setIndicatorMargin(int left, int top, int right, int bottom) {
     mIndicatorMargin = new IndicatorMargin(left, top, right, bottom);
+  }
+
+  public boolean isAutoScrollSmoothly() {
+    return autoScrollSmoothly;
+  }
+
+  public void setAutoScrollSmoothly(boolean autoScrollSmoothly) {
+    this.autoScrollSmoothly = autoScrollSmoothly;
   }
 
   public float[] getRoundRectRadiusArray() {

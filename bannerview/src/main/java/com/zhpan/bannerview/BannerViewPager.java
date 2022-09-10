@@ -298,7 +298,8 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
 
   private void handlePosition() {
     if (mBannerPagerAdapter != null && mBannerPagerAdapter.getListSize() > 1 && isAutoPlay()) {
-      mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
+      mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1,
+          mBannerManager.getBannerOptions().isAutoScrollSmoothly());
       mHandler.postDelayed(mRunnable, getInterval());
     }
   }
@@ -1138,6 +1139,15 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
   public BannerViewPager<T> showIndicatorWhenOneItem(boolean showIndicatorWhenOneItem) {
     mBannerManager.getBannerOptions()
         .showIndicatorWhenOneItem(showIndicatorWhenOneItem);
+    return this;
+  }
+
+  /**
+   * @param autoScrollSmoothly is auto play scroll smoothly.
+   */
+  public BannerViewPager<T> setAutoPlaySmoothly(boolean autoScrollSmoothly) {
+    mBannerManager.getBannerOptions()
+        .setAutoScrollSmoothly(autoScrollSmoothly);
     return this;
   }
 
