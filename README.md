@@ -88,9 +88,9 @@ It's also support to custom indicator style,just need extends BaseIndicatorView 
  **If you have any question regard to BannerViewPager, please scan the QR code and join the QQ group to communicate.** <a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=yHQU7OuoIazbu8vXGt1wC37RsPzhnR61&jump_from=webapi"><img border="0" 
                                                                                                                          src="https://pub.idqqimg.com/wpa/images/group.png" alt="QQ群60902509" title="QQ群60902509">
  
- | QQ群 | 微信群 |
- |--|--|
- | ![QQ Group](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/group/qq_group.png) |  ![WeChat](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/group/wechat.png) |
+| QQ群 | 微信群 |
+|--|--|
+| ![QQ Group](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/group/qq_group.png) |  ![WeChat](https://github.com/zhpanvip/images/blob/master/project/group/wechat.png) |
 
 
 ## Thanks

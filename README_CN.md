@@ -87,7 +87,7 @@ BannerViewPager目前已支持三种IndicatorViewStyle,以及五种IndicatorSlid
  </a>
 | QQ群 | 微信群 |
 |--|--|
-| ![QQ Group](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/group/qq_group.png) |  ![WeChat](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/group/wechat.png) |
+| ![QQ Group](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/group/qq_group.png) |  ![WeChat](https://github.com/zhpanvip/images/blob/master/project/group/wechat.png) |
 
 
 ## 感谢
