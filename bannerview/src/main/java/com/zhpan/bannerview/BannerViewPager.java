@@ -496,7 +496,7 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
    */
   public void startLoop() {
     if (!isLooping && isAutoPlay() && mBannerPagerAdapter != null &&
-        mBannerPagerAdapter.getListSize() > 1) {
+        mBannerPagerAdapter.getListSize() > 1 && isAttachedToWindow()) {
       mHandler.postDelayed(mRunnable, getInterval());
       isLooping = true;
     }
@@ -828,7 +828,7 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
    * refresh.
    */
   public void create() {
-    create(new ArrayList<T>());
+    create(new ArrayList<>());
   }
 
   /**
@@ -1056,7 +1056,7 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
 
   @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
   public void onResume() {
-    if (isAttachedToWindow() || !isStopLoopWhenDetachedFromWindow()) {
+    if (!isStopLoopWhenDetachedFromWindow()) {
       startLoop();
     }
   }
