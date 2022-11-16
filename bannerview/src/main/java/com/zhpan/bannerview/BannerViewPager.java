@@ -1,3 +1,18 @@
+/*
+Copyright 2017 zhpanvip The BannerViewPager Open Source Project
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+ */
 package com.zhpan.bannerview;
 
 import android.content.Context;
@@ -283,7 +298,8 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
 
   private void handlePosition() {
     if (mBannerPagerAdapter != null && mBannerPagerAdapter.getListSize() > 1 && isAutoPlay()) {
-      mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
+      mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1,
+          mBannerManager.getBannerOptions().isAutoScrollSmoothly());
       mHandler.postDelayed(mRunnable, getInterval());
     }
   }
@@ -1123,6 +1139,15 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
   public BannerViewPager<T> showIndicatorWhenOneItem(boolean showIndicatorWhenOneItem) {
     mBannerManager.getBannerOptions()
         .showIndicatorWhenOneItem(showIndicatorWhenOneItem);
+    return this;
+  }
+
+  /**
+   * @param autoScrollSmoothly is auto play scroll smoothly.
+   */
+  public BannerViewPager<T> setAutoPlaySmoothly(boolean autoScrollSmoothly) {
+    mBannerManager.getBannerOptions()
+        .setAutoScrollSmoothly(autoScrollSmoothly);
     return this;
   }
 
