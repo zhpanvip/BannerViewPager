@@ -317,7 +317,9 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
     BannerOptions bannerOptions = mBannerManager.getBannerOptions();
     mIndicatorLayout.setVisibility(bannerOptions.getIndicatorVisibility());
     bannerOptions.resetIndicatorOptions();
-    if (!isCustomIndicator || null == mIndicatorView) {
+    if (isCustomIndicator) {
+      mIndicatorLayout.removeAllViews();
+    } else if (mIndicatorView == null) {
       mIndicatorView = new IndicatorView(getContext());
     }
     initIndicator(bannerOptions.getIndicatorOptions(), list);
@@ -512,7 +514,7 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
    */
   public void startLoop() {
     if (!isLooping && isAutoPlay() && mBannerPagerAdapter != null &&
-        mBannerPagerAdapter.getListSize() > 1) {
+        mBannerPagerAdapter.getListSize() > 1 && isAttachedToWindow()) {
       mHandler.postDelayed(mRunnable, getInterval());
       isLooping = true;
     }
@@ -844,7 +846,7 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
    * refresh.
    */
   public void create() {
-    create(new ArrayList<T>());
+    create(new ArrayList<>());
   }
 
   /**
@@ -1072,7 +1074,7 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
 
   @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
   public void onResume() {
-    if (isAttachedToWindow() || !isStopLoopWhenDetachedFromWindow()) {
+    if (!isStopLoopWhenDetachedFromWindow()) {
       startLoop();
     }
   }

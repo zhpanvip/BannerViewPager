@@ -83,7 +83,7 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
         .setOnPageClickListener(
             (clickedView, position) -> ToastUtils.showShort("Position:" + position))
         .setIndicatorSliderColor(getColor(R.color.red_normal_color),
-            getColor(R.color.red_checked_color)).create();
+            getColor(R.color.red_checked_color)).create(getPicList(2));
     initRadioGroup();
   }
 
@@ -102,7 +102,7 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
         setRoundCorner();
       }
     });
-    radioButton.performClick();
+    mViewPager.post(() -> radioButton.performClick());
   }
 
   private void setRoundCorner() {
