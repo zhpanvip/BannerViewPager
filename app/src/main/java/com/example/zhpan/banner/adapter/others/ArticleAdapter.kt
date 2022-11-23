@@ -91,7 +91,7 @@ class ArticleAdapter(
           .setIndicatorGravity(IndicatorGravity.END)
           .setInterval(2000)
           .setAdapter(DataBindingSampleAdapter())
-          .setLifecycleRegistry(context.lifecycle)
+          .registerLifecycleObserver(context.lifecycle)
           .create()
     }
   }

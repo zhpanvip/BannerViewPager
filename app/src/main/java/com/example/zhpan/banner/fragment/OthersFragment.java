@@ -72,7 +72,7 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
     view.findViewById(R.id.tv_photo_view).setOnClickListener(this);
     mViewPager.setIndicatorSliderGap(BannerUtils.dp2px(6))
         .setIndicatorView(mIndicatorView)
-        .setLifecycleRegistry(getLifecycle())
+        .registerLifecycleObserver(getLifecycle())
         .setRoundCorner(getResources().getDimensionPixelOffset(R.dimen.dp_10))
         .setOnPageClickListener((clickedView, position) -> {
           ToastUtils.showShort("position:" + position);

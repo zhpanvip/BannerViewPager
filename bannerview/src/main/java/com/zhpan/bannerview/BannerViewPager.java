@@ -1062,7 +1062,16 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
     return this;
   }
 
+  /**
+   * @deprecated use {@link #registerLifecycleObserver(Lifecycle)} instead.
+   */
+  @Deprecated
   public BannerViewPager<T> setLifecycleRegistry(Lifecycle lifecycleRegistry) {
+    lifecycleRegistry.addObserver(this);
+    return this;
+  }
+
+  public BannerViewPager<T> registerLifecycleObserver(Lifecycle lifecycleRegistry) {
     lifecycleRegistry.addObserver(this);
     return this;
   }

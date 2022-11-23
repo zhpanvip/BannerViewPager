@@ -160,7 +160,7 @@ public class HomeFragment extends BaseFragment {
         mViewPagerHorizontal
             .setScrollDuration(600)
             .setOffScreenPageLimit(2)
-            .setLifecycleRegistry(getLifecycle())
+            .registerLifecycleObserver(getLifecycle())
             .setIndicatorStyle(IndicatorStyle.CIRCLE)
             .setIndicatorSlideMode(IndicatorSlideMode.WORM)
             .setInterval(3000)
@@ -190,7 +190,7 @@ public class HomeFragment extends BaseFragment {
             .setAutoPlay(true)
             .setScrollDuration(500)
             .stopLoopWhenDetachedFromWindow(true)
-            .setLifecycleRegistry(getLifecycle())
+            .registerLifecycleObserver(getLifecycle())
             .setIndicatorStyle(IndicatorStyle.ROUND_RECT)
             .setIndicatorSlideMode(IndicatorSlideMode.SCALE)
             .setIndicatorSliderGap(getResources().getDimensionPixelOffset(R.dimen.dp_4))

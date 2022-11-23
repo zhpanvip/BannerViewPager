@@ -50,7 +50,7 @@ public class IndicatorFragment extends BaseFragment {
     mViewPager = view.findViewById(R.id.banner_view);
     mViewPager.setIndicatorSliderGap(BannerUtils.dp2px(6))
         .setScrollDuration(800)
-        .setLifecycleRegistry(getLifecycle())
+        .registerLifecycleObserver(getLifecycle())
         .setIndicatorGravity(IndicatorGravity.CENTER)
         .setOnPageClickListener(
             (clickedView, position) -> ToastUtils.showShort("position:" + position))

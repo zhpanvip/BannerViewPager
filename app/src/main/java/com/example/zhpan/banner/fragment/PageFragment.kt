@@ -36,7 +36,7 @@ class PageFragment : BaseFragment() {
 
     private fun initBVP() {
         mViewPager.apply {
-            setLifecycleRegistry(lifecycle)
+            registerLifecycleObserver(lifecycle)
             adapter = ViewBindingSampleAdapter(resources.getDimensionPixelOffset(dimen.dp_8))
             setIndicatorSlideMode(IndicatorSlideMode.SCALE)
             setIndicatorSliderColor(
