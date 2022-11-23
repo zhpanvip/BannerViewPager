@@ -1076,7 +1076,7 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
     return this;
   }
 
-  public BannerViewPager<T> removeLifecycleRegistry(Lifecycle lifecycleRegistry) {
+  public BannerViewPager<T> removeLifecycleObserver(Lifecycle lifecycleRegistry) {
     lifecycleRegistry.removeObserver(this);
     return this;
   }
