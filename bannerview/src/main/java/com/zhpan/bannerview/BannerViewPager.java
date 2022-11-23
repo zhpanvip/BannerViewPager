@@ -1067,6 +1067,11 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
     return this;
   }
 
+  public BannerViewPager<T> removeLifecycleRegistry(Lifecycle lifecycleRegistry) {
+    lifecycleRegistry.removeObserver(this);
+    return this;
+  }
+
   @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
   public void onPause() {
     stopLoop();
