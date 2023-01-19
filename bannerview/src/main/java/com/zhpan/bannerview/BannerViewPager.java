@@ -99,6 +99,7 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
   private Path mRadiusPath;
 
   private int startX, startY;
+  private Lifecycle lifecycleRegistry;
 
   private final ViewPager2.OnPageChangeCallback mOnPageChangeCallback =
       new ViewPager2.OnPageChangeCallback() {
@@ -513,8 +514,13 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
    * Start loop
    */
   public void startLoop() {
-    if (!isLooping && isAutoPlay() && mBannerPagerAdapter != null &&
-        mBannerPagerAdapter.getListSize() > 1 && isAttachedToWindow()) {
+    if (!isLooping
+        && isAutoPlay()
+        && mBannerPagerAdapter != null
+        &&
+        mBannerPagerAdapter.getListSize() > 1
+        && isAttachedToWindow()
+        && lifecycleRegistry.getCurrentState() == Lifecycle.State.RESUMED) {
       mHandler.postDelayed(mRunnable, getInterval());
       isLooping = true;
     }
@@ -1067,12 +1073,13 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
    */
   @Deprecated
   public BannerViewPager<T> setLifecycleRegistry(Lifecycle lifecycleRegistry) {
-    lifecycleRegistry.addObserver(this);
+    registerLifecycleObserver(lifecycleRegistry);
     return this;
   }
 
   public BannerViewPager<T> registerLifecycleObserver(Lifecycle lifecycleRegistry) {
     lifecycleRegistry.addObserver(this);
+    this.lifecycleRegistry = lifecycleRegistry;
     return this;
   }
 
@@ -1088,9 +1095,7 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
 
   @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
   public void onResume() {
-    if (!isStopLoopWhenDetachedFromWindow()) {
-      startLoop();
-    }
+    startLoop();
   }
 
   @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
