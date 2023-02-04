@@ -36,7 +36,7 @@ public abstract class BaseBannerAdapter<T> extends RecyclerView.Adapter<BaseView
   protected List<T> mList = new ArrayList<>();
   private boolean isCanLoop;
   public static final int MAX_VALUE = 1000;
-  private BannerViewPager.OnPageClickListener mPageClickListener;
+  private PageClickListener mPageClickListener;
 
   @NonNull
   @Override
@@ -48,8 +48,8 @@ public abstract class BaseBannerAdapter<T> extends RecyclerView.Adapter<BaseView
       int adapterPosition = viewHolder.getAdapterPosition();
       if (mPageClickListener != null && adapterPosition != RecyclerView.NO_POSITION) {
         int realPosition =
-            BannerUtils.getRealPosition(viewHolder.getAdapterPosition(), getListSize());
-        mPageClickListener.onPageClick(clickedView, realPosition);
+            BannerUtils.getRealPosition(adapterPosition, getListSize());
+        mPageClickListener.onPageClick(clickedView, realPosition, adapterPosition);
       }
     });
     return viewHolder;
@@ -91,7 +91,7 @@ public abstract class BaseBannerAdapter<T> extends RecyclerView.Adapter<BaseView
     isCanLoop = canLoop;
   }
 
-  void setPageClickListener(BannerViewPager.OnPageClickListener pageClickListener) {
+  void setPageClickListener(PageClickListener pageClickListener) {
     mPageClickListener = pageClickListener;
   }
 
@@ -139,4 +139,8 @@ public abstract class BaseBannerAdapter<T> extends RecyclerView.Adapter<BaseView
    */
   public abstract @LayoutRes
   int getLayoutId(int viewType);
+
+  interface PageClickListener {
+    void onPageClick(View clickedView, int realPosition, int adapterPosition);
+  }
 }

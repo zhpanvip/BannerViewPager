@@ -77,8 +77,6 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
 
   private boolean isLooping;
 
-  private OnPageClickListener mOnPageClickListener;
-
   private IIndicator mIndicatorView;
 
   private RelativeLayout mIndicatorLayout;
@@ -403,7 +401,6 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
     }
     currentPosition = 0;
     mBannerPagerAdapter.setCanLoop(bannerOptions.isCanLoop());
-    mBannerPagerAdapter.setPageClickListener(mOnPageClickListener);
     mViewPager.setAdapter(mBannerPagerAdapter);
     if (isCanLoopSafely()) {
       mViewPager.setCurrentItem(getOriginalPosition(list.size()), false);
@@ -674,9 +671,21 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
    * @param onPageClickListener item click listener
    */
   public BannerViewPager<T> setOnPageClickListener(OnPageClickListener onPageClickListener) {
-    this.mOnPageClickListener = onPageClickListener;
+    setOnPageClickListener(onPageClickListener, false);
+    return this;
+  }
+
+  public BannerViewPager<T> setOnPageClickListener(OnPageClickListener onPageClickListener,
+      boolean scrollToThisItem) {
     if (mBannerPagerAdapter != null) {
-      mBannerPagerAdapter.setPageClickListener(mOnPageClickListener);
+      mBannerPagerAdapter.setPageClickListener(
+          (clickedView, realPosition, adapterPosition) -> {
+            onPageClickListener.onPageClick(
+                clickedView, realPosition);
+            if (scrollToThisItem) {
+              mViewPager.setCurrentItem(adapterPosition);
+            }
+          });
     }
     return this;
   }

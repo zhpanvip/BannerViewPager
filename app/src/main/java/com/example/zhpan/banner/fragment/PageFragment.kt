@@ -47,7 +47,7 @@ class PageFragment : BaseFragment() {
                 resources.getDimensionPixelOffset(dimen.dp_4),
                 resources.getDimensionPixelOffset(dimen.dp_5)
             )
-            setOnPageClickListener { _: View, position: Int -> itemClick(position) }
+            setOnPageClickListener ({ _: View, position: Int -> itemClick(position) },true)
             setInterval(5000)
         }
     }
@@ -185,9 +185,6 @@ class PageFragment : BaseFragment() {
     }
 
     private fun itemClick(position: Int) {
-        if (position != mViewPager.currentItem) {
-            mViewPager.setCurrentItem(position, true)
-        }
         ToastUtils.showShort("position:$position")
     }
 
