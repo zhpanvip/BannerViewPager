@@ -16,6 +16,25 @@
         app:bvp_indicator_slide_mode="worm"
         app:bvp_page_style="multi_page" />
 
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
+      <Button
+          android:id="@+id/btn_pre"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/pre"/>
+
+      <Button
+          android:id="@+id/btn_next"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/next"
+          />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
     <TextView
         android:id="@+id/tv_page_style"
         android:layout_width="wrap_content"
@@ -132,8 +151,6 @@
           android:layout_marginTop="@dimen/dp_15"
           android:text="NetEase Music Banner Style"
           android:textSize="@dimen/sp_16" />
-
-
     </RadioGroup>
 
   </LinearLayout>

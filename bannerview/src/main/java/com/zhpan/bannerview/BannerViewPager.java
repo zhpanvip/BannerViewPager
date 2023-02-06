@@ -989,19 +989,11 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
   public void setCurrentItem(int item, boolean smoothScroll) {
     if (isCanLoopSafely()) {
       int pageSize = mBannerPagerAdapter.getListSize();
-      item = item >= pageSize ? pageSize - 1 : item;
+      //item = item >= pageSize ? pageSize - 1 : item;
       int currentItem = mViewPager.getCurrentItem();
       boolean canLoop = mBannerManager.getBannerOptions().isCanLoop();
       int realPosition = BannerUtils.getRealPosition(currentItem, pageSize);
-      if (currentItem != item) {
-        if (item == 0 && realPosition == pageSize - 1) {
-          mViewPager.setCurrentItem(currentItem + 1, smoothScroll);
-        } else if (realPosition == 0 && item == pageSize - 1) {
-          mViewPager.setCurrentItem(currentItem - 1, smoothScroll);
-        } else {
-          mViewPager.setCurrentItem(currentItem + (item - realPosition), smoothScroll);
-        }
-      }
+      mViewPager.setCurrentItem(currentItem + (item - realPosition), smoothScroll);
     } else {
       mViewPager.setCurrentItem(item, smoothScroll);
     }
