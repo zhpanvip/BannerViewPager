@@ -43,7 +43,7 @@ class OverlapPageTransformer(
     ) { "unSelectedItemAlpha value should be between 1.0 to 0.0" }
   }
 
-  private val scalingValue = 0.2f
+  private val scalingValue = 0.4f
 
   override fun transformPage(
     page: View,

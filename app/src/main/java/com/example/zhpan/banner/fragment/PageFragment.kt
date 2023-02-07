@@ -56,7 +56,6 @@ class PageFragment : BaseFragment() {
         resources.getDimensionPixelOffset(dimen.dp_4),
         resources.getDimensionPixelOffset(dimen.dp_5)
       )
-        .setAutoPlay(false)
       setOnPageClickListener({ _: View, position: Int -> itemClick(position) }, true)
       setInterval(5000)
     }
@@ -126,9 +125,9 @@ class PageFragment : BaseFragment() {
   ) {
     mViewPager
       .setPageMargin(resources.getDimensionPixelOffset(dimen.dp_15))
-      // .setScrollDuration(800)
+      .setScrollDuration(800)
       .setRevealWidth(leftRevealWidth, rightRevealWidth)
-      .setPageStyle(pageStyle)
+      .setPageStyle(pageStyle,0.9f)
       .create(getPicList(4))
   }
 

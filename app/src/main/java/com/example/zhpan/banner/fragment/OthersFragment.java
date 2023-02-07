@@ -23,6 +23,7 @@ import com.zhpan.indicator.IndicatorView;
 import com.zhpan.indicator.base.IIndicator;
 import com.zhpan.indicator.enums.IndicatorSlideMode;
 
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -168,8 +169,9 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
   }
 
   private void updateData() {
-    mViewPager.refreshData(getPicList(new Random().nextInt(5) - 1));
-    ToastUtils.showShort("size=" + mViewPager.getData().size());
+    List<Integer> picList = getPicList(new Random().nextInt(5) - 1);
+    ToastUtils.showShort("size=" +picList.size());
+    mViewPager.refreshData(picList);
   }
 
   @Override
