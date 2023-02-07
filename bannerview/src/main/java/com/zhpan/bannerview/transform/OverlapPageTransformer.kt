@@ -43,15 +43,21 @@ class OverlapPageTransformer(
     ) { "unSelectedItemAlpha value should be between 1.0 to 0.0" }
   }
 
-  private val scalingValue = 0.4f
+  private var scalingValue = 0.2f
 
   override fun transformPage(
     page: View,
     position: Float
   ) {
     page.apply {
+      scalingValue = if (minScale >= 0.8) {
+        0.2f
+      } else if (minScale >= 0.6) {
+        0.3f
+      } else {
+        0.4f
+      }
       elevation = -abs(position)
-
       val delta = max(1f - abs(position * (1 - 0.5f)), 0.5f)
 
       if (unSelectedItemRotation != 0f) {
@@ -72,19 +78,19 @@ class OverlapPageTransformer(
         ViewPager2.ORIENTATION_HORIZONTAL -> {
           translationX =
             position * dp2px +
-                if (position > 0) {
-                  (-width * (1f - scale))
-                } else {
-                  (width * (1f - scale))
-                }
-        }
-        ViewPager2.ORIENTATION_VERTICAL -> {
-          translationY = position * dp2px +
               if (position > 0) {
                 (-width * (1f - scale))
               } else {
                 (width * (1f - scale))
               }
+        }
+        ViewPager2.ORIENTATION_VERTICAL -> {
+          translationY = position * dp2px +
+            if (position > 0) {
+              (-width * (1f - scale))
+            } else {
+              (width * (1f - scale))
+            }
         }
         else -> throw IllegalArgumentException(
           "Gives correct orientation value, ViewPager2.ORIENTATION_HORIZONTAL or ViewPager2.ORIENTATION_VERTICAL"
