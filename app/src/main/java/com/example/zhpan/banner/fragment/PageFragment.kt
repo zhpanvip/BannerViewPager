@@ -127,7 +127,7 @@ class PageFragment : BaseFragment() {
       .setPageMargin(resources.getDimensionPixelOffset(dimen.dp_15))
       .setScrollDuration(800)
       .setRevealWidth(leftRevealWidth, rightRevealWidth)
-      .setPageStyle(pageStyle,0.6f)
+      .setPageStyle(pageStyle,0.85f)
       .create(getPicList(4))
   }
 
