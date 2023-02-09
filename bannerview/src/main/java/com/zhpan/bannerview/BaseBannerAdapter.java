@@ -108,7 +108,7 @@ public abstract class BaseBannerAdapter<T> extends RecyclerView.Adapter<BaseView
   }
 
   /**
-   * Generally,there is no need to override this method in subclasses.
+   * Generally,subclasses do not need to override this method，Unless you want to use a custom ViewHolder.
    *
    * This method called by {@link #onCreateViewHolder(ViewGroup, int)} to create a default {@link
    * BaseViewHolder}
