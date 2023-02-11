@@ -422,6 +422,8 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
       int orientation = bannerOptions.getOrientation();
       int padding2 = bannerOptions.getPageMargin() + rightRevealWidth;
       int padding1 = bannerOptions.getPageMargin() + leftRevealWidth;
+      if (padding1 < 0) padding1 = 0;
+      if (padding2 < 0) padding2 = 0;
       if (orientation == ViewPager2.ORIENTATION_HORIZONTAL) {
         recyclerView.setPadding(padding1, 0, padding2, 0);
       } else if (orientation == ViewPager2.ORIENTATION_VERTICAL) {
