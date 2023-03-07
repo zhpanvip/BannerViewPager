@@ -1,35 +1,39 @@
-package com.example.zhpan.banner.adapter;
+package com.example.zhpan.banner.adapter
 
-import com.example.zhpan.banner.R;
-import com.example.zhpan.banner.databinding.ItemSlideModeBinding;
-import com.zhpan.bannerview.BaseBannerAdapter;
-import com.zhpan.bannerview.BaseViewHolder;
+import android.view.View
+import android.view.ViewGroup
+import com.example.zhpan.banner.R.layout
+import com.example.zhpan.banner.databinding.ItemSlideModeBinding
+import com.zhpan.bannerview.BaseBannerAdapter
+import com.zhpan.bannerview.BaseViewHolder
 
 /**
  * @author DBoy
  * @date 2020/12/11
  * Class 描述 : 使用ViewBinding示例
  */
-public class ViewBindingSampleAdapter extends BaseBannerAdapter<Integer> {
+class ViewBindingSampleAdapter(private val mRoundCorner: Int) : BaseBannerAdapter<Int>() {
 
-  private final int mRoundCorner;
-
-  public ViewBindingSampleAdapter(int roundCorner) {
-    mRoundCorner = roundCorner;
+  override fun createViewHolder(
+    parent: ViewGroup,
+    itemView: View,
+    viewType: Int
+  ): BaseViewHolder<Int> {
+    return ViewBindingViewHolder(ItemSlideModeBinding.bind(itemView))
   }
 
-  @Override
-  protected void bindData(BaseViewHolder<Integer> holder, Integer data, int position,
-      int pageSize) {
-    //示例使用ViewBinding
-    ItemSlideModeBinding viewBinding = ItemSlideModeBinding.bind(holder.itemView);
-    viewBinding.bannerImage.setRoundCorner(mRoundCorner);
-    viewBinding.bannerImage.setImageResource(data);
+  override fun bindData(holder: BaseViewHolder<Int>, data: Int, position: Int, pageSize: Int) {
+    if (holder is ViewBindingViewHolder) {
+      holder.viewBinding.bannerImage.setRoundCorner(mRoundCorner)
+      holder.viewBinding.bannerImage.setImageResource(data)
+    }
   }
 
-  @Override
-  public int getLayoutId(int viewType) {
-    return R.layout.item_slide_mode;
+  override fun getLayoutId(viewType: Int): Int {
+    return layout.item_slide_mode
   }
 }
+
+internal class ViewBindingViewHolder(var viewBinding: ItemSlideModeBinding) :
+  BaseViewHolder<Int>(viewBinding.root)
 

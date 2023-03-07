@@ -1,32 +1,46 @@
-package com.example.zhpan.banner.adapter;
+package com.example.zhpan.banner.adapter
 
-import androidx.databinding.DataBindingUtil;
-
-import com.example.zhpan.banner.R;
-import com.example.zhpan.banner.databinding.ItemSlideModelDataBindingBinding;
-import com.example.zhpan.banner.net.BannerData;
-import com.zhpan.bannerview.BaseBannerAdapter;
-import com.zhpan.bannerview.BaseViewHolder;
+import android.view.View
+import android.view.ViewGroup
+import com.zhpan.bannerview.BaseBannerAdapter
+import com.example.zhpan.banner.net.BannerData
+import androidx.databinding.DataBindingUtil
+import com.example.zhpan.banner.R.layout
+import com.example.zhpan.banner.databinding.ItemSlideModelDataBindingBinding
+import com.zhpan.bannerview.BaseViewHolder
+import java.lang.NullPointerException
 
 /**
  * <pre>
- *   Created by zhpan on 2020/4/5.
- *   Description:使用DataBinding示例
- * </pre>
+ * Created by zhpan on 2020/4/5.
+ * Description:使用DataBinding示例
+</pre> *
  */
-public class DataBindingSampleAdapter extends BaseBannerAdapter<BannerData> {
+class DataBindingSampleAdapter : BaseBannerAdapter<BannerData?>() {
 
-  @Override
-  protected void bindData(BaseViewHolder<BannerData> holder, BannerData data, int position,
-      int pageSize) {
-    ItemSlideModelDataBindingBinding dataBinding = DataBindingUtil.bind(holder.itemView);
-    if (dataBinding != null) {
-      dataBinding.setBannerData(data);
+  override fun createViewHolder(
+    parent: ViewGroup, itemView: View,
+    viewType: Int
+  ): BaseViewHolder<BannerData?> {
+    val binding = DataBindingUtil.bind<ItemSlideModelDataBindingBinding>(itemView)
+      ?: throw NullPointerException("binding is Null")
+    return DataBindingViewHolder(binding)
+  }
+
+  override fun bindData(
+    holder: BaseViewHolder<BannerData?>?,
+    data: BannerData?,
+    position: Int,
+    pageSize: Int
+  ) {
+    if (holder is DataBindingViewHolder) {
+      holder.binding.bannerData = data
     }
   }
 
-  @Override
-  public int getLayoutId(int viewType) {
-    return R.layout.item_slide_model_data_binding;
+  override fun getLayoutId(viewType: Int): Int {
+    return layout.item_slide_model_data_binding
   }
 }
+
+internal class DataBindingViewHolder(var binding: ItemSlideModelDataBindingBinding) : BaseViewHolder<BannerData?>(binding.root)
