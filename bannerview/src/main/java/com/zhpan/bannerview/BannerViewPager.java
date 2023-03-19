@@ -423,6 +423,8 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
       int orientation = bannerOptions.getOrientation();
       int padding2 = bannerOptions.getPageMargin() + rightRevealWidth;
       int padding1 = bannerOptions.getPageMargin() + leftRevealWidth;
+      if (padding1 < 0) padding1 = 0;
+      if (padding2 < 0) padding2 = 0;
       if (orientation == ViewPager2.ORIENTATION_HORIZONTAL) {
         recyclerView.setPadding(padding1, 0, padding2, 0);
       } else if (orientation == ViewPager2.ORIENTATION_VERTICAL) {
@@ -515,10 +517,10 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
     if (!isLooping
         && isAutoPlay()
         && mBannerPagerAdapter != null
-        &&
-        mBannerPagerAdapter.getListSize() > 1
-        && isAttachedToWindow()
-        && lifecycleRegistry.getCurrentState() == Lifecycle.State.RESUMED) {
+        && mBannerPagerAdapter.getListSize() > 1
+        && isAttachedToWindow() && (lifecycleRegistry == null
+        || lifecycleRegistry.getCurrentState() == Lifecycle.State.RESUMED
+        || lifecycleRegistry.getCurrentState() == Lifecycle.State.CREATED)) {
       mHandler.postDelayed(mRunnable, getInterval());
       isLooping = true;
     }
@@ -989,20 +991,12 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
    */
   public void setCurrentItem(int item, boolean smoothScroll) {
     if (isCanLoopSafely()) {
-      int pageSize = mBannerPagerAdapter.getListSize();
-      item = item >= pageSize ? pageSize - 1 : item;
+      stopLoop();
       int currentItem = mViewPager.getCurrentItem();
-      boolean canLoop = mBannerManager.getBannerOptions().isCanLoop();
-      int realPosition = BannerUtils.getRealPosition(currentItem, pageSize);
-      if (currentItem != item) {
-        if (item == 0 && realPosition == pageSize - 1) {
-          mViewPager.setCurrentItem(currentItem + 1, smoothScroll);
-        } else if (realPosition == 0 && item == pageSize - 1) {
-          mViewPager.setCurrentItem(currentItem - 1, smoothScroll);
-        } else {
-          mViewPager.setCurrentItem(currentItem + (item - realPosition), smoothScroll);
-        }
-      }
+      int realPosition =
+          BannerUtils.getRealPosition(currentItem, mBannerPagerAdapter.getListSize());
+      mViewPager.setCurrentItem(currentItem + (item - realPosition), smoothScroll);
+      startLoop();
     } else {
       mViewPager.setCurrentItem(item, smoothScroll);
     }
