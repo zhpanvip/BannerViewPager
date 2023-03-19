@@ -32,6 +32,7 @@ import android.widget.RelativeLayout;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.Px;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
@@ -558,7 +559,7 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
    *
    * @param radius round radius
    */
-  public BannerViewPager<T> setRoundCorner(int radius) {
+  public BannerViewPager<T> setRoundCorner(@Px int radius) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
       mBannerManager.getBannerOptions().setRoundRectRadius(radius);
     } else {
@@ -575,7 +576,7 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
    * @param bottomLeftRadius bottom left round radius
    * @param bottomRightRadius bottom right round radius
    */
-  public BannerViewPager<T> setRoundCorner(int topLeftRadius, int topRightRadius,
+  public BannerViewPager<T> setRoundCorner(@Px int topLeftRadius, @Px int topRightRadius,
       int bottomLeftRadius,
       int bottomRightRadius) {
     mRadiusRectF = new RectF();
@@ -660,7 +661,7 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
    *
    * @param pageMargin page margin
    */
-  public BannerViewPager<T> setPageMargin(int pageMargin) {
+  public BannerViewPager<T> setPageMargin(@Px int pageMargin) {
     mBannerManager.setPageMargin(pageMargin);
     return this;
   }
@@ -721,7 +722,7 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
    *
    * @param radius 指示器圆点半径
    */
-  public BannerViewPager<T> setIndicatorSliderRadius(int radius) {
+  public BannerViewPager<T> setIndicatorSliderRadius(@Px int radius) {
     setIndicatorSliderRadius(radius, radius);
     return this;
   }
@@ -732,12 +733,12 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
    * @param normalRadius unchecked circle radius
    * @param checkedRadius checked circle radius
    */
-  public BannerViewPager<T> setIndicatorSliderRadius(int normalRadius, int checkedRadius) {
+  public BannerViewPager<T> setIndicatorSliderRadius(@Px int normalRadius, @Px int checkedRadius) {
     mBannerManager.getBannerOptions().setIndicatorSliderWidth(normalRadius * 2, checkedRadius * 2);
     return this;
   }
 
-  public BannerViewPager<T> setIndicatorSliderWidth(int indicatorWidth) {
+  public BannerViewPager<T> setIndicatorSliderWidth(@Px int indicatorWidth) {
     setIndicatorSliderWidth(indicatorWidth, indicatorWidth);
     return this;
   }
@@ -759,12 +760,12 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
    * if the indicator style is {@link com.zhpan.indicator.enums.IndicatorStyle#CIRCLE } means
    * checked circle diameter
    */
-  public BannerViewPager<T> setIndicatorSliderWidth(int normalWidth, int checkWidth) {
+  public BannerViewPager<T> setIndicatorSliderWidth(@Px int normalWidth, @Px int checkWidth) {
     mBannerManager.getBannerOptions().setIndicatorSliderWidth(normalWidth, checkWidth);
     return this;
   }
 
-  public BannerViewPager<T> setIndicatorHeight(int indicatorHeight) {
+  public BannerViewPager<T> setIndicatorHeight(@Px int indicatorHeight) {
     mBannerManager.getBannerOptions().setIndicatorHeight(indicatorHeight);
     return this;
   }
@@ -774,7 +775,7 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
    *
    * @param indicatorGap indicator gap
    */
-  public BannerViewPager<T> setIndicatorSliderGap(int indicatorGap) {
+  public BannerViewPager<T> setIndicatorSliderGap(@Px int indicatorGap) {
     mBannerManager.getBannerOptions().setIndicatorGap(indicatorGap);
     return this;
   }
@@ -1028,7 +1029,7 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
    * @param revealWidth In the multi-page mode, The exposed width of the items on the left and right
    * sides
    */
-  public BannerViewPager<T> setRevealWidth(int revealWidth) {
+  public BannerViewPager<T> setRevealWidth(@Px int revealWidth) {
     setRevealWidth(revealWidth, revealWidth);
     return this;
   }
@@ -1039,7 +1040,7 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
    * @param leftRevealWidth The exposed width of left side
    * @param rightRevealWidth The exposed width of right side
    */
-  public BannerViewPager<T> setRevealWidth(int leftRevealWidth, int rightRevealWidth) {
+  public BannerViewPager<T> setRevealWidth(@Px int leftRevealWidth, @Px int rightRevealWidth) {
     mBannerManager.getBannerOptions().setRightRevealWidth(rightRevealWidth);
     mBannerManager.getBannerOptions().setLeftRevealWidth(leftRevealWidth);
     return this;
@@ -1053,7 +1054,8 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
     return this;
   }
 
-  public BannerViewPager<T> setIndicatorMargin(int left, int top, int right, int bottom) {
+  public BannerViewPager<T> setIndicatorMargin(@Px int left, @Px int top, @Px int right,
+      @Px int bottom) {
     mBannerManager.getBannerOptions().setIndicatorMargin(left, top, right, bottom);
     return this;
   }
@@ -1197,7 +1199,7 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
    * @deprecated Use {@link #setRoundCorner(int)} instead.
    */
   @Deprecated
-  public BannerViewPager<T> setRoundRect(int radius) {
+  public BannerViewPager<T> setRoundRect(@Px int radius) {
     return setRoundCorner(radius);
   }
 
@@ -1211,7 +1213,7 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
    * @deprecated Use {@link #setRoundCorner(int, int, int, int)} instead.
    */
   @Deprecated
-  public BannerViewPager<T> setRoundRect(int topLeftRadius, int topRightRadius,
+  public BannerViewPager<T> setRoundRect(@Px int topLeftRadius, @Px int topRightRadius,
       int bottomLeftRadius,
       int bottomRightRadius) {
     return setRoundCorner(topLeftRadius, topRightRadius, bottomLeftRadius, bottomRightRadius);
