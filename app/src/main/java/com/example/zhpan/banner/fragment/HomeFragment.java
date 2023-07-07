@@ -102,7 +102,7 @@ public class HomeFragment extends BaseFragment {
         recyclerView.addHeaderView(getHeaderView(), true);
         recyclerView.addItemDecoration(new DividerItemDecoration(getMContext(),
             DividerItemDecoration.VERTICAL));
-        articleAdapter = new ArticleAdapter(getActivity(), new ArrayList<>());
+        articleAdapter = new ArticleAdapter(requireActivity(), new ArrayList<>());
         recyclerView.setAdapter(articleAdapter);
     }
 
