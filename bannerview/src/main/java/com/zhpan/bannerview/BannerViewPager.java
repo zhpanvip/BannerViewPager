@@ -15,6 +15,7 @@ limitations under the License.
  */
 package com.zhpan.bannerview;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Path;
@@ -69,6 +70,7 @@ import static com.zhpan.bannerview.utils.BannerUtils.getOriginalPosition;
  * Created by zhpan on 2017/3/28.
  */
 @SuppressWarnings({ "unused", "UnusedReturnValue" })
+@SuppressLint("NotifyDataSetChanged")
 public class BannerViewPager<T> extends RelativeLayout implements LifecycleObserver {
 
   private int currentPosition;
