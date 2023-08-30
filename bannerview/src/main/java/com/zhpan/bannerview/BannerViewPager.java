@@ -967,6 +967,14 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
     }
   }
 
+  public void previousPage() {
+    setCurrentItem(getCurrentItem() - 1);
+  }
+
+  public void nextPage() {
+    setCurrentItem(getCurrentItem() + 1);
+  }
+
   /**
    * @return the currently selected page position.
    */

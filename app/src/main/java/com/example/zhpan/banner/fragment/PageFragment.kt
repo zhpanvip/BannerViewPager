@@ -31,11 +31,11 @@ class PageFragment : BaseFragment() {
     mRadioGroupPageStyle = view.findViewById(R.id.rg_page_style)
     mRadioGroupMoreStyle = view.findViewById(R.id.rg_more_page_style)
     view.findViewById<Button>(R.id.btn_next).setOnClickListener {
-      mViewPager.currentItem = mViewPager.currentItem + 1
+      mViewPager.nextPage()
       itemClick(mViewPager.currentItem)
     }
     view.findViewById<Button>(R.id.btn_pre).setOnClickListener {
-      mViewPager.currentItem = mViewPager.currentItem - 1
+      mViewPager.previousPage()
       itemClick(mViewPager.currentItem)
     }
     initBVP()
@@ -69,21 +69,25 @@ class PageFragment : BaseFragment() {
             PageStyle.MULTI_PAGE_OVERLAP,
             resources.getDimensionPixelOffset(dimen.dp_10)
           )
+
         R.id.rb_multi_page_overlap1 ->
           setupBanner(
             PageStyle.MULTI_PAGE_OVERLAP,
             resources.getDimensionPixelOffset(dimen.dp_100)
           )
+
         R.id.rb_multi_page_scale ->
           setupBanner(
             PageStyle.MULTI_PAGE_SCALE,
             resources.getDimensionPixelOffset(dimen.dp_10)
           )
+
         R.id.rb_multi_scale_page2 ->
           setupBanner(
             PageStyle.MULTI_PAGE_SCALE,
             resources.getDimensionPixelOffset(dimen.dp_120)
           )
+
         R.id.rb_multi_scale_page3 -> {
           setupBanner(
             PageStyle.MULTI_PAGE_SCALE,
@@ -97,10 +101,13 @@ class PageFragment : BaseFragment() {
       when (checkedId) {
         R.id.rb_multi_page3 ->
           setupMultiPageBanner()
+
         R.id.rb_multi_page4 ->
           setupRightPageReveal()
+
         R.id.rb_netease_music_style ->
           setNetEaseMusicStyle()
+
         R.id.rb_qq_music_style ->
           setQQMusicStyle()
       }
@@ -127,7 +134,7 @@ class PageFragment : BaseFragment() {
       .setPageMargin(resources.getDimensionPixelOffset(dimen.dp_15))
       .setScrollDuration(800)
       .setRevealWidth(leftRevealWidth, rightRevealWidth)
-      .setPageStyle(pageStyle,0.85f)
+      .setPageStyle(pageStyle, 0.85f)
       .create(getPicList(4))
   }
 
