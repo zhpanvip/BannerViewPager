@@ -103,7 +103,7 @@ public class BannerManager {
       mDefaultPageTransformer = new OverlapPageTransformer(mBannerOptions
           .getOrientation(), scale, 0f, 1, 0);
     } else {
-      mDefaultPageTransformer = new ScaleInTransformer(scale);
+      mDefaultPageTransformer = new ScaleInTransformer(scale, mBannerOptions.isRtl());
     }
     mCompositePageTransformer.addTransformer(mDefaultPageTransformer);
   }

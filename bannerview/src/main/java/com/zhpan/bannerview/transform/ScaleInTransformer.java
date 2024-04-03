@@ -25,12 +25,18 @@ public class ScaleInTransformer implements ViewPager2.PageTransformer {
   public static final float DEFAULT_MIN_SCALE = 0.85f;
   private final float mMinScale;
 
-  public ScaleInTransformer(float minScale) {
+  private final boolean mIsRtl;
+
+  public ScaleInTransformer(float minScale, boolean isRtl) {
     mMinScale = minScale;
+    mIsRtl = isRtl;
   }
 
   @Override
   public void transformPage(View view, float position) {
+    if (mIsRtl) {
+      position = -position;
+    }
     int pageWidth = view.getWidth();
     int pageHeight = view.getHeight();
 
