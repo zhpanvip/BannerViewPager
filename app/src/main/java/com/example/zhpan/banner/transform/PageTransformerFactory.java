@@ -32,7 +32,7 @@ public class PageTransformerFactory {
         transformer = new AccordionTransformer();
         break;
       case SCALE_IN:
-        transformer = new ScaleInTransformer(ScaleInTransformer.DEFAULT_MIN_SCALE);
+        transformer = new ScaleInTransformer(ScaleInTransformer.DEFAULT_MIN_SCALE, false);
         break;
     }
     return transformer;
