@@ -65,13 +65,14 @@ dependencies {
   implementation 'androidx.appcompat:appcompat:1.3.0'
   implementation 'androidx.recyclerview:recyclerview:1.2.1'
   implementation 'com.github.bumptech.glide:glide:4.11.0'
-  implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0'
-  implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0'
+  implementation 'io.github.scwang90:refresh-layout-kernel:2.1.0'
+  implementation 'io.github.scwang90:refresh-header-classics:2.1.0'
+  implementation  'io.github.scwang90:refresh-header-material:2.1.0'
   debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.10'
   implementation 'androidx.core:core-ktx:1.6.0'
   implementation 'androidx.cardview:cardview:1.0.0'
   implementation 'androidx.viewpager2:viewpager2:1.0.0'
-  implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4'
+  implementation 'io.github.cymchad:BaseRecyclerViewAdapterHelper4:4.1.4'
   implementation 'com.google.android.material:material:1.3.0'
   implementation "androidx.navigation:navigation-fragment-ktx:2.3.5"
   implementation "androidx.navigation:navigation-ui-ktx:2.3.5"

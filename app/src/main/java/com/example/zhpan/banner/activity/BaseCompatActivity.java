@@ -6,10 +6,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.zhpan.banner.R;
-import com.scwang.smartrefresh.header.MaterialHeader;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.scwang.smart.refresh.header.MaterialHeader;
+import com.scwang.smart.refresh.layout.SmartRefreshLayout;
+import com.scwang.smart.refresh.layout.api.RefreshLayout;
+import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
 
 public class BaseCompatActivity extends AppCompatActivity implements OnRefreshListener {
   protected SmartRefreshLayout mRefreshLayout;
@@ -55,8 +55,8 @@ public class BaseCompatActivity extends AppCompatActivity implements OnRefreshLi
     return materialHeader;
   }
 
-  @Override
-  public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+
+  @Override public void onRefresh(@NonNull RefreshLayout refreshLayout) {
 
   }
 }
