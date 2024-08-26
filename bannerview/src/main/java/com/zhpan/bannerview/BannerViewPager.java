@@ -101,6 +101,8 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
 
   private int startX, startY;
   private Lifecycle lifecycleRegistry;
+  // 是否要拦截事件
+  private boolean isIntercept = true;
 
   private final ViewPager2.OnPageChangeCallback mOnPageChangeCallback =
       new ViewPager2.OnPageChangeCallback() {
@@ -187,6 +189,7 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
   @Override
   public boolean onInterceptTouchEvent(MotionEvent ev) {
     boolean doNotNeedIntercept = !mViewPager.isUserInputEnabled()
+            ||!isIntercept
         || mBannerPagerAdapter != null
         && mBannerPagerAdapter.getData().size() <= 1;
     if (doNotNeedIntercept) {
@@ -992,6 +995,16 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
   public void setCurrentItem(int item) {
     setCurrentItem(item, true);
   }
+  /**
+   * 是否要拦截事件
+   * @param intercept
+   * @return
+   */
+  public BannerViewPager setIntercept(boolean intercept) {
+    isIntercept = intercept;
+    return this;
+  }
+
 
   /**
    * Set the currently selected page.
