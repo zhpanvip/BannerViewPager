@@ -28,6 +28,7 @@ import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewParent;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.ColorInt;
@@ -196,7 +197,7 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
       case MotionEvent.ACTION_DOWN:
         startX = (int) ev.getX();
         startY = (int) ev.getY();
-        getParent().requestDisallowInterceptTouchEvent(!mBannerManager
+        requestParentDisallowInterceptTouchEvent(!mBannerManager
             .getBannerOptions().isDisallowParentInterceptDownEvent());
         break;
       case MotionEvent.ACTION_MOVE:
@@ -213,7 +214,7 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
         break;
       case MotionEvent.ACTION_UP:
       case MotionEvent.ACTION_CANCEL:
-        getParent().requestDisallowInterceptTouchEvent(false);
+        requestParentDisallowInterceptTouchEvent(false);
         break;
       case MotionEvent.ACTION_OUTSIDE:
       default:
@@ -222,21 +223,29 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
     return super.onInterceptTouchEvent(ev);
   }
 
+  private void requestParentDisallowInterceptTouchEvent(boolean disallowIntercept) {
+    ViewParent parent = getParent();
+    if (parent != null) {
+      parent.requestDisallowInterceptTouchEvent(disallowIntercept);
+    }
+  }
+
   private void onVerticalActionMove(int endY, int disX, int disY) {
     if (disY > disX) {
       boolean canLoop = mBannerManager.getBannerOptions().isCanLoop();
       if (!canLoop) {
         if (currentPosition == 0 && endY - startY > 0) {
-          getParent().requestDisallowInterceptTouchEvent(false);
+          requestParentDisallowInterceptTouchEvent(false);
         } else {
-          getParent().requestDisallowInterceptTouchEvent(currentPosition != getData().size() - 1
-              || endY - startY >= 0);
+          boolean disallowIntercept = currentPosition != getData().size() - 1
+              || endY - startY >= 0;
+          requestParentDisallowInterceptTouchEvent(disallowIntercept);
         }
       } else {
-        getParent().requestDisallowInterceptTouchEvent(true);
+        requestParentDisallowInterceptTouchEvent(true);
       }
     } else if (disX > disY) {
-      getParent().requestDisallowInterceptTouchEvent(false);
+      requestParentDisallowInterceptTouchEvent(false);
     }
   }
 
@@ -245,16 +254,16 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
       boolean canLoop = mBannerManager.getBannerOptions().isCanLoop();
       if (!canLoop) {
         if (currentPosition == 0 && endX - startX > 0) {
-          getParent().requestDisallowInterceptTouchEvent(false);
+          requestParentDisallowInterceptTouchEvent(false);
         } else {
-          getParent().requestDisallowInterceptTouchEvent(currentPosition != getData().size() - 1
+          requestParentDisallowInterceptTouchEvent(currentPosition != getData().size() - 1
               || endX - startX >= 0);
         }
       } else {
-        getParent().requestDisallowInterceptTouchEvent(true);
+        requestParentDisallowInterceptTouchEvent(true);
       }
     } else if (disY > disX) {
-      getParent().requestDisallowInterceptTouchEvent(false);
+      requestParentDisallowInterceptTouchEvent(false);
     }
   }
 
@@ -908,7 +917,6 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
    * Refresh data.
    * Confirm the {@link #create()} or {@link #create(List)} method has been called,
    * else the data won't be shown.
-   *
    * Fix #209 如果BVP没有 attach 到 Window 上的时候刷新 ViewPager2 就会导致
    * ViewPager2 的 currentItem 被 reset 为 0，故出现 BVP 的 item 快速滚动问题
    * 为了避免这一问题，只能在已经attach 到 Window 上的时候去刷新数据。
