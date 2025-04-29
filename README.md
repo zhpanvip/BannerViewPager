@@ -90,7 +90,7 @@ It's also support to custom indicator style,just need extends BaseIndicatorView 
  
 | QQ群 | 入群加微信 |
 |--|--|
-| ![QQ Group](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/group/qq_group.png) |  ![WeChat](https://github.com/zhpanvip/images/blob/master/project/group/wechat.png) |
+| ![QQ Group](https://github.com/zhpanvip/images/blob/master/project/group/qq_group.png) |  ![WeChat](https://github.com/zhpanvip/images/blob/master/project/group/wechat.png) |
 
 
 ## Thanks
