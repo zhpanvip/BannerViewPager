@@ -15,7 +15,6 @@ limitations under the License.
  */
 package com.zhpan.bannerview;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Path;
@@ -72,7 +71,6 @@ import static com.zhpan.bannerview.utils.BannerUtils.getOriginalPosition;
  * Created by zhpan on 2017/3/28.
  */
 @SuppressWarnings({ "unused", "UnusedReturnValue" })
-@SuppressLint("NotifyDataSetChanged")
 public class BannerViewPager<T> extends RelativeLayout implements LifecycleObserver {
 
   private int currentPosition;
@@ -385,7 +383,7 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
   }
 
   @Override
-  protected void dispatchDraw(Canvas canvas) {
+  protected void dispatchDraw(@NonNull Canvas canvas) {
     float[] roundRectRadiusArray = mBannerManager.getBannerOptions().getRoundRectRadiusArray();
     if (mRadiusRectF != null && mRadiusPath != null && roundRectRadiusArray != null) {
       mRadiusRectF.right = this.getWidth();
@@ -757,16 +755,19 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
   }
 
   /**
-   * Set indicator dash width，if indicator style is {@link com.zhpan.indicator.enums.IndicatorStyle#CIRCLE},
+   * Set indicator dash width，if indicator style is
+   * {@link com.zhpan.indicator.enums.IndicatorStyle#CIRCLE},
    * the indicator circle radius is indicatorWidth/2.
    *
-   * @param normalWidth if the indicator style is {@link com.zhpan.indicator.enums.IndicatorStyle#DASH}
+   * @param normalWidth if the indicator style is
+   * {@link com.zhpan.indicator.enums.IndicatorStyle#DASH}
    * the params means unchecked dash width
    * if the indicator style is {@link com.zhpan.indicator.enums.IndicatorStyle#ROUND_RECT}  means
    * unchecked round rectangle width
    * if the indicator style is {@link com.zhpan.indicator.enums.IndicatorStyle#CIRCLE } means
    * unchecked circle diameter
-   * @param checkWidth if the indicator style is {@link com.zhpan.indicator.enums.IndicatorStyle#DASH}
+   * @param checkWidth if the indicator style is
+   * {@link com.zhpan.indicator.enums.IndicatorStyle#DASH}
    * the params means checked dash width
    * if the indicator style is {@link com.zhpan.indicator.enums.IndicatorStyle#ROUND_RECT} the
    * params means checked round rectangle width
@@ -817,7 +818,8 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
   }
 
   /**
-   * Set Indicator slide mode，default value is {@link com.zhpan.indicator.enums.IndicatorSlideMode#NORMAL}
+   * Set Indicator slide mode，default value is
+   * {@link com.zhpan.indicator.enums.IndicatorSlideMode#NORMAL}
    *
    * @param slideMode Indicator slide mode
    * @see com.zhpan.indicator.enums.IndicatorSlideMode#NORMAL
@@ -926,7 +928,6 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
       if (isAttachedToWindow() && list != null && mBannerPagerAdapter != null) {
         stopLoop();
         mBannerPagerAdapter.setData(list);
-        mBannerPagerAdapter.notifyDataSetChanged();
         resetCurrentItem(getCurrentItem());
         refreshIndicator(list);
         startLoop();
@@ -937,8 +938,9 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
   public void addData(List<? extends T> list) {
     if (isAttachedToWindow() && list != null && mBannerPagerAdapter != null) {
       List<T> data = mBannerPagerAdapter.getData();
+      int initSize = data.size();
       data.addAll(list);
-      mBannerPagerAdapter.notifyDataSetChanged();
+      mBannerPagerAdapter.notifyItemRangeChanged(initSize, list.size());
       resetCurrentItem(getCurrentItem());
       refreshIndicator(data);
     }
@@ -953,7 +955,7 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
     List<T> data = mBannerPagerAdapter.getData();
     if (isAttachedToWindow() && index >= 0 && index < data.size()) {
       data.remove(index);
-      mBannerPagerAdapter.notifyDataSetChanged();
+      mBannerPagerAdapter.notifyItemRemoved(index);
       resetCurrentItem(getCurrentItem());
       refreshIndicator(data);
     }
@@ -969,7 +971,7 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
     List<T> data = mBannerPagerAdapter.getData();
     if (isAttachedToWindow() && index >= 0 && index <= data.size()) {
       data.add(index, item);
-      mBannerPagerAdapter.notifyDataSetChanged();
+      mBannerPagerAdapter.notifyItemInserted(index);
       resetCurrentItem(getCurrentItem());
       refreshIndicator(data);
     }
@@ -1140,7 +1142,8 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
    * 水平滑动，同时BVP外部也是可以水平滑动的ViewPager，则存在较小概率的滑动冲突，即滑动BVP的同时可能会触发
    * 外部ViewPager的滑动。但这一问题到目前为止似乎没有好的解决方案。
    *
-   * @param disallowParentInterceptDownEvent 是否允许BVP在{@link MotionEvent#ACTION_DOWN}事件中禁止父View拦截事件，默认值为false
+   * @param disallowParentInterceptDownEvent
+   * 是否允许BVP在{@link MotionEvent#ACTION_DOWN}事件中禁止父View拦截事件，默认值为false
    * true 不允许BVP在{@link MotionEvent#ACTION_DOWN}时间中禁止父View的时间拦截，
    * 设置disallowIntercept为true可以解决CoordinatorLayout+CollapsingToolbarLayout的滑动冲突
    * false 允许BVP在{@link MotionEvent#ACTION_DOWN}时间中禁止父View的时间拦截，

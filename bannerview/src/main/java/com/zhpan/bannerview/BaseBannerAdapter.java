@@ -45,7 +45,7 @@ public abstract class BaseBannerAdapter<T> extends RecyclerView.Adapter<BaseView
         LayoutInflater.from(parent.getContext()).inflate(getLayoutId(viewType), parent, false);
     BaseViewHolder<T> viewHolder = createViewHolder(parent, itemView, viewType);
     itemView.setOnClickListener(clickedView -> {
-      int adapterPosition = viewHolder.getAdapterPosition();
+      int adapterPosition = viewHolder.getAbsoluteAdapterPosition();
       if (mPageClickListener != null && adapterPosition != RecyclerView.NO_POSITION) {
         int realPosition =
             BannerUtils.getRealPosition(adapterPosition, getListSize());
@@ -82,8 +82,11 @@ public abstract class BaseBannerAdapter<T> extends RecyclerView.Adapter<BaseView
 
   void setData(List<? extends T> list) {
     if (null != list) {
+      int size = mList.size();
       mList.clear();
+      notifyItemRangeChanged(0, size);
       mList.addAll(list);
+      notifyItemRangeChanged(0, mList.size());
     }
   }
 
@@ -103,13 +106,13 @@ public abstract class BaseBannerAdapter<T> extends RecyclerView.Adapter<BaseView
     return 0;
   }
 
+  @SuppressWarnings("unused")
   public boolean isCanLoop() {
     return isCanLoop;
   }
 
   /**
    * Generally,subclasses do not need to override this method，Unless you want to use a custom ViewHolder.
-   *
    * This method called by {@link #onCreateViewHolder(ViewGroup, int)} to create a default {@link
    * BaseViewHolder}
    *
