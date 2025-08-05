@@ -35,7 +35,7 @@ import java.util.List;
 public abstract class BaseBannerAdapter<T> extends RecyclerView.Adapter<BaseViewHolder<T>> {
   protected List<T> mList = new ArrayList<>();
   private boolean isCanLoop;
-  public static final int MAX_VALUE = 1000;
+  public static final int MAX_VALUE = 10000;
   private PageClickListener mPageClickListener;
 
   @NonNull

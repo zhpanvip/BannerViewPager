@@ -1,5 +1,6 @@
 package com.example.zhpan.banner.fragment;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -116,8 +117,8 @@ public class HomeFragment extends BaseFragment {
         Observable.zip(getBannerObserver(), getArticleObserver(), (bannerData, articles) ->
             new DataWrapper(articles.getDatas(), bannerData))
             .compose(RxUtil.rxSchedulerHelper(this, showLoading))
-            .subscribe(new ResponseObserver<DataWrapper>() {
-                @Override
+            .subscribe(new ResponseObserver<>() {
+                @SuppressLint("NotifyDataSetChanged") @Override
                 public void onSuccess(DataWrapper response) {
                     ArticleWrapper.Article article = new ArticleWrapper.Article();
                     article.setType(1001);
@@ -135,7 +136,7 @@ public class HomeFragment extends BaseFragment {
                     articleList.add(4, article);
                     articleAdapter.setData(articleList);
                     recyclerView.getAdapter().notifyDataSetChanged();
-                    if (response.getDataBeanList().size() > 0) {
+                    if (!response.getDataBeanList().isEmpty()) {
                         mRlIndicator.setVisibility(View.VISIBLE);
                     }
                 }
@@ -189,7 +190,7 @@ public class HomeFragment extends BaseFragment {
         mViewPagerVertical
             .setAutoPlay(true)
             .setScrollDuration(500)
-            .stopLoopWhenDetachedFromWindow(true)
+            .stopLoopWhenDetachedFromWindow(false)
             .registerLifecycleObserver(getLifecycle())
             .setIndicatorStyle(IndicatorStyle.ROUND_RECT)
             .setIndicatorSlideMode(IndicatorSlideMode.SCALE)
