@@ -801,6 +801,7 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
    */
   public BannerViewPager<T> setIndicatorVisibility(@Visibility int visibility) {
     mBannerManager.getBannerOptions().setIndicatorVisibility(visibility);
+    mIndicatorLayout.setVisibility(visibility);
     return this;
   }
 
