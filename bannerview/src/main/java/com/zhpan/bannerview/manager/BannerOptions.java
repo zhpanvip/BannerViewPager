@@ -141,6 +141,14 @@ public class BannerOptions {
     mIndicatorOptions.setSliderWidth(normalWidth, checkedWidth);
   }
 
+  //public void setInteractiveAnimate(Boolean interactiveAnimate) {
+  //  mIndicatorOptions.setInteractiveAnimate(interactiveAnimate);
+  //}
+  //
+  //public boolean getInteractiveAnimate(Boolean interactiveAnimate) {
+  //  return mIndicatorOptions.getInteractiveAnimate();
+  //}
+
   public void showIndicatorWhenOneItem(boolean showIndicatorWhenOneItem) {
     mIndicatorOptions.setShowIndicatorOneItem(showIndicatorWhenOneItem);
   }

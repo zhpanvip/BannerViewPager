@@ -161,6 +161,7 @@ public class HomeFragment extends BaseFragment {
         mViewPagerHorizontal
             .setScrollDuration(600)
             .setOffScreenPageLimit(2)
+            //.setInteractiveAnimate(false)
             .registerLifecycleObserver(getLifecycle())
             .setIndicatorStyle(IndicatorStyle.CIRCLE)
             .setIndicatorSlideMode(IndicatorSlideMode.WORM)

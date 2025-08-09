@@ -805,6 +805,11 @@ public class BannerViewPager<T> extends RelativeLayout implements LifecycleObser
     return this;
   }
 
+  //public BannerViewPager<T> setInteractiveAnimate(Boolean interactiveAnimate) {
+  //  mBannerManager.getBannerOptions().setInteractiveAnimate(interactiveAnimate);
+  //  return this;
+  //}
+
   /**
    * set indicator gravity in BannerViewPager
    *
