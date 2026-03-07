@@ -9,6 +9,9 @@
 
 ![公众号:玩转安卓Dev](https://cdn.jsdelivr.net/gh/zhpanvip/images/project/group/wechat_dyh.png)
 
+邀请你使用 Right Code，使用邀请码注册，双方同时获得实付金额对应额度的 5%。邀请码：https://right.codes/register?aff=8b0302c8
+<img width="2088" height="1256" alt="image" src="https://github.com/user-attachments/assets/a1a7a83a-3e34-4e8b-badc-27676d66d201" />
+
 
 ## English | [中文](https://github.com/zhpanvip/BannerViewPager/blob/master/README_CN.md)
 
